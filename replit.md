@@ -111,6 +111,13 @@ Hive Messenger is an end-to-end encrypted messaging application built on the Hiv
 - Typing indicators
 
 ## Recent Changes
+- 2025-11-01: **LOGIN UX FIX** - Improved authentication button robustness
+  - **Button Always Clickable**: Removed pre-check disabled state based on Keychain detection
+  - **Runtime Validation**: Keychain availability checked on button click, not page load
+  - **Cross-Environment Support**: Works reliably in Replit preview, local dev, and production
+  - **Better Error Messaging**: Clear toast notifications guide users to install Keychain
+  - **User-Friendly**: Users can enter username even before Keychain detection completes
+
 - 2025-11-01: **MESSAGE SENDING FLOW IMPLEMENTATION** - Complete Hive blockchain message sending with encryption
   - **Backend API Endpoints**:
     - POST /api/messages (protected with requireAuth): Accepts encrypted content and stores messages with txId
