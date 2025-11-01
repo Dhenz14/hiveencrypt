@@ -170,7 +170,7 @@ export default function Login() {
                   placeholder="yourusername"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  disabled={isLoading || keychainStatus !== 'installed'}
+                  disabled={isLoading}
                   className="h-11"
                   autoComplete="username"
                   data-testid="input-username"
