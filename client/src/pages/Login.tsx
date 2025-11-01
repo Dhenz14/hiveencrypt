@@ -21,8 +21,12 @@ export default function Login() {
   const checkKeychain = async () => {
     const installed = isKeychainInstalled();
     if (installed) {
-      await requestHandshake();
-      setKeychainStatus('installed');
+      const handshakeSuccess = await requestHandshake();
+      if (handshakeSuccess) {
+        setKeychainStatus('installed');
+      } else {
+        setKeychainStatus('missing');
+      }
     } else {
       setKeychainStatus('missing');
     }

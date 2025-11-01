@@ -18,7 +18,7 @@ export interface KeychainResponse {
 
 declare global {
   interface Window {
-    hive_keychain: any;
+    hive_keychain?: any;
   }
 }
 
