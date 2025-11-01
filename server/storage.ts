@@ -9,12 +9,15 @@ export interface IStorage {
   getConversation(id: string): Promise<Conversation | undefined>;
   createConversation(conversation: Omit<Conversation, 'id'> & { currentUser: string }): Promise<Conversation>;
   updateConversation(id: string, updates: Partial<Conversation>): Promise<Conversation | undefined>;
+  findOrCreateConversation(currentUsername: string, contactUsername: string, publicKey?: string): Promise<Conversation>;
   
   // Messages
   getMessages(conversationId: string): Promise<Message[]>;
   getMessage(id: string): Promise<Message | undefined>;
   createMessage(message: Omit<Message, 'id'>): Promise<Message>;
   updateMessageStatus(id: string, status: Message['status']): Promise<Message | undefined>;
+  updateMessageDecryptedContent(id: string, decryptedContent: string): Promise<Message | undefined>;
+  messageExistsByTxId(txId: string): Promise<boolean>;
   
   // Contacts
   getContacts(username: string): Promise<Contact[]>;
@@ -221,6 +224,7 @@ export class DatabaseStorage implements IStorage {
         recipient,
         content: msg.content,
         encryptedMemo: msg.encryptedContent || '',
+        decryptedContent: msg.decryptedContent || undefined,
         timestamp: msg.timestamp.toISOString(),
         status: msg.status as Message['status'],
         blockNum: undefined,
@@ -266,6 +270,7 @@ export class DatabaseStorage implements IStorage {
       recipient,
       content: msg.content,
       encryptedMemo: msg.encryptedContent || '',
+      decryptedContent: msg.decryptedContent || undefined,
       timestamp: msg.timestamp.toISOString(),
       status: msg.status as Message['status'],
       blockNum: undefined,
@@ -296,6 +301,7 @@ export class DatabaseStorage implements IStorage {
         recipientUsername: message.recipient || null,
         content: message.content,
         encryptedContent: message.encryptedMemo || null,
+        decryptedContent: message.decryptedContent || null,
         isEncrypted: message.isEncrypted,
         status: message.status,
         blockchainTxId: message.trxId || null,
@@ -309,6 +315,7 @@ export class DatabaseStorage implements IStorage {
       recipient: message.recipient,
       content: newMessage.content,
       encryptedMemo: newMessage.encryptedContent || '',
+      decryptedContent: newMessage.decryptedContent || undefined,
       timestamp: newMessage.timestamp.toISOString(),
       status: newMessage.status as Message['status'],
       blockNum: message.blockNum,
@@ -351,6 +358,50 @@ export class DatabaseStorage implements IStorage {
       recipient,
       content: updated.content,
       encryptedMemo: updated.encryptedContent || '',
+      decryptedContent: updated.decryptedContent || undefined,
+      timestamp: updated.timestamp.toISOString(),
+      status: updated.status as Message['status'],
+      blockNum: undefined,
+      trxId: updated.blockchainTxId || undefined,
+      isEncrypted: updated.isEncrypted,
+    };
+  }
+
+  async updateMessageDecryptedContent(id: string, decryptedContent: string): Promise<Message | undefined> {
+    const [updated] = await db
+      .update(messages)
+      .set({ decryptedContent })
+      .where(eq(messages.id, parseInt(id)))
+      .returning();
+    
+    if (!updated) return undefined;
+    
+    const [sender] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, updated.senderId))
+      .limit(1);
+    
+    let recipient = '';
+    if (updated.recipientId) {
+      const [recipientUser] = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, updated.recipientId))
+        .limit(1);
+      recipient = recipientUser?.username || updated.recipientUsername || '';
+    } else if (updated.recipientUsername) {
+      recipient = updated.recipientUsername;
+    }
+    
+    return {
+      id: updated.id.toString(),
+      conversationId: updated.conversationId.toString(),
+      sender: sender?.username || '',
+      recipient,
+      content: updated.content,
+      encryptedMemo: updated.encryptedContent || '',
+      decryptedContent: updated.decryptedContent || undefined,
       timestamp: updated.timestamp.toISOString(),
       status: updated.status as Message['status'],
       blockNum: undefined,
@@ -404,6 +455,63 @@ export class DatabaseStorage implements IStorage {
     }
     
     return contact;
+  }
+
+  async messageExistsByTxId(txId: string): Promise<boolean> {
+    const [existing] = await db
+      .select()
+      .from(messages)
+      .where(eq(messages.blockchainTxId, txId))
+      .limit(1);
+    
+    return !!existing;
+  }
+
+  async findOrCreateConversation(currentUsername: string, contactUsername: string, publicKey?: string): Promise<Conversation> {
+    const userId = await this.ensureUser(currentUsername);
+    
+    const [existing] = await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.userId, userId),
+          eq(conversations.contactUsername, contactUsername)
+        )
+      )
+      .limit(1);
+    
+    if (existing) {
+      return {
+        id: existing.id.toString(),
+        contactUsername: existing.contactUsername,
+        lastMessageTime: existing.lastMessageAt?.toISOString(),
+        unreadCount: existing.unreadCount,
+        isEncrypted: existing.isEncrypted,
+        publicKey: existing.publicKey || undefined,
+      };
+    }
+    
+    const [newConversation] = await db
+      .insert(conversations)
+      .values({
+        userId,
+        contactUsername,
+        lastMessageAt: null,
+        unreadCount: 0,
+        isEncrypted: true,
+        publicKey: publicKey || null,
+      })
+      .returning();
+    
+    return {
+      id: newConversation.id.toString(),
+      contactUsername: newConversation.contactUsername,
+      lastMessageTime: newConversation.lastMessageAt?.toISOString(),
+      unreadCount: newConversation.unreadCount,
+      isEncrypted: newConversation.isEncrypted,
+      publicKey: newConversation.publicKey || undefined,
+    };
   }
 }
 

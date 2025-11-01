@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Lock, Check, CheckCheck, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Message } from '@shared/schema';
+import { requestKeychainDecryption } from '@/lib/encryption';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface MessageBubbleProps {
   message: Message;
@@ -10,6 +13,51 @@ interface MessageBubbleProps {
 }
 
 export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: MessageBubbleProps) {
+  const { user } = useAuth();
+  const [decryptedContent, setDecryptedContent] = useState<string>(
+    message.decryptedContent || (message.isEncrypted ? '' : message.content)
+  );
+  const [isDecrypting, setIsDecrypting] = useState(
+    message.isEncrypted && !message.decryptedContent
+  );
+  const [decryptError, setDecryptError] = useState(false);
+
+  useEffect(() => {
+    async function decryptMessage() {
+      if (message.decryptedContent) {
+        setDecryptedContent(message.decryptedContent);
+        setIsDecrypting(false);
+        return;
+      }
+
+      if (!message.isEncrypted || !user) {
+        setDecryptedContent(message.content);
+        setIsDecrypting(false);
+        return;
+      }
+
+      try {
+        setIsDecrypting(true);
+        setDecryptError(false);
+
+        const decrypted = await requestKeychainDecryption(
+          message.content,
+          user.username
+        );
+
+        setDecryptedContent(decrypted);
+      } catch (error) {
+        console.error('Message decryption failed:', error);
+        setDecryptError(true);
+        setDecryptedContent('[Decryption failed]');
+      } finally {
+        setIsDecrypting(false);
+      }
+    }
+
+    decryptMessage();
+  }, [message.id, message.decryptedContent, message.content, message.isEncrypted, user]);
+
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString('en-US', { 
@@ -50,8 +98,11 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             : 'bg-card text-card-foreground rounded-bl-md border border-card-border'
         )}
       >
-        <p className="text-body-lg whitespace-pre-wrap break-words">
-          {message.content}
+        <p className={cn(
+          'text-body-lg whitespace-pre-wrap break-words',
+          decryptError && 'text-muted-foreground italic'
+        )}>
+          {isDecrypting ? 'Decrypting...' : decryptedContent}
         </p>
         
         <div
@@ -60,7 +111,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             isSent ? 'justify-end' : 'justify-start'
           )}
         >
-          {message.isEncrypted && (
+          {message.isEncrypted && !decryptError && (
             <Lock className="w-3 h-3 opacity-70" />
           )}
           <span className={cn(

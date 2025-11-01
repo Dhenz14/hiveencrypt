@@ -412,6 +412,144 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update message decrypted content (Protected - requires authentication)
+  app.patch("/api/messages/:messageId", requireAuth, async (req: any, res) => {
+    try {
+      const { messageId } = req.params;
+      const { decryptedContent } = req.body;
+      const currentUsername = req.session.username;
+
+      if (!decryptedContent || typeof decryptedContent !== 'string') {
+        return res.status(400).json({
+          error: 'Invalid request',
+          message: 'decryptedContent is required and must be a string'
+        });
+      }
+
+      const message = await storage.getMessage(messageId);
+      
+      if (!message) {
+        return res.status(404).json({ 
+          error: "Message not found",
+          message: "The specified message does not exist"
+        });
+      }
+
+      if (message.sender !== currentUsername && message.recipient !== currentUsername) {
+        return res.status(403).json({
+          error: 'Forbidden',
+          message: 'You can only update messages you sent or received'
+        });
+      }
+
+      const updatedMessage = await storage.updateMessageDecryptedContent(messageId, decryptedContent);
+      
+      if (!updatedMessage) {
+        return res.status(404).json({ error: "Message not found" });
+      }
+      
+      res.json(updatedMessage);
+    } catch (error) {
+      console.error("Error updating message decrypted content:", error);
+      res.status(500).json({ 
+        error: "Failed to update message",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // Poll blockchain for new incoming messages
+  app.get("/api/messages/poll", requireAuth, async (req: any, res) => {
+    try {
+      const currentUsername = req.session.username;
+      const lastChecked = req.query.lastChecked ? new Date(req.query.lastChecked as string) : null;
+
+      let newMessagesCount = 0;
+
+      try {
+        const history = await hiveClient.getAccountHistory(currentUsername, 100);
+        
+        for (const entry of history) {
+          const [, operation] = entry;
+          
+          if (operation[0] !== 'transfer') continue;
+          
+          const transfer = operation[1];
+          
+          if (transfer.to !== currentUsername) continue;
+          
+          if (!transfer.memo || !transfer.memo.startsWith('#')) continue;
+          
+          const operationTimestamp = new Date(operation.timestamp + 'Z');
+          
+          if (lastChecked && operationTimestamp <= lastChecked) {
+            continue;
+          }
+          
+          const txId = entry[0]?.toString() || `${transfer.from}-${Date.now()}`;
+          
+          const alreadyExists = await storage.messageExistsByTxId(txId);
+          if (alreadyExists) continue;
+          
+          const senderUsername = transfer.from;
+          const encryptedMemo = transfer.memo;
+          
+          const dbStorage = storage as any;
+          const senderMemoKey = await hiveClient.getPublicMemoKey(senderUsername);
+          await dbStorage.ensureUser(senderUsername, senderMemoKey);
+          
+          const conversation = await storage.findOrCreateConversation(
+            currentUsername,
+            senderUsername,
+            senderMemoKey || undefined
+          );
+          
+          const messageData: Omit<Message, 'id'> = {
+            conversationId: conversation.id,
+            sender: senderUsername,
+            recipient: currentUsername,
+            content: encryptedMemo,
+            encryptedMemo: encryptedMemo,
+            timestamp: operationTimestamp.toISOString(),
+            status: 'confirmed',
+            isEncrypted: true,
+            trxId: txId,
+          };
+          
+          await storage.createMessage(messageData);
+          
+          await storage.updateConversation(conversation.id, {
+            lastMessageTime: operationTimestamp.toISOString(),
+            unreadCount: (conversation.unreadCount || 0) + 1,
+          });
+          
+          newMessagesCount++;
+        }
+        
+        res.json({
+          newMessages: newMessagesCount,
+          lastChecked: new Date().toISOString(),
+        });
+      } catch (blockchainError) {
+        console.error('Blockchain polling error:', blockchainError);
+        res.status(500).json({
+          error: 'Blockchain error',
+          message: blockchainError instanceof Error ? blockchainError.message : 'Failed to poll blockchain',
+          newMessages: 0,
+          lastChecked: new Date().toISOString(),
+        });
+      }
+    } catch (error) {
+      console.error('Error polling messages:', error);
+      res.status(500).json({
+        error: 'Polling failed',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        newMessages: 0,
+        lastChecked: new Date().toISOString(),
+      });
+    }
+  });
+
   // User management endpoints
   
   // Create or update user with public memo key (Protected - requires authentication)

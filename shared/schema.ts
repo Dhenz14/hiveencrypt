@@ -33,6 +33,7 @@ export const messages = pgTable("messages", {
   recipientUsername: text("recipient_username"),
   content: text("content").notNull(),
   encryptedContent: text("encrypted_content"),
+  decryptedContent: text("decrypted_content"),
   isEncrypted: boolean("is_encrypted").notNull(),
   status: text("status").notNull(),
   timestamp: timestamp("timestamp").notNull().defaultNow(),
@@ -135,6 +136,7 @@ export interface Message {
   recipient: string;
   content: string;
   encryptedMemo: string;
+  decryptedContent?: string;
   timestamp: string;
   status: 'sending' | 'sent' | 'confirmed' | 'failed';
   blockNum?: number;

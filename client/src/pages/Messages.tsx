@@ -19,6 +19,9 @@ import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shar
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import { useMessagePolling } from '@/hooks/useMessagePolling';
+
+const SESSION_KEY = 'hive_messenger_session_token';
 
 export default function Messages() {
   const { user } = useAuth();
@@ -38,6 +41,31 @@ export default function Messages() {
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const sessionToken = typeof window !== 'undefined' ? localStorage.getItem(SESSION_KEY) : null;
+
+  const { isPolling, lastPollTime, error: pollingError } = useMessagePolling({
+    username: user?.username || '',
+    sessionToken,
+    enabled: !!user && !!sessionToken,
+    interval: 30000,
+    onNewMessages: (count) => {
+      toast({
+        title: 'New Messages',
+        description: `You have ${count} new ${count === 1 ? 'message' : 'messages'}`,
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (isPolling) {
+      setSyncStatus({ status: 'syncing' });
+    } else if (pollingError) {
+      setSyncStatus({ status: 'error', error: pollingError.message });
+    } else {
+      setSyncStatus({ status: 'synced', lastSync: lastPollTime || undefined });
+    }
+  }, [isPolling, pollingError, lastPollTime]);
 
   // Fetch messages for selected conversation
   const { data: currentMessages = [], isLoading: isLoadingMessages } = useQuery<Message[]>({
