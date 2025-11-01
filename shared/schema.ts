@@ -163,7 +163,9 @@ export interface Contact {
 
 export interface UserSession {
   username: string;
+  publicMemoKey: string;
   isAuthenticated: boolean;
+  timestamp: string;
   balance?: string;
   hbdBalance?: string;
 }

@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/AuthContext';
-import { isKeychainInstalled, requestHandshake, requestLogin } from '@/lib/hive';
+import { isKeychainInstalled, requestHandshake } from '@/lib/hive';
 import { useToast } from '@/hooks/use-toast';
 
 export default function Login() {
@@ -35,7 +35,9 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!username.trim()) {
+    const trimmedUsername = username.toLowerCase().trim();
+    
+    if (!trimmedUsername) {
       toast({
         title: 'Username required',
         description: 'Please enter your Hive username',
@@ -56,20 +58,56 @@ export default function Login() {
     setIsLoading(true);
     
     try {
-      await requestLogin(username.toLowerCase().trim());
-      login(username.toLowerCase().trim());
+      await login(trimmedUsername);
+      
       toast({
         title: 'Welcome to Hive Messenger!',
-        description: `Successfully logged in as @${username}`,
+        description: `Successfully logged in as @${trimmedUsername}`,
       });
       setLocation('/');
     } catch (error: any) {
       console.error('Login failed:', error);
-      toast({
-        title: 'Login Failed',
-        description: error?.message || 'Failed to authenticate with Hive Keychain. Please try again.',
-        variant: 'destructive',
-      });
+      
+      const errorMessage = error?.message || 'An unexpected error occurred. Please try again.';
+      
+      // Handle specific error scenarios with appropriate messages
+      if (errorMessage.includes('install') || errorMessage.includes('Keychain extension')) {
+        toast({
+          title: 'Hive Keychain Not Found',
+          description: 'Please install Hive Keychain extension from hive-keychain.com',
+          variant: 'destructive',
+        });
+      } else if (errorMessage.includes('not found') || errorMessage.includes('blockchain')) {
+        toast({
+          title: 'Account Not Found',
+          description: 'Account not found on Hive blockchain. Please check the username and try again.',
+          variant: 'destructive',
+        });
+      } else if (errorMessage.includes('cancel')) {
+        toast({
+          title: 'Authentication Cancelled',
+          description: 'You cancelled the authentication request. Please try again and approve the Keychain request.',
+          variant: 'destructive',
+        });
+      } else if (errorMessage.includes('memo key')) {
+        toast({
+          title: 'Memo Key Error',
+          description: 'Unable to retrieve public memo key for this account. Please try again later.',
+          variant: 'destructive',
+        });
+      } else if (errorMessage.includes('network') || errorMessage.includes('fetch') || errorMessage.includes('Failed to')) {
+        toast({
+          title: 'Network Error',
+          description: 'Unable to connect to Hive blockchain. Please check your internet connection and try again.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Login Failed',
+          description: errorMessage,
+          variant: 'destructive',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -102,13 +140,13 @@ export default function Login() {
                 <AlertDescription className="text-caption">
                   Hive Keychain extension not detected. Please install it from{' '}
                   <a 
-                    href="https://hivekeychain.com" 
+                    href="https://hive-keychain.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="font-medium underline"
                     data-testid="link-keychain-install"
                   >
-                    hivekeychain.com
+                    hive-keychain.com
                   </a>
                 </AlertDescription>
               </Alert>

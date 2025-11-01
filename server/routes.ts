@@ -4,8 +4,165 @@ import { storage } from "./storage";
 import { z } from "zod";
 import type { Message, Conversation } from "@shared/schema";
 import { hiveClient } from "../client/src/lib/hiveClient";
+import { 
+  createSession, 
+  getSession, 
+  invalidateSession, 
+  verifyKeychainSignature,
+  requireAuth
+} from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // ============================================================================
+  // Authentication Endpoints
+  // ============================================================================
+
+  // POST /api/auth/login - Authenticate with Keychain proof and create session
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { username, keychainProof } = req.body;
+
+      // Validate request body
+      if (!username || typeof username !== 'string') {
+        return res.status(400).json({
+          error: 'Invalid request',
+          message: 'Username is required'
+        });
+      }
+
+      if (!keychainProof || !keychainProof.signature || !keychainProof.message) {
+        return res.status(400).json({
+          error: 'Invalid request',
+          message: 'Keychain proof (signature, message) is required'
+        });
+      }
+
+      // SECURITY FIX: Fetch authoritative account data from blockchain
+      let blockchainAccount;
+      try {
+        blockchainAccount = await hiveClient.getAccount(username);
+      } catch (error) {
+        console.error('Error fetching account from blockchain:', error);
+        return res.status(500).json({
+          error: 'Blockchain error',
+          message: 'Failed to verify account on blockchain: ' + (error instanceof Error ? error.message : 'Unknown error')
+        });
+      }
+
+      if (!blockchainAccount) {
+        return res.status(404).json({
+          error: 'Account not found',
+          message: 'Hive account does not exist'
+        });
+      }
+
+      // SECURITY FIX: Extract authoritative posting key from blockchain
+      const blockchainPostingKey = blockchainAccount.posting?.key_auths?.[0]?.[0];
+      if (!blockchainPostingKey) {
+        return res.status(500).json({
+          error: 'Invalid account',
+          message: 'Account has no posting key'
+        });
+      }
+
+      // SECURITY FIX: Extract authoritative memo key from blockchain
+      const blockchainMemoKey = blockchainAccount.memo_key;
+      if (!blockchainMemoKey) {
+        return res.status(500).json({
+          error: 'Invalid account',
+          message: 'Account has no memo key'
+        });
+      }
+
+      // SECURITY FIX: Verify signature against blockchain posting key (not client-supplied key)
+      const isValidSignature = verifyKeychainSignature(
+        username,
+        keychainProof.message,
+        keychainProof.signature,
+        blockchainPostingKey  // Use blockchain key, not client-supplied
+      );
+
+      if (!isValidSignature) {
+        return res.status(401).json({
+          error: 'Authentication failed',
+          message: 'Invalid Keychain signature - signature does not match blockchain posting key'
+        });
+      }
+
+      // SECURITY FIX: Create session with blockchain-verified memo key
+      const sessionToken = createSession(username, blockchainMemoKey);
+
+      // SECURITY FIX: Update user record with blockchain-verified memo key
+      const dbStorage = storage as any;
+      await dbStorage.ensureUser(username, blockchainMemoKey);
+
+      res.json({
+        success: true,
+        sessionToken,
+        username,
+        publicMemoKey: blockchainMemoKey  // Return blockchain memo key
+      });
+    } catch (error) {
+      console.error('Error during login:', error);
+      res.status(500).json({
+        error: 'Authentication failed',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // GET /api/auth/verify - Verify session token
+  app.get("/api/auth/verify", (req, res) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({
+        valid: false,
+        error: 'No authentication token provided'
+      });
+    }
+
+    const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    const session = getSession(token);
+
+    if (!session) {
+      return res.status(401).json({
+        valid: false,
+        error: 'Invalid or expired session token'
+      });
+    }
+
+    res.json({
+      valid: true,
+      username: session.username,
+      publicMemoKey: session.publicMemoKey
+    });
+  });
+
+  // POST /api/auth/logout - Invalidate session
+  app.post("/api/auth/logout", (req, res) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(400).json({
+        success: false,
+        error: 'No authentication token provided'
+      });
+    }
+
+    const token = authHeader.substring(7);
+    const invalidated = invalidateSession(token);
+
+    res.json({
+      success: invalidated,
+      message: invalidated ? 'Session invalidated successfully' : 'Session not found'
+    });
+  });
+
+  // ============================================================================
+  // Conversation & Message Endpoints
+  // ============================================================================
+
   // Get conversations for a user
   app.get("/api/conversations/:username", async (req, res) => {
     try {
@@ -72,6 +229,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // User management endpoints
+  
+  // Create or update user with public memo key (Protected - requires authentication)
+  app.post("/api/users", requireAuth, async (req: any, res) => {
+    try {
+      const { username, publicMemoKey } = req.body;
+      
+      if (!username || typeof username !== 'string') {
+        return res.status(400).json({ 
+          error: "Invalid request",
+          message: "Username is required"
+        });
+      }
+      
+      if (!publicMemoKey || typeof publicMemoKey !== 'string') {
+        return res.status(400).json({ 
+          error: "Invalid request",
+          message: "Public memo key is required"
+        });
+      }
+      
+      // Ensure user can only update their own record
+      if (req.session.username !== username) {
+        return res.status(403).json({
+          error: "Forbidden",
+          message: "You can only update your own user record"
+        });
+      }
+      
+      // Use the ensureUser method from storage
+      // We need to make it accessible, so we'll use a type assertion
+      const dbStorage = storage as any;
+      await dbStorage.ensureUser(username, publicMemoKey);
+      
+      res.json({ 
+        success: true,
+        username,
+        publicMemoKey
+      });
+    } catch (error) {
+      console.error("Error creating/updating user:", error);
+      res.status(500).json({ 
+        error: "Failed to create or update user",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  
   // Hive-specific endpoints for blockchain integration
   
   // Get Hive account information

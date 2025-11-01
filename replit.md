@@ -28,9 +28,15 @@ Hive Messenger is an end-to-end encrypted messaging application built on the Hiv
 ## Architecture
 ### Authentication Flow
 1. User enters Hive username
-2. Hive Keychain browser extension handles authentication
-3. No private keys are stored in the application
-4. Session data stored in localStorage
+2. Frontend requests Keychain signature via requestSignBuffer
+3. Keychain signs a timestamped login message with user's posting key
+4. Frontend sends signature + public key to backend for verification
+5. Backend validates signature using @hiveio/dhive crypto
+6. Backend generates secure session token (256-bit random hex)
+7. Session token stored server-side with 7-day expiry
+8. Frontend stores only session token in localStorage
+9. All subsequent requests include session token in Authorization header
+10. Backend validates token on each request to protected endpoints
 
 ### Messaging Flow
 1. User composes message in UI
@@ -56,7 +62,8 @@ Hive Messenger is an end-to-end encrypted messaging application built on the Hiv
 - `client/src/contexts/ThemeContext.tsx` - Theme management
 
 ### Backend
-- `server/routes.ts` - API endpoints
+- `server/routes.ts` - API endpoints with authentication
+- `server/auth.ts` - Session management and signature verification
 - `server/storage.ts` - In-memory data storage
 - `shared/schema.ts` - Shared TypeScript types
 
@@ -77,6 +84,15 @@ Hive Messenger is an end-to-end encrypted messaging application built on the Hiv
 5. Open http://localhost:5000
 
 ## Security Considerations
+### Authentication Security
+- **Server-Side Session Validation**: All sessions validated against backend on restore
+- **Keychain Signature Verification**: Backend verifies cryptographic signatures from Hive Keychain
+- **Secure Session Tokens**: 256-bit random tokens stored server-side with 7-day expiry
+- **Protected Endpoints**: All user data endpoints require valid session token
+- **No Client-Side Trust**: localStorage only stores session token, never user data
+- **Anti-Spoofing**: Impossible to forge sessions by editing localStorage
+
+### Encryption Security
 - Private keys never stored in application
 - All encryption/decryption handled by Hive Keychain
 - Messages encrypted before blockchain submission
@@ -95,6 +111,16 @@ Hive Messenger is an end-to-end encrypted messaging application built on the Hiv
 - Typing indicators
 
 ## Recent Changes
+- 2025-11-01: **CRITICAL SECURITY FIX** - Implemented proper authentication system
+  - **Fixed Session Spoofing**: Session tokens now validated server-side on every restore
+  - **Added Keychain Proof Validation**: Backend verifies cryptographic signatures from Hive Keychain
+  - **Protected Endpoints**: POST /api/users now requires authentication
+  - **Secure Session Management**: 256-bit random tokens with server-side storage and 7-day expiry
+  - **New Authentication Endpoints**: POST /api/auth/login, GET /api/auth/verify, POST /api/auth/logout
+  - **Created server/auth.ts**: Session management, token generation, signature verification
+  - **Updated AuthContext**: Captures Keychain signatures, validates sessions with backend
+  - **Eliminated localStorage Vulnerabilities**: Only session token stored, never user data
+
 - 2025-01-11: Initial implementation with full MVP features
   - Complete frontend with Login, Messages, Settings
   - Hive Keychain integration for authentication
