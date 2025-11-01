@@ -100,16 +100,9 @@ export default function Messages() {
 
     try {
       // Call backend to create/get conversation
-      const response = await apiRequest('/api/conversations', {
-        method: 'POST',
-        body: JSON.stringify({ participantUsername: username }),
-        headers: { 'Content-Type': 'application/json' }
+      const response = await apiRequest('POST', '/api/conversations', { 
+        participantUsername: username 
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create conversation');
-      }
 
       const conversation: Conversation = await response.json();
 
