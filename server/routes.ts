@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import type { Message, Conversation } from "@shared/schema";
+import { hiveClient } from "../client/src/lib/hiveClient";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get conversations for a user
@@ -73,31 +74,131 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Hive-specific endpoints for blockchain integration
   
-  // Validate Hive account exists
+  // Get Hive account information
   app.get("/api/hive/account/:username", async (req, res) => {
     try {
       const { username } = req.params;
-      // This will be called from frontend with dhive directly
-      // Backend just validates and caches if needed
-      res.json({ exists: true, username });
+      
+      const account = await hiveClient.getAccount(username);
+      
+      if (!account) {
+        return res.status(404).json({ 
+          error: "Account not found",
+          message: `Hive account '${username}' does not exist`
+        });
+      }
+      
+      res.json(account);
     } catch (error) {
-      console.error("Error validating account:", error);
-      res.status(500).json({ error: "Failed to validate account" });
+      console.error("Error fetching account:", error);
+      
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      
+      // Return 400 for validation errors, 500 for blockchain errors
+      if (errorMessage.includes("Invalid username format")) {
+        return res.status(400).json({ 
+          error: "Invalid username",
+          message: errorMessage
+        });
+      }
+      
+      res.status(500).json({ 
+        error: "Failed to fetch account",
+        message: errorMessage
+      });
     }
   });
 
-  // Get account history (messages) from Hive blockchain
-  app.get("/api/hive/history/:username", async (req, res) => {
+  // Get public memo key for account
+  app.get("/api/hive/account/:username/memo-key", async (req, res) => {
+    try {
+      const { username } = req.params;
+      
+      const memoKey = await hiveClient.getPublicMemoKey(username);
+      
+      if (!memoKey) {
+        return res.status(404).json({ 
+          error: "Account not found",
+          message: `Hive account '${username}' does not exist or has no memo key`
+        });
+      }
+      
+      res.json({ 
+        username,
+        memoKey
+      });
+    } catch (error) {
+      console.error("Error fetching memo key:", error);
+      
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      
+      if (errorMessage.includes("Invalid username format")) {
+        return res.status(400).json({ 
+          error: "Invalid username",
+          message: errorMessage
+        });
+      }
+      
+      res.status(500).json({ 
+        error: "Failed to fetch memo key",
+        message: errorMessage
+      });
+    }
+  });
+
+  // Get account history with transfer operations
+  app.get("/api/hive/account/:username/history", async (req, res) => {
     try {
       const { username } = req.params;
       const { limit = "100" } = req.query;
       
-      // This endpoint will be used to fetch encrypted messages from blockchain
-      // The actual dhive calls will be made from the frontend for better security
-      res.json({ history: [], username });
+      const limitNum = parseInt(limit as string, 10);
+      
+      if (isNaN(limitNum) || limitNum < 1 || limitNum > 1000) {
+        return res.status(400).json({ 
+          error: "Invalid limit",
+          message: "Limit must be a number between 1 and 1000"
+        });
+      }
+      
+      // Verify account exists first
+      const accountExists = await hiveClient.verifyAccountExists(username);
+      
+      if (!accountExists) {
+        return res.status(404).json({ 
+          error: "Account not found",
+          message: `Hive account '${username}' does not exist`
+        });
+      }
+      
+      // Fetch account history
+      const history = await hiveClient.getAccountHistory(username, limitNum);
+      
+      // Filter for transfer operations only
+      const transfers = hiveClient.filterTransferOperations(history);
+      
+      res.json({ 
+        username,
+        transfers,
+        totalOperations: history.length,
+        transferCount: transfers.length
+      });
     } catch (error) {
       console.error("Error fetching history:", error);
-      res.status(500).json({ error: "Failed to fetch history" });
+      
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      
+      if (errorMessage.includes("Invalid username format")) {
+        return res.status(400).json({ 
+          error: "Invalid username",
+          message: errorMessage
+        });
+      }
+      
+      res.status(500).json({ 
+        error: "Failed to fetch history",
+        message: errorMessage
+      });
     }
   });
 
