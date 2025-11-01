@@ -10,12 +10,24 @@ export default {
         md: ".375rem", /* 6px */
         sm: ".1875rem", /* 3px */
       },
+      fontSize: {
+        'display': ['1.5rem', { lineHeight: '2rem', fontWeight: '600' }],
+        'headline': ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+        'body-lg': ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }],
+        'body': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '400' }],
+        'caption': ['0.75rem', { lineHeight: '1rem', fontWeight: '500' }],
+        'code': ['0.8125rem', { lineHeight: '1.25rem', fontWeight: '400' }],
+      },
       colors: {
         // Flat / base colors (regular buttons)
         background: "hsl(var(--background) / <alpha-value>)",
         foreground: "hsl(var(--foreground) / <alpha-value>)",
         border: "hsl(var(--border) / <alpha-value>)",
         input: "hsl(var(--input) / <alpha-value>)",
+        'hive': {
+          DEFAULT: '#e31337',
+          foreground: '#ffffff',
+        },
         card: {
           DEFAULT: "hsl(var(--card) / <alpha-value>)",
           foreground: "hsl(var(--card-foreground) / <alpha-value>)",

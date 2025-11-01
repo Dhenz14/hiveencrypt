@@ -1,0 +1,131 @@
+# Hive Messenger - Encrypted Blockchain Messaging
+
+## Overview
+Hive Messenger is an end-to-end encrypted messaging application built on the Hive blockchain. It leverages Hive's native memo encryption feature to enable secure, decentralized communication between users.
+
+## Features
+- **End-to-End Encryption**: Messages are encrypted using Hive's ECDH + AES-CBC encryption
+- **Blockchain-Backed**: All messages are stored encrypted on the Hive blockchain
+- **Keychain Integration**: Secure authentication via Hive Keychain browser extension
+- **No Server Storage**: Your keys never leave your browser
+- **Dark Mode**: Beautiful light and dark themes
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
+
+## Tech Stack
+### Frontend
+- React with TypeScript
+- Wouter for routing
+- TanStack Query for data management
+- Tailwind CSS for styling
+- Shadcn UI components
+- Hive Keychain SDK for authentication
+
+### Backend
+- Express.js server
+- In-memory storage (MemStorage)
+- @hiveio/dhive for blockchain API calls
+
+## Architecture
+### Authentication Flow
+1. User enters Hive username
+2. Hive Keychain browser extension handles authentication
+3. No private keys are stored in the application
+4. Session data stored in localStorage
+
+### Messaging Flow
+1. User composes message in UI
+2. Message encrypted using recipient's public memo key
+3. Encrypted memo attached to micro-transfer (0.001 HBD)
+4. Transaction broadcast to Hive blockchain via Keychain
+5. Messages retrieved by polling account history
+6. Encrypted memos decrypted for display
+
+### Data Models
+- **Conversation**: Tracks chat sessions with contacts
+- **Message**: Individual encrypted messages with metadata
+- **Contact**: User profiles with public encryption keys
+- **UserSession**: Authenticated user state
+
+## Key Files
+### Frontend
+- `client/src/pages/Login.tsx` - Authentication page
+- `client/src/pages/Messages.tsx` - Main messaging interface
+- `client/src/lib/hive.ts` - Hive blockchain integration
+- `client/src/lib/encryption.ts` - Encryption utilities
+- `client/src/contexts/AuthContext.tsx` - Authentication state
+- `client/src/contexts/ThemeContext.tsx` - Theme management
+
+### Backend
+- `server/routes.ts` - API endpoints
+- `server/storage.ts` - In-memory data storage
+- `shared/schema.ts` - Shared TypeScript types
+
+### Components
+- `ConversationsList.tsx` - Sidebar contact list
+- `ChatHeader.tsx` - Conversation header
+- `MessageBubble.tsx` - Message display
+- `MessageComposer.tsx` - Message input
+- `NewMessageModal.tsx` - Start new conversation
+- `ProfileDrawer.tsx` - Contact profile view
+- `SettingsModal.tsx` - App settings
+
+## Development Setup
+1. Install Hive Keychain browser extension from https://hivekeychain.com
+2. Create a Hive account at https://signup.hive.io
+3. Run `npm install` to install dependencies
+4. Run `npm run dev` to start development server
+5. Open http://localhost:5000
+
+## Security Considerations
+- Private keys never stored in application
+- All encryption/decryption handled by Hive Keychain
+- Messages encrypted before blockchain submission
+- Memo encryption uses ECDH key exchange + AES-CBC
+- Public blockchain means metadata (sender/receiver) is visible
+
+## Future Enhancements
+- Group messaging with shared encryption keys
+- File sharing via IPFS with hash in memo
+- WebSocket integration for real-time updates
+- Quantum-resistant encryption (Kyber-1024)
+- Message search and filtering
+- Custom Hive node selection
+- Message notifications
+- Read receipts
+- Typing indicators
+
+## Recent Changes
+- 2025-01-11: Initial implementation with full MVP features
+  - Complete frontend with Login, Messages, Settings
+  - Hive Keychain integration for authentication
+  - Dark mode support
+  - Responsive design for mobile/tablet/desktop
+  - Backend API routes for conversations and messages
+  - In-memory storage implementation
+
+## Project Structure
+```
+├── client/
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   ├── contexts/       # React contexts (Auth, Theme)
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── lib/            # Utilities (Hive API, encryption)
+│   │   ├── pages/          # Route pages
+│   │   └── App.tsx         # Root component
+│   └── index.html
+├── server/
+│   ├── routes.ts          # API endpoints
+│   ├── storage.ts         # Data storage interface
+│   └── index.ts           # Server entry point
+├── shared/
+│   └── schema.ts          # Shared TypeScript types
+└── design_guidelines.md   # UI/UX design specifications
+```
+
+## Notes
+- This is a demonstration application showing Hive blockchain messaging capabilities
+- For production use, implement proper error handling and edge case coverage
+- Consider hybrid off-chain/on-chain approach for high-volume messaging
+- Resource Credits (RC) on Hive limit transaction frequency
+- 3-second block time + polling creates ~30s message latency
