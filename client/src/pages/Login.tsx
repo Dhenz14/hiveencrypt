@@ -50,10 +50,11 @@ export default function Login() {
       return;
     }
 
-    if (keychainStatus !== 'installed') {
+    // Check Keychain availability at click time (robust for all environments)
+    if (!isKeychainInstalled()) {
       toast({
         title: 'Hive Keychain Required',
-        description: 'Please install the Hive Keychain browser extension to continue',
+        description: 'Please install the Hive Keychain browser extension from hive-keychain.com',
         variant: 'destructive',
       });
       return;
@@ -187,7 +188,7 @@ export default function Login() {
               <Button
                 type="submit"
                 className="w-full h-11"
-                disabled={isLoading || keychainStatus !== 'installed'}
+                disabled={isLoading}
                 data-testid="button-login"
               >
                 {isLoading ? (
