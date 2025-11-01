@@ -61,6 +61,34 @@ export const requestLogin = (username: string): Promise<KeychainResponse> => {
   });
 };
 
+export const requestEncode = (
+  username: string,
+  recipient: string,
+  message: string,
+  keyType: 'Memo' | 'Posting' | 'Active' = 'Memo'
+): Promise<KeychainResponse> => {
+  return new Promise((resolve, reject) => {
+    if (!isKeychainInstalled()) {
+      reject({ success: false, error: 'Hive Keychain not installed' });
+      return;
+    }
+
+    window.hive_keychain.requestEncode(
+      username,
+      recipient,
+      message,
+      keyType,
+      (response: KeychainResponse) => {
+        if (response.success) {
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      }
+    );
+  });
+};
+
 export const requestTransfer = (
   from: string,
   to: string,

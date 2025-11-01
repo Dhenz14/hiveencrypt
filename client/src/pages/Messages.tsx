@@ -3,6 +3,7 @@ import { Settings, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Skeleton } from '@/components/ui/skeleton';
 import { ConversationsList } from '@/components/ConversationsList';
 import { ChatHeader } from '@/components/ChatHeader';
 import { MessageBubble, SystemMessage } from '@/components/MessageBubble';
@@ -16,15 +17,17 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shared/schema';
 import { useToast } from '@/hooks/use-toast';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
 
 export default function Messages() {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
-  const [messages, setMessages] = useState<Record<string, Message[]>>({});
   const [searchQuery, setSearchQuery] = useState('');
   const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -36,8 +39,13 @@ export default function Messages() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Fetch messages for selected conversation
+  const { data: currentMessages = [], isLoading: isLoadingMessages } = useQuery<Message[]>({
+    queryKey: ['/api/conversations', selectedConversationId, 'messages'],
+    enabled: !!selectedConversationId,
+  });
+
   const selectedConversation = conversations.find(c => c.id === selectedConversationId);
-  const currentMessages = selectedConversationId ? messages[selectedConversationId] || [] : [];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -47,13 +55,14 @@ export default function Messages() {
     scrollToBottom();
   }, [currentMessages]);
 
-  const handleStartChat = (username: string) => {
+  const handleStartChat = async (username: string) => {
     const existingConversation = conversations.find(
       c => c.contactUsername.toLowerCase() === username.toLowerCase()
     );
 
     if (existingConversation) {
       setSelectedConversationId(existingConversation.id);
+      setIsNewMessageOpen(false);
       toast({
         title: 'Conversation Found',
         description: `Switched to existing conversation with @${username}`,
@@ -61,78 +70,49 @@ export default function Messages() {
       return;
     }
 
-    const tempId = `conv-${Date.now()}-${username}`;
-    const newConversation: Conversation = {
-      id: tempId,
-      contactUsername: username,
-      unreadCount: 0,
-      isEncrypted: true,
-      publicKey: `STM${Math.random().toString(36).substr(2, 50)}`,
-    };
+    try {
+      // Call backend to create/get conversation
+      const response = await apiRequest('/api/conversations', {
+        method: 'POST',
+        body: JSON.stringify({ participantUsername: username }),
+        headers: { 'Content-Type': 'application/json' }
+      });
 
-    setConversations(prev => [newConversation, ...prev]);
-    setMessages(prev => ({ ...prev, [tempId]: [] }));
-    setSelectedConversationId(tempId);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create conversation');
+      }
 
-    toast({
-      title: 'Conversation Started',
-      description: `Started encrypted chat with @${username}`,
-    });
+      const conversation: Conversation = await response.json();
+
+      // Update conversations list with real conversation from backend
+      setConversations(prev => [conversation, ...prev]);
+      setSelectedConversationId(conversation.id);
+      setIsNewMessageOpen(false);
+
+      toast({
+        title: 'Conversation Started',
+        description: `Started encrypted chat with @${username}`,
+      });
+    } catch (error) {
+      console.error('Error starting chat:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to start conversation';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        variant: 'destructive',
+      });
+      
+      // Re-throw to allow NewMessageModal to handle it
+      throw error;
+    }
   };
 
-  const handleSendMessage = async (content: string) => {
-    if (!selectedConversationId || !selectedConversation) return;
-
-    const newMessage: Message = {
-      id: `msg-${Date.now()}`,
-      conversationId: selectedConversationId,
-      sender: user!.username,
-      recipient: selectedConversation.contactUsername,
-      content,
-      encryptedMemo: `#encrypted-${content}`,
-      timestamp: new Date().toISOString(),
-      status: 'sending',
-      isEncrypted: true,
-    };
-
-    setMessages(prev => ({
-      ...prev,
-      [selectedConversationId]: [...(prev[selectedConversationId] || []), newMessage],
-    }));
-
-    setConversations(prev =>
-      prev.map(conv =>
-        conv.id === selectedConversationId
-          ? {
-              ...conv,
-              lastMessage: content.slice(0, 50),
-              lastMessageTime: newMessage.timestamp,
-            }
-          : conv
-      )
-    );
-
-    setTimeout(() => {
-      setMessages(prev => ({
-        ...prev,
-        [selectedConversationId]: prev[selectedConversationId].map(msg =>
-          msg.id === newMessage.id ? { ...msg, status: 'sent' } : msg
-        ),
-      }));
-
-      setTimeout(() => {
-        setMessages(prev => ({
-          ...prev,
-          [selectedConversationId]: prev[selectedConversationId].map(msg =>
-            msg.id === newMessage.id ? { ...msg, status: 'confirmed' } : msg
-          ),
-        }));
-      }, 1000);
-    }, 500);
-
-    toast({
-      title: 'Message Sent',
-      description: 'Your encrypted message has been sent',
+  const handleMessageSent = () => {
+    // Refetch messages after a new message is sent
+    queryClient.invalidateQueries({ 
+      queryKey: ['/api/conversations', selectedConversationId, 'messages'] 
     });
   };
 
@@ -229,28 +209,44 @@ export default function Messages() {
               <div className="max-w-3xl mx-auto space-y-4">
                 <SystemMessage text="Encryption keys exchanged. Messages are end-to-end encrypted." />
                 
-                {currentMessages.map((message, index) => {
-                  const isSent = message.sender === user?.username;
-                  const prevMessage = index > 0 ? currentMessages[index - 1] : null;
-                  const showTimestamp = !prevMessage || 
-                    new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime() > 300000;
+                {isLoadingMessages ? (
+                  <div className="space-y-4" data-testid="loading-messages">
+                    <Skeleton className="h-16 w-3/4" />
+                    <Skeleton className="h-16 w-2/3 ml-auto" />
+                    <Skeleton className="h-16 w-3/4" />
+                    <Skeleton className="h-16 w-1/2 ml-auto" />
+                  </div>
+                ) : currentMessages.length === 0 ? (
+                  <div className="text-center py-12" data-testid="empty-messages">
+                    <p className="text-muted-foreground text-body">
+                      No messages yet. Start the conversation!
+                    </p>
+                  </div>
+                ) : (
+                  currentMessages.map((message, index) => {
+                    const isSent = message.sender === user?.username;
+                    const prevMessage = index > 0 ? currentMessages[index - 1] : null;
+                    const showTimestamp = !prevMessage || 
+                      new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime() > 300000;
 
-                  return (
-                    <MessageBubble
-                      key={message.id}
-                      message={message}
-                      isSent={isSent}
-                      showTimestamp={showTimestamp}
-                    />
-                  );
-                })}
+                    return (
+                      <MessageBubble
+                        key={message.id}
+                        message={message}
+                        isSent={isSent}
+                        showTimestamp={showTimestamp}
+                      />
+                    );
+                  })
+                )}
                 <div ref={messagesEndRef} />
               </div>
             </ScrollArea>
 
             <MessageComposer
-              onSend={handleSendMessage}
+              conversationId={selectedConversation.id}
               recipientUsername={selectedConversation.contactUsername}
+              onMessageSent={handleMessageSent}
             />
           </>
         )}

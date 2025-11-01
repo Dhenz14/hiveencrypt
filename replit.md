@@ -111,6 +111,28 @@ Hive Messenger is an end-to-end encrypted messaging application built on the Hiv
 - Typing indicators
 
 ## Recent Changes
+- 2025-11-01: **MESSAGE SENDING FLOW IMPLEMENTATION** - Complete Hive blockchain message sending with encryption
+  - **Backend API Endpoints**:
+    - POST /api/messages (protected with requireAuth): Accepts encrypted content and stores messages with txId
+    - GET /api/conversations/:id/messages (protected with requireAuth): Returns messages for conversation
+    - Full validation: user authentication, conversation existence, user participation
+    - Automatic recipient user creation in database for foreign key references
+  - **Frontend Message Encryption**:
+    - MessageComposer.tsx updated with Hive Keychain integration
+    - Step 1: Encrypt message using requestEncode with recipient's memo key
+    - Step 2: Broadcast 0.001 HBD transfer with encrypted memo via requestTransfer
+    - Step 3: Store message in database via API with blockchain txId
+  - **Error Handling**: Comprehensive toast notifications for all error cases:
+    - Keychain not available, user rejection, RC exhaustion, insufficient balance
+    - Network errors, invalid recipients, encryption failures
+  - **Message Display**:
+    - Messages.tsx updated with TanStack Query for API data fetching
+    - Loading states with skeletons
+    - Empty state handling for no messages
+    - Automatic refetch after new message sent
+  - **Security**: Encrypted content stored in database, never decrypted server-side
+  - **User Experience**: Real-time feedback, optimistic UI updates, proper loading states
+
 - 2025-11-01: **CRITICAL SECURITY FIX** - Implemented proper authentication system
   - **Fixed Session Spoofing**: Session tokens now validated server-side on every restore
   - **Added Keychain Proof Validation**: Backend verifies cryptographic signatures from Hive Keychain

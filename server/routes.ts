@@ -175,39 +175,222 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create a new conversation
-  app.post("/api/conversations", async (req, res) => {
+  // Create a new conversation (Protected - requires authentication)
+  app.post("/api/conversations", requireAuth, async (req: any, res) => {
     try {
-      const conversationData = req.body;
-      const conversation = await storage.createConversation(conversationData);
+      const { participantUsername } = req.body;
+      const currentUsername = req.session.username;
+
+      // Validate participantUsername
+      if (!participantUsername || typeof participantUsername !== 'string') {
+        return res.status(400).json({
+          error: 'Invalid request',
+          message: 'participantUsername is required'
+        });
+      }
+
+      const cleanParticipant = participantUsername.toLowerCase().trim();
+
+      // Validate username format
+      if (cleanParticipant.length < 3 || cleanParticipant.length > 16) {
+        return res.status(400).json({
+          error: 'Invalid username',
+          message: 'Username must be between 3 and 16 characters'
+        });
+      }
+
+      if (!/^[a-z0-9.-]+$/.test(cleanParticipant)) {
+        return res.status(400).json({
+          error: 'Invalid username',
+          message: 'Username can only contain lowercase letters, numbers, dots, and hyphens'
+        });
+      }
+
+      // Prevent creating conversation with self
+      if (cleanParticipant === currentUsername.toLowerCase()) {
+        return res.status(400).json({
+          error: 'Invalid request',
+          message: 'Cannot create conversation with yourself'
+        });
+      }
+
+      // Fetch participant account from Hive blockchain to validate existence
+      let participantAccount;
+      try {
+        participantAccount = await hiveClient.getAccount(cleanParticipant);
+      } catch (error) {
+        console.error('Error fetching participant account:', error);
+        return res.status(500).json({
+          error: 'Blockchain error',
+          message: 'Failed to verify participant account on blockchain'
+        });
+      }
+
+      if (!participantAccount) {
+        return res.status(404).json({
+          error: 'User not found',
+          message: `Hive account '${cleanParticipant}' does not exist`
+        });
+      }
+
+      // Get participant's public memo key from blockchain
+      const participantMemoKey = participantAccount.memo_key;
+      if (!participantMemoKey) {
+        return res.status(500).json({
+          error: 'Invalid account',
+          message: 'Participant account has no memo key'
+        });
+      }
+
+      // Ensure participant user exists in database
+      const dbStorage = storage as any;
+      await dbStorage.ensureUser(cleanParticipant, participantMemoKey);
+
+      // Create or get existing conversation
+      const conversation = await storage.createConversation({
+        currentUser: currentUsername,
+        contactUsername: cleanParticipant,
+        unreadCount: 0,
+        isEncrypted: true,
+        publicKey: participantMemoKey,
+      });
+
       res.json(conversation);
     } catch (error) {
       console.error("Error creating conversation:", error);
-      res.status(500).json({ error: "Failed to create conversation" });
+      res.status(500).json({
+        error: "Failed to create conversation",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
     }
   });
 
-  // Get messages for a conversation
-  app.get("/api/conversations/:conversationId/messages", async (req, res) => {
+  // Get messages for a conversation (Protected - requires authentication)
+  app.get("/api/conversations/:conversationId/messages", requireAuth, async (req: any, res) => {
     try {
       const { conversationId } = req.params;
+      const username = req.session.username;
+
+      // Validate conversation exists and user is participant
+      const conversation = await storage.getConversation(conversationId);
+      
+      if (!conversation) {
+        return res.status(404).json({ 
+          error: "Conversation not found",
+          message: "The requested conversation does not exist"
+        });
+      }
+
+      // Get all conversations for the user to verify participation
+      const userConversations = await storage.getConversations(username);
+      const isParticipant = userConversations.some(c => c.id === conversationId);
+
+      if (!isParticipant) {
+        return res.status(403).json({ 
+          error: "Forbidden",
+          message: "You are not a participant in this conversation"
+        });
+      }
+
       const messages = await storage.getMessages(conversationId);
       res.json(messages);
     } catch (error) {
       console.error("Error fetching messages:", error);
-      res.status(500).json({ error: "Failed to fetch messages" });
+      res.status(500).json({ 
+        error: "Failed to fetch messages",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
     }
   });
 
-  // Send a message
-  app.post("/api/messages", async (req, res) => {
+  // Send a message (Protected - requires authentication)
+  app.post("/api/messages", requireAuth, async (req: any, res) => {
     try {
-      const messageData = req.body;
+      const { conversationId, recipientUsername, content, txId } = req.body;
+      const senderUsername = req.session.username;
+
+      // Validate required fields
+      if (!conversationId || typeof conversationId !== 'string') {
+        return res.status(400).json({ 
+          error: "Invalid request",
+          message: "conversationId is required"
+        });
+      }
+
+      if (!recipientUsername || typeof recipientUsername !== 'string') {
+        return res.status(400).json({ 
+          error: "Invalid request",
+          message: "recipientUsername is required"
+        });
+      }
+
+      if (!content || typeof content !== 'string' || content.trim().length === 0) {
+        return res.status(400).json({ 
+          error: "Invalid request",
+          message: "content is required and cannot be empty"
+        });
+      }
+
+      // Validate conversation exists
+      const conversation = await storage.getConversation(conversationId);
+      
+      if (!conversation) {
+        return res.status(404).json({ 
+          error: "Conversation not found",
+          message: "The specified conversation does not exist"
+        });
+      }
+
+      // Verify user is participant in conversation
+      const userConversations = await storage.getConversations(senderUsername);
+      const isParticipant = userConversations.some(c => c.id === conversationId);
+
+      if (!isParticipant) {
+        return res.status(403).json({ 
+          error: "Forbidden",
+          message: "You are not a participant in this conversation"
+        });
+      }
+
+      // Verify recipient matches conversation contact
+      if (conversation.contactUsername !== recipientUsername) {
+        return res.status(400).json({ 
+          error: "Invalid recipient",
+          message: "Recipient must match the conversation contact"
+        });
+      }
+
+      // Ensure recipient user exists in database (for foreign key)
+      const dbStorage = storage as any;
+      await dbStorage.ensureUser(recipientUsername);
+
+      // Create message with encrypted content
+      const messageData: Omit<Message, 'id'> = {
+        conversationId,
+        sender: senderUsername,
+        recipient: recipientUsername,
+        content: content, // Store encrypted content
+        encryptedMemo: content, // Also store in encryptedMemo for compatibility
+        timestamp: new Date().toISOString(),
+        status: txId ? 'sent' : 'sending', // If txId provided, mark as sent
+        isEncrypted: true,
+        trxId: txId || undefined,
+      };
+
       const message = await storage.createMessage(messageData);
+
+      // Update conversation's last message time
+      await storage.updateConversation(conversationId, {
+        lastMessageTime: message.timestamp,
+      });
+
       res.json(message);
     } catch (error) {
       console.error("Error creating message:", error);
-      res.status(500).json({ error: "Failed to create message" });
+      res.status(500).json({ 
+        error: "Failed to create message",
+        message: error instanceof Error ? error.message : "Unknown error"
+      });
     }
   });
 
