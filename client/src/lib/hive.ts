@@ -202,7 +202,7 @@ export const requestDecodeMemo = (
       return;
     }
 
-    window.hive_keychain.requestVerifyKey(
+    window.hive_keychain.requestDecode(
       username,
       encryptedMemo,
       'Memo',
