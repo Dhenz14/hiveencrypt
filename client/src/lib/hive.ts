@@ -204,20 +204,28 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain not installed');
   }
 
-  console.log('[DECRYPT] Using legacy Hive Keychain API for decryption...');
+  console.log('[DECRYPT] Using Hive Keychain requestVerifyKey API...');
 
   return new Promise((resolve, reject) => {
-    window.hive_keychain.requestDecodeMessage(
+    // requestVerifyKey is the correct method for memo decryption
+    window.hive_keychain.requestVerifyKey(
       username,
       encryptedMemo,
-      '#' + encryptedMemo, // Required format: need to pass the full encrypted memo
+      'Memo', // Key type
       (response: KeychainResponse) => {
-        console.log('[DECRYPT] Keychain response:', { success: response?.success, error: response?.error });
+        console.log('[DECRYPT] Keychain response:', { 
+          success: response?.success, 
+          error: response?.error,
+          hasResult: !!response?.result,
+          hasMessage: !!response?.message 
+        });
         
-        if (response.success && response.result) {
-          const decrypted = String(response.result);
+        if (response.success) {
+          // The decrypted message is in response.result for requestVerifyKey
+          const decrypted = String(response.result || response.message || '');
           console.log('[DECRYPT] Decryption successful! Length:', decrypted.length);
           console.log('[DECRYPT] Plaintext preview:', decrypted.substring(0, 50));
+          console.log('[DECRYPT] Full decrypted text:', decrypted);
           resolve(decrypted);
         } else {
           console.error('[DECRYPT] Decryption failed:', response.error || response.message);

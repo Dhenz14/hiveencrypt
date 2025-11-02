@@ -86,11 +86,11 @@ export default function Messages() {
     if (user?.username) {
       // One-time cleanup: clear cache to remove old base64-corrupted messages
       const cacheVersion = localStorage.getItem('hive_cache_version');
-      if (cacheVersion !== '3.0') {
+      if (cacheVersion !== '4.0') {
         console.log('[INIT] Cache version outdated, clearing all corrupted data...');
         import('@/lib/messageCache').then(({ clearAllCache }) => {
           clearAllCache().then(() => {
-            localStorage.setItem('hive_cache_version', '3.0');
+            localStorage.setItem('hive_cache_version', '4.0');
             console.log('[INIT] Cache cleared successfully');
             queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
             queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
