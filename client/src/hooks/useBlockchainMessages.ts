@@ -64,20 +64,36 @@ export function useBlockchainMessages({
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
-        // Fix old cached messages that stored the ENCRYPTED memo in the content field
-        // Real encrypted memos start with # (Hive blockchain memo encryption marker)
-        const isOldEncryptedMemo = msg.content.startsWith('#') && 
-                                    msg.encryptedContent && 
-                                    msg.content === msg.encryptedContent;
+        // Fix messages with encrypted content in the content field
+        // Check multiple conditions to catch all encrypted content:
+        // 1. Content starts with # (Hive encrypted memo marker)
+        // 2. Content equals encryptedContent (direct encrypted storage)
+        // 3. Content is long base64-like string without proper decrypt
+        const hasEncryptedMarker = msg.content.startsWith('#');
+        const contentMatchesEncrypted = msg.content === msg.encryptedContent;
+        const looksLikeRawHash = !msg.content.startsWith('[') && 
+                                 msg.content.length > 80 && 
+                                 !/\s{3,}/.test(msg.content); // No multiple spaces
         
-        if (isOldEncryptedMemo) {
-          console.log('[QUERY] Detected old encrypted memo in content field, replacing with placeholder');
-          // This is an old encrypted message, replace with proper placeholder
+        const needsPlaceholder = hasEncryptedMarker || contentMatchesEncrypted || looksLikeRawHash;
+        
+        if (needsPlaceholder && msg.encryptedContent) {
+          console.log('[QUERY] Fixing message with encrypted content, replacing with placeholder', {
+            hasEncryptedMarker,
+            contentMatchesEncrypted,
+            looksLikeRawHash,
+            contentPreview: msg.content.substring(0, 30) + '...'
+          });
+          
+          // Replace with appropriate placeholder
           if (msg.from === user.username) {
             msg.content = 'Your encrypted message';
           } else {
             msg.content = '[🔒 Encrypted - Click to decrypt]';
           }
+          
+          // Update cache with fixed content
+          cacheMessage(msg).catch(err => console.error('[QUERY] Failed to update cached message:', err));
         }
         
         mergedMessages.set(msg.id, msg);
@@ -113,7 +129,7 @@ export function useBlockchainMessages({
             await cacheMessage(messageCache);
             mergedMessages.set(msg.trx_id, messageCache);
           } else {
-            // Received message - store as encrypted, will decrypt on demand
+            // Received message - store with placeholder, will decrypt on demand
             const messageCache: MessageCache = {
               id: msg.trx_id,
               conversationKey: getConversationKey(user.username, partnerUsername),
@@ -126,6 +142,7 @@ export function useBlockchainMessages({
               confirmed: true,
             };
 
+            console.log('[QUERY] Caching new received message with placeholder');
             await cacheMessage(messageCache);
             mergedMessages.set(msg.trx_id, messageCache);
           }

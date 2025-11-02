@@ -19,7 +19,7 @@ import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shar
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
-import { getConversationKey, getConversation, updateConversation } from '@/lib/messageCache';
+import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache } from '@/lib/messageCache';
 
@@ -80,6 +80,20 @@ export default function Messages() {
   const currentMessages: Message[] = messageCaches.map(msg => 
     mapMessageCacheToMessage(msg, selectedConversationId || '')
   );
+
+  // Fix corrupted cached messages on mount
+  useEffect(() => {
+    if (user?.username) {
+      fixCorruptedMessages(user.username).then(count => {
+        if (count > 0) {
+          console.log(`[INIT] Fixed ${count} corrupted messages, refreshing...`);
+          queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
+        }
+      }).catch(err => {
+        console.error('[INIT] Failed to fix corrupted messages:', err);
+      });
+    }
+  }, [user?.username, queryClient]);
 
   useEffect(() => {
     if (isFetchingConversations || isFetchingMessages) {
