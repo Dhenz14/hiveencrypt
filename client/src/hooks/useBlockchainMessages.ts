@@ -65,23 +65,12 @@ export function useBlockchainMessages({
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
         // Fix messages with encrypted content in the content field
-        // Check multiple conditions to catch all encrypted content:
-        // 1. Content starts with # (Hive encrypted memo marker)
-        // 2. Content equals encryptedContent (direct encrypted storage)
-        // 3. Content is long base64-like string without proper decrypt
-        const hasEncryptedMarker = msg.content.startsWith('#');
+        // ONLY replace if content equals encryptedContent (definitive test!)
+        // If they're different, the message has been successfully decrypted
         const contentMatchesEncrypted = msg.content === msg.encryptedContent;
-        const looksLikeRawHash = !msg.content.startsWith('[') && 
-                                 msg.content.length > 80 && 
-                                 !/\s{3,}/.test(msg.content); // No multiple spaces
         
-        const needsPlaceholder = hasEncryptedMarker || contentMatchesEncrypted || looksLikeRawHash;
-        
-        if (needsPlaceholder && msg.encryptedContent) {
-          console.log('[QUERY] Fixing message with encrypted content, replacing with placeholder', {
-            hasEncryptedMarker,
-            contentMatchesEncrypted,
-            looksLikeRawHash,
+        if (contentMatchesEncrypted && msg.encryptedContent) {
+          console.log('[QUERY] Fixing message with encrypted hash in content field', {
             contentPreview: msg.content.substring(0, 30) + '...'
           });
           

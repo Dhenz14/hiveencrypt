@@ -175,15 +175,11 @@ export async function fixCorruptedMessages(currentUsername: string): Promise<num
   let fixed = 0;
   
   for (const msg of allMessages) {
-    // Detect if content has encrypted data instead of placeholder
-    const hasEncryptedMarker = msg.content.startsWith('#');
-    const looksLikeEncryptedHash = msg.content.length > 80 && 
-                                    !msg.content.startsWith('[') &&
-                                    msg.encryptedContent &&
-                                    msg.content !== '[🔒 Encrypted - Click to decrypt]' &&
-                                    msg.content !== 'Your encrypted message';
+    // ONLY fix if content equals encryptedContent (definitive test!)
+    // If they're different, the message has been successfully decrypted - leave it alone
+    const contentMatchesEncrypted = msg.content === msg.encryptedContent;
     
-    if ((hasEncryptedMarker || looksLikeEncryptedHash) && msg.encryptedContent) {
+    if (contentMatchesEncrypted && msg.encryptedContent) {
       console.log('[CACHE FIX] Fixing corrupted message:', msg.id.substring(0, 20));
       
       // Fix the content based on whether it's sent or received
