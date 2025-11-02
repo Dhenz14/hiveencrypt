@@ -218,5 +218,15 @@ export async function confirmMessage(tempId: string, txId: string): Promise<void
   }
 }
 
+export async function updateMessageContent(messageId: string, decryptedContent: string): Promise<void> {
+  const db = await getDB();
+  const message = await db.get('messages', messageId);
+  
+  if (message) {
+    message.content = decryptedContent;
+    await db.put('messages', message);
+  }
+}
+
 export type { MessageCache, ConversationCache };
 export { getConversationKey };

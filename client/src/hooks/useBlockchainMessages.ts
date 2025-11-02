@@ -67,27 +67,31 @@ export function useBlockchainMessages({
             continue;
           }
 
-          let decryptedContent: string | null = null;
-
           if (msg.from === user.username) {
             // Sent messages cannot be decrypted (we don't have recipient's private key)
-            // They should already be cached from when we sent them
-            // Skip this message as it's likely a duplicate from before caching was implemented
-            console.log('Sent message found on blockchain - skipping (should be cached from send)', msg.trx_id);
-            continue;
-          } else {
-            // Only decrypt RECEIVED messages
-            console.log('Received message found - decrypting with sender:', msg.from);
-            decryptedContent = await decryptMemo(user.username, msg.memo, msg.from);
-          }
-
-          if (decryptedContent) {
+            // Store them as encrypted placeholders
             const messageCache: MessageCache = {
               id: msg.trx_id,
               conversationKey: getConversationKey(user.username, partnerUsername),
               from: msg.from,
               to: msg.to,
-              content: decryptedContent,
+              content: '[Encrypted message sent by you]',
+              encryptedContent: msg.memo,
+              timestamp: msg.timestamp,
+              txId: msg.trx_id,
+              confirmed: true,
+            };
+
+            await cacheMessage(messageCache);
+            mergedMessages.set(msg.trx_id, messageCache);
+          } else {
+            // Received message - store as encrypted, will decrypt on demand
+            const messageCache: MessageCache = {
+              id: msg.trx_id,
+              conversationKey: getConversationKey(user.username, partnerUsername),
+              from: msg.from,
+              to: msg.to,
+              content: '[🔒 Encrypted - Click to decrypt]',
               encryptedContent: msg.memo,
               timestamp: msg.timestamp,
               txId: msg.trx_id,

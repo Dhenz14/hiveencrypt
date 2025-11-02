@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Lock, Check, CheckCheck, Clock } from 'lucide-react';
+import { useState } from 'react';
+import { Lock, Check, CheckCheck, Clock, Unlock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Message } from '@shared/schema';
-import { requestKeychainDecryption } from '@/lib/encryption';
 import { useAuth } from '@/contexts/AuthContext';
+import { decryptMemo } from '@/lib/hive';
+import { updateMessageContent } from '@/lib/messageCache';
+import { useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface MessageBubbleProps {
   message: Message;
@@ -14,55 +18,63 @@ interface MessageBubbleProps {
 
 export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: MessageBubbleProps) {
   const { user } = useAuth();
-  const [decryptedContent, setDecryptedContent] = useState<string>(
-    message.decryptedContent || (message.isEncrypted ? '' : message.content)
-  );
-  const [isDecrypting, setIsDecrypting] = useState(
-    message.isEncrypted && !message.decryptedContent
-  );
-  const [decryptError, setDecryptError] = useState(false);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [isDecrypting, setIsDecrypting] = useState(false);
 
-  useEffect(() => {
-    async function decryptMessage() {
-      if (message.decryptedContent) {
-        // Strip leading # if present (Hive Keychain encryption requirement)
-        const content = message.decryptedContent.startsWith('#') 
-          ? message.decryptedContent.substring(1) 
-          : message.decryptedContent;
-        setDecryptedContent(content);
-        setIsDecrypting(false);
-        return;
-      }
+  const isEncryptedPlaceholder = 
+    message.content === '[🔒 Encrypted - Click to decrypt]' ||
+    message.content.includes('[Encrypted');
 
-      if (!message.isEncrypted || !user) {
-        setDecryptedContent(message.content);
-        setIsDecrypting(false);
-        return;
-      }
-
-      try {
-        setIsDecrypting(true);
-        setDecryptError(false);
-
-        const decrypted = await requestKeychainDecryption(
-          message.content,
-          user.username
-        );
-
-        // Strip leading # if present (Hive Keychain encryption requirement)
-        const content = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
-        setDecryptedContent(content);
-      } catch (error) {
-        console.error('Message decryption failed:', error);
-        setDecryptError(true);
-        setDecryptedContent('[Decryption failed]');
-      } finally {
-        setIsDecrypting(false);
-      }
+  const handleDecrypt = async () => {
+    if (!user || !message.encryptedMemo) {
+      return;
     }
 
-    decryptMessage();
-  }, [message.id, message.decryptedContent, message.content, message.isEncrypted, user]);
+    setIsDecrypting(true);
+    
+    try {
+      const decrypted = await decryptMemo(
+        user.username, 
+        message.encryptedMemo,
+        message.sender
+      );
+
+      if (decrypted) {
+        const cleanContent = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+        
+        await updateMessageContent(message.id, cleanContent);
+        
+        queryClient.invalidateQueries({ 
+          queryKey: ['blockchain-messages', user.username] 
+        });
+
+        toast({
+          title: 'Message Decrypted',
+          description: 'Message content is now visible',
+        });
+      } else {
+        throw new Error('Decryption returned null');
+      }
+    } catch (error: any) {
+      console.error('Decryption error:', error);
+      
+      let errorMessage = 'Failed to decrypt message';
+      if (error?.message?.includes('cancel')) {
+        errorMessage = 'Decryption cancelled';
+      } else if (error?.message?.includes('requestDecodeMemo not available')) {
+        errorMessage = 'Keychain decryption not available. Please use latest Hive Keychain.';
+      }
+      
+      toast({
+        title: 'Decryption Failed',
+        description: errorMessage,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsDecrypting(false);
+    }
+  };
 
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -104,12 +116,40 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             : 'bg-card text-card-foreground rounded-bl-md border border-card-border'
         )}
       >
-        <p className={cn(
-          'text-body-lg whitespace-pre-wrap break-words',
-          decryptError && 'text-muted-foreground italic'
-        )}>
-          {isDecrypting ? 'Decrypting...' : decryptedContent}
-        </p>
+        {isEncryptedPlaceholder && !isSent ? (
+          <div className="flex flex-col gap-2">
+            <p className="text-body-lg text-muted-foreground italic">
+              🔒 Encrypted Message
+            </p>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleDecrypt}
+              disabled={isDecrypting}
+              data-testid={`button-decrypt-${message.id}`}
+              className="w-full"
+            >
+              {isDecrypting ? (
+                <>
+                  <Lock className="w-4 h-4 mr-2 animate-pulse" />
+                  Decrypting...
+                </>
+              ) : (
+                <>
+                  <Unlock className="w-4 h-4 mr-2" />
+                  Decrypt Message
+                </>
+              )}
+            </Button>
+          </div>
+        ) : (
+          <p className={cn(
+            'text-body-lg whitespace-pre-wrap break-words',
+            message.content.includes('[Encrypted message sent by you]') && 'text-muted-foreground italic'
+          )}>
+            {message.content}
+          </p>
+        )}
         
         <div
           className={cn(
@@ -117,7 +157,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             isSent ? 'justify-end' : 'justify-start'
           )}
         >
-          {message.isEncrypted && !decryptError && (
+          {message.isEncrypted && !isEncryptedPlaceholder && (
             <Lock className="w-3 h-3 opacity-70" />
           )}
           <span className={cn(

@@ -54,19 +54,26 @@ Version 2.0 eliminates centralized database dependencies by using the Hive block
 #### Messaging Flow (V2.0)
 1. **Send Message:**
    - User composes message
-   - **Optimistic Update**: Message instantly added to IndexedDB and displayed
-   - Message encrypted using Hive Keychain
+   - **Optimistic Update**: Plaintext message instantly added to IndexedDB and displayed
+   - Message encrypted using Hive Keychain (popup for user approval)
    - 0.001 HBD transfer broadcast to blockchain with encrypted memo
    - Message confirmed with blockchain txId once transaction completes
+   - **Important**: Sent message plaintext cached before encryption (you can't decrypt your own sent messages)
 
 2. **Receive Messages:**
    - App polls user's account history every 15-30 seconds
    - Filters for encrypted transfers (memos starting with `#`)
-   - Decrypts memos via Hive Keychain
-   - Stores in IndexedDB for instant subsequent access
-   - Updates UI with new messages
+   - **New received messages**: Stored as encrypted placeholders "[🔒 Encrypted - Click to decrypt]"
+   - **Manual decryption**: User clicks "Decrypt" button → Keychain popup appears → Message decrypted
+   - Decrypted content cached in IndexedDB to avoid re-decryption
+   - Updates UI with decrypted content
 
-3. **Conversation Discovery:**
+3. **Historical Messages:**
+   - **Received messages**: Show with decrypt button, remain encrypted until user manually decrypts
+   - **Sent messages**: Display as "[Encrypted message sent by you]" (cryptographically impossible to decrypt - requires recipient's private key)
+   - **Decryption**: One-time Keychain popup per message, then cached forever
+
+4. **Conversation Discovery:**
    - Scans last 1000 transactions for encrypted messages
    - Identifies unique conversation partners
    - Builds conversation list from cached message metadata
@@ -195,6 +202,14 @@ Version 2.0 eliminates centralized database dependencies by using the Hive block
 - Typing indicators
 
 ## Recent Changes
+- 2025-11-02: **MANUAL MESSAGE DECRYPTION** - Historical encrypted message handling
+  - **Decrypt Button UX**: Received encrypted messages show "[🔒 Encrypted - Click to decrypt]" with decrypt button
+  - **Keychain Integration**: Clicking triggers Hive Keychain popup for user approval
+  - **Smart Caching**: Once decrypted, messages cached in IndexedDB to avoid re-decryption
+  - **Sent Message Handling**: Messages you sent show as "[Encrypted message sent by you]" (cryptographically impossible to decrypt without recipient's private key)
+  - **Error Handling**: Comprehensive error messages for Keychain cancellation and API issues
+  - **Performance**: Zero auto-decrypt on page load - messages decrypt only when user requests
+
 - 2025-11-01: **LOGIN UX FIX** - Improved authentication button robustness
   - **Button Always Clickable**: Removed pre-check disabled state based on Keychain detection
   - **Runtime Validation**: Keychain availability checked on button click, not page load
