@@ -73,7 +73,7 @@ export const requestEncode = (
       return;
     }
 
-    window.hive_keychain.requestEncode(
+    window.hive_keychain.requestEncodeMessage(
       username,
       recipient,
       message,
