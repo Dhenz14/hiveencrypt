@@ -197,13 +197,19 @@ export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string
 ): Promise<string> => {
+  console.log('[DECRYPT] Starting decryption...', { username, memoPreview: encryptedMemo.substring(0, 20) + '...' });
+  
   if (!isKeychainInstalled()) {
+    console.error('[DECRYPT] Keychain not installed');
     throw new Error('Hive Keychain not installed');
   }
+
+  console.log('[DECRYPT] Keychain detected, creating SDK instance...');
 
   try {
     // Use Keychain SDK for decryption
     const keychain = new KeychainSDK(window);
+    console.log('[DECRYPT] KeychainSDK instance created, calling decode...');
     
     const response = await keychain.decode({
       username: username,
@@ -211,14 +217,18 @@ export const requestDecodeMemo = async (
       method: 'memo' as any // Using lowercase as per SDK examples
     });
 
+    console.log('[DECRYPT] Keychain response:', { success: response?.success, hasResult: !!response?.result, error: response?.error });
+
     if (response && response.success && response.result) {
       // For decode, the result contains the decrypted string
-      return String(response.result);
+      const decrypted = String(response.result);
+      console.log('[DECRYPT] Decryption successful, length:', decrypted.length);
+      return decrypted;
     }
     
     throw new Error(response?.error || 'Decryption failed - no result');
   } catch (error: any) {
-    console.error('Keychain decode error:', error);
+    console.error('[DECRYPT] Keychain decode error:', error);
     throw new Error(error?.message || error?.error || 'Failed to decrypt memo');
   }
 };

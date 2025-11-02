@@ -12,12 +12,23 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Polyfill process for browser compatibility with Keychain SDK
+      window.process = {
+        env: { NODE_ENV: 'production' },
+        version: 'v16.0.0',
+        versions: {},
+        browser: true,
+        nextTick: function(fn) { setTimeout(fn, 0); },
+        cwd: function() { return '/'; },
+        platform: 'browser',
+        argv: []
+      };
+      window.global = window;
+    </script>
     <script type="module">
       import { Buffer } from 'buffer';
-      import process from 'process';
       window.Buffer = Buffer;
-      window.process = process;
-      window.global = window;
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
