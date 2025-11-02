@@ -50,54 +50,60 @@ export function useBlockchainMessages({
         partnerUsername
       );
 
-      const blockchainMessages = await getConversationMessages(
-        user.username,
-        partnerUsername,
-        1000
-      );
+      const mergedMessages = new Map<string, MessageCache>();
+      cachedMessages.forEach((msg) => {
+        mergedMessages.set(msg.id, msg);
+      });
 
-      const decryptedMessages: MessageCache[] = [];
-
-      for (const msg of blockchainMessages) {
-        const existingMessage = cachedMessages.find(
-          (cached) => cached.txId === msg.trx_id
+      try {
+        const blockchainMessages = await getConversationMessages(
+          user.username,
+          partnerUsername,
+          1000
         );
 
-        if (existingMessage) {
-          decryptedMessages.push(existingMessage);
-          continue;
+        for (const msg of blockchainMessages) {
+          if (mergedMessages.has(msg.trx_id)) {
+            continue;
+          }
+
+          let decryptedContent: string | null = null;
+
+          if (msg.from === user.username) {
+            decryptedContent = msg.memo.startsWith('#')
+              ? msg.memo.substring(1)
+              : msg.memo;
+          } else {
+            decryptedContent = await decryptMemo(user.username, msg.memo);
+          }
+
+          if (decryptedContent) {
+            const messageCache: MessageCache = {
+              id: msg.trx_id,
+              conversationKey: getConversationKey(user.username, partnerUsername),
+              from: msg.from,
+              to: msg.to,
+              content: decryptedContent,
+              encryptedContent: msg.memo,
+              timestamp: msg.timestamp,
+              txId: msg.trx_id,
+              confirmed: true,
+            };
+
+            await cacheMessage(messageCache);
+            mergedMessages.set(msg.trx_id, messageCache);
+          }
         }
-
-        let decryptedContent: string | null = null;
-
-        if (msg.from === user.username) {
-          decryptedContent = msg.memo.startsWith('#')
-            ? msg.memo.substring(1)
-            : msg.memo;
-        } else {
-          decryptedContent = await decryptMemo(user.username, msg.memo);
-        }
-
-        if (decryptedContent) {
-          const messageCache: MessageCache = {
-            id: msg.trx_id,
-            conversationKey: getConversationKey(user.username, partnerUsername),
-            from: msg.from,
-            to: msg.to,
-            content: decryptedContent,
-            encryptedContent: msg.memo,
-            timestamp: msg.timestamp,
-            txId: msg.trx_id,
-            confirmed: true,
-          };
-
-          await cacheMessage(messageCache);
-          decryptedMessages.push(messageCache);
-        }
+      } catch (blockchainError) {
+        console.error('Failed to fetch from blockchain, using cached data:', blockchainError);
       }
 
-      if (decryptedMessages.length > 0) {
-        const lastMessage = decryptedMessages[decryptedMessages.length - 1];
+      const allMessages = Array.from(mergedMessages.values()).sort(
+        (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      );
+
+      if (allMessages.length > 0) {
+        const lastMessage = allMessages[allMessages.length - 1];
         await updateConversation({
           conversationKey: getConversationKey(user.username, partnerUsername),
           partnerUsername,
@@ -108,7 +114,7 @@ export function useBlockchainMessages({
         });
       }
 
-      return decryptedMessages;
+      return allMessages;
     },
     enabled: enabled && !!user?.username && !!partnerUsername,
     refetchInterval: (data) => {
