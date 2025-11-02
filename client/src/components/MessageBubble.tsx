@@ -43,11 +43,21 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
       if (decrypted) {
         const cleanContent = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
         
+        console.log('[DECRYPT] Updating cache with decrypted content, length:', cleanContent.length);
         await updateMessageContent(message.id, cleanContent);
+        console.log('[DECRYPT] Cache updated successfully');
         
+        // Get partner username from message
+        const partnerUsername = message.sender === user.username ? message.recipient : message.sender;
+        
+        console.log('[DECRYPT] Invalidating query for:', { username: user.username, partner: partnerUsername });
+        
+        // Invalidate with the complete query key including partnerUsername
         queryClient.invalidateQueries({ 
-          queryKey: ['blockchain-messages', user.username] 
+          queryKey: ['blockchain-messages', user.username, partnerUsername] 
         });
+        
+        console.log('[DECRYPT] Query invalidated, UI should refresh');
 
         toast({
           title: 'Message Decrypted',
