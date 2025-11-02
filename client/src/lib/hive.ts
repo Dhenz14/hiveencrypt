@@ -1,5 +1,6 @@
 import { Client } from '@hiveio/dhive';
 import { KeychainSDK } from 'keychain-sdk';
+import * as hivecrypt from 'hivecrypt';
 
 // Initialize Hive client with public node
 export const hiveClient = new Client([
@@ -195,38 +196,46 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
 
 export const requestDecodeMemo = async (
   username: string,
-  encryptedMemo: string
+  encryptedMemo: string,
+  senderUsername?: string
 ): Promise<string> => {
-  console.log('[DECRYPT] Starting decryption...', { username, memoPreview: encryptedMemo.substring(0, 20) + '...' });
+  console.log('[DECRYPT] Starting decryption...', { 
+    username, 
+    sender: senderUsername,
+    memoPreview: encryptedMemo.substring(0, 20) + '...' 
+  });
   
   if (!isKeychainInstalled()) {
     console.error('[DECRYPT] Keychain not installed');
     throw new Error('Hive Keychain not installed');
   }
 
-  console.log('[DECRYPT] Using Hive Keychain requestVerifyKey API...');
+  console.log('[DECRYPT] Using Hive Keychain requestDecodeMessage API...');
 
   return new Promise((resolve, reject) => {
-    // requestVerifyKey is the correct method for memo decryption
-    window.hive_keychain.requestVerifyKey(
-      username,
-      encryptedMemo,
-      'Memo', // Key type
+    // Official Hive Keychain API for memo decryption
+    // Signature: requestDecodeMessage(account, message, key, callback, rpc?)
+    window.hive_keychain.requestDecodeMessage(
+      username,        // Account to decrypt with
+      encryptedMemo,   // Encrypted message starting with #
+      'Memo',          // Key type
       (response: KeychainResponse) => {
         console.log('[DECRYPT] Keychain response:', { 
           success: response?.success, 
           error: response?.error,
           hasResult: !!response?.result,
-          hasMessage: !!response?.message 
+          hasMessage: !!response?.message
         });
         
-        if (response.success) {
-          // The decrypted message is in response.result for requestVerifyKey
-          const decrypted = String(response.result || response.message || '');
+        if (response.success && response.result) {
+          const decrypted = String(response.result);
           console.log('[DECRYPT] Decryption successful! Length:', decrypted.length);
           console.log('[DECRYPT] Plaintext preview:', decrypted.substring(0, 50));
           console.log('[DECRYPT] Full decrypted text:', decrypted);
-          resolve(decrypted);
+          
+          // Remove # prefix if present
+          const cleanText = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+          resolve(cleanText);
         } else {
           console.error('[DECRYPT] Decryption failed:', response.error || response.message);
           reject(new Error(response.error || response.message || 'Decryption failed'));
