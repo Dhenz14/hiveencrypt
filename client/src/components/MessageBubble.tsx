@@ -25,7 +25,11 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
   useEffect(() => {
     async function decryptMessage() {
       if (message.decryptedContent) {
-        setDecryptedContent(message.decryptedContent);
+        // Strip leading # if present (Hive Keychain encryption requirement)
+        const content = message.decryptedContent.startsWith('#') 
+          ? message.decryptedContent.substring(1) 
+          : message.decryptedContent;
+        setDecryptedContent(content);
         setIsDecrypting(false);
         return;
       }
@@ -45,7 +49,9 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
           user.username
         );
 
-        setDecryptedContent(decrypted);
+        // Strip leading # if present (Hive Keychain encryption requirement)
+        const content = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+        setDecryptedContent(content);
       } catch (error) {
         console.error('Message decryption failed:', error);
         setDecryptError(true);
