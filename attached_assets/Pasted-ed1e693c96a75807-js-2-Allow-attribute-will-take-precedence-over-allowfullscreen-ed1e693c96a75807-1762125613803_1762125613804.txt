@@ -1,0 +1,59 @@
+ed1e693c96a75807.js:2 Allow attribute will take precedence over 'allowfullscreen'.
+ed1e693c96a75807.js:2 Allow attribute will take precedence over 'allowpaymentrequest'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.htm…%2F&id=%3Ar3e%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+13ea93ecd30055c3.js:2 Adding extension: ReplDB Export and Import 
+Object
+13ea93ecd30055c3.js:2 Adding extension: CSS Gradient Generator 
+Object
+13ea93ecd30055c3.js:2 Adding extension: JSON Editor 
+Object
+13ea93ecd30055c3.js:2 Adding extension: Prettier - Code Formatter 
+Object
+13ea93ecd30055c3.js:2 Adding extension: Javascript Commands 
+Object
+ed1e693c96a75807.js:2 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+13ea93ecd30055c3.js:2 Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu 
+Object
+13ea93ecd30055c3.js:2 Adding extension: API Request Tester 
+Object
+injected.js:27 [CACHE FIX] Fixed 0 corrupted messages
+injected.js:27 [QUERY] Starting blockchain messages query for: 
+Object
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: 
+Object
+injected.js:27 [QUERY] Cached msg 1: 
+Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: 
+Object
+injected.js:27 [QUERY] Returning msg 1: 
+Object
+injected.js:27 [QUERY] Starting blockchain messages query for: 
+{username: 'dandandan123', partner: 'pro-content'}
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: 
+{id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: 'Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...', contentLength: 129}
+injected.js:27 [QUERY] Cached msg 1: 
+{id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: 
+{id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: 'Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...', contentLength: 129}
+injected.js:27 [QUERY] Returning msg 1: 
+{id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
+﻿
+
