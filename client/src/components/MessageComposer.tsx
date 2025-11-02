@@ -167,6 +167,7 @@ export function MessageComposer({
           conversationId,
           recipientUsername,
           content: encryptedMemo, // Store the encrypted content
+          decryptedContent: messageText, // Store the original plaintext for sender
           txId,
         });
 

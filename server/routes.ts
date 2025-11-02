@@ -306,7 +306,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Send a message (Protected - requires authentication)
   app.post("/api/messages", requireAuth, async (req: any, res) => {
     try {
-      const { conversationId, recipientUsername, content, txId } = req.body;
+      const { conversationId, recipientUsername, content, decryptedContent, txId } = req.body;
       const senderUsername = req.session.username;
 
       // Validate required fields
@@ -371,6 +371,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         recipient: recipientUsername,
         content: content, // Store encrypted content
         encryptedMemo: content, // Also store in encryptedMemo for compatibility
+        decryptedContent: decryptedContent || null, // Store plaintext for sender
         timestamp: new Date().toISOString(),
         status: txId ? 'sent' : 'sending', // If txId provided, mark as sent
         isEncrypted: true,
