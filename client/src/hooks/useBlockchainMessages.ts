@@ -67,15 +67,7 @@ export function useBlockchainMessages({
             continue;
           }
 
-          let decryptedContent: string | null = null;
-
-          if (msg.from === user.username) {
-            decryptedContent = msg.memo.startsWith('#')
-              ? msg.memo.substring(1)
-              : msg.memo;
-          } else {
-            decryptedContent = await decryptMemo(user.username, msg.memo);
-          }
+          const decryptedContent = await decryptMemo(user.username, msg.memo);
 
           if (decryptedContent) {
             const messageCache: MessageCache = {
