@@ -1,0 +1,34 @@
+Session invalid or expired, clearing...
+injected.js:27 [INIT] Cache version outdated, clearing all corrupted data...
+injected.js:27 [INIT] Cache cleared successfully
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [QUERY] Retrieved cached messages: 0
+injected.js:27 [QUERY] Caching new received message with placeholder
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Using Keychain SDK decode() method (2024 recommended approach)...
+injected.js:27 [DECRYPT] Keychain SDK response: Object
+injected.js:27 [DECRYPT] Raw result: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorKNY83ajbLshYGitjUGNxXn3hjuUcTwksuyPoX8ukfFKrunyKVMZHK7xQ3VQFLkEwV23FGwMHb89sxmhC
+injected.js:27 [DECRYPT] Decryption successful! Length: 130
+injected.js:27 [DECRYPT] Plaintext preview: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zor
+injected.js:27 [DECRYPT] Final cleaned text: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorKNY83ajbLshYGitjUGNxXn3hjuUcTwksuyPoX8ukfFKrunyKVMZHK7xQ3VQFLkEwV23FGwMHb89sxmhC
+injected.js:27 [DECRYPT] Updating cache with decrypted content, length: 129
+injected.js:27 [DECRYPT] Cache updated successfully
+injected.js:27 [DECRYPT] Invalidating query for: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [DECRYPT] Query invalidated, UI should refresh
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: 'Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...', contentLength: 129}
+injected.js:27 [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: 'Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...', contentLength: 129}
+injected.js:27 [QUERY] Returning msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
