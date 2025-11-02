@@ -145,7 +145,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
         ) : (
           <p className={cn(
             'text-body-lg whitespace-pre-wrap break-words',
-            message.content.includes('[Encrypted message sent by you]') && 'text-muted-foreground italic'
+            message.content === 'Your encrypted message' && 'text-muted-foreground italic'
           )}>
             {message.content}
           </p>

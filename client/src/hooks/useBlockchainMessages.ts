@@ -52,6 +52,21 @@ export function useBlockchainMessages({
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
+        // Fix old cached messages that have encrypted strings as content
+        // Encrypted strings are long base64-like strings (not readable text)
+        const isEncryptedString = msg.content.length > 50 && 
+                                  !/\s/.test(msg.content) && 
+                                  !msg.content.startsWith('[');
+        
+        if (isEncryptedString) {
+          // This is an old encrypted message, replace with proper placeholder
+          if (msg.from === user.username) {
+            msg.content = 'Your encrypted message';
+          } else {
+            msg.content = '[🔒 Encrypted - Click to decrypt]';
+          }
+        }
+        
         mergedMessages.set(msg.id, msg);
       });
 
@@ -75,7 +90,7 @@ export function useBlockchainMessages({
               conversationKey: getConversationKey(user.username, partnerUsername),
               from: msg.from,
               to: msg.to,
-              content: '[Encrypted message sent by you]',
+              content: 'Your encrypted message',
               encryptedContent: msg.memo,
               timestamp: msg.timestamp,
               txId: msg.trx_id,
