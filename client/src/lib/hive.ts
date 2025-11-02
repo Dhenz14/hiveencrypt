@@ -203,34 +203,18 @@ export const requestDecodeMemo = (
       return;
     }
 
-    if (otherParty) {
-      window.hive_keychain.requestDecode(
-        username,
-        otherParty,
-        encryptedMemo,
-        'Memo',
-        (response: KeychainResponse) => {
-          if (response.success) {
-            resolve(response);
-          } else {
-            reject(response);
-          }
+    window.hive_keychain.requestVerifyKey(
+      username,
+      encryptedMemo,
+      'Memo',
+      (response: KeychainResponse) => {
+        if (response.success) {
+          resolve(response);
+        } else {
+          reject(response);
         }
-      );
-    } else {
-      window.hive_keychain.requestDecode(
-        username,
-        encryptedMemo,
-        'Memo',
-        (response: KeychainResponse) => {
-          if (response.success) {
-            resolve(response);
-          } else {
-            reject(response);
-          }
-        }
-      );
-    }
+      }
+    );
   });
 };
 
