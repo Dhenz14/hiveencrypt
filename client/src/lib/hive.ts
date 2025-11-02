@@ -220,10 +220,30 @@ export const requestDecodeMemo = async (
     console.log('[DECRYPT] Keychain response:', { success: response?.success, hasResult: !!response?.result, error: response?.error });
 
     if (response && response.success && response.result) {
-      // Keychain SDK returns plaintext directly (not base64)
-      const decrypted = String(response.result);
-      console.log('[DECRYPT] Decryption successful, length:', decrypted.length);
-      return decrypted;
+      const rawResult = response.result;
+      console.log('[DECRYPT] Raw result type:', typeof rawResult);
+      console.log('[DECRYPT] Raw result value:', rawResult);
+      console.log('[DECRYPT] Raw result preview:', String(rawResult).substring(0, 50));
+      
+      // Try to detect if it's base64 or plaintext
+      const resultStr = String(rawResult);
+      const isBase64Like = /^[A-Za-z0-9+/=]+$/.test(resultStr) && resultStr.length > 50;
+      console.log('[DECRYPT] Looks like base64?', isBase64Like);
+      
+      if (isBase64Like) {
+        try {
+          const decoded = atob(resultStr);
+          console.log('[DECRYPT] Successfully decoded base64, plaintext length:', decoded.length);
+          console.log('[DECRYPT] Plaintext preview:', decoded.substring(0, 50));
+          return decoded;
+        } catch (e) {
+          console.error('[DECRYPT] Base64 decode failed, returning raw:', e);
+          return resultStr;
+        }
+      } else {
+        console.log('[DECRYPT] Not base64, returning as-is, length:', resultStr.length);
+        return resultStr;
+      }
     }
     
     throw new Error(response?.error || 'Decryption failed - no result');
