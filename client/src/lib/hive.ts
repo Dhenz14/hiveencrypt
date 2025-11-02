@@ -303,9 +303,10 @@ export const decryptMemo = async (
       return decrypted;
     }
     
+    console.warn('Decryption failed:', response.error || 'Unknown error', 'for memo:', encryptedMemo.substring(0, 20) + '...');
     return null;
   } catch (error) {
-    console.error('Error decrypting memo:', error);
+    console.error('Error decrypting memo:', error, 'for memo:', encryptedMemo.substring(0, 20) + '...');
     return null;
   }
 };

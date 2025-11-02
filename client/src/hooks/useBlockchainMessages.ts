@@ -157,18 +157,10 @@ export function useConversationDiscovery() {
 
           if (messages.length > 0) {
             const lastMessage = messages[messages.length - 1];
-            let decryptedContent: string | null = null;
-
-            if (lastMessage.from === user.username) {
-              decryptedContent = lastMessage.memo.startsWith('#')
-                ? lastMessage.memo.substring(1)
-                : lastMessage.memo;
-            } else {
-              decryptedContent = await decryptMemo(
-                user.username,
-                lastMessage.memo
-              );
-            }
+            const decryptedContent = await decryptMemo(
+              user.username,
+              lastMessage.memo
+            );
 
             if (decryptedContent) {
               await updateConversation({
