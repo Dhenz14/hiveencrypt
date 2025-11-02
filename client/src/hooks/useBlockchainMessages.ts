@@ -70,14 +70,13 @@ export function useBlockchainMessages({
           let decryptedContent: string | null = null;
 
           if (msg.from === user.username) {
-            console.log('Sent message found - decrypting with recipient:', partnerUsername);
-            decryptedContent = await decryptMemo(user.username, msg.memo, partnerUsername);
-            
-            if (!decryptedContent) {
-              console.error('Failed to decrypt sent message - this should not happen with correct API usage');
-              decryptedContent = '[Decryption failed - sent by you]';
-            }
+            // Sent messages cannot be decrypted (we don't have recipient's private key)
+            // They should already be cached from when we sent them
+            // Skip this message as it's likely a duplicate from before caching was implemented
+            console.log('Sent message found on blockchain - skipping (should be cached from send)', msg.trx_id);
+            continue;
           } else {
+            // Only decrypt RECEIVED messages
             console.log('Received message found - decrypting with sender:', msg.from);
             decryptedContent = await decryptMemo(user.username, msg.memo, msg.from);
           }
@@ -173,33 +172,33 @@ export function useConversationDiscovery() {
             let decryptedContent: string | null = null;
             
             if (lastMessage.from === user.username) {
-              decryptedContent = await decryptMemo(user.username, lastMessage.memo, partner);
-              if (!decryptedContent) {
-                decryptedContent = '[Decryption failed]';
-              }
+              // Cannot decrypt sent messages (no recipient private key)
+              // Use placeholder for conversation discovery
+              decryptedContent = '[Message sent by you]';
             } else {
               decryptedContent = await decryptMemo(user.username, lastMessage.memo, lastMessage.from);
+              if (!decryptedContent) {
+                decryptedContent = '[Encrypted message]';
+              }
             }
 
-            if (decryptedContent) {
-              await updateConversation({
-                conversationKey: getConversationKey(user.username, partner),
-                partnerUsername: partner,
-                lastMessage: decryptedContent,
-                lastTimestamp: lastMessage.timestamp,
-                unreadCount: 0,
-                lastChecked: new Date().toISOString(),
-              });
+            await updateConversation({
+              conversationKey: getConversationKey(user.username, partner),
+              partnerUsername: partner,
+              lastMessage: decryptedContent,
+              lastTimestamp: lastMessage.timestamp,
+              unreadCount: 0,
+              lastChecked: new Date().toISOString(),
+            });
 
-              conversations.push({
-                conversationKey: getConversationKey(user.username, partner),
-                partnerUsername: partner,
-                lastMessage: decryptedContent,
-                lastTimestamp: lastMessage.timestamp,
-                unreadCount: 0,
-                lastChecked: new Date().toISOString(),
-              });
-            }
+            conversations.push({
+              conversationKey: getConversationKey(user.username, partner),
+              partnerUsername: partner,
+              lastMessage: decryptedContent,
+              lastTimestamp: lastMessage.timestamp,
+              unreadCount: 0,
+              lastChecked: new Date().toISOString(),
+            });
           }
         }
       }
