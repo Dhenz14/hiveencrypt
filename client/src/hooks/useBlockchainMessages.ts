@@ -67,7 +67,14 @@ export function useBlockchainMessages({
             continue;
           }
 
-          const decryptedContent = await decryptMemo(user.username, msg.memo);
+          let decryptedContent: string | null = null;
+
+          if (msg.from === user.username) {
+            console.log('Skipping sent message - cannot decrypt (encrypted with recipient key):', msg.trx_id);
+            continue;
+          } else {
+            decryptedContent = await decryptMemo(user.username, msg.memo);
+          }
 
           if (decryptedContent) {
             const messageCache: MessageCache = {
@@ -156,30 +163,37 @@ export function useConversationDiscovery() {
           );
 
           if (messages.length > 0) {
-            const lastMessage = messages[messages.length - 1];
-            const decryptedContent = await decryptMemo(
-              user.username,
-              lastMessage.memo
-            );
+            const lastReceivedMessage = messages
+              .filter(msg => msg.from !== user.username)
+              .pop();
+            
+            if (lastReceivedMessage) {
+              const decryptedContent = await decryptMemo(
+                user.username,
+                lastReceivedMessage.memo
+              );
 
-            if (decryptedContent) {
-              await updateConversation({
-                conversationKey: getConversationKey(user.username, partner),
-                partnerUsername: partner,
-                lastMessage: decryptedContent,
-                lastTimestamp: lastMessage.timestamp,
-                unreadCount: 0,
-                lastChecked: new Date().toISOString(),
-              });
+              if (decryptedContent) {
+                await updateConversation({
+                  conversationKey: getConversationKey(user.username, partner),
+                  partnerUsername: partner,
+                  lastMessage: decryptedContent,
+                  lastTimestamp: lastReceivedMessage.timestamp,
+                  unreadCount: 0,
+                  lastChecked: new Date().toISOString(),
+                });
 
-              conversations.push({
-                conversationKey: getConversationKey(user.username, partner),
-                partnerUsername: partner,
-                lastMessage: decryptedContent,
-                lastTimestamp: lastMessage.timestamp,
-                unreadCount: 0,
-                lastChecked: new Date().toISOString(),
-              });
+                conversations.push({
+                  conversationKey: getConversationKey(user.username, partner),
+                  partnerUsername: partner,
+                  lastMessage: decryptedContent,
+                  lastTimestamp: lastReceivedMessage.timestamp,
+                  unreadCount: 0,
+                  lastChecked: new Date().toISOString(),
+                });
+              }
+            } else {
+              console.log('No received messages for partner:', partner);
             }
           }
         }
