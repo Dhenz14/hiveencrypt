@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { isKeychainInstalled, requestEncode, requestTransfer } from '@/lib/hive';
-import { apiRequest } from '@/lib/queryClient';
+import { addOptimisticMessage, confirmMessage } from '@/lib/messageCache';
 
 interface MessageComposerProps {
   onSend?: (content: string) => void;
@@ -71,7 +71,36 @@ export function MessageComposer({
     }
 
     const messageText = content.trim();
+    const tempId = `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    
     setIsSending(true);
+
+    // Optimistic Update: Add message to IndexedDB immediately
+    try {
+      await addOptimisticMessage(
+        user.username,
+        recipientUsername,
+        messageText,
+        '', // Will be filled with encrypted content later
+        tempId
+      );
+
+      // Clear the input immediately for instant feedback
+      setContent('');
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
+
+      // Notify parent to refresh UI
+      if (onMessageSent) {
+        onMessageSent();
+      }
+      if (onSend) {
+        onSend(messageText);
+      }
+    } catch (optimisticError) {
+      console.error('Failed to add optimistic message:', optimisticError);
+    }
 
     try {
       // Step 1: Encrypt message using Hive Keychain
@@ -161,40 +190,25 @@ export function MessageComposer({
         return;
       }
 
-      // Step 3: Store message in database via API
+      // Step 3: Confirm message in IndexedDB with real txId
       try {
-        await apiRequest('POST', '/api/messages', {
-          conversationId,
-          recipientUsername,
-          content: encryptedMemo, // Store the encrypted content
-          decryptedContent: messageText, // Store the original plaintext for sender
-          txId,
-        });
-
-        // Success! Clear the input and notify
-        setContent('');
-        if (textareaRef.current) {
-          textareaRef.current.style.height = 'auto';
-        }
+        await confirmMessage(tempId, txId || '');
 
         toast({
-          title: 'Message Sent',
-          description: 'Your encrypted message has been sent successfully',
+          title: 'Message Confirmed',
+          description: 'Your encrypted message has been confirmed on the blockchain',
         });
 
-        // Notify parent component
+        // Refresh to show confirmed status
         if (onMessageSent) {
           onMessageSent();
         }
-        if (onSend) {
-          onSend(messageText);
-        }
-      } catch (apiError: any) {
-        console.error('API error:', apiError);
+      } catch (confirmError: any) {
+        console.error('Failed to confirm message:', confirmError);
         
         toast({
-          title: 'Failed to Save Message',
-          description: apiError?.message || 'Message was sent to blockchain but failed to save locally',
+          title: 'Confirmation Failed',
+          description: 'Message was sent but failed to update confirmation status',
           variant: 'destructive',
         });
       }
