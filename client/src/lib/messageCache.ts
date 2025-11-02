@@ -175,27 +175,13 @@ export async function fixCorruptedMessages(currentUsername: string): Promise<num
   let fixed = 0;
   
   for (const msg of allMessages) {
-    // Detect corrupted messages:
-    // 1. Content equals encryptedContent (direct encrypted storage)
-    const contentMatchesEncrypted = msg.content === msg.encryptedContent;
-    
-    // 2. Content looks like base64 (from old decryption that didn't decode base64)
-    //    - No spaces (real messages usually have spaces)
-    //    - Length > 50 (base64 hashes are long)
-    //    - Only base64 chars (A-Z, a-z, 0-9, +, /, =)
-    //    - Doesn't start with [ (our placeholders do)
-    const looksLikeBase64 = msg.content.length > 50 &&
-                            !msg.content.includes(' ') &&
-                            !msg.content.startsWith('[') &&
-                            /^[A-Za-z0-9+/=]+$/.test(msg.content);
-    
-    const needsFixing = (contentMatchesEncrypted || looksLikeBase64) && msg.encryptedContent;
+    // ONLY fix if content exactly equals encryptedContent
+    // This is the ONLY reliable test - if they're equal, it means
+    // the encrypted memo was incorrectly stored in the content field
+    const needsFixing = msg.content === msg.encryptedContent && msg.encryptedContent;
     
     if (needsFixing) {
-      console.log('[CACHE FIX] Fixing corrupted message:', msg.id.substring(0, 20), {
-        reason: contentMatchesEncrypted ? 'encrypted-in-content' : 'base64-in-content',
-        preview: msg.content.substring(0, 30)
-      });
+      console.log('[CACHE FIX] Fixing corrupted message (content === encrypted):', msg.id.substring(0, 20));
       
       // Fix the content based on whether it's sent or received
       const isReceivedMessage = msg.from !== currentUsername;

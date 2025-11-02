@@ -220,21 +220,10 @@ export const requestDecodeMemo = async (
     console.log('[DECRYPT] Keychain response:', { success: response?.success, hasResult: !!response?.result, error: response?.error });
 
     if (response && response.success && response.result) {
-      // The result is base64-encoded, need to decode it
-      const base64Result = String(response.result);
-      console.log('[DECRYPT] Got base64 result, length:', base64Result.length);
-      
-      try {
-        // Decode base64 to get actual plaintext
-        const decrypted = atob(base64Result);
-        console.log('[DECRYPT] Decryption successful, plaintext length:', decrypted.length);
-        return decrypted;
-      } catch (decodeError) {
-        console.error('[DECRYPT] Failed to decode base64:', decodeError);
-        // If base64 decode fails, return the raw result (might already be plaintext)
-        console.log('[DECRYPT] Returning raw result instead');
-        return base64Result;
-      }
+      // Keychain SDK returns plaintext directly (not base64)
+      const decrypted = String(response.result);
+      console.log('[DECRYPT] Decryption successful, length:', decrypted.length);
+      return decrypted;
     }
     
     throw new Error(response?.error || 'Decryption failed - no result');

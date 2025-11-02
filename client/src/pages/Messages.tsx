@@ -81,9 +81,25 @@ export default function Messages() {
     mapMessageCacheToMessage(msg, selectedConversationId || '')
   );
 
-  // Fix corrupted cached messages on mount
+  // Fix corrupted cached messages on mount and clear base64-corrupted cache
   useEffect(() => {
     if (user?.username) {
+      // One-time cleanup: clear cache to remove old base64-corrupted messages
+      const cacheVersion = localStorage.getItem('hive_cache_version');
+      if (cacheVersion !== '2.0') {
+        console.log('[INIT] Cache version mismatch, clearing old base64-corrupted data...');
+        import('@/lib/messageCache').then(({ clearAllCache }) => {
+          clearAllCache().then(() => {
+            localStorage.setItem('hive_cache_version', '2.0');
+            console.log('[INIT] Cache cleared successfully');
+            queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
+            queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+          });
+        });
+        return;
+      }
+      
+      // Regular corruption fix (for content === encryptedContent cases)
       fixCorruptedMessages(user.username).then(count => {
         if (count > 0) {
           console.log(`[INIT] Fixed ${count} corrupted messages, refreshing...`);
