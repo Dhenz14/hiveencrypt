@@ -202,14 +202,11 @@ export const requestDecodeMemo = (
       return;
     }
 
-    if (!(window as any).hive_keychain.requestDecodeMemo) {
-      reject(new Error('requestDecodeMemo not available'));
-      return;
-    }
-
-    (window as any).hive_keychain.requestDecodeMemo(
+    // Use requestVerifyKey which handles memo decryption
+    window.hive_keychain.requestVerifyKey(
       username,
       encryptedMemo,
+      'Memo',
       (response: any) => {
         if (response.success && response.result) {
           resolve(response.result);
