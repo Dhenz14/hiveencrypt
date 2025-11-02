@@ -1,4 +1,5 @@
 import { Client } from '@hiveio/dhive';
+import { KeychainSDK } from 'keychain-sdk';
 
 // Initialize Hive client with public node
 export const hiveClient = new Client([
@@ -192,30 +193,34 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
   return account?.memo_key || null;
 };
 
-export const requestDecodeMemo = (
+export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string
 ): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    if (!isKeychainInstalled()) {
-      reject(new Error('Hive Keychain not installed'));
-      return;
-    }
+  if (!isKeychainInstalled()) {
+    throw new Error('Hive Keychain not installed');
+  }
 
-    // Use requestVerifyKey which handles memo decryption
-    window.hive_keychain.requestVerifyKey(
-      username,
-      encryptedMemo,
-      'Memo',
-      (response: any) => {
-        if (response.success && response.result) {
-          resolve(response.result);
-        } else {
-          reject(new Error(response.error || response.message || 'Decryption failed'));
-        }
-      }
-    );
-  });
+  try {
+    // Use Keychain SDK for decryption
+    const keychain = new KeychainSDK(window);
+    
+    const response = await keychain.decode({
+      username: username,
+      message: encryptedMemo,
+      method: 'memo' as any // Using lowercase as per SDK examples
+    });
+
+    if (response && response.success && response.result) {
+      // For decode, the result contains the decrypted string
+      return String(response.result);
+    }
+    
+    throw new Error(response?.error || 'Decryption failed - no result');
+  } catch (error: any) {
+    console.error('Keychain decode error:', error);
+    throw new Error(error?.message || error?.error || 'Failed to decrypt memo');
+  }
 };
 
 export const getConversationMessages = async (
