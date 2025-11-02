@@ -204,53 +204,28 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain not installed');
   }
 
-  console.log('[DECRYPT] Keychain detected, creating SDK instance...');
+  console.log('[DECRYPT] Using legacy Hive Keychain API for decryption...');
 
-  try {
-    // Use Keychain SDK for decryption
-    const keychain = new KeychainSDK(window);
-    console.log('[DECRYPT] KeychainSDK instance created, calling decode...');
-    
-    const response = await keychain.decode({
-      username: username,
-      message: encryptedMemo,
-      method: 'memo' as any // Using lowercase as per SDK examples
-    });
-
-    console.log('[DECRYPT] Keychain response:', { success: response?.success, hasResult: !!response?.result, error: response?.error });
-
-    if (response && response.success && response.result) {
-      const rawResult = response.result;
-      console.log('[DECRYPT] Raw result type:', typeof rawResult);
-      console.log('[DECRYPT] Raw result value:', rawResult);
-      console.log('[DECRYPT] Raw result preview:', String(rawResult).substring(0, 50));
-      
-      // Try to detect if it's base64 or plaintext
-      const resultStr = String(rawResult);
-      const isBase64Like = /^[A-Za-z0-9+/=]+$/.test(resultStr) && resultStr.length > 50;
-      console.log('[DECRYPT] Looks like base64?', isBase64Like);
-      
-      if (isBase64Like) {
-        try {
-          const decoded = atob(resultStr);
-          console.log('[DECRYPT] Successfully decoded base64, plaintext length:', decoded.length);
-          console.log('[DECRYPT] Plaintext preview:', decoded.substring(0, 50));
-          return decoded;
-        } catch (e) {
-          console.error('[DECRYPT] Base64 decode failed, returning raw:', e);
-          return resultStr;
+  return new Promise((resolve, reject) => {
+    window.hive_keychain.requestDecodeMessage(
+      username,
+      encryptedMemo,
+      '#' + encryptedMemo, // Required format: need to pass the full encrypted memo
+      (response: KeychainResponse) => {
+        console.log('[DECRYPT] Keychain response:', { success: response?.success, error: response?.error });
+        
+        if (response.success && response.result) {
+          const decrypted = String(response.result);
+          console.log('[DECRYPT] Decryption successful! Length:', decrypted.length);
+          console.log('[DECRYPT] Plaintext preview:', decrypted.substring(0, 50));
+          resolve(decrypted);
+        } else {
+          console.error('[DECRYPT] Decryption failed:', response.error || response.message);
+          reject(new Error(response.error || response.message || 'Decryption failed'));
         }
-      } else {
-        console.log('[DECRYPT] Not base64, returning as-is, length:', resultStr.length);
-        return resultStr;
       }
-    }
-    
-    throw new Error(response?.error || 'Decryption failed - no result');
-  } catch (error: any) {
-    console.error('[DECRYPT] Keychain decode error:', error);
-    throw new Error(error?.message || error?.error || 'Failed to decrypt memo');
-  }
+    );
+  });
 };
 
 export const getConversationMessages = async (

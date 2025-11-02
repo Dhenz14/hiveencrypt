@@ -1,0 +1,34 @@
+Adding extension: Javascript Commands Object
+ed1e693c96a75807.js:2 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+13ea93ecd30055c3.js:2 Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu Object
+(anonymous) @ 13ea93ecd30055c3.js:2
+13ea93ecd30055c3.js:2 Adding extension: API Request Tester Object
+injected.js:27 [INIT] Cache version outdated, clearing all corrupted data...
+injected.js:27 [INIT] Cache cleared successfully
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [QUERY] Retrieved cached messages: 0
+injected.js:27 [QUERY] Caching new received message with placeholder
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Keychain detected, creating SDK instance...
+injected.js:27 [DECRYPT] KeychainSDK instance created, calling decode...
+injected.js:27 [DECRYPT] Keychain response: Object
+injected.js:27 [DECRYPT] Raw result type: string
+injected.js:27 [DECRYPT] Raw result value: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorKNY83ajbLshYGitjUGNxXn3hjuUcTwksuyPoX8ukfFKrunyKVMZHK7xQ3VQFLkEwV23FGwMHb89sxmhC
+injected.js:27 [DECRYPT] Raw result preview: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zor
+injected.js:27 [DECRYPT] Looks like base64? false
+injected.js:27 [DECRYPT] Not base64, returning as-is, length: 130
+injected.js:27 [DECRYPT] Updating cache with decrypted content, length: 129
+injected.js:27 [DECRYPT] Cache updated successfully
+injected.js:27 [DECRYPT] Invalidating query for: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [DECRYPT] Query invalidated, UI should refresh
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
