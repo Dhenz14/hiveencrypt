@@ -41,6 +41,8 @@ export function useBlockchainMessages({
   const query = useQuery({
     queryKey: ['blockchain-messages', user?.username, partnerUsername],
     queryFn: async () => {
+      console.log('[QUERY] Starting blockchain messages query for:', { username: user?.username, partner: partnerUsername });
+      
       if (!user?.username) {
         throw new Error('User not authenticated');
       }
@@ -49,16 +51,27 @@ export function useBlockchainMessages({
         user.username,
         partnerUsername
       );
+      
+      console.log('[QUERY] Retrieved cached messages:', cachedMessages.length);
+      cachedMessages.forEach((msg, idx) => {
+        console.log(`[QUERY] Cached msg ${idx}:`, { 
+          id: msg.id.substring(0, 15) + '...', 
+          from: msg.from, 
+          contentPreview: msg.content.substring(0, 50) + '...',
+          contentLength: msg.content.length 
+        });
+      });
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
-        // Fix old cached messages that have encrypted strings as content
-        // Encrypted strings are long base64-like strings (not readable text)
-        const isEncryptedString = msg.content.length > 50 && 
-                                  !/\s/.test(msg.content) && 
-                                  !msg.content.startsWith('[');
+        // Fix old cached messages that stored the ENCRYPTED memo in the content field
+        // Real encrypted memos start with # (Hive blockchain memo encryption marker)
+        const isOldEncryptedMemo = msg.content.startsWith('#') && 
+                                    msg.encryptedContent && 
+                                    msg.content === msg.encryptedContent;
         
-        if (isEncryptedString) {
+        if (isOldEncryptedMemo) {
+          console.log('[QUERY] Detected old encrypted memo in content field, replacing with placeholder');
           // This is an old encrypted message, replace with proper placeholder
           if (msg.from === user.username) {
             msg.content = 'Your encrypted message';
@@ -124,6 +137,16 @@ export function useBlockchainMessages({
       const allMessages = Array.from(mergedMessages.values()).sort(
         (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
       );
+
+      console.log('[QUERY] Returning messages, total count:', allMessages.length);
+      allMessages.forEach((msg, idx) => {
+        console.log(`[QUERY] Returning msg ${idx}:`, { 
+          id: msg.id.substring(0, 15) + '...', 
+          from: msg.from, 
+          contentPreview: msg.content.substring(0, 50) + '...',
+          contentLength: msg.content.length 
+        });
+      });
 
       if (allMessages.length > 0) {
         const lastMessage = allMessages[allMessages.length - 1];
