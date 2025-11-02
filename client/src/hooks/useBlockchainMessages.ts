@@ -70,15 +70,16 @@ export function useBlockchainMessages({
           let decryptedContent: string | null = null;
 
           if (msg.from === user.username) {
-            console.log('Sent message found - attempting decryption:', msg.trx_id);
-            decryptedContent = await decryptMemo(user.username, msg.memo);
+            console.log('Sent message found - decrypting with recipient:', partnerUsername);
+            decryptedContent = await decryptMemo(user.username, msg.memo, partnerUsername);
             
             if (!decryptedContent) {
-              console.log('Cannot decrypt sent message (encrypted with recipient key) - showing as placeholder:', msg.trx_id);
-              decryptedContent = '[Encrypted message - sent by you]';
+              console.error('Failed to decrypt sent message - this should not happen with correct API usage');
+              decryptedContent = '[Decryption failed - sent by you]';
             }
           } else {
-            decryptedContent = await decryptMemo(user.username, msg.memo);
+            console.log('Received message found - decrypting with sender:', msg.from);
+            decryptedContent = await decryptMemo(user.username, msg.memo, msg.from);
           }
 
           if (decryptedContent) {
@@ -172,12 +173,12 @@ export function useConversationDiscovery() {
             let decryptedContent: string | null = null;
             
             if (lastMessage.from === user.username) {
-              decryptedContent = await decryptMemo(user.username, lastMessage.memo);
+              decryptedContent = await decryptMemo(user.username, lastMessage.memo, partner);
               if (!decryptedContent) {
-                decryptedContent = '[Encrypted message]';
+                decryptedContent = '[Decryption failed]';
               }
             } else {
-              decryptedContent = await decryptMemo(user.username, lastMessage.memo);
+              decryptedContent = await decryptMemo(user.username, lastMessage.memo, lastMessage.from);
             }
 
             if (decryptedContent) {

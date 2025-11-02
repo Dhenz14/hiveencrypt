@@ -194,7 +194,8 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
 
 export const requestDecodeMemo = (
   username: string,
-  encryptedMemo: string
+  encryptedMemo: string,
+  otherParty?: string
 ): Promise<KeychainResponse> => {
   return new Promise((resolve, reject) => {
     if (!isKeychainInstalled()) {
@@ -202,18 +203,34 @@ export const requestDecodeMemo = (
       return;
     }
 
-    window.hive_keychain.requestDecode(
-      username,
-      encryptedMemo,
-      'Memo',
-      (response: KeychainResponse) => {
-        if (response.success) {
-          resolve(response);
-        } else {
-          reject(response);
+    if (otherParty) {
+      window.hive_keychain.requestDecode(
+        username,
+        otherParty,
+        encryptedMemo,
+        'Memo',
+        (response: KeychainResponse) => {
+          if (response.success) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
         }
-      }
-    );
+      );
+    } else {
+      window.hive_keychain.requestDecode(
+        username,
+        encryptedMemo,
+        'Memo',
+        (response: KeychainResponse) => {
+          if (response.success) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
+        }
+      );
+    }
   });
 };
 
@@ -284,14 +301,15 @@ export const discoverConversations = async (
 
 export const decryptMemo = async (
   username: string,
-  encryptedMemo: string
+  encryptedMemo: string,
+  otherParty?: string
 ): Promise<string | null> => {
   try {
     if (!encryptedMemo.startsWith('#')) {
       return encryptedMemo;
     }
 
-    const response = await requestDecodeMemo(username, encryptedMemo);
+    const response = await requestDecodeMemo(username, encryptedMemo, otherParty);
     
     if (response.success && response.result) {
       let decrypted = response.result;
@@ -303,10 +321,10 @@ export const decryptMemo = async (
       return decrypted;
     }
     
-    console.warn('Decryption failed:', response.error || 'Unknown error', 'for memo:', encryptedMemo.substring(0, 20) + '...');
+    console.warn('Decryption failed:', response.error || 'Unknown error', 'for memo:', encryptedMemo.substring(0, 20) + '...', 'otherParty:', otherParty);
     return null;
   } catch (error) {
-    console.error('Error decrypting memo:', error, 'for memo:', encryptedMemo.substring(0, 20) + '...');
+    console.error('Error decrypting memo:', error, 'for memo:', encryptedMemo.substring(0, 20) + '...', 'otherParty:', otherParty);
     return null;
   }
 };
