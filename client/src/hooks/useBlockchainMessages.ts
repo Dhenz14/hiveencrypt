@@ -64,13 +64,21 @@ export function useBlockchainMessages({
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
-        // Fix messages with encrypted content in the content field
-        // ONLY replace if content equals encryptedContent (definitive test!)
-        // If they're different, the message has been successfully decrypted
+        // Fix messages with corrupted content:
+        // 1. Content equals encryptedContent (direct encrypted storage)
         const contentMatchesEncrypted = msg.content === msg.encryptedContent;
         
-        if (contentMatchesEncrypted && msg.encryptedContent) {
-          console.log('[QUERY] Fixing message with encrypted hash in content field', {
+        // 2. Content looks like base64 (from old decryption that didn't decode base64)
+        const looksLikeBase64 = msg.content.length > 50 &&
+                                !msg.content.includes(' ') &&
+                                !msg.content.startsWith('[') &&
+                                /^[A-Za-z0-9+/=]+$/.test(msg.content);
+        
+        const needsFixing = (contentMatchesEncrypted || looksLikeBase64) && msg.encryptedContent;
+        
+        if (needsFixing) {
+          console.log('[QUERY] Fixing corrupted message in query', {
+            reason: contentMatchesEncrypted ? 'encrypted-in-content' : 'base64-in-content',
             contentPreview: msg.content.substring(0, 30) + '...'
           });
           
