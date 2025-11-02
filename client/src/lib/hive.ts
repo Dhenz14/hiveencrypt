@@ -210,39 +210,42 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain not installed');
   }
 
-  console.log('[DECRYPT] Using Hive Keychain requestDecodeMessage API...');
+  console.log('[DECRYPT] Using Keychain SDK decode() method (2024 recommended approach)...');
 
-  return new Promise((resolve, reject) => {
-    // Official Hive Keychain API for memo decryption
-    // Signature: requestDecodeMessage(account, message, key, callback, rpc?)
-    window.hive_keychain.requestDecodeMessage(
-      username,        // Account to decrypt with
-      encryptedMemo,   // Encrypted message starting with #
-      'Memo',          // Key type
-      (response: KeychainResponse) => {
-        console.log('[DECRYPT] Keychain response:', { 
-          success: response?.success, 
-          error: response?.error,
-          hasResult: !!response?.result,
-          hasMessage: !!response?.message
-        });
-        
-        if (response.success && response.result) {
-          const decrypted = String(response.result);
-          console.log('[DECRYPT] Decryption successful! Length:', decrypted.length);
-          console.log('[DECRYPT] Plaintext preview:', decrypted.substring(0, 50));
-          console.log('[DECRYPT] Full decrypted text:', decrypted);
-          
-          // Remove # prefix if present
-          const cleanText = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
-          resolve(cleanText);
-        } else {
-          console.error('[DECRYPT] Decryption failed:', response.error || response.message);
-          reject(new Error(response.error || response.message || 'Decryption failed'));
-        }
-      }
-    );
-  });
+  try {
+    const keychain = new KeychainSDK(window);
+    
+    // Official 2024 approach from PeakD/Ecency
+    const response = await keychain.decode({
+      username: username,
+      message: encryptedMemo,
+      method: 'Memo' // CRITICAL: Use 'method', not 'keyType'! Must be uppercase 'Memo'
+    });
+
+    console.log('[DECRYPT] Keychain SDK response:', { 
+      success: response?.success, 
+      error: response?.error,
+      hasResult: !!response?.result
+    });
+
+    if (response && response.success && response.result) {
+      const decrypted = String(response.result);
+      console.log('[DECRYPT] Raw result:', decrypted);
+      console.log('[DECRYPT] Decryption successful! Length:', decrypted.length);
+      console.log('[DECRYPT] Plaintext preview:', decrypted.substring(0, 50));
+      
+      // Remove # prefix if present
+      const cleanText = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+      console.log('[DECRYPT] Final cleaned text:', cleanText);
+      
+      return cleanText;
+    }
+    
+    throw new Error(response?.error || 'Decryption failed - no result');
+  } catch (error: any) {
+    console.error('[DECRYPT] Keychain SDK decode error:', error);
+    throw new Error(error?.message || error?.error || 'Failed to decrypt memo');
+  }
 };
 
 export const getConversationMessages = async (
