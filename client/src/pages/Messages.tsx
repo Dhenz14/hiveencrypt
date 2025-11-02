@@ -17,11 +17,36 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shared/schema';
 import { useToast } from '@/hooks/use-toast';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
-import { useMessagePolling } from '@/hooks/useMessagePolling';
+import { useQueryClient } from '@tanstack/react-query';
+import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
+import { getConversationKey, getConversation, updateConversation } from '@/lib/messageCache';
+import { getHiveMemoKey } from '@/lib/hive';
+import type { MessageCache, ConversationCache } from '@/lib/messageCache';
 
 const SESSION_KEY = 'hive_messenger_session_token';
+
+const mapMessageCacheToMessage = (msg: MessageCache, conversationId: string): Message => ({
+  id: msg.id,
+  conversationId,
+  sender: msg.from,
+  recipient: msg.to,
+  content: msg.content,
+  encryptedMemo: msg.encryptedContent,
+  decryptedContent: msg.content,
+  timestamp: msg.timestamp,
+  status: msg.confirmed ? 'confirmed' : 'sending',
+  trxId: msg.txId,
+  isEncrypted: true,
+});
+
+const mapConversationCacheToConversation = (conv: ConversationCache): Conversation => ({
+  id: conv.conversationKey,
+  contactUsername: conv.partnerUsername,
+  lastMessage: conv.lastMessage,
+  lastMessageTime: conv.lastTimestamp,
+  unreadCount: conv.unreadCount,
+  isEncrypted: true,
+});
 
 export default function Messages() {
   const { user } = useAuth();
@@ -29,8 +54,7 @@ export default function Messages() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
-  const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
+  const [selectedPartner, setSelectedPartner] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
   const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -42,38 +66,28 @@ export default function Messages() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const sessionToken = typeof window !== 'undefined' ? localStorage.getItem(SESSION_KEY) : null;
-
-  const { isPolling, lastPollTime, error: pollingError } = useMessagePolling({
-    username: user?.username || '',
-    sessionToken,
-    enabled: !!user && !!sessionToken,
-    interval: 30000,
-    onNewMessages: (count) => {
-      toast({
-        title: 'New Messages',
-        description: `You have ${count} new ${count === 1 ? 'message' : 'messages'}`,
-      });
-    },
+  const { data: conversationCaches = [], isLoading: isLoadingConversations, isFetching: isFetchingConversations } = useConversationDiscovery();
+  
+  const { data: messageCaches = [], isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({
+    partnerUsername: selectedPartner,
+    enabled: !!selectedPartner,
   });
+
+  const conversations: Conversation[] = conversationCaches.map(mapConversationCacheToConversation);
+  const selectedConversationId = selectedPartner ? getConversationKey(user?.username || '', selectedPartner) : null;
+  const selectedConversation = conversations.find(c => c.contactUsername === selectedPartner);
+  
+  const currentMessages: Message[] = messageCaches.map(msg => 
+    mapMessageCacheToMessage(msg, selectedConversationId || '')
+  );
 
   useEffect(() => {
-    if (isPolling) {
+    if (isFetchingConversations || isFetchingMessages) {
       setSyncStatus({ status: 'syncing' });
-    } else if (pollingError) {
-      setSyncStatus({ status: 'error', error: pollingError.message });
     } else {
-      setSyncStatus({ status: 'synced', lastSync: lastPollTime || undefined });
+      setSyncStatus({ status: 'synced', lastSyncTime: new Date().toISOString() });
     }
-  }, [isPolling, pollingError, lastPollTime]);
-
-  // Fetch messages for selected conversation
-  const { data: currentMessages = [], isLoading: isLoadingMessages } = useQuery<Message[]>({
-    queryKey: ['/api/conversations', selectedConversationId, 'messages'],
-    enabled: !!selectedConversationId,
-  });
-
-  const selectedConversation = conversations.find(c => c.id === selectedConversationId);
+  }, [isFetchingConversations, isFetchingMessages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -89,7 +103,7 @@ export default function Messages() {
     );
 
     if (existingConversation) {
-      setSelectedConversationId(existingConversation.id);
+      setSelectedPartner(username);
       setIsNewMessageOpen(false);
       toast({
         title: 'Conversation Found',
@@ -99,17 +113,26 @@ export default function Messages() {
     }
 
     try {
-      // Call backend to create/get conversation
-      const response = await apiRequest('POST', '/api/conversations', { 
-        participantUsername: username 
+      const memoKey = await getHiveMemoKey(username);
+      
+      if (!memoKey) {
+        throw new Error(`User @${username} not found on Hive blockchain`);
+      }
+
+      const conversationKey = getConversationKey(user?.username || '', username);
+      await updateConversation({
+        conversationKey,
+        partnerUsername: username,
+        lastMessage: '',
+        lastTimestamp: new Date().toISOString(),
+        unreadCount: 0,
+        lastChecked: new Date().toISOString(),
       });
 
-      const conversation: Conversation = await response.json();
-
-      // Update conversations list with real conversation from backend
-      setConversations(prev => [conversation, ...prev]);
-      setSelectedConversationId(conversation.id);
+      setSelectedPartner(username);
       setIsNewMessageOpen(false);
+
+      queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
 
       toast({
         title: 'Conversation Started',
@@ -125,15 +148,16 @@ export default function Messages() {
         variant: 'destructive',
       });
       
-      // Re-throw to allow NewMessageModal to handle it
       throw error;
     }
   };
 
   const handleMessageSent = () => {
-    // Refetch messages after a new message is sent
     queryClient.invalidateQueries({ 
-      queryKey: ['/api/conversations', selectedConversationId, 'messages'] 
+      queryKey: ['blockchain-messages', user?.username, selectedPartner] 
+    });
+    queryClient.invalidateQueries({ 
+      queryKey: ['blockchain-conversations'] 
     });
   };
 
@@ -203,7 +227,12 @@ export default function Messages() {
         <ConversationsList
           conversations={conversations}
           selectedConversationId={selectedConversationId || undefined}
-          onSelectConversation={setSelectedConversationId}
+          onSelectConversation={(id) => {
+            const conversation = conversations.find(c => c.id === id);
+            if (conversation) {
+              setSelectedPartner(conversation.contactUsername);
+            }
+          }}
           onNewMessage={() => setIsNewMessageOpen(true)}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
