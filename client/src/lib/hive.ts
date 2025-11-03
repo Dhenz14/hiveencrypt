@@ -197,13 +197,16 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
 const MEMO_KEY_STORAGE_KEY = 'hive_messenger_encrypted_memo_key';
 let memoKeyCache: string | null = null;
 
-// Simple AES-like encryption using Web Crypto API
+// Secure memo key encryption using Web Crypto API with random salt per encryption
 async function encryptMemoKey(memoKey: string, passphrase: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(memoKey);
   const passphraseData = encoder.encode(passphrase);
   
-  // Derive key from passphrase
+  // Generate random salt (16 bytes) for PBKDF2 - unique per encryption
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  
+  // Derive key from passphrase using PBKDF2
   const keyMaterial = await crypto.subtle.importKey(
     'raw',
     passphraseData,
@@ -215,7 +218,7 @@ async function encryptMemoKey(memoKey: string, passphrase: string): Promise<stri
   const key = await crypto.subtle.deriveKey(
     {
       name: 'PBKDF2',
-      salt: encoder.encode('hive-messenger-salt-v1'),
+      salt: salt,
       iterations: 100000,
       hash: 'SHA-256'
     },
@@ -225,7 +228,7 @@ async function encryptMemoKey(memoKey: string, passphrase: string): Promise<stri
     ['encrypt', 'decrypt']
   );
   
-  // Generate random IV
+  // Generate random IV (12 bytes) for AES-GCM
   const iv = crypto.getRandomValues(new Uint8Array(12));
   
   // Encrypt
@@ -235,10 +238,11 @@ async function encryptMemoKey(memoKey: string, passphrase: string): Promise<stri
     data
   );
   
-  // Combine IV + encrypted data
-  const combined = new Uint8Array(iv.length + encrypted.byteLength);
-  combined.set(iv, 0);
-  combined.set(new Uint8Array(encrypted), iv.length);
+  // Combine salt + IV + encrypted data
+  const combined = new Uint8Array(salt.length + iv.length + encrypted.byteLength);
+  combined.set(salt, 0);
+  combined.set(iv, salt.length);
+  combined.set(new Uint8Array(encrypted), salt.length + iv.length);
   
   // Convert to base64
   return btoa(String.fromCharCode.apply(null, Array.from(combined)));
@@ -249,7 +253,15 @@ async function decryptMemoKey(encryptedData: string, passphrase: string): Promis
   const decoder = new TextDecoder();
   const passphraseData = encoder.encode(passphrase);
   
-  // Derive key from passphrase
+  // Decode from base64
+  const combined = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
+  
+  // Extract salt, IV and encrypted data
+  const salt = combined.slice(0, 16);
+  const iv = combined.slice(16, 28);
+  const encrypted = combined.slice(28);
+  
+  // Derive key from passphrase using the stored salt
   const keyMaterial = await crypto.subtle.importKey(
     'raw',
     passphraseData,
@@ -261,7 +273,7 @@ async function decryptMemoKey(encryptedData: string, passphrase: string): Promis
   const key = await crypto.subtle.deriveKey(
     {
       name: 'PBKDF2',
-      salt: encoder.encode('hive-messenger-salt-v1'),
+      salt: salt,
       iterations: 100000,
       hash: 'SHA-256'
     },
@@ -270,13 +282,6 @@ async function decryptMemoKey(encryptedData: string, passphrase: string): Promis
     false,
     ['encrypt', 'decrypt']
   );
-  
-  // Decode from base64
-  const combined = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
-  
-  // Extract IV and encrypted data
-  const iv = combined.slice(0, 12);
-  const encrypted = combined.slice(12);
   
   // Decrypt
   const decrypted = await crypto.subtle.decrypt(
