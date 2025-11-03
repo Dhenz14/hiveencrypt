@@ -1,0 +1,34 @@
+animations'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Unrecognized feature: 'legacy-image-formats'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Unrecognized feature: 'navigation-override'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Unrecognized feature: 'oversized-images'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Unrecognized feature: 'publickey-credentials'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Unrecognized feature: 'speaker-selection'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Unrecognized feature: 'unoptimized-images'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Unrecognized feature: 'unsized-media'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Argl%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/api/auth/verify:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+injected.js:27 [CACHE FIX] Fixed 0 corrupted messages
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo with: Object
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo...
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] No cached memo key - prompting user
+injected.js:27 [decryptMemo] ❌ ERROR: MEMO_KEY_REQUIRED
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] Error for memo: #LDT34GkyqaY7iGnNvkLy13H95oPddgQwd8fPPhj... otherParty: pro-content
+(anonymous) @ injected.js:27
+injected.js:27 [MessageBubble] decryptMemo returned: null
+injected.js:27 Decryption error: Error: Decryption returned null
+    at handleDecrypt (MessageBubble.tsx:102:15)

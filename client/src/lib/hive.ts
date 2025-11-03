@@ -497,6 +497,12 @@ export const decryptMemo = async (
   } catch (error: any) {
     console.error('[decryptMemo] ❌ ERROR:', error?.message || error);
     console.error('[decryptMemo] Error for memo:', encryptedMemo.substring(0, 40) + '...', 'otherParty:', otherParty);
+    
+    // Re-throw MEMO_KEY_REQUIRED so MessageBubble can show the dialog
+    if (error?.message === 'MEMO_KEY_REQUIRED') {
+      throw error;
+    }
+    
     return null;
   }
 };
