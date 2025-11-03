@@ -76,12 +76,13 @@ export function MessageComposer({
     setIsSending(true);
 
     // Optimistic Update: Add message to IndexedDB immediately
+    // Note: We store the plaintext for sent messages since we can decrypt them later
     try {
       await addOptimisticMessage(
         user.username,
         recipientUsername,
-        messageText,
-        '', // Will be filled with encrypted content later
+        messageText, // Store plaintext initially (will be encrypted on blockchain)
+        '', // Will be filled with encrypted content after encryption
         tempId
       );
 
@@ -190,13 +191,13 @@ export function MessageComposer({
         return;
       }
 
-      // Step 3: Confirm message in IndexedDB with real txId
+      // Step 3: Confirm message in IndexedDB with real txId and encrypted content
       try {
-        await confirmMessage(tempId, txId || '');
+        await confirmMessage(tempId, txId || '', encryptedMemo);
 
         toast({
-          title: 'Message Confirmed',
-          description: 'Your encrypted message has been confirmed on the blockchain',
+          title: 'Message Sent',
+          description: 'Your encrypted message has been sent on the blockchain',
         });
 
         // Refresh to show confirmed status

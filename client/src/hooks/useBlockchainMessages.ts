@@ -66,13 +66,11 @@ export function useBlockchainMessages({
       cachedMessages.forEach((msg) => {
         // Detect corrupted messages: content should NEVER contain base64/encrypted data
         // Valid content patterns:
-        // - Sent: "Your encrypted message" (22 chars)
-        // - Received placeholder: "[🔒 Encrypted - Click to decrypt]" (35 chars)
+        // - Encrypted placeholder: "[🔒 Encrypted - Click to decrypt]" (universal for both sent/received)
         // - Decrypted: actual message text (variable, but NOT base64-like)
         const isLikelyCorrupted = 
           msg.content.length > 80 && // Too long for placeholder
-          !msg.content.includes('🔒') && // Doesn't have emoji
-          !msg.content.includes('Your encrypted') && // Not sent placeholder
+          !msg.content.includes('🔒') && // Doesn't have emoji (encrypted placeholder)
           msg.content !== msg.encryptedContent; // Not exact match (already handled)
         
         const needsFixing = isLikelyCorrupted || (msg.content === msg.encryptedContent && msg.encryptedContent);
@@ -84,12 +82,8 @@ export function useBlockchainMessages({
             contentLength: msg.content.length
           });
           
-          // Replace with appropriate placeholder
-          if (msg.from === user.username) {
-            msg.content = 'Your encrypted message';
-          } else {
-            msg.content = '[🔒 Encrypted - Click to decrypt]';
-          }
+          // Replace with universal encrypted placeholder (works for both sent and received)
+          msg.content = '[🔒 Encrypted - Click to decrypt]';
           
           // Update cache with fixed content
           cacheMessage(msg).catch(err => console.error('[QUERY] Failed to update cached message:', err));
@@ -111,14 +105,14 @@ export function useBlockchainMessages({
           }
 
           if (msg.from === user.username) {
-            // Sent messages cannot be decrypted (we don't have recipient's private key)
-            // Store them as encrypted placeholders
+            // Sent messages CAN be decrypted using sender's memo key (ECDH encryption)
+            // Store as encrypted placeholder initially, user can decrypt with Keychain
             const messageCache: MessageCache = {
               id: msg.trx_id,
               conversationKey: getConversationKey(user.username, partnerUsername),
               from: msg.from,
               to: msg.to,
-              content: 'Your encrypted message',
+              content: '[🔒 Encrypted - Click to decrypt]',
               encryptedContent: msg.memo,
               timestamp: msg.timestamp,
               txId: msg.trx_id,

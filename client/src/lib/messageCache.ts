@@ -233,7 +233,7 @@ export async function addOptimisticMessage(
   });
 }
 
-export async function confirmMessage(tempId: string, txId: string): Promise<void> {
+export async function confirmMessage(tempId: string, txId: string, encryptedContent?: string): Promise<void> {
   const db = await getDB();
   const message = await db.get('messages', tempId);
   
@@ -243,6 +243,11 @@ export async function confirmMessage(tempId: string, txId: string): Promise<void
     message.id = txId;
     message.txId = txId;
     message.confirmed = true;
+    
+    // Store encrypted content if provided (for future decryption on other devices)
+    if (encryptedContent) {
+      message.encryptedContent = encryptedContent;
+    }
     
     await db.put('messages', message);
   }

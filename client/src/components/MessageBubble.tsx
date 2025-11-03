@@ -142,10 +142,10 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             : 'bg-card text-card-foreground rounded-bl-md border border-card-border'
         )}
       >
-        {isEncryptedPlaceholder && !isSent ? (
+        {isEncryptedPlaceholder ? (
           <div className="flex flex-col gap-2">
             <p className="text-body-lg text-muted-foreground italic">
-              🔒 Encrypted Message
+              🔒 Encrypted Message {isSent && '(Sent)'}
             </p>
             <Button
               size="sm"
