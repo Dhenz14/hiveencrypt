@@ -1,0 +1,49 @@
+over 'allowpaymentrequest'.
+13ea93ecd30055c3.js:2 Adding extension: ReplDB Export and Import Object
+13ea93ecd30055c3.js:2 Adding extension: CSS Gradient Generator Object
+13ea93ecd30055c3.js:2 Adding extension: JSON Editor Object
+13ea93ecd30055c3.js:2 Adding extension: Prettier - Code Formatter Object
+13ea93ecd30055c3.js:2 Adding extension: Javascript Commands Object
+ed1e693c96a75807.js:2 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+13ea93ecd30055c3.js:2 Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu Object
+(anonymous) @ 13ea93ecd30055c3.js:2
+13ea93ecd30055c3.js:2 Adding extension: API Request Tester Object
+injected.js:27 [CACHE FIX] Fixed 0 corrupted messages
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo with: Object
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo...
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Using direct Keychain extension requestVerifyKey API...
+injected.js:27 [DECRYPT] Parameters: Object
+injected.js:27 [DECRYPT] Extension API response: Object
+injected.js:27 [DECRYPT] Full decrypted value: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorKNY83ajbLshYGitjUGNxXn3hjuUcTwksuyPoX8ukfFKrunyKVMZHK7xQ3VQFLkEwV23FGwMHb89sxmhC
+injected.js:27 [DECRYPT] ⚠️ STILL ENCRYPTED after Keychain call!
+(anonymous) @ injected.js:27
+injected.js:27 [DECRYPT] This means requestVerifyKey is not decrypting properly
+injected.js:27 [DECRYPT] Attempting hivecrypt fallback is not possible (no private key access)
+injected.js:27 [decryptMemo] ❌ ERROR: Keychain returned encrypted text instead of plaintext. Please ensure you have the correct memo key imported in Hive Keychain.
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] Error for memo: #LDT34GkyqaY7iGnNvkLy13H95oPddgQwd8fPPhj... otherParty: pro-content
+(anonymous) @ injected.js:27
+injected.js:27 [MessageBubble] decryptMemo returned: null
+injected.js:27 Decryption error: Error: Decryption returned null
+    at handleDecrypt (MessageBubble.tsx:85:15)
+(anonymous) @ injected.js:27
+injected.js:27 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Returning msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
