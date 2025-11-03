@@ -1,5 +1,5 @@
 import { Client, PrivateKey, PublicKey, Memo } from '@hiveio/dhive';
-import { KeychainSDK, KeychainKeyTypes } from 'keychain-sdk';
+import { KeychainSDK } from 'keychain-sdk';
 
 // Initialize Hive client with public node
 export const hiveClient = new Client([
@@ -220,66 +220,38 @@ export const requestDecodeMemo = async (
     fullMemo: encryptedMemo
   });
   
-  // STEP 1: Try Keychain first (the proper way - like Hive.blog)
-  try {
-    console.log('[DECRYPT] Attempting Keychain decryption via requestVerifyKey...');
-    
-    const keychain = new KeychainSDK(window);
-    
-    const result = await keychain.decode({
-      username: username,
-      message: encryptedMemo,
-      method: KeychainKeyTypes.memo,
-    });
-    
-    if (result.success && result.result) {
-      console.log('[DECRYPT] ✅ Keychain decryption SUCCESS!');
-      
-      // The result is the decrypted string
-      const decryptedText = String(result.result);
-      console.log('[DECRYPT] Decrypted content:', decryptedText.substring(0, 50) + '...');
-      
-      // Remove leading # if present
-      const decoded = decryptedText.startsWith('#') ? decryptedText.substring(1) : decryptedText;
-      return decoded;
-    } else {
-      console.log('[DECRYPT] Keychain returned unsuccessful response:', result);
-      throw new Error(result.error || 'Keychain decryption failed');
-    }
-  } catch (keychainError: any) {
-    console.log('[DECRYPT] ⚠️ Keychain decryption failed:', keychainError.message || keychainError);
-    console.log('[DECRYPT] Falling back to manual memo key entry...');
-    
-    // STEP 2: Fall back to manual memo key (if cached)
-    const memoKey = getMemoKey();
-    
-    if (!memoKey) {
-      console.log('[DECRYPT] No cached memo key - prompting user');
-      throw new Error('MEMO_KEY_REQUIRED');
-    }
+  // Check if we have a cached memo key
+  const memoKey = getMemoKey();
+  
+  if (!memoKey) {
+    console.log('[DECRYPT] No cached memo key - prompting user');
+    throw new Error('MEMO_KEY_REQUIRED');
+  }
 
-    try {
-      console.log('[DECRYPT] Using @hiveio/dhive Memo.decode with manual key...');
-      
-      // Use dhive's Memo.decode function (handles all the crypto internally)
-      const decoded = Memo.decode(memoKey, encryptedMemo);
-      
-      console.log('[DECRYPT] ✅ Manual decryption success!');
-      
-      // Remove leading # if present in decoded text
-      return decoded.startsWith('#') ? decoded.substring(1) : decoded;
-    } catch (error: any) {
-      console.error('[DECRYPT] ❌ Manual decryption error:', error.message || error);
-      
-      // Provide helpful error messages
-      if (error.message?.includes('Invalid private key')) {
-        throw new Error('Invalid memo key format. Please check your private memo key.');
-      } else if (error.message?.includes('checksum')) {
-        throw new Error('Memo decryption failed - corrupted or wrong key');
-      }
-      
-      throw new Error(`Decryption failed: ${error.message || error}`);
+  try {
+    console.log('[DECRYPT] Using @hiveio/dhive Memo.decode...');
+    
+    // Use dhive's Memo.decode function (handles all the crypto internally)
+    // This is the ONLY method that works for P2P memo decryption
+    // Keychain's requestVerifyKey does NOT work for P2P memos
+    const decoded = Memo.decode(memoKey, encryptedMemo);
+    
+    console.log('[DECRYPT] ✅ Decryption success!');
+    console.log('[DECRYPT] Decrypted content length:', decoded.length);
+    
+    // Remove leading # if present in decoded text
+    return decoded.startsWith('#') ? decoded.substring(1) : decoded;
+  } catch (error: any) {
+    console.error('[DECRYPT] ❌ Decryption error:', error.message || error);
+    
+    // Provide helpful error messages
+    if (error.message?.includes('Invalid private key')) {
+      throw new Error('Invalid memo key format. Please check your private memo key.');
+    } else if (error.message?.includes('checksum')) {
+      throw new Error('Memo decryption failed - corrupted or wrong key');
     }
+    
+    throw new Error(`Decryption failed: ${error.message || error}`);
   }
 };
 

@@ -1,0 +1,41 @@
+called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+injected.js:27 [CACHE FIX] Fixed 0 corrupted messages
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo with: Object
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo...
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Attempting Keychain decryption via requestVerifyKey...
+injected.js:27 [DECRYPT] ✅ Keychain decryption SUCCESS!
+injected.js:27 [DECRYPT] Decrypted content: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zor...
+injected.js:27 [decryptMemo] requestDecodeMemo returned: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [decryptMemo] Final result: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [MessageBubble] decryptMemo returned: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [DECRYPT] Updating cache with decrypted content, length: 129
+injected.js:27 [DECRYPT] Cache updated successfully
+injected.js:27 [DECRYPT] Invalidating query for: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [DECRYPT] Query invalidated, UI should refresh
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Fixing corrupted message Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Returning msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: 'Your encrypted message...', contentLength: 22}
