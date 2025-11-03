@@ -1,0 +1,49 @@
+[MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo with: Object
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo...
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Trying KeychainSDK decode method...
+injected.js:27 [DECRYPT] KeychainSDK.decode result: Object
+injected.js:27 [DECRYPT] ✅ Success via SDK! Decrypted: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zor
+injected.js:27 [decryptMemo] requestDecodeMemo returned: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [decryptMemo] Final result: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [MessageBubble] decryptMemo returned: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [DECRYPT] Updating cache with decrypted content, length: 129
+injected.js:27 [DECRYPT] Cache updated successfully
+injected.js:27 [DECRYPT] Invalidating query for: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [DECRYPT] Query invalidated, UI should refresh
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Fixing corrupted message Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo with: Object
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo...
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Trying KeychainSDK decode method...
+injected.js:27 [DECRYPT] KeychainSDK.decode result: Object
+injected.js:27 [DECRYPT] ✅ Success via SDK! Decrypted: #Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zor
+injected.js:27 [decryptMemo] requestDecodeMemo returned: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [decryptMemo] Final result: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [MessageBubble] decryptMemo returned: Ae2UFiiEds8Ub3xT1QUJi1p1eFBz4tegVEyK45tJPajMW1zorK...
+injected.js:27 [DECRYPT] Updating cache with decrypted content, length: 129
+injected.js:27 [DECRYPT] Cache updated successfully
+injected.js:27 [DECRYPT] Invalidating query for: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [DECRYPT] Query invalidated, UI should refresh
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Fixing corrupted message Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
