@@ -13,7 +13,6 @@ import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { EmptyState, NoConversationSelected } from '@/components/EmptyState';
 import { BlockchainSyncIndicator } from '@/components/BlockchainSyncIndicator';
-import { UnlockMemoKeyDialog } from '@/components/UnlockMemoKeyDialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shared/schema';
@@ -21,7 +20,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages } from '@/lib/messageCache';
-import { getHiveMemoKey, hasSavedMemoKey, getMemoKey } from '@/lib/hive';
+import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache } from '@/lib/messageCache';
 
 const SESSION_KEY = 'hive_messenger_session_token';
@@ -60,7 +59,6 @@ export default function Messages() {
   const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isUnlockDialogOpen, setIsUnlockDialogOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
@@ -120,14 +118,6 @@ export default function Messages() {
       setSyncStatus({ status: 'synced', lastSyncTime: new Date().toISOString() });
     }
   }, [isFetchingConversations, isFetchingMessages]);
-
-  // Check if user has saved encrypted memo key on mount
-  useEffect(() => {
-    if (user && hasSavedMemoKey() && !getMemoKey()) {
-      // User has a saved encrypted memo key but hasn't unlocked it yet
-      setIsUnlockDialogOpen(true);
-    }
-  }, [user]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -357,17 +347,6 @@ export default function Messages() {
       <SettingsModal
         open={isSettingsOpen}
         onOpenChange={setIsSettingsOpen}
-      />
-
-      <UnlockMemoKeyDialog
-        open={isUnlockDialogOpen}
-        onOpenChange={setIsUnlockDialogOpen}
-        onUnlock={() => {
-          toast({
-            title: 'Session Unlocked',
-            description: 'You can now decrypt messages',
-          });
-        }}
       />
     </div>
   );
