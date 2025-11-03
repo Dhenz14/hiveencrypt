@@ -19,7 +19,7 @@ This version eliminates centralized database dependencies by using the Hive bloc
 **Messaging Flow (V2.0):**
 1.  **Send Message**: Optimistic update to IndexedDB, message encrypted via Hive Keychain, 0.001 HBD transfer broadcast with encrypted memo, and confirmation with blockchain transaction ID. Sent message plaintext is cached before encryption.
 2.  **Receive Messages**: App polls account history for encrypted transfers. New received messages are stored as encrypted placeholders and require manual decryption via Hive Keychain. Decrypted content is cached in IndexedDB.
-3.  **Historical Messages**: Received messages display with a decrypt button, remaining encrypted until user interaction. Sent messages display as "[Encrypted message sent by you]" as they cannot be cryptographically decrypted by the sender.
+3.  **Historical Messages**: Both sent and received messages can be decrypted using the user's memo key via Hive Keychain. PeakD proves this works - users can decrypt their own sent messages. Messages display with a decrypt button, remaining encrypted until user interaction.
 4.  **Conversation Discovery**: Scans recent transactions to identify unique conversation partners and build a conversation list from cached message metadata.
 
 **Data Flow:**

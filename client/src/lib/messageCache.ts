@@ -247,19 +247,37 @@ export async function confirmMessage(tempId: string, txId: string, encryptedCont
   const db = await getDB(username);
   const message = await db.get('messages', tempId);
   
-  if (message) {
+  if (!message) {
+    console.warn('[confirmMessage] Message not found in cache:', tempId);
+    return;
+  }
+  
+  try {
+    // Delete the temporary message
     await db.delete('messages', tempId);
     
+    // Update message with blockchain confirmation
     message.id = txId;
     message.txId = txId;
     message.confirmed = true;
     
-    // Store encrypted content if provided (for future decryption on other devices)
+    // Store encrypted content if provided (for sent messages to enable decryption)
+    // This allows users to decrypt their own sent messages using their memo key (PeakD does this)
     if (encryptedContent) {
       message.encryptedContent = encryptedContent;
     }
     
+    // Store confirmed message with new ID
     await db.put('messages', message);
+    
+    console.log('[confirmMessage] Successfully confirmed message:', {
+      tempId,
+      txId,
+      hasEncryptedContent: !!encryptedContent
+    });
+  } catch (error) {
+    console.error('[confirmMessage] Error confirming message:', error);
+    throw error;
   }
 }
 
