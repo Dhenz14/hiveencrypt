@@ -49,8 +49,8 @@ The client-side browser, utilizing React UI, TanStack Query, IndexedDB, and Hive
 ### Security Considerations:
 -   **Authentication**: Server-side session validation, Keychain signature verification, secure session tokens (256-bit random hex with 7-day expiry), protected endpoints, and no client-side trust (localStorage only stores session token).
 -   **Encryption**: Messages encrypted before blockchain submission using Hive memo encryption (ECDH key exchange + AES-CBC). Decryption handled via Hive Keychain's native browser extension API.
--   **Memo Decryption**: Uses `window.hive_keychain.requestVerifyKey(username, encryptedMemo, 'Memo', callback)` - the EXACT method PeakD uses. This is the ONLY working decryption method. The user's private memo key never leaves the Keychain extension. Users see a Keychain popup to confirm decryption for each message.
--   **IMPORTANT - DO NOT CHANGE**: The decryption method is `requestVerifyKey` NOT `decode()`. This is proven to work in PeakD and is the official Keychain API. Never switch to SDK methods or other approaches.
+-   **Memo Decryption**: Uses `KeychainSDK.decode({ username, message: encryptedMemo, method: 'memo' })` - the correct method for decrypting Hive memos. This method handles two-way ECDH encryption between sender and receiver memo keys. The user's private memo key never leaves the Keychain extension. Users see a Keychain popup to confirm decryption for each message.
+-   **Response Structure**: The SDK's decode method returns `{ success: boolean, data: { message: string, ... } }` where `data.message` contains the decrypted plaintext.
 -   **Known Keychain Warning**: When sending messages, Hive Keychain may display a "private key" security warning. **This is a FALSE POSITIVE** caused by pattern detection in the encrypted memo data. The application NEVER sends private keys - only encrypted message content. The warning appears because encrypted data can contain character patterns that resemble private keys. This is Keychain being cautious, which is good, but the warning can be safely dismissed.
 
 ## External Dependencies

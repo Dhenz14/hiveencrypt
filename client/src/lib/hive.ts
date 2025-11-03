@@ -198,39 +198,51 @@ export const requestDecodeMemo = async (
   encryptedMemo: string,
   senderUsername?: string
 ): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain extension not found. Please install it.'));
-      return;
-    }
+  // Handle unencrypted memos
+  if (!encryptedMemo.startsWith('#')) {
+    return encryptedMemo;
+  }
 
-    // Handle unencrypted memos
-    if (!encryptedMemo.startsWith('#')) {
-      resolve(encryptedMemo);
-      return;
-    }
-
-    // Use requestVerifyKey - this is what PeakD actually uses for memo decryption
-    // Source: https://peakd.com/@steempeak/decrypt-memos-on-steempeak-com-using-keychain
-    window.hive_keychain.requestVerifyKey(
+  try {
+    const keychain = new KeychainSDK(window);
+    
+    console.log('[requestDecodeMemo] Using KeychainSDK.decode() for memo decryption');
+    console.log('[requestDecodeMemo] Parameters:', {
       username,
-      encryptedMemo,
-      'Memo',
-      (response: any) => {
-        if (response.success) {
-          // response.result contains the actual decrypted plaintext
-          resolve(response.result);
-        } else {
-          const errorMsg = response.message || response.error || 'Decryption failed';
-          if (errorMsg.toLowerCase().includes('cancel')) {
-            reject(new Error('User cancelled decryption'));
-          } else {
-            reject(new Error(errorMsg));
-          }
-        }
+      messagePreview: encryptedMemo.substring(0, 40) + '...',
+      method: 'memo'
+    });
+
+    const response = await keychain.decode({ 
+      username, 
+      message: encryptedMemo, 
+      method: KeychainKeyTypes.memo 
+    });
+
+    console.log('[requestDecodeMemo] KeychainSDK response:', {
+      success: response.success,
+      hasData: !!response.data,
+      hasMessage: !!response.data?.message,
+      messagePreview: response.data?.message ? response.data.message.substring(0, 50) + '...' : null
+    });
+
+    if (response.success && response.data?.message) {
+      return response.data.message;
+    } else {
+      const errorMsg = response.message || response.error || 'Decryption failed';
+      if (errorMsg.toLowerCase().includes('cancel')) {
+        throw new Error('User cancelled decryption');
+      } else {
+        throw new Error(errorMsg);
       }
-    );
-  });
+    }
+  } catch (error: any) {
+    console.error('[requestDecodeMemo] Error:', error);
+    if (error.message) {
+      throw error;
+    }
+    throw new Error('Hive Keychain extension not found. Please install it.');
+  }
 };
 
 export const getConversationMessages = async (
@@ -319,12 +331,12 @@ export const decryptMemo = async (
       return encryptedMemo;
     }
 
-    console.log('[decryptMemo] Calling requestDecodeMemo (uses Keychain)...');
+    console.log('[decryptMemo] Calling requestDecodeMemo (uses KeychainSDK.decode())...');
     const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty);
     console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
-      // Keychain's requestVerifyKey returns clean plaintext, no need to strip anything
+      // KeychainSDK.decode() returns clean plaintext, no need to strip anything
       console.log('[decryptMemo] Final result:', decrypted.substring(0, 50) + '...');
       return decrypted;
     }
