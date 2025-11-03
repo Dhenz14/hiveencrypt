@@ -1,0 +1,187 @@
+As a developer integrating Hive Keychain for P2P encrypted memos in your app (assuming a web-based dApp on the Hive blockchain), you'll use the Keychain SDK to handle encryption (encoding) and decryption (decoding) securely without exposing private keys. This relies on the user's memo key being imported into their Keychain extension/app, and your dApp requesting authorization ("memo auth") for memo operations. The first time your app requests encode/decode, Keychain prompts the user to approve memo key usage for your dApp—subsequent requests can be auto-approved if the user selects "Remember."
+
+Hive memos are encrypted using ECDH-derived shared secrets (sender private memo + receiver public memo), allowing P2P encryption. Encrypted memos embed both public keys, enabling decoding from either side (sent or received) using the same decode method.
+
+You'll need to handle blockchain interactions to fetch memos (e.g., via @hiveio/dhive library). Below are the exact steps for integration, including code snippets in JavaScript.
+
+### Step 1: Set Up Your Project
+1. Install the required packages via npm (in your project directory):
+   ```
+   npm install keychain-sdk @hiveio/dhive
+   ```
+   - `keychain-sdk`: For interacting with Keychain (encoding/decoding).
+   - `@hiveio/dhive`: For querying the Hive blockchain (e.g., fetching account history to get sent/received memos).
+
+2. Ensure your app runs in a browser environment where the Keychain extension is injectable (e.g., via `window.hive_keychain`). Keychain must be installed by the user (browser extension or mobile app).
+
+### Step 2: Initialize Keychain SDK and Check Availability
+In your app's main JavaScript file (e.g., app.js), import and initialize the SDK. Always check if Keychain is installed before operations.
+
+```javascript
+import { KeychainSDK } from 'keychain-sdk';
+import { Client } from '@hiveio/dhive';
+
+const keychain = new KeychainSDK(window, { rpc: 'https://api.hive.blog' }); // Use a reliable Hive RPC node
+const hiveClient = new Client('https://api.hive.blog'); // For blockchain queries
+
+// Function to check if Keychain is available
+async function checkKeychainInstalled() {
+  try {
+    const isInstalled = await keychain.isKeychainInstalled();
+    if (!isInstalled) {
+      alert('Hive Keychain is not installed. Please install it from the Chrome/Firefox store or mobile app.');
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('Error checking Keychain:', error);
+    return false;
+  }
+}
+```
+
+Call `checkKeychainInstalled()` before any Keychain operations in your app's UI flow.
+
+### Step 3: Handle User Login/Verification (Optional but Recommended)
+To verify the user has added their account and memo key to Keychain, use the `login` method. This also requests posting key auth if needed for other ops, but focuses on memo verification.
+
+```javascript
+async function loginUser(username) {
+  if (!await checkKeychainInstalled()) return;
+
+  try {
+    const loginResponse = await keychain.login({
+      username,
+      message: JSON.stringify({ app: 'your-app-name', timestamp: Date.now() }), // Arbitrary message to sign
+      method: 'Posting', // Use 'Memo' if you want to verify memo key specifically
+      title: 'Login to Your App',
+    });
+    if (loginResponse.success) {
+      console.log('Login successful:', loginResponse.result.publicKey); // Returns signed message and pub key
+      // Proceed to app features
+    } else {
+      alert('Login failed. Ensure your memo key is imported in Keychain.');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+  }
+}
+```
+
+Call this when the user connects their wallet (e.g., via a "Connect with Keychain" button). If the memo key isn't imported, instruct the user to add it manually in Keychain (Settings > Add Account > Import Memo Key).
+
+### Step 4: Sending an Encrypted Memo (Encoding)
+To send a P2P encrypted memo, encode it first (requires '#' prefix), then broadcast as part of a transfer operation. Use a small amount (e.g., 0.001 HIVE) for the transfer—Hive requires >0 for transfers.
+
+```javascript
+async function sendEncryptedMemo(senderUsername, receiverUsername, message, amount = '0.001 HIVE') {
+  if (!await checkKeychainInstalled()) return;
+
+  try {
+    // Step 4.1: Encode the memo (prompts for memo auth if first time)
+    const encodeResponse = await keychain.encode({
+      username: senderUsername,
+      receiver: receiverUsername,
+      message: `#${message}`, // '#' prefix triggers encryption
+      method: 'Memo',
+    });
+    if (!encodeResponse.success) {
+      throw new Error('Encoding failed');
+    }
+    const encodedMemo = encodeResponse.result;
+
+    // Step 4.2: Broadcast the transfer with encoded memo (requires active key auth)
+    const broadcastResponse = await keychain.broadcast({
+      username: senderUsername,
+      operations: [
+        ['transfer', {
+          from: senderUsername,
+          to: receiverUsername,
+          amount,
+          memo: encodedMemo,
+        }],
+      ],
+      method: 'Active', // Active key for transfers
+    });
+    if (broadcastResponse.success) {
+      console.log('Memo sent successfully. Tx ID:', broadcastResponse.result.id);
+      // Optionally store plaintext locally for sender's reference
+      return { txId: broadcastResponse.result.id, plaintext: message };
+    } else {
+      throw new Error('Broadcast failed');
+    }
+  } catch (error) {
+    console.error('Error sending memo:', error);
+    alert('Failed to send memo. Check Keychain approvals.');
+  }
+}
+```
+
+Integrate this into your UI (e.g., a form for message/receiver). The first encode/broadcast will prompt Keychain for memo/active auth.
+
+### Step 5: Decrypting Memos Sent or Received (Decoding)
+First, fetch encrypted memos from the blockchain (account history). Then, decode them. This works for both sent (as sender) and received (as receiver) because the decode method automatically handles either side based on the embedded public keys.
+
+```javascript
+async function fetchAndDecryptMemos(username, limit = 100) {
+  if (!await checkKeychainInstalled()) return;
+
+  try {
+    // Step 5.1: Fetch account history from blockchain (filter for transfers)
+    const history = await hiveClient.database.getAccountHistory(username, -1, limit);
+    const memos = [];
+    for (const [index, item] of history) {
+      const op = item[1].op;
+      if (op[0] === 'transfer' && op[1].memo.startsWith('#')) {
+        const isSent = op[1].from === username;
+        const otherParty = isSent ? op[1].to : op[1].from;
+        memos.push({
+          txId: item[1].trx_id,
+          timestamp: item[1].timestamp,
+          isSent,
+          otherParty,
+          encryptedMemo: op[1].memo,
+          amount: op[1].amount,
+        });
+      }
+    }
+
+    // Step 5.2: Decrypt each encrypted memo (prompts for memo auth if first time)
+    const decryptedMemos = [];
+    for (const memo of memos) {
+      const decodeResponse = await keychain.decode({
+        username,
+        message: memo.encryptedMemo,
+        method: 'Memo',
+      });
+      if (decodeResponse.success) {
+        decryptedMemos.push({
+          ...memo,
+          decryptedMessage: decodeResponse.result.replace(/^#/, ''), // Remove '#' prefix
+        });
+      } else {
+        console.warn('Failed to decrypt memo:', memo.txId);
+      }
+    }
+
+    console.log('Decrypted memos:', decryptedMemos);
+    return decryptedMemos;
+  } catch (error) {
+    console.error('Error fetching/decrypting memos:', error);
+    alert('Failed to process memos. Ensure memo key is authorized.');
+  }
+}
+```
+
+Call this function periodically (e.g., on app load or refresh button) to display a list of decrypted memos in your UI. Filter `decryptedMemos` by `isSent` for sent vs. received.
+
+### Additional Integration Notes
+- **Authorization Handling**: Keychain handles auth prompts. If denied, operations fail—catch errors and guide users to approve in Keychain settings.
+- **Error Handling**: Always wrap in try/catch. Common errors: No Keychain, unauthorized keys, invalid RPC.
+- **Security**: Never store private keys in your app. Rely on Keychain for all crypto ops.
+- **Testing**: Use test accounts on Hive testnet (change RPC to 'https://testnet.openhive.network'). Test on https://play.hive-keychain.com for SDK method previews.
+- **Mobile Support**: If your app is hybrid/mobile, ensure Keychain mobile app integration (similar SDK usage).
+- **Edge Cases**: If no memo key in Keychain, direct users to import it. For zero-value "memos," use custom_json ops instead (but they don't support built-in encryption—implement your own).
+- **Dependencies**: Ensure your app's origin is allowed in Keychain (users can whitelist if needed).
+
+This setup enables full P2P encrypted memo handling via Keychain. If your app isn't Hive-based or needs custom encryption, provide more details for adjustments.
