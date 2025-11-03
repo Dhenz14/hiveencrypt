@@ -184,11 +184,8 @@ export async function fixCorruptedMessages(currentUsername: string): Promise<num
     if (needsFixing) {
       console.log('[CACHE FIX] Fixing corrupted message (content === encrypted):', msg.id.substring(0, 20));
       
-      // Fix the content based on whether it's sent or received
-      const isReceivedMessage = msg.from !== currentUsername;
-      msg.content = isReceivedMessage 
-        ? '[🔒 Encrypted - Click to decrypt]'
-        : 'Your encrypted message';
+      // Use universal encrypted placeholder (both sent and received can be decrypted)
+      msg.content = '[🔒 Encrypted - Click to decrypt]';
       
       await db.put('messages', msg);
       fixed++;
