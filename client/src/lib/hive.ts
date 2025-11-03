@@ -1,5 +1,5 @@
 import { Client, PrivateKey, PublicKey, Memo } from '@hiveio/dhive';
-import { KeychainSDK } from 'keychain-sdk';
+import { KeychainSDK, KeychainKeyTypes } from 'keychain-sdk';
 
 // Initialize Hive client with public node
 export const hiveClient = new Client([
@@ -221,10 +221,17 @@ export const requestDecodeMemo = async (
     const result = await keychain.decode({
       username: username,
       message: encryptedMemo,
-      method: 'Memo'  // Use MEMO KEY for decryption - shows in popup
+      method: KeychainKeyTypes.memo  // Use MEMO KEY for decryption - shows in popup
     });
     
-    console.log('[DECRYPT] Keychain SDK decode() returned:', result);
+    console.log('[DECRYPT] Keychain SDK decode() raw result:', result);
+    console.log('[DECRYPT] Result type:', typeof result);
+    console.log('[DECRYPT] Result keys:', result ? Object.keys(result) : 'null');
+    console.log('[DECRYPT] result.success:', result?.success);
+    console.log('[DECRYPT] result.result:', result?.result);
+    console.log('[DECRYPT] result.data:', result?.data);
+    console.log('[DECRYPT] result.message:', result?.message);
+    console.log('[DECRYPT] result.error:', result?.error);
     
     // Check if the decryption was successful
     if (!result || result.success === false) {
@@ -237,19 +244,23 @@ export const requestDecodeMemo = async (
       throw new Error(errorMsg);
     }
     
-    // Extract decrypted content from successful response
-    const decrypted = result.result;
+    // Extract decrypted content - try multiple possible fields
+    const decrypted = (result as any).result || (result as any).data || (result as any).message;
     
-    if (!decrypted) {
+    if (!decrypted || typeof decrypted !== 'string') {
       console.error('[DECRYPT] ❌ No decrypted content in response');
+      console.error('[DECRYPT] Full result object:', JSON.stringify(result, null, 2));
       throw new Error('Decryption returned no content');
     }
     
     console.log('[DECRYPT] ✅ Memo decrypted successfully via Keychain SDK!');
+    console.log('[DECRYPT] Decrypted content:', decrypted);
     console.log('[DECRYPT] Decrypted content length:', decrypted.length);
     
     // Remove leading # if present
-    const cleanDecoded = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+    const cleanDecoded = decrypted.startsWith('#') 
+      ? decrypted.substring(1) 
+      : decrypted;
     return cleanDecoded;
   } catch (error: any) {
     console.error('[DECRYPT] ❌ Keychain SDK decryption failed:', error);

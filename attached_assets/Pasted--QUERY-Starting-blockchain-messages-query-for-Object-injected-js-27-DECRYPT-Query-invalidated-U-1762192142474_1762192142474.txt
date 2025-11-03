@@ -1,0 +1,53 @@
+[QUERY] Starting blockchain messages query for: Object
+injected.js:27 [DECRYPT] Query invalidated, UI should refresh
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Fixing corrupted message Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo (will use Keychain)...
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo (uses Keychain)...
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Using Keychain SDK decode() method for MEMO KEY decryption...
+injected.js:27 [DECRYPT] This will show clear "Decrypt Memo" authorization popup
+injected.js:27 [DECRYPT] ❌ Keychain SDK decryption failed: Object
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] ❌ ERROR: User cancelled decryption
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] Error for memo: #XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa... otherParty: dandandan123
+(anonymous) @ injected.js:27
+injected.js:27 Decryption error: Error: User cancelled decryption
+    at requestDecodeMemo (hive.ts:260:13)
+    at async decryptMemo (hive.ts:355:23)
+    at async handleDecrypt (MessageBubble.tsx:50:25)
+(anonymous) @ injected.js:27
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [CONV DISCOVERY] Starting for user: curatorhulk
+injected.js:27 [MESSAGES PAGE] Mapped conversations: [{…}]
+injected.js:27 [MESSAGES PAGE] Mapped conversations: [{…}]
+injected.js:27 [CONV DISCOVERY] Discovered partners: ['dandandan123']
+injected.js:27 [CONV DISCOVERY] Processing partner: dandandan123
+injec
