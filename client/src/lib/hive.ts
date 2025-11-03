@@ -1,6 +1,6 @@
 import { Client } from '@hiveio/dhive';
 import { KeychainSDK } from 'keychain-sdk';
-import * as hivecrypt from 'hivecrypt';
+import { encode, decode } from 'hivecrypt';
 
 // Initialize Hive client with public node
 export const hiveClient = new Client([
@@ -202,7 +202,8 @@ export const requestDecodeMemo = async (
   console.log('[DECRYPT] Starting decryption...', { 
     username, 
     sender: senderUsername,
-    memoPreview: encryptedMemo.substring(0, 20) + '...' 
+    memoPreview: encryptedMemo.substring(0, 40) + '...', 
+    fullMemo: encryptedMemo
   });
   
   if (!isKeychainInstalled()) {
@@ -210,19 +211,30 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain not installed');
   }
 
-  console.log('[DECRYPT] ⚠️ requestVerifyKey does NOT work for P2P memos!');
-  console.log('[DECRYPT] It only works for self-encrypted authentication challenges');
-  console.log('[DECRYPT] We need to ask user for their memo key to use with hivecrypt');
+  console.log('[DECRYPT] Trying KeychainSDK decode method...');
   
-  // requestVerifyKey is ONLY for authentication (self-encrypted messages)
-  // For peer-to-peer memos, we need the actual private memo key
-  // which Keychain doesn't expose for security reasons
-  
-  throw new Error(
-    'Peer-to-peer memo decryption requires your private memo key. ' +
-    'Please enter it manually to decrypt messages from other users. ' +
-    '(Hive Keychain does not expose memo keys for security - only authentication works via extension)'
-  );
+  try {
+    const keychain = new KeychainSDK(window);
+    const result = await keychain.decode({
+      username,
+      message: encryptedMemo,
+      method: 'Memo'
+    });
+    
+    console.log('[DECRYPT] KeychainSDK.decode result:', result);
+    
+    if (result.success && result.result) {
+      const decrypted = String(result.result);
+      console.log('[DECRYPT] ✅ Success via SDK! Decrypted:', decrypted.substring(0, 50));
+      return decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+    }
+    
+    console.error('[DECRYPT] SDK decode failed:', result.error || result.message);
+    throw new Error(result.error || result.message || 'SDK decoding failed');
+  } catch (error: any) {
+    console.error('[DECRYPT] ❌ Error:', error.message || error);
+    throw new Error(`Decryption failed: ${error.message || error}`);
+  }
 };
 
 export const getConversationMessages = async (
