@@ -205,36 +205,44 @@ export const requestDecodeMemo = async (
     fullMemo: encryptedMemo
   });
   
-  return new Promise((resolve, reject) => {
-    if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain extension not found. Please install it.'));
-      return;
-    }
+  if (!window.hive_keychain) {
+    throw new Error('Hive Keychain extension not found. Please install it.');
+  }
 
-    console.log('[DECRYPT] Using Hive Keychain requestVerifyKey...');
-    
-    // Use Keychain's requestVerifyKey to decrypt the memo
-    // This is the same method PeakD uses - prompts user for memo key access
-    window.hive_keychain.requestVerifyKey(username, encryptedMemo, 'Memo', (response: any) => {
-      if (response.success) {
-        console.log('[DECRYPT] ✅ Decryption success via Keychain!');
-        const decoded = response.result;
-        console.log('[DECRYPT] Decrypted content length:', decoded.length);
-        
-        // Remove leading # if present in decoded text
-        const cleanDecoded = decoded.startsWith('#') ? decoded.substring(1) : decoded;
-        resolve(cleanDecoded);
-      } else {
-        console.error('[DECRYPT] ❌ Keychain decryption failed:', response.message);
-        
-        if (response.message?.includes('cancel')) {
-          reject(new Error('User cancelled decryption'));
-        } else {
-          reject(new Error(response.message || 'Decryption failed'));
-        }
-      }
+  console.log('[DECRYPT] Using Keychain SDK decode() method for MEMO KEY decryption...');
+  console.log('[DECRYPT] This will show clear "Decrypt Memo" authorization popup');
+  
+  // Use Keychain SDK's decode() method for better UX
+  // This shows a popup that clearly indicates MEMO KEY decryption/authorization
+  // Source: https://github.com/hive-keychain/keychain-sdk
+  const keychain = new KeychainSDK(window);
+  
+  try {
+    const result = await keychain.decode({
+      username: username,
+      message: encryptedMemo,
+      method: 'Memo'  // Use MEMO KEY for decryption - shows in popup
     });
-  });
+    
+    console.log('[DECRYPT] ✅ Memo decrypted successfully via Keychain SDK!');
+    console.log('[DECRYPT] Result:', result);
+    
+    // The SDK might return different response formats
+    const decrypted = result.result || result.message || result;
+    console.log('[DECRYPT] Decrypted content length:', decrypted.length);
+    
+    // Remove leading # if present
+    const cleanDecoded = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+    return cleanDecoded;
+  } catch (error: any) {
+    console.error('[DECRYPT] ❌ Keychain SDK decryption failed:', error);
+    
+    if (error.message?.includes('cancel') || error.error?.includes('cancel')) {
+      throw new Error('User cancelled decryption');
+    } else {
+      throw new Error(error.message || error.error || 'Decryption failed');
+    }
+  }
 };
 
 export const getConversationMessages = async (
