@@ -210,50 +210,19 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain not installed');
   }
 
-  console.log('[DECRYPT] Using direct Keychain extension requestVerifyKey API...');
-  console.log('[DECRYPT] Parameters:', { username, memoLength: encryptedMemo.length });
-
-  return new Promise((resolve, reject) => {
-    // Use direct extension API - requestVerifyKey decrypts memos
-    window.hive_keychain.requestVerifyKey(
-      username,
-      encryptedMemo,
-      'Memo', // CRITICAL: Must be capital 'Memo' per official docs!
-      (response: KeychainResponse) => {
-        console.log('[DECRYPT] Extension API response:', {
-          success: response?.success,
-          error: response?.error,
-          message: response?.message,
-          hasResult: !!response?.result,
-          resultType: typeof response?.result,
-          resultPreview: response?.result ? String(response.result).substring(0, 50) : null
-        });
-
-        if (response.success) {
-          // The decrypted text might be in result or message
-          const decrypted = String(response.result || response.message || '');
-          console.log('[DECRYPT] Full decrypted value:', decrypted);
-          
-          // Check if still encrypted (shouldn't be!)
-          if (decrypted.startsWith('#') && decrypted.length > 100) {
-            console.error('[DECRYPT] ⚠️ STILL ENCRYPTED after Keychain call!');
-            console.log('[DECRYPT] This means requestVerifyKey is not decrypting properly');
-            console.log('[DECRYPT] Attempting hivecrypt fallback is not possible (no private key access)');
-            reject(new Error('Keychain returned encrypted text instead of plaintext. Please ensure you have the correct memo key imported in Hive Keychain.'));
-            return;
-          }
-
-          // Successfully decrypted - remove leading # if present
-          const cleanText = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
-          console.log('[DECRYPT] ✅ Success! Decrypted text:', cleanText);
-          resolve(cleanText);
-        } else {
-          console.error('[DECRYPT] ❌ Decryption failed:', response.error || response.message);
-          reject(new Error(response.error || response.message || 'Decryption failed'));
-        }
-      }
-    );
-  });
+  console.log('[DECRYPT] ⚠️ requestVerifyKey does NOT work for P2P memos!');
+  console.log('[DECRYPT] It only works for self-encrypted authentication challenges');
+  console.log('[DECRYPT] We need to ask user for their memo key to use with hivecrypt');
+  
+  // requestVerifyKey is ONLY for authentication (self-encrypted messages)
+  // For peer-to-peer memos, we need the actual private memo key
+  // which Keychain doesn't expose for security reasons
+  
+  throw new Error(
+    'Peer-to-peer memo decryption requires your private memo key. ' +
+    'Please enter it manually to decrypt messages from other users. ' +
+    '(Hive Keychain does not expose memo keys for security - only authentication works via extension)'
+  );
 };
 
 export const getConversationMessages = async (
