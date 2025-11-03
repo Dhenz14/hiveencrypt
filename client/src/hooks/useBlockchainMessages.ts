@@ -64,6 +64,12 @@ export function useBlockchainMessages({
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
+        // NEVER fix messages that have been manually decrypted by the user
+        if (msg.isDecrypted) {
+          mergedMessages.set(msg.id, msg);
+          return; // Skip corruption detection for manually decrypted messages
+        }
+        
         // Detect corrupted messages: content should NEVER contain base64/encrypted data
         // Valid content patterns:
         // - Encrypted placeholder: "[🔒 Encrypted - Click to decrypt]" (universal for both sent/received)

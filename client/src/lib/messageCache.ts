@@ -10,6 +10,7 @@ interface MessageCache {
   timestamp: string;
   txId: string;
   confirmed: boolean;
+  isDecrypted?: boolean; // Flag to indicate manual decryption
 }
 
 interface ConversationCache {
@@ -268,6 +269,7 @@ export async function updateMessageContent(messageId: string, decryptedContent: 
   
   if (message) {
     message.content = decryptedContent;
+    message.isDecrypted = true; // Mark as manually decrypted - don't touch it!
     await db.put('messages', message);
   }
 }
