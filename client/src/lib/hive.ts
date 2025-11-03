@@ -210,12 +210,13 @@ export const requestDecodeMemo = async (
       return;
     }
 
-    // Use the CORRECT Keychain API for memo decryption
-    // This is what PeakD/Hive.blog actually use for decrypting memos
+    // Use the ACTUAL working Keychain API for memo decryption
+    // Method name is requestDecode (NOT requestDecodeMemo or requestVerifyKey)
     // Source: https://github.com/hive-keychain/hive-keychain-extension/blob/master/documentation/README.md
-    window.hive_keychain.requestDecodeMemo(
+    window.hive_keychain.requestDecode(
       username,
       encryptedMemo,
+      'Memo',
       (response: any) => {
         if (response.success) {
           // response.result contains the actual decrypted plaintext

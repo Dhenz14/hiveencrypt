@@ -204,10 +204,12 @@ export const requestKeychainDecryption = async (
       return;
     }
 
-    // Request decryption from Keychain using the correct API method
-    window.hive_keychain.requestDecodeMemo(
+    // Request decryption from Keychain using the actual working API method
+    // Method name is requestDecode (NOT requestDecodeMemo)
+    window.hive_keychain.requestDecode(
       username,
       encryptedMemo,
+      'Memo',
       (response: any) => {
         if (response.success) {
           // Keychain returns the decrypted message in response.result
