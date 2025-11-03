@@ -143,6 +143,9 @@ export function MessageComposer({
       }
 
       // Step 2: Create 0.001 HBD transfer with encrypted memo
+      // NOTE: Keychain may show "private key" warning - this is a FALSE POSITIVE
+      // The memo contains encrypted data which triggers Keychain's pattern detection
+      // We are NOT sending any private keys - only the encrypted message
       let txId: string | undefined;
       try {
         const transfer = await requestTransfer(
