@@ -356,39 +356,36 @@ export const requestDecodeMemo = async (
     fullMemo: encryptedMemo
   });
   
-  // Check if we have a cached memo key
-  const memoKey = getMemoKey();
-  
-  if (!memoKey) {
-    console.log('[DECRYPT] No cached memo key - prompting user');
-    throw new Error('MEMO_KEY_REQUIRED');
-  }
-
-  try {
-    console.log('[DECRYPT] Using @hiveio/dhive Memo.decode...');
-    
-    // Use dhive's Memo.decode function (handles all the crypto internally)
-    // This is the ONLY method that works for P2P memo decryption
-    // Keychain's requestVerifyKey does NOT work for P2P memos
-    const decoded = Memo.decode(memoKey, encryptedMemo);
-    
-    console.log('[DECRYPT] ✅ Decryption success!');
-    console.log('[DECRYPT] Decrypted content length:', decoded.length);
-    
-    // Remove leading # if present in decoded text
-    return decoded.startsWith('#') ? decoded.substring(1) : decoded;
-  } catch (error: any) {
-    console.error('[DECRYPT] ❌ Decryption error:', error.message || error);
-    
-    // Provide helpful error messages
-    if (error.message?.includes('Invalid private key')) {
-      throw new Error('Invalid memo key format. Please check your private memo key.');
-    } else if (error.message?.includes('checksum')) {
-      throw new Error('Memo decryption failed - corrupted or wrong key');
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain extension not found. Please install it.'));
+      return;
     }
+
+    console.log('[DECRYPT] Using Hive Keychain requestVerifyKey...');
     
-    throw new Error(`Decryption failed: ${error.message || error}`);
-  }
+    // Use Keychain's requestVerifyKey to decrypt the memo
+    // This is the same method PeakD uses - prompts user for memo key access
+    window.hive_keychain.requestVerifyKey(username, encryptedMemo, 'Memo', (response: any) => {
+      if (response.success) {
+        console.log('[DECRYPT] ✅ Decryption success via Keychain!');
+        const decoded = response.result;
+        console.log('[DECRYPT] Decrypted content length:', decoded.length);
+        
+        // Remove leading # if present in decoded text
+        const cleanDecoded = decoded.startsWith('#') ? decoded.substring(1) : decoded;
+        resolve(cleanDecoded);
+      } else {
+        console.error('[DECRYPT] ❌ Keychain decryption failed:', response.message);
+        
+        if (response.message?.includes('cancel')) {
+          reject(new Error('User cancelled decryption'));
+        } else {
+          reject(new Error(response.message || 'Decryption failed'));
+        }
+      }
+    });
+  });
 };
 
 export const getConversationMessages = async (
@@ -477,8 +474,8 @@ export const decryptMemo = async (
       return encryptedMemo;
     }
 
-    console.log('[decryptMemo] Calling requestDecodeMemo...');
-    const decrypted = await requestDecodeMemo(username, encryptedMemo);
+    console.log('[decryptMemo] Calling requestDecodeMemo (uses Keychain)...');
+    const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty);
     console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
@@ -498,11 +495,7 @@ export const decryptMemo = async (
     console.error('[decryptMemo] ❌ ERROR:', error?.message || error);
     console.error('[decryptMemo] Error for memo:', encryptedMemo.substring(0, 40) + '...', 'otherParty:', otherParty);
     
-    // Re-throw MEMO_KEY_REQUIRED so MessageBubble can show the dialog
-    if (error?.message === 'MEMO_KEY_REQUIRED') {
-      throw error;
-    }
-    
-    return null;
+    // Re-throw error so MessageBubble can show proper error toast
+    throw error;
   }
 };

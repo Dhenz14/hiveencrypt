@@ -1,25 +1,13 @@
 import { useState } from 'react';
-import { Lock, Check, CheckCheck, Clock, Unlock, Key, ExternalLink } from 'lucide-react';
+import { Lock, Check, CheckCheck, Clock, Unlock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Message } from '@shared/schema';
 import { useAuth } from '@/contexts/AuthContext';
-import { decryptMemo, setMemoKey, saveMemoKeyEncrypted } from '@/lib/hive';
+import { decryptMemo } from '@/lib/hive';
 import { updateMessageContent } from '@/lib/messageCache';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface MessageBubbleProps {
   message: Message;
@@ -33,11 +21,6 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [isDecrypting, setIsDecrypting] = useState(false);
-  const [showMemoKeyDialog, setShowMemoKeyDialog] = useState(false);
-  const [memoKeyInput, setMemoKeyInput] = useState('');
-  const [passphraseInput, setPassphraseInput] = useState('');
-  const [shouldSaveMemoKey, setShouldSaveMemoKey] = useState(false);
-  const [pendingDecrypt, setPendingDecrypt] = useState<{username: string, encryptedMemo: string, sender: string} | null>(null);
 
   const isEncryptedPlaceholder = 
     message.content === '[🔒 Encrypted - Click to decrypt]' ||
@@ -62,11 +45,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
     setIsDecrypting(true);
     
     try {
-      console.log('[MessageBubble] Calling decryptMemo with:', {
-        username: user.username,
-        encryptedMemo: message.encryptedMemo,
-        sender: message.sender
-      });
+      console.log('[MessageBubble] Calling decryptMemo (will use Keychain)...');
 
       const decrypted = await decryptMemo(
         user.username, 
@@ -104,23 +83,11 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
     } catch (error: any) {
       console.error('Decryption error:', error);
       
-      // If memo key is required, show dialog
-      if (error?.message === 'MEMO_KEY_REQUIRED') {
-        setPendingDecrypt({
-          username: user.username,
-          encryptedMemo: message.encryptedMemo,
-          sender: message.sender
-        });
-        setShowMemoKeyDialog(true);
-        setIsDecrypting(false);
-        return;
-      }
-      
       let errorMessage = 'Failed to decrypt message';
       if (error?.message?.includes('cancel')) {
-        errorMessage = 'Decryption cancelled';
-      } else if (error?.message?.includes('Invalid memo key')) {
-        errorMessage = 'Invalid memo key. Please check and try again.';
+        errorMessage = 'Decryption cancelled by user';
+      } else if (error?.message?.includes('Keychain')) {
+        errorMessage = error?.message || 'Hive Keychain extension not found';
       } else {
         errorMessage = error?.message || 'Failed to decrypt message';
       }
@@ -130,91 +97,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
         description: errorMessage,
         variant: 'destructive',
       });
-      setIsDecrypting(false);
-    }
-  };
-
-  const handleMemoKeySubmit = async () => {
-    if (!memoKeyInput.trim() || !pendingDecrypt) {
-      toast({
-        title: 'Invalid Input',
-        description: 'Please enter your private memo key',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    if (shouldSaveMemoKey && !passphraseInput.trim()) {
-      toast({
-        title: 'Passphrase Required',
-        description: 'Please enter a passphrase to encrypt and save your memo key',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    const memoKey = memoKeyInput.trim();
-    
-    // Store memo key in memory
-    setMemoKey(memoKey);
-    
-    // Optionally save encrypted to localStorage
-    if (shouldSaveMemoKey && passphraseInput.trim()) {
-      try {
-        await saveMemoKeyEncrypted(memoKey, passphraseInput.trim());
-        console.log('[MEMO_KEY] Saved encrypted to localStorage');
-      } catch (error) {
-        console.error('[MEMO_KEY] Failed to save:', error);
-        toast({
-          title: 'Warning',
-          description: 'Failed to save memo key, but will use for this session',
-          variant: 'destructive',
-        });
-      }
-    }
-    
-    setShowMemoKeyDialog(false);
-    setMemoKeyInput('');
-    setPassphraseInput('');
-    setShouldSaveMemoKey(false);
-    setIsDecrypting(true);
-
-    try {
-      const decrypted = await decryptMemo(
-        pendingDecrypt.username,
-        pendingDecrypt.encryptedMemo,
-        pendingDecrypt.sender
-      );
-
-      if (decrypted) {
-        const cleanContent = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
-        
-        await updateMessageContent(message.id, cleanContent);
-        
-        const partnerUsername = message.sender === user!.username ? message.recipient : message.sender;
-        
-        queryClient.invalidateQueries({ 
-          queryKey: ['blockchain-messages', user!.username, partnerUsername] 
-        });
-
-        const savedMessage = shouldSaveMemoKey && passphraseInput.trim() 
-          ? 'Your memo key is encrypted and saved. You\'ll only need your passphrase next time.'
-          : 'Your memo key is saved for this session.';
-
-        toast({
-          title: 'Message Decrypted',
-          description: savedMessage,
-        });
-      }
-    } catch (error: any) {
-      let errorMessage = error?.message || 'Failed to decrypt message';
-      toast({
-        title: 'Decryption Failed',
-        description: errorMessage,
-        variant: 'destructive',
-      });
     } finally {
-      setPendingDecrypt(null);
       setIsDecrypting(false);
     }
   };
@@ -244,137 +127,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
   };
 
   return (
-    <>
-      <Dialog open={showMemoKeyDialog} onOpenChange={setShowMemoKeyDialog}>
-        <DialogContent data-testid="dialog-memo-key" className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Key className="w-5 h-5" />
-              Private Memo Key Required
-            </DialogTitle>
-            <DialogDescription className="space-y-2">
-              <div>
-                To decrypt messages, enter your private memo key. This is standard practice on Hive - even Hive.blog and PeakD require manual key entry.
-              </div>
-              <Alert className="mt-3">
-                <AlertDescription className="text-caption">
-                  <strong>Where to find your memo key:</strong>
-                  <br />
-                  Go to{' '}
-                  <a 
-                    href={`https://wallet.hive.blog/@${user?.username}/permissions`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-primary hover-elevate"
-                  >
-                    wallet.hive.blog/@{user?.username}/permissions
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                  {' '}and click "Show private key" next to your Memo key.
-                </AlertDescription>
-              </Alert>
-              <div className="text-caption mt-3">
-                <strong>Security:</strong> Your memo key never leaves your browser. Optionally save it encrypted with a passphrase for convenience.
-              </div>
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="memoKey" className="text-sm font-medium">
-                Private Memo Key
-              </Label>
-              <Input
-                id="memoKey"
-                data-testid="input-memo-key"
-                type="password"
-                placeholder="5K..."
-                value={memoKeyInput}
-                onChange={(e) => setMemoKeyInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !shouldSaveMemoKey) {
-                    handleMemoKeySubmit();
-                  }
-                }}
-                className="font-mono text-sm"
-                autoFocus
-              />
-              <p className="text-caption text-tertiary">
-                Your private memo key (starts with 5K...)
-              </p>
-            </div>
-
-            <div className="flex items-start space-x-2 pt-2">
-              <Checkbox
-                id="saveMemoKey"
-                data-testid="checkbox-save-memo"
-                checked={shouldSaveMemoKey}
-                onCheckedChange={(checked) => setShouldSaveMemoKey(checked as boolean)}
-              />
-              <div className="grid gap-1.5 leading-none">
-                <label
-                  htmlFor="saveMemoKey"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                >
-                  Save encrypted for future sessions
-                </label>
-                <p className="text-caption text-tertiary">
-                  Your memo key will be encrypted with a passphrase and stored locally
-                </p>
-              </div>
-            </div>
-
-            {shouldSaveMemoKey && (
-              <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                <Label htmlFor="passphrase" className="text-sm font-medium">
-                  Encryption Passphrase
-                </Label>
-                <Input
-                  id="passphrase"
-                  data-testid="input-passphrase"
-                  type="password"
-                  placeholder="Enter a strong passphrase"
-                  value={passphraseInput}
-                  onChange={(e) => setPassphraseInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleMemoKeySubmit();
-                    }
-                  }}
-                  className="text-sm"
-                />
-                <p className="text-caption text-tertiary">
-                  Choose a memorable passphrase to unlock your saved memo key
-                </p>
-              </div>
-            )}
-          </div>
-          <DialogFooter>
-            <Button
-              variant="ghost"
-              onClick={() => {
-                setShowMemoKeyDialog(false);
-                setMemoKeyInput('');
-                setPassphraseInput('');
-                setShouldSaveMemoKey(false);
-                setPendingDecrypt(null);
-                setIsDecrypting(false);
-              }}
-              data-testid="button-cancel-memo"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleMemoKeySubmit}
-              disabled={!memoKeyInput.trim() || (shouldSaveMemoKey && !passphraseInput.trim())}
-              data-testid="button-submit-memo"
-            >
-              Decrypt Message
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      <div
+    <div
         className={cn(
           'flex items-end gap-2 max-w-[90%] md:max-w-[480px]',
           isSent ? 'ml-auto flex-row-reverse' : 'mr-auto'
@@ -450,7 +203,6 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
         </div>
       </div>
     </div>
-    </>
   );
 }
 
