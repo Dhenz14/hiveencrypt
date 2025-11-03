@@ -210,42 +210,50 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain not installed');
   }
 
-  console.log('[DECRYPT] Using Keychain SDK decode() method (2024 recommended approach)...');
+  console.log('[DECRYPT] Using direct Keychain extension requestVerifyKey API...');
+  console.log('[DECRYPT] Parameters:', { username, memoLength: encryptedMemo.length });
 
-  try {
-    const keychain = new KeychainSDK(window);
-    
-    // Official 2024 approach from PeakD/Ecency
-    const response = await keychain.decode({
-      username: username,
-      message: encryptedMemo,
-      method: 'Memo' // CRITICAL: Use 'method', not 'keyType'! Must be uppercase 'Memo'
-    });
+  return new Promise((resolve, reject) => {
+    // Use direct extension API - requestVerifyKey decrypts memos
+    window.hive_keychain.requestVerifyKey(
+      username,
+      encryptedMemo,
+      'Memo', // Must be 'Memo' for memo decryption
+      (response: KeychainResponse) => {
+        console.log('[DECRYPT] Extension API response:', {
+          success: response?.success,
+          error: response?.error,
+          message: response?.message,
+          hasResult: !!response?.result,
+          resultType: typeof response?.result,
+          resultPreview: response?.result ? String(response.result).substring(0, 50) : null
+        });
 
-    console.log('[DECRYPT] Keychain SDK response:', { 
-      success: response?.success, 
-      error: response?.error,
-      hasResult: !!response?.result
-    });
+        if (response.success) {
+          // The decrypted text might be in result or message
+          const decrypted = String(response.result || response.message || '');
+          console.log('[DECRYPT] Full decrypted value:', decrypted);
+          
+          // Check if still encrypted (shouldn't be!)
+          if (decrypted.startsWith('#') && decrypted.length > 100) {
+            console.error('[DECRYPT] ⚠️ STILL ENCRYPTED after Keychain call!');
+            console.log('[DECRYPT] This means requestVerifyKey is not decrypting properly');
+            console.log('[DECRYPT] Attempting hivecrypt fallback is not possible (no private key access)');
+            reject(new Error('Keychain returned encrypted text instead of plaintext. Please ensure you have the correct memo key imported in Hive Keychain.'));
+            return;
+          }
 
-    if (response && response.success && response.result) {
-      const decrypted = String(response.result);
-      console.log('[DECRYPT] Raw result:', decrypted);
-      console.log('[DECRYPT] Decryption successful! Length:', decrypted.length);
-      console.log('[DECRYPT] Plaintext preview:', decrypted.substring(0, 50));
-      
-      // Remove # prefix if present
-      const cleanText = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
-      console.log('[DECRYPT] Final cleaned text:', cleanText);
-      
-      return cleanText;
-    }
-    
-    throw new Error(response?.error || 'Decryption failed - no result');
-  } catch (error: any) {
-    console.error('[DECRYPT] Keychain SDK decode error:', error);
-    throw new Error(error?.message || error?.error || 'Failed to decrypt memo');
-  }
+          // Successfully decrypted - remove leading # if present
+          const cleanText = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+          console.log('[DECRYPT] ✅ Success! Decrypted text:', cleanText);
+          resolve(cleanText);
+        } else {
+          console.error('[DECRYPT] ❌ Decryption failed:', response.error || response.message);
+          reject(new Error(response.error || response.message || 'Decryption failed'));
+        }
+      }
+    );
+  });
 };
 
 export const getConversationMessages = async (
