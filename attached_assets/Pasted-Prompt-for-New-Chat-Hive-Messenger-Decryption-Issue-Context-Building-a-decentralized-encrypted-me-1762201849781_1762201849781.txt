@@ -1,0 +1,41 @@
+Prompt for New Chat: Hive Messenger Decryption Issue
+Context
+Building a decentralized encrypted messaging app on Hive blockchain. Messages are sent via 0.001 HBD transfers with encrypted memos. Using IndexedDB for client-side caching and Hive Keychain browser extension for encryption/decryption.
+
+What Currently Works ✅
+Message Sending: Messages encrypt properly via Hive Keychain and broadcast to blockchain successfully
+Message Storage: Encrypted messages stored in IndexedDB (database scoped per username: hive-messenger-{username}-v3)
+UI Display: Messages appear in conversation view with "Decrypt Message" buttons
+Correct Decryption Method Identified: window.hive_keychain.requestVerifyKey(username, encryptedMemo, 'Memo', callback) - this is PeakD's proven method
+Optimistic Updates: Messages show immediately when sent
+What Needs Fixing ❌
+Primary Issue: Message decryption is not working correctly - may show gibberish or fail
+
+Secondary Issue: "Failed to confirm message" error appears after sending (IndexedDB cache update issue, not blockchain failure - message still sends successfully)
+
+Critical Information
+✅ CONFIRMED FACTS:
+Both sent AND received messages CAN be decrypted - PeakD proves this. Users can decrypt their own sent messages using their memo key. This is NOT cryptographically impossible.
+The ONLY working decryption method: window.hive_keychain.requestVerifyKey(username, encryptedMemo, 'Memo', callback)
+NEVER use: KeychainSDK's decode() method - it returns encrypted content unchanged, not decrypted text
+🔧 Implementation Details:
+Decryption code location: client/src/lib/hive.ts (function: requestDecodeMemo) and client/src/lib/encryption.ts (function: requestKeychainDecryption)
+Cache confirmation: client/src/lib/messageCache.ts (function: confirmMessage)
+UI component: client/src/components/MessageBubble.tsx (decrypt button handler)
+Message sending: client/src/components/MessageComposer.tsx
+Key Files to Check
+client/src/lib/hive.ts - requestDecodeMemo() function
+client/src/lib/encryption.ts - requestKeychainDecryption() function
+client/src/lib/messageCache.ts - confirmMessage() function
+client/src/components/MessageBubble.tsx - decrypt button handler
+replit.md - architecture documentation (updated with correct info about sent message decryption)
+Testing Scenario
+User logs in as @dandandan123
+Sends encrypted message to @curatorhulk
+Message appears in conversation (optimistic update)
+Blockchain transaction succeeds
+User clicks "Decrypt" button on their own sent message
+Expected: Message decrypts to plaintext
+Actual: Need to verify if showing gibberish or working correctly
+Goal
+Get message decryption working reliably for BOTH sent and received messages using requestVerifyKey method. Fix any IndexedDB cache confirmation errors.
