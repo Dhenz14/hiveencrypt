@@ -64,12 +64,41 @@ export function useBlockchainMessages({
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
-        // Simple rule: If message is marked as decrypted, trust it
-        // If content matches encryptedContent, it's corrupted - reset to placeholder
-        // Otherwise, leave it alone
-        if (!msg.isDecrypted && msg.content === msg.encryptedContent && msg.encryptedContent) {
-          msg.content = '[🔒 Encrypted - Click to decrypt]';
-          cacheMessage(msg, user.username).catch(err => console.error('[QUERY] Failed to fix message:', err));
+        // Detect and fix corrupted messages where content contains encrypted data
+        // If message is marked as decrypted, trust it - user manually decrypted it
+        if (!msg.isDecrypted) {
+          let isCorrupted = false;
+          
+          // Case 1: content exactly matches encryptedContent (most obvious corruption)
+          if (msg.content === msg.encryptedContent && msg.encryptedContent) {
+            console.log('[QUERY] Corrupted (case 1): content === encryptedContent, msg:', msg.id.substring(0, 20));
+            isCorrupted = true;
+          }
+          
+          // Case 2: content looks like encrypted data (long gibberish without spaces)
+          // Encrypted memos are typically 100+ chars of base64-like data
+          if (!isCorrupted && msg.content && msg.content.length > 50) {
+            const hasSpaces = msg.content.includes(' ');
+            const hasCommonWords = /\b(the|is|are|was|were|hello|hi|you|me|we|they)\b/i.test(msg.content);
+            const looksLikeEncrypted = !hasSpaces && !hasCommonWords && msg.content.length > 80;
+            
+            if (looksLikeEncrypted && msg.encryptedContent && msg.encryptedContent.length > 80) {
+              console.log('[QUERY] Corrupted (case 2): content looks encrypted, msg:', msg.id.substring(0, 20));
+              isCorrupted = true;
+            }
+          }
+          
+          // Case 3: content is encrypted placeholder but doesn't match our standard format
+          if (!isCorrupted && msg.content && msg.content.includes('[Encrypted') && 
+              msg.content !== '[🔒 Encrypted - Click to decrypt]') {
+            console.log('[QUERY] Corrupted (case 3): non-standard placeholder, msg:', msg.id.substring(0, 20));
+            isCorrupted = true;
+          }
+          
+          if (isCorrupted) {
+            msg.content = '[🔒 Encrypted - Click to decrypt]';
+            cacheMessage(msg, user.username).catch(err => console.error('[QUERY] Failed to fix message:', err));
+          }
         }
         
         mergedMessages.set(msg.id, msg);

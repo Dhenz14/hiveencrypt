@@ -244,6 +244,8 @@ export async function addOptimisticMessage(
 }
 
 export async function confirmMessage(tempId: string, txId: string, encryptedContent?: string, username?: string): Promise<void> {
+  console.log('[confirmMessage] Starting confirmation:', { tempId, txId, hasEncrypted: !!encryptedContent, username });
+  
   const db = await getDB(username);
   const message = await db.get('messages', tempId);
   
@@ -252,31 +254,64 @@ export async function confirmMessage(tempId: string, txId: string, encryptedCont
     return;
   }
   
+  console.log('[confirmMessage] Found message in cache:', {
+    id: message.id,
+    from: message.from,
+    to: message.to,
+    contentLength: message.content?.length || 0,
+    encryptedContentLength: message.encryptedContent?.length || 0,
+    confirmed: message.confirmed
+  });
+  
   try {
-    // Delete the temporary message
-    await db.delete('messages', tempId);
-    
     // Update message with blockchain confirmation
     message.id = txId;
     message.txId = txId;
     message.confirmed = true;
     
     // Store encrypted content if provided (for sent messages to enable decryption)
-    // This allows users to decrypt their own sent messages using their memo key (PeakD does this)
+    // IMPORTANT: Keep the original plaintext in the content field
+    // This allows the user to see their sent message immediately
     if (encryptedContent) {
       message.encryptedContent = encryptedContent;
+      console.log('[confirmMessage] Stored encrypted content, length:', encryptedContent.length);
     }
     
-    // Store confirmed message with new ID
+    console.log('[confirmMessage] Deleting temp message with id:', tempId);
+    await db.delete('messages', tempId);
+    
+    console.log('[confirmMessage] Storing confirmed message with id:', txId);
     await db.put('messages', message);
     
-    console.log('[confirmMessage] Successfully confirmed message:', {
+    console.log('[confirmMessage] ✅ Successfully confirmed message:', {
       tempId,
       txId,
-      hasEncryptedContent: !!encryptedContent
+      contentPreview: message.content?.substring(0, 30),
+      hasEncryptedContent: !!message.encryptedContent
     });
-  } catch (error) {
-    console.error('[confirmMessage] Error confirming message:', error);
+  } catch (error: any) {
+    console.error('[confirmMessage] ❌ Error confirming message:', {
+      error: error?.message || error,
+      stack: error?.stack,
+      tempId,
+      txId
+    });
+    
+    // Try to restore the temp message if something went wrong
+    try {
+      const existingTemp = await db.get('messages', tempId);
+      if (!existingTemp) {
+        // Temp was deleted but confirmed wasn't stored, restore it
+        message.id = tempId;
+        message.txId = '';
+        message.confirmed = false;
+        await db.put('messages', message);
+        console.log('[confirmMessage] Restored temp message after error');
+      }
+    } catch (restoreError) {
+      console.error('[confirmMessage] Failed to restore temp message:', restoreError);
+    }
+    
     throw error;
   }
 }

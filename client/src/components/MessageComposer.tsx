@@ -107,13 +107,11 @@ export function MessageComposer({
       // Step 1: Encrypt message using Hive Keychain
       let encryptedMemo: string;
       try {
-        // Hive Keychain requires messages to start with # for encryption
-        const messageToEncrypt = messageText.startsWith('#') ? messageText : `#${messageText}`;
-        
+        // Keychain's requestEncodeMessage handles the '#' prefix automatically
         const encoded = await requestEncode(
           user.username,
           recipientUsername,
-          messageToEncrypt,
+          messageText,
           'Memo'
         );
         

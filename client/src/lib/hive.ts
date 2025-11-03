@@ -324,14 +324,9 @@ export const decryptMemo = async (
     console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
-      let result = decrypted;
-      
-      if (result.startsWith('#')) {
-        result = result.substring(1);
-      }
-      
-      console.log('[decryptMemo] Final result:', result.substring(0, 50) + '...');
-      return result;
+      // Keychain's requestVerifyKey returns clean plaintext, no need to strip anything
+      console.log('[decryptMemo] Final result:', decrypted.substring(0, 50) + '...');
+      return decrypted;
     }
     
     console.log('[decryptMemo] requestDecodeMemo returned null/empty');
