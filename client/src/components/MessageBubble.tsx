@@ -28,17 +28,35 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
 
   const handleDecrypt = async () => {
     if (!user || !message.encryptedMemo) {
+      console.error('[MessageBubble] Cannot decrypt: missing user or encryptedMemo');
       return;
     }
+
+    console.log('[MessageBubble] ========== DECRYPT BUTTON CLICKED ==========');
+    console.log('[MessageBubble] Message details:', {
+      id: message.id,
+      sender: message.sender,
+      recipient: message.recipient,
+      encryptedMemoPreview: message.encryptedMemo?.substring(0, 40) + '...',
+      encryptedMemoLength: message.encryptedMemo?.length,
+      currentUser: user.username
+    });
 
     setIsDecrypting(true);
     
     try {
+      console.log('[MessageBubble] Calling decryptMemo with:', {
+        username: user.username,
+        encryptedMemo: message.encryptedMemo,
+        sender: message.sender
+      });
+
       const decrypted = await decryptMemo(
         user.username, 
         message.encryptedMemo,
         message.sender
       );
+      console.log('[MessageBubble] decryptMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
 
       if (decrypted) {
         const cleanContent = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;

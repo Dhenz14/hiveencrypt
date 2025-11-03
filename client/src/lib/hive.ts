@@ -326,12 +326,25 @@ export const decryptMemo = async (
   encryptedMemo: string,
   otherParty?: string
 ): Promise<string | null> => {
+  console.log('[decryptMemo] ========== DECRYPT MEMO START ==========');
+  console.log('[decryptMemo] Input params:', {
+    username,
+    otherParty,
+    memoPreview: encryptedMemo.substring(0, 40) + '...',
+    memoLength: encryptedMemo.length,
+    startsWithHash: encryptedMemo.startsWith('#'),
+    fullMemo: encryptedMemo
+  });
+
   try {
     if (!encryptedMemo.startsWith('#')) {
+      console.log('[decryptMemo] Memo not encrypted, returning as-is');
       return encryptedMemo;
     }
 
+    console.log('[decryptMemo] Calling requestDecodeMemo...');
     const decrypted = await requestDecodeMemo(username, encryptedMemo);
+    console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
       let result = decrypted;
@@ -340,12 +353,15 @@ export const decryptMemo = async (
         result = result.substring(1);
       }
       
+      console.log('[decryptMemo] Final result:', result.substring(0, 50) + '...');
       return result;
     }
     
+    console.log('[decryptMemo] requestDecodeMemo returned null/empty');
     return null;
   } catch (error: any) {
-    console.error('Error decrypting memo:', error?.message || error, 'for memo:', encryptedMemo.substring(0, 20) + '...', 'otherParty:', otherParty);
+    console.error('[decryptMemo] ❌ ERROR:', error?.message || error);
+    console.error('[decryptMemo] Error for memo:', encryptedMemo.substring(0, 40) + '...', 'otherParty:', otherParty);
     return null;
   }
 };
