@@ -1,0 +1,69 @@
+[CONV DISCOVERY] Starting for user: curatorhulk
+injected.js:27 [CACHE FIX] Fixed 0 corrupted messages
+injected.js:27 [CONV DISCOVERY] Discovered partners: Array(1)
+injected.js:27 [CONV DISCOVERY] Processing partner: dandandan123
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo (will use Keychain)...
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo (uses Keychain)...
+injected.js:27 [DECRYPT] Starting decryption... Object
+injected.js:27 [DECRYPT] Using Keychain SDK decode() method for MEMO KEY decryption...
+injected.js:27 [DECRYPT] This will show clear "Decrypt Memo" authorization popup
+injected.js:27 [DECRYPT] Keychain SDK decode() raw result: Object
+injected.js:27 [DECRYPT] Result type: object
+injected.js:27 [DECRYPT] Result keys: Array(6)
+injected.js:27 [DECRYPT] result.success: true
+injected.js:27 [DECRYPT] result.result: #GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsFCDhPUGqD3VSkPJBoX8SBB4PGUvMt5hmjQmQ4bhQ17WX5NtV2yGXgnKtXLkK73MmFeiXd2my7McRbE73U
+injected.js:27 [DECRYPT] result.data: Object
+injected.js:27 [DECRYPT] result.message: Memo decoded succesfully.
+injected.js:27 [DECRYPT] result.error: null
+injected.js:27 [DECRYPT] ✅ Memo decrypted successfully via Keychain SDK!
+injected.js:27 [DECRYPT] Decrypted content: #GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsFCDhPUGqD3VSkPJBoX8SBB4PGUvMt5hmjQmQ4bhQ17WX5NtV2yGXgnKtXLkK73MmFeiXd2my7McRbE73U
+injected.js:27 [DECRYPT] Decrypted content length: 130
+injected.js:27 [decryptMemo] requestDecodeMemo returned: GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsFC...
+injected.js:27 [decryptMemo] Final result: GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsFC...
+injected.js:27 [MessageBubble] decryptMemo returned: GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsFC...
+injected.js:27 [DECRYPT] Updating cache with decrypted content, length: 129
+injected.js:27 [DECRYPT] Cache updated successfully
+injected.js:27 [DECRYPT] Invalidating query for: Object
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [DECRYPT] Query invalidated, UI should refresh
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Fixing corrupted message Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(1)
+injected.js:27 [QUERY] Starting blockchain messages query for: {username: 'curatorhulk', partner: 'dandandan123'}
+injected.js:27 [MESSAGES PAGE] Mapped conversations: [{…}]
+injected.js:27 [MESSAGES PAGE] Mapped conversations: [{…}]
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: {id: 'a00c5511bb72c18...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Cached msg 1: {id: '95552926b94046c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: {id: 'a00c5511bb72c18...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Returning msg 1: {id: '95552926b94046c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [MESSAGES PAGE] Mapped conversations: [{…}]
+injected.js:27 [MESSAGES PAGE] Mapped conversations: [{…}]

@@ -205,75 +205,52 @@ export const requestDecodeMemo = async (
     fullMemo: encryptedMemo
   });
   
-  if (!window.hive_keychain) {
-    throw new Error('Hive Keychain extension not found. Please install it.');
-  }
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain extension not found. Please install it.'));
+      return;
+    }
 
-  console.log('[DECRYPT] Using Keychain SDK decode() method for MEMO KEY decryption...');
-  console.log('[DECRYPT] This will show clear "Decrypt Memo" authorization popup');
-  
-  // Use Keychain SDK's decode() method for better UX
-  // This shows a popup that clearly indicates MEMO KEY decryption/authorization
-  // Source: https://github.com/hive-keychain/keychain-sdk
-  const keychain = new KeychainSDK(window);
-  
-  try {
-    const result = await keychain.decode({
-      username: username,
-      message: encryptedMemo,
-      method: KeychainKeyTypes.memo  // Use MEMO KEY for decryption - shows in popup
-    });
+    console.log('[DECRYPT] Using requestVerifyKey (raw Keychain API) for MEMO decryption...');
+    console.log('[DECRYPT] This shows "Verify Key" popup with Memo key authorization');
     
-    console.log('[DECRYPT] Keychain SDK decode() raw result:', result);
-    console.log('[DECRYPT] Result type:', typeof result);
-    console.log('[DECRYPT] Result keys:', result ? Object.keys(result) : 'null');
-    console.log('[DECRYPT] result.success:', result?.success);
-    console.log('[DECRYPT] result.result:', result?.result);
-    console.log('[DECRYPT] result.data:', result?.data);
-    console.log('[DECRYPT] result.message:', result?.message);
-    console.log('[DECRYPT] result.error:', result?.error);
-    
-    // Check if the decryption was successful
-    if (!result || result.success === false) {
-      console.error('[DECRYPT] ❌ Decryption failed or was cancelled');
-      const errorMsg = result?.error || result?.message || 'Decryption failed';
-      
-      if (errorMsg.toLowerCase().includes('cancel')) {
-        throw new Error('User cancelled decryption');
-      }
-      throw new Error(errorMsg);
-    }
-    
-    // Extract decrypted content - try multiple possible fields
-    const decrypted = (result as any).result || (result as any).data || (result as any).message;
-    
-    if (!decrypted || typeof decrypted !== 'string') {
-      console.error('[DECRYPT] ❌ No decrypted content in response');
-      console.error('[DECRYPT] Full result object:', JSON.stringify(result, null, 2));
-      throw new Error('Decryption returned no content');
-    }
-    
-    console.log('[DECRYPT] ✅ Memo decrypted successfully via Keychain SDK!');
-    console.log('[DECRYPT] Decrypted content:', decrypted);
-    console.log('[DECRYPT] Decrypted content length:', decrypted.length);
-    
-    // Remove leading # if present
-    const cleanDecoded = decrypted.startsWith('#') 
-      ? decrypted.substring(1) 
-      : decrypted;
-    return cleanDecoded;
-  } catch (error: any) {
-    console.error('[DECRYPT] ❌ Keychain SDK decryption failed:', error);
-    
-    // Handle user cancellation
-    const errorMessage = error.message || error.error || error.toString();
-    if (errorMessage.toLowerCase().includes('cancel')) {
-      throw new Error('User cancelled decryption');
-    }
-    
-    // Re-throw with clean error message
-    throw new Error(errorMessage || 'Decryption failed');
-  }
+    // Use the raw Keychain browser extension API (requestVerifyKey)
+    // This is the OFFICIAL method for decrypting memos - used by PeakD, Hive.blog, etc.
+    // The SDK's decode() method does NOT actually decrypt - it returns encrypted content
+    // Source: https://github.com/hive-keychain/hive-keychain-extension/blob/master/documentation/README.md
+    window.hive_keychain.requestVerifyKey(
+      username,       // Hive account name
+      encryptedMemo,  // Encrypted memo string (starts with #)
+      'Memo',         // Key type string (not enum) - 'Memo', 'Posting', or 'Active'
+      (response: any) => {
+        console.log('[DECRYPT] requestVerifyKey response:', response);
+        console.log('[DECRYPT] response.success:', response?.success);
+        console.log('[DECRYPT] response.result:', response?.result);
+        console.log('[DECRYPT] response.error:', response?.error);
+        
+        if (response.success) {
+          console.log('[DECRYPT] ✅ Memo decrypted successfully!');
+          const decoded = response.result;
+          console.log('[DECRYPT] Decrypted content:', decoded);
+          console.log('[DECRYPT] Decrypted content length:', decoded?.length);
+          
+          // Remove leading # if present in decoded text
+          const cleanDecoded = decoded && decoded.startsWith('#') ? decoded.substring(1) : decoded;
+          resolve(cleanDecoded);
+        } else {
+          console.error('[DECRYPT] ❌ Keychain decryption failed:', response.message || response.error);
+          
+          const errorMsg = response.message || response.error || 'Decryption failed';
+          if (errorMsg.toLowerCase().includes('cancel')) {
+            reject(new Error('User cancelled decryption'));
+          } else {
+            reject(new Error(errorMsg));
+          }
+        }
+      },
+      null  // RPC override (null = use default RPC)
+    );
+  });
 };
 
 export const getConversationMessages = async (
