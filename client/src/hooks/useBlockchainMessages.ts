@@ -86,7 +86,7 @@ export function useBlockchainMessages({
           msg.content = '[🔒 Encrypted - Click to decrypt]';
           
           // Update cache with fixed content
-          cacheMessage(msg).catch(err => console.error('[QUERY] Failed to update cached message:', err));
+          cacheMessage(msg, user.username).catch(err => console.error('[QUERY] Failed to update cached message:', err));
         }
         
         mergedMessages.set(msg.id, msg);
@@ -119,7 +119,7 @@ export function useBlockchainMessages({
               confirmed: true,
             };
 
-            await cacheMessage(messageCache);
+            await cacheMessage(messageCache, user.username);
             mergedMessages.set(msg.trx_id, messageCache);
           } else {
             // Received message - store with placeholder, will decrypt on demand
@@ -136,7 +136,7 @@ export function useBlockchainMessages({
             };
 
             console.log('[QUERY] Caching new received message with placeholder');
-            await cacheMessage(messageCache);
+            await cacheMessage(messageCache, user.username);
             mergedMessages.set(msg.trx_id, messageCache);
           }
         }
@@ -167,7 +167,7 @@ export function useBlockchainMessages({
           lastTimestamp: lastMessage.timestamp,
           unreadCount: 0,
           lastChecked: new Date().toISOString(),
-        });
+        }, user.username);
       }
 
       return allMessages;
@@ -205,12 +205,19 @@ export function useConversationDiscovery() {
         throw new Error('User not authenticated');
       }
 
+      console.log('[CONV DISCOVERY] Starting for user:', user.username);
       const partners = await discoverConversations(user.username, 1000);
+      console.log('[CONV DISCOVERY] Discovered partners:', partners);
 
       const conversations = [];
       for (const partner of partners) {
+        console.log('[CONV DISCOVERY] Processing partner:', partner);
         const conversation = await getConversation(user.username, partner);
         if (conversation) {
+          console.log('[CONV DISCOVERY] Found cached conversation:', {
+            partnerUsername: conversation.partnerUsername,
+            lastMessage: conversation.lastMessage.substring(0, 30)
+          });
           conversations.push(conversation);
         } else {
           const messages = await getConversationMessages(
@@ -231,23 +238,24 @@ export function useConversationDiscovery() {
               decryptedContent = '[Encrypted message]';
             }
 
-            await updateConversation({
+            const newConversation = {
               conversationKey: getConversationKey(user.username, partner),
               partnerUsername: partner,
               lastMessage: decryptedContent,
               lastTimestamp: lastMessage.timestamp,
               unreadCount: 0,
               lastChecked: new Date().toISOString(),
+            };
+
+            console.log('[CONV DISCOVERY] Creating new conversation:', {
+              currentUser: user.username,
+              partner: partner,
+              conversationKey: newConversation.conversationKey,
+              partnerUsername: newConversation.partnerUsername
             });
 
-            conversations.push({
-              conversationKey: getConversationKey(user.username, partner),
-              partnerUsername: partner,
-              lastMessage: decryptedContent,
-              lastTimestamp: lastMessage.timestamp,
-              unreadCount: 0,
-              lastChecked: new Date().toISOString(),
-            });
+            await updateConversation(newConversation, user.username);
+            conversations.push(newConversation);
           }
         }
       }

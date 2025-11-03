@@ -48,14 +48,26 @@ interface HiveMessengerDB extends DBSchema {
 }
 
 let dbInstance: IDBPDatabase<HiveMessengerDB> | null = null;
+let currentDbUsername: string | null = null;
 
-async function getDB(): Promise<IDBPDatabase<HiveMessengerDB>> {
+async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> {
+  // If username is provided and different from current, close and reopen for new user
+  if (username && currentDbUsername !== username) {
+    if (dbInstance) {
+      dbInstance.close();
+      dbInstance = null;
+    }
+    currentDbUsername = username;
+  }
+
   if (dbInstance) {
     return dbInstance;
   }
 
-  // Bump version to force cache clear for corrupted encrypted content
-  dbInstance = await openDB<HiveMessengerDB>('hive-messenger-v3', 1, {
+  // Scope database to username to prevent data mixing between accounts
+  const dbName = username ? `hive-messenger-${username}-v3` : 'hive-messenger-v3';
+  
+  dbInstance = await openDB<HiveMessengerDB>(dbName, 1, {
     upgrade(db: IDBPDatabase<HiveMessengerDB>) {
       if (!db.objectStoreNames.contains('messages')) {
         const messageStore = db.createObjectStore('messages', { keyPath: 'id' });
@@ -84,13 +96,13 @@ function getConversationKey(user1: string, user2: string): string {
   return [user1, user2].sort().join('-');
 }
 
-export async function cacheMessage(message: MessageCache): Promise<void> {
-  const db = await getDB();
+export async function cacheMessage(message: MessageCache, username?: string): Promise<void> {
+  const db = await getDB(username);
   await db.put('messages', message);
 }
 
-export async function cacheMessages(messages: MessageCache[]): Promise<void> {
-  const db = await getDB();
+export async function cacheMessages(messages: MessageCache[], username?: string): Promise<void> {
+  const db = await getDB(username);
   const tx = db.transaction('messages', 'readwrite');
   await Promise.all([
     ...messages.map((msg) => tx.store.put(msg)),
@@ -103,7 +115,7 @@ export async function getMessagesByConversation(
   partnerUsername: string,
   limit?: number
 ): Promise<MessageCache[]> {
-  const db = await getDB();
+  const db = await getDB(currentUser);
   const conversationKey = getConversationKey(currentUser, partnerUsername);
   
   const messages = await db.getAllFromIndex(
@@ -123,19 +135,19 @@ export async function getMessagesByConversation(
   return sorted;
 }
 
-export async function getMessageByTxId(txId: string): Promise<MessageCache | undefined> {
-  const db = await getDB();
+export async function getMessageByTxId(txId: string, username?: string): Promise<MessageCache | undefined> {
+  const db = await getDB(username);
   const messages = await db.getAllFromIndex('messages', 'by-txId', txId);
   return messages[0];
 }
 
-export async function updateConversation(conversation: ConversationCache): Promise<void> {
-  const db = await getDB();
+export async function updateConversation(conversation: ConversationCache, username?: string): Promise<void> {
+  const db = await getDB(username);
   await db.put('conversations', conversation);
 }
 
-export async function getConversations(): Promise<ConversationCache[]> {
-  const db = await getDB();
+export async function getConversations(username?: string): Promise<ConversationCache[]> {
+  const db = await getDB(username);
   const conversations = await db.getAll('conversations');
   
   return conversations.sort((a: ConversationCache, b: ConversationCache) => 
@@ -147,31 +159,31 @@ export async function getConversation(
   currentUser: string,
   partnerUsername: string
 ): Promise<ConversationCache | undefined> {
-  const db = await getDB();
+  const db = await getDB(currentUser);
   const conversationKey = getConversationKey(currentUser, partnerUsername);
   return await db.get('conversations', conversationKey);
 }
 
-export async function setMetadata(key: string, value: string): Promise<void> {
-  const db = await getDB();
+export async function setMetadata(key: string, value: string, username?: string): Promise<void> {
+  const db = await getDB(username);
   await db.put('metadata', { key, value });
 }
 
-export async function getMetadata(key: string): Promise<string | undefined> {
-  const db = await getDB();
+export async function getMetadata(key: string, username?: string): Promise<string | undefined> {
+  const db = await getDB(username);
   const result = await db.get('metadata', key);
   return result?.value;
 }
 
-export async function clearAllCache(): Promise<void> {
-  const db = await getDB();
+export async function clearAllCache(username?: string): Promise<void> {
+  const db = await getDB(username);
   await db.clear('messages');
   await db.clear('conversations');
   await db.clear('metadata');
 }
 
 export async function fixCorruptedMessages(currentUsername: string): Promise<number> {
-  const db = await getDB();
+  const db = await getDB(currentUsername);
   const allMessages = await db.getAll('messages');
   let fixed = 0;
   
@@ -217,7 +229,7 @@ export async function addOptimisticMessage(
     confirmed: false,
   };
 
-  await cacheMessage(message);
+  await cacheMessage(message, from);
 
   const conversation = await getConversation(from, to);
   await updateConversation({
@@ -227,11 +239,11 @@ export async function addOptimisticMessage(
     lastTimestamp: message.timestamp,
     unreadCount: conversation?.unreadCount || 0,
     lastChecked: new Date().toISOString(),
-  });
+  }, from);
 }
 
-export async function confirmMessage(tempId: string, txId: string, encryptedContent?: string): Promise<void> {
-  const db = await getDB();
+export async function confirmMessage(tempId: string, txId: string, encryptedContent?: string, username?: string): Promise<void> {
+  const db = await getDB(username);
   const message = await db.get('messages', tempId);
   
   if (message) {
@@ -250,8 +262,8 @@ export async function confirmMessage(tempId: string, txId: string, encryptedCont
   }
 }
 
-export async function updateMessageContent(messageId: string, decryptedContent: string): Promise<void> {
-  const db = await getDB();
+export async function updateMessageContent(messageId: string, decryptedContent: string, username?: string): Promise<void> {
+  const db = await getDB(username);
   const message = await db.get('messages', messageId);
   
   if (message) {

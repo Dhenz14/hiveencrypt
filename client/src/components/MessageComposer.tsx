@@ -193,7 +193,7 @@ export function MessageComposer({
 
       // Step 3: Confirm message in IndexedDB with real txId and encrypted content
       try {
-        await confirmMessage(tempId, txId || '', encryptedMemo);
+        await confirmMessage(tempId, txId || '', encryptedMemo, user.username);
 
         toast({
           title: 'Message Sent',

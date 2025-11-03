@@ -74,6 +74,16 @@ export default function Messages() {
   });
 
   const conversations: Conversation[] = conversationCaches.map(mapConversationCacheToConversation);
+  
+  // Debug logging
+  if (conversations.length > 0) {
+    console.log('[MESSAGES PAGE] Mapped conversations:', conversations.map(c => ({
+      id: c.id,
+      contactUsername: c.contactUsername,
+      lastMessage: c.lastMessage?.substring(0, 30) || ''
+    })));
+  }
+  
   const selectedConversationId = selectedPartner ? getConversationKey(user?.username || '', selectedPartner) : null;
   const selectedConversation = conversations.find(c => c.contactUsername === selectedPartner);
   
@@ -89,7 +99,7 @@ export default function Messages() {
       if (cacheVersion !== '6.0') {
         console.log('[INIT] Cache version outdated, clearing all corrupted data...');
         import('@/lib/messageCache').then(({ clearAllCache }) => {
-          clearAllCache().then(() => {
+          clearAllCache(user.username).then(() => {
             localStorage.setItem('hive_cache_version', '6.0');
             console.log('[INIT] Cache cleared successfully');
             queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
@@ -157,7 +167,7 @@ export default function Messages() {
         lastTimestamp: new Date().toISOString(),
         unreadCount: 0,
         lastChecked: new Date().toISOString(),
-      });
+      }, user?.username);
 
       setSelectedPartner(username);
       setIsNewMessageOpen(false);

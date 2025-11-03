@@ -58,7 +58,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
         const cleanContent = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
         
         console.log('[DECRYPT] Updating cache with decrypted content, length:', cleanContent.length);
-        await updateMessageContent(message.id, cleanContent);
+        await updateMessageContent(message.id, cleanContent, user.username);
         console.log('[DECRYPT] Cache updated successfully');
         
         // Get partner username from message
