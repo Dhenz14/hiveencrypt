@@ -204,21 +204,29 @@ export const requestKeychainDecryption = async (
       return;
     }
 
-    // Request decryption from Keychain using the actual working API method
-    // Method name is requestDecode (NOT requestDecodeMemo)
-    window.hive_keychain.requestDecode(
-      username,
-      encryptedMemo,
-      'Memo',
-      (response: any) => {
-        if (response.success) {
-          // Keychain returns the decrypted message in response.result
+    // Use Keychain SDK's decode method (the actual working implementation)
+    import('keychain-sdk').then(({ KeychainSDK }) => {
+      const keychain = new KeychainSDK(window);
+      
+      keychain.decode({
+        username: username,
+        message: encryptedMemo,
+        method: 'memo' as any  // SDK expects lowercase
+      }).then((response: any) => {
+        // Extract the actual decrypted result from the response
+        if (response && typeof response === 'object' && 'result' in response) {
           resolve(response.result);
+        } else if (typeof response === 'string') {
+          resolve(response);
         } else {
-          reject(new Error(response.message || 'Keychain decryption failed. Please check that you have the correct account selected.'));
+          reject(new Error('Unexpected response format from Keychain'));
         }
-      }
-    );
+      }).catch((error: any) => {
+        reject(new Error(error?.message || 'Keychain decryption failed. Please check that you have the correct account selected.'));
+      });
+    }).catch((error: any) => {
+      reject(new Error('Failed to load Keychain SDK'));
+    });
   });
 };
 

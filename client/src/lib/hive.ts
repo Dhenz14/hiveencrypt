@@ -198,40 +198,43 @@ export const requestDecodeMemo = async (
   encryptedMemo: string,
   senderUsername?: string
 ): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain extension not found. Please install it.'));
-      return;
-    }
+  // Handle unencrypted memos
+  if (!encryptedMemo.startsWith('#')) {
+    return encryptedMemo;
+  }
 
-    // Handle unencrypted memos
-    if (!encryptedMemo.startsWith('#')) {
-      resolve(encryptedMemo);
-      return;
-    }
+  // Import Keychain SDK dynamically
+  const { KeychainSDK } = await import('keychain-sdk');
+  const keychain = new KeychainSDK(window);
 
-    // Use the ACTUAL working Keychain API for memo decryption
-    // Method name is requestDecode (NOT requestDecodeMemo or requestVerifyKey)
-    // Source: https://github.com/hive-keychain/hive-keychain-extension/blob/master/documentation/README.md
-    window.hive_keychain.requestDecode(
-      username,
-      encryptedMemo,
-      'Memo',
-      (response: any) => {
-        if (response.success) {
-          // response.result contains the actual decrypted plaintext
-          resolve(response.result);
-        } else {
-          const errorMsg = response.message || response.error || 'Decryption failed';
-          if (errorMsg.toLowerCase().includes('cancel')) {
-            reject(new Error('User cancelled decryption'));
-          } else {
-            reject(new Error(errorMsg));
-          }
-        }
-      }
-    );
-  });
+  try {
+    // Use Keychain SDK's decode method
+    // This is the proven working method that PeakD and other Hive apps use
+    const response = await keychain.decode({
+      username: username,
+      message: encryptedMemo,
+      method: 'memo' as any  // SDK expects lowercase
+    });
+    
+    // Extract the actual decrypted result from the response
+    if (response && typeof response === 'object' && 'result' in response) {
+      return (response as any).result;
+    }
+    
+    // If response is already a string, return it
+    if (typeof response === 'string') {
+      return response;
+    }
+    
+    throw new Error('Unexpected response format from Keychain');
+  } catch (error: any) {
+    const errorMsg = error?.message || error?.error || 'Decryption failed';
+    if (errorMsg.toLowerCase().includes('cancel')) {
+      throw new Error('User cancelled decryption');
+    } else {
+      throw new Error(errorMsg);
+    }
+  }
 };
 
 export const getConversationMessages = async (
