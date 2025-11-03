@@ -193,8 +193,139 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
   return account?.memo_key || null;
 };
 
-// Store memo key temporarily in memory (NOT localStorage for security)
+// Secure encrypted memo key storage
+const MEMO_KEY_STORAGE_KEY = 'hive_messenger_encrypted_memo_key';
 let memoKeyCache: string | null = null;
+
+// Simple AES-like encryption using Web Crypto API
+async function encryptMemoKey(memoKey: string, passphrase: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(memoKey);
+  const passphraseData = encoder.encode(passphrase);
+  
+  // Derive key from passphrase
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    passphraseData,
+    'PBKDF2',
+    false,
+    ['deriveBits', 'deriveKey']
+  );
+  
+  const key = await crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: encoder.encode('hive-messenger-salt-v1'),
+      iterations: 100000,
+      hash: 'SHA-256'
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+  
+  // Generate random IV
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  
+  // Encrypt
+  const encrypted = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    data
+  );
+  
+  // Combine IV + encrypted data
+  const combined = new Uint8Array(iv.length + encrypted.byteLength);
+  combined.set(iv, 0);
+  combined.set(new Uint8Array(encrypted), iv.length);
+  
+  // Convert to base64
+  return btoa(String.fromCharCode.apply(null, Array.from(combined)));
+}
+
+async function decryptMemoKey(encryptedData: string, passphrase: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+  const passphraseData = encoder.encode(passphrase);
+  
+  // Derive key from passphrase
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    passphraseData,
+    'PBKDF2',
+    false,
+    ['deriveBits', 'deriveKey']
+  );
+  
+  const key = await crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: encoder.encode('hive-messenger-salt-v1'),
+      iterations: 100000,
+      hash: 'SHA-256'
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+  
+  // Decode from base64
+  const combined = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
+  
+  // Extract IV and encrypted data
+  const iv = combined.slice(0, 12);
+  const encrypted = combined.slice(12);
+  
+  // Decrypt
+  const decrypted = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    encrypted
+  );
+  
+  return decoder.decode(decrypted);
+}
+
+export const saveMemoKeyEncrypted = async (memoKey: string, passphrase: string): Promise<void> => {
+  try {
+    const encrypted = await encryptMemoKey(memoKey, passphrase);
+    localStorage.setItem(MEMO_KEY_STORAGE_KEY, encrypted);
+    memoKeyCache = memoKey;
+    console.log('[MEMO_KEY] Saved encrypted to localStorage');
+  } catch (error) {
+    console.error('[MEMO_KEY] Failed to encrypt and save:', error);
+    throw new Error('Failed to save memo key securely');
+  }
+};
+
+export const loadMemoKeyEncrypted = async (passphrase: string): Promise<string | null> => {
+  try {
+    const encrypted = localStorage.getItem(MEMO_KEY_STORAGE_KEY);
+    if (!encrypted) {
+      return null;
+    }
+    
+    const decrypted = await decryptMemoKey(encrypted, passphrase);
+    memoKeyCache = decrypted;
+    console.log('[MEMO_KEY] Loaded and decrypted from localStorage');
+    return decrypted;
+  } catch (error) {
+    console.error('[MEMO_KEY] Failed to decrypt:', error);
+    throw new Error('Wrong passphrase or corrupted data');
+  }
+};
+
+export const hasSavedMemoKey = (): boolean => {
+  return localStorage.getItem(MEMO_KEY_STORAGE_KEY) !== null;
+};
+
+export const removeSavedMemoKey = (): void => {
+  localStorage.removeItem(MEMO_KEY_STORAGE_KEY);
+  memoKeyCache = null;
+  console.log('[MEMO_KEY] Removed from localStorage');
+};
 
 export const setMemoKey = (key: string) => {
   memoKeyCache = key;
