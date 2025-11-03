@@ -54,7 +54,8 @@ async function getDB(): Promise<IDBPDatabase<HiveMessengerDB>> {
     return dbInstance;
   }
 
-  dbInstance = await openDB<HiveMessengerDB>('hive-messenger-v2', 1, {
+  // Bump version to force cache clear for corrupted encrypted content
+  dbInstance = await openDB<HiveMessengerDB>('hive-messenger-v3', 1, {
     upgrade(db: IDBPDatabase<HiveMessengerDB>) {
       if (!db.objectStoreNames.contains('messages')) {
         const messageStore = db.createObjectStore('messages', { keyPath: 'id' });

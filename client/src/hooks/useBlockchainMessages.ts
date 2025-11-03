@@ -64,13 +64,24 @@ export function useBlockchainMessages({
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
-        // ONLY fix if content exactly equals encryptedContent
-        // This is the ONLY reliable test for corrupted messages
-        const needsFixing = msg.content === msg.encryptedContent && msg.encryptedContent;
+        // Detect corrupted messages: content should NEVER contain base64/encrypted data
+        // Valid content patterns:
+        // - Sent: "Your encrypted message" (22 chars)
+        // - Received placeholder: "[🔒 Encrypted - Click to decrypt]" (35 chars)
+        // - Decrypted: actual message text (variable, but NOT base64-like)
+        const isLikelyCorrupted = 
+          msg.content.length > 80 && // Too long for placeholder
+          !msg.content.includes('🔒') && // Doesn't have emoji
+          !msg.content.includes('Your encrypted') && // Not sent placeholder
+          msg.content !== msg.encryptedContent; // Not exact match (already handled)
+        
+        const needsFixing = isLikelyCorrupted || (msg.content === msg.encryptedContent && msg.encryptedContent);
         
         if (needsFixing) {
-          console.log('[QUERY] Fixing corrupted message (content === encrypted)', {
-            contentPreview: msg.content.substring(0, 30) + '...'
+          console.log('[QUERY] Fixing corrupted message', {
+            reason: isLikelyCorrupted ? 'base64-like content' : 'content === encrypted',
+            contentPreview: msg.content.substring(0, 30) + '...',
+            contentLength: msg.content.length
           });
           
           // Replace with appropriate placeholder
