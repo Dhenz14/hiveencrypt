@@ -223,15 +223,12 @@ export function useConversationDiscovery() {
             const lastMessage = messages[messages.length - 1];
             let decryptedContent: string | null = null;
             
+            // For conversation discovery, use placeholders to avoid triggering multiple Keychain prompts
+            // Users can decrypt individual messages within the conversation view
             if (lastMessage.from === user.username) {
-              // Cannot decrypt sent messages (no recipient private key)
-              // Use placeholder for conversation discovery
-              decryptedContent = '[Message sent by you]';
+              decryptedContent = '[Encrypted message sent by you]';
             } else {
-              decryptedContent = await decryptMemo(user.username, lastMessage.memo, lastMessage.from);
-              if (!decryptedContent) {
-                decryptedContent = '[Encrypted message]';
-              }
+              decryptedContent = '[Encrypted message]';
             }
 
             await updateConversation({
