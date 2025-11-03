@@ -204,29 +204,21 @@ export const requestKeychainDecryption = async (
       return;
     }
 
-    // Use Keychain SDK's decode method (the actual working implementation)
-    import('keychain-sdk').then(({ KeychainSDK }) => {
-      const keychain = new KeychainSDK(window);
-      
-      keychain.decode({
-        username: username,
-        message: encryptedMemo,
-        method: 'memo' as any  // SDK expects lowercase
-      }).then((response: any) => {
-        // Extract the actual decrypted result from the response
-        if (response && typeof response === 'object' && 'result' in response) {
+    // Use requestVerifyKey - the actual working API that PeakD uses
+    // Source: https://peakd.com/@steempeak/decrypt-memos-on-steempeak-com-using-keychain
+    window.hive_keychain.requestVerifyKey(
+      username,
+      encryptedMemo,
+      'Memo',
+      (response: any) => {
+        if (response.success) {
+          // Keychain returns the decrypted message in response.result
           resolve(response.result);
-        } else if (typeof response === 'string') {
-          resolve(response);
         } else {
-          reject(new Error('Unexpected response format from Keychain'));
+          reject(new Error(response.message || 'Keychain decryption failed. Please check that you have the correct account selected.'));
         }
-      }).catch((error: any) => {
-        reject(new Error(error?.message || 'Keychain decryption failed. Please check that you have the correct account selected.'));
-      });
-    }).catch((error: any) => {
-      reject(new Error('Failed to load Keychain SDK'));
-    });
+      }
+    );
   });
 };
 

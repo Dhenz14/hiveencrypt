@@ -198,43 +198,39 @@ export const requestDecodeMemo = async (
   encryptedMemo: string,
   senderUsername?: string
 ): Promise<string> => {
-  // Handle unencrypted memos
-  if (!encryptedMemo.startsWith('#')) {
-    return encryptedMemo;
-  }
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain extension not found. Please install it.'));
+      return;
+    }
 
-  // Import Keychain SDK dynamically
-  const { KeychainSDK } = await import('keychain-sdk');
-  const keychain = new KeychainSDK(window);
+    // Handle unencrypted memos
+    if (!encryptedMemo.startsWith('#')) {
+      resolve(encryptedMemo);
+      return;
+    }
 
-  try {
-    // Use Keychain SDK's decode method
-    // This is the proven working method that PeakD and other Hive apps use
-    const response = await keychain.decode({
-      username: username,
-      message: encryptedMemo,
-      method: 'memo' as any  // SDK expects lowercase
-    });
-    
-    // Extract the actual decrypted result from the response
-    if (response && typeof response === 'object' && 'result' in response) {
-      return (response as any).result;
-    }
-    
-    // If response is already a string, return it
-    if (typeof response === 'string') {
-      return response;
-    }
-    
-    throw new Error('Unexpected response format from Keychain');
-  } catch (error: any) {
-    const errorMsg = error?.message || error?.error || 'Decryption failed';
-    if (errorMsg.toLowerCase().includes('cancel')) {
-      throw new Error('User cancelled decryption');
-    } else {
-      throw new Error(errorMsg);
-    }
-  }
+    // Use requestVerifyKey - this is what PeakD actually uses for memo decryption
+    // Source: https://peakd.com/@steempeak/decrypt-memos-on-steempeak-com-using-keychain
+    window.hive_keychain.requestVerifyKey(
+      username,
+      encryptedMemo,
+      'Memo',
+      (response: any) => {
+        if (response.success) {
+          // response.result contains the actual decrypted plaintext
+          resolve(response.result);
+        } else {
+          const errorMsg = response.message || response.error || 'Decryption failed';
+          if (errorMsg.toLowerCase().includes('cancel')) {
+            reject(new Error('User cancelled decryption'));
+          } else {
+            reject(new Error(errorMsg));
+          }
+        }
+      }
+    );
+  });
 };
 
 export const getConversationMessages = async (
