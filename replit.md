@@ -49,7 +49,12 @@ The client-side browser, utilizing React UI, TanStack Query, IndexedDB, and Hive
 ### Security Considerations:
 -   **Authentication**: Server-side session validation, Keychain signature verification, secure session tokens (256-bit random hex with 7-day expiry), protected endpoints, and no client-side trust (localStorage only stores session token).
 -   **Encryption**: Messages encrypted before blockchain submission using Hive memo encryption (ECDH key exchange + AES-CBC). Decryption handled via @hiveio/dhive's Memo.decode with user's private memo key (same approach as Hive.blog wallet).
--   **Memo Decryption**: Users must provide their private memo key once per session. Key is stored temporarily in memory only (cleared on tab close) for security. Keychain's requestVerifyKey does NOT work for P2P memo decryption - it only works for self-encrypted authentication challenges.
+-   **Memo Key Storage**: 
+    - **Session-only (default)**: Memo key stored in memory, cleared on tab close (same as Hive.blog/PeakD)
+    - **Persistent (optional)**: Users can save memo key encrypted with AES-256-GCM using PBKDF2-derived key from passphrase
+    - **Web Crypto API**: Uses browser's native crypto.subtle for secure encryption (100k iterations, random IV per encryption)
+    - **Unlock flow**: On return, users enter passphrase to decrypt saved memo key (faster than re-entering full private key)
+    - **User control**: Can remove saved key anytime via "Forget Saved Key" button
 
 ## External Dependencies
 -   **Hive Blockchain**: Core platform for message storage and decentralization.
