@@ -64,35 +64,12 @@ export function useBlockchainMessages({
 
       const mergedMessages = new Map<string, MessageCache>();
       cachedMessages.forEach((msg) => {
-        // NEVER fix messages that have been manually decrypted by the user
-        if (msg.isDecrypted) {
-          mergedMessages.set(msg.id, msg);
-          return; // Skip corruption detection for manually decrypted messages
-        }
-        
-        // Detect corrupted messages: content should NEVER contain base64/encrypted data
-        // Valid content patterns:
-        // - Encrypted placeholder: "[🔒 Encrypted - Click to decrypt]" (universal for both sent/received)
-        // - Decrypted: actual message text (variable, but NOT base64-like)
-        const isLikelyCorrupted = 
-          msg.content.length > 80 && // Too long for placeholder
-          !msg.content.includes('🔒') && // Doesn't have emoji (encrypted placeholder)
-          msg.content !== msg.encryptedContent; // Not exact match (already handled)
-        
-        const needsFixing = isLikelyCorrupted || (msg.content === msg.encryptedContent && msg.encryptedContent);
-        
-        if (needsFixing) {
-          console.log('[QUERY] Fixing corrupted message', {
-            reason: isLikelyCorrupted ? 'base64-like content' : 'content === encrypted',
-            contentPreview: msg.content.substring(0, 30) + '...',
-            contentLength: msg.content.length
-          });
-          
-          // Replace with universal encrypted placeholder (works for both sent and received)
+        // Simple rule: If message is marked as decrypted, trust it
+        // If content matches encryptedContent, it's corrupted - reset to placeholder
+        // Otherwise, leave it alone
+        if (!msg.isDecrypted && msg.content === msg.encryptedContent && msg.encryptedContent) {
           msg.content = '[🔒 Encrypted - Click to decrypt]';
-          
-          // Update cache with fixed content
-          cacheMessage(msg, user.username).catch(err => console.error('[QUERY] Failed to update cached message:', err));
+          cacheMessage(msg, user.username).catch(err => console.error('[QUERY] Failed to fix message:', err));
         }
         
         mergedMessages.set(msg.id, msg);
