@@ -218,7 +218,7 @@ export const requestDecodeMemo = async (
     window.hive_keychain.requestVerifyKey(
       username,
       encryptedMemo,
-      'Memo', // Must be 'Memo' for memo decryption
+      'memo', // CRITICAL: Must be lowercase 'memo' per SDK source!
       (response: KeychainResponse) => {
         console.log('[DECRYPT] Extension API response:', {
           success: response?.success,
