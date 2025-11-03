@@ -224,11 +224,28 @@ export const requestDecodeMemo = async (
       method: 'Memo'  // Use MEMO KEY for decryption - shows in popup
     });
     
-    console.log('[DECRYPT] ✅ Memo decrypted successfully via Keychain SDK!');
-    console.log('[DECRYPT] Result:', result);
+    console.log('[DECRYPT] Keychain SDK decode() returned:', result);
     
-    // The SDK might return different response formats
-    const decrypted = result.result || result.message || result;
+    // Check if the decryption was successful
+    if (!result || result.success === false) {
+      console.error('[DECRYPT] ❌ Decryption failed or was cancelled');
+      const errorMsg = result?.error || result?.message || 'Decryption failed';
+      
+      if (errorMsg.toLowerCase().includes('cancel')) {
+        throw new Error('User cancelled decryption');
+      }
+      throw new Error(errorMsg);
+    }
+    
+    // Extract decrypted content from successful response
+    const decrypted = result.result;
+    
+    if (!decrypted) {
+      console.error('[DECRYPT] ❌ No decrypted content in response');
+      throw new Error('Decryption returned no content');
+    }
+    
+    console.log('[DECRYPT] ✅ Memo decrypted successfully via Keychain SDK!');
     console.log('[DECRYPT] Decrypted content length:', decrypted.length);
     
     // Remove leading # if present
@@ -237,11 +254,14 @@ export const requestDecodeMemo = async (
   } catch (error: any) {
     console.error('[DECRYPT] ❌ Keychain SDK decryption failed:', error);
     
-    if (error.message?.includes('cancel') || error.error?.includes('cancel')) {
+    // Handle user cancellation
+    const errorMessage = error.message || error.error || error.toString();
+    if (errorMessage.toLowerCase().includes('cancel')) {
       throw new Error('User cancelled decryption');
-    } else {
-      throw new Error(error.message || error.error || 'Decryption failed');
     }
+    
+    // Re-throw with clean error message
+    throw new Error(errorMessage || 'Decryption failed');
   }
 };
 
