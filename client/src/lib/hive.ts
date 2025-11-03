@@ -1,6 +1,5 @@
-import { Client } from '@hiveio/dhive';
+import { Client, PrivateKey, PublicKey, Memo } from '@hiveio/dhive';
 import { KeychainSDK } from 'keychain-sdk';
-import { encode, decode } from 'hivecrypt';
 
 // Initialize Hive client with public node
 export const hiveClient = new Client([
@@ -194,6 +193,21 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
   return account?.memo_key || null;
 };
 
+// Store memo key temporarily in memory (NOT localStorage for security)
+let memoKeyCache: string | null = null;
+
+export const setMemoKey = (key: string) => {
+  memoKeyCache = key;
+};
+
+export const getMemoKey = () => {
+  return memoKeyCache;
+};
+
+export const clearMemoKey = () => {
+  memoKeyCache = null;
+};
+
 export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string,
@@ -206,33 +220,35 @@ export const requestDecodeMemo = async (
     fullMemo: encryptedMemo
   });
   
-  if (!isKeychainInstalled()) {
-    console.error('[DECRYPT] Keychain not installed');
-    throw new Error('Hive Keychain not installed');
+  // Check if we have a cached memo key
+  const memoKey = getMemoKey();
+  
+  if (!memoKey) {
+    console.log('[DECRYPT] No memo key available - requesting from user');
+    throw new Error('MEMO_KEY_REQUIRED');
   }
 
-  console.log('[DECRYPT] Trying KeychainSDK decode method...');
-  
   try {
-    const keychain = new KeychainSDK(window);
-    const result = await keychain.decode({
-      username,
-      message: encryptedMemo,
-      method: 'Memo'
-    });
+    console.log('[DECRYPT] Using @hiveio/dhive Memo.decode...');
     
-    console.log('[DECRYPT] KeychainSDK.decode result:', result);
+    // Use dhive's Memo.decode function (handles all the crypto internally)
+    // It accepts the private key as string and the full encrypted memo including #
+    const decoded = Memo.decode(memoKey, encryptedMemo);
     
-    if (result.success && result.result) {
-      const decrypted = String(result.result);
-      console.log('[DECRYPT] ✅ Success via SDK! Decrypted:', decrypted.substring(0, 50));
-      return decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+    console.log('[DECRYPT] ✅ Success! Decrypted:', decoded.substring(0, 50) + '...');
+    
+    // Remove leading # if present in decoded text
+    return decoded.startsWith('#') ? decoded.substring(1) : decoded;
+  } catch (error: any) {
+    console.error('[DECRYPT] ❌ Decryption error:', error.message || error);
+    
+    // Provide helpful error messages
+    if (error.message?.includes('Invalid private key')) {
+      throw new Error('Invalid memo key format. Please check your private memo key.');
+    } else if (error.message?.includes('checksum')) {
+      throw new Error('Memo decryption failed - corrupted or wrong key');
     }
     
-    console.error('[DECRYPT] SDK decode failed:', result.error || result.message);
-    throw new Error(result.error || result.message || 'SDK decoding failed');
-  } catch (error: any) {
-    console.error('[DECRYPT] ❌ Error:', error.message || error);
     throw new Error(`Decryption failed: ${error.message || error}`);
   }
 };
