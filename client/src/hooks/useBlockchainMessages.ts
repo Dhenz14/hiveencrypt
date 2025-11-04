@@ -69,8 +69,14 @@ export function useBlockchainMessages({
         if (!msg.isDecrypted) {
           let isCorrupted = false;
           
+          // Case 0: content starts with # (encrypted memo format) - THIS IS THE MOST OBVIOUS CASE!
+          if (msg.content && msg.content.startsWith('#')) {
+            console.log('[QUERY] Corrupted (case 0): content starts with # (encrypted memo), msg:', msg.id.substring(0, 20));
+            isCorrupted = true;
+          }
+          
           // Case 1: content exactly matches encryptedContent (most obvious corruption)
-          if (msg.content === msg.encryptedContent && msg.encryptedContent) {
+          if (!isCorrupted && msg.content === msg.encryptedContent && msg.encryptedContent) {
             console.log('[QUERY] Corrupted (case 1): content === encryptedContent, msg:', msg.id.substring(0, 20));
             isCorrupted = true;
           }
@@ -96,6 +102,7 @@ export function useBlockchainMessages({
           }
           
           if (isCorrupted) {
+            console.log('[QUERY] FIXING corrupted message, setting placeholder');
             msg.content = '[🔒 Encrypted - Click to decrypt]';
             cacheMessage(msg, user.username).catch(err => console.error('[QUERY] Failed to fix message:', err));
           }
