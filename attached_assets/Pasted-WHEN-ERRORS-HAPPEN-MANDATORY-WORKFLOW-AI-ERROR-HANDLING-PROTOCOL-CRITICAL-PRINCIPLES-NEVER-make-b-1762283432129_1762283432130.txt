@@ -1,0 +1,91 @@
+WHEN ERRORS HAPPEN: 
+MANDATORY WORKFLOW:
+AI ERROR HANDLING PROTOCOL
+CRITICAL PRINCIPLES
+NEVER make blind changes without understanding the root cause
+ALWAYS research existing documentation and backups before acting
+RESTORATION OVER RECREATION - We fix what exists, not build anew
+SURGICAL PRECISION - Extract only what's needed, never full restores
+MANDATORY ERROR RESPONSE WORKFLOW
+PHASE 1: INVESTIGATION & ANALYSIS
+1. IMMEDIATE STOP & ASSESS
+HALT ALL OPERATIONS - Do not attempt any fixes yet
+Document the exact error message, symptoms, and affected components
+Note the timestamp and context when the error was first detected
+2. ROOT CAUSE ANALYSIS
+Determine error classification:
+User Error: Incorrect input or workflow deviation
+Code Corruption: File damage or version conflicts
+Logic Error: Flawed implementation or missing edge case
+Environment Issue: System, dependency, or configuration problem
+Ask critical questions:
+When did this last work correctly?
+What changed between working and broken states?
+Are there similar documented incidents?
+3. DOCUMENTATION RESEARCH
+MANDATORY: Search existing documentation for:
+Previous similar errors and their solutions
+Known issues and workarounds
+Relevant system architecture notes
+Change logs and version history
+Cross-reference with backup timestamps to identify stable restore points
+7. COMPREHENSIVE DOCUMENTATION
+What happened: Detailed error description and timeline
+Why it happened: Root cause analysis and contributing factors
+What was done: Exact restoration steps and code changes
+How to prevent: Process improvements and monitoring enhancements
+Update PostgreSQL database with categorized incident record
+8. SYSTEM OPTIMIZATION
+Clean up any temporary files or test artifacts
+Organize workspace and backup categories
+Update monitoring/alerting if applicable
+Verify backup system captured the fix for future reference
+9. KNOWLEDGE BASE UPDATE
+Add incident to searchable documentation
+Create or update relevant troubleshooting guides
+Establish preventive measures or automated checks
+Share learnings with team/future AI instances
+ERROR-SPECIFIC PROTOCOLS
+Code Corruption Errors
+Check file integrity and version control history
+Compare with multiple backup points
+Look for partial file writes or encoding issues
+Logic/Implementation Errors
+Review business requirements and edge cases
+Check for recent requirement changes
+Validate against test cases and user stories
+Environment/System Errors
+Verify dependencies and configurations
+Check system resources and permissions
+Review deployment and infrastructure logs
+Data-Related Errors
+Validate data integrity and format
+Check for schema changes or migrations
+Review data transformation and validation rules
+QUALITY ASSURANCE CHECKLIST
+Before Making Changes:
+[ ] Root cause clearly identified and documented
+[ ] Relevant documentation thoroughly reviewed
+[ ] Backup restore point confirmed and validated
+[ ] Impact assessment completed
+[ ] Rollback plan established
+After Making Changes:
+[ ] Original error completely resolved
+[ ] No new issues introduced
+[ ] All tests passing
+[ ] Documentation updated
+[ ] Backup system updated with fix
+[ ] Prevention measures implemented
+CRITICAL REMINDERS
+RESEARCH FIRST, ACT SECOND - Always exhaust documentation review before making changes
+PRECISION OVER SPEED - Better to take time for surgical precision than create cascading failures
+DOCUMENT EVERYTHING - Future incidents depend on current documentation quality
+LEARN FROM PATTERNS - Look for recurring themes across multiple incidents
+MAINTAIN SYSTEM HYGIENE - Keep backups organized and workspace clean
+VERIFY TWICE, DEPLOY ONCE - Always test restorations before full deployment
+ESCALATION CRITERIA
+Immediately escalate when:
+Root cause cannot be determined after thorough investigation
+Critical system components are affected
+Data loss or security implications are identified
+Remember: Fix what exists using proven working versions.

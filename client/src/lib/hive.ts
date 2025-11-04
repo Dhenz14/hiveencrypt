@@ -224,16 +224,30 @@ export const requestDecodeMemo = async (
       encryptedMemo,
       'Memo',
       (response: any) => {
-        console.log('[requestDecodeMemo] Keychain response:', {
-          success: response.success,
-          hasResult: !!response.result,
-          resultPreview: response.result ? response.result.substring(0, 50) + '...' : null,
-          error: response.error,
-          message: response.message
-        });
-
+        // Log COMPLETE response to diagnose gibberish issue
+        console.log('[requestDecodeMemo] ===== COMPLETE KEYCHAIN RESPONSE =====');
+        console.log('[requestDecodeMemo] Full response object:', JSON.stringify(response, null, 2));
+        console.log('[requestDecodeMemo] response.success:', response.success);
+        console.log('[requestDecodeMemo] response.result:', response.result);
+        console.log('[requestDecodeMemo] response.data:', response.data);
+        console.log('[requestDecodeMemo] response.error:', response.error);
+        console.log('[requestDecodeMemo] response.message:', response.message);
+        console.log('[requestDecodeMemo] response.publicKey:', response.publicKey);
+        console.log('[requestDecodeMemo] All response keys:', Object.keys(response));
+        
+        // Check all possible locations where decrypted text might be
         if (response.success) {
-          // The decrypted text is in response.result
+          const possibleResults = {
+            'response.result': response.result,
+            'response.data': response.data,
+            'response.data?.result': response.data?.result,
+            'response.data?.message': response.data?.message,
+            'response.message': response.message,
+            'response.publicKey': response.publicKey
+          };
+          console.log('[requestDecodeMemo] Checking all possible decrypted text locations:', possibleResults);
+          
+          // The decrypted text should be in response.result
           resolve(response.result);
         } else {
           const errorMsg = response.message || response.error || 'Decryption failed';
