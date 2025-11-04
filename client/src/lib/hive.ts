@@ -116,7 +116,7 @@ export const requestTransfer = (
           reject(response);
         }
       },
-      true // Enforce memo encryption
+      false // Don't re-encrypt - memo is already encrypted by requestEncode
     );
   });
 };
@@ -196,8 +196,14 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
 export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string,
-  senderUsername?: string
+  senderUsername?: string,
+  recursionDepth: number = 0
 ): Promise<string> => {
+  // Prevent infinite recursion (max 2 decryption attempts for double-encrypted messages)
+  if (recursionDepth > 1) {
+    throw new Error('Maximum decryption depth reached - message may be corrupted');
+  }
+
   // Handle unencrypted memos
   if (!encryptedMemo.startsWith('#')) {
     return encryptedMemo;
@@ -207,11 +213,12 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain extension not found. Please install it.');
   }
 
-  console.log('[requestDecodeMemo] Starting decryption with fallback strategy');
+  console.log('[requestDecodeMemo] Starting decryption with fallback strategy (depth:', recursionDepth, ')');
   console.log('[requestDecodeMemo] Parameters:', {
     username,
     messagePreview: encryptedMemo.substring(0, 40) + '...',
-    sender: senderUsername
+    sender: senderUsername,
+    depth: recursionDepth
   });
 
   // Helper to calculate Shannon entropy - low entropy indicates natural language
@@ -325,11 +332,28 @@ export const requestDecodeMemo = async (
     }
   }
   
-  // No readable results found, return the first result (if any) with a warning
+  // No readable results found - check if result is still encrypted (double encryption bug)
   if (results.length > 0) {
+    const firstResult = results[0].result;
+    
+    // If result starts with # (still encrypted), try decrypting again (double encryption)
+    if (firstResult && firstResult.startsWith('#') && recursionDepth < 1) {
+      console.log('[requestDecodeMemo] ⚠️ Result still encrypted (starts with #) - attempting second decryption for double-encrypted message...');
+      
+      // Recursively decrypt - this will throw if user cancels or it fails
+      const secondDecryption = await requestDecodeMemo(username, firstResult, senderUsername, recursionDepth + 1);
+      console.log('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
+      return secondDecryption;
+    }
+    
+    // If still encrypted but we can't recurse, it's an error
+    if (firstResult && firstResult.startsWith('#')) {
+      throw new Error('Decryption returned encrypted data - message may be corrupted or triple-encrypted');
+    }
+    
     console.warn('[requestDecodeMemo] ⚠️  No readable results found, returning first attempt (may be gibberish)');
     console.warn('[requestDecodeMemo] Results:', results);
-    return results[0].result;
+    return firstResult;
   }
   
   // All key types failed
