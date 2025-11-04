@@ -198,68 +198,111 @@ export const requestDecodeMemo = async (
   encryptedMemo: string,
   senderUsername?: string
 ): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain extension not found. Please install it.'));
-      return;
-    }
+  // Handle unencrypted memos
+  if (!encryptedMemo.startsWith('#')) {
+    return encryptedMemo;
+  }
 
-    // Handle unencrypted memos
-    if (!encryptedMemo.startsWith('#')) {
-      resolve(encryptedMemo);
-      return;
-    }
+  if (!window.hive_keychain) {
+    throw new Error('Hive Keychain extension not found. Please install it.');
+  }
 
-    console.log('[requestDecodeMemo] Using requestVerifyKey for memo decryption (same as PeakD)');
-    console.log('[requestDecodeMemo] Parameters:', {
-      username,
-      messagePreview: encryptedMemo.substring(0, 40) + '...',
-      keyType: 'Memo'
-    });
-
-    // Use requestVerifyKey - this is the CORRECT method for decrypting Hive memos
-    // This is exactly what PeakD uses
-    window.hive_keychain.requestVerifyKey(
-      username,
-      encryptedMemo,
-      'Memo',
-      (response: any) => {
-        // Log COMPLETE response to diagnose gibberish issue
-        console.log('[requestDecodeMemo] ===== COMPLETE KEYCHAIN RESPONSE =====');
-        console.log('[requestDecodeMemo] Full response object:', JSON.stringify(response, null, 2));
-        console.log('[requestDecodeMemo] response.success:', response.success);
-        console.log('[requestDecodeMemo] response.result:', response.result);
-        console.log('[requestDecodeMemo] response.data:', response.data);
-        console.log('[requestDecodeMemo] response.error:', response.error);
-        console.log('[requestDecodeMemo] response.message:', response.message);
-        console.log('[requestDecodeMemo] response.publicKey:', response.publicKey);
-        console.log('[requestDecodeMemo] All response keys:', Object.keys(response));
-        
-        // Check all possible locations where decrypted text might be
-        if (response.success) {
-          const possibleResults = {
-            'response.result': response.result,
-            'response.data': response.data,
-            'response.data?.result': response.data?.result,
-            'response.data?.message': response.data?.message,
-            'response.message': response.message,
-            'response.publicKey': response.publicKey
-          };
-          console.log('[requestDecodeMemo] Checking all possible decrypted text locations:', possibleResults);
-          
-          // The decrypted text should be in response.result
-          resolve(response.result);
-        } else {
-          const errorMsg = response.message || response.error || 'Decryption failed';
-          if (errorMsg.toLowerCase().includes('cancel')) {
-            reject(new Error('User cancelled decryption'));
-          } else {
-            reject(new Error(errorMsg));
-          }
-        }
-      }
-    );
+  console.log('[requestDecodeMemo] Starting decryption with fallback strategy');
+  console.log('[requestDecodeMemo] Parameters:', {
+    username,
+    messagePreview: encryptedMemo.substring(0, 40) + '...',
+    sender: senderUsername
   });
+
+  // Helper to check if text looks like readable content
+  const isReadableText = (text: string): boolean => {
+    if (!text || text.length === 0) return false;
+    
+    // Count printable ASCII characters
+    const printableChars = text.split('').filter(c => {
+      const code = c.charCodeAt(0);
+      return code >= 32 && code <= 126;
+    }).length;
+    
+    const printableRatio = printableChars / text.length;
+    
+    // Readable text should have:
+    // - High ratio of printable characters (>80%)
+    // - Some spaces (except very short messages)
+    // - Some common letters
+    const hasSpaces = text.includes(' ') || text.length < 10;
+    const hasCommonLetters = /[aeiou]/i.test(text); // Has vowels
+    
+    return printableRatio > 0.8 && hasSpaces && hasCommonLetters;
+  };
+  
+  // Try decryption with different key types
+  // Some Hive dApps use 'Posting' for messaging instead of 'Memo'
+  const keyTypes: ('Memo' | 'Posting')[] = ['Memo', 'Posting'];
+  const results: { keyType: string; result: string; isReadable: boolean }[] = [];
+  
+  for (const keyType of keyTypes) {
+    try {
+      console.log(`[requestDecodeMemo] Attempting decryption with '${keyType}' key type...`);
+      
+      const result = await new Promise<string>((resolve, reject) => {
+        window.hive_keychain.requestVerifyKey(
+          username,
+          encryptedMemo,
+          keyType,
+          (response: any) => {
+            console.log(`[requestDecodeMemo] Keychain response for '${keyType}':`, {
+              success: response.success,
+              hasResult: !!response.result,
+              resultPreview: response.result ? response.result.substring(0, 50) + '...' : null,
+              resultLength: response.result?.length
+            });
+
+            if (response.success && response.result) {
+              resolve(response.result);
+            } else {
+              const errorMsg = response.message || response.error || 'Decryption failed';
+              if (errorMsg.toLowerCase().includes('cancel')) {
+                reject(new Error('User cancelled decryption'));
+              } else {
+                reject(new Error(errorMsg));
+              }
+            }
+          }
+        );
+      });
+      
+      const readable = isReadableText(result);
+      results.push({ keyType, result, isReadable: readable });
+      console.log(`[requestDecodeMemo] '${keyType}' result: ${readable ? '✅ READABLE' : '❌ GIBBERISH'}`);
+      
+      // If we found readable text, return immediately
+      if (readable) {
+        console.log(`[requestDecodeMemo] ✅ SUCCESS with '${keyType}' key type!`);
+        return result;
+      }
+    } catch (error: any) {
+      console.log(`[requestDecodeMemo] '${keyType}' failed:`, error.message);
+      
+      // If user cancelled, don't try other key types
+      if (error.message.includes('cancel')) {
+        throw error;
+      }
+      
+      // Try next key type
+      continue;
+    }
+  }
+  
+  // No readable results found, return the first result (if any) with a warning
+  if (results.length > 0) {
+    console.warn('[requestDecodeMemo] ⚠️  No readable results found, returning first attempt (may be gibberish)');
+    console.warn('[requestDecodeMemo] Results:', results);
+    return results[0].result;
+  }
+  
+  // All key types failed
+  throw new Error('Failed to decrypt with both Memo and Posting key types');
 };
 
 export const getConversationMessages = async (

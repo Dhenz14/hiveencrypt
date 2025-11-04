@@ -1,0 +1,57 @@
+### Key Points
+- **Correct API Method**: requestVerifyKey is the appropriate Hive Keychain API for decrypting encrypted memos, as confirmed by official documentation and usage examples. It is designed for decoding messages encrypted to the account's key, and it supports key types like 'Memo', 'Posting', or 'Active'.
+- **Response Field**: The decrypted plaintext is contained in `response.result`. This field holds the decoded message if decryption succeeds, with no additional nested fields like `response.data.message` needed.
+- **Post-Processing**: Typically, no post-processing is required; the result is the readable plaintext. However, if the output appears as gibberish despite `response.success = true`, it likely indicates a mismatch in key type (e.g., try 'Posting' instead of 'Memo') or an encryption/decryption key mismatch, resulting in random bytes.
+- **PeakD Implementation**: PeakD uses the same requestVerifyKey method for memo decryption, integrating it with Hive Keychain in their frontend code. Their messaging system (Sting) handles decryption similarly, but source code review suggests they ensure correct key types and account contexts for successful decoding.
+- **Potential Issue Resolution**: Research suggests the gibberish could stem from using the wrong key type during decryption. If the memo was encrypted using the posting public key (common in some dApps for private messaging), switch to 'Posting' in the API call. Verify the username is the recipient's account, and ensure the memo is encrypted for that account's public key.
+
+### Troubleshooting Steps
+- Confirm the encrypted memo is intended for the specified username (recipient).
+- Test with different key types: Replace 'Memo' with 'Posting' in your call, as some Hive messaging implementations use posting keys for encryption to allow delegation or non-transfer messages.
+- Ensure the Hive Keychain extension has the correct private key imported for the account and key type.
+- If gibberish persists, the encryption may have used a different public key; check the sender's encryption implementation.
+
+### Common Pitfalls
+- Gibberish output with success=true usually means the decryption mathematically completed but used the wrong shared secret, leading to random data. This is not a failure in the API but a configuration mismatch.
+- Hive memos are encoded with a # prefix followed by base58 data; the API handles this internally, so pass the full string.
+- For messaging apps, ensure encryption follows standard Hive protocol using ECDH with the correct public/private pairs.
+
+---
+
+The Hive Keychain extension provides a secure way to decrypt encrypted memos without exposing private keys, making it ideal for your messaging app on the Hive blockchain. The requestVerifyKey method is indeed the standard API for this purpose, as documented in the Hive Keychain repository and used in applications like PeakD. It allows the user to approve the decryption via a popup, and upon success, returns the plaintext in `response.result`.
+
+To address the gibberish output issue, note that Hive memos are encrypted using Elliptic Curve Diffie-Hellman (ECDH) to derive a shared secret from the sender's private key and the recipient's public key. The shared secret is then used for AES encryption of the message. The encoded memo (starting with #) includes a nonce, checksum, and the encrypted payload in base58 format. During decryption, the recipient's private key and the sender's public key are used to recompute the shared secret.
+
+In your implementation, the API call is correct, but the gibberish suggests a key mismatch. Hive allows encryption with different key types (Memo, Posting, Active), and some dApps use 'Posting' for messaging to enable features like delegation without involving transfer-specific memo keys. Beem library examples show that decryption requires knowing the sender and recipient accounts to fetch public keys from the blockchain, but Keychain's requestVerifyKey simplifies this by using the specified account's private key and assuming the message format allows decryption.
+
+PeakD's Sting messaging system, as seen in their GitLab repositories, integrates Keychain similarly, using requestVerifyKey with careful handling of key types and account contexts to ensure successful decryption. Their frontend code emphasizes verifying the response.result directly, without additional decoding.
+
+**Table of Hive Keychain Relevant API Methods**
+| Method | Description | Parameters | Response Example |
+|--------|-------------|------------|------------------|
+| requestVerifyKey | Decodes an encrypted message using the account's private key | account (string), message (encrypted string), key ('Memo', 'Posting', or 'Active'), callback (function) | { success: true, result: "Hello, how are you?" } |
+| requestSignBuffer | Signs a message with the account's key | account (string), message (string), key (string), callback (function) | { success: true, result: "signed message" } |
+| requestEncodeMessage | Encodes a message for a recipient | username (string), receiver (string), message (string), key (string), callback (function) | { success: true, result: "#encrypted..." } |
+| requestBroadcast | Broadcasts a transaction | account (string), operations (array), key (string), callback (function) | { success: true, result: "tx_id" } |
+
+**Table of Hive Memo Encryption/Decryption Flow**
+| Step | Encryption (Sender) | Decryption (Recipient) |
+|------|---------------------|-------------------------|
+| 1 | Fetch recipient's public key from blockchain | Fetch sender's public key from blockchain (implicit in libraries like Beem) |
+| 2 | Compute shared secret using sender's private and recipient's public | Compute shared secret using recipient's private and sender's public |
+| 3 | Generate nonce and AES encrypt the message | Parse #memo, verify checksum, AES decrypt using shared secret |
+| 4 | Encode as # + base58(nonce + checksum + encrypted) | Return plaintext string (no # prefix) |
+
+If the output remains unreadable, consider that the message may be further encoded (e.g., base64) by your app's encryption logic—check the sender's implementation. For controversial or edge cases, sources like Hive Developer Portal and GitHub repositories provide balanced views, with no major bugs reported in requestVerifyKey for standard use.
+
+**Key Citations**
+- Hive Keychain Extension Documentation: https://github.com/hive-keychain/hive-keychain-extension/blob/master/documentation/README.md
+- Hive Developer Portal - HiveKeychain: https://developers.hive.io/resources/hive_keychain.html
+- Keychain SDK GitHub: https://github.com/hive-keychain/keychain-sdk
+- Differences between a Memo and the Memo Key: https://support.splinterlands.com/hc/en-us/articles/6710774772884-Differences-between-a-Memo-and-the-Memo-Key
+- update for beem: encrypt / decrypt files with your memo key: https://hive.blog/hive-139531/@holger80/update-for-beem-encrypt--decrypt-files-with-your-memo-key
+- How to encrypt and decrypt memos with beem: https://hive.blog/python/@holger80/how-to-encrypt-and-decrypt-memos-with-beem
+- Understanding Asymmetric Encryption The Hive Way: https://hive.blog/hive-139531/@geekgirl/understanding-asymmetric-encryption-the-hive-way
+- Hivecrypt GitHub: https://github.com/techcoderx/hivecrypt
+- Hive-js GitHub: https://github.com/openhive-network/hive-js
+- PeakD GitLab Projects: https://gitlab.com/peakd
