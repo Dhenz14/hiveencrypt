@@ -1,0 +1,301 @@
+The service worker navigation preload request was cancelled before 'preloadResponse' settled. If you intend to use 'preloadResponse', use waitUntil() or respondWith() to wait for the promise to settle.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+/t/ragnarok:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+/t/ragnarok:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+/t/ragnarok:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+0c7b81b1daaecfe0.js:2 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+0c7b81b1daaecfe0.js:2 Download the Apollo DevTools for a better development experience: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+0c7b81b1daaecfe0.js:2 [LaunchDarkly] LaunchDarkly client initialized
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:361 🏛️ ArcHive Content Script Ready - 100% Decentralized
+/t/ragnarok:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+0c7b81b1daaecfe0.js:2 Cache data may be lost when replacing the orgReplPresenceSessionEvents field of a Subscription object.
+
+This could cause additional (usually avoidable) network requests to fetch data that were otherwise cached.
+
+To address this problem (which is not a bug in Apollo Client), either ensure all objects of type OrgPresenceSessionInitEvent and OrgPresenceSessionPingEvent have an ID or a custom merge function, or define a custom merge function for the Subscription.orgReplPresenceSessionEvents field, so InMemoryCache can safely merge these objects:
+
+  existing: {"__typename":"OrgPresenceSessionInitEvent","sessions":[{"__ref":"OrgPresenceSession:e2ad1884-56fd-4dd6-9317-031e12085c31"},{"__ref":"OrgPresenceSession:d59157be-2f6c-4c73-81d8-efd92197bfee"},{"__ref":"OrgPresenceSession:c365a499-55b1-4c06-b43c-3911759022c5"}]}
+  incoming: {"__typename":"OrgPresenceSessionPingEvent","session":{"__ref":"OrgPresenceSession:c365a499-55b1-4c06-b43c-3911759022c5"}}
+
+For more information about these options, please refer to the documentation:
+
+  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers
+  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects
+
+(anonymous) @ 0c7b81b1daaecfe0.js:2
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+ Unrecognized feature: 'ambient-light-sensor'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'battery'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-not-rendered'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'layout-animations'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'legacy-image-formats'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'navigation-override'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'oversized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'publickey-credentials'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'speaker-selection'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unoptimized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unsized-media'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'pointer-lock'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowfullscreen'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+z @ ed1e693c96a75807.js:2
+0c7b81b1daaecfe0.js:2 Cache data may be lost when replacing the dealContext field of a Org object.
+
+This could cause additional (usually avoidable) network requests to fetch data that were otherwise cached.
+
+To address this problem (which is not a bug in Apollo Client), either ensure all objects of type OrgDealContext have an ID or a custom merge function, or define a custom merge function for the Org.dealContext field, so InMemoryCache can safely merge these objects:
+
+  existing: {"__typename":"OrgDealContext","dealType":"default","salesContactEmail":null}
+  incoming: {"__typename":"OrgDealContext","dealType":"default"}
+
+For more information about these options, please refer to the documentation:
+
+  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers
+  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects
+
+(anonymous) @ 0c7b81b1daaecfe0.js:2
+0c7b81b1daaecfe0.js:2 Adding extension: ReplDB Export and Import Object
+0c7b81b1daaecfe0.js:2 Adding extension: CSS Gradient Generator Object
+0c7b81b1daaecfe0.js:2 Adding extension: JSON Editor Object
+0c7b81b1daaecfe0.js:2 Adding extension: Prettier - Code Formatter Object
+0c7b81b1daaecfe0.js:2 Adding extension: Javascript Commands Object
+0c7b81b1daaecfe0.js:2 Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu Object
+(anonymous) @ 0c7b81b1daaecfe0.js:2
+0c7b81b1daaecfe0.js:2 Adding extension: API Request Tester Object
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Arm5%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ [CONV DISCOVERY] Starting for user: curatorhulk
+ [CACHE FIX] Fixed 0 corrupted messages
+ [CONV DISCOVERY] Discovered partners: Array(1)
+ [CONV DISCOVERY] Processing partner: dandandan123
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [QUERY] Retrieved cached messages: 4
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Cached msg 2: Object
+ [QUERY] Cached msg 3: Object
+ [QUERY] Returning messages, total count: 4
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [QUERY] Returning msg 2: Object
+ [QUERY] Returning msg 3: Object
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+ [MessageBubble] Message details: Object
+ [MessageBubble] Calling decryptMemo (will use Keychain)...
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (uses KeychainSDK.decode())...
+ [requestDecodeMemo] Starting decryption with fallback strategy
+ [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Attempting decryption with 'Memo' key type...
+ [requestDecodeMemo] Keychain response for 'Memo': Object
+ [requestDecodeMemo] 'Memo' result: ✅ READABLE
+ [requestDecodeMemo] ✅ SUCCESS with 'Memo' key type!
+ [decryptMemo] requestDecodeMemo returned: #yooo...
+ [decryptMemo] Final result: #yooo...
+ [MessageBubble] decryptMemo returned: #yooo...
+ [DECRYPT] Updating cache with decrypted content, length: 5
+ [DECRYPT] Cache updated successfully
+ [DECRYPT] Invalidating query for: Object
+ [QUERY] Starting blockchain messages query for: Object
+ [DECRYPT] Query invalidated, UI should refresh
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [QUERY] Retrieved cached messages: 4
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Cached msg 2: Object
+ [QUERY] Cached msg 3: Object
+ [QUERY] Returning messages, total count: 4
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [QUERY] Returning msg 2: Object
+ [QUERY] Returning msg 3: Object
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+ [MessageBubble] Message details: Object
+ [MessageBubble] Calling decryptMemo (will use Keychain)...
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (uses KeychainSDK.decode())...
+ [requestDecodeMemo] Starting decryption with fallback strategy
+ [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Attempting decryption with 'Memo' key type...
+ [requestDecodeMemo] Keychain response for 'Memo': Object
+ [requestDecodeMemo] 'Memo' result: ❌ GIBBERISH
+ [requestDecodeMemo] Attempting decryption with 'Posting' key type...
+ [requestDecodeMemo] Keychain response for 'Posting': Object
+ [requestDecodeMemo] 'Posting' failed: Could not verify key.
+ [requestDecodeMemo] ⚠️  No readable results found, returning first attempt (may be gibberish)
+(anonymous) @ injected.js:27
+ [requestDecodeMemo] Results: Array(1)
+(anonymous) @ injected.js:27
+ [decryptMemo] requestDecodeMemo returned: #GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsF...
+ [decryptMemo] Final result: #GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsF...
+ [MessageBubble] decryptMemo returned: #GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsF...
+ [DECRYPT] Updating cache with decrypted content, length: 130
+ [DECRYPT] Cache updated successfully
+ [DECRYPT] Invalidating query for: Object
+ [QUERY] Starting blockchain messages query for: Object
+ [DECRYPT] Query invalidated, UI should refresh
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [QUERY] Retrieved cached messages: 4
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Cached msg 2: Object
+ [QUERY] Cached msg 3: Object
+ [QUERY] Returning messages, total count: 4
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [QUERY] Returning msg 2: Object
+ [QUERY] Returning msg 3: Object
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+ [MessageBubble] Message details: Object
+ [MessageBubble] Calling decryptMemo (will use Keychain)...
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (uses KeychainSDK.decode())...
+ [requestDecodeMemo] Starting decryption with fallback strategy
+ [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Attempting decryption with 'Memo' key type...
+ [requestDecodeMemo] Keychain response for 'Memo': Object
+ [requestDecodeMemo] 'Memo' result: ❌ GIBBERISH
+ [requestDecodeMemo] Attempting decryption with 'Posting' key type...
+ [requestDecodeMemo] Keychain response for 'Posting': Object
+ [requestDecodeMemo] 'Posting' failed: Could not verify key.
+ [requestDecodeMemo] ⚠️  No readable results found, returning first attempt (may be gibberish)
+(anonymous) @ injected.js:27
+ [requestDecodeMemo] Results: Array(1)
+(anonymous) @ injected.js:27
+ [decryptMemo] requestDecodeMemo returned: #9T4x9xZEX1rt6vaet5Ev8HZTFB4SPjWvEfTAqvhs44yCYPtdr...
+ [decryptMemo] Final result: #9T4x9xZEX1rt6vaet5Ev8HZTFB4SPjWvEfTAqvhs44yCYPtdr...
+ [MessageBubble] decryptMemo returned: #9T4x9xZEX1rt6vaet5Ev8HZTFB4SPjWvEfTAqvhs44yCYPtdr...
+ [DECRYPT] Updating cache with decrypted content, length: 152
+ [DECRYPT] Cache updated successfully
+ [DECRYPT] Invalidating query for: Object
+ [QUERY] Starting blockchain messages query for: Object
+ [DECRYPT] Query invalidated, UI should refresh
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [QUERY] Retrieved cached messages: 4
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Cached msg 2: Object
+ [QUERY] Cached msg 3: Object
+ [QUERY] Returning messages, total count: 4
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [QUERY] Returning msg 2: Object
+ [QUERY] Returning msg 3: Object
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Mapped conversations: [{…}]

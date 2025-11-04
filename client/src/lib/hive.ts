@@ -214,6 +214,25 @@ export const requestDecodeMemo = async (
     sender: senderUsername
   });
 
+  // Helper to calculate Shannon entropy - low entropy indicates natural language
+  const calculateEntropy = (text: string): number => {
+    if (!text || text.length === 0) return 0;
+    
+    const freq: Record<string, number> = {};
+    for (const char of text) {
+      freq[char] = (freq[char] || 0) + 1;
+    }
+    
+    let entropy = 0;
+    const len = text.length;
+    for (const count of Object.values(freq)) {
+      const p = count / len;
+      entropy -= p * Math.log2(p);
+    }
+    
+    return entropy;
+  };
+  
   // Helper to check if text looks like readable content
   const isReadableText = (text: string): boolean => {
     if (!text || text.length === 0) return false;
@@ -229,16 +248,21 @@ export const requestDecodeMemo = async (
     // Readable text should have:
     // - High ratio of printable characters (>80%)
     // - Some spaces (except very short messages)
-    // - Some common letters
+    // - Some common letters (vowels)
+    // - Low entropy (natural language has patterns)
     const hasSpaces = text.includes(' ') || text.length < 10;
-    const hasCommonLetters = /[aeiou]/i.test(text); // Has vowels
+    const hasCommonLetters = /[aeiou]/i.test(text);
+    const entropy = calculateEntropy(text);
     
-    return printableRatio > 0.8 && hasSpaces && hasCommonLetters;
+    // Natural text has entropy < 4.5, gibberish is higher
+    const hasNaturalEntropy = entropy < 4.5;
+    
+    return printableRatio > 0.8 && hasSpaces && hasCommonLetters && hasNaturalEntropy;
   };
   
   // Try decryption with different key types
-  // Some Hive dApps use 'Posting' for messaging instead of 'Memo'
-  const keyTypes: ('Memo' | 'Posting')[] = ['Memo', 'Posting'];
+  // Different Hive dApps use different keys: 'Memo' (standard), 'Posting' (social apps), 'Active' (rare)
+  const keyTypes: ('Memo' | 'Posting' | 'Active')[] = ['Memo', 'Posting', 'Active'];
   const results: { keyType: string; result: string; isReadable: boolean }[] = [];
   
   for (const keyType of keyTypes) {
@@ -272,9 +296,16 @@ export const requestDecodeMemo = async (
         );
       });
       
+      const entropy = calculateEntropy(result);
       const readable = isReadableText(result);
       results.push({ keyType, result, isReadable: readable });
-      console.log(`[requestDecodeMemo] '${keyType}' result: ${readable ? '✅ READABLE' : '❌ GIBBERISH'}`);
+      
+      console.log(`[requestDecodeMemo] '${keyType}' result:`, {
+        readable: readable ? '✅ READABLE' : '❌ GIBBERISH',
+        entropy: entropy.toFixed(2),
+        length: result.length,
+        preview: result.substring(0, 30) + (result.length > 30 ? '...' : '')
+      });
       
       // If we found readable text, return immediately
       if (readable) {
