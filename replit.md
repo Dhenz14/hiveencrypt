@@ -32,6 +32,10 @@ The client-side browser, utilizing React UI, TanStack Query, IndexedDB, and Hive
 -   Client-side message decryption ensuring privacy
 -   Instant UX with optimistic updates
 -   User data ownership
+-   Selective privacy controls for local data deletion
+
+**Privacy Controls:**
+-   **Selective Conversation Deletion**: Users can delete locally cached data for specific conversations via the chat header menu. This removes all decrypted messages and metadata from IndexedDB for that conversation, reverting messages to their encrypted state. Messages remain permanently on the blockchain (immutable) and can be decrypted again anytime. This provides privacy control without sacrificing the performance benefits of local caching.
 
 ### Frontend Technology Stack:
 -   React with TypeScript
