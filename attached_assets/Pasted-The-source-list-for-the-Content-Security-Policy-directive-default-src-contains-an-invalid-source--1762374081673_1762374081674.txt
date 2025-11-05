@@ -1,0 +1,762 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+HiveEncrypt:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+HiveEncrypt:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+HiveEncrypt:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ Download the Apollo DevTools for a better development experience: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+ ✅ blakejs loaded successfully (self-contained version)
+   Available functions: Array(5)
+ 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+ 🏛️ ArcHive Content Script Loaded
+ 🏛️ ArcHive Content Script Ready - 100% Decentralized
+2fbf716ae3c453cc.js:2 Uncaught (in promise) 
+ [LaunchDarkly] LaunchDarkly client initialized
+ Cache data may be lost when replacing the dealContext field of a Org object.
+
+This could cause additional (usually avoidable) network requests to fetch data that were otherwise cached.
+
+To address this problem (which is not a bug in Apollo Client), either ensure all objects of type OrgDealContext have an ID or a custom merge function, or define a custom merge function for the Org.dealContext field, so InMemoryCache can safely merge these objects:
+
+  existing: {"__typename":"OrgDealContext","dealType":"default","salesContactEmail":null}
+  incoming: {"__typename":"OrgDealContext","dealType":"default"}
+
+For more information about these options, please refer to the documentation:
+
+  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers
+  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects
+
+(anonymous) @ ad925900fb433cd9.js:2
+HiveEncrypt:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+ Unrecognized feature: 'ambient-light-sensor'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'battery'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-not-rendered'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'layout-animations'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'legacy-image-formats'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'navigation-override'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'oversized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'publickey-credentials'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'speaker-selection'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unoptimized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unsized-media'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'pointer-lock'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowfullscreen'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+z @ ed1e693c96a75807.js:2
+ Adding extension: ReplDB Export and Import Object
+ Adding extension: CSS Gradient Generator Object
+ Adding extension: JSON Editor Object
+ Adding extension: Prettier - Code Formatter Object
+ Adding extension: Javascript Commands Object
+ Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu Object
+(anonymous) @ ad925900fb433cd9.js:2
+ Adding extension: API Request Tester Object
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar83%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [CACHE FIX] Fixed 0 corrupted messages
+ [QUERY] Starting blockchain messages query for: Object
+ [QUERY] Retrieved cached messages: 0
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+ [QUERY] Returning messages, total count: 0
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Retrieved cached messages: 2
+ [QUERY] Cached msg 0: Object
+ [QUERY] Cached msg 1: Object
+ [QUERY] Returning messages, total count: 2
+ [QUERY] Returning msg 0: Object
+ [QUERY] Returning msg 1: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [QUERY] Starting blockchain messages query for: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [CONV DISCOVERY] Starting for user: dandandan123
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [CONV DISCOVERY] Discovered partners: Array(3)
+injected.js:27 [CONV DISCOVERY] Processing partner: starkerz
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: pro-content
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: curatorhulk
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [CONV DISCOVERY] Starting for user: dandandan123
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [CONV DISCOVERY] Discovered partners: Array(3)
+injected.js:27 [CONV DISCOVERY] Processing partner: starkerz
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: pro-content
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: curatorhulk
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: Object
+injected.js:27 [QUERY] Cached msg 1: Object
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [CONV DISCOVERY] Starting for user: dandandan123
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [CONV DISCOVERY] Discovered partners: Array(3)
+injected.js:27 [CONV DISCOVERY] Processing partner: starkerz
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: pro-content
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: curatorhulk
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [DELETE] Deleting conversation with: pro-content
+injected.js:27 [deleteConversation] Deleting conversation: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [deleteConversation] Deleting 2 messages
+injected.js:27 [deleteConversation] ✅ Conversation deleted from local storage
+injected.js:27 [QUERY] Starting blockchain messages query for: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [QUERY] Retrieved cached messages: 0
+injected.js:27 [QUERY] Caching new received message with placeholder
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: Object
+injected.js:27 [QUERY] Returning msg 1: Object
+injected.js:27 [CONV DISCOVERY] Starting for user: dandandan123
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [CONV DISCOVERY] Discovered partners: Array(3)
+injected.js:27 [CONV DISCOVERY] Processing partner: starkerz
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: pro-content
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [CONV DISCOVERY] Processing partner: curatorhulk
+injected.js:27 [CONV DISCOVERY] Found cached conversation: Object
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo (will use Keychain)...
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo (uses KeychainSDK.decode())...
+injected.js:27 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+injected.js:27 [requestDecodeMemo] Parameters: Object
+injected.js:27 [requestDecodeMemo] Requesting Memo key decryption from Hive Keychain...
+injected.js:27 [requestDecodeMemo] Keychain response: Object
+injected.js:27 [requestDecodeMemo] Decryption successful, result length: 130
+injected.js:27 [requestDecodeMemo] ⚠️ Result still encrypted (starts with #) - attempting second decryption for double-encrypted message...
+injected.js:27 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+injected.js:27 [requestDecodeMemo] Parameters: Object
+injected.js:27 [requestDecodeMemo] Requesting Memo key decryption from Hive Keychain...
+injected.js:27 [requestDecodeMemo] Keychain response: Object
+injected.js:27 [requestDecodeMemo] Decryption successful, result length: 9
+injected.js:27 [requestDecodeMemo] Decryption failed: Message may be triple-encrypted or corrupted
+(anonymous) @ injected.js:27
+injected.js:27 [requestDecodeMemo] Decryption failed: Message may be triple-encrypted or corrupted
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] ❌ ERROR: Message may be triple-encrypted or corrupted
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] Error for memo: #LDT34GkyqaY7iGnNvkLy13H95oPddgQwd8fPPhj... otherParty: pro-content
+(anonymous) @ injected.js:27
+injected.js:27 Decryption error: Error: Message may be triple-encrypted or corrupted
+    at requestDecodeMemo (hive.ts:269:13)
+    at async requestDecodeMemo (hive.ts:262:32)
+    at async decryptMemo (hive.ts:368:23)
+    at async handleDecrypt (MessageBubble.tsx:50:25)
+(anonymous) @ injected.js:27
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+injected.js:27 [MessageBubble] Message details: Object
+injected.js:27 [MessageBubble] Calling decryptMemo (will use Keychain)...
+injected.js:27 [decryptMemo] ========== DECRYPT MEMO START ==========
+injected.js:27 [decryptMemo] Input params: Object
+injected.js:27 [decryptMemo] Calling requestDecodeMemo (uses KeychainSDK.decode())...
+injected.js:27 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+injected.js:27 [requestDecodeMemo] Parameters: Object
+injected.js:27 [requestDecodeMemo] Requesting Memo key decryption from Hive Keychain...
+injected.js:27 [requestDecodeMemo] Keychain response: Object
+injected.js:27 [requestDecodeMemo] Decryption failed: User cancelled decryption
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] ❌ ERROR: User cancelled decryption
+(anonymous) @ injected.js:27
+injected.js:27 [decryptMemo] Error for memo: #LDT34GkyqaY7iGnNvkLy13H95oPddgQwd8fPPhj... otherParty: pro-content
+(anonymous) @ injected.js:27
+injected.js:27 Decryption error: Error: User cancelled decryption
+    at Object.<anonymous> (hive.ts:247:22)
+    at hive_keychain.js:1:5436
+(anonymous) @ injected.js:27
+injected.js:27 [MESSAGES PAGE] Mapped conversations: Array(3)
+injected.js:27 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+injected.js:27 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+injected.js:27 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+injected.js:27 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+injected.js:27 [QUERY] Retrieved cached messages: 2
+injected.js:27 [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Returning messages, total count: 2
+injected.js:27 [QUERY] Returning msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [QUERY] Returning msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+injected.js:27 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+injected.js:27 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
