@@ -1,4 +1,4 @@
-import { MoreVertical, Lock, User } from 'lucide-react';
+import { MoreVertical, Lock, User, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,7 @@ interface ChatHeaderProps {
   isOnline?: boolean;
   onViewProfile: () => void;
   onViewBlockchain?: () => void;
+  onDeleteLocalData?: () => void;
 }
 
 export function ChatHeader({ 
@@ -22,7 +23,8 @@ export function ChatHeader({
   isEncrypted, 
   isOnline,
   onViewProfile,
-  onViewBlockchain 
+  onViewBlockchain,
+  onDeleteLocalData
 }: ChatHeaderProps) {
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
@@ -71,6 +73,16 @@ export function ChatHeader({
               <DropdownMenuItem onClick={onViewBlockchain} data-testid="menu-view-blockchain">
                 <Lock className="w-4 h-4 mr-2" />
                 View on Blockchain
+              </DropdownMenuItem>
+            )}
+            {onDeleteLocalData && (
+              <DropdownMenuItem 
+                onClick={onDeleteLocalData} 
+                data-testid="menu-delete-local-data"
+                className="text-destructive focus:text-destructive"
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                Delete Local Data
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>
