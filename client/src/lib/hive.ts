@@ -214,7 +214,7 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain extension not found. Please install it.');
   }
 
-  console.log('[requestDecodeMemo] Starting decryption with fallback strategy (depth:', recursionDepth, ')');
+  console.log('[requestDecodeMemo] Starting decryption (depth:', recursionDepth, ')');
   console.log('[requestDecodeMemo] Parameters:', {
     username,
     messagePreview: encryptedMemo.substring(0, 40) + '...',
@@ -222,143 +222,64 @@ export const requestDecodeMemo = async (
     depth: recursionDepth
   });
 
-  // Helper to calculate Shannon entropy - low entropy indicates natural language
-  const calculateEntropy = (text: string): number => {
-    if (!text || text.length === 0) return 0;
+  // Decrypt using memo key (standard for all Hive encrypted memos)
+  try {
+    console.log('[requestDecodeMemo] Attempting decryption with Memo key...');
     
-    const freq: Record<string, number> = {};
-    for (const char of text) {
-      freq[char] = (freq[char] || 0) + 1;
-    }
-    
-    let entropy = 0;
-    const len = text.length;
-    for (const count of Object.values(freq)) {
-      const p = count / len;
-      entropy -= p * Math.log2(p);
-    }
-    
-    return entropy;
-  };
-  
-  // Helper to check if text looks like readable content
-  const isReadableText = (text: string): boolean => {
-    if (!text || text.length === 0) return false;
-    
-    // Count printable ASCII characters
-    const printableChars = text.split('').filter(c => {
-      const code = c.charCodeAt(0);
-      return code >= 32 && code <= 126;
-    }).length;
-    
-    const printableRatio = printableChars / text.length;
-    
-    // Readable text should have:
-    // - High ratio of printable characters (>80%)
-    // - Some spaces (except very short messages)
-    // - Some common letters (vowels)
-    // - Low entropy (natural language has patterns)
-    const hasSpaces = text.includes(' ') || text.length < 10;
-    const hasCommonLetters = /[aeiou]/i.test(text);
-    const entropy = calculateEntropy(text);
-    
-    // Natural text has entropy < 4.5, gibberish is higher
-    const hasNaturalEntropy = entropy < 4.5;
-    
-    return printableRatio > 0.8 && hasSpaces && hasCommonLetters && hasNaturalEntropy;
-  };
-  
-  // Try decryption with different key types
-  // Different Hive dApps use different keys: 'Memo' (standard), 'Posting' (social apps), 'Active' (rare)
-  const keyTypes: ('Memo' | 'Posting' | 'Active')[] = ['Memo', 'Posting', 'Active'];
-  const results: { keyType: string; result: string; isReadable: boolean }[] = [];
-  
-  for (const keyType of keyTypes) {
-    try {
-      console.log(`[requestDecodeMemo] Attempting decryption with '${keyType}' key type...`);
-      
-      const result = await new Promise<string>((resolve, reject) => {
-        window.hive_keychain.requestVerifyKey(
-          username,
-          encryptedMemo,
-          keyType,
-          (response: any) => {
-            console.log(`[requestDecodeMemo] Keychain response for '${keyType}':`, {
-              success: response.success,
-              hasResult: !!response.result,
-              resultPreview: response.result ? response.result.substring(0, 50) + '...' : null,
-              resultLength: response.result?.length
-            });
+    const result = await new Promise<string>((resolve, reject) => {
+      window.hive_keychain.requestVerifyKey(
+        username,
+        encryptedMemo,
+        'Memo',
+        (response: any) => {
+          console.log('[requestDecodeMemo] Keychain response:', {
+            success: response.success,
+            hasResult: !!response.result,
+            resultPreview: response.result ? response.result.substring(0, 50) + '...' : null,
+            resultLength: response.result?.length
+          });
 
-            if (response.success && response.result) {
-              resolve(response.result);
+          if (response.success && response.result) {
+            resolve(response.result);
+          } else {
+            const errorMsg = response.message || response.error || 'Decryption failed';
+            if (errorMsg.toLowerCase().includes('cancel')) {
+              reject(new Error('User cancelled decryption'));
             } else {
-              const errorMsg = response.message || response.error || 'Decryption failed';
-              if (errorMsg.toLowerCase().includes('cancel')) {
-                reject(new Error('User cancelled decryption'));
-              } else {
-                reject(new Error(errorMsg));
-              }
+              reject(new Error(errorMsg));
             }
           }
-        );
-      });
-      
-      const entropy = calculateEntropy(result);
-      const readable = isReadableText(result);
-      results.push({ keyType, result, isReadable: readable });
-      
-      console.log(`[requestDecodeMemo] '${keyType}' result:`, {
-        readable: readable ? '✅ READABLE' : '❌ GIBBERISH',
-        entropy: entropy.toFixed(2),
-        length: result.length,
-        preview: result.substring(0, 30) + (result.length > 30 ? '...' : '')
-      });
-      
-      // If we found readable text, return immediately
-      if (readable) {
-        console.log(`[requestDecodeMemo] ✅ SUCCESS with '${keyType}' key type!`);
-        return result;
-      }
-    } catch (error: any) {
-      console.log(`[requestDecodeMemo] '${keyType}' failed:`, error.message);
-      
-      // If user cancelled, don't try other key types
-      if (error.message.includes('cancel')) {
-        throw error;
-      }
-      
-      // Try next key type
-      continue;
-    }
-  }
-  
-  // No readable results found - check if result is still encrypted (double encryption bug)
-  if (results.length > 0) {
-    const firstResult = results[0].result;
+        }
+      );
+    });
     
-    // If result starts with # (still encrypted), try decrypting again (double encryption)
-    if (firstResult && firstResult.startsWith('#') && recursionDepth < 1) {
+    console.log('[requestDecodeMemo] Memo key decryption result:', {
+      length: result.length,
+      preview: result.substring(0, 50) + (result.length > 50 ? '...' : '')
+    });
+    
+    // Check if result is still encrypted (double encryption from old bug)
+    if (result.startsWith('#') && recursionDepth < 1) {
       console.log('[requestDecodeMemo] ⚠️ Result still encrypted (starts with #) - attempting second decryption for double-encrypted message...');
       
       // Recursively decrypt - this will throw if user cancels or it fails
-      const secondDecryption = await requestDecodeMemo(username, firstResult, senderUsername, recursionDepth + 1);
+      const secondDecryption = await requestDecodeMemo(username, result, senderUsername, recursionDepth + 1);
       console.log('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
       return secondDecryption;
     }
     
     // If still encrypted but we can't recurse, it's an error
-    if (firstResult && firstResult.startsWith('#')) {
+    if (result.startsWith('#')) {
       throw new Error('Decryption returned encrypted data - message may be corrupted or triple-encrypted');
     }
     
-    console.warn('[requestDecodeMemo] ⚠️  No readable results found, returning first attempt (may be gibberish)');
-    console.warn('[requestDecodeMemo] Results:', results);
-    return firstResult;
+    console.log('[requestDecodeMemo] ✅ Decryption successful!');
+    return result;
+    
+  } catch (error: any) {
+    console.error('[requestDecodeMemo] Decryption failed:', error.message);
+    throw error;
   }
-  
-  // All key types failed
-  throw new Error('Failed to decrypt with both Memo and Posting key types');
 };
 
 export const getConversationMessages = async (
