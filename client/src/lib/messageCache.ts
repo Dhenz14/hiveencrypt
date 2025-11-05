@@ -327,5 +327,30 @@ export async function updateMessageContent(messageId: string, decryptedContent: 
   }
 }
 
+export async function deleteConversation(
+  currentUser: string,
+  partnerUsername: string
+): Promise<void> {
+  console.log('[deleteConversation] Deleting conversation:', { currentUser, partnerUsername });
+  
+  const db = await getDB(currentUser);
+  const conversationKey = getConversationKey(currentUser, partnerUsername);
+  
+  // Delete all messages for this conversation
+  const messages = await getMessagesByConversation(currentUser, partnerUsername);
+  console.log('[deleteConversation] Deleting', messages.length, 'messages');
+  
+  const tx = db.transaction('messages', 'readwrite');
+  await Promise.all([
+    ...messages.map((msg) => tx.store.delete(msg.id)),
+    tx.done,
+  ]);
+  
+  // Delete conversation metadata
+  await db.delete('conversations', conversationKey);
+  
+  console.log('[deleteConversation] ✅ Conversation deleted from local storage');
+}
+
 export type { MessageCache, ConversationCache };
 export { getConversationKey };
