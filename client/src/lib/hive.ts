@@ -15,6 +15,7 @@ export interface KeychainResponse {
   message?: string;
   error?: string;
   data?: any;
+  publicKey?: any; // Keychain may return publicKey directly or in data
 }
 
 declare global {
