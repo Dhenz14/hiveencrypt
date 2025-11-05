@@ -194,6 +194,27 @@ export const getHiveMemoKey = async (username: string): Promise<string | null> =
   return account?.memo_key || null;
 };
 
+// Helper: Check if a string looks like an encrypted Hive memo
+// Encrypted memos: #<33-char-pubkey><base58-data> (long, no spaces, alphanumeric)
+// Plaintext: Can start with # but will have spaces or be short
+const isEncryptedMemo = (text: string): boolean => {
+  if (!text.startsWith('#')) return false;
+  
+  // Encrypted memos are typically 100+ characters of base58 (alphanumeric only)
+  // Remove the '#' and check if it's a long base58 string
+  const content = text.slice(1);
+  
+  // If it contains spaces, it's plaintext (e.g., "#Yo yo yo")
+  if (content.includes(' ')) return false;
+  
+  // If it's short (<50 chars), likely plaintext
+  if (content.length < 50) return false;
+  
+  // Check if it's base58 (only alphanumeric, no special chars except sometimes .)
+  const base58Regex = /^[A-Za-z0-9]+$/;
+  return base58Regex.test(content);
+};
+
 export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string,
@@ -205,8 +226,9 @@ export const requestDecodeMemo = async (
     throw new Error('Maximum decryption depth reached - message may be corrupted');
   }
 
-  // Handle unencrypted memos
-  if (!encryptedMemo.startsWith('#')) {
+  // Handle unencrypted memos (doesn't look like encrypted format)
+  if (!isEncryptedMemo(encryptedMemo)) {
+    console.log('[requestDecodeMemo] Not encrypted (plaintext or short message)');
     return encryptedMemo;
   }
 
@@ -255,9 +277,9 @@ export const requestDecodeMemo = async (
     
     console.log('[requestDecodeMemo] Decryption successful, result length:', result.length);
     
-    // Check for double-encryption (legacy bug): if result still starts with '#', decrypt again
-    if (result.startsWith('#') && recursionDepth < 1) {
-      console.log('[requestDecodeMemo] ⚠️ Result still encrypted (starts with #) - attempting second decryption for double-encrypted message...');
+    // Check for double-encryption: if result LOOKS like encrypted data, decrypt again
+    if (isEncryptedMemo(result) && recursionDepth < 1) {
+      console.log('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
       
       const secondDecryption = await requestDecodeMemo(username, result, senderUsername, recursionDepth + 1);
       console.log('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
@@ -265,7 +287,7 @@ export const requestDecodeMemo = async (
     }
     
     // If still encrypted at max depth, that's an error
-    if (result.startsWith('#') && recursionDepth >= 1) {
+    if (isEncryptedMemo(result) && recursionDepth >= 1) {
       throw new Error('Message may be triple-encrypted or corrupted');
     }
     
@@ -354,22 +376,21 @@ export const decryptMemo = async (
     otherParty,
     memoPreview: encryptedMemo.substring(0, 40) + '...',
     memoLength: encryptedMemo.length,
-    startsWithHash: encryptedMemo.startsWith('#'),
+    isEncrypted: isEncryptedMemo(encryptedMemo),
     fullMemo: encryptedMemo
   });
 
   try {
-    if (!encryptedMemo.startsWith('#')) {
-      console.log('[decryptMemo] Memo not encrypted, returning as-is');
+    if (!isEncryptedMemo(encryptedMemo)) {
+      console.log('[decryptMemo] Memo not encrypted (plaintext), returning as-is');
       return encryptedMemo;
     }
 
-    console.log('[decryptMemo] Calling requestDecodeMemo (uses KeychainSDK.decode())...');
+    console.log('[decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...');
     const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty);
     console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
-      // KeychainSDK.decode() returns clean plaintext, no need to strip anything
       console.log('[decryptMemo] Final result:', decrypted.substring(0, 50) + '...');
       return decrypted;
     }
