@@ -4,6 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { ConversationsList } from '@/components/ConversationsList';
 import { ChatHeader } from '@/components/ChatHeader';
 import { MessageBubble, SystemMessage } from '@/components/MessageBubble';
@@ -19,7 +29,7 @@ import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shar
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
-import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages } from '@/lib/messageCache';
+import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache } from '@/lib/messageCache';
 
@@ -59,6 +69,7 @@ export default function Messages() {
   const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
@@ -221,6 +232,37 @@ export default function Messages() {
     }
   };
 
+  const handleDeleteLocalData = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!user?.username || !selectedPartner) return;
+    
+    try {
+      console.log('[DELETE] Deleting conversation with:', selectedPartner);
+      await deleteConversation(user.username, selectedPartner);
+      
+      // Invalidate queries to refresh the UI with correct query keys
+      await queryClient.invalidateQueries({ queryKey: ['blockchain-messages', user.username, selectedPartner] });
+      await queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user.username] });
+      
+      toast({
+        title: 'Local data deleted',
+        description: `Conversation with @${selectedPartner} has been removed from local storage. Messages will need to be decrypted again.`,
+      });
+      
+      setIsDeleteDialogOpen(false);
+    } catch (error) {
+      console.error('[DELETE] Failed to delete conversation:', error);
+      toast({
+        title: 'Failed to delete',
+        description: 'An error occurred while deleting the conversation data.',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
   };
@@ -293,6 +335,7 @@ export default function Messages() {
               isEncrypted={selectedConversation.isEncrypted}
               onViewProfile={handleViewProfile}
               onViewBlockchain={handleViewBlockchain}
+              onDeleteLocalData={handleDeleteLocalData}
             />
 
             <ScrollArea className="flex-1 p-4">
@@ -358,6 +401,30 @@ export default function Messages() {
         open={isSettingsOpen}
         onOpenChange={setIsSettingsOpen}
       />
+
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent data-testid="dialog-delete-conversation">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Conversation Data?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will remove all locally stored messages with @{selectedPartner} from your device. 
+              Messages will be re-encrypted and require decryption again. 
+              <br /><br />
+              <strong>This does NOT delete messages from the blockchain.</strong> They remain permanently stored and can be decrypted again anytime.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-cancel-delete">Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleConfirmDelete}
+              data-testid="button-confirm-delete"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete Local Data
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
