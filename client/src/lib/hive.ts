@@ -222,37 +222,57 @@ export const requestDecodeMemo = async (
     depth: recursionDepth
   });
 
+  // Helper to calculate Shannon entropy - low entropy indicates natural language
+  const calculateEntropy = (text: string): number => {
+    if (!text || text.length === 0) return 0;
+    
+    const freq: Record<string, number> = {};
+    for (const char of text) {
+      freq[char] = (freq[char] || 0) + 1;
+    }
+    
+    let entropy = 0;
+    const len = text.length;
+    for (const count of Object.values(freq)) {
+      const p = count / len;
+      entropy -= p * Math.log2(p);
+    }
+    
+    return entropy;
+  };
+  
   // Helper to check if text looks like readable content (not encrypted gibberish)
   const isReadableText = (text: string): boolean => {
     if (!text || text.length === 0) return false;
     
-    // Remove leading '#' for analysis
-    const content = text.startsWith('#') ? text.substring(1) : text;
-    if (content.length === 0) return true; // Just "#" is valid
+    // Count printable ASCII characters
+    const printableChars = text.split('').filter(c => {
+      const code = c.charCodeAt(0);
+      return code >= 32 && code <= 126;
+    }).length;
     
-    // Count different character types
-    const letters = content.match(/[a-z]/gi) || [];
-    const vowels = content.match(/[aeiou]/gi) || [];
-    const digits = content.match(/\d/g) || [];
-    const spaces = content.match(/\s/g) || [];
+    const printableRatio = printableChars / text.length;
     
-    const letterRatio = letters.length / content.length;
-    const vowelRatio = vowels.length / letters.length || 0;
+    // Calculate entropy
+    const entropy = calculateEntropy(text);
     
-    // Encrypted base64: ~75% letters, ~25% numbers/symbols, low vowel ratio (~0.2)
-    // Readable text: high letter ratio, normal vowel ratio (~0.4), may have spaces
+    // Base64 encrypted data has characteristic patterns:
+    // - High entropy (>5.0) due to randomness
+    // - Mix of upper/lower case letters + numbers + special chars (=/+)
+    // - No natural word patterns
     
-    // If has spaces, likely readable (e.g., "#hello world")
-    if (spaces.length > 0) return true;
+    // Readable plaintext (even hashtags/numbers) has:
+    // - Lower entropy (<5.0) due to patterns
+    // - OR very short length (<20 chars)
     
-    // If mostly letters with normal vowel distribution, likely readable
-    // Natural English has ~40% vowels, encrypted base64 has ~20-25%
-    if (letterRatio > 0.7 && vowelRatio > 0.3) return true;
+    // Simple and robust check:
+    // 1. Short text (<20 chars) is likely plaintext hashtag
+    // 2. High printable ratio + low entropy = plaintext
+    // 3. Everything else = likely encrypted
     
-    // If very short (common for hashtags like "#yo", "#test"), likely readable
-    if (content.length <= 20 && vowelRatio > 0.2) return true;
+    if (text.length < 20) return true; // Short hashtags like "#testing", "#12345", "#yo"
+    if (printableRatio > 0.8 && entropy < 5.0) return true; // Natural patterns
     
-    // Otherwise, likely encrypted gibberish
     return false;
   };
 
