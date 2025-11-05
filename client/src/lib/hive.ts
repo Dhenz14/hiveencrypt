@@ -222,6 +222,40 @@ export const requestDecodeMemo = async (
     depth: recursionDepth
   });
 
+  // Helper to check if text looks like readable content (not encrypted gibberish)
+  const isReadableText = (text: string): boolean => {
+    if (!text || text.length === 0) return false;
+    
+    // Remove leading '#' for analysis
+    const content = text.startsWith('#') ? text.substring(1) : text;
+    if (content.length === 0) return true; // Just "#" is valid
+    
+    // Count different character types
+    const letters = content.match(/[a-z]/gi) || [];
+    const vowels = content.match(/[aeiou]/gi) || [];
+    const digits = content.match(/\d/g) || [];
+    const spaces = content.match(/\s/g) || [];
+    
+    const letterRatio = letters.length / content.length;
+    const vowelRatio = vowels.length / letters.length || 0;
+    
+    // Encrypted base64: ~75% letters, ~25% numbers/symbols, low vowel ratio (~0.2)
+    // Readable text: high letter ratio, normal vowel ratio (~0.4), may have spaces
+    
+    // If has spaces, likely readable (e.g., "#hello world")
+    if (spaces.length > 0) return true;
+    
+    // If mostly letters with normal vowel distribution, likely readable
+    // Natural English has ~40% vowels, encrypted base64 has ~20-25%
+    if (letterRatio > 0.7 && vowelRatio > 0.3) return true;
+    
+    // If very short (common for hashtags like "#yo", "#test"), likely readable
+    if (content.length <= 20 && vowelRatio > 0.2) return true;
+    
+    // Otherwise, likely encrypted gibberish
+    return false;
+  };
+
   // Decrypt using memo key (standard for all Hive encrypted memos)
   try {
     console.log('[requestDecodeMemo] Attempting decryption with Memo key...');
@@ -255,12 +289,14 @@ export const requestDecodeMemo = async (
     
     console.log('[requestDecodeMemo] Memo key decryption result:', {
       length: result.length,
-      preview: result.substring(0, 50) + (result.length > 50 ? '...' : '')
+      preview: result.substring(0, 50) + (result.length > 50 ? '...' : ''),
+      readable: isReadableText(result) ? '✅ READABLE' : '❌ GIBBERISH'
     });
     
     // Check if result is still encrypted (double encryption from old bug)
-    if (result.startsWith('#') && recursionDepth < 1) {
-      console.log('[requestDecodeMemo] ⚠️ Result still encrypted (starts with #) - attempting second decryption for double-encrypted message...');
+    // Use readability check: encrypted base64 looks like gibberish, plaintext has vowels/spaces
+    if (result.startsWith('#') && !isReadableText(result) && recursionDepth < 1) {
+      console.log('[requestDecodeMemo] ⚠️ Result still encrypted (starts with # and looks like gibberish) - attempting second decryption for double-encrypted message...');
       
       // Recursively decrypt - this will throw if user cancels or it fails
       const secondDecryption = await requestDecodeMemo(username, result, senderUsername, recursionDepth + 1);
@@ -269,7 +305,7 @@ export const requestDecodeMemo = async (
     }
     
     // If still encrypted but we can't recurse, it's an error
-    if (result.startsWith('#')) {
+    if (result.startsWith('#') && !isReadableText(result) && recursionDepth >= 1) {
       throw new Error('Decryption returned encrypted data - message may be corrupted or triple-encrypted');
     }
     
