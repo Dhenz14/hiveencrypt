@@ -344,21 +344,27 @@ export const getConversationMessages = async (
 export const discoverConversations = async (
   currentUser: string,
   limit: number = 200
-): Promise<string[]> => {
+): Promise<Array<{ username: string; lastTimestamp: string }>> => {
   try {
     const history = await getAccountHistory(currentUser, -1, limit);
     const encryptedMessages = filterEncryptedMessages(history, currentUser);
     
-    const partners = new Set<string>();
+    // Track last message timestamp for each partner
+    const partnerData = new Map<string, string>();
+    
     encryptedMessages.forEach((msg: any) => {
-      if (msg.from === currentUser) {
-        partners.add(msg.to);
-      } else {
-        partners.add(msg.from);
+      const partner = msg.from === currentUser ? msg.to : msg.from;
+      
+      // Keep the most recent timestamp for each partner
+      if (!partnerData.has(partner) || msg.timestamp > partnerData.get(partner)!) {
+        partnerData.set(partner, msg.timestamp);
       }
     });
 
-    return Array.from(partners);
+    return Array.from(partnerData.entries()).map(([username, lastTimestamp]) => ({
+      username,
+      lastTimestamp,
+    }));
   } catch (error) {
     console.error('Error discovering conversations:', error);
     return [];

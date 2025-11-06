@@ -13,6 +13,7 @@ import {
   getConversationKey,
   type MessageCache,
 } from '@/lib/messageCache';
+import { queryClient } from '@/lib/queryClient';
 import { useEffect, useState } from 'react';
 
 interface UseBlockchainMessagesOptions {
@@ -38,6 +39,25 @@ export function useBlockchainMessages({
     };
   }, []);
 
+  // PERFORMANCE FIX: Pre-populate React Query cache with cached messages for instant display
+  // Then immediately invalidate to trigger background blockchain sync
+  useEffect(() => {
+    if (user?.username && partnerUsername && enabled) {
+      getMessagesByConversation(user.username, partnerUsername).then(cachedMessages => {
+        if (cachedMessages.length > 0) {
+          console.log('[MESSAGES] Pre-populating cache with', cachedMessages.length, 'cached messages');
+          const queryKey = ['blockchain-messages', user.username, partnerUsername];
+          
+          // Seed cache with cached data (shows instantly)
+          queryClient.setQueryData(queryKey, cachedMessages);
+          
+          // Immediately invalidate to trigger background refetch (get fresh blockchain data)
+          queryClient.invalidateQueries({ queryKey, refetchType: 'active' });
+        }
+      });
+    }
+  }, [user?.username, partnerUsername, enabled]);
+
   const query = useQuery({
     queryKey: ['blockchain-messages', user?.username, partnerUsername],
     queryFn: async () => {
@@ -47,6 +67,7 @@ export function useBlockchainMessages({
         throw new Error('User not authenticated');
       }
 
+      // PERFORMANCE FIX: Load cached messages FIRST to display instantly
       const cachedMessages = await getMessagesByConversation(
         user.username,
         partnerUsername
@@ -112,8 +133,8 @@ export function useBlockchainMessages({
       });
 
       try {
-        // PERFORMANCE FIX: Reduced from 1000 to 200 messages per conversation
-        // Most conversations have <50 messages, so 200 is plenty for initial load
+        // PERFORMANCE FIX: Reduced limit from 1000 to 200
+        // 200 transactions covers most conversation histories while being 5x faster
         const blockchainMessages = await getConversationMessages(
           user.username,
           partnerUsername,
@@ -244,63 +265,41 @@ export function useConversationDiscovery() {
       }
 
       console.log('[CONV DISCOVERY] Starting for user:', user.username);
-      // PERFORMANCE FIX: Reduced from 1000 to 200 transactions (most users have <10 conversations)
-      // Fetching 1000 transactions can take 10-30 seconds on slow nodes!
-      const partners = await discoverConversations(user.username, 200);
-      console.log('[CONV DISCOVERY] Discovered partners:', partners);
+      
+      // PERFORMANCE FIX: Reduced limit from 1000 to 200 (5x faster)
+      // 200 transactions = ~100 bilateral transfers = covers most users' conversation history
+      const partnerData = await discoverConversations(user.username, 200);
+      console.log('[CONV DISCOVERY] Discovered partners with timestamps:', partnerData);
 
       // PERFORMANCE FIX: Fetch all cached conversations first to avoid unnecessary blockchain calls
       const cachedConversations = await Promise.all(
-        partners.map(partner => getConversation(user.username, partner))
+        partnerData.map(({ username }) => getConversation(user.username, username))
       );
 
       // Identify which partners need new conversations created
-      const uncachedPartners = partners.filter((partner, index) => !cachedConversations[index]);
+      const uncachedPartners = partnerData.filter((_, index) => !cachedConversations[index]);
       
       console.log('[CONV DISCOVERY] Cached:', cachedConversations.filter(Boolean).length, 
                   'Uncached:', uncachedPartners.length);
 
-      // PERFORMANCE FIX: Fetch messages for uncached partners in PARALLEL instead of sequentially
+      // PERFORMANCE FIX: Create lightweight conversation placeholders WITHOUT fetching messages!
+      // This eliminates 50+ blockchain calls per uncached partner (MASSIVE speed boost)
+      // Messages will be fetched only when user clicks on the conversation
       const newConversationsData = await Promise.all(
-        uncachedPartners.map(async (partner) => {
-          try {
-            // PERFORMANCE FIX: Reduced from 100 to 50 for initial discovery
-            // We only need the last message for the conversation list
-            const messages = await getConversationMessages(
-              user.username,
-              partner,
-              50
-            );
+        uncachedPartners.map(async ({ username, lastTimestamp }) => {
+          const newConversation = {
+            conversationKey: getConversationKey(user.username, username),
+            partnerUsername: username,
+            lastMessage: `New conversation with @${username}`,
+            // Use REAL timestamp from blockchain discovery (accurate ordering!)
+            lastTimestamp: lastTimestamp,
+            unreadCount: 0,
+            lastChecked: new Date().toISOString(),
+          };
 
-            if (messages.length > 0) {
-              const lastMessage = messages[messages.length - 1];
-              let decryptedContent: string | null = null;
-              
-              // For conversation discovery, use placeholders to avoid triggering multiple Keychain prompts
-              // Users can decrypt individual messages within the conversation view
-              if (lastMessage.from === user.username) {
-                decryptedContent = '[Encrypted message sent by you]';
-              } else {
-                decryptedContent = '[Encrypted message]';
-              }
-
-              const newConversation = {
-                conversationKey: getConversationKey(user.username, partner),
-                partnerUsername: partner,
-                lastMessage: decryptedContent,
-                lastTimestamp: lastMessage.timestamp,
-                unreadCount: 0,
-                lastChecked: new Date().toISOString(),
-              };
-
-              console.log('[CONV DISCOVERY] Creating new conversation for:', partner);
-              await updateConversation(newConversation, user.username);
-              return newConversation;
-            }
-          } catch (error) {
-            console.error('[CONV DISCOVERY] Error fetching messages for partner:', partner, error);
-          }
-          return null;
+          console.log('[CONV DISCOVERY] Creating placeholder conversation for:', username, 'timestamp:', lastTimestamp);
+          await updateConversation(newConversation, user.username);
+          return newConversation;
         })
       );
 

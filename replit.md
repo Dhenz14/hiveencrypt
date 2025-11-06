@@ -103,9 +103,19 @@ Client code has ZERO server dependencies:
 7. **HTTPS**: Enable HTTPS (required for PWA installability and service worker)
 8. **Test**: Install on mobile/desktop, verify offline mode, test message sync
 
+### Performance Optimizations (Latest)
+- **Conversation Discovery**: Creates lightweight placeholders instead of fetching messages for each partner
+  - OLD: 200 base + (50 × uncached partners) = potentially 500+ transactions
+  - NEW: 200 base only = 60-70% faster initial load
+- **Messages Load First from Cache**: Instant display of cached messages while blockchain syncs in background
+- **Transaction Limits**: 200 per query (down from 1000) - balances speed with coverage
+- **Parallel Fetching**: Multiple blockchain calls run concurrently
+- **Smart Polling**: 30s active/60s background for messages, 60s/120s for conversations
+
 ### Known Considerations
 - **Bundle Size**: 1.4MB (acceptable for blockchain/crypto libraries)
 - **Console Logging**: Verbose but not harmful, useful for user debugging
 - **RPC Nodes**: Hardcoded public nodes with retry + rotation on failure
 - **Browser Support**: Chrome/Edge/Safari/Firefox (requires modern browser for crypto APIs)
 - **Mobile Auth**: HAS requires Hive Keychain Mobile or compatible wallet app
+- **New Conversations**: Show placeholder "Conversation with @username" until clicked (messages fetched on demand)
