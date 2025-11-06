@@ -94,9 +94,18 @@ Client code has ZERO server dependencies:
 - ✅ Valid manifest with 192x192 and 512x512 icons
 
 ### Production Checklist
-1. Replace `/favicon.png` with proper 192x192 and 512x512 PNG icons
-2. Run `vite build` to generate static assets
-3. Upload `dist/public/` to your chosen static host
-4. Configure custom domain (optional)
-5. Enable HTTPS (required for PWA features)
-6. Test installability on mobile and desktop
+1. ✅ **Build Verified**: `vite build` produces clean static output in `dist/public/`
+2. ✅ **Zero Server Dependencies**: Confirmed no /api calls, all blockchain direct RPC
+3. ✅ **PWA Configuration**: manifest.json and sw.js properly configured
+4. ✅ **Performance Optimized**: 200-transaction limit, parallel fetching, cache-first loading
+5. ⚠️ **Icons**: Replace `/favicon.png` with distinct 192x192 and 512x512 PNG icons (optional but recommended)
+6. **Upload**: Deploy `dist/public/` folder to static host (Vercel/Netlify/IPFS/GitHub Pages)
+7. **HTTPS**: Enable HTTPS (required for PWA installability and service worker)
+8. **Test**: Install on mobile/desktop, verify offline mode, test message sync
+
+### Known Considerations
+- **Bundle Size**: 1.4MB (acceptable for blockchain/crypto libraries)
+- **Console Logging**: Verbose but not harmful, useful for user debugging
+- **RPC Nodes**: Hardcoded public nodes with retry + rotation on failure
+- **Browser Support**: Chrome/Edge/Safari/Firefox (requires modern browser for crypto APIs)
+- **Mobile Auth**: HAS requires Hive Keychain Mobile or compatible wallet app
