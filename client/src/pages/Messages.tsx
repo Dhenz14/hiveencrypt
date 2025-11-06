@@ -33,8 +33,6 @@ import { getConversationKey, getConversation, updateConversation, fixCorruptedMe
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache } from '@/lib/messageCache';
 
-const SESSION_KEY = 'hive_messenger_session_token';
-
 const mapMessageCacheToMessage = (msg: MessageCache, conversationId: string): Message => ({
   id: msg.id,
   conversationId,

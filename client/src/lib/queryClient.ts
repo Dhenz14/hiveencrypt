@@ -1,75 +1,23 @@
-import { QueryClient, QueryFunction } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 
-async function throwIfResNotOk(res: Response) {
-  if (!res.ok) {
-    const text = (await res.text()) || res.statusText;
-    throw new Error(`${res.status}: ${text}`);
-  }
-}
-
-export async function apiRequest(
-  method: string,
-  url: string,
-  data?: unknown | undefined,
-): Promise<Response> {
-  const headers: HeadersInit = {};
-  
-  if (data) {
-    headers["Content-Type"] = "application/json";
-  }
-  
-  // Include session token if available
-  const sessionToken = localStorage.getItem('hive_messenger_session_token');
-  if (sessionToken) {
-    headers["Authorization"] = `Bearer ${sessionToken}`;
-  }
-  
-  const res = await fetch(url, {
-    method,
-    headers,
-    body: data ? JSON.stringify(data) : undefined,
-    credentials: "include",
-  });
-
-  await throwIfResNotOk(res);
-  return res;
-}
-
-type UnauthorizedBehavior = "returnNull" | "throw";
-export const getQueryFn: <T>(options: {
-  on401: UnauthorizedBehavior;
-}) => QueryFunction<T> =
-  ({ on401: unauthorizedBehavior }) =>
-  async ({ queryKey }) => {
-    const headers: HeadersInit = {};
-    
-    // Include session token if available
-    const sessionToken = localStorage.getItem('hive_messenger_session_token');
-    if (sessionToken) {
-      headers["Authorization"] = `Bearer ${sessionToken}`;
-    }
-    
-    const res = await fetch(queryKey.join("/") as string, {
-      credentials: "include",
-      headers,
-    });
-
-    if (unauthorizedBehavior === "returnNull" && res.status === 401) {
-      return null;
-    }
-
-    await throwIfResNotOk(res);
-    return await res.json();
-  };
+/**
+ * QueryClient for Hive Messenger - 100% Decentralized Architecture
+ * 
+ * NO DEFAULT FETCHER - All queries must provide their own queryFn
+ * that directly calls the Hive blockchain via @hiveio/dhive
+ * 
+ * We removed the old server-based apiRequest and default fetcher
+ * because there is NO BACKEND SERVER in this architecture.
+ */
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      queryFn: getQueryFn({ on401: "throw" }),
+      // No default queryFn - each query must specify how to fetch from blockchain
       refetchInterval: false,
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
-      retry: false,
+      staleTime: Infinity, // Data from blockchain doesn't change rapidly
+      retry: 1, // Retry once for network issues
     },
     mutations: {
       retry: false,

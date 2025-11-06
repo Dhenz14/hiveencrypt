@@ -1,58 +1,75 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { UserSession } from '@shared/schema';
 import { hiveClient } from '@/lib/hiveClient';
-import { isKeychainInstalled, requestHandshake, requestLogin } from '@/lib/hive';
-import { apiRequest } from '@/lib/queryClient';
+import { 
+  isKeychainInstalled, 
+  requestHandshake, 
+  requestLogin,
+  getAccount 
+} from '@/lib/hive';
+import { 
+  isMobileDevice, 
+  authenticateWithHAS, 
+  isHASTokenValid,
+  type HASAuthData 
+} from '@/lib/hasAuth';
 
 interface AuthContextType {
   user: UserSession | null;
   login: (username: string) => Promise<void>;
   logout: () => Promise<void>;
   isLoading: boolean;
+  isMobile: boolean;
+  hasAuth: HASAuthData | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const SESSION_KEY = 'hive_messenger_session_token';
+const SESSION_KEY = 'hive_messenger_session';
+const HAS_TOKEN_KEY = 'hive_messenger_has_token';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
+  const [hasAuth, setHasAuth] = useState<HASAuthData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile] = useState(isMobileDevice());
 
   useEffect(() => {
     const restoreSession = async () => {
-      const sessionToken = localStorage.getItem(SESSION_KEY);
-      if (sessionToken) {
-        try {
-          // Validate session with backend
-          const response = await fetch('/api/auth/verify', {
-            headers: {
-              'Authorization': `Bearer ${sessionToken}`
-            }
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            if (data.valid && data.username && data.publicMemoKey) {
-              setUser({
-                username: data.username,
-                publicMemoKey: data.publicMemoKey,
-                isAuthenticated: true,
-                timestamp: new Date().toISOString(),
-              });
-            } else {
-              console.error('Invalid session data from server');
-              localStorage.removeItem(SESSION_KEY);
+      try {
+        const sessionData = localStorage.getItem(SESSION_KEY);
+        const hasToken = localStorage.getItem(HAS_TOKEN_KEY);
+        
+        if (sessionData) {
+          const session = JSON.parse(sessionData);
+          
+          // Verify account still exists on blockchain
+          const account = await getAccount(session.username);
+          if (account) {
+            setUser(session);
+            
+            // Restore HAS token if available and valid
+            if (hasToken) {
+              const hasAuthData: HASAuthData = JSON.parse(hasToken);
+              if (isHASTokenValid(hasAuthData)) {
+                setHasAuth(hasAuthData);
+              } else {
+                console.log('[Auth] HAS token expired, clearing...');
+                localStorage.removeItem(HAS_TOKEN_KEY);
+              }
             }
           } else {
-            console.log('Session invalid or expired, clearing...');
+            console.log('[Auth] Account no longer exists on blockchain, clearing session...');
             localStorage.removeItem(SESSION_KEY);
+            localStorage.removeItem(HAS_TOKEN_KEY);
           }
-        } catch (error) {
-          console.error('Error validating session:', error);
-          localStorage.removeItem(SESSION_KEY);
         }
+      } catch (error) {
+        console.error('[Auth] Error restoring session:', error);
+        localStorage.removeItem(SESSION_KEY);
+        localStorage.removeItem(HAS_TOKEN_KEY);
       }
+      
       setIsLoading(false);
     };
     
@@ -60,74 +77,63 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = async (username: string) => {
-    // 1. Check if Keychain extension is available
-    if (!isKeychainInstalled()) {
-      throw new Error('Please install Hive Keychain extension from https://hive-keychain.com');
-    }
-
-    // 2. Verify account exists on blockchain
-    const accountExists = await hiveClient.verifyAccountExists(username);
-    if (!accountExists) {
+    console.log('[Auth] Starting login for:', username, 'isMobile:', isMobile);
+    
+    // 1. Verify account exists on blockchain (direct call, no server!)
+    const account = await getAccount(username);
+    if (!account) {
       throw new Error('Account not found on Hive blockchain. Please check the username and try again.');
     }
 
-    // 3. Fetch public memo key from blockchain
-    const publicMemoKey = await hiveClient.getPublicMemoKey(username);
+    // 2. Get public memo key from blockchain
+    const publicMemoKey = account.memo_key;
     if (!publicMemoKey) {
-      throw new Error('Unable to retrieve public memo key for this account. Please try again later.');
+      throw new Error('Unable to retrieve public memo key for this account.');
     }
 
-    // 4. Request Keychain authentication and capture signed proof
-    let keychainResponse;
-    try {
-      await requestHandshake();
-      keychainResponse = await requestLogin(username);
-    } catch (keychainError: any) {
-      if (keychainError?.message?.includes('cancel') || keychainError?.error?.includes('cancel')) {
-        throw new Error('Authentication cancelled. Please try again and approve the Keychain request.');
+    let authData: HASAuthData | null = null;
+
+    // 3. Authenticate based on device type
+    if (isMobile) {
+      // Mobile: Use HAS (Hive Authentication Services)
+      console.log('[Auth] Mobile device detected, using HAS authentication...');
+      
+      try {
+        authData = await authenticateWithHAS(username, (evt) => {
+          console.log('[Auth] HAS waiting:', evt);
+          // You can show QR code or status here via a callback/state
+        });
+        
+        console.log('[Auth] HAS authentication successful');
+        setHasAuth(authData);
+        
+        // Store HAS token for future use
+        localStorage.setItem(HAS_TOKEN_KEY, JSON.stringify(authData));
+      } catch (hasError: any) {
+        console.error('[Auth] HAS authentication failed:', hasError);
+        throw new Error(hasError?.message || 'Mobile authentication failed. Please try again.');
       }
-      throw new Error(keychainError?.message || 'Failed to authenticate with Hive Keychain. Please try again.');
+    } else {
+      // Desktop: Use Hive Keychain browser extension
+      console.log('[Auth] Desktop device detected, using Hive Keychain...');
+      
+      if (!isKeychainInstalled()) {
+        throw new Error('Please install Hive Keychain extension from https://hive-keychain.com');
+      }
+
+      try {
+        await requestHandshake();
+        await requestLogin(username);
+        console.log('[Auth] Keychain authentication successful');
+      } catch (keychainError: any) {
+        if (keychainError?.message?.includes('cancel') || keychainError?.error?.includes('cancel')) {
+          throw new Error('Authentication cancelled. Please try again and approve the Keychain request.');
+        }
+        throw new Error(keychainError?.message || 'Failed to authenticate with Hive Keychain. Please try again.');
+      }
     }
 
-    // 5. Extract signature proof from Keychain response
-    const keychainProof = {
-      signature: keychainResponse.result,
-      publicKey: keychainResponse.data?.publicKey || keychainResponse.publicKey,
-      message: keychainResponse.data?.message || keychainResponse.message || `Login to Hive Messenger at ${new Date().toISOString()}`
-    };
-
-    // 6. Authenticate with backend and get session token
-    let sessionToken: string;
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username,
-          publicMemoKey,
-          keychainProof
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Backend authentication failed');
-      }
-
-      const data = await response.json();
-      sessionToken = data.sessionToken;
-
-      if (!sessionToken) {
-        throw new Error('No session token received from server');
-      }
-    } catch (backendError: any) {
-      console.error('Backend authentication error:', backendError);
-      throw new Error(backendError.message || 'Failed to authenticate with server');
-    }
-
-    // 7. Create session data for local state
+    // 4. Create session data (100% client-side, no server needed!)
     const sessionData: UserSession = {
       username,
       publicMemoKey,
@@ -135,38 +141,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       timestamp: new Date().toISOString(),
     };
 
-    // 8. Store authenticated user in state
+    // 5. Store user session in state and localStorage
     setUser(sessionData);
-
-    // 9. Save only session token to localStorage (not user data)
-    localStorage.setItem(SESSION_KEY, sessionToken);
+    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    
+    console.log('[Auth] ✅ Login complete! Session stored locally.');
   };
 
   const logout = async () => {
-    const sessionToken = localStorage.getItem(SESSION_KEY);
+    console.log('[Auth] Logging out...');
     
-    // Call backend to invalidate session
-    if (sessionToken) {
-      try {
-        await fetch('/api/auth/logout', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${sessionToken}`
-          }
-        });
-      } catch (error) {
-        console.error('Error logging out on backend:', error);
-        // Continue with local logout even if backend call fails
-      }
-    }
-    
-    // Clear local state and storage
+    // Clear all local state and storage
     setUser(null);
+    setHasAuth(null);
     localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(HAS_TOKEN_KEY);
+    
+    console.log('[Auth] ✅ Logout complete');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading, isMobile, hasAuth }}>
       {children}
     </AuthContext.Provider>
   );

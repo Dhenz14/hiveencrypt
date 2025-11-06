@@ -1,71 +1,53 @@
-# Hive Messenger - Encrypted Blockchain Messaging
+# Hive Messenger - Decentralized Encrypted Blockchain Messaging PWA
 
 ## Overview
-Hive Messenger is an end-to-end encrypted messaging application built on the Hive blockchain. It leverages Hive's native memo encryption feature to enable secure, decentralized communication between users. Its core purpose is to provide a censorship-resistant, privacy-focused messaging solution that utilizes the blockchain as a single source of truth, eliminating the need for centralized servers for message storage.
+Hive Messenger is a fully decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. Its core purpose is to provide a censorship-resistant communication platform with zero centralized servers, no backend, no database, and no sessions. All operations are client-side, leveraging the Hive blockchain for immutable storage and IndexedDB for local caching, ensuring instant user experience. The project aims to offer a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure.
 
 ## User Preferences
 I prefer simple language. I want iterative development. Ask before making major changes. I prefer detailed explanations.
 
 ## System Architecture
+Hive Messenger operates with a 100% decentralized architecture. The application is a React PWA hosted statically, utilizing the Hive blockchain as the sole source of truth and IndexedDB for client-side message caching. Authentication for desktop users is handled via the Hive Keychain browser extension, while mobile users use HAS (Hive Authentication Services) through QR codes or deep linking. Direct RPC calls are made to public Hive blockchain nodes, eliminating the need for any intermediary API servers. Messages are end-to-end encrypted client-side using Hive memo encryption (ECDH + AES-CBC) via the user's memo key, ensuring private keys never leave the authentication mechanisms. The PWA design supports offline functionality, installability, and cross-platform compatibility.
 
-### V2.0 Decentralized Architecture (Current Development Version)
-This version eliminates centralized database dependencies by using the Hive blockchain as the single source of truth. Messages are queried directly from the blockchain and cached in the browser using IndexedDB for instant access.
+### UI/UX Decisions
+- **Responsive Design**: Mobile-first approach.
+- **Theming**: Dark mode support included.
+- **Component Library**: Utilizes Shadcn UI for consistent and modern UI elements.
 
-**Key Components:**
-- **IndexedDB Client-Side Cache**: Stores decrypted messages locally, enables instant display, provides conversation indexing, and includes automatic cache management.
-- **Blockchain Querying**: Direct queries to the Hive blockchain via `@hiveio/dhive` to filter for encrypted transfers, discover conversations, and facilitate decryption via Hive Keychain.
-- **Smart Polling Hooks**: `useBlockchainMessages` fetches messages for a conversation, and `useConversationDiscovery` scans the blockchain for conversation partners. It uses adaptive polling (15s active, 30s background) and automatic cache synchronization.
+### Technical Implementations
+- **Client-Side Authentication**: Hive Keychain (desktop) and HAS (mobile) for secure, serverless login.
+- **Local Data Caching**: IndexedDB stores decrypted messages and conversation metadata for instant loading and offline access.
+- **Direct Blockchain Interaction**: Uses `@hiveio/dhive` to communicate directly with public Hive RPC nodes.
+- **PWA Features**: Manifest for installability, Service Worker for offline support and asset caching, protocol handler for mobile auth deep linking.
+- **Message Encryption**: All messages are encrypted client-side before being broadcast to the blockchain, ensuring privacy.
+- **Conversation Discovery**: Achieved by scanning blockchain transactions for unique communication partners.
 
-**Messaging Flow (V2.0):**
-1.  **Send Message**: Optimistic update to IndexedDB, message encrypted via Hive Keychain, 0.001 HBD transfer broadcast with encrypted memo, and confirmation with blockchain transaction ID. Sent message plaintext is cached before encryption.
-2.  **Receive Messages**: App polls account history for encrypted transfers. New received messages are stored as encrypted placeholders and require manual decryption via Hive Keychain. Decrypted content is cached in IndexedDB.
-3.  **Historical Messages**: Both sent and received messages can be decrypted using the user's memo key via Hive Keychain. PeakD proves this works - users can decrypt their own sent messages. Messages display with a decrypt button, remaining encrypted until user interaction.
-4.  **Conversation Discovery**: Scans recent transactions to identify unique conversation partners and build a conversation list from cached message metadata.
-
-**Data Flow:**
-The client-side browser, utilizing React UI, TanStack Query, IndexedDB, and Hive Keychain, makes direct API calls to the Hive Blockchain, which serves as the immutable, permanent, and decentralized storage for all encrypted messages.
-
-**Benefits of V2.0:**
--   Zero server storage costs
--   True decentralization and censorship resistance
--   Offline access via IndexedDB
--   Client-side message decryption ensuring privacy
--   Instant UX with optimistic updates
--   User data ownership
--   Selective privacy controls for local data deletion
-
-**Privacy Controls:**
--   **Selective Conversation Deletion**: Users can delete locally cached data for specific conversations via the chat header menu. This removes all decrypted messages and metadata from IndexedDB for that conversation, reverting messages to their encrypted state. Messages remain permanently on the blockchain (immutable) and can be decrypted again anytime. This provides privacy control without sacrificing the performance benefits of local caching.
-
-### Frontend Technology Stack:
--   React with TypeScript
--   Wouter for routing
--   TanStack Query for data management
--   Tailwind CSS for styling
--   Shadcn UI components
--   Hive Keychain SDK for authentication
-
-### Backend Technology Stack:
--   Express.js server
--   In-memory storage (MemStorage)
--   @hiveio/dhive for blockchain API calls
-
-### Security Considerations:
--   **Authentication**: Server-side session validation, Keychain signature verification, secure session tokens (256-bit random hex with 7-day expiry), protected endpoints, and no client-side trust (localStorage only stores session token).
--   **Encryption**: Messages encrypted before blockchain submission using Hive memo encryption (ECDH key exchange + AES-CBC). Default encryption uses 'Memo' key type. The `requestTransfer` function passes `enforce=false` to prevent double-encryption (memo is already encrypted via `requestEncode`). Decryption handled via Hive Keychain's native browser extension API.
--   **Memo Decryption**: Uses **Memo key only** (Hive protocol standard). All encrypted memos on Hive use the memo key for encryption/decryption. The app trusts the Memo key result without readability heuristics, matching PeakD's approach. This minimizes key exposure and follows security best practices. 
--   **Double-Encryption Handling**: Automatic detection and recovery for legacy double-encrypted messages (caused by previous bug). Uses smart encrypted memo detection based on length, content pattern (base58), and presence of spaces. Only triggers recursive decryption for genuinely encrypted data, not plaintext messages that happen to start with '#'. Recursion limited to max depth of 1 to prevent infinite loops. Properly propagates user cancellation errors.
--   **Encrypted Memo Detection**: The `isEncryptedMemo()` helper accurately distinguishes between encrypted Hive memos and plaintext that starts with '#'. Encrypted memos are long (50+ chars), contain only alphanumeric base58 characters, and have no spaces. Plaintext messages like "#testing" or "#Yo yo yo" are correctly identified and bypass decryption.
--   **Response Structure**: The requestVerifyKey callback receives `{ success: boolean, result: string, ... }` where `result` contains the decrypted plaintext.
--   **Known Keychain Warning**: When sending messages, Hive Keychain may display a "private key" security warning. **This is a FALSE POSITIVE** caused by pattern detection in the encrypted memo data. The application NEVER sends private keys - only encrypted message content. The warning appears because encrypted data can contain character patterns that resemble private keys. This is Keychain being cautious, which is good, but the warning can be safely dismissed.
+### Feature Specifications
+- End-to-end encrypted messaging.
+- Real-time message synchronization with the blockchain.
+- Offline message browsing of cached data.
+- Selective local conversation deletion for privacy.
+- Detection and recovery for double-encrypted messages.
+- PWA installable on mobile and desktop.
+- No private keys are ever transmitted or stored by the application.
 
 ## External Dependencies
--   **Hive Blockchain**: Core platform for message storage and decentralization.
--   **Hive Keychain**: Browser extension for secure authentication, encryption, and transaction signing.
--   **@hiveio/dhive**: JavaScript library for interacting with the Hive blockchain.
--   **Express.js**: Backend web application framework.
--   **React**: Frontend JavaScript library for building user interfaces.
--   **Wouter**: A minimalist React router.
--   **TanStack Query**: Data-fetching library for React.
--   **Tailwind CSS**: Utility-first CSS framework for styling.
--   **Shadcn UI**: UI component library.
+
+### Core Libraries
+- **@hiveio/dhive**: JavaScript client for Hive blockchain API.
+- **keychain-sdk**: For Hive Keychain browser extension integration.
+- **hive-auth-wrapper**: For HAS mobile authentication.
+- **idb**: IndexedDB wrapper for local caching.
+- **qrcode**: For QR code generation in mobile authentication.
+
+### Blockchain Infrastructure
+- **Hive Blockchain**: The primary decentralized storage for messages.
+- **Public RPC Nodes**:
+    - `https://api.hive.blog`
+    - `https://api.hivekings.com`
+    - `https://anyx.io`
+    - `https://api.openhive.network`
+
+### Authentication Services
+- **Hive Keychain**: Browser extension for desktop authentication.
+- **HAS (Hive Authentication Services)**: Mobile wallet authentication (e.g., Hive Keychain Mobile, HiveAuth Mobile App).

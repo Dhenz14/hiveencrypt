@@ -1,0 +1,36 @@
+{
+  "name": "Hive Messenger",
+  "short_name": "HiveMsg",
+  "description": "100% decentralized encrypted messaging on Hive blockchain",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#e31337",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["social", "productivity"],
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "screenshots": [],
+  "shortcuts": [],
+  "protocol_handlers": [
+    {
+      "protocol": "has",
+      "url": "/?has=%s"
+    }
+  ]
+}
