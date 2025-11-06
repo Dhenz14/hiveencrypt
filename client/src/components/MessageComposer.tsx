@@ -134,7 +134,15 @@ export function MessageComposer({
           console.log('[MessageComposer] Added # prefix to memo');
         }
       } catch (encryptError: any) {
-        console.error('Encryption error:', encryptError);
+        console.error('[MessageComposer] ❌ Encryption error details:', {
+          error: encryptError,
+          errorString: JSON.stringify(encryptError),
+          errorType: typeof encryptError,
+          hasError: !!encryptError?.error,
+          hasMessage: !!encryptError?.message,
+          errorValue: encryptError?.error,
+          messageValue: encryptError?.message
+        });
         
         if (encryptError?.error?.includes('cancel') || encryptError?.message?.includes('cancel')) {
           toast({
