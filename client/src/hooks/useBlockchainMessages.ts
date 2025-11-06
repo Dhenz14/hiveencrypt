@@ -193,10 +193,12 @@ export function useBlockchainMessages({
     },
     enabled: enabled && !!user?.username && !!partnerUsername,
     refetchInterval: (data) => {
-      if (!isActive) return 30000;
-      return 15000;
+      // PERFORMANCE FIX: Reduced polling frequency (was 15s/30s, now 30s/60s)
+      // Blockchain doesn't update instantly, so less aggressive polling is fine
+      if (!isActive) return 60000; // 1 minute when tab is hidden
+      return 30000; // 30 seconds when active
     },
-    staleTime: 5000,
+    staleTime: 10000, // Increased from 5s to 10s
   });
 
   return query;
@@ -228,62 +230,73 @@ export function useConversationDiscovery() {
       const partners = await discoverConversations(user.username, 1000);
       console.log('[CONV DISCOVERY] Discovered partners:', partners);
 
-      const conversations = [];
-      for (const partner of partners) {
-        console.log('[CONV DISCOVERY] Processing partner:', partner);
-        const conversation = await getConversation(user.username, partner);
-        if (conversation) {
-          console.log('[CONV DISCOVERY] Found cached conversation:', {
-            partnerUsername: conversation.partnerUsername,
-            lastMessage: conversation.lastMessage.substring(0, 30)
-          });
-          conversations.push(conversation);
-        } else {
-          const messages = await getConversationMessages(
-            user.username,
-            partner,
-            100
-          );
+      // PERFORMANCE FIX: Fetch all cached conversations first to avoid unnecessary blockchain calls
+      const cachedConversations = await Promise.all(
+        partners.map(partner => getConversation(user.username, partner))
+      );
 
-          if (messages.length > 0) {
-            const lastMessage = messages[messages.length - 1];
-            let decryptedContent: string | null = null;
-            
-            // For conversation discovery, use placeholders to avoid triggering multiple Keychain prompts
-            // Users can decrypt individual messages within the conversation view
-            if (lastMessage.from === user.username) {
-              decryptedContent = '[Encrypted message sent by you]';
-            } else {
-              decryptedContent = '[Encrypted message]';
+      // Identify which partners need new conversations created
+      const uncachedPartners = partners.filter((partner, index) => !cachedConversations[index]);
+      
+      console.log('[CONV DISCOVERY] Cached:', cachedConversations.filter(Boolean).length, 
+                  'Uncached:', uncachedPartners.length);
+
+      // PERFORMANCE FIX: Fetch messages for uncached partners in PARALLEL instead of sequentially
+      const newConversationsData = await Promise.all(
+        uncachedPartners.map(async (partner) => {
+          try {
+            const messages = await getConversationMessages(
+              user.username,
+              partner,
+              100
+            );
+
+            if (messages.length > 0) {
+              const lastMessage = messages[messages.length - 1];
+              let decryptedContent: string | null = null;
+              
+              // For conversation discovery, use placeholders to avoid triggering multiple Keychain prompts
+              // Users can decrypt individual messages within the conversation view
+              if (lastMessage.from === user.username) {
+                decryptedContent = '[Encrypted message sent by you]';
+              } else {
+                decryptedContent = '[Encrypted message]';
+              }
+
+              const newConversation = {
+                conversationKey: getConversationKey(user.username, partner),
+                partnerUsername: partner,
+                lastMessage: decryptedContent,
+                lastTimestamp: lastMessage.timestamp,
+                unreadCount: 0,
+                lastChecked: new Date().toISOString(),
+              };
+
+              console.log('[CONV DISCOVERY] Creating new conversation for:', partner);
+              await updateConversation(newConversation, user.username);
+              return newConversation;
             }
-
-            const newConversation = {
-              conversationKey: getConversationKey(user.username, partner),
-              partnerUsername: partner,
-              lastMessage: decryptedContent,
-              lastTimestamp: lastMessage.timestamp,
-              unreadCount: 0,
-              lastChecked: new Date().toISOString(),
-            };
-
-            console.log('[CONV DISCOVERY] Creating new conversation:', {
-              currentUser: user.username,
-              partner: partner,
-              conversationKey: newConversation.conversationKey,
-              partnerUsername: newConversation.partnerUsername
-            });
-
-            await updateConversation(newConversation, user.username);
-            conversations.push(newConversation);
+          } catch (error) {
+            console.error('[CONV DISCOVERY] Error fetching messages for partner:', partner, error);
           }
-        }
-      }
+          return null;
+        })
+      );
 
+      // Combine cached and newly created conversations
+      const conversations = [
+        ...cachedConversations.filter(Boolean),
+        ...newConversationsData.filter(Boolean)
+      ];
+
+      console.log('[CONV DISCOVERY] Total conversations:', conversations.length);
       return conversations;
     },
     enabled: !!user?.username,
-    refetchInterval: isActive ? 30000 : 60000,
-    staleTime: 10000,
+    // PERFORMANCE FIX: Reduced polling frequency (was 30s/60s, now 60s/120s)
+    // Conversation discovery doesn't need to be as frequent as message polling
+    refetchInterval: isActive ? 60000 : 120000, // 1 min active, 2 min background
+    staleTime: 20000, // Increased from 10s to 20s
   });
 
   return query;
