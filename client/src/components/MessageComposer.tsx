@@ -107,7 +107,6 @@ export function MessageComposer({
       // Step 1: Encrypt message using Hive Keychain
       let encryptedMemo: string;
       try {
-        // Keychain's requestEncodeMessage handles the '#' prefix automatically
         const encoded = await requestEncode(
           user.username,
           recipientUsername,
@@ -119,7 +118,10 @@ export function MessageComposer({
           throw new Error('Failed to encrypt message');
         }
         
-        encryptedMemo = encoded.result;
+        // Add '#' prefix if not already present (required for encrypted memos on Hive blockchain)
+        encryptedMemo = encoded.result.startsWith('#') 
+          ? encoded.result 
+          : `#${encoded.result}`;
       } catch (encryptError: any) {
         console.error('Encryption error:', encryptError);
         
