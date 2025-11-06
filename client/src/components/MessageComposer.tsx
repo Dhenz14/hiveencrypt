@@ -5,7 +5,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { isKeychainInstalled, requestEncode, requestTransfer } from '@/lib/hive';
+import { requestTransfer } from '@/lib/hive';
+import { requestKeychainEncryption } from '@/lib/encryption';
 import { addOptimisticMessage, confirmMessage } from '@/lib/messageCache';
 
 interface MessageComposerProps {
@@ -60,16 +61,6 @@ export function MessageComposer({
       return;
     }
 
-    // Check if Hive Keychain is installed
-    if (!isKeychainInstalled()) {
-      toast({
-        title: 'Keychain Not Available',
-        description: 'Please install Hive Keychain extension to send encrypted messages',
-        variant: 'destructive',
-      });
-      return;
-    }
-
     const messageText = content.trim();
     const tempId = `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
@@ -107,22 +98,15 @@ export function MessageComposer({
       // Step 1: Encrypt message using Hive Keychain
       let encryptedMemo: string;
       try {
-        const encoded = await requestEncode(
-          user.username,
-          recipientUsername,
+        // Use the recommended requestKeychainEncryption from encryption.ts
+        // This uses the correct requestEncode API (not requestEncodeMessage)
+        encryptedMemo = await requestKeychainEncryption(
           messageText,
-          'Memo'
+          user.username,
+          recipientUsername
         );
         
-        if (!encoded.success || !encoded.result) {
-          throw new Error('Failed to encrypt message');
-        }
-        
-        // Keychain's requestEncodeMessage returns the encrypted content WITHOUT the '#' prefix
-        // We need to add it for the Hive blockchain to recognize it as encrypted
-        encryptedMemo = encoded.result;
-        
-        console.log('[MessageComposer] Raw encrypted result:', {
+        console.log('[MessageComposer] Encrypted memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
           length: encryptedMemo.length,
           preview: encryptedMemo.substring(0, 30) + '...'
@@ -134,17 +118,11 @@ export function MessageComposer({
           console.log('[MessageComposer] Added # prefix to memo');
         }
       } catch (encryptError: any) {
-        console.error('[MessageComposer] ❌ Encryption error details:', {
-          error: encryptError,
-          errorString: JSON.stringify(encryptError),
-          errorType: typeof encryptError,
-          hasError: !!encryptError?.error,
-          hasMessage: !!encryptError?.message,
-          errorValue: encryptError?.error,
-          messageValue: encryptError?.message
-        });
+        console.error('[MessageComposer] ❌ Encryption error:', encryptError);
         
-        if (encryptError?.error?.includes('cancel') || encryptError?.message?.includes('cancel')) {
+        const errorMessage = encryptError?.message || String(encryptError);
+        
+        if (errorMessage.includes('cancel')) {
           toast({
             title: 'Encryption Cancelled',
             description: 'Message encryption was cancelled',
@@ -153,7 +131,7 @@ export function MessageComposer({
         } else {
           toast({
             title: 'Failed to Encrypt',
-            description: encryptError?.message || 'Could not encrypt the message. Please try again.',
+            description: errorMessage || 'Could not encrypt the message. Please try again.',
             variant: 'destructive',
           });
         }
