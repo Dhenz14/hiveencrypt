@@ -82,7 +82,9 @@ export default function Messages() {
     enabled: !!selectedPartner,
   });
 
-  const conversations: Conversation[] = conversationCaches.map(mapConversationCacheToConversation);
+  const conversations: Conversation[] = conversationCaches
+    .filter((conv): conv is ConversationCache => conv !== null && conv !== undefined)
+    .map(mapConversationCacheToConversation);
   
   // Debug logging
   if (conversations.length > 0) {

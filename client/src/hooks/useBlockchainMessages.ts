@@ -112,10 +112,12 @@ export function useBlockchainMessages({
       });
 
       try {
+        // PERFORMANCE FIX: Reduced from 1000 to 200 messages per conversation
+        // Most conversations have <50 messages, so 200 is plenty for initial load
         const blockchainMessages = await getConversationMessages(
           user.username,
           partnerUsername,
-          1000
+          200
         );
 
         for (const msg of blockchainMessages) {
@@ -207,6 +209,7 @@ export function useBlockchainMessages({
 export function useConversationDiscovery() {
   const { user } = useAuth();
   const [isActive, setIsActive] = useState(true);
+  const [cachedConversations, setCachedConversations] = useState<any[]>([]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -219,15 +222,31 @@ export function useConversationDiscovery() {
     };
   }, []);
 
+  // PERFORMANCE FIX: Load cached conversations immediately on mount
+  useEffect(() => {
+    if (user?.username) {
+      import('@/lib/messageCache').then(({ getConversations }) => {
+        getConversations(user.username).then(cached => {
+          console.log('[CONV DISCOVERY] Loaded', cached.length, 'cached conversations immediately');
+          setCachedConversations(cached);
+        });
+      });
+    }
+  }, [user?.username]);
+
   const query = useQuery({
     queryKey: ['blockchain-conversations', user?.username],
+    // PERFORMANCE FIX: Return cached data immediately if available
+    initialData: cachedConversations.length > 0 ? cachedConversations : undefined,
     queryFn: async () => {
       if (!user?.username) {
         throw new Error('User not authenticated');
       }
 
       console.log('[CONV DISCOVERY] Starting for user:', user.username);
-      const partners = await discoverConversations(user.username, 1000);
+      // PERFORMANCE FIX: Reduced from 1000 to 200 transactions (most users have <10 conversations)
+      // Fetching 1000 transactions can take 10-30 seconds on slow nodes!
+      const partners = await discoverConversations(user.username, 200);
       console.log('[CONV DISCOVERY] Discovered partners:', partners);
 
       // PERFORMANCE FIX: Fetch all cached conversations first to avoid unnecessary blockchain calls
@@ -245,10 +264,12 @@ export function useConversationDiscovery() {
       const newConversationsData = await Promise.all(
         uncachedPartners.map(async (partner) => {
           try {
+            // PERFORMANCE FIX: Reduced from 100 to 50 for initial discovery
+            // We only need the last message for the conversation list
             const messages = await getConversationMessages(
               user.username,
               partner,
-              100
+              50
             );
 
             if (messages.length > 0) {
