@@ -19,11 +19,12 @@ export interface HASAppMeta {
 }
 
 // App metadata for HAS authentication
-export const APP_META: HASAppMeta = {
+// Using a getter function to avoid accessing window at module scope (breaks SSR/build)
+export const getAppMeta = (): HASAppMeta => ({
   name: 'Hive Messenger',
   description: 'Decentralized encrypted messaging on Hive blockchain',
-  icon: window.location.origin + '/favicon.png',
-};
+  icon: typeof window !== 'undefined' ? `${window.location.origin}/favicon.png` : '/favicon.png',
+});
 
 // Check if user is on mobile device
 export const isMobileDevice = (): boolean => {
@@ -52,7 +53,7 @@ export const authenticateWithHAS = async (
   try {
     console.log('[HAS] Starting authentication for:', username);
     
-    const result = await HAS.authenticate(auth, APP_META, (evt: any) => {
+    const result = await HAS.authenticate(auth, getAppMeta(), (evt: any) => {
       console.log('[HAS] Waiting for user approval:', evt);
       if (onWaiting) {
         onWaiting(evt);
