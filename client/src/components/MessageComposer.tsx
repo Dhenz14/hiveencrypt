@@ -118,10 +118,21 @@ export function MessageComposer({
           throw new Error('Failed to encrypt message');
         }
         
-        // Add '#' prefix if not already present (required for encrypted memos on Hive blockchain)
-        encryptedMemo = encoded.result.startsWith('#') 
-          ? encoded.result 
-          : `#${encoded.result}`;
+        // Keychain's requestEncodeMessage returns the encrypted content WITHOUT the '#' prefix
+        // We need to add it for the Hive blockchain to recognize it as encrypted
+        encryptedMemo = encoded.result;
+        
+        console.log('[MessageComposer] Raw encrypted result:', {
+          hasPrefix: encryptedMemo.startsWith('#'),
+          length: encryptedMemo.length,
+          preview: encryptedMemo.substring(0, 30) + '...'
+        });
+        
+        // Ensure the memo starts with '#' (required for encrypted memos)
+        if (!encryptedMemo.startsWith('#')) {
+          encryptedMemo = `#${encryptedMemo}`;
+          console.log('[MessageComposer] Added # prefix to memo');
+        }
       } catch (encryptError: any) {
         console.error('Encryption error:', encryptError);
         
@@ -148,6 +159,11 @@ export function MessageComposer({
       // We are NOT sending any private keys - only the encrypted message
       let txId: string | undefined;
       try {
+        console.log('[MessageComposer] Calling requestTransfer with memo:', {
+          hasPrefix: encryptedMemo.startsWith('#'),
+          memoPreview: encryptedMemo.substring(0, 30) + '...'
+        });
+        
         const transfer = await requestTransfer(
           user.username,
           recipientUsername,
@@ -156,13 +172,19 @@ export function MessageComposer({
           'HBD'
         );
         
+        console.log('[MessageComposer] Transfer response:', {
+          success: transfer.success,
+          message: transfer.message,
+          error: transfer.error
+        });
+        
         if (!transfer.success) {
           throw new Error(transfer.message || 'Transfer failed');
         }
         
         txId = transfer.result;
       } catch (transferError: any) {
-        console.error('Transfer error:', transferError);
+        console.error('[MessageComposer] Transfer error caught:', transferError);
         
         // Handle specific error cases
         if (transferError?.error?.includes('cancel') || transferError?.message?.includes('cancel')) {
