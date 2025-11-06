@@ -51,3 +51,52 @@ Hive Messenger operates with a 100% decentralized architecture. The application 
 ### Authentication Services
 - **Hive Keychain**: Browser extension for desktop authentication.
 - **HAS (Hive Authentication Services)**: Mobile wallet authentication (e.g., Hive Keychain Mobile, HiveAuth Mobile App).
+
+## Deployment
+
+### Static Build (Production)
+Hive Messenger is designed to be deployed as a 100% static site with zero server costs:
+
+```bash
+# Build static assets
+npm run build  # or: vite build
+
+# Output location
+dist/public/   # Deploy this folder to any static host
+```
+
+### Supported Hosts
+- **Vercel/Netlify**: Zero-config deployment, free tier available
+- **IPFS**: Truly decentralized hosting (ipfs://...)
+- **GitHub Pages**: Free static hosting with custom domains
+- **CloudFlare Pages**: Global CDN with instant cache invalidation
+- **Any static file server**: Apache, Nginx, etc.
+
+### Development vs Production
+- **Development** (Replit): Workflow runs Express server for convenience, but client code is 100% static and makes zero API calls to it
+- **Production**: No server required - pure static files served via CDN
+- **Client Architecture**: Completely independent of server, all logic runs in browser
+
+### Verification
+Client code has ZERO server dependencies:
+- ✅ No `/api/*` fetch calls
+- ✅ No backend database queries
+- ✅ No session management on server
+- ✅ All auth is client-side (Keychain/HAS)
+- ✅ All data storage is local (IndexedDB)
+- ✅ All blockchain queries are direct RPC calls
+
+### PWA Features
+- ✅ Installable on desktop and mobile
+- ✅ Works offline (cached messages)
+- ✅ Service worker for asset caching
+- ✅ Deep linking for mobile auth (has:// protocol)
+- ✅ Valid manifest with 192x192 and 512x512 icons
+
+### Production Checklist
+1. Replace `/favicon.png` with proper 192x192 and 512x512 PNG icons
+2. Run `vite build` to generate static assets
+3. Upload `dist/public/` to your chosen static host
+4. Configure custom domain (optional)
+5. Enable HTTPS (required for PWA features)
+6. Test installability on mobile and desktop
