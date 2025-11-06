@@ -303,7 +303,7 @@ export const requestDecodeMemo = async (
 export const getConversationMessages = async (
   currentUser: string,
   partnerUsername: string,
-  limit: number = 1000
+  limit: number = 200
 ): Promise<any[]> => {
   try {
     const history = await getAccountHistory(currentUser, -1, limit);
@@ -343,7 +343,7 @@ export const getConversationMessages = async (
 
 export const discoverConversations = async (
   currentUser: string,
-  limit: number = 1000
+  limit: number = 200
 ): Promise<string[]> => {
   try {
     const history = await getAccountHistory(currentUser, -1, limit);
