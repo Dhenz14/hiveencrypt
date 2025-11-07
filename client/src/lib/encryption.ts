@@ -255,11 +255,12 @@ export const requestKeychainEncryption = async (
     }
 
     // IMPORTANT: Hive Keychain requires the message to start with '#' to trigger encryption
-    // See: https://github.com/hive-keychain/keychain-sdk (encode method documentation)
+    // See: https://github.com/hive-keychain/hive-keychain-extension/blob/master/documentation/README.md
     const messageWithPrefix = message.startsWith('#') ? message : `#${message}`;
 
-    // Request encoding from Keychain
-    window.hive_keychain.requestEncode(
+    // Request encoding from Keychain using the correct API method
+    // Official method name is requestEncodeMessage (not requestEncode)
+    window.hive_keychain.requestEncodeMessage(
       username,
       recipient,
       messageWithPrefix,
