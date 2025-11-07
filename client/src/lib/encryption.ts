@@ -183,24 +183,43 @@ export const decryptMemo = async (
  * Request memo decryption via Hive Keychain browser extension
  * This is the RECOMMENDED approach for production as it never exposes private keys
  * 
+ * TIER 2 OPTIMIZATION: Checks memo cache before decrypting to avoid redundant work
+ * 
  * @param encryptedMemo - Encrypted memo to decrypt
  * @param username - Hive username (to identify which key to use)
+ * @param txId - Transaction ID (optional - for memo caching)
  * @returns Promise resolving to decrypted message
  */
 export const requestKeychainDecryption = async (
   encryptedMemo: string,
-  username: string
+  username: string,
+  txId?: string
 ): Promise<string> => {
+  // Handle unencrypted memos
+  if (!encryptedMemo.startsWith('#')) {
+    return encryptedMemo;
+  }
+
+  // TIER 2: Check memo cache first to avoid redundant decryption
+  if (txId) {
+    try {
+      const { getCachedDecryptedMemo, cacheDecryptedMemo } = await import('@/lib/messageCache');
+      const cachedMemo = await getCachedDecryptedMemo(txId, username);
+      
+      if (cachedMemo) {
+        // Cache hit - return immediately without Keychain call
+        return cachedMemo;
+      }
+    } catch (cacheError) {
+      console.warn('[MEMO CACHE] Failed to check cache, proceeding with decryption:', cacheError);
+    }
+  }
+
+  // Cache miss or no txId - decrypt with Keychain
   return new Promise((resolve, reject) => {
     // Check if Keychain is installed
     if (typeof window === 'undefined' || !window.hive_keychain) {
       reject(new Error('Hive Keychain extension is not installed. Please install it from https://hive-keychain.com'));
-      return;
-    }
-
-    // Handle unencrypted memos
-    if (!encryptedMemo.startsWith('#')) {
-      resolve(encryptedMemo);
       return;
     }
 
@@ -210,10 +229,21 @@ export const requestKeychainDecryption = async (
       username,
       encryptedMemo,
       'Memo',
-      (response: any) => {
+      async (response: any) => {
         if (response.success) {
-          // Keychain returns the decrypted message in response.result
-          resolve(response.result);
+          const decryptedMemo = response.result;
+          
+          // TIER 2: Cache the decrypted memo for future use
+          if (txId) {
+            try {
+              const { cacheDecryptedMemo } = await import('@/lib/messageCache');
+              await cacheDecryptedMemo(txId, decryptedMemo, username);
+            } catch (cacheError) {
+              console.warn('[MEMO CACHE] Failed to cache decrypted memo:', cacheError);
+            }
+          }
+          
+          resolve(decryptedMemo);
         } else {
           reject(new Error(response.message || 'Keychain decryption failed. Please check that you have the correct account selected.'));
         }

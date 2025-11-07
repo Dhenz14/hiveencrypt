@@ -133,18 +133,30 @@ export function useBlockchainMessages({
       });
 
       try {
-        // PERFORMANCE FIX: Reduced limit from 1000 to 200
-        // 200 transactions covers most conversation histories while being 5x faster
+        // TIER 2 OPTIMIZATION: Get last synced operation ID for incremental filtering
+        const conversationKey = getConversationKey(user.username, partnerUsername);
+        const { getLastSyncedOpId, setLastSyncedOpId } = await import('@/lib/messageCache');
+        const lastSyncedOpId = await getLastSyncedOpId(conversationKey, user.username);
+        
+        // TIER 2: Fetch latest operations and filter client-side for new ones
+        // (Hive API's start parameter goes backwards, so we filter instead)
         const blockchainMessages = await getConversationMessages(
           user.username,
           partnerUsername,
-          200
+          200,  // Always fetch last 200, filter for new ones
+          lastSyncedOpId
         );
 
         // TIER 1 OPTIMIZATION: Batch all new messages for single IndexedDB transaction
         const newMessagesToCache: MessageCache[] = [];
+        let highestOpId = lastSyncedOpId || 0;
 
         for (const msg of blockchainMessages) {
+          // TIER 2: Track highest operation ID for incremental sync
+          if (msg.index > highestOpId) {
+            highestOpId = msg.index;
+          }
+          
           if (mergedMessages.has(msg.trx_id)) {
             continue;
           }
@@ -154,7 +166,7 @@ export function useBlockchainMessages({
             // Store as encrypted placeholder initially, user can decrypt with Keychain
             const messageCache: MessageCache = {
               id: msg.trx_id,
-              conversationKey: getConversationKey(user.username, partnerUsername),
+              conversationKey,
               from: msg.from,
               to: msg.to,
               content: '[🔒 Encrypted - Click to decrypt]',
@@ -170,7 +182,7 @@ export function useBlockchainMessages({
             // Received message - store with placeholder, will decrypt on demand
             const messageCache: MessageCache = {
               id: msg.trx_id,
-              conversationKey: getConversationKey(user.username, partnerUsername),
+              conversationKey,
               from: msg.from,
               to: msg.to,
               content: '[🔒 Encrypted - Click to decrypt]',
@@ -191,6 +203,11 @@ export function useBlockchainMessages({
           await import('@/lib/messageCache').then(({ cacheMessages }) => 
             cacheMessages(newMessagesToCache, user.username)
           );
+        }
+        
+        // TIER 2: Update last synced operation ID for next incremental sync
+        if (highestOpId > (lastSyncedOpId || 0)) {
+          await setLastSyncedOpId(conversationKey, highestOpId, user.username);
         }
       } catch (blockchainError) {
         console.error('Failed to fetch from blockchain, using cached data:', blockchainError);

@@ -22,6 +22,13 @@ interface ConversationCache {
   lastChecked: string;
 }
 
+// TIER 2 OPTIMIZATION: Memo cache for never decrypting the same message twice
+interface DecryptedMemoCache {
+  txId: string;
+  decryptedMemo: string;
+  cachedAt: string;
+}
+
 interface HiveMessengerDB extends DBSchema {
   messages: {
     key: string;
@@ -46,6 +53,11 @@ interface HiveMessengerDB extends DBSchema {
       value: string;
     };
   };
+  // TIER 2: Decrypted memo cache - never decrypt the same txId twice
+  decryptedMemos: {
+    key: string;
+    value: DecryptedMemoCache;
+  };
 }
 
 let dbInstance: IDBPDatabase<HiveMessengerDB> | null = null;
@@ -66,7 +78,8 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
   }
 
   // Scope database to username to prevent data mixing between accounts
-  const dbName = username ? `hive-messenger-${username}-v3` : 'hive-messenger-v3';
+  // TIER 2: Bump to v4 to add decryptedMemos table
+  const dbName = username ? `hive-messenger-${username}-v4` : 'hive-messenger-v4';
   
   dbInstance = await openDB<HiveMessengerDB>(dbName, 1, {
     upgrade(db: IDBPDatabase<HiveMessengerDB>) {
@@ -86,6 +99,11 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
 
       if (!db.objectStoreNames.contains('metadata')) {
         db.createObjectStore('metadata', { keyPath: 'key' });
+      }
+
+      // TIER 2: Add decryptedMemos cache table
+      if (!db.objectStoreNames.contains('decryptedMemos')) {
+        db.createObjectStore('decryptedMemos', { keyPath: 'txId' });
       }
     },
   });
@@ -352,5 +370,56 @@ export async function deleteConversation(
   console.log('[deleteConversation] ✅ Conversation deleted from local storage');
 }
 
-export type { MessageCache, ConversationCache };
+// ============================================================================
+// TIER 2: Decrypted Memo Caching - Never decrypt the same message twice
+// ============================================================================
+
+export async function getCachedDecryptedMemo(txId: string, username?: string): Promise<string | null> {
+  const db = await getDB(username);
+  const cached = await db.get('decryptedMemos', txId);
+  
+  if (cached) {
+    console.log('[MEMO CACHE] HIT for txId:', txId.substring(0, 20), '- skipping decryption');
+    return cached.decryptedMemo;
+  }
+  
+  console.log('[MEMO CACHE] MISS for txId:', txId.substring(0, 20), '- will decrypt');
+  return null;
+}
+
+export async function cacheDecryptedMemo(txId: string, decryptedMemo: string, username?: string): Promise<void> {
+  const db = await getDB(username);
+  await db.put('decryptedMemos', {
+    txId,
+    decryptedMemo,
+    cachedAt: new Date().toISOString(),
+  });
+  console.log('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
+}
+
+// ============================================================================
+// TIER 2: Incremental Pagination - Track last synced operation ID
+// ============================================================================
+
+export async function getLastSyncedOpId(conversationKey: string, username?: string): Promise<number | null> {
+  const metadataKey = `lastSyncedOpId:${conversationKey}`;
+  const value = await getMetadata(metadataKey, username);
+  
+  if (value) {
+    const opId = parseInt(value, 10);
+    console.log('[INCREMENTAL] Last synced opId for', conversationKey, ':', opId);
+    return opId;
+  }
+  
+  console.log('[INCREMENTAL] No last synced opId for', conversationKey, '- first sync');
+  return null;
+}
+
+export async function setLastSyncedOpId(conversationKey: string, opId: number, username?: string): Promise<void> {
+  const metadataKey = `lastSyncedOpId:${conversationKey}`;
+  await setMetadata(metadataKey, opId.toString(), username);
+  console.log('[INCREMENTAL] Updated last synced opId for', conversationKey, ':', opId);
+}
+
+export type { MessageCache, ConversationCache, DecryptedMemoCache };
 export { getConversationKey };

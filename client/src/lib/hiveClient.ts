@@ -298,10 +298,12 @@ class HiveBlockchainClient {
     }
   }
 
+  // TIER 2 OPTIMIZATION: Added start parameter for incremental pagination
   async getAccountHistory(
     username: string,
     limit: number = 100,
-    filterTransfersOnly: boolean = true
+    filterTransfersOnly: boolean = true,
+    start: number = -1  // -1 = latest, otherwise start from specific opId for incremental sync
   ): Promise<any[]> {
     if (!this.validateUsername(username)) {
       throw new Error('Invalid username format. Must be 3-16 characters, lowercase letters, numbers, dots, and hyphens. Cannot start/end with dot or hyphen.');
@@ -320,7 +322,7 @@ class HiveBlockchainClient {
         if (filterTransfersOnly) {
           return await this.client.call('condenser_api', 'get_account_history', [
             username,
-            -1,
+            start,  // TIER 2: Use provided start for incremental sync
             limit,
             4,   // operation_filter_low: 2^2 = 4 for transfer operations
             0    // operation_filter_high: not used
@@ -329,7 +331,7 @@ class HiveBlockchainClient {
           // Fallback to unfiltered query (slower, returns all operations)
           return await this.client.database.getAccountHistory(
             username,
-            -1,
+            start,
             limit
           );
         }

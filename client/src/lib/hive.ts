@@ -136,6 +136,7 @@ export const getAccount = async (username: string) => {
   }
 };
 
+// TIER 2 OPTIMIZATION: Added start parameter for incremental pagination
 export const getAccountHistory = async (
   username: string,
   start: number = -1,
@@ -147,7 +148,8 @@ export const getAccountHistory = async (
     const history = await optimizedHiveClient.getAccountHistory(
       username,
       limit,
-      filterTransfersOnly
+      filterTransfersOnly,
+      start  // TIER 2: Pass start for incremental sync
     );
     return history;
   } catch (error) {
@@ -218,10 +220,12 @@ const isEncryptedMemo = (text: string): boolean => {
   return base58Regex.test(content);
 };
 
+// TIER 2 OPTIMIZATION: Added txId parameter for memo caching
 export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string,
   senderUsername?: string,
+  txId?: string,
   recursionDepth: number = 0
 ): Promise<string> => {
   // Prevent infinite recursion (max 2 decryption attempts for double-encrypted messages)
@@ -235,6 +239,20 @@ export const requestDecodeMemo = async (
     return encryptedMemo;
   }
 
+  // TIER 2: Check memo cache first
+  if (txId && recursionDepth === 0) {
+    try {
+      const { getCachedDecryptedMemo } = await import('@/lib/messageCache');
+      const cachedMemo = await getCachedDecryptedMemo(txId, username);
+      
+      if (cachedMemo) {
+        return cachedMemo;
+      }
+    } catch (cacheError) {
+      console.warn('[requestDecodeMemo] Failed to check memo cache:', cacheError);
+    }
+  }
+
   if (!window.hive_keychain) {
     throw new Error('Hive Keychain extension not found. Please install it.');
   }
@@ -244,6 +262,7 @@ export const requestDecodeMemo = async (
     username,
     messagePreview: encryptedMemo.substring(0, 40) + '...',
     sender: senderUsername,
+    txId: txId?.substring(0, 20),
     depth: recursionDepth
   });
 
@@ -284,7 +303,7 @@ export const requestDecodeMemo = async (
     if (isEncryptedMemo(result) && recursionDepth < 1) {
       console.log('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
       
-      const secondDecryption = await requestDecodeMemo(username, result, senderUsername, recursionDepth + 1);
+      const secondDecryption = await requestDecodeMemo(username, result, senderUsername, txId, recursionDepth + 1);
       console.log('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
       return secondDecryption;
     }
@@ -292,6 +311,16 @@ export const requestDecodeMemo = async (
     // If still encrypted at max depth, that's an error
     if (isEncryptedMemo(result) && recursionDepth >= 1) {
       throw new Error('Message may be triple-encrypted or corrupted');
+    }
+    
+    // TIER 2: Cache the decrypted memo if we have a txId
+    if (txId && recursionDepth === 0) {
+      try {
+        const { cacheDecryptedMemo } = await import('@/lib/messageCache');
+        await cacheDecryptedMemo(txId, result, username);
+      } catch (cacheError) {
+        console.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
+      }
     }
     
     console.log('[requestDecodeMemo] ✅ Decryption complete!');
@@ -303,18 +332,28 @@ export const requestDecodeMemo = async (
   }
 };
 
+// TIER 2 OPTIMIZATION: Added support for incremental pagination
 export const getConversationMessages = async (
   currentUser: string,
   partnerUsername: string,
-  limit: number = 200
+  limit: number = 200,
+  lastSyncedOpId?: number | null  // TIER 2: For incremental sync filtering
 ): Promise<any[]> => {
   try {
+    // TIER 2 FIX: Always fetch latest operations (start = -1)
+    // Then filter client-side for operations > lastSyncedOpId
+    // Hive API's start parameter goes BACKWARDS, so we can't use it for incremental
     const history = await getAccountHistory(currentUser, -1, limit);
     
     const conversationMessages = history
-      .filter(([, op]: [any, any]) => {
+      .filter(([index, op]: [any, any]) => {
         const operation = op.op;
         if (operation[0] !== 'transfer') return false;
+        
+        // TIER 2: Skip operations we've already processed
+        if (lastSyncedOpId !== null && lastSyncedOpId !== undefined && index <= lastSyncedOpId) {
+          return false;
+        }
         
         const transfer = operation[1];
         const memo = transfer.memo;
@@ -336,6 +375,10 @@ export const getConversationMessages = async (
         block: op.block,
         trx_id: op.trx_id,
       }));
+
+    if (lastSyncedOpId !== null && conversationMessages.length > 0) {
+      console.log('[INCREMENTAL] Found', conversationMessages.length, 'new messages (filtered > opId:', lastSyncedOpId, ')');
+    }
 
     return conversationMessages;
   } catch (error) {
@@ -377,7 +420,8 @@ export const discoverConversations = async (
 export const decryptMemo = async (
   username: string,
   encryptedMemo: string,
-  otherParty?: string
+  otherParty?: string,
+  txId?: string  // TIER 2: Pass txId for memo caching
 ): Promise<string | null> => {
   console.log('[decryptMemo] ========== DECRYPT MEMO START ==========');
   console.log('[decryptMemo] Input params:', {
@@ -386,6 +430,7 @@ export const decryptMemo = async (
     memoPreview: encryptedMemo.substring(0, 40) + '...',
     memoLength: encryptedMemo.length,
     isEncrypted: isEncryptedMemo(encryptedMemo),
+    txId: txId?.substring(0, 20),
     fullMemo: encryptedMemo
   });
 
@@ -396,7 +441,7 @@ export const decryptMemo = async (
     }
 
     console.log('[decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...');
-    const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty);
+    const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty, txId);
     console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
@@ -413,4 +458,67 @@ export const decryptMemo = async (
     // Re-throw error so MessageBubble can show proper error toast
     throw error;
   }
+};
+
+// ============================================================================
+// TIER 2: Parallel Decryption with Concurrency Limits
+// ============================================================================
+
+interface DecryptionTask {
+  encryptedMemo: string;
+  txId: string;
+  index: number;
+}
+
+/**
+ * TIER 2 OPTIMIZATION: Decrypt multiple memos in parallel with concurrency limit
+ * 
+ * Instead of processing memos sequentially (await each one), this batches them
+ * and processes 3-5 concurrently for 3-5x faster bulk decryption.
+ * 
+ * @param username - Current user's username
+ * @param tasks - Array of decryption tasks with encrypted memo and txId
+ * @param concurrency - Max concurrent decryptions (default: 5)
+ * @returns Array of decrypted memos in same order as input
+ */
+export const decryptMemosInParallel = async (
+  username: string,
+  tasks: DecryptionTask[],
+  concurrency: number = 5
+): Promise<Array<{ index: number; decrypted: string | null; error?: string }>> => {
+  console.log('[PARALLEL] Starting parallel decryption:', tasks.length, 'tasks, concurrency:', concurrency);
+  
+  const results: Array<{ index: number; decrypted: string | null; error?: string }> = [];
+  const executing: Promise<void>[] = [];
+  
+  for (const task of tasks) {
+    const promise = (async () => {
+      try {
+        const decrypted = await requestDecodeMemo(username, task.encryptedMemo, undefined, task.txId);
+        results.push({ index: task.index, decrypted });
+      } catch (error: any) {
+        console.warn('[PARALLEL] Decryption failed for task', task.index, ':', error.message);
+        results.push({ index: task.index, decrypted: null, error: error.message });
+      }
+    })();
+    
+    executing.push(promise);
+    
+    // When we reach concurrency limit, wait for one to finish
+    if (executing.length >= concurrency) {
+      await Promise.race(executing);
+      // Remove completed promises
+      executing.splice(0, executing.findIndex(p => 
+        results.length > tasks.indexOf(task) - concurrency + 1
+      ));
+    }
+  }
+  
+  // Wait for remaining promises
+  await Promise.all(executing);
+  
+  console.log('[PARALLEL] Completed parallel decryption:', results.length, 'results');
+  
+  // Sort by index to maintain order
+  return results.sort((a, b) => a.index - b.index);
 };
