@@ -254,15 +254,19 @@ export const requestKeychainEncryption = async (
       return;
     }
 
+    // IMPORTANT: Hive Keychain requires the message to start with '#' to trigger encryption
+    // See: https://github.com/hive-keychain/keychain-sdk (encode method documentation)
+    const messageWithPrefix = message.startsWith('#') ? message : `#${message}`;
+
     // Request encoding from Keychain
     window.hive_keychain.requestEncode(
       username,
       recipient,
-      message,
+      messageWithPrefix,
       'Memo',
       (response: any) => {
         if (response.success) {
-          // Keychain returns the encrypted memo
+          // Keychain returns the encrypted memo (already includes '#' prefix)
           resolve(response.result);
         } else {
           reject(new Error(response.message || 'Keychain encryption failed'));

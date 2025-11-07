@@ -106,17 +106,11 @@ export function MessageComposer({
           recipientUsername
         );
         
-        console.log('[MessageComposer] Encrypted memo:', {
+        console.log('[MessageComposer] ✅ Successfully encrypted memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
           length: encryptedMemo.length,
           preview: encryptedMemo.substring(0, 30) + '...'
         });
-        
-        // Ensure the memo starts with '#' (required for encrypted memos)
-        if (!encryptedMemo.startsWith('#')) {
-          encryptedMemo = `#${encryptedMemo}`;
-          console.log('[MessageComposer] Added # prefix to memo');
-        }
       } catch (encryptError: any) {
         console.error('[MessageComposer] ❌ Encryption error:', encryptError);
         
