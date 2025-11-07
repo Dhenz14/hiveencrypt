@@ -21,12 +21,14 @@ export default function Login() {
   const checkKeychain = async () => {
     const installed = isKeychainInstalled();
     if (installed) {
-      const handshakeSuccess = await requestHandshake();
-      if (handshakeSuccess) {
-        setKeychainStatus('installed');
-      } else {
-        setKeychainStatus('missing');
-      }
+      // If Keychain extension is detected, mark as installed
+      // Handshake is optional - it may fail due to user denial, but extension is still there
+      setKeychainStatus('installed');
+      // Try handshake in background (non-blocking)
+      requestHandshake().catch(() => {
+        // Handshake failure doesn't mean Keychain isn't installed
+        console.log('Keychain handshake failed, but extension is installed');
+      });
     } else {
       setKeychainStatus('missing');
     }
