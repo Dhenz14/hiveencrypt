@@ -1,0 +1,349 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+HiveEncrypt:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+HiveEncrypt:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+HiveEncrypt:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ Download the Apollo DevTools for a better development experience: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+ [LaunchDarkly] LaunchDarkly client initialized
+ ✅ blakejs loaded successfully (self-contained version)
+   Available functions: Array(5)
+ 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+ 🏛️ ArcHive Content Script Loaded
+ 🏛️ ArcHive Content Script Ready - 100% Decentralized
+HiveEncrypt:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ Cache data may be lost when replacing the dealContext field of a Org object.
+
+This could cause additional (usually avoidable) network requests to fetch data that were otherwise cached.
+
+To address this problem (which is not a bug in Apollo Client), either ensure all objects of type OrgDealContext have an ID or a custom merge function, or define a custom merge function for the Org.dealContext field, so InMemoryCache can safely merge these objects:
+
+  existing: {"__typename":"OrgDealContext","dealType":"default","salesContactEmail":null}
+  incoming: {"__typename":"OrgDealContext","dealType":"default"}
+
+For more information about these options, please refer to the documentation:
+
+  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers
+  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects
+
+(anonymous) @ ef9fceda3f8b669b.js:2
+ Adding extension: ReplDB Export and Import Object
+ Adding extension: CSS Gradient Generator Object
+ Adding extension: JSON Editor Object
+ Adding extension: Prettier - Code Formatter Object
+ Adding extension: Javascript Commands Object
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'ambient-light-sensor'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'battery'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-not-rendered'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'layout-animations'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'legacy-image-formats'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'navigation-override'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'oversized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'publickey-credentials'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'speaker-selection'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unoptimized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unsized-media'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'pointer-lock'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowfullscreen'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+z @ ed1e693c96a75807.js:2
+ Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu Object
+(anonymous) @ ef9fceda3f8b669b.js:2
+ Adding extension: API Request Tester Object
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar7n%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ WebSocket connection to 'wss://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/?token=YOvxrbCukaO_' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) 
+ [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [CACHE FIX] Fixed 0 corrupted messages
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: curatorhulk
+ [CONV DISCOVERY] Found cached conversation: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Starting for user: dandandan123
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [CONV DISCOVERY] Discovered partners: Array(3)
+ [CONV DISCOVERY] Processing partner: starkerz
+ [CONV DISCOVERY] Found cached conversation: Object
+ [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+sw.js:147 [ServiceWorker] Loaded and ready!
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:44 [QUERY] Starting blockchain messages query for: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:55 [QUERY] Retrieved cached messages: 7
+useBlockchainMessages.ts:57 [QUERY] Cached msg 0: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 1: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 2: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 3: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 4: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 5: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 6: Object
+useBlockchainMessages.ts:170 [QUERY] Returning messages, total count: 7
+useBlockchainMessages.ts:172 [QUERY] Returning msg 0: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 1: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 2: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 3: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 4: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 5: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 6: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:44 [QUERY] Starting blockchain messages query for: Object
+useBlockchainMessages.ts:227 [CONV DISCOVERY] Starting for user: dandandan123
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+MessageComposer.tsx:124 Encryption error: Object
+handleSubmit @ MessageComposer.tsx:124
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:55 [QUERY] Retrieved cached messages: 8
+useBlockchainMessages.ts:57 [QUERY] Cached msg 0: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 1: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 2: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 3: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 4: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 5: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 6: Object
+useBlockchainMessages.ts:57 [QUERY] Cached msg 7: Object
+useBlockchainMessages.ts:229 [CONV DISCOVERY] Discovered partners: Array(3)
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: starkerz
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: pro-content
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+useBlockchainMessages.ts:233 [CONV DISCOVERY] Processing partner: curatorhulk
+useBlockchainMessages.ts:236 [CONV DISCOVERY] Found cached conversation: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:170 [QUERY] Returning messages, total count: 8
+useBlockchainMessages.ts:172 [QUERY] Returning msg 0: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 1: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 2: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 3: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 4: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 5: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 6: Object
+useBlockchainMessages.ts:172 [QUERY] Returning msg 7: Object
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: Array(3)
+useBlockchainMessages.ts:44 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+useBlockchainMessages.ts:55 [QUERY] Retrieved cached messages: 8
+useBlockchainMessages.ts:57 [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '#Yo yo yo...', contentLength: 9}
+useBlockchainMessages.ts:57 [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+useBlockchainMessages.ts:57 [QUERY] Cached msg 2: {id: 'temp-1762467476...', from: 'dandandan123', contentPreview: 'yo...', contentLength: 2}
+useBlockchainMessages.ts:57 [QUERY] Cached msg 3: {id: 'temp-1762467737...', from: 'dandandan123', contentPreview: 'yo1000...', contentLength: 6}
+useBlockchainMessages.ts:57 [QUERY] Cached msg 4: {id: 'temp-1762468731...', from: 'dandandan123', contentPreview: 'yo...', contentLength: 2}
+useBlockchainMessages.ts:57 [QUERY] Cached msg 5: {id: 'temp-1762473037...', from: 'dandandan123', contentPreview: 'yot test...', contentLength: 8}
+useBlockchainMessages.ts:57 [QUERY] Cached msg 6: {id: 'temp-1762473552...', from: 'dandandan123', contentPreview: 'testing...', contentLength: 7}
+useBlockchainMessages.ts:57 [QUERY] Cached msg 7: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+useBlockchainMessages.ts:170 [QUERY] Returning messages, total count: 8
+useBlockchainMessages.ts:172 [QUERY] Returning msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '#Yo yo yo...', contentLength: 9}
+useBlockchainMessages.ts:172 [QUERY] Returning msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+useBlockchainMessages.ts:172 [QUERY] Returning msg 2: {id: 'temp-1762467476...', from: 'dandandan123', contentPreview: 'yo...', contentLength: 2}
+useBlockchainMessages.ts:172 [QUERY] Returning msg 3: {id: 'temp-1762467737...', from: 'dandandan123', contentPreview: 'yo1000...', contentLength: 6}
+useBlockchainMessages.ts:172 [QUERY] Returning msg 4: {id: 'temp-1762468731...', from: 'dandandan123', contentPreview: 'yo...', contentLength: 2}
+useBlockchainMessages.ts:172 [QUERY] Returning msg 5: {id: 'temp-1762473037...', from: 'dandandan123', contentPreview: 'yot test...', contentLength: 8}
+useBlockchainMessages.ts:172 [QUERY] Returning msg 6: {id: 'temp-1762473552...', from: 'dandandan123', contentPreview: 'testing...', contentLength: 7}
+useBlockchainMessages.ts:172 [QUERY] Returning msg 7: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:91 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
