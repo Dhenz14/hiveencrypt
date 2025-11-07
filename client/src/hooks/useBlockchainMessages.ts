@@ -39,8 +39,8 @@ export function useBlockchainMessages({
     };
   }, []);
 
-  // PERFORMANCE FIX: Pre-populate React Query cache with cached messages for instant display
-  // Then immediately invalidate to trigger background blockchain sync
+  // TIER 1 OPTIMIZATION: Pre-populate React Query cache with cached messages for instant display
+  // Removed immediate invalidation - let staleTime control when to refetch
   useEffect(() => {
     if (user?.username && partnerUsername && enabled) {
       getMessagesByConversation(user.username, partnerUsername).then(cachedMessages => {
@@ -51,8 +51,8 @@ export function useBlockchainMessages({
           // Seed cache with cached data (shows instantly)
           queryClient.setQueryData(queryKey, cachedMessages);
           
-          // Immediately invalidate to trigger background refetch (get fresh blockchain data)
-          queryClient.invalidateQueries({ queryKey, refetchType: 'active' });
+          // OPTIMIZATION: Don't immediately invalidate - let staleTime/refetchInterval handle it
+          // This prevents excessive refetches on tab switch / component remount
         }
       });
     }
@@ -141,6 +141,9 @@ export function useBlockchainMessages({
           200
         );
 
+        // TIER 1 OPTIMIZATION: Batch all new messages for single IndexedDB transaction
+        const newMessagesToCache: MessageCache[] = [];
+
         for (const msg of blockchainMessages) {
           if (mergedMessages.has(msg.trx_id)) {
             continue;
@@ -161,7 +164,7 @@ export function useBlockchainMessages({
               confirmed: true,
             };
 
-            await cacheMessage(messageCache, user.username);
+            newMessagesToCache.push(messageCache);
             mergedMessages.set(msg.trx_id, messageCache);
           } else {
             // Received message - store with placeholder, will decrypt on demand
@@ -177,10 +180,17 @@ export function useBlockchainMessages({
               confirmed: true,
             };
 
-            console.log('[QUERY] Caching new received message with placeholder');
-            await cacheMessage(messageCache, user.username);
+            newMessagesToCache.push(messageCache);
             mergedMessages.set(msg.trx_id, messageCache);
           }
+        }
+
+        // TIER 1 OPTIMIZATION: Single batched write instead of N individual writes
+        if (newMessagesToCache.length > 0) {
+          console.log('[QUERY] Batching', newMessagesToCache.length, 'new messages for single IndexedDB write');
+          await import('@/lib/messageCache').then(({ cacheMessages }) => 
+            cacheMessages(newMessagesToCache, user.username)
+          );
         }
       } catch (blockchainError) {
         console.error('Failed to fetch from blockchain, using cached data:', blockchainError);
@@ -216,12 +226,14 @@ export function useBlockchainMessages({
     },
     enabled: enabled && !!user?.username && !!partnerUsername,
     refetchInterval: (data) => {
-      // PERFORMANCE FIX: Reduced polling frequency (was 15s/30s, now 30s/60s)
-      // Blockchain doesn't update instantly, so less aggressive polling is fine
-      if (!isActive) return 60000; // 1 minute when tab is hidden
-      return 30000; // 30 seconds when active
+      // TIER 1 OPTIMIZATION: Further reduced polling frequency for better performance
+      // Blockchain doesn't update instantly, so less aggressive polling is acceptable
+      if (!isActive) return 120000; // 2 minutes when tab is hidden (was 60s)
+      return 60000; // 1 minute when active (was 30s)
     },
-    staleTime: 10000, // Increased from 5s to 10s
+    staleTime: 30000, // TIER 1 OPTIMIZATION: 30s (was 10s) - cached data valid longer
+    gcTime: 300000, // TIER 1 OPTIMIZATION: 5 minutes (was default) - keep in memory longer
+    refetchOnWindowFocus: 'always', // Still refetch on focus for freshness
   });
 
   return query;
