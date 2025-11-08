@@ -287,8 +287,14 @@ export const requestKeychainEncryption = async (
     // IMPORTANT: Hive Keychain REQUIRES the message to start with '#' to trigger encryption
     // This is documented in the official Keychain SDK:
     // https://github.com/hive-keychain/keychain-sdk-playground
-    // Example: message: "#Message to encode, # is required to encrypt"
+    // We automatically add '#' prefix so users don't have to type it manually
     const messageWithPrefix = message.startsWith('#') ? message : `#${message}`;
+
+    console.log('[ENCRYPTION] Auto-adding # prefix:', {
+      original: message,
+      withPrefix: messageWithPrefix,
+      userTypedHash: message.startsWith('#')
+    });
 
     // Use requestEncodeMessage for single receiver encryption
     window.hive_keychain.requestEncodeMessage(
@@ -298,9 +304,10 @@ export const requestKeychainEncryption = async (
       'Memo',
       (response: any) => {
         if (response.success) {
-          // Keychain returns the encrypted memo (already includes '#' prefix)
+          console.log('[ENCRYPTION] ✅ Encryption successful');
           resolve(response.result);
         } else {
+          console.error('[ENCRYPTION] ❌ Encryption failed:', response);
           reject(new Error(response.message || 'Keychain encryption failed'));
         }
       }
