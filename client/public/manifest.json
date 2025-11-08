@@ -29,8 +29,8 @@
   "shortcuts": [],
   "protocol_handlers": [
     {
-      "protocol": "has",
-      "url": "/?has=%s"
+      "protocol": "web+has",
+      "url": "/login?has=%s"
     }
   ]
 }

@@ -35,13 +35,19 @@ export const isMobileDevice = (): boolean => {
   ) || (window.innerWidth <= 768);
 };
 
+export interface HASAuthPayload {
+  qrCode?: string;  // QR code data URL
+  deepLink?: string;  // Deep link URL for mobile app
+  authReq?: any;  // Raw auth request data
+}
+
 /**
  * Authenticate user via HAS (for mobile users)
  * Shows QR code or deep link for mobile wallet apps
  */
 export const authenticateWithHAS = async (
   username: string,
-  onWaiting?: (data: any) => void
+  onAuthPayload?: (payload: HASAuthPayload) => void
 ): Promise<HASAuthData> => {
   const auth: HASAuthData = {
     username,
@@ -54,9 +60,25 @@ export const authenticateWithHAS = async (
     console.log('[HAS] Starting authentication for:', username);
     
     const result = await HAS.authenticate(auth, getAppMeta(), (evt: any) => {
-      console.log('[HAS] Waiting for user approval:', evt);
-      if (onWaiting) {
-        onWaiting(evt);
+      console.log('[HAS] Auth event:', evt);
+      
+      // HAS library provides auth request data in the event
+      // evt contains: { uuid, expire, key, host, ... }
+      if (evt && onAuthPayload) {
+        // Generate deep link URL for mobile apps
+        const authReqData = {
+          account: username,
+          uuid: evt.uuid,
+          key: evt.key,
+          host: evt.host || 'wss://hive-auth.arcange.eu',
+        };
+        
+        const deepLink = `has://auth_req/${btoa(JSON.stringify(authReqData))}`;
+        
+        onAuthPayload({
+          deepLink,
+          authReq: authReqData,
+        });
       }
     });
 

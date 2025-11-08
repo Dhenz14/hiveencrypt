@@ -11,12 +11,13 @@ import {
   isMobileDevice, 
   authenticateWithHAS, 
   isHASTokenValid,
-  type HASAuthData 
+  type HASAuthData,
+  type HASAuthPayload
 } from '@/lib/hasAuth';
 
 interface AuthContextType {
   user: UserSession | null;
-  login: (username: string) => Promise<void>;
+  login: (username: string, onHASAuthPayload?: (payload: HASAuthPayload) => void) => Promise<void>;
   logout: () => Promise<void>;
   isLoading: boolean;
   isMobile: boolean;
@@ -76,7 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     restoreSession();
   }, []);
 
-  const login = async (username: string) => {
+  const login = async (username: string, onHASAuthPayload?: (payload: HASAuthPayload) => void) => {
     console.log('[Auth] Starting login for:', username, 'isMobile:', isMobile);
     
     // 1. Verify account exists on blockchain (direct call, no server!)
@@ -99,10 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('[Auth] Mobile device detected, using HAS authentication...');
       
       try {
-        authData = await authenticateWithHAS(username, (evt) => {
-          console.log('[Auth] HAS waiting:', evt);
-          // You can show QR code or status here via a callback/state
-        });
+        authData = await authenticateWithHAS(username, onHASAuthPayload);
         
         console.log('[Auth] HAS authentication successful');
         setHasAuth(authData);
