@@ -197,26 +197,24 @@ export function MessageComposer({
       }
 
       // Step 3: Confirm message in IndexedDB with real txId and encrypted content
+      // Also immediately update the UI
       try {
         await confirmMessage(tempId, txId || '', encryptedMemo, user.username);
-
-        toast({
-          title: 'Message Sent',
-          description: 'Your encrypted message has been sent on the blockchain',
-        });
-
-        // Refresh to show confirmed status
-        if (onMessageSent) {
-          onMessageSent();
-        }
       } catch (confirmError: any) {
-        console.error('Failed to confirm message:', confirmError);
-        
-        toast({
-          title: 'Confirmation Failed',
-          description: 'Message was sent but failed to update confirmation status',
-          variant: 'destructive',
-        });
+        console.error('Failed to confirm message in IndexedDB:', confirmError);
+        // Don't show error to user - message was sent successfully
+        // The next sync will pick it up from the blockchain
+      }
+
+      // Show success message
+      toast({
+        title: 'Message Sent',
+        description: 'Your encrypted message has been sent on the blockchain',
+      });
+
+      // Immediately refresh the UI to show the sent message
+      if (onMessageSent) {
+        onMessageSent();
       }
     } catch (error: any) {
       console.error('Unexpected error:', error);

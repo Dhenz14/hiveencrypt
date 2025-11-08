@@ -203,12 +203,15 @@ export default function Messages() {
     }
   };
 
-  const handleMessageSent = () => {
-    queryClient.invalidateQueries({ 
-      queryKey: ['blockchain-messages', user?.username, selectedPartner] 
+  const handleMessageSent = async () => {
+    // Force immediate refetch to show the sent message instantly
+    await queryClient.invalidateQueries({ 
+      queryKey: ['blockchain-messages', user?.username, selectedPartner],
+      refetchType: 'active' // Force refetch of active queries
     });
-    queryClient.invalidateQueries({ 
-      queryKey: ['blockchain-conversations'] 
+    await queryClient.invalidateQueries({ 
+      queryKey: ['blockchain-conversations'],
+      refetchType: 'active'
     });
   };
 
