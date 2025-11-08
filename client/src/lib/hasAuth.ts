@@ -49,6 +49,8 @@ export const authenticateWithHAS = async (
   username: string,
   onAuthPayload?: (payload: HASAuthPayload) => void
 ): Promise<HASAuthData> => {
+  // Initial auth object - only username, no other fields
+  // HAS will populate token, expire, and key after successful auth
   const auth: any = {
     username,
   };
@@ -56,7 +58,9 @@ export const authenticateWithHAS = async (
   try {
     console.log('[HAS] Starting authentication for:', username);
     
-    const result = await HAS.authenticate(auth, getAppMeta(), (evt: any) => {
+    // Third parameter is challenge_data (undefined for no challenge)
+    // Fourth parameter is the callback for auth_wait events
+    const result = await HAS.authenticate(auth, getAppMeta(), undefined, (evt: any) => {
       console.log('[HAS] Auth event:', evt);
       
       // HAS library provides auth request data in the event
