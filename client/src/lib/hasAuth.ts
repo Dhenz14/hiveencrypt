@@ -57,11 +57,14 @@ export const authenticateWithHAS = async (
 
   try {
     console.log('[HAS] Starting authentication for:', username);
+    console.log('[HAS] Auth object:', JSON.stringify(auth));
+    console.log('[HAS] App meta:', JSON.stringify(getAppMeta()));
     
-    // Third parameter is challenge_data (undefined for no challenge)
-    // Fourth parameter is the callback for auth_wait events
-    const result = await HAS.authenticate(auth, getAppMeta(), undefined, (evt: any) => {
-      console.log('[HAS] Auth event:', evt);
+    // Pass callback as 3rd parameter - library will detect it's a function and use it as cbWait
+    // DON'T explicitly pass undefined for challenge_data - omit it entirely
+    // @ts-ignore - Library has incorrect type definitions
+    const result = await HAS.authenticate(auth, getAppMeta(), (evt: any) => {
+      console.log('[HAS] Auth event received:', evt);
       
       // HAS library provides auth request data in the event
       // evt contains: { uuid, expire, key, host, ... }
@@ -76,6 +79,7 @@ export const authenticateWithHAS = async (
         
         const deepLink = `has://auth_req/${btoa(JSON.stringify(authReqData))}`;
         
+        console.log('[HAS] Calling onAuthPayload with deep link');
         onAuthPayload({
           deepLink,
           authReq: authReqData,
