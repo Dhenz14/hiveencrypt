@@ -1,0 +1,122 @@
+sw.js:147 [ServiceWorker] Loaded and ready!
+client:536 WebSocket connection to 'wss://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/?token=ZBZKYcqTik3v' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=ZBZKYcqTik3v' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-UZOKQUDP.js?v=c7efb6f9:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+(index):170 [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+manifest.json:1 Manifest: The scheme 'has' doesn't belong to the scheme allowlist. Please prefix non-allowlisted schemes with the string 'web+'.
+manifest.json:1 Manifest: protocol_handlers entry ignored, required property 'protocol' is invalid.
+(index):1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 0 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 0
+useBlockchainMessages.ts:296 [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+useBlockchainMessages.ts:303 [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+hiveClient.ts:149 [RPC] Selected best node: https://api.hive.blog Object
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 0 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 0
+messageCache.ts:263 [CACHE FIX] Fixed 0 corrupted messages
+useBlockchainMessages.ts:280 [CONV DISCOVERY] Loaded 3 cached conversations immediately
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 0 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 0
+useBlockchainMessages.ts:307 [PROGRESSIVE] Phase 1 discovered 3 partners in 243 ms
+useBlockchainMessages.ts:317 [PROGRESSIVE] Phase 1 - Cached: 3 Uncached: 0
+useBlockchainMessages.ts:343 [PROGRESSIVE] Phase 1 complete: 3 conversations ready to display
+useBlockchainMessages.ts:350 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+hiveClient.ts:149 [RPC] Selected best node: https://api.hive.blog Object
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 0 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 0
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 0 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 0
+useBlockchainMessages.ts:355 [PROGRESSIVE] Phase 2 discovered 3 total partners in 179 ms
+useBlockchainMessages.ts:363 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 0 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 0
+useBlockchainMessages.ts:64 [QUERY] Starting blockchain messages query for: Object
+useCustomJsonMessages.ts:55 [CUSTOM JSON QUERY] Starting query for: Object
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 0 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 0
+useBlockchainMessages.ts:48 [MESSAGES] Pre-populating cache with 11 cached messages
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
+useBlockchainMessages.ts:76 [QUERY] Retrieved cached messages: 11
+useBlockchainMessages.ts:78 [QUERY] Cached msg 0: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 1: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 2: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 3: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 4: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 5: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 6: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 7: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 8: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 9: Object
+useBlockchainMessages.ts:78 [QUERY] Cached msg 10: Object
+useCustomJsonMessages.ts:67 [CUSTOM JSON QUERY] Retrieved cached messages: 0
+hive.ts:555 [CUSTOM JSON] Fetching messages for conversation: Object
+messageCache.ts:447 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 573
+hiveClient.ts:149 [RPC] Selected best node: https://api.hive.blog Object
+useBlockchainMessages.ts:220 [QUERY] Returning messages, total count: 11
+useBlockchainMessages.ts:222 [QUERY] Returning msg 0: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 1: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 2: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 3: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 4: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 5: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 6: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 7: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 8: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 9: Object
+useBlockchainMessages.ts:222 [QUERY] Returning msg 10: Object
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
+hive.ts:572 [CUSTOM JSON] Retrieved 38 operations from blockchain
+hive.ts:685 [CUSTOM JSON] Retrieved 0 total messages ( 0 single, 0 reassembled)
+useCustomJsonMessages.ts:82 [CUSTOM JSON QUERY] Retrieved 0 operations from blockchain
+useCustomJsonMessages.ts:123 [CUSTOM JSON QUERY] Returning 0 total image messages
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
+rcEstimation.ts:60 [RC] Retrieved RC info: Object
+imageUtils.ts:180 [IMAGE] Processing for blockchain: Object
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
+imageUtils.ts:57 [IMAGE] Compressed: Object
+MessageComposer.tsx:134 [IMAGE] Processed: Object
+customJsonEncryption.ts:138 [ENCRYPT] Starting encryption process: Object
+customJsonEncryption.ts:161 [ENCRYPT] Optimized JSON size: 8726 bytes
+customJsonEncryption.ts:165 [ENCRYPT] Compressed size: 8628 bytes (99% of original)
+customJsonEncryption.ts:170 [ENCRYPT] Generated SHA-256 hash: d612408291368ca1...
+MessageComposer.tsx:202 [IMAGE] Send failed: TypeError: window.hive_keychain.requestEncode is not a function
+    at customJsonEncryption.ts:69:26
+    at new Promise (<anonymous>)
+    at requestKeychainEncryption (customJsonEncryption.ts:63:10)
+    at encryptImagePayload (customJsonEncryption.ts:174:27)
+    at async handleImageSend (MessageComposer.tsx:153:35)
+handleImageSend @ MessageComposer.tsx:202
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
+Messages.tsx:99 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:113 [MESSAGES PAGE] Text messages: 11 Image messages: 0
+Messages.tsx:129 [MESSAGES PAGE] Total merged messages: 11
