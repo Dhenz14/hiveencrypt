@@ -1,0 +1,85 @@
+sw.js:147 [ServiceWorker] Loaded and ready!
+client:536 WebSocket connection to 'wss://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/?token=ZBZKYcqTik3v' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=ZBZKYcqTik3v' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-UZOKQUDP.js?v=8dcd9ab4:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+chunk-UZOKQUDP.js?v=c7efb6f9:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+chunk-OIM7OLJW.js?v=c7efb6f9:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=c7efb6f9:136
+chunk-OIM7OLJW.js?v=c7efb6f9:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=c7efb6f9:136
+chunk-OIM7OLJW.js?v=c7efb6f9:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-OIM7OLJW.js?v=c7efb6f9:1066:29)
+    at ThemeProvider (ThemeContext.tsx:13:29)
+    at renderWithHooks (chunk-UZOKQUDP.js?v=8dcd9ab4:11548:26)
+    at mountIndeterminateComponent (chunk-UZOKQUDP.js?v=8dcd9ab4:14926:21)
+    at beginWork (chunk-UZOKQUDP.js?v=8dcd9ab4:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-UZOKQUDP.js?v=8dcd9ab4:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-UZOKQUDP.js?v=8dcd9ab4:3699:24)
+    at invokeGuardedCallback (chunk-UZOKQUDP.js?v=8dcd9ab4:3733:39)
+    at beginWork$1 (chunk-UZOKQUDP.js?v=8dcd9ab4:19765:15)
+    at performUnitOfWork (chunk-UZOKQUDP.js?v=8dcd9ab4:19198:20)
+chunk-OIM7OLJW.js?v=c7efb6f9:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=c7efb6f9:136
+chunk-OIM7OLJW.js?v=c7efb6f9:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=c7efb6f9:136
+chunk-OIM7OLJW.js?v=c7efb6f9:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-OIM7OLJW.js?v=c7efb6f9:1066:29)
+    at ThemeProvider (ThemeContext.tsx:13:29)
+    at renderWithHooks (chunk-UZOKQUDP.js?v=8dcd9ab4:11548:26)
+    at mountIndeterminateComponent (chunk-UZOKQUDP.js?v=8dcd9ab4:14926:21)
+    at beginWork (chunk-UZOKQUDP.js?v=8dcd9ab4:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-UZOKQUDP.js?v=8dcd9ab4:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-UZOKQUDP.js?v=8dcd9ab4:3699:24)
+    at invokeGuardedCallback (chunk-UZOKQUDP.js?v=8dcd9ab4:3733:39)
+    at beginWork$1 (chunk-UZOKQUDP.js?v=8dcd9ab4:19765:15)
+    at performUnitOfWork (chunk-UZOKQUDP.js?v=8dcd9ab4:19198:20)
+chunk-UZOKQUDP.js?v=8dcd9ab4:14032 The above error occurred in the <ThemeProvider> component:
+
+    at ThemeProvider (https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/src/contexts/ThemeContext.tsx:20:33)
+    at QueryClientProvider (https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=8dcd9ab4:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-UZOKQUDP.js?v=8dcd9ab4:14032
+chunk-UZOKQUDP.js?v=8dcd9ab4:19413 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-OIM7OLJW.js?v=c7efb6f9:1066:29)
+    at ThemeProvider (ThemeContext.tsx:13:29)
+    at renderWithHooks (chunk-UZOKQUDP.js?v=8dcd9ab4:11548:26)
+    at mountIndeterminateComponent (chunk-UZOKQUDP.js?v=8dcd9ab4:14926:21)
+    at beginWork (chunk-UZOKQUDP.js?v=8dcd9ab4:15914:22)
+    at beginWork$1 (chunk-UZOKQUDP.js?v=8dcd9ab4:19753:22)
+    at performUnitOfWork (chunk-UZOKQUDP.js?v=8dcd9ab4:19198:20)
+    at workLoopSync (chunk-UZOKQUDP.js?v=8dcd9ab4:19137:13)
+    at renderRootSync (chunk-UZOKQUDP.js?v=8dcd9ab4:19116:15)
+    at recoverFromConcurrentError (chunk-UZOKQUDP.js?v=8dcd9ab4:18736:28)
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+manifest.json:1 Manifest: The scheme 'has' doesn't belong to the scheme allowlist. Please prefix non-allowlisted schemes with the string 'web+'.
+manifest.json:1 Manifest: protocol_handlers entry ignored, required property 'protocol' is invalid.
+(index):170 [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+(index):1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
