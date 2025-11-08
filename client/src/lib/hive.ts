@@ -603,37 +603,15 @@ export async function getCustomJsonMessages(
       const sender = opData.required_posting_auths?.[0];
       if (!sender) continue;
       
-      // Get recipient from unencrypted JSON (new format) or infer from sender (legacy)
-      let recipient = jsonData.to; // New format: explicit recipient
+      // Check if this involves our conversation (either direction)
+      const isRelevant = (sender === username || sender === partnerUsername);
+      if (!isRelevant) continue;
       
-      if (!recipient) {
-        // BACKWARD COMPATIBILITY: Legacy messages don't have 'to' field
-        // Fall back to old inference logic for these messages
-        console.log('[CUSTOM JSON] Legacy message detected (no "to" field), using inference');
-        
-        // Old logic: assume partner is recipient if sender is us, and vice versa
-        // This is imperfect but maintains backward compatibility
-        const isFromUs = sender === username;
-        const isFromPartner = sender === partnerUsername;
-        
-        if (!isFromUs && !isFromPartner) {
-          continue; // Not from either user in this conversation
-        }
-        
-        // Infer recipient: if sender is us, assume it's to partner (and vice versa)
-        recipient = isFromUs ? partnerUsername : username;
-      }
-      
-      // Check if this message involves BOTH users in this conversation (either direction)
-      const isOutgoing = sender === username && recipient === partnerUsername;
-      const isIncoming = sender === partnerUsername && recipient === username;
-      const isRelevant = isOutgoing || isIncoming;
-      
-      if (!isRelevant) continue; // Skip messages not involving this conversation
-      
-      // Use actual sender and recipient from the operation
+      // Determine the "from" and "to" for this operation
       const from = sender;
-      const to = recipient;
+      // For custom_json, we need to extract recipient from encrypted payload later
+      // For now, assume partner is the "to" if sender is us, and vice versa
+      const to = sender === username ? partnerUsername : username;
       
       if (jsonData.sid) {
         // Multi-chunk message

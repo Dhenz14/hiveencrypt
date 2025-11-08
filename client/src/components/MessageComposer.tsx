@@ -170,7 +170,7 @@ export function MessageComposer({
         duration: 60000,
       });
 
-      const txId = await broadcastImageMessage(user.username, recipientUsername, encrypted, hash);
+      const txId = await broadcastImageMessage(user.username, encrypted, hash);
       console.log('[IMAGE] Broadcast success, txId:', txId);
 
       // Step 5: Cache locally with UNCOMPRESSED base64 for display
