@@ -49,11 +49,8 @@ export const authenticateWithHAS = async (
   username: string,
   onAuthPayload?: (payload: HASAuthPayload) => void
 ): Promise<HASAuthData> => {
-  const auth: HASAuthData = {
+  const auth: any = {
     username,
-    token: undefined,
-    expire: undefined,
-    key: undefined,
   };
 
   try {
