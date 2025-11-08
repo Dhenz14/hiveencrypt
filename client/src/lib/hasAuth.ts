@@ -50,7 +50,7 @@ export const authenticateWithHAS = async (
   onAuthPayload?: (payload: HASAuthPayload) => void
 ): Promise<HASAuthData> => {
   // Initial auth object - only username, no other fields
-  // HAS will populate token, expire, and key after successful auth
+  // HAS library will MUTATE this object (adds token, expire, and key after successful auth)
   const auth: any = {
     username,
   };
@@ -63,39 +63,65 @@ export const authenticateWithHAS = async (
     // CRITICAL: Must pass null (not undefined) for challenge_data when using callback
     // The library doesn't type-check parameters - it assumes 3rd param is challenge_data
     // Passing null makes the assertion pass: !null = true, skips validation
-    // @ts-ignore - Library has incorrect type definitions  
-    const result = await HAS.authenticate(auth, getAppMeta(), null, (evt: any) => {
-      console.log('[HAS] Auth event received:', evt);
-      
-      // HAS library provides auth request data in the event
-      // evt contains: { uuid, expire, key, host, ... }
-      if (evt && onAuthPayload) {
-        // Generate deep link URL for mobile apps
-        const authReqData = {
-          account: username,
-          uuid: evt.uuid,
-          key: evt.key,
-          host: evt.host || 'wss://hive-auth.arcange.eu',
-        };
+    
+    // Wrap callback to catch and log errors (don't let callback errors crash auth)
+    const safeCallback = (evt: any) => {
+      try {
+        console.log('[HAS] Auth event received:', evt);
         
-        const deepLink = `has://auth_req/${btoa(JSON.stringify(authReqData))}`;
-        
-        console.log('[HAS] Calling onAuthPayload with deep link');
-        onAuthPayload({
-          deepLink,
-          authReq: authReqData,
-        });
+        // HAS library provides auth request data in the event
+        // evt contains: { uuid, expire, key, host, ... }
+        if (evt && onAuthPayload) {
+          // Generate deep link URL for mobile apps
+          const authReqData = {
+            account: username,
+            uuid: evt.uuid,
+            key: evt.key,
+            host: evt.host || 'wss://hive-auth.arcange.eu',
+          };
+          
+          const deepLink = `has://auth_req/${btoa(JSON.stringify(authReqData))}`;
+          
+          console.log('[HAS] Calling onAuthPayload with deep link');
+          onAuthPayload({
+            deepLink,
+            authReq: authReqData,
+          });
+        }
+      } catch (callbackError) {
+        console.error('[HAS] Callback error (non-fatal):', callbackError);
+        // Don't re-throw - callback errors shouldn't break authentication
       }
-    });
+    };
+    
+    // @ts-expect-error - HAS library TypeScript definitions are incomplete (missing 4th callback parameter)
+    await HAS.authenticate(auth, getAppMeta(), null, safeCallback);
 
+    // CRITICAL BUG FIX: The library resolves with req_ack, but MUTATES the auth object
+    // We need to return the MUTATED auth object, not the result
+    // After successful auth, auth now has: { username, token, expire, key }
     console.log('[HAS] Authentication successful:', {
-      hasToken: !!result.token,
-      expire: result.expire ? new Date(result.expire).toISOString() : null,
+      username: auth.username,
+      hasToken: !!auth.token,
+      hasKey: !!auth.key,
+      expire: auth.expire ? new Date(auth.expire).toISOString() : null,
     });
 
-    return result;
+    // Return the mutated auth object with token, expire, and key populated
+    return {
+      username: auth.username,
+      token: auth.token,
+      expire: auth.expire,
+      key: auth.key,
+    };
   } catch (error: any) {
     console.error('[HAS] Authentication failed:', error);
+    
+    // Provide more specific error messages
+    if (error?.message === 'expired') {
+      throw new Error('Authentication timed out after 60 seconds. Please try again.');
+    }
+    
     throw new Error(error?.message || 'HAS authentication failed');
   }
 };

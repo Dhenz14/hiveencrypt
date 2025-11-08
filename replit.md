@@ -183,10 +183,52 @@ Client code has ZERO server dependencies:
 ### Future Features (Separate Project)
 - **Image Messaging via custom_json**: Temporarily disabled to restore memo-based text messaging stability. Will be reimplemented as separate project with proper message routing.
 
+### Critical Bug Fixes (November 2025)
+
+#### HAS Mobile Authentication - Deep Dive Stress Test
+Three critical bugs discovered and fixed through comprehensive code analysis:
+
+1. **CRITICAL: Wrong Return Value Bug**
+   - Issue: HAS library resolves with `req_ack` but mutates `auth` object separately
+   - Our code was returning `result` instead of mutated `auth` object
+   - Impact: Token/expire/key had wrong structure, localStorage corrupted
+   - Fix: Return explicitly constructed object from mutated auth fields
+   - Location: `client/src/lib/hasAuth.ts` line 114-119
+
+2. **CRITICAL: Parameter Position Error** (Original iOS error)
+   - Issue: Calling `HAS.authenticate(auth, appMeta, callback)` with 3 params
+   - JavaScript assigns callback to `challenge_data` param (expects object with key_type)
+   - Library validates `function.key_type` → "invalid challenge data key type" error
+   - Fix: Pass `null` explicitly as 3rd param: `HAS.authenticate(auth, appMeta, null, callback)`
+   - Location: `client/src/lib/hasAuth.ts` line 101
+
+3. **CRITICAL: Callback Error Handling**
+   - Issue: QR generation errors in callback could leave auth in limbo
+   - Impact: Promise never resolves, user stuck on loading screen
+   - Fix: Wrapped callback in try/catch, errors logged but don't break auth
+   - Location: `client/src/lib/hasAuth.ts` line 72-99
+
+4. **MEDIUM: localStorage Failures**
+   - Issue: Safari private mode / quota exceeded crashes app
+   - Fix: Added try/catch around all localStorage.setItem calls
+   - Location: `client/src/contexts/AuthContext.tsx` line 112-117, 153-158
+
+5. **MEDIUM: Generic Timeout Error**
+   - Issue: 60s timeout showed generic "HAS authentication failed"
+   - Fix: Specific error message for timeout scenario
+   - Location: `client/src/lib/hasAuth.ts` line 124-126
+
+**Testing Status:**
+- ✅ Code-level fixes verified through source analysis
+- ✅ Built-in 60s timeout confirmed in HAS library
+- ✅ Error handling paths validated
+- ⚠️ Requires manual testing on iOS device with Hive Keychain Mobile app
+
 ### Known Considerations
 - **Bundle Size**: 1.4MB (acceptable for blockchain/crypto libraries)
 - **Console Logging**: Verbose but not harmful, useful for user debugging
 - **RPC Nodes**: Hardcoded public nodes with retry + rotation on failure
 - **Browser Support**: Chrome/Edge/Safari/Firefox (requires modern browser for crypto APIs)
 - **Mobile Auth**: HAS requires Hive Keychain Mobile or compatible wallet app
+- **HAS Timeout**: 60-second built-in timeout prevents infinite waiting
 - **New Conversations**: Show placeholder "Conversation with @username" until clicked (messages fetched on demand)

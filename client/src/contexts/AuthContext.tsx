@@ -105,8 +105,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log('[Auth] HAS authentication successful');
         setHasAuth(authData);
         
-        // Store HAS token for future use
-        localStorage.setItem(HAS_TOKEN_KEY, JSON.stringify(authData));
+        // Store HAS token for future use (with error handling)
+        try {
+          localStorage.setItem(HAS_TOKEN_KEY, JSON.stringify(authData));
+        } catch (storageError) {
+          console.warn('[Auth] Failed to save HAS token to localStorage:', storageError);
+          // Continue anyway - token is in memory
+        }
       } catch (hasError: any) {
         console.error('[Auth] HAS authentication failed:', hasError);
         throw new Error(hasError?.message || 'Mobile authentication failed. Please try again.');
@@ -141,7 +146,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // 5. Store user session in state and localStorage
     setUser(sessionData);
-    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    } catch (storageError) {
+      console.warn('[Auth] Failed to save session to localStorage:', storageError);
+      // Continue anyway - session is in memory
+    }
     
     console.log('[Auth] ✅ Login complete! Session stored locally.');
   };
