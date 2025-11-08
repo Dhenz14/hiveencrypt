@@ -64,6 +64,7 @@ export function chunkEncryptedPayload(
  * Automatically selects single-operation or chunked approach based on size
  * 
  * @param username - Sender's username
+ * @param recipientUsername - Recipient's username
  * @param encrypted - Encrypted payload
  * @param hash - SHA-256 integrity hash
  * @returns Promise<string> - Transaction ID
@@ -72,12 +73,14 @@ export function chunkEncryptedPayload(
  */
 export async function broadcastImageMessage(
   username: string,
+  recipientUsername: string,
   encrypted: string,
   hash: string
 ): Promise<string> {
   // Estimate JSON size with metadata
   const estimatedJsonSize = JSON.stringify({
     v: 1,
+    to: recipientUsername,
     e: encrypted,
     h: hash
   }).length;
@@ -85,17 +88,18 @@ export async function broadcastImageMessage(
   console.log('[BROADCAST] Deciding broadcast strategy:', {
     encryptedSize: encrypted.length,
     estimatedJsonSize,
-    threshold: 7500
+    threshold: 7500,
+    recipient: recipientUsername
   });
   
   if (estimatedJsonSize <= 7500) {
     // Single operation - simple path
     console.log('[BROADCAST] Using single operation (under threshold)');
-    return await broadcastSingleOperation(username, encrypted, hash);
+    return await broadcastSingleOperation(username, recipientUsername, encrypted, hash);
   } else {
     // Multi-chunk - batched transaction
     console.log('[BROADCAST] Using chunked operations (over threshold)');
-    return await broadcastChunkedOperation(username, encrypted, hash);
+    return await broadcastChunkedOperation(username, recipientUsername, encrypted, hash);
   }
 }
 
@@ -103,12 +107,14 @@ export async function broadcastImageMessage(
  * Broadcast a single custom_json operation
  * 
  * @param username - Sender's username
+ * @param recipientUsername - Recipient's username
  * @param encrypted - Encrypted payload
  * @param hash - SHA-256 integrity hash
  * @returns Promise<string> - Transaction ID
  */
 async function broadcastSingleOperation(
   username: string,
+  recipientUsername: string,
   encrypted: string,
   hash: string
 ): Promise<string> {
@@ -119,9 +125,10 @@ async function broadcastSingleOperation(
     }
 
     const payload = JSON.stringify({
-      v: 1,     // Version
+      v: 1,       // Version
+      to: recipientUsername,  // Recipient (unencrypted for filtering)
       e: encrypted,
-      h: hash   // Integrity hash
+      h: hash     // Integrity hash
     });
 
     console.log('[BROADCAST] Single operation payload size:', payload.length, 'bytes');
@@ -150,12 +157,14 @@ async function broadcastSingleOperation(
  * All chunks sent together - atomic operation
  * 
  * @param username - Sender's username
+ * @param recipientUsername - Recipient's username
  * @param encrypted - Encrypted payload
  * @param hash - SHA-256 integrity hash
  * @returns Promise<string> - Transaction ID
  */
 async function broadcastChunkedOperation(
   username: string,
+  recipientUsername: string,
   encrypted: string,
   hash: string
 ): Promise<string> {
@@ -170,6 +179,7 @@ async function broadcastChunkedOperation(
       id: 'hive-messenger-img',
       json: JSON.stringify({
         v: 1,
+        to: recipientUsername,  // Recipient (unencrypted for filtering)
         sid: sessionId,
         idx: chunk.idx,
         tot: chunks.length,
