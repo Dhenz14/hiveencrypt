@@ -124,14 +124,23 @@ export function MessageComposer({
     setIsSending(true);
 
     try {
-      // Step 1: Process image (resize, convert to WebP, compress)
-      toast({
-        title: 'Processing Image...',
-        description: 'Optimizing for blockchain storage',
+      // Step 1: Process image (WebP + Gzip + Base64)
+      const processingToast = toast({
+        title: '🔄 Compressing Image...',
+        description: 'Step 1/4: WebP conversion & gzip compression',
+        duration: 60000, // Keep visible during processing
       });
 
       const processedImage = await processImageForBlockchain(selectedImage);
-      console.log('[IMAGE] Processed:', processedImage);
+      
+      // Show compression results
+      toast({
+        title: '✅ Compression Complete!',
+        description: `Reduced to ${processedImage.compressionStats.totalSavings}% smaller (${processedImage.compressionStats.base64Size} bytes)`,
+        duration: 3000,
+      });
+      
+      console.log('[IMAGE] Processed with compression stats:', processedImage.compressionStats);
 
       // Step 2: Create payload
       const payload: ImagePayload = {
@@ -146,8 +155,9 @@ export function MessageComposer({
 
       // Step 3: Encrypt and hash
       toast({
-        title: 'Encrypting...',
-        description: 'Securing your image with end-to-end encryption',
+        title: '🔐 Encrypting...',
+        description: 'Step 2/4: Securing with end-to-end encryption',
+        duration: 60000,
       });
 
       const { encrypted, hash } = await encryptImagePayload(payload, user.username);
@@ -155,8 +165,9 @@ export function MessageComposer({
 
       // Step 4: Broadcast to blockchain
       toast({
-        title: 'Broadcasting...',
-        description: 'Sending to Hive blockchain',
+        title: '📡 Broadcasting...',
+        description: 'Step 3/4: Sending to Hive blockchain',
+        duration: 60000,
       });
 
       const txId = await broadcastImageMessage(user.username, encrypted, hash);
@@ -182,8 +193,8 @@ export function MessageComposer({
 
       // Success!
       toast({
-        title: 'Image Sent!',
-        description: 'Your encrypted image has been sent on the blockchain',
+        title: '🎉 Image Sent!',
+        description: `Step 4/4: Complete! Saved ${processedImage.compressionStats.totalSavings}% with compression`,
       });
 
       // Clear state
