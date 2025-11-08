@@ -158,3 +158,36 @@ export function validateImageFile(file: File, maxSizeMB: number = 5): { valid: b
 export function createDataURL(base64: string, mimeType: string = 'image/webp'): string {
   return `data:${mimeType};base64,${base64}`;
 }
+
+/**
+ * Process image for blockchain storage
+ * Combines compression and base64 encoding in a single step
+ * 
+ * @param file - Image file to process
+ * @param maxWidth - Maximum width in pixels (default: 300)
+ * @param quality - Compression quality 0-1 (default: 0.6)
+ * @returns Promise<{ base64: string, contentType: string }> - Processed image data
+ * 
+ * @example
+ * const processed = await processImageForBlockchain(imageFile);
+ * console.log(`Base64 length: ${processed.base64.length}`);
+ */
+export async function processImageForBlockchain(
+  file: File,
+  maxWidth: number = 300,
+  quality: number = 0.6
+): Promise<{ base64: string; contentType: string }> {
+  console.log('[IMAGE] Processing for blockchain:', {
+    name: file.name,
+    size: file.size,
+    type: file.type
+  });
+
+  const compressedBlob = await compressImageToWebP(file, maxWidth, quality);
+  const base64 = await blobToBase64(compressedBlob);
+  
+  return {
+    base64,
+    contentType: 'image/webp'
+  };
+}
