@@ -1,0 +1,13 @@
+Yes, for a single custom_json operation on the Hive blockchain, you are limited to using a json field of 8,192 bytes (8KB) of data.
+Why the 8KB limit for custom_json?
+The 8KB limit for the JSON payload is a protocol constraint designed to prevent abuse and ensure the stability and efficiency of the network.
+DoS Protection: Enforcing smaller limits on individual operations helps protect the network from Denial of Service (DoS) attacks. Very large individual transactions could be used to bloat the chain or consume excessive processing resources.
+Transaction Processing Efficiency: Smaller, more uniform transaction sizes make it easier for block producers to manage, propagate, and process transactions quickly within the network.
+Decentralization: Keeping transaction sizes manageable ensures that running a full node does not become prohibitively expensive in terms of bandwidth and storage, thus maintaining decentralization.
+The 64KB Block Size Context
+Your information that the "block size is 64kb" is likely an outdated or generalized figure. The actual maximum block size on Hive is not a fixed, hard-coded value like 64KB, but rather dynamically determined by network load and other factors (similar to other blockchains that use resource limits). The key is that a block is a collection of multiple operations and transactions, not a single one.
+A block can hold many transactions as long as the total block capacity is not exceeded. The 8KB limit is per operation within a transaction, not the limit for the entire block. 
+How Splinterlands Handles Custom JSONs for Maximum Efficiency
+Splinterlands, like other dApps on Hive, efficiently manages its data within these constraints by:
+Minimizing Payload Size: Splinterlands optimizes the data they put into the JSON. Instead of using verbose keys like "player_name", they might use short, non-descriptive keys like "p" to save bytes.
+Multiple Operations per Transaction: A single blockchain transaction can actually contain multiple different operations (though this is less common than batching transactions). More importantly, the application can issue multiple, sequential custom_json transactions to record all necessary game state changes.
