@@ -228,13 +228,40 @@ export async function decryptImagePayload(
     console.log('[DECRYPT] ✅ Integrity verified');
   }
 
-  // Step 4: Parse and expand (no decompression needed - gzip removed for images)
+  // Step 4: Parse JSON
   const optimized: OptimizedPayload = JSON.parse(jsonStr);
+
+  // Step 5: Decompress the gzipped image data
+  // The imageData field contains gzipped WebP binary encoded as base64
+  // We need to decompress it back to WebP binary, then re-encode as base64 for display
+  console.log('[DECRYPT] Decompressing gzipped image data...');
+  
+  let finalImageData: string;
+  try {
+    // Import the decompression function
+    const { decompressBinaryFromBase64 } = await import('./imageUtils');
+    
+    // Decompress gzipped base64 to WebP binary
+    const webpBinary = decompressBinaryFromBase64(optimized.i);
+    
+    // Convert WebP binary to base64 for display in <img> tags
+    const binaryString = Array.from(webpBinary).map(byte => String.fromCharCode(byte)).join('');
+    finalImageData = btoa(binaryString);
+    
+    console.log('[DECRYPT] Image decompressed:', {
+      compressedSize: optimized.i.length,
+      decompressedSize: finalImageData.length,
+      ratio: Math.round((optimized.i.length / finalImageData.length) * 100) + '%'
+    });
+  } catch (error) {
+    console.warn('[DECRYPT] Failed to decompress image, using as-is (might be legacy format):', error);
+    finalImageData = optimized.i;
+  }
 
   const payload: ImagePayload = {
     to: optimized.t,
     from: optimized.f,
-    imageData: optimized.i,
+    imageData: finalImageData,
     message: optimized.m,
     filename: optimized.n,
     contentType: optimized.c,
