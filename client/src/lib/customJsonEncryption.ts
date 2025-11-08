@@ -66,7 +66,8 @@ async function requestKeychainEncryption(
       return;
     }
 
-    window.hive_keychain.requestEncode(
+    // Use requestEncodeMessage - the correct Keychain API
+    window.hive_keychain.requestEncodeMessage(
       senderUsername,
       recipientUsername,
       message,
@@ -118,10 +119,12 @@ async function requestKeychainDecryption(
  * Encrypt an image payload for blockchain storage
  * 
  * Process:
- * 1. Create optimized JSON with short keys
- * 2. Gzip compress (70-75% reduction)
- * 3. Generate SHA-256 hash for integrity
- * 4. Encrypt via Hive Keychain (memo key)
+ * 1. Create optimized JSON with short keys (saves 25-30%)
+ * 2. Generate SHA-256 hash for integrity
+ * 3. Encrypt via Hive Keychain (memo key)
+ * 
+ * Note: Gzip compression is skipped for images because base64-encoded image data
+ * doesn't compress well (~99% size). WebP images are already compressed.
  * 
  * @param payload - Image payload to encrypt
  * @param senderUsername - Sender's username
@@ -160,17 +163,14 @@ export async function encryptImagePayload(
   const jsonStr = JSON.stringify(optimized);
   console.log('[ENCRYPT] Optimized JSON size:', jsonStr.length, 'bytes');
 
-  // Step 3: Gzip compress
-  const compressed = gzipCompress(jsonStr);
-  console.log('[ENCRYPT] Compressed size:', compressed.length, 'bytes',
-    `(${Math.round((compressed.length / jsonStr.length) * 100)}% of original)`);
-
-  // Step 4: Generate SHA-256 hash for integrity
-  const hash = await generateSHA256(compressed);
+  // Step 3: Generate SHA-256 hash for integrity (hash the JSON directly)
+  // Note: Skipping gzip compression because base64 image data doesn't compress well
+  // WebP images are already compressed, so gzip adds no benefit (~99% size)
+  const hash = await generateSHA256(jsonStr);
   console.log('[ENCRYPT] Generated SHA-256 hash:', hash.substring(0, 16) + '...');
 
-  // Step 5: Encrypt via Keychain (prefix with # for memo encryption)
-  const messageToEncrypt = `#${compressed}`;
+  // Step 4: Encrypt via Keychain (prefix with # for memo encryption)
+  const messageToEncrypt = `#${jsonStr}`;
   const encrypted = await requestKeychainEncryption(
     messageToEncrypt,
     senderUsername,
@@ -188,8 +188,7 @@ export async function encryptImagePayload(
  * Process:
  * 1. Decrypt via Hive Keychain
  * 2. Verify integrity hash (if provided)
- * 3. Gzip decompress
- * 4. Parse and expand JSON
+ * 3. Parse and expand JSON (no decompression - gzip skipped for images)
  * 
  * @param encryptedPayload - Encrypted payload from blockchain
  * @param username - User's username for decryption
@@ -213,12 +212,12 @@ export async function decryptImagePayload(
   const decrypted = await requestKeychainDecryption(encryptedPayload, username);
 
   // Step 2: Remove # prefix if present
-  const compressed = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
-  console.log('[DECRYPT] Decrypted, compressed size:', compressed.length, 'bytes');
+  const jsonStr = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
+  console.log('[DECRYPT] Decrypted JSON size:', jsonStr.length, 'bytes');
 
   // Step 3: Verify integrity if hash provided
   if (expectedHash) {
-    const actualHash = await generateSHA256(compressed);
+    const actualHash = await generateSHA256(jsonStr);
     if (actualHash !== expectedHash) {
       console.error('[DECRYPT] ❌ Integrity check failed:', {
         expected: expectedHash.substring(0, 16),
@@ -229,11 +228,7 @@ export async function decryptImagePayload(
     console.log('[DECRYPT] ✅ Integrity verified');
   }
 
-  // Step 4: Decompress
-  const jsonStr = gzipDecompress(compressed);
-  console.log('[DECRYPT] Decompressed JSON size:', jsonStr.length, 'bytes');
-
-  // Step 5: Parse and expand
+  // Step 4: Parse and expand (no decompression needed - gzip removed for images)
   const optimized: OptimizedPayload = JSON.parse(jsonStr);
 
   const payload: ImagePayload = {
