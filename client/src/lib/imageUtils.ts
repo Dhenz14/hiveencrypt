@@ -261,7 +261,8 @@ export async function processImageForBlockchain(
   maxWidth: number = 300,
   quality: number = 0.6
 ): Promise<{ 
-  base64: string; 
+  base64: string;
+  base64Uncompressed: string;
   contentType: string;
   compressionStats: {
     originalSize: number;
@@ -290,15 +291,20 @@ export async function processImageForBlockchain(
   // Step 2: Convert WebP to binary ArrayBuffer
   const arrayBuffer = await blobToArrayBuffer(webpBlob);
   
-  // Step 3: Gzip compress the WebP binary BEFORE base64 encoding
+  // Step 2.5: Create uncompressed base64 for local cache/display
+  const uint8Array = new Uint8Array(arrayBuffer);
+  const binaryString = Array.from(uint8Array).map(byte => String.fromCharCode(byte)).join('');
+  const uncompressedBase64 = btoa(binaryString);
+  
+  // Step 3: Gzip compress the WebP binary BEFORE base64 encoding (for blockchain)
   console.log('[IMAGE] ⚙️  Step 2/3: Gzip compressing binary data...');
-  const { base64, compressedSize } = await compressBinaryToBase64(arrayBuffer);
+  const { base64: compressedBase64, compressedSize } = await compressBinaryToBase64(arrayBuffer);
   const gzipSavings = Math.round((1 - compressedSize / webpSize) * 100);
   
   console.log(`[IMAGE] ✅ Step 2/3: Gzip compression - ${compressedSize} bytes (${gzipSavings}% saved from WebP)`);
   
   // Step 4: Base64 encoding (already done in compressBinaryToBase64)
-  const base64Size = base64.length;
+  const base64Size = compressedBase64.length;
   const totalSavings = Math.round((1 - base64Size / originalSize) * 100);
   
   console.log(`[IMAGE] ✅ Step 3/3: Base64 encoding - ${base64Size} bytes`);
@@ -306,11 +312,13 @@ export async function processImageForBlockchain(
     original: originalSize,
     webp: webpSize,
     gzipped: compressedSize,
-    base64: base64Size
+    base64Compressed: base64Size,
+    base64Uncompressed: uncompressedBase64.length
   });
   
   return {
-    base64,
+    base64: compressedBase64, // For blockchain transmission
+    base64Uncompressed: uncompressedBase64, // For local cache/display
     contentType: 'image/webp',
     compressionStats: {
       originalSize,

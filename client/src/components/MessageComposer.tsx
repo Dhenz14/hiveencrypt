@@ -173,14 +173,14 @@ export function MessageComposer({
       const txId = await broadcastImageMessage(user.username, encrypted, hash);
       console.log('[IMAGE] Broadcast success, txId:', txId);
 
-      // Step 5: Cache locally
+      // Step 5: Cache locally with UNCOMPRESSED base64 for display
       const conversationKey = [user.username, recipientUsername].sort().join('-');
       await cacheCustomJsonMessage({
         txId,
         conversationKey,
         from: user.username,
         to: recipientUsername,
-        imageData: processedImage.base64,
+        imageData: processedImage.base64Uncompressed, // Use uncompressed for display
         message: content.trim() || undefined,
         filename: selectedImage.name,
         contentType: processedImage.contentType,
