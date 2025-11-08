@@ -24,12 +24,6 @@ Hive Messenger operates with a 100% decentralized architecture. The application 
 
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted text messages via memo transfers (0.001 HBD per message)
-- **Image Messaging**: End-to-end encrypted images via custom_json operations (RC-only, no token cost)
-  - WebP compression with 70-75% size reduction
-  - Automatic chunking for large images (7KB chunks)
-  - Decrypt-on-demand for bandwidth efficiency
-  - Optional text captions with images
-  - Download functionality for decrypted images
 - Real-time message synchronization with the blockchain
 - Offline message browsing of cached data
 - Selective local conversation deletion for privacy
@@ -183,20 +177,11 @@ Client code has ZERO server dependencies:
 ### Features
 - **Re-authentication Button**: Settings page includes a "Re-authenticate with Keychain" button for users who checked "Don't ask again" in Keychain prompts
 - **Text Messaging**: End-to-end encrypted text messages via memo transfers (0.001 HBD cost)
-- **Image Messaging** (✅ COMPLETED November 2025):
-  - Upload images with one-click attach button (paperclip icon)
-  - Automatic WebP compression (300px max width, 0.6 quality, ~70-75% size reduction)
-  - Encrypt using Hive memo key (ECDH + AES-256-CBC)
-  - Additional Gzip compression before encryption
-  - Automatic chunking for images >7KB (7KB chunks via custom_json operations)
-  - RC (Resource Credit) estimation with low/critical warnings before sending
-  - Decrypt-on-demand display (saves bandwidth, only decrypt when clicked)
-  - Download decrypted images to device
-  - Optional text captions with images
-  - Zero token cost (RC-only via custom_json operations)
 - **Conversation Discovery**: Automatic detection of encrypted message partners from blockchain history
-- **Offline Support**: Text and image messages cached in IndexedDB for instant access when offline
-- **Unified Message Display**: Text and image messages merged chronologically in conversation view
+- **Offline Support**: Messages cached in IndexedDB for instant access when offline
+
+### Future Features (Separate Project)
+- **Image Messaging via custom_json**: Temporarily disabled to restore memo-based text messaging stability. Will be reimplemented as separate project with proper message routing.
 
 ### Known Considerations
 - **Bundle Size**: 1.4MB (acceptable for blockchain/crypto libraries)

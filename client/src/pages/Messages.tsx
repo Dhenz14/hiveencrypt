@@ -23,17 +23,15 @@ import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { EmptyState, NoConversationSelected } from '@/components/EmptyState';
 import { BlockchainSyncIndicator } from '@/components/BlockchainSyncIndicator';
-import { ImageMessage } from '@/components/ImageMessage';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shared/schema';
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
-import { useCustomJsonMessages } from '@/hooks/useCustomJsonMessages';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
-import type { MessageCache, ConversationCache, CustomJsonMessage } from '@/lib/messageCache';
+import type { MessageCache, ConversationCache } from '@/lib/messageCache';
 
 const mapMessageCacheToMessage = (msg: MessageCache, conversationId: string): Message => ({
   id: msg.id,
@@ -84,12 +82,6 @@ export default function Messages() {
     enabled: !!selectedPartner,
   });
 
-  // Fetch image messages (custom_json operations)
-  const { data: imageMessages = [], isLoading: isLoadingImageMessages, isFetching: isFetchingImageMessages } = useCustomJsonMessages({
-    partnerUsername: selectedPartner,
-    enabled: !!selectedPartner,
-  });
-
   const conversations: Conversation[] = conversationCaches
     .filter((conv): conv is ConversationCache => conv !== null && conv !== undefined)
     .map(mapConversationCacheToConversation);
@@ -110,23 +102,7 @@ export default function Messages() {
     mapMessageCacheToMessage(msg, selectedConversationId || '')
   );
 
-  console.log('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Image messages:', imageMessages.length);
-
-  // Merge text messages and image messages, sorted by timestamp
-  type MergedMessage = 
-    | { type: 'text'; data: Message }
-    | { type: 'image'; data: CustomJsonMessage };
-
-  const allMessages: MergedMessage[] = [
-    ...currentMessages.map(msg => ({ type: 'text' as const, data: msg })),
-    ...imageMessages.map(img => ({ type: 'image' as const, data: img }))
-  ].sort((a, b) => {
-    const timeA = new Date(a.data.timestamp).getTime();
-    const timeB = new Date(b.data.timestamp).getTime();
-    return timeA - timeB;
-  });
-
-  console.log('[MESSAGES PAGE] Total merged messages:', allMessages.length);
+  console.log('[MESSAGES PAGE] Text messages:', currentMessages.length);
 
   // Fix corrupted cached messages on mount and clear base64-corrupted cache
   useEffect(() => {
@@ -159,12 +135,12 @@ export default function Messages() {
   }, [user?.username, queryClient]);
 
   useEffect(() => {
-    if (isFetchingConversations || isFetchingMessages || isFetchingImageMessages) {
+    if (isFetchingConversations || isFetchingMessages) {
       setSyncStatus({ status: 'syncing' });
     } else {
       setSyncStatus({ status: 'synced', lastSyncTime: new Date().toISOString() });
     }
-  }, [isFetchingConversations, isFetchingMessages, isFetchingImageMessages]);
+  }, [isFetchingConversations, isFetchingMessages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -375,47 +351,34 @@ export default function Messages() {
               <div className="max-w-3xl mx-auto space-y-4">
                 <SystemMessage text="Encryption keys exchanged. Messages are end-to-end encrypted." />
                 
-                {isLoadingMessages || isLoadingImageMessages ? (
+                {isLoadingMessages ? (
                   <div className="space-y-4" data-testid="loading-messages">
                     <Skeleton className="h-16 w-3/4" />
                     <Skeleton className="h-16 w-2/3 ml-auto" />
                     <Skeleton className="h-16 w-3/4" />
                     <Skeleton className="h-16 w-1/2 ml-auto" />
                   </div>
-                ) : allMessages.length === 0 ? (
+                ) : currentMessages.length === 0 ? (
                   <div className="text-center py-12" data-testid="empty-messages">
                     <p className="text-muted-foreground text-body">
                       No messages yet. Start the conversation!
                     </p>
                   </div>
                 ) : (
-                  allMessages.map((item, index) => {
-                    const prevItem = index > 0 ? allMessages[index - 1] : null;
-                    const showTimestamp = !prevItem || 
-                      new Date(item.data.timestamp).getTime() - new Date(prevItem.data.timestamp).getTime() > 300000;
+                  currentMessages.map((message, index) => {
+                    const prevMessage = index > 0 ? currentMessages[index - 1] : null;
+                    const showTimestamp = !prevMessage || 
+                      new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime() > 300000;
 
-                    if (item.type === 'text') {
-                      const message = item.data;
-                      const isSent = message.sender === user?.username;
-                      return (
-                        <MessageBubble
-                          key={message.id}
-                          message={message}
-                          isSent={isSent}
-                          showTimestamp={showTimestamp}
-                        />
-                      );
-                    } else {
-                      // Image message
-                      const imageMsg = item.data;
-                      return (
-                        <ImageMessage
-                          key={imageMsg.txId}
-                          message={imageMsg}
-                          currentUsername={user?.username || ''}
-                        />
-                      );
-                    }
+                    const isSent = message.sender === user?.username;
+                    return (
+                      <MessageBubble
+                        key={message.id}
+                        message={message}
+                        isSent={isSent}
+                        showTimestamp={showTimestamp}
+                      />
+                    );
                   })
                 )}
                 <div ref={messagesEndRef} />
