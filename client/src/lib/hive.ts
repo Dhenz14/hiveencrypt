@@ -554,15 +554,14 @@ export async function getCustomJsonMessages(
   try {
     console.log('[CUSTOM JSON] Fetching messages for conversation:', { username, partnerUsername, limit });
     
-    const client = await optimizedHiveClient.getClient();
-    
+    // Use direct client for database.call (optimizedHiveClient doesn't expose this)
     // Fetch account history with operation filter
-    // Bit 2 (custom_json) = operation_filter_low: 4
-    const history = await client.database.call('get_account_history', [
+    // custom_json is operation type 18, so bit 18 = 2^18 = 262144
+    const history = await hiveClient.database.call('get_account_history', [
       username,
       -1,
       limit,
-      4  // Filter for custom_json operations only
+      262144  // Filter for custom_json operations only (2^18)
     ]);
     
     if (!history || !Array.isArray(history)) {
@@ -645,23 +644,26 @@ export async function getCustomJsonMessages(
     // Reassemble multi-chunk messages
     const reassembledMessages: CustomJsonOperation[] = [];
     
-    for (const [sessionId, chunks] of sessionChunks.entries()) {
-      // Sort by index
-      chunks.sort((a, b) => a.idx - b.idx);
+    // Use Array.from to avoid downlevelIteration requirement
+    Array.from(sessionChunks.entries()).forEach(([sessionId, chunks]) => {
+      type ChunkType = { idx: number; data: string; hash?: string; timestamp: string; from: string; to: string; txId: string };
       
-      // Check if we have all chunks
+      // Sort by index with explicit types
+      chunks.sort((a: ChunkType, b: ChunkType) => a.idx - b.idx);
+      
+      // Check if we have all chunks with explicit types
       const expectedChunks = chunks.length;
-      const hasAllChunks = chunks.every((c, i) => c.idx === i);
+      const hasAllChunks = chunks.every((c: ChunkType, i: number) => c.idx === i);
       
       if (!hasAllChunks) {
         console.warn('[CUSTOM JSON] Incomplete chunks for session:', sessionId, 
-          'expected:', expectedChunks, 'have indices:', chunks.map(c => c.idx));
-        continue;
+          'expected:', expectedChunks, 'have indices:', chunks.map((c: ChunkType) => c.idx));
+        return; // Skip this session
       }
       
-      // Concatenate chunks
-      const fullPayload = chunks.map(c => c.data).join('');
-      const hash = chunks.find(c => c.hash)?.hash;
+      // Concatenate chunks with explicit types
+      const fullPayload = chunks.map((c: ChunkType) => c.data).join('');
+      const hash = chunks.find((c: ChunkType) => c.hash)?.hash;
       
       reassembledMessages.push({
         txId: chunks[0].txId, // Use first chunk's txId
@@ -677,7 +679,7 @@ export async function getCustomJsonMessages(
       console.log('[CUSTOM JSON] Reassembled session:', sessionId, 
         'chunks:', chunks.length, 
         'size:', fullPayload.length);
-    }
+    });
     
     const allMessages = [...singleMessages, ...reassembledMessages];
     console.log('[CUSTOM JSON] Retrieved', allMessages.length, 'total messages',

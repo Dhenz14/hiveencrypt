@@ -21,7 +21,9 @@ import pako from 'pako';
 export function gzipCompress(data: string): string {
   try {
     const compressed = pako.gzip(data);
-    return btoa(String.fromCharCode(...compressed));
+    // Convert Uint8Array to binary string without spread operator
+    const binaryString = Array.from(compressed).map(byte => String.fromCharCode(byte)).join('');
+    return btoa(binaryString);
   } catch (error) {
     console.error('[COMPRESSION] Gzip compression failed:', error);
     throw new Error('Failed to compress data');

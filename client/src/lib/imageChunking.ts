@@ -236,13 +236,15 @@ export function reassembleChunks(
   // Reassemble each session
   const reassembled = new Map<string, { encrypted: string; hash?: string }>();
   
-  for (const [sessionId, sessionChunks] of sessions.entries()) {
-    // Sort by index
-    sessionChunks.sort((a, b) => a.idx - b.idx);
+  // Use Array.from to avoid downlevelIteration requirement
+  Array.from(sessions.entries()).forEach(([sessionId, sessionChunks]) => {
+    // Sort by index with explicit types
+    sessionChunks.sort((a: { idx: number; chunk: string; hash?: string }, 
+                       b: { idx: number; chunk: string; hash?: string }) => a.idx - b.idx);
     
-    // Concatenate chunks
-    const fullPayload = sessionChunks.map(c => c.chunk).join('');
-    const hash = sessionChunks.find(c => c.hash)?.hash;
+    // Concatenate chunks with explicit type
+    const fullPayload = sessionChunks.map((c: { idx: number; chunk: string; hash?: string }) => c.chunk).join('');
+    const hash = sessionChunks.find((c: { idx: number; chunk: string; hash?: string }) => c.hash)?.hash;
     
     reassembled.set(sessionId, {
       encrypted: fullPayload,
@@ -254,7 +256,7 @@ export function reassembleChunks(
       totalSize: fullPayload.length,
       hasHash: !!hash
     });
-  }
+  });
   
   return reassembled;
 }
