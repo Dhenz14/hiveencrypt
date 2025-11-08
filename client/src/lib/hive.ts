@@ -522,3 +522,170 @@ export const decryptMemosInParallel = async (
   // Sort by index to maintain order
   return results.sort((a, b) => a.index - b.index);
 };
+
+// ============================================================================
+// CUSTOM JSON: Image Message Fetching & Reassembly
+// ============================================================================
+
+export interface CustomJsonOperation {
+  txId: string;
+  timestamp: string;
+  from: string;
+  to: string;
+  encryptedPayload: string;
+  hash?: string;
+  sessionId?: string;
+  chunks?: number;
+}
+
+/**
+ * Fetch custom_json operations for image messaging
+ * 
+ * @param username - User's Hive username
+ * @param partnerUsername - Conversation partner's username
+ * @param limit - Maximum operations to fetch (default: 200)
+ * @returns Array of custom_json image messages
+ */
+export async function getCustomJsonMessages(
+  username: string,
+  partnerUsername: string,
+  limit: number = 200
+): Promise<CustomJsonOperation[]> {
+  try {
+    console.log('[CUSTOM JSON] Fetching messages for conversation:', { username, partnerUsername, limit });
+    
+    const client = await optimizedHiveClient.getClient();
+    
+    // Fetch account history with operation filter
+    // Bit 2 (custom_json) = operation_filter_low: 4
+    const history = await client.database.call('get_account_history', [
+      username,
+      -1,
+      limit,
+      4  // Filter for custom_json operations only
+    ]);
+    
+    if (!history || !Array.isArray(history)) {
+      console.warn('[CUSTOM JSON] No history returned');
+      return [];
+    }
+    
+    console.log('[CUSTOM JSON] Retrieved', history.length, 'operations from blockchain');
+    
+    // Track chunks by session ID for reassembly
+    const sessionChunks = new Map<string, Array<{
+      idx: number;
+      data: string;
+      hash?: string;
+      timestamp: string;
+      from: string;
+      to: string;
+      txId: string;
+    }>>();
+    
+    // Track single-operation messages
+    const singleMessages: CustomJsonOperation[] = [];
+    
+    for (const [index, op] of history) {
+      const [opType, opData] = op.op;
+      
+      if (opType !== 'custom_json') continue;
+      if (opData.id !== 'hive-messenger-img') continue;
+      
+      let jsonData: any;
+      try {
+        jsonData = typeof opData.json === 'string' ? JSON.parse(opData.json) : opData.json;
+      } catch (parseError) {
+        console.warn('[CUSTOM JSON] Failed to parse JSON:', parseError);
+        continue;
+      }
+      
+      // Determine sender/receiver from required_posting_auths
+      const sender = opData.required_posting_auths?.[0];
+      if (!sender) continue;
+      
+      // Check if this involves our conversation (either direction)
+      const isRelevant = (sender === username || sender === partnerUsername);
+      if (!isRelevant) continue;
+      
+      // Determine the "from" and "to" for this operation
+      const from = sender;
+      // For custom_json, we need to extract recipient from encrypted payload later
+      // For now, assume partner is the "to" if sender is us, and vice versa
+      const to = sender === username ? partnerUsername : username;
+      
+      if (jsonData.sid) {
+        // Multi-chunk message
+        if (!sessionChunks.has(jsonData.sid)) {
+          sessionChunks.set(jsonData.sid, []);
+        }
+        
+        sessionChunks.get(jsonData.sid)!.push({
+          idx: jsonData.idx,
+          data: jsonData.e,
+          hash: jsonData.h,
+          timestamp: op.timestamp,
+          from,
+          to,
+          txId: op.trx_id
+        });
+      } else {
+        // Single operation message
+        singleMessages.push({
+          txId: op.trx_id,
+          timestamp: op.timestamp,
+          from,
+          to,
+          encryptedPayload: jsonData.e,
+          hash: jsonData.h
+        });
+      }
+    }
+    
+    // Reassemble multi-chunk messages
+    const reassembledMessages: CustomJsonOperation[] = [];
+    
+    for (const [sessionId, chunks] of sessionChunks.entries()) {
+      // Sort by index
+      chunks.sort((a, b) => a.idx - b.idx);
+      
+      // Check if we have all chunks
+      const expectedChunks = chunks.length;
+      const hasAllChunks = chunks.every((c, i) => c.idx === i);
+      
+      if (!hasAllChunks) {
+        console.warn('[CUSTOM JSON] Incomplete chunks for session:', sessionId, 
+          'expected:', expectedChunks, 'have indices:', chunks.map(c => c.idx));
+        continue;
+      }
+      
+      // Concatenate chunks
+      const fullPayload = chunks.map(c => c.data).join('');
+      const hash = chunks.find(c => c.hash)?.hash;
+      
+      reassembledMessages.push({
+        txId: chunks[0].txId, // Use first chunk's txId
+        timestamp: chunks[0].timestamp,
+        from: chunks[0].from,
+        to: chunks[0].to,
+        encryptedPayload: fullPayload,
+        hash,
+        sessionId,
+        chunks: chunks.length
+      });
+      
+      console.log('[CUSTOM JSON] Reassembled session:', sessionId, 
+        'chunks:', chunks.length, 
+        'size:', fullPayload.length);
+    }
+    
+    const allMessages = [...singleMessages, ...reassembledMessages];
+    console.log('[CUSTOM JSON] Retrieved', allMessages.length, 'total messages',
+      '(', singleMessages.length, 'single,', reassembledMessages.length, 'reassembled)');
+    
+    return allMessages;
+  } catch (error) {
+    console.error('[CUSTOM JSON] Failed to fetch messages:', error);
+    return [];
+  }
+}

@@ -29,6 +29,25 @@ interface DecryptedMemoCache {
   cachedAt: string;
 }
 
+// CUSTOM JSON: Image message storage (separate from memo-based messages)
+interface CustomJsonMessage {
+  txId: string;                    // Primary key (transaction ID)
+  sessionId?: string;              // For multi-chunk messages
+  conversationKey: string;
+  from: string;
+  to: string;
+  imageData?: string;              // base64 image (after decryption)
+  message?: string;                // optional text message
+  filename?: string;
+  contentType?: string;
+  timestamp: string;
+  encryptedPayload: string;        // Full encrypted data
+  hash?: string;                   // SHA-256 integrity hash
+  chunks?: number;                 // Total chunks (if multi-chunk)
+  isDecrypted: boolean;
+  confirmed: boolean;
+}
+
 interface HiveMessengerDB extends DBSchema {
   messages: {
     key: string;
@@ -58,6 +77,16 @@ interface HiveMessengerDB extends DBSchema {
     key: string;
     value: DecryptedMemoCache;
   };
+  // CUSTOM JSON: Image messages table
+  customJsonMessages: {
+    key: string;
+    value: CustomJsonMessage;
+    indexes: {
+      'by-conversation': string;
+      'by-timestamp': string;
+      'by-sessionId': string;
+    };
+  };
 }
 
 let dbInstance: IDBPDatabase<HiveMessengerDB> | null = null;
@@ -78,8 +107,8 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
   }
 
   // Scope database to username to prevent data mixing between accounts
-  // TIER 2: Bump to v4 to add decryptedMemos table
-  const dbName = username ? `hive-messenger-${username}-v4` : 'hive-messenger-v4';
+  // v5: Add customJsonMessages table for image messaging
+  const dbName = username ? `hive-messenger-${username}-v5` : 'hive-messenger-v5';
   
   dbInstance = await openDB<HiveMessengerDB>(dbName, 1, {
     upgrade(db: IDBPDatabase<HiveMessengerDB>) {
@@ -104,6 +133,14 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
       // TIER 2: Add decryptedMemos cache table
       if (!db.objectStoreNames.contains('decryptedMemos')) {
         db.createObjectStore('decryptedMemos', { keyPath: 'txId' });
+      }
+
+      // CUSTOM JSON: Add customJsonMessages table for image messaging
+      if (!db.objectStoreNames.contains('customJsonMessages')) {
+        const customJsonStore = db.createObjectStore('customJsonMessages', { keyPath: 'txId' });
+        customJsonStore.createIndex('by-conversation', 'conversationKey');
+        customJsonStore.createIndex('by-timestamp', 'timestamp');
+        customJsonStore.createIndex('by-sessionId', 'sessionId');
       }
     },
   });
@@ -421,5 +458,88 @@ export async function setLastSyncedOpId(conversationKey: string, opId: number, u
   console.log('[INCREMENTAL] Updated last synced opId for', conversationKey, ':', opId);
 }
 
-export type { MessageCache, ConversationCache, DecryptedMemoCache };
+// ============================================================================
+// CUSTOM JSON: Image Message Caching Functions
+// ============================================================================
+
+export async function cacheCustomJsonMessage(message: CustomJsonMessage, username?: string): Promise<void> {
+  const db = await getDB(username);
+  await db.put('customJsonMessages', message);
+  console.log('[CUSTOM JSON] Cached message:', message.txId.substring(0, 20));
+}
+
+export async function cacheCustomJsonMessages(messages: CustomJsonMessage[], username?: string): Promise<void> {
+  const db = await getDB(username);
+  const tx = db.transaction('customJsonMessages', 'readwrite');
+  await Promise.all([
+    ...messages.map((msg) => tx.store.put(msg)),
+    tx.done,
+  ]);
+  console.log('[CUSTOM JSON] Batch cached', messages.length, 'image messages');
+}
+
+export async function getCustomJsonMessagesByConversation(
+  currentUser: string,
+  partnerUsername: string
+): Promise<CustomJsonMessage[]> {
+  const db = await getDB(currentUser);
+  const conversationKey = getConversationKey(currentUser, partnerUsername);
+  
+  const messages = await db.getAllFromIndex(
+    'customJsonMessages',
+    'by-conversation',
+    conversationKey
+  );
+
+  return messages.sort((a, b) => 
+    new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+}
+
+export async function getCustomJsonMessageByTxId(
+  txId: string,
+  username?: string
+): Promise<CustomJsonMessage | undefined> {
+  const db = await getDB(username);
+  return await db.get('customJsonMessages', txId);
+}
+
+export async function updateCustomJsonMessage(
+  txId: string,
+  updates: Partial<CustomJsonMessage>,
+  username?: string
+): Promise<void> {
+  const db = await getDB(username);
+  const message = await db.get('customJsonMessages', txId);
+  
+  if (message) {
+    Object.assign(message, updates);
+    await db.put('customJsonMessages', message);
+    console.log('[CUSTOM JSON] Updated message:', txId.substring(0, 20));
+  }
+}
+
+export async function deleteCustomJsonConversation(
+  currentUser: string,
+  partnerUsername: string
+): Promise<void> {
+  console.log('[CUSTOM JSON] Deleting image conversation:', { currentUser, partnerUsername });
+  
+  const db = await getDB(currentUser);
+  const conversationKey = getConversationKey(currentUser, partnerUsername);
+  
+  // Delete all custom JSON messages for this conversation
+  const messages = await getCustomJsonMessagesByConversation(currentUser, partnerUsername);
+  console.log('[CUSTOM JSON] Deleting', messages.length, 'image messages');
+  
+  const tx = db.transaction('customJsonMessages', 'readwrite');
+  await Promise.all([
+    ...messages.map((msg) => tx.store.delete(msg.txId)),
+    tx.done,
+  ]);
+  
+  console.log('[CUSTOM JSON] ✅ Image conversation deleted from local storage');
+}
+
+export type { MessageCache, ConversationCache, DecryptedMemoCache, CustomJsonMessage };
 export { getConversationKey };
