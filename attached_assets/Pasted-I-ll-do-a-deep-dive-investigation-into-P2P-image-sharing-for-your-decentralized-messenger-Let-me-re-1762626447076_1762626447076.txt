@@ -1,0 +1,58 @@
+I'll do a deep dive investigation into P2P image sharing for your decentralized messenger. Let me research the options:
+
+
+Searched the web for "IPFS client-side encryption image upload JavaScript browser 2025"
+IPFS client-side encryption image upload JavaScript browser 2025
+Web search results
+
+Show more
+IPFS Client-Side Encryption + Image Upload in JavaScript (Browser) – 2025 Guide
+Overview
+To upload images to IPFS with client-side encryption in a browser, you need to:
+
+Encrypt the file locally (using Web Crypto API)
+Upload to IPFS (using Helia, the modern IPFS client, or pinning services)
+Store the CID (Content Identifier)
+Decrypt on retrieval using the s …
+20 sources
+
+Show less
+JavaScript encryption for websites delivered via IPFS - Information Security Stack Exchange
+security.stackexchange.com
+GitHub - ipfs/js-ipfs: IPFS implementation in JavaScript
+github.com
+How to use IPFS with pure html and javascript in the browser - Stack Overflow
+stackoverflow.com
+IPFS in JS | IPFS Docs
+docs.ipfs.tech
+Ipfs
+js.ipfs.io
+javascript - Using JS IPFS in the Browser? - Stack Overflow
+stackoverflow.com
+GitHub - ipfs/in-web-browsers: Tracking the endeavor towards getting web browsers to natively support IPFS and content-addressing
+github.com
+ipfsecret | Encrypt and decrypt IPFS files with a secret passphrase.
+c2fo-lab.github.io
+End-to-End Integrity with IPFS
+blog.cloudflare.com
+IPFS in web applications | IPFS Docs
+docs.ipfs.tech
+Uploading Files to IPFS from a Web Application - DEV Community
+dev.to
+javascript - Is it possible to upload a file to IPFS using HTML's tag? - Ethereum Stack Exchange
+ethereum.stackexchange.com
+js-ipfs-http-client/examples/upload-file-via-browser at master · ipfs-inactive/js-ipfs-http-client
+github.com
+GitHub - ipfs-examples/js-ipfs-http-client-upload-file: Example of uploading a file with an IPFS HTTP client using JS-IPFS
+github.com
+Uploading an Image to IPFS. IPFS (Interplanetary Files System)… | by Angello Pozo | Medium
+medium.com
+javascript - Using js-ipfs in vue to upload and display images - Stack Overflow
+stackoverflow.com
+Web3 Storage - The simple file storage service for IPFS & Filecoin.
+staging.web3.storage
+Bountify | Upload an image to IPFS using ipfs-mini
+bountify.co
+Upload files to IPFS from Browser
+anarkrypto.github.io
+How to push/load image file from/to IPFS using Javascript. Examples (PAR
