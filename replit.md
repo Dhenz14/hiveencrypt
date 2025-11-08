@@ -23,13 +23,19 @@ Hive Messenger operates with a 100% decentralized architecture. The application 
 - **Conversation Discovery**: Achieved by scanning blockchain transactions for unique communication partners.
 
 ### Feature Specifications
-- End-to-end encrypted messaging.
-- Real-time message synchronization with the blockchain.
-- Offline message browsing of cached data.
-- Selective local conversation deletion for privacy.
-- Detection and recovery for double-encrypted messages.
-- PWA installable on mobile and desktop.
-- No private keys are ever transmitted or stored by the application.
+- **Text Messaging**: End-to-end encrypted text messages via memo transfers (0.001 HBD per message)
+- **Image Messaging**: End-to-end encrypted images via custom_json operations (RC-only, no token cost)
+  - WebP compression with 70-75% size reduction
+  - Automatic chunking for large images (7KB chunks)
+  - Decrypt-on-demand for bandwidth efficiency
+  - Optional text captions with images
+  - Download functionality for decrypted images
+- Real-time message synchronization with the blockchain
+- Offline message browsing of cached data
+- Selective local conversation deletion for privacy
+- Detection and recovery for double-encrypted messages
+- PWA installable on mobile and desktop
+- No private keys are ever transmitted or stored by the application
 
 ## External Dependencies
 
@@ -176,9 +182,21 @@ Client code has ZERO server dependencies:
 
 ### Features
 - **Re-authentication Button**: Settings page includes a "Re-authenticate with Keychain" button for users who checked "Don't ask again" in Keychain prompts
-- **Encrypted Messaging**: All messages encrypted client-side using Hive Keychain before blockchain broadcast
+- **Text Messaging**: End-to-end encrypted text messages via memo transfers (0.001 HBD cost)
+- **Image Messaging** (✅ COMPLETED November 2025):
+  - Upload images with one-click attach button (paperclip icon)
+  - Automatic WebP compression (300px max width, 0.6 quality, ~70-75% size reduction)
+  - Encrypt using Hive memo key (ECDH + AES-256-CBC)
+  - Additional Gzip compression before encryption
+  - Automatic chunking for images >7KB (7KB chunks via custom_json operations)
+  - RC (Resource Credit) estimation with low/critical warnings before sending
+  - Decrypt-on-demand display (saves bandwidth, only decrypt when clicked)
+  - Download decrypted images to device
+  - Optional text captions with images
+  - Zero token cost (RC-only via custom_json operations)
 - **Conversation Discovery**: Automatic detection of encrypted message partners from blockchain history
-- **Offline Support**: Messages cached in IndexedDB for instant access when offline
+- **Offline Support**: Text and image messages cached in IndexedDB for instant access when offline
+- **Unified Message Display**: Text and image messages merged chronologically in conversation view
 
 ### Known Considerations
 - **Bundle Size**: 1.4MB (acceptable for blockchain/crypto libraries)
