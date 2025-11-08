@@ -60,10 +60,11 @@ export const authenticateWithHAS = async (
     console.log('[HAS] Auth object:', JSON.stringify(auth));
     console.log('[HAS] App meta:', JSON.stringify(getAppMeta()));
     
-    // Pass callback as 3rd parameter - library will detect it's a function and use it as cbWait
-    // DON'T explicitly pass undefined for challenge_data - omit it entirely
-    // @ts-ignore - Library has incorrect type definitions
-    const result = await HAS.authenticate(auth, getAppMeta(), (evt: any) => {
+    // CRITICAL: Must pass null (not undefined) for challenge_data when using callback
+    // The library doesn't type-check parameters - it assumes 3rd param is challenge_data
+    // Passing null makes the assertion pass: !null = true, skips validation
+    // @ts-ignore - Library has incorrect type definitions  
+    const result = await HAS.authenticate(auth, getAppMeta(), null, (evt: any) => {
       console.log('[HAS] Auth event received:', evt);
       
       // HAS library provides auth request data in the event
