@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip, Smile } from 'lucide-react';
+import { Send, Paperclip, Smile, X, Image as ImageIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
@@ -7,7 +7,12 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { requestTransfer } from '@/lib/hive';
 import { requestKeychainEncryption } from '@/lib/encryption';
-import { addOptimisticMessage, confirmMessage } from '@/lib/messageCache';
+import { addOptimisticMessage, confirmMessage, cacheCustomJsonMessage } from '@/lib/messageCache';
+import { processImageForBlockchain } from '@/lib/imageUtils';
+import { encryptImagePayload, type ImagePayload } from '@/lib/customJsonEncryption';
+import { broadcastImageMessage } from '@/lib/imageChunking';
+import { checkSufficientRC, estimateCustomJsonRC, formatRC, getRCWarningLevel } from '@/lib/rcEstimation';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface MessageComposerProps {
   onSend?: (content: string) => void;
@@ -28,12 +33,190 @@ export function MessageComposer({
 }: MessageComposerProps) {
   const [content, setContent] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [rcWarning, setRcWarning] = useState<{ level: 'critical' | 'low' | 'ok'; message: string } | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
   const { toast } = useToast();
 
+  // Handle image selection
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: 'Invalid File',
+        description: 'Please select an image file',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Validate file size (max 5MB before compression)
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      toast({
+        title: 'File Too Large',
+        description: 'Please select an image smaller than 5MB',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setSelectedImage(file);
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setImagePreview(event.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    // Estimate RC cost for image
+    if (user) {
+      try {
+        // Rough estimate: assume 70% compression
+        const estimatedSize = Math.floor(file.size * 0.3);
+        const chunks = Math.ceil(estimatedSize / 7000);
+        const estimatedRC = estimateCustomJsonRC(estimatedSize, chunks);
+        
+        const { current, percentage } = await checkSufficientRC(user.username, estimatedRC);
+        const warningLevel = getRCWarningLevel(percentage);
+        
+        if (warningLevel === 'critical') {
+          setRcWarning({
+            level: 'critical',
+            message: `Very low RC (${percentage.toFixed(1)}%). Image sending may fail.`
+          });
+        } else if (warningLevel === 'low') {
+          setRcWarning({
+            level: 'low',
+            message: `Low RC (${percentage.toFixed(1)}%). Estimated cost: ${formatRC(estimatedRC)}`
+          });
+        } else {
+          // Clear warning if RC is sufficient
+          setRcWarning(null);
+        }
+      } catch (error) {
+        console.warn('[RC] Could not estimate RC cost:', error);
+      }
+    }
+  };
+
+  // Remove selected image
+  const handleRemoveImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+    setRcWarning(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  // Handle sending image message
+  const handleImageSend = async () => {
+    if (!selectedImage || !user || !recipientUsername) return;
+
+    setIsSending(true);
+
+    try {
+      // Step 1: Process image (resize, convert to WebP, compress)
+      toast({
+        title: 'Processing Image...',
+        description: 'Optimizing for blockchain storage',
+      });
+
+      const processedImage = await processImageForBlockchain(selectedImage);
+      console.log('[IMAGE] Processed:', processedImage);
+
+      // Step 2: Create payload
+      const payload: ImagePayload = {
+        imageData: processedImage.base64,
+        message: content.trim() || undefined,
+        filename: selectedImage.name,
+        contentType: processedImage.contentType,
+        from: user.username,
+        to: recipientUsername,
+        timestamp: Date.now()
+      };
+
+      // Step 3: Encrypt and hash
+      toast({
+        title: 'Encrypting...',
+        description: 'Securing your image with end-to-end encryption',
+      });
+
+      const { encrypted, hash } = await encryptImagePayload(payload, user.username);
+      console.log('[IMAGE] Encrypted size:', encrypted.length, 'hash:', hash.substring(0, 16));
+
+      // Step 4: Broadcast to blockchain
+      toast({
+        title: 'Broadcasting...',
+        description: 'Sending to Hive blockchain',
+      });
+
+      const txId = await broadcastImageMessage(user.username, encrypted, hash);
+      console.log('[IMAGE] Broadcast success, txId:', txId);
+
+      // Step 5: Cache locally
+      const conversationKey = [user.username, recipientUsername].sort().join('-');
+      await cacheCustomJsonMessage({
+        txId,
+        conversationKey,
+        from: user.username,
+        to: recipientUsername,
+        imageData: processedImage.base64,
+        message: content.trim() || undefined,
+        filename: selectedImage.name,
+        contentType: processedImage.contentType,
+        timestamp: new Date().toISOString(),
+        encryptedPayload: encrypted,
+        hash,
+        isDecrypted: true,
+        confirmed: true
+      }, user.username);
+
+      // Success!
+      toast({
+        title: 'Image Sent!',
+        description: 'Your encrypted image has been sent on the blockchain',
+      });
+
+      // Clear state
+      setContent('');
+      handleRemoveImage();
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
+
+      // Notify parent
+      if (onMessageSent) {
+        onMessageSent();
+      }
+
+    } catch (error: any) {
+      console.error('[IMAGE] Send failed:', error);
+      toast({
+        title: 'Image Send Failed',
+        description: error?.message || 'Could not send image. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // If image is selected, send as image message
+    if (selectedImage) {
+      return handleImageSend();
+    }
     
     if (!content.trim() || disabled || isSending) {
       return;
@@ -247,6 +430,40 @@ export function MessageComposer({
   return (
     <div className="border-t bg-background p-4">
       <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Image Preview */}
+        {imagePreview && (
+          <div className="relative inline-block">
+            <img 
+              src={imagePreview} 
+              alt="Preview" 
+              className="max-h-40 rounded-lg border"
+              data-testid="img-preview"
+            />
+            <Button
+              type="button"
+              size="icon"
+              variant="destructive"
+              className="absolute -top-2 -right-2 h-6 w-6 rounded-full"
+              onClick={handleRemoveImage}
+              data-testid="button-remove-image"
+            >
+              <X className="w-3 h-3" />
+            </Button>
+            {selectedImage && (
+              <div className="text-caption text-muted-foreground mt-1">
+                {selectedImage.name} ({Math.round(selectedImage.size / 1024)}KB)
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* RC Warning */}
+        {rcWarning && rcWarning.level !== 'ok' && (
+          <Alert variant={rcWarning.level === 'critical' ? 'destructive' : 'default'} data-testid="alert-rc-warning">
+            <AlertDescription>{rcWarning.message}</AlertDescription>
+          </Alert>
+        )}
+
         <div className="flex items-end gap-3">
           <div className="flex-1 relative">
             <Textarea
@@ -254,7 +471,7 @@ export function MessageComposer({
               value={content}
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={placeholder}
+              placeholder={selectedImage ? "Add a message (optional)..." : placeholder}
               disabled={disabled}
               className="resize-none min-h-[44px] max-h-[120px] pr-20"
               rows={1}
@@ -271,12 +488,21 @@ export function MessageComposer({
               >
                 <Smile className="w-4 h-4" />
               </Button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageSelect}
+                className="hidden"
+                data-testid="input-file"
+              />
               <Button
                 type="button"
                 size="icon"
                 variant="ghost"
                 className="h-8 w-8"
-                disabled={disabled}
+                disabled={disabled || isSending}
+                onClick={() => fileInputRef.current?.click()}
                 data-testid="button-attach"
               >
                 <Paperclip className="w-4 h-4" />
@@ -287,7 +513,7 @@ export function MessageComposer({
             type="submit"
             size="icon"
             className="h-11 w-11 flex-shrink-0"
-            disabled={!content.trim() || disabled || isSending}
+            disabled={(!content.trim() && !selectedImage) || disabled || isSending}
             data-testid="button-send"
           >
             <Send className="w-5 h-5" />
