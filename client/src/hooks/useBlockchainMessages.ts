@@ -136,7 +136,14 @@ export function useBlockchainMessages({
         // TIER 2 OPTIMIZATION: Get last synced operation ID for incremental filtering
         const conversationKey = getConversationKey(user.username, partnerUsername);
         const { getLastSyncedOpId, setLastSyncedOpId } = await import('@/lib/messageCache');
-        const lastSyncedOpId = await getLastSyncedOpId(conversationKey, user.username);
+        let lastSyncedOpId = await getLastSyncedOpId(conversationKey, user.username);
+        
+        // CRITICAL FIX: If no cached messages exist, ignore lastSyncedOpId to fetch ALL messages
+        // This handles case where user cleared messages but metadata persisted
+        if (cachedMessages.length === 0) {
+          console.log('[QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)');
+          lastSyncedOpId = null;
+        }
         
         // TIER 2: Fetch latest operations and filter client-side for new ones
         // (Hive API's start parameter goes backwards, so we filter instead)
