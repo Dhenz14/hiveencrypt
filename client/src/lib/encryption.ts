@@ -284,12 +284,17 @@ export const requestKeychainEncryption = async (
       return;
     }
 
-    // Use requestEncode to encrypt plain text messages
-    // Keychain will automatically add the '#' prefix to the encrypted result
-    window.hive_keychain.requestEncode(
+    // IMPORTANT: Hive Keychain REQUIRES the message to start with '#' to trigger encryption
+    // This is documented in the official Keychain SDK:
+    // https://github.com/hive-keychain/keychain-sdk-playground
+    // Example: message: "#Message to encode, # is required to encrypt"
+    const messageWithPrefix = message.startsWith('#') ? message : `#${message}`;
+
+    // Use requestEncodeMessage for single receiver encryption
+    window.hive_keychain.requestEncodeMessage(
       username,
       recipient,
-      message, // Plain text message (no '#' prefix needed)
+      messageWithPrefix,
       'Memo',
       (response: any) => {
         if (response.success) {
