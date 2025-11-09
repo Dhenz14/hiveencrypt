@@ -286,7 +286,10 @@ export const requestDecodeMemo = async (
     sender: senderUsername,
     txId: txId?.substring(0, 20),
     depth: recursionDepth,
-    isHAS: !!hasAuth
+    isHAS: !!hasAuth,
+    hasKeychainAPI: !!window.hive_keychain,
+    userAgent: navigator.userAgent,
+    platform: navigator.platform
   });
 
   let result: string;
