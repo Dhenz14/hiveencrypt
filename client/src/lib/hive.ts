@@ -297,7 +297,7 @@ export const requestDecodeMemo = async (
     
     try {
       const { hasDecryptMemo } = await import('@/lib/hasOperations');
-      result = await hasDecryptMemo(hasAuth, username, encryptedMemo);
+      result = await hasDecryptMemo(hasAuth, username, encryptedMemo, senderUsername);
     } catch (error: any) {
       console.error('[requestDecodeMemo] HAS decryption failed:', error.message);
       throw error;

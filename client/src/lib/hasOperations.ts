@@ -236,12 +236,14 @@ export const hasBroadcastTransfer = async (
  * @param hasAuth - HAS authentication data (from login)
  * @param username - Current user's username
  * @param encryptedMemo - Encrypted memo string (starts with #)
+ * @param senderUsername - Username of the sender (for context)
  * @returns Decrypted plaintext message
  */
 export const hasDecryptMemo = async (
   hasAuth: HASAuthData,
   username: string,
-  encryptedMemo: string
+  encryptedMemo: string,
+  senderUsername?: string
 ): Promise<string> => {
   try {
     // Handle unencrypted memos
@@ -251,31 +253,47 @@ export const hasDecryptMemo = async (
     }
     
     console.log('[HAS DECRYPT] Starting memo decryption via HAS challenge');
+    console.log('[HAS DECRYPT] Username:', username);
+    console.log('[HAS DECRYPT] Sender:', senderUsername || 'unknown');
     console.log('[HAS DECRYPT] Encrypted memo preview:', encryptedMemo.substring(0, 50) + '...');
     
-    // Use HAS challenge API to request memo decryption
-    // The mobile wallet will decrypt using the user's private memo key
-    // 
-    // Challenge format:
-    // - key_type: "memo" (uses memo key for decryption)
-    // - challenge: the encrypted memo data to decrypt
-    const challengeData = {
-      key_type: 'memo',
-      challenge: encryptedMemo, // Send encrypted memo as challenge
+    // Format challenge data as JSON object (consistent with encryption format)
+    // The mobile wallet expects structured data, not raw encrypted string
+    const decryptionRequest = {
+      message: encryptedMemo,
+      username: username,
+      sender: senderUsername || '',
+      method: 'decode', // Specify this is a decode operation
     };
     
-    console.log('[HAS DECRYPT] Sending challenge request to mobile wallet...');
+    const challengeData = {
+      key_type: 'memo',
+      challenge: JSON.stringify(decryptionRequest),
+    };
+    
+    console.log('[HAS DECRYPT] Sending decryption challenge to mobile wallet...');
+    console.log('[HAS DECRYPT] Challenge data:', {
+      key_type: challengeData.key_type,
+      challengePreview: decryptionRequest
+    });
     
     // @ts-expect-error - HAS library TypeScript definitions are incomplete (missing challenge method)
     const result = await HAS.challenge(hasAuth, challengeData);
     
     console.log('[HAS DECRYPT] Challenge response received:', {
+      success: !!result,
       hasData: !!result?.data,
       dataType: typeof result?.data,
+      resultKeys: result ? Object.keys(result) : [],
     });
     
-    if (!result || !result.data) {
-      throw new Error('HAS challenge failed - no result data');
+    if (!result) {
+      throw new Error('HAS challenge returned no result');
+    }
+    
+    if (!result.data) {
+      console.error('[HAS DECRYPT] Result object:', result);
+      throw new Error('HAS challenge failed - no result.data field');
     }
     
     // Extract decrypted memo from result
@@ -284,21 +302,33 @@ export const hasDecryptMemo = async (
     
     if (typeof result.data === 'string') {
       decrypted = result.data;
+      console.log('[HAS DECRYPT] Data is string, using directly');
+    } else if (result.data.result && typeof result.data.result === 'string') {
+      decrypted = result.data.result;
+      console.log('[HAS DECRYPT] Found in data.result');
     } else if (result.data.decrypted) {
       decrypted = result.data.decrypted;
+      console.log('[HAS DECRYPT] Found in data.decrypted');
     } else if (result.data.message) {
       decrypted = result.data.message;
+      console.log('[HAS DECRYPT] Found in data.message');
     } else {
-      // Fallback: try to extract any string from data object
-      decrypted = JSON.stringify(result.data);
+      console.error('[HAS DECRYPT] Unexpected result.data structure:', result.data);
+      console.error('[HAS DECRYPT] Available keys:', Object.keys(result.data));
+      throw new Error('Cannot find decrypted message in HAS response. Wallet may not support memo decryption via challenge.');
     }
     
     console.log('[HAS DECRYPT] ✅ Decryption successful');
-    console.log('[HAS DECRYPT] Decrypted preview:', decrypted.substring(0, 50) + '...');
+    console.log('[HAS DECRYPT] Decrypted preview:', decrypted.substring(0, Math.min(50, decrypted.length)) + '...');
     
     return decrypted;
   } catch (error: any) {
     console.error('[HAS DECRYPT] Decryption failed:', error);
+    console.error('[HAS DECRYPT] Error details:', {
+      message: error?.message,
+      name: error?.name,
+      stack: error?.stack?.split('\n')[0]
+    });
     
     // Handle specific error cases
     if (error?.message?.includes('expired')) {
@@ -309,7 +339,11 @@ export const hasDecryptMemo = async (
       throw new Error('Decryption cancelled by user');
     }
     
-    throw new Error(`HAS decryption failed: ${error?.message || 'Unknown error'}`);
+    if (error?.message?.includes('Wallet may not support')) {
+      throw error; // Re-throw with original message
+    }
+    
+    throw new Error(`HAS memo decryption failed: ${error?.message || 'Unknown error'}`);
   }
 };
 
