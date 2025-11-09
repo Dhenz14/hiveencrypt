@@ -1,234 +1,55 @@
 # Hive Messenger - Decentralized Encrypted Blockchain Messaging PWA
 
 ## Overview
-Hive Messenger is a fully decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. Its core purpose is to provide a censorship-resistant communication platform with zero centralized servers, no backend, no database, and no sessions. All operations are client-side, leveraging the Hive blockchain for immutable storage and IndexedDB for local caching, ensuring instant user experience. The project aims to offer a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure.
+Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure, ensuring instant user experience.
 
 ## User Preferences
 I prefer simple language. I want iterative development. Ask before making major changes. I prefer detailed explanations.
 
 ## System Architecture
-Hive Messenger operates with a 100% decentralized architecture. The application is a React PWA hosted statically, utilizing the Hive blockchain as the sole source of truth and IndexedDB for client-side message caching. Authentication for desktop users is handled via the Hive Keychain browser extension, while mobile users use HAS (Hive Authentication Services) through QR codes or deep linking. Direct RPC calls are made to public Hive blockchain nodes, eliminating the need for any intermediary API servers. Messages are end-to-end encrypted client-side using Hive memo encryption (ECDH + AES-CBC) via the user's memo key, ensuring private keys never leave the authentication mechanisms. The PWA design supports offline functionality, installability, and cross-platform compatibility.
+Hive Messenger features a 100% decentralized architecture. It's a React PWA hosted statically, leveraging the Hive blockchain as the single source of truth and IndexedDB for client-side message caching. Authentication uses Hive Keychain for desktop and HAS (Hive Authentication Services) for mobile. The application makes direct RPC calls to public Hive blockchain nodes. Messages are end-to-end encrypted client-side using Hive memo encryption (ECDH + AES-CBC) via the user's memo key, ensuring private keys never leave the authentication mechanisms. The PWA supports offline functionality, installability, and cross-platform compatibility.
 
 ### UI/UX Decisions
 - **Responsive Design**: Mobile-first approach.
-- **Theming**: Dark mode support included.
-- **Component Library**: Utilizes Shadcn UI for consistent and modern UI elements.
+- **Theming**: Dark mode support.
+- **Component Library**: Utilizes Shadcn UI.
 
 ### Technical Implementations
-- **Client-Side Authentication**: Hive Keychain (desktop) and HAS (mobile) for secure, serverless login.
-- **Local Data Caching**: IndexedDB stores decrypted messages and conversation metadata for instant loading and offline access.
-- **Direct Blockchain Interaction**: Uses `@hiveio/dhive` to communicate directly with public Hive RPC nodes.
-- **PWA Features**: Manifest for installability, Service Worker for offline support and asset caching, protocol handler for mobile auth deep linking.
-- **Message Encryption**: All messages are encrypted client-side before being broadcast to the blockchain, ensuring privacy.
-- **Conversation Discovery**: Achieved by scanning blockchain transactions for unique communication partners.
+- **Client-Side Authentication**: Hive Keychain (desktop) and HAS (mobile).
+- **Local Data Caching**: IndexedDB for decrypted messages and metadata, enabling instant loading and offline access.
+- **Direct Blockchain Interaction**: Uses `@hiveio/dhive` for direct communication with Hive RPC nodes.
+- **PWA Features**: Manifest, Service Worker for offline support and asset caching, protocol handler for mobile auth deep linking.
+- **Message Encryption**: All messages are client-side encrypted before blockchain broadcast.
+- **Conversation Discovery**: Achieved by scanning blockchain transactions for communication partners.
 
 ### Feature Specifications
-- **Text Messaging**: End-to-end encrypted text messages via memo transfers (0.001 HBD per message)
-- Real-time message synchronization with the blockchain
-- Offline message browsing of cached data
-- Selective local conversation deletion for privacy
-- Detection and recovery for double-encrypted messages
-- PWA installable on mobile and desktop
-- No private keys are ever transmitted or stored by the application
+- **Text Messaging**: End-to-end encrypted messages via memo transfers (0.001 HBD per message).
+- Real-time message synchronization with the blockchain.
+- Offline message browsing of cached data.
+- Selective local conversation deletion.
+- Detection and recovery for double-encrypted messages.
+- PWA installable on mobile and desktop.
+- No private keys are ever transmitted or stored by the application.
+
+### System Design Choices
+- **Decentralized Storage**: Hive blockchain.
+- **Client-Side Logic**: No backend servers or databases.
+- **Security**: Memo encryption and secure authentication mechanisms.
+- **Performance Optimizations**: Incremental pagination, memo caching, parallel decryption, RPC node health scoring, React Query cache optimization, batched IndexedDB writes, operation filtering, placeholder conversation discovery, instant cached data display, and transaction limits.
 
 ## External Dependencies
 
 ### Core Libraries
 - **@hiveio/dhive**: JavaScript client for Hive blockchain API.
-- **keychain-sdk**: For Hive Keychain browser extension integration.
+- **keychain-sdk**: For Hive Keychain integration.
 - **hive-auth-wrapper**: For HAS mobile authentication.
 - **idb**: IndexedDB wrapper for local caching.
-- **qrcode**: For QR code generation in mobile authentication.
+- **qrcode**: For QR code generation.
 
 ### Blockchain Infrastructure
-- **Hive Blockchain**: The primary decentralized storage for messages.
-- **Public RPC Nodes**:
-    - `https://api.hive.blog`
-    - `https://api.hivekings.com`
-    - `https://anyx.io`
-    - `https://api.openhive.network`
+- **Hive Blockchain**: Primary decentralized storage.
+- **Public RPC Nodes**: `https://api.hive.blog`, `https://api.hivekings.com`, `https://anyx.io`, `https://api.openhive.network`.
 
 ### Authentication Services
 - **Hive Keychain**: Browser extension for desktop authentication.
 - **HAS (Hive Authentication Services)**: Mobile wallet authentication (e.g., Hive Keychain Mobile, HiveAuth Mobile App).
-
-## Deployment
-
-### Static Build (Production)
-Hive Messenger is designed to be deployed as a 100% static site with zero server costs:
-
-```bash
-# Build static assets
-npm run build  # or: vite build
-
-# Output location
-dist/public/   # Deploy this folder to any static host
-```
-
-### Supported Hosts
-- **Vercel/Netlify**: Zero-config deployment, free tier available
-- **IPFS**: Truly decentralized hosting (ipfs://...)
-- **GitHub Pages**: Free static hosting with custom domains
-- **CloudFlare Pages**: Global CDN with instant cache invalidation
-- **Any static file server**: Apache, Nginx, etc.
-
-### Development vs Production
-- **Development** (Replit): Workflow runs Express server for convenience, but client code is 100% static and makes zero API calls to it
-- **Production**: No server required - pure static files served via CDN
-- **Client Architecture**: Completely independent of server, all logic runs in browser
-
-### Verification
-Client code has ZERO server dependencies:
-- ✅ No `/api/*` fetch calls
-- ✅ No backend database queries
-- ✅ No session management on server
-- ✅ All auth is client-side (Keychain/HAS)
-- ✅ All data storage is local (IndexedDB)
-- ✅ All blockchain queries are direct RPC calls
-
-### PWA Features
-- ✅ Installable on desktop and mobile
-- ✅ Works offline (cached messages)
-- ✅ Service worker for asset caching
-- ✅ Deep linking for mobile auth (has:// protocol)
-- ✅ Valid manifest with 192x192 and 512x512 icons
-
-### Production Checklist
-1. ✅ **Build Verified**: `vite build` produces clean static output in `dist/public/`
-2. ✅ **Zero Server Dependencies**: Confirmed no /api calls, all blockchain direct RPC
-3. ✅ **PWA Configuration**: manifest.json and sw.js properly configured
-4. ✅ **Performance Optimized**: 200-transaction limit, parallel fetching, cache-first loading
-5. ⚠️ **Icons**: Replace `/favicon.png` with distinct 192x192 and 512x512 PNG icons (optional but recommended)
-6. **Upload**: Deploy `dist/public/` folder to static host (Vercel/Netlify/IPFS/GitHub Pages)
-7. **HTTPS**: Enable HTTPS (required for PWA installability and service worker)
-8. **Test**: Install on mobile/desktop, verify offline mode, test message sync
-
-### Performance Optimizations (Latest - November 2025)
-
-#### Tier 2 Optimizations (85-95% improvement - LATEST November 2025):
-- **Incremental Pagination with lastSyncedOpId Tracking**:
-  - Tracks highest operation ID per conversation in IndexedDB metadata table
-  - Fetches latest 200 operations, filters client-side for `index > lastSyncedOpId`
-  - Only processes NEW operations (2-5 typically) instead of all 200 every sync
-  - Result: 90% faster incremental syncing (4-5s → 300-500ms)
-  - Console indicator: `[INCREMENTAL] Found 3 new messages (filtered > opId: ...)`
-- **Memo Caching by Transaction ID**:
-  - Added `decryptedMemos` IndexedDB table to cache decrypted content by txId
-  - Checks cache before requesting Keychain/HAS decryption
-  - Eliminates redundant decryption work for previously decrypted messages
-  - Result: 95% faster repeat decryption (600-2200ms → < 50ms cache hit)
-  - Console indicator: `[MEMO CACHE HIT] Using cached decryption for ...`
-- **Parallel Decryption Helper**:
-  - Created `decryptMemosInParallel` function with configurable concurrency (default: 5)
-  - Ready to use for bulk decryption scenarios (e.g., "Decrypt All" button)
-  - Expected: 3-5x faster bulk operations when wired up
-- **IndexedDB Schema v4**:
-  - New `decryptedMemos` table: `&txId, decryptedContent, timestamp`
-  - New `metadata` table: `&conversationKey, lastSyncedOpId, lastUpdated`
-  - Critical bug fix: Hive API's `start` parameter goes backwards, so incremental pagination uses client-side filtering instead
-
-#### Tier 1 Optimizations (30-50% improvement):
-- **RPC Node Health Scoring**:
-  - Intelligent node selection based on latency measurement and success rate tracking
-  - Measures latency for every request using `performance.now()`
-  - Rolling average of last 10 latency samples per node
-  - Automatic unhealthy node detection (>20% error rate OR >500ms avg latency)
-  - Always selects fastest, most reliable node before each request
-  - Result: 20-40% faster blockchain queries
-- **React Query Cache Optimization**:
-  - Removed immediate cache invalidation after seeding (prevents excessive refetches)
-  - Increased staleTime from 10s to 30s (cached data valid longer)
-  - Increased refetchInterval: 60s active (was 30s), 120s background (was 60s)
-  - Added gcTime: 5 minutes (keeps data in memory longer)
-  - Maintains freshness via refetchOnWindowFocus: 'always'
-  - Result: 30-50% fewer blockchain calls, 75% faster conversation switching
-- **Batched IndexedDB Writes**:
-  - Single transaction for all new messages instead of N individual writes
-  - Atomic updates (all messages written together)
-  - Reduced IndexedDB open/close overhead
-  - Result: 5-10% faster cache updates
-
-#### Previous Optimizations:
-- **Operation Filtering** (10-100x speed improvement):
-  - Uses Hive blockchain operation bitmask filtering (bit 2 = transfer operations with memos)
-  - Only retrieves transfer operations instead of ALL operation types
-  - Reduces network payload by 90%+ and processing time dramatically
-  - Implementation: `operation_filter_low: 4` (2^2) in `get_account_history` API calls
-  - Reference: https://developers.hive.io/apidefinitions/#apidefinitions-broadcast-ops-transfer
-- **Placeholder Conversation Discovery** (70% speed improvement):
-  - Creates lightweight placeholders with real blockchain timestamps instead of fetching 50+ messages per partner
-  - OLD: 200 base + (50 × uncached partners) = potentially 500+ transactions (15+ seconds)
-  - NEW: 200 base only = 4-6 seconds initial load
-  - Messages fetched on-demand only when user clicks conversation
-  - Uses actual last-message timestamps from blockchain for accurate chronological ordering
-- **Instant Cached Data Display**:
-  - Pre-populates React Query cache with IndexedDB data for instant (<100ms) rendering
-  - Background blockchain sync (no blocking on slow RPC nodes)
-  - UI never blocks on slow RPC nodes
-- **Transaction Limits**: 200 per query (down from 1000) - balances speed with coverage for ~100 bilateral transfers
-- **Parallel Fetching**: Multiple blockchain calls run concurrently
-- **Smart Polling**: 60s active/120s background for messages (optimized from 30s/60s)
-
-**Total Performance Gain**: 
-- Tier 1 + Tier 2: **85-95% faster** syncing after initial load
-- Original → Tier 1: 70-90% improvement
-- Tier 1 → Tier 2: Additional 85-90% improvement on incremental updates
-
-### Features
-- **Re-authentication Button**: Settings page includes a "Re-authenticate with Keychain" button for users who checked "Don't ask again" in Keychain prompts
-- **Text Messaging**: End-to-end encrypted text messages via memo transfers (0.001 HBD cost)
-- **Conversation Discovery**: Automatic detection of encrypted message partners from blockchain history
-- **Offline Support**: Messages cached in IndexedDB for instant access when offline
-
-### Future Features (Separate Project)
-- **Image Messaging via custom_json**: Temporarily disabled to restore memo-based text messaging stability. Will be reimplemented as separate project with proper message routing.
-
-### Critical Bug Fixes (November 2025)
-
-#### HAS Mobile Authentication - Deep Dive Stress Test
-Three critical bugs discovered and fixed through comprehensive code analysis:
-
-1. **CRITICAL: Wrong Return Value Bug**
-   - Issue: HAS library resolves with `req_ack` but mutates `auth` object separately
-   - Our code was returning `result` instead of mutated `auth` object
-   - Impact: Token/expire/key had wrong structure, localStorage corrupted
-   - Fix: Return explicitly constructed object from mutated auth fields
-   - Location: `client/src/lib/hasAuth.ts` line 114-119
-
-2. **CRITICAL: Parameter Position Error** (Original iOS error)
-   - Issue: Calling `HAS.authenticate(auth, appMeta, callback)` with 3 params
-   - JavaScript assigns callback to `challenge_data` param (expects object with key_type)
-   - Library validates `function.key_type` → "invalid challenge data key type" error
-   - Fix: Pass `null` explicitly as 3rd param: `HAS.authenticate(auth, appMeta, null, callback)`
-   - Location: `client/src/lib/hasAuth.ts` line 101
-
-3. **CRITICAL: Callback Error Handling**
-   - Issue: QR generation errors in callback could leave auth in limbo
-   - Impact: Promise never resolves, user stuck on loading screen
-   - Fix: Wrapped callback in try/catch, errors logged but don't break auth
-   - Location: `client/src/lib/hasAuth.ts` line 72-99
-
-4. **MEDIUM: localStorage Failures**
-   - Issue: Safari private mode / quota exceeded crashes app
-   - Fix: Added try/catch around all localStorage.setItem calls
-   - Location: `client/src/contexts/AuthContext.tsx` line 112-117, 153-158
-
-5. **MEDIUM: Generic Timeout Error**
-   - Issue: 60s timeout showed generic "HAS authentication failed"
-   - Fix: Specific error message for timeout scenario
-   - Location: `client/src/lib/hasAuth.ts` line 124-126
-
-**Testing Status:**
-- ✅ Code-level fixes verified through source analysis
-- ✅ Built-in 60s timeout confirmed in HAS library
-- ✅ Error handling paths validated
-- ⚠️ Requires manual testing on iOS device with Hive Keychain Mobile app
-
-### Known Considerations
-- **Bundle Size**: 1.4MB (acceptable for blockchain/crypto libraries)
-- **Console Logging**: Verbose but not harmful, useful for user debugging
-- **RPC Nodes**: Hardcoded public nodes with retry + rotation on failure
-- **Browser Support**: Chrome/Edge/Safari/Firefox (requires modern browser for crypto APIs)
-- **Mobile Auth**: HAS requires Hive Keychain Mobile or compatible wallet app
-- **HAS Timeout**: 60-second built-in timeout prevents infinite waiting
-- **New Conversations**: Show placeholder "Conversation with @username" until clicked (messages fetched on demand)
