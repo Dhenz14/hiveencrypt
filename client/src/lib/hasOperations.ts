@@ -59,13 +59,14 @@ export const hasEncryptMemo = async (
     // Use HAS.challenge() to request memo encryption from the mobile wallet
     // The wallet will use the user's private memo key to encrypt
     // 
-    // Challenge format for memo encryption:
-    // - key_type: "memo" (uses memo key for encryption)
-    // - challenge: JSON with { message, recipient_key }
+    // HAS challenge format for memo encryption (JSON-stringified object)
+    // Includes: message to encrypt, recipient username, and recipient's public memo key
     const encryptionRequest = {
-      message,
-      recipient: toUsername,
-      recipient_key: recipientMemoKey,
+      message,              // Plaintext message to encrypt
+      method: 'encode',     // Specify this is an encode/encrypt operation
+      receiver: toUsername, // Recipient username (matches Keychain's "receiver" param)
+      receiver_key: recipientMemoKey,  // Recipient's public memo key
+      username: fromUsername,  // Sender username for context
     };
     
     const challengeData = {
@@ -74,6 +75,12 @@ export const hasEncryptMemo = async (
     };
     
     console.log('[HAS ENCRYPT] Sending encryption challenge to mobile wallet...');
+    console.log('[HAS ENCRYPT] Challenge data:', {
+      method: 'encode',
+      from: fromUsername,
+      to: toUsername,
+      messageLength: message.length
+    });
     
     // @ts-expect-error - HAS library TypeScript definitions are incomplete (missing challenge method)
     const result = await HAS.challenge(hasAuth, challengeData);
@@ -257,28 +264,47 @@ export const hasDecryptMemo = async (
     console.log('[HAS DECRYPT] Sender:', senderUsername || 'unknown');
     console.log('[HAS DECRYPT] Encrypted memo preview:', encryptedMemo.substring(0, 50) + '...');
     
-    // Format challenge data as JSON object (consistent with encryption format)
-    // The mobile wallet expects structured data, not raw encrypted string
-    const decryptionRequest = {
-      message: encryptedMemo,
-      username: username,
-      sender: senderUsername || '',
-      method: 'decode', // Specify this is a decode operation
+    // HAS challenge format for memo decryption
+    // 
+    // TRY FORMAT 1: Simple memo string as challenge
+    // Similar to Keychain's requestVerifyKey(username, encryptedMemo, 'Memo')
+    let challengeData = {
+      key_type: 'memo',  // lowercase to match HAS standard
+      challenge: encryptedMemo,  // Raw encrypted memo string
     };
     
-    const challengeData = {
-      key_type: 'memo',
-      challenge: JSON.stringify(decryptionRequest),
-    };
-    
-    console.log('[HAS DECRYPT] Sending decryption challenge to mobile wallet...');
-    console.log('[HAS DECRYPT] Challenge data:', {
+    console.log('[HAS DECRYPT] Attempting decryption with FORMAT 1 (raw memo string)...');
+    console.log('[HAS DECRYPT] Challenge:', {
       key_type: challengeData.key_type,
-      challengePreview: decryptionRequest
+      challengeLength: encryptedMemo.length,
+      challengePreview: encryptedMemo.substring(0, 50) + '...'
     });
     
-    // @ts-expect-error - HAS library TypeScript definitions are incomplete (missing challenge method)
-    const result = await HAS.challenge(hasAuth, challengeData);
+    let result: any;
+    
+    try {
+      // @ts-expect-error - HAS library TypeScript definitions are incomplete (missing challenge method)
+      result = await HAS.challenge(hasAuth, challengeData);
+    } catch (error: any) {
+      console.warn('[HAS DECRYPT] FORMAT 1 failed, trying FORMAT 2 (JSON object)...', error.message);
+      
+      // TRY FORMAT 2: JSON-stringified object with memo and method
+      // Consistent with how HAS.challenge works for other operations
+      challengeData = {
+        key_type: 'memo',
+        challenge: JSON.stringify({
+          memo: encryptedMemo,
+          method: 'decode',
+          username: username,
+          sender: senderUsername || '',
+        }),
+      };
+      
+      console.log('[HAS DECRYPT] Attempting with FORMAT 2 (JSON object)...');
+      
+      // @ts-expect-error - HAS library TypeScript definitions are incomplete (missing challenge method)
+      result = await HAS.challenge(hasAuth, challengeData);
+    }
     
     console.log('[HAS DECRYPT] Challenge response received:', {
       success: !!result,
