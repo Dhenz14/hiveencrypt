@@ -38,7 +38,7 @@ export function MessageComposer({
   const [rcWarning, setRcWarning] = useState<{ level: 'critical' | 'low' | 'ok'; message: string } | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { user, hasAuth } = useAuth();
+  const { user } = useAuth();
   const { toast } = useToast();
 
   // Handle image selection
@@ -289,23 +289,21 @@ export function MessageComposer({
     }
 
     try {
-      // Step 1: Encrypt message using Hive Keychain or HAS
+      // Step 1: Encrypt message using Hive Keychain
       let encryptedMemo: string;
       try {
         // Use the recommended requestKeychainEncryption from encryption.ts
-        // This automatically detects HAS vs Keychain and uses the appropriate method
+        // Works on desktop Keychain extension AND Keychain Mobile browser
         encryptedMemo = await requestKeychainEncryption(
           messageText,
           user.username,
-          recipientUsername,
-          hasAuth // Pass HAS auth if available (for mobile users)
+          recipientUsername
         );
         
         console.log('[MessageComposer] ✅ Successfully encrypted memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
           length: encryptedMemo.length,
-          preview: encryptedMemo.substring(0, 30) + '...',
-          isHAS: !!hasAuth
+          preview: encryptedMemo.substring(0, 30) + '...'
         });
       } catch (encryptError: any) {
         console.error('[MessageComposer] ❌ Encryption error:', encryptError);
@@ -337,8 +335,7 @@ export function MessageComposer({
       try {
         console.log('[MessageComposer] Calling requestTransfer with memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
-          memoPreview: encryptedMemo.substring(0, 30) + '...',
-          isHAS: !!hasAuth
+          memoPreview: encryptedMemo.substring(0, 30) + '...'
         });
         
         const transfer = await requestTransfer(
@@ -346,8 +343,7 @@ export function MessageComposer({
           recipientUsername,
           '0.001',
           encryptedMemo,
-          'HBD',
-          hasAuth // Pass HAS auth if available (for mobile users)
+          'HBD'
         );
         
         console.log('[MessageComposer] Transfer response:', {

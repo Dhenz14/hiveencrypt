@@ -17,7 +17,7 @@ interface MessageBubbleProps {
 }
 
 export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: MessageBubbleProps) {
-  const { user, hasAuth } = useAuth();
+  const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [isDecrypting, setIsDecrypting] = useState(false);
@@ -39,21 +39,19 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
       recipient: message.recipient,
       encryptedMemoPreview: message.encryptedMemo?.substring(0, 40) + '...',
       encryptedMemoLength: message.encryptedMemo?.length,
-      currentUser: user.username,
-      isHAS: !!hasAuth
+      currentUser: user.username
     });
 
     setIsDecrypting(true);
     
     try {
-      console.log('[MessageBubble] Calling decryptMemo (will use', hasAuth ? 'HAS' : 'Keychain', ')...');
+      console.log('[MessageBubble] Calling decryptMemo with Keychain...');
 
       const decrypted = await decryptMemo(
         user.username, 
         message.encryptedMemo,
         message.sender,
-        message.id,  // txId for memo caching
-        hasAuth  // HAS auth if available (for mobile users)
+        message.id  // txId for memo caching
       );
       console.log('[MessageBubble] decryptMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
 

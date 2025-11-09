@@ -253,29 +253,23 @@ export const requestKeychainDecryption = async (
 };
 
 /**
- * Request memo encryption via Hive Keychain browser extension OR HAS mobile
+ * Request memo encryption via Hive Keychain browser extension
  * This is the RECOMMENDED approach for production as it never exposes private keys
  * 
- * AUTOMATIC DETECTION:
- * - Desktop with Keychain → Uses window.hive_keychain.requestEncodeMessage()
- * - Mobile with HAS → Uses client-side encryption (Memo.encode with public keys)
+ * Works on desktop Keychain extension AND Keychain Mobile browser (both use window.hive_keychain)
  * 
  * @param message - Plain text message to encrypt
  * @param username - Current user's Hive username
  * @param recipient - Recipient's Hive username
- * @param hasAuth - HAS authentication data (optional, for mobile users)
  * @returns Promise resolving to encrypted memo string
  */
 export const requestKeychainEncryption = async (
   message: string,
   username: string,
-  recipient: string,
-  hasAuth?: any
+  recipient: string
 ): Promise<string> => {
-  // CRITICAL FIX: Check for window.hive_keychain FIRST (works on desktop AND Keychain Mobile browser!)
-  // Only fallback to HAS if Keychain is not available
+  // Use Keychain for encryption (works on desktop AND Keychain Mobile browser!)
   if (typeof window !== 'undefined' && window.hive_keychain) {
-    // Keychain available - use it regardless of mobile/desktop
     console.log('[ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption');
     
     return new Promise((resolve, reject) => {
@@ -319,16 +313,9 @@ export const requestKeychainEncryption = async (
         }
       );
     });
-  } else if (hasAuth) {
-    // Keychain NOT available but user authenticated via HAS - use HAS challenge
-    console.log('[ENCRYPTION] Keychain not available, using HAS challenge for memo encryption');
-    
-    // Import HAS operations dynamically to avoid circular dependencies
-    const { hasEncryptMemo } = await import('@/lib/hasOperations');
-    return await hasEncryptMemo(hasAuth, message, username, recipient);
   } else {
-    // Neither Keychain nor HAS available
-    throw new Error('No encryption method available. Please install Hive Keychain or use HAS authentication.');
+    // Keychain not available
+    throw new Error('Hive Keychain is not available. Please install Hive Keychain extension or use Keychain Mobile browser.');
   }
 };
 
