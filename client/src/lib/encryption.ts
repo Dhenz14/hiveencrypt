@@ -272,63 +272,64 @@ export const requestKeychainEncryption = async (
   recipient: string,
   hasAuth?: any
 ): Promise<string> => {
-  // HAS mobile users: Use HAS.challenge() to encrypt memos securely
-  if (hasAuth) {
-    console.log('[ENCRYPTION] HAS user detected, using HAS challenge for memo encryption');
+  // CRITICAL FIX: Check for window.hive_keychain FIRST (works on desktop AND Keychain Mobile browser!)
+  // Only fallback to HAS if Keychain is not available
+  if (typeof window !== 'undefined' && window.hive_keychain) {
+    // Keychain available - use it regardless of mobile/desktop
+    console.log('[ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption');
+    
+    return new Promise((resolve, reject) => {
+      // Validate inputs
+      if (!message || message.trim().length === 0) {
+        reject(new Error('Message cannot be empty'));
+        return;
+      }
+
+      if (!username || !recipient) {
+        reject(new Error('Both username and recipient are required'));
+        return;
+      }
+
+      // IMPORTANT: Hive Keychain REQUIRES the message to start with '#' to trigger encryption
+      // This is documented in the official Keychain SDK:
+      // https://github.com/hive-keychain/keychain-sdk-playground
+      // We automatically add '#' prefix so users don't have to type it manually
+      const messageWithPrefix = message.startsWith('#') ? message : `#${message}`;
+
+      console.log('[ENCRYPTION] Auto-adding # prefix:', {
+        original: message,
+        withPrefix: messageWithPrefix,
+        userTypedHash: message.startsWith('#')
+      });
+
+      // Use requestEncodeMessage for single receiver encryption
+      window.hive_keychain.requestEncodeMessage(
+        username,
+        recipient,
+        messageWithPrefix,
+        'Memo',
+        (response: any) => {
+          if (response.success) {
+            console.log('[ENCRYPTION] ✅ Encryption successful');
+            resolve(response.result);
+          } else {
+            console.error('[ENCRYPTION] ❌ Encryption failed:', response);
+            reject(new Error(response.message || 'Keychain encryption failed'));
+          }
+        }
+      );
+    });
+  } else if (hasAuth) {
+    // Keychain NOT available but user authenticated via HAS - use HAS challenge
+    console.log('[ENCRYPTION] Keychain not available, using HAS challenge for memo encryption');
     
     // Import HAS operations dynamically to avoid circular dependencies
     const { hasEncryptMemo } = await import('@/lib/hasOperations');
     return await hasEncryptMemo(hasAuth, message, username, recipient);
+  } else {
+    // Neither Keychain nor HAS available
+    throw new Error('No encryption method available. Please install Hive Keychain or use HAS authentication.');
   }
-  
-  // Desktop Keychain users: Use Keychain extension
-  return new Promise((resolve, reject) => {
-    // Check if Keychain is installed
-    if (typeof window === 'undefined' || !window.hive_keychain) {
-      reject(new Error('Hive Keychain extension is not installed. Please install it from https://hive-keychain.com'));
-      return;
-    }
-
-    // Validate inputs
-    if (!message || message.trim().length === 0) {
-      reject(new Error('Message cannot be empty'));
-      return;
-    }
-
-    if (!username || !recipient) {
-      reject(new Error('Both username and recipient are required'));
-      return;
-    }
-
-    // IMPORTANT: Hive Keychain REQUIRES the message to start with '#' to trigger encryption
-    // This is documented in the official Keychain SDK:
-    // https://github.com/hive-keychain/keychain-sdk-playground
-    // We automatically add '#' prefix so users don't have to type it manually
-    const messageWithPrefix = message.startsWith('#') ? message : `#${message}`;
-
-    console.log('[ENCRYPTION] Auto-adding # prefix:', {
-      original: message,
-      withPrefix: messageWithPrefix,
-      userTypedHash: message.startsWith('#')
-    });
-
-    // Use requestEncodeMessage for single receiver encryption
-    window.hive_keychain.requestEncodeMessage(
-      username,
-      recipient,
-      messageWithPrefix,
-      'Memo',
-      (response: any) => {
-        if (response.success) {
-          console.log('[ENCRYPTION] ✅ Encryption successful');
-          resolve(response.result);
-        } else {
-          console.error('[ENCRYPTION] ❌ Encryption failed:', response);
-          reject(new Error(response.message || 'Keychain encryption failed'));
-        }
-      }
-    );
-  });
 };
 
 /**

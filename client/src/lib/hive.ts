@@ -291,24 +291,11 @@ export const requestDecodeMemo = async (
 
   let result: string;
 
-  // HAS mobile users: Use HAS.challenge for decryption
-  if (hasAuth) {
-    console.log('[requestDecodeMemo] HAS user detected, using HAS challenge for decryption');
-    
-    try {
-      const { hasDecryptMemo } = await import('@/lib/hasOperations');
-      result = await hasDecryptMemo(hasAuth, username, encryptedMemo, senderUsername);
-    } catch (error: any) {
-      console.error('[requestDecodeMemo] HAS decryption failed:', error.message);
-      throw error;
-    }
-  } else {
-    // Desktop Keychain users: Use Keychain extension
-    if (!window.hive_keychain) {
-      throw new Error('Hive Keychain extension not found. Please install it.');
-    }
-
-    console.log('[requestDecodeMemo] Requesting Memo key decryption from Hive Keychain...');
+  // CRITICAL FIX: Check for window.hive_keychain FIRST (works on desktop AND Keychain Mobile browser!)
+  // Only fallback to HAS if Keychain is not available
+  if (window.hive_keychain) {
+    // Keychain available - use it regardless of mobile/desktop
+    console.log('[requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption');
     
     result = await new Promise<string>((resolve, reject) => {
       window.hive_keychain.requestVerifyKey(
@@ -336,6 +323,20 @@ export const requestDecodeMemo = async (
         }
       );
     });
+  } else if (hasAuth) {
+    // Keychain NOT available but user authenticated via HAS - use HAS challenge
+    console.log('[requestDecodeMemo] Keychain not available, using HAS challenge for decryption');
+    
+    try {
+      const { hasDecryptMemo } = await import('@/lib/hasOperations');
+      result = await hasDecryptMemo(hasAuth, username, encryptedMemo, senderUsername);
+    } catch (error: any) {
+      console.error('[requestDecodeMemo] HAS decryption failed:', error.message);
+      throw error;
+    }
+  } else {
+    // Neither Keychain nor HAS available
+    throw new Error('No decryption method available. Please install Hive Keychain or use HAS authentication.');
   }
   
   console.log('[requestDecodeMemo] Decryption successful, result length:', result.length);
