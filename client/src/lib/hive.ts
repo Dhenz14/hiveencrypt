@@ -92,13 +92,37 @@ export const requestEncode = (
   });
 };
 
-export const requestTransfer = (
+export const requestTransfer = async (
   from: string,
   to: string,
   amount: string,
   memo: string,
-  currency: 'HIVE' | 'HBD' = 'HBD'
+  currency: 'HIVE' | 'HBD' = 'HBD',
+  hasAuth?: any
 ): Promise<KeychainResponse> => {
+  // HAS mobile users: Use HAS.broadcast for transfer
+  if (hasAuth) {
+    console.log('[TRANSFER] HAS user detected, using HAS broadcast');
+    
+    try {
+      const { hasBroadcastTransfer } = await import('@/lib/hasOperations');
+      const txId = await hasBroadcastTransfer(hasAuth, from, to, amount, memo, currency);
+      
+      return {
+        success: true,
+        result: txId,
+        message: 'Transfer successful via HAS'
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: error?.message || 'HAS transfer failed',
+        message: error?.message || 'HAS transfer failed'
+      };
+    }
+  }
+  
+  // Desktop Keychain users: Use Keychain extension
   return new Promise((resolve, reject) => {
     if (!isKeychainInstalled()) {
       reject({ success: false, error: 'Hive Keychain not installed' });
@@ -220,13 +244,14 @@ const isEncryptedMemo = (text: string): boolean => {
   return base58Regex.test(content);
 };
 
-// TIER 2 OPTIMIZATION: Added txId parameter for memo caching
+// TIER 2 OPTIMIZATION: Added txId parameter for memo caching + HAS support
 export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string,
   senderUsername?: string,
   txId?: string,
-  recursionDepth: number = 0
+  recursionDepth: number = 0,
+  hasAuth?: any
 ): Promise<string> => {
   // Prevent infinite recursion (max 2 decryption attempts for double-encrypted messages)
   if (recursionDepth > 1) {
@@ -246,15 +271,12 @@ export const requestDecodeMemo = async (
       const cachedMemo = await getCachedDecryptedMemo(txId, username);
       
       if (cachedMemo) {
+        console.log('[MEMO CACHE HIT] Using cached decryption for txId:', txId.substring(0, 20));
         return cachedMemo;
       }
     } catch (cacheError) {
       console.warn('[requestDecodeMemo] Failed to check memo cache:', cacheError);
     }
-  }
-
-  if (!window.hive_keychain) {
-    throw new Error('Hive Keychain extension not found. Please install it.');
   }
 
   console.log('[requestDecodeMemo] Starting decryption with Memo key (depth:', recursionDepth, ')');
@@ -263,14 +285,32 @@ export const requestDecodeMemo = async (
     messagePreview: encryptedMemo.substring(0, 40) + '...',
     sender: senderUsername,
     txId: txId?.substring(0, 20),
-    depth: recursionDepth
+    depth: recursionDepth,
+    isHAS: !!hasAuth
   });
 
-  // Decrypt using Memo key (Hive protocol standard for memo encryption)
-  try {
+  let result: string;
+
+  // HAS mobile users: Use HAS.challenge for decryption
+  if (hasAuth) {
+    console.log('[requestDecodeMemo] HAS user detected, using HAS challenge for decryption');
+    
+    try {
+      const { hasDecryptMemo } = await import('@/lib/hasOperations');
+      result = await hasDecryptMemo(hasAuth, username, encryptedMemo);
+    } catch (error: any) {
+      console.error('[requestDecodeMemo] HAS decryption failed:', error.message);
+      throw error;
+    }
+  } else {
+    // Desktop Keychain users: Use Keychain extension
+    if (!window.hive_keychain) {
+      throw new Error('Hive Keychain extension not found. Please install it.');
+    }
+
     console.log('[requestDecodeMemo] Requesting Memo key decryption from Hive Keychain...');
     
-    const result = await new Promise<string>((resolve, reject) => {
+    result = await new Promise<string>((resolve, reject) => {
       window.hive_keychain.requestVerifyKey(
         username,
         encryptedMemo,
@@ -296,40 +336,37 @@ export const requestDecodeMemo = async (
         }
       );
     });
-    
-    console.log('[requestDecodeMemo] Decryption successful, result length:', result.length);
-    
-    // Check for double-encryption: if result LOOKS like encrypted data, decrypt again
-    if (isEncryptedMemo(result) && recursionDepth < 1) {
-      console.log('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
-      
-      const secondDecryption = await requestDecodeMemo(username, result, senderUsername, txId, recursionDepth + 1);
-      console.log('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
-      return secondDecryption;
-    }
-    
-    // If still encrypted at max depth, that's an error
-    if (isEncryptedMemo(result) && recursionDepth >= 1) {
-      throw new Error('Message may be triple-encrypted or corrupted');
-    }
-    
-    // TIER 2: Cache the decrypted memo if we have a txId
-    if (txId && recursionDepth === 0) {
-      try {
-        const { cacheDecryptedMemo } = await import('@/lib/messageCache');
-        await cacheDecryptedMemo(txId, result, username);
-      } catch (cacheError) {
-        console.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
-      }
-    }
-    
-    console.log('[requestDecodeMemo] ✅ Decryption complete!');
-    return result;
-    
-  } catch (error: any) {
-    console.error('[requestDecodeMemo] Decryption failed:', error.message);
-    throw error;
   }
+  
+  console.log('[requestDecodeMemo] Decryption successful, result length:', result.length);
+  
+  // Check for double-encryption: if result LOOKS like encrypted data, decrypt again
+  if (isEncryptedMemo(result) && recursionDepth < 1) {
+    console.log('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
+    
+    const secondDecryption = await requestDecodeMemo(username, result, senderUsername, txId, recursionDepth + 1, hasAuth);
+    console.log('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
+    return secondDecryption;
+  }
+  
+  // If still encrypted at max depth, that's an error
+  if (isEncryptedMemo(result) && recursionDepth >= 1) {
+    throw new Error('Message may be triple-encrypted or corrupted');
+  }
+  
+  // TIER 2: Cache the decrypted memo if we have a txId
+  if (txId && recursionDepth === 0) {
+    try {
+      const { cacheDecryptedMemo } = await import('@/lib/messageCache');
+      await cacheDecryptedMemo(txId, result, username);
+      console.log('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
+    } catch (cacheError) {
+      console.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
+    }
+  }
+  
+  console.log('[requestDecodeMemo] ✅ Decryption complete!');
+  return result;
 };
 
 // TIER 2 OPTIMIZATION: Added support for incremental pagination
@@ -421,7 +458,8 @@ export const decryptMemo = async (
   username: string,
   encryptedMemo: string,
   otherParty?: string,
-  txId?: string  // TIER 2: Pass txId for memo caching
+  txId?: string,  // TIER 2: Pass txId for memo caching
+  hasAuth?: any  // HAS authentication data (for mobile users)
 ): Promise<string | null> => {
   console.log('[decryptMemo] ========== DECRYPT MEMO START ==========');
   console.log('[decryptMemo] Input params:', {
@@ -431,6 +469,7 @@ export const decryptMemo = async (
     memoLength: encryptedMemo.length,
     isEncrypted: isEncryptedMemo(encryptedMemo),
     txId: txId?.substring(0, 20),
+    isHAS: !!hasAuth,
     fullMemo: encryptedMemo
   });
 
@@ -440,8 +479,8 @@ export const decryptMemo = async (
       return encryptedMemo;
     }
 
-    console.log('[decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...');
-    const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty, txId);
+    console.log('[decryptMemo] Calling requestDecodeMemo (will use', hasAuth ? 'HAS' : 'Hive Keychain', ')...');
+    const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty, txId, 0, hasAuth);
     console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
@@ -484,9 +523,10 @@ interface DecryptionTask {
 export const decryptMemosInParallel = async (
   username: string,
   tasks: DecryptionTask[],
-  concurrency: number = 5
+  concurrency: number = 5,
+  hasAuth?: any  // HAS authentication data (for mobile users)
 ): Promise<Array<{ index: number; decrypted: string | null; error?: string }>> => {
-  console.log('[PARALLEL] Starting parallel decryption:', tasks.length, 'tasks, concurrency:', concurrency);
+  console.log('[PARALLEL] Starting parallel decryption:', tasks.length, 'tasks, concurrency:', concurrency, 'isHAS:', !!hasAuth);
   
   const results: Array<{ index: number; decrypted: string | null; error?: string }> = [];
   const executing: Promise<void>[] = [];
@@ -494,7 +534,7 @@ export const decryptMemosInParallel = async (
   for (const task of tasks) {
     const promise = (async () => {
       try {
-        const decrypted = await requestDecodeMemo(username, task.encryptedMemo, undefined, task.txId);
+        const decrypted = await requestDecodeMemo(username, task.encryptedMemo, undefined, task.txId, 0, hasAuth);
         results.push({ index: task.index, decrypted });
       } catch (error: any) {
         console.warn('[PARALLEL] Decryption failed for task', task.index, ':', error.message);

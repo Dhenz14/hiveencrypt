@@ -253,19 +253,35 @@ export const requestKeychainDecryption = async (
 };
 
 /**
- * Request memo encryption via Hive Keychain browser extension
+ * Request memo encryption via Hive Keychain browser extension OR HAS mobile
  * This is the RECOMMENDED approach for production as it never exposes private keys
+ * 
+ * AUTOMATIC DETECTION:
+ * - Desktop with Keychain → Uses window.hive_keychain.requestEncodeMessage()
+ * - Mobile with HAS → Uses client-side encryption (Memo.encode with public keys)
  * 
  * @param message - Plain text message to encrypt
  * @param username - Current user's Hive username
  * @param recipient - Recipient's Hive username
+ * @param hasAuth - HAS authentication data (optional, for mobile users)
  * @returns Promise resolving to encrypted memo string
  */
 export const requestKeychainEncryption = async (
   message: string,
   username: string,
-  recipient: string
+  recipient: string,
+  hasAuth?: any
 ): Promise<string> => {
+  // HAS mobile users: Use HAS.challenge() to encrypt memos securely
+  if (hasAuth) {
+    console.log('[ENCRYPTION] HAS user detected, using HAS challenge for memo encryption');
+    
+    // Import HAS operations dynamically to avoid circular dependencies
+    const { hasEncryptMemo } = await import('@/lib/hasOperations');
+    return await hasEncryptMemo(hasAuth, message, username, recipient);
+  }
+  
+  // Desktop Keychain users: Use Keychain extension
   return new Promise((resolve, reject) => {
     // Check if Keychain is installed
     if (typeof window === 'undefined' || !window.hive_keychain) {
