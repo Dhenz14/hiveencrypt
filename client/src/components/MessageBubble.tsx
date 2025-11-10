@@ -127,8 +127,9 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
   };
 
   const getBlockchainExplorerUrl = (txId: string) => {
-    // Use hiveblocks.com - most popular Hive blockchain explorer
-    return `https://hiveblocks.com/tx/${txId}`;
+    // Use hiveblockexplorer.com - confirmed working and reliable (maintained by @penguinpablo)
+    // Alternative explorers: hive.ausbit.dev (open source), hivexplorer.com
+    return `https://hiveblockexplorer.com/tx/${txId}`;
   };
 
   return (
