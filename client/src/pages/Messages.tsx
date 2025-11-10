@@ -32,6 +32,8 @@ import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBloc
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache } from '@/lib/messageCache';
+import { useMobileLayout } from '@/hooks/useMobileLayout';
+import { cn } from '@/lib/utils';
 
 const mapMessageCacheToMessage = (msg: MessageCache, conversationId: string): Message => ({
   id: msg.id,
@@ -61,6 +63,7 @@ export default function Messages() {
   const { theme, toggleTheme } = useTheme();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { isMobile, showChat, setShowChat } = useMobileLayout();
   
   const [selectedPartner, setSelectedPartner] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -158,6 +161,9 @@ export default function Messages() {
     if (existingConversation) {
       setSelectedPartner(username);
       setIsNewMessageOpen(false);
+      if (isMobile) {
+        setShowChat(true);
+      }
       toast({
         title: 'Conversation Found',
         description: `Switched to existing conversation with @${username}`,
@@ -184,6 +190,9 @@ export default function Messages() {
 
       setSelectedPartner(username);
       setIsNewMessageOpen(false);
+      if (isMobile) {
+        setShowChat(true);
+      }
 
       queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
 
@@ -278,7 +287,10 @@ export default function Messages() {
 
   return (
     <div className="h-screen flex overflow-hidden bg-background">
-      <div className="w-80 border-r flex flex-col bg-sidebar">
+      <div className={cn(
+        "w-full md:w-80 border-r flex flex-col bg-sidebar",
+        isMobile && showChat && "hidden"
+      )}>
         <div className="h-16 border-b px-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
             <Avatar className="w-9 h-9 flex-shrink-0">
@@ -322,6 +334,9 @@ export default function Messages() {
             const conversation = conversations.find(c => c.id === id);
             if (conversation) {
               setSelectedPartner(conversation.contactUsername);
+              if (isMobile) {
+                setShowChat(true);
+              }
             }
           }}
           onNewMessage={() => setIsNewMessageOpen(true)}
@@ -330,7 +345,10 @@ export default function Messages() {
         />
       </div>
 
-      <div className="flex-1 flex flex-col">
+      <div className={cn(
+        "flex-1 flex flex-col",
+        isMobile && !showChat && "hidden"
+      )}>
         {!selectedConversation ? (
           conversations.length === 0 ? (
             <EmptyState onNewMessage={() => setIsNewMessageOpen(true)} />
@@ -345,10 +363,11 @@ export default function Messages() {
               onViewProfile={handleViewProfile}
               onViewBlockchain={handleViewBlockchain}
               onDeleteLocalData={handleDeleteLocalData}
+              onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
 
-            <ScrollArea className="flex-1 p-4">
-              <div className="max-w-3xl mx-auto space-y-4">
+            <ScrollArea className="flex-1 p-4 pb-[env(safe-area-inset-bottom)]">
+              <div className="max-w-3xl mx-auto space-y-3">
                 <SystemMessage text="Encryption keys exchanged. Messages are end-to-end encrypted." />
                 
                 {isLoadingMessages ? (

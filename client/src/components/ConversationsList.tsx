@@ -59,7 +59,7 @@ export function ConversationsList({
             placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-9 h-10"
+            className="pl-9 h-11"
             data-testid="input-search-conversations"
           />
         </div>
@@ -92,13 +92,13 @@ export function ConversationsList({
                 key={conversation.id}
                 onClick={() => onSelectConversation(conversation.id)}
                 className={cn(
-                  'w-full px-4 py-3 flex items-start gap-3 hover-elevate transition-colors',
+                  'w-full px-4 py-4 flex items-start gap-4 hover-elevate transition-colors min-h-[64px]',
                   selectedConversationId === conversation.id && 'bg-accent/50'
                 )}
                 data-testid={`conversation-${conversation.contactUsername}`}
               >
                 <div className="relative flex-shrink-0">
-                  <Avatar className="w-10 h-10">
+                  <Avatar className="w-12 h-12">
                     <AvatarFallback className="bg-primary/10 text-primary font-medium text-body">
                       {getInitials(conversation.contactUsername)}
                     </AvatarFallback>

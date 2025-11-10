@@ -129,7 +129,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
   return (
     <div
         className={cn(
-          'flex items-end gap-2 max-w-[90%] md:max-w-[480px]',
+          'flex items-end gap-2 max-w-[85%] md:max-w-[480px]',
           isSent ? 'ml-auto flex-row-reverse' : 'mr-auto'
         )}
         data-testid={`message-${message.id}`}
@@ -153,7 +153,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
               onClick={handleDecrypt}
               disabled={isDecrypting}
               data-testid={`button-decrypt-${message.id}`}
-              className="w-full"
+              className="w-full min-h-11"
             >
               {isDecrypting ? (
                 <>

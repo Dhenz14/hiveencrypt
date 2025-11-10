@@ -1,4 +1,4 @@
-import { MoreVertical, Lock, User, Trash2 } from 'lucide-react';
+import { MoreVertical, Lock, User, Trash2, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -16,6 +16,7 @@ interface ChatHeaderProps {
   onViewProfile: () => void;
   onViewBlockchain?: () => void;
   onDeleteLocalData?: () => void;
+  onBackClick?: () => void;
 }
 
 export function ChatHeader({ 
@@ -24,7 +25,8 @@ export function ChatHeader({
   isOnline,
   onViewProfile,
   onViewBlockchain,
-  onDeleteLocalData
+  onDeleteLocalData,
+  onBackClick
 }: ChatHeaderProps) {
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
@@ -32,6 +34,17 @@ export function ChatHeader({
 
   return (
     <div className="h-16 border-b bg-background px-4 flex items-center justify-between gap-4">
+      {onBackClick && (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onBackClick}
+          className="md:hidden flex-shrink-0"
+          data-testid="button-back-to-conversations"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Button>
+      )}
       <div className="flex items-center gap-3 min-w-0">
         <Avatar className="w-10 h-10 flex-shrink-0">
           <AvatarFallback className="bg-primary/10 text-primary font-medium">

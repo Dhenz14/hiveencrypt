@@ -440,8 +440,9 @@ export function MessageComposer({
   }, [content]);
 
   return (
-    <div className="border-t bg-background p-4">
-      <form onSubmit={handleSubmit} className="space-y-3">
+    <div className="sticky bottom-0 border-t bg-background pb-[env(safe-area-inset-bottom)]">
+      <div className="p-4 space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-3">
         {/* Image Preview */}
         {imagePreview && (
           <div className="relative inline-block">
@@ -476,7 +477,7 @@ export function MessageComposer({
           </Alert>
         )}
 
-        <div className="flex items-end gap-3">
+        <div className="flex items-end gap-2">
           <div className="flex-1 relative">
             <Textarea
               ref={textareaRef}
@@ -535,7 +536,8 @@ export function MessageComposer({
           <Lock className="w-3 h-3" />
           <span>Messages are end-to-end encrypted</span>
         </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
