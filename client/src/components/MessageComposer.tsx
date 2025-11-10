@@ -14,6 +14,7 @@ import { broadcastImageMessage } from '@/lib/imageChunking';
 import { checkSufficientRC, estimateCustomJsonRC, formatRC, getRCWarningLevel } from '@/lib/rcEstimation';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { logger } from '@/lib/logger';
+import { triggerFastPolling } from '@/hooks/useBlockchainMessages';
 
 interface MessageComposerProps {
   onSend?: (content: string) => void;
@@ -204,6 +205,9 @@ export function MessageComposer({
       if (textareaRef.current) {
         textareaRef.current.style.height = 'auto';
       }
+
+      // Trigger fast polling for 15 seconds to show sent message instantly
+      triggerFastPolling();
 
       // Notify parent
       if (onMessageSent) {
@@ -406,6 +410,9 @@ export function MessageComposer({
         title: 'Message Sent',
         description: 'Your encrypted message has been sent on the blockchain',
       });
+
+      // Trigger fast polling for 15 seconds to show sent message instantly
+      triggerFastPolling();
 
       // Immediately refresh the UI to show the sent message
       if (onMessageSent) {

@@ -28,6 +28,8 @@ export function useBlockchainMessages({
 }: UseBlockchainMessagesOptions) {
   const { user } = useAuth();
   const [isActive, setIsActive] = useState(true);
+  const [lastSendTime, setLastSendTime] = useState<number>(0);
+  const [lastActivityTime, setLastActivityTime] = useState<number>(Date.now());
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -38,6 +40,28 @@ export function useBlockchainMessages({
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
+  }, []);
+
+  // Track user activity for adaptive polling
+  useEffect(() => {
+    const handleActivity = () => {
+      setLastActivityTime(Date.now());
+    };
+    
+    // Update activity time on mouse/keyboard events
+    window.addEventListener('mousemove', handleActivity);
+    window.addEventListener('keypress', handleActivity);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleActivity);
+      window.removeEventListener('keypress', handleActivity);
+    };
+  }, []);
+
+  // Register fast polling trigger for MessageComposer
+  useEffect(() => {
+    registerFastPollingTrigger(() => setLastSendTime(Date.now()));
+    return () => registerFastPollingTrigger(() => {});
   }, []);
 
   // TIER 1 OPTIMIZATION: Pre-populate React Query cache with cached messages for instant display
@@ -251,12 +275,27 @@ export function useBlockchainMessages({
     },
     enabled: enabled && !!user?.username && !!partnerUsername,
     refetchInterval: (data) => {
-      // TIER 1 OPTIMIZATION: Further reduced polling frequency for better performance
-      // Blockchain doesn't update instantly, so less aggressive polling is acceptable
-      if (!isActive) return 120000; // 2 minutes when tab is hidden (was 60s)
-      return 60000; // 1 minute when active (was 30s)
+      const now = Date.now();
+      const timeSinceLastSend = now - lastSendTime;
+      const timeSinceActivity = now - lastActivityTime;
+      
+      // Background tab: slow polling
+      if (!isActive) return 45000; // 45 seconds
+      
+      // Burst mode: Fast polling for 15 seconds after sending a message
+      if (timeSinceLastSend < 15000) {
+        return 3000; // 3 seconds for instant feedback
+      }
+      
+      // Active conversation: Recent activity (typing, viewing)
+      if (timeSinceActivity < 60000) {
+        return 5000; // 5 seconds - optimal balance
+      }
+      
+      // Idle conversation: No recent activity
+      return 15000; // 15 seconds - slower but still responsive
     },
-    staleTime: 30000, // TIER 1 OPTIMIZATION: 30s (was 10s) - cached data valid longer
+    staleTime: 12000, // 12 seconds - serves cached data, reduces redundant fetches
     gcTime: 300000, // TIER 1 OPTIMIZATION: 5 minutes (was default) - keep in memory longer
     refetchOnWindowFocus: 'always', // Still refetch on focus for freshness
   });
@@ -442,11 +481,26 @@ export function useConversationDiscovery() {
       return phase1Conversations;
     },
     enabled: !!user?.username,
-    // PERFORMANCE FIX: Reduced polling frequency (was 30s/60s, now 60s/120s)
-    // Conversation discovery doesn't need to be as frequent as message polling
-    refetchInterval: isActive ? 60000 : 120000, // 1 min active, 2 min background
+    refetchInterval: (data) => {
+      // Conversation list updates less frequently than messages
+      if (!isActive) return 90000; // 90 seconds when hidden
+      return 20000; // 20 seconds when active
+    },
     staleTime: 20000, // Increased from 10s to 20s
   });
 
   return query;
 }
+
+// Create a singleton ref to store the setLastSendTime function
+let triggerFastPollingCallback: (() => void) | null = null;
+
+export const registerFastPollingTrigger = (callback: () => void) => {
+  triggerFastPollingCallback = callback;
+};
+
+export const triggerFastPolling = () => {
+  if (triggerFastPollingCallback) {
+    triggerFastPollingCallback();
+  }
+};
