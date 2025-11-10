@@ -1,5 +1,56 @@
 # Hive Messenger - Decentralized Encrypted Blockchain Messaging PWA
 
+## Version History
+
+### v1.0.0 - HiveEncryptV1 (Stable Release)
+**Date:** November 10, 2025  
+**Status:** Production Ready ✅
+
+**Core Features:**
+- End-to-end encryption via Hive memo keys (ECDH + AES-256-CBC)
+- Hive Keychain authentication (desktop extension + mobile in-app browser)
+- Messages via memo transfers (0.001 HBD per message)
+- Mobile-first responsive design (single-view mobile, split-view desktop)
+- Adaptive blockchain polling (5s active, 15s idle, 45s background)
+- IndexedDB caching for instant loading and offline access
+- PWA installable with service worker
+- Blockchain verification links (hiveblockexplorer.com)
+- Platform detection with mobile browser redirect to Keychain Mobile
+- Touch-friendly UI (44px+ targets, safe-area padding)
+- Real-time messaging experience with zero server dependencies
+- 100% decentralized architecture (no backend, no database, no sessions)
+- Double-encryption detection and recovery
+- Selective conversation deletion
+- Dark mode support
+
+**Architecture Highlights:**
+- Zero centralization - all operations client-side
+- Direct Hive RPC node communication
+- Private keys never leave Keychain
+- Offline-first with IndexedDB caching
+- Cross-platform compatibility (desktop + mobile)
+
+**Performance:**
+- 40-80% fewer API calls vs. constant polling
+- Instant message loading from cache
+- Parallel decryption for message batches
+- RPC node health scoring for reliability
+
+This version serves as the stable baseline before implementing v2 features.
+
+---
+
+### v2.0.0 - Planned Features
+**Target:** TBD
+
+**Planned Enhancements:**
+- Minimum HBD filter (anti-spam economic barrier)
+- Recipient-set minimum transfer amounts
+- Pre-send validation and UX improvements
+- Account metadata integration for preferences
+
+---
+
 ## Overview
 Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure, ensuring instant user experience.
 
