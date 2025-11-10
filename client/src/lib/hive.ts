@@ -1,6 +1,7 @@
 import { Client, PrivateKey, PublicKey, Memo } from '@hiveio/dhive';
 import { KeychainSDK, KeychainKeyTypes } from 'keychain-sdk';
 import { hiveClient as optimizedHiveClient } from './hiveClient';
+import { logger } from '@/lib/logger';
 
 // Initialize Hive client with public node (for direct access)
 export const hiveClient = new Client([
@@ -132,7 +133,7 @@ export const getAccount = async (username: string) => {
     }
     return null;
   } catch (error) {
-    console.error('Error fetching account:', error);
+    logger.error('Error fetching account:', error);
     return null;
   }
 };
@@ -154,7 +155,7 @@ export const getAccountHistory = async (
     );
     return history;
   } catch (error) {
-    console.error('Error fetching account history:', error);
+    logger.error('Error fetching account history:', error);
     return [];
   }
 };
@@ -236,7 +237,7 @@ export const requestDecodeMemo = async (
 
   // Handle unencrypted memos (doesn't look like encrypted format)
   if (!isEncryptedMemo(encryptedMemo)) {
-    console.log('[requestDecodeMemo] Not encrypted (plaintext or short message)');
+    logger.info('[requestDecodeMemo] Not encrypted (plaintext or short message)');
     return encryptedMemo;
   }
 
@@ -247,16 +248,16 @@ export const requestDecodeMemo = async (
       const cachedMemo = await getCachedDecryptedMemo(txId, username);
       
       if (cachedMemo) {
-        console.log('[MEMO CACHE HIT] Using cached decryption for txId:', txId.substring(0, 20));
+        logger.info('[MEMO CACHE HIT] Using cached decryption for txId:', txId.substring(0, 20));
         return cachedMemo;
       }
     } catch (cacheError) {
-      console.warn('[requestDecodeMemo] Failed to check memo cache:', cacheError);
+      logger.warn('[requestDecodeMemo] Failed to check memo cache:', cacheError);
     }
   }
 
-  console.log('[requestDecodeMemo] Starting decryption with Memo key (depth:', recursionDepth, ')');
-  console.log('[requestDecodeMemo] Parameters:', {
+  logger.info('[requestDecodeMemo] Starting decryption with Memo key (depth:', recursionDepth, ')');
+  logger.sensitive('[requestDecodeMemo] Parameters:', {
     username,
     messagePreview: encryptedMemo.substring(0, 40) + '...',
     sender: senderUsername,
@@ -271,7 +272,7 @@ export const requestDecodeMemo = async (
 
   // Use Keychain for decryption (works on desktop AND Keychain Mobile browser!)
   if (window.hive_keychain) {
-    console.log('[requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption');
+    logger.info('[requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption');
     
     result = await new Promise<string>((resolve, reject) => {
       window.hive_keychain.requestVerifyKey(
@@ -279,7 +280,7 @@ export const requestDecodeMemo = async (
         encryptedMemo,
         'Memo',
         (response: any) => {
-          console.log('[requestDecodeMemo] Keychain response:', {
+          logger.sensitive('[requestDecodeMemo] Keychain response:', {
             success: response.success,
             hasResult: !!response.result,
             resultPreview: response.result ? response.result.substring(0, 50) + '...' : null,
@@ -304,14 +305,14 @@ export const requestDecodeMemo = async (
     throw new Error('Hive Keychain is not available. Please install Hive Keychain extension or use Keychain Mobile browser.');
   }
   
-  console.log('[requestDecodeMemo] Decryption successful, result length:', result.length);
+  logger.info('[requestDecodeMemo] Decryption successful, result length:', result.length);
   
   // Check for double-encryption: if result LOOKS like encrypted data, decrypt again
   if (isEncryptedMemo(result) && recursionDepth < 1) {
-    console.log('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
+    logger.info('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
     
     const secondDecryption = await requestDecodeMemo(username, result, senderUsername, txId, recursionDepth + 1);
-    console.log('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
+    logger.info('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
     return secondDecryption;
   }
   
@@ -325,13 +326,13 @@ export const requestDecodeMemo = async (
     try {
       const { cacheDecryptedMemo } = await import('@/lib/messageCache');
       await cacheDecryptedMemo(txId, result, username);
-      console.log('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
+      logger.info('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
     } catch (cacheError) {
-      console.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
+      logger.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
     }
   }
   
-  console.log('[requestDecodeMemo] ✅ Decryption complete!');
+  logger.info('[requestDecodeMemo] ✅ Decryption complete!');
   return result;
 };
 
@@ -380,12 +381,12 @@ export const getConversationMessages = async (
       }));
 
     if (lastSyncedOpId !== null && conversationMessages.length > 0) {
-      console.log('[INCREMENTAL] Found', conversationMessages.length, 'new messages (filtered > opId:', lastSyncedOpId, ')');
+      logger.info('[INCREMENTAL] Found', conversationMessages.length, 'new messages (filtered > opId:', lastSyncedOpId, ')');
     }
 
     return conversationMessages;
   } catch (error) {
-    console.error('Error fetching conversation messages:', error);
+    logger.error('Error fetching conversation messages:', error);
     return [];
   }
 };
@@ -415,7 +416,7 @@ export const discoverConversations = async (
       lastTimestamp,
     }));
   } catch (error) {
-    console.error('Error discovering conversations:', error);
+    logger.error('Error discovering conversations:', error);
     return [];
   }
 };
@@ -426,8 +427,8 @@ export const decryptMemo = async (
   otherParty?: string,
   txId?: string  // TIER 2: Pass txId for memo caching
 ): Promise<string | null> => {
-  console.log('[decryptMemo] ========== DECRYPT MEMO START ==========');
-  console.log('[decryptMemo] Input params:', {
+  logger.info('[decryptMemo] ========== DECRYPT MEMO START ==========');
+  logger.sensitive('[decryptMemo] Input params:', {
     username,
     otherParty,
     memoPreview: encryptedMemo.substring(0, 40) + '...',
@@ -439,24 +440,24 @@ export const decryptMemo = async (
 
   try {
     if (!isEncryptedMemo(encryptedMemo)) {
-      console.log('[decryptMemo] Memo not encrypted (plaintext), returning as-is');
+      logger.info('[decryptMemo] Memo not encrypted (plaintext), returning as-is');
       return encryptedMemo;
     }
 
-    console.log('[decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...');
+    logger.info('[decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...');
     const decrypted = await requestDecodeMemo(username, encryptedMemo, otherParty, txId, 0);
-    console.log('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
+    logger.sensitive('[decryptMemo] requestDecodeMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
     
     if (decrypted) {
-      console.log('[decryptMemo] Final result:', decrypted.substring(0, 50) + '...');
+      logger.sensitive('[decryptMemo] Final result:', decrypted.substring(0, 50) + '...');
       return decrypted;
     }
     
-    console.log('[decryptMemo] requestDecodeMemo returned null/empty');
+    logger.info('[decryptMemo] requestDecodeMemo returned null/empty');
     return null;
   } catch (error: any) {
-    console.error('[decryptMemo] ❌ ERROR:', error?.message || error);
-    console.error('[decryptMemo] Error for memo:', encryptedMemo.substring(0, 40) + '...', 'otherParty:', otherParty);
+    logger.error('[decryptMemo] ❌ ERROR:', error?.message || error);
+    logger.error('[decryptMemo] Error for memo:', encryptedMemo.substring(0, 40) + '...', 'otherParty:', otherParty);
     
     // Re-throw error so MessageBubble can show proper error toast
     throw error;
@@ -489,7 +490,7 @@ export const decryptMemosInParallel = async (
   tasks: DecryptionTask[],
   concurrency: number = 5
 ): Promise<Array<{ index: number; decrypted: string | null; error?: string }>> => {
-  console.log('[PARALLEL] Starting parallel decryption:', tasks.length, 'tasks, concurrency:', concurrency);
+  logger.info('[PARALLEL] Starting parallel decryption:', tasks.length, 'tasks, concurrency:', concurrency);
   
   const results: Array<{ index: number; decrypted: string | null; error?: string }> = [];
   const executing: Promise<void>[] = [];
@@ -500,7 +501,7 @@ export const decryptMemosInParallel = async (
         const decrypted = await requestDecodeMemo(username, task.encryptedMemo, undefined, task.txId, 0);
         results.push({ index: task.index, decrypted });
       } catch (error: any) {
-        console.warn('[PARALLEL] Decryption failed for task', task.index, ':', error.message);
+        logger.warn('[PARALLEL] Decryption failed for task', task.index, ':', error.message);
         results.push({ index: task.index, decrypted: null, error: error.message });
       }
     })();
@@ -520,7 +521,7 @@ export const decryptMemosInParallel = async (
   // Wait for remaining promises
   await Promise.all(executing);
   
-  console.log('[PARALLEL] Completed parallel decryption:', results.length, 'results');
+  logger.info('[PARALLEL] Completed parallel decryption:', results.length, 'results');
   
   // Sort by index to maintain order
   return results.sort((a, b) => a.index - b.index);
@@ -555,7 +556,7 @@ export async function getCustomJsonMessages(
   limit: number = 200
 ): Promise<CustomJsonOperation[]> {
   try {
-    console.log('[CUSTOM JSON] Fetching messages for conversation:', { username, partnerUsername, limit });
+    logger.info('[CUSTOM JSON] Fetching messages for conversation:', { username, partnerUsername, limit });
     
     // Use direct client for database.call (optimizedHiveClient doesn't expose this)
     // Fetch account history with operation filter
@@ -568,11 +569,11 @@ export async function getCustomJsonMessages(
     ]);
     
     if (!history || !Array.isArray(history)) {
-      console.warn('[CUSTOM JSON] No history returned');
+      logger.warn('[CUSTOM JSON] No history returned');
       return [];
     }
     
-    console.log('[CUSTOM JSON] Retrieved', history.length, 'operations from blockchain');
+    logger.info('[CUSTOM JSON] Retrieved', history.length, 'operations from blockchain');
     
     // Track chunks by session ID for reassembly
     const sessionChunks = new Map<string, Array<{
@@ -598,7 +599,7 @@ export async function getCustomJsonMessages(
       try {
         jsonData = typeof opData.json === 'string' ? JSON.parse(opData.json) : opData.json;
       } catch (parseError) {
-        console.warn('[CUSTOM JSON] Failed to parse JSON:', parseError);
+        logger.warn('[CUSTOM JSON] Failed to parse JSON:', parseError);
         continue;
       }
       
@@ -659,7 +660,7 @@ export async function getCustomJsonMessages(
       const hasAllChunks = chunks.every((c: ChunkType, i: number) => c.idx === i);
       
       if (!hasAllChunks) {
-        console.warn('[CUSTOM JSON] Incomplete chunks for session:', sessionId, 
+        logger.warn('[CUSTOM JSON] Incomplete chunks for session:', sessionId, 
           'expected:', expectedChunks, 'have indices:', chunks.map((c: ChunkType) => c.idx));
         return; // Skip this session
       }
@@ -679,18 +680,18 @@ export async function getCustomJsonMessages(
         chunks: chunks.length
       });
       
-      console.log('[CUSTOM JSON] Reassembled session:', sessionId, 
+      logger.info('[CUSTOM JSON] Reassembled session:', sessionId, 
         'chunks:', chunks.length, 
         'size:', fullPayload.length);
     });
     
     const allMessages = [...singleMessages, ...reassembledMessages];
-    console.log('[CUSTOM JSON] Retrieved', allMessages.length, 'total messages',
+    logger.info('[CUSTOM JSON] Retrieved', allMessages.length, 'total messages',
       '(', singleMessages.length, 'single,', reassembledMessages.length, 'reassembled)');
     
     return allMessages;
   } catch (error) {
-    console.error('[CUSTOM JSON] Failed to fetch messages:', error);
+    logger.error('[CUSTOM JSON] Failed to fetch messages:', error);
     return [];
   }
 }

@@ -8,6 +8,7 @@ import { updateMessageContent } from '@/lib/messageCache';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { logger } from '@/lib/logger';
 
 interface MessageBubbleProps {
   message: Message;
@@ -28,12 +29,12 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
 
   const handleDecrypt = async () => {
     if (!user || !message.encryptedMemo) {
-      console.error('[MessageBubble] Cannot decrypt: missing user or encryptedMemo');
+      logger.error('[MessageBubble] Cannot decrypt: missing user or encryptedMemo');
       return;
     }
 
-    console.log('[MessageBubble] ========== DECRYPT BUTTON CLICKED ==========');
-    console.log('[MessageBubble] Message details:', {
+    logger.sensitive('[MessageBubble] ========== DECRYPT BUTTON CLICKED ==========');
+    logger.sensitive('[MessageBubble] Message details:', {
       id: message.id,
       sender: message.sender,
       recipient: message.recipient,
@@ -45,7 +46,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
     setIsDecrypting(true);
     
     try {
-      console.log('[MessageBubble] Calling decryptMemo with Keychain...');
+      logger.info('[MessageBubble] Calling decryptMemo with Keychain...');
 
       const decrypted = await decryptMemo(
         user.username, 
@@ -53,24 +54,24 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
         message.sender,
         message.id  // txId for memo caching
       );
-      console.log('[MessageBubble] decryptMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
+      logger.sensitive('[MessageBubble] decryptMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
 
       if (decrypted) {
-        console.log('[DECRYPT] Updating cache with decrypted content, length:', decrypted.length);
+        logger.info('[DECRYPT] Updating cache with decrypted content, length:', decrypted.length);
         await updateMessageContent(message.id, decrypted, user.username);
-        console.log('[DECRYPT] Cache updated successfully');
+        logger.info('[DECRYPT] Cache updated successfully');
         
         // Get partner username from message
         const partnerUsername = message.sender === user.username ? message.recipient : message.sender;
         
-        console.log('[DECRYPT] Invalidating query for:', { username: user.username, partner: partnerUsername });
+        logger.info('[DECRYPT] Invalidating query for:', { username: user.username, partner: partnerUsername });
         
         // Invalidate with the complete query key including partnerUsername
         queryClient.invalidateQueries({ 
           queryKey: ['blockchain-messages', user.username, partnerUsername] 
         });
         
-        console.log('[DECRYPT] Query invalidated, UI should refresh');
+        logger.info('[DECRYPT] Query invalidated, UI should refresh');
 
         toast({
           title: 'Message Decrypted',
@@ -80,7 +81,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
         throw new Error('Decryption returned null');
       }
     } catch (error: any) {
-      console.error('Decryption error:', error);
+      logger.error('Decryption error:', error);
       
       let errorMessage = 'Failed to decrypt message';
       if (error?.message?.includes('cancel')) {

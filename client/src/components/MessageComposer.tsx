@@ -13,6 +13,7 @@ import { encryptImagePayload, type ImagePayload } from '@/lib/customJsonEncrypti
 import { broadcastImageMessage } from '@/lib/imageChunking';
 import { checkSufficientRC, estimateCustomJsonRC, formatRC, getRCWarningLevel } from '@/lib/rcEstimation';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { logger } from '@/lib/logger';
 
 interface MessageComposerProps {
   onSend?: (content: string) => void;
@@ -102,7 +103,7 @@ export function MessageComposer({
           setRcWarning(null);
         }
       } catch (error) {
-        console.warn('[RC] Could not estimate RC cost:', error);
+        logger.warn('[RC] Could not estimate RC cost:', error);
       }
     }
   };
@@ -140,7 +141,7 @@ export function MessageComposer({
         duration: 3000,
       });
       
-      console.log('[IMAGE] Processed with compression stats:', processedImage.compressionStats);
+      logger.info('[IMAGE] Processed with compression stats:', processedImage.compressionStats);
 
       // Step 2: Create payload
       const payload: ImagePayload = {
@@ -161,7 +162,7 @@ export function MessageComposer({
       });
 
       const { encrypted, hash } = await encryptImagePayload(payload, user.username);
-      console.log('[IMAGE] Encrypted size:', encrypted.length, 'hash:', hash.substring(0, 16));
+      logger.sensitive('[IMAGE] Encrypted size:', encrypted.length, 'hash:', hash.substring(0, 16));
 
       // Step 4: Broadcast to blockchain
       toast({
@@ -171,7 +172,7 @@ export function MessageComposer({
       });
 
       const txId = await broadcastImageMessage(user.username, encrypted, hash);
-      console.log('[IMAGE] Broadcast success, txId:', txId);
+      logger.info('[IMAGE] Broadcast success, txId:', txId);
 
       // Step 5: Cache locally with UNCOMPRESSED base64 for display
       const conversationKey = [user.username, recipientUsername].sort().join('-');
@@ -210,7 +211,7 @@ export function MessageComposer({
       }
 
     } catch (error: any) {
-      console.error('[IMAGE] Send failed:', error);
+      logger.error('[IMAGE] Send failed:', error);
       toast({
         title: 'Image Send Failed',
         description: error?.message || 'Could not send image. Please try again.',
@@ -285,7 +286,7 @@ export function MessageComposer({
         onSend(messageText);
       }
     } catch (optimisticError) {
-      console.error('Failed to add optimistic message:', optimisticError);
+      logger.error('Failed to add optimistic message:', optimisticError);
     }
 
     try {
@@ -300,13 +301,13 @@ export function MessageComposer({
           recipientUsername
         );
         
-        console.log('[MessageComposer] ✅ Successfully encrypted memo:', {
+        logger.sensitive('[MessageComposer] ✅ Successfully encrypted memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
           length: encryptedMemo.length,
           preview: encryptedMemo.substring(0, 30) + '...'
         });
       } catch (encryptError: any) {
-        console.error('[MessageComposer] ❌ Encryption error:', encryptError);
+        logger.error('[MessageComposer] ❌ Encryption error:', encryptError);
         
         const errorMessage = encryptError?.message || String(encryptError);
         
@@ -333,7 +334,7 @@ export function MessageComposer({
       // We are NOT sending any private keys - only the encrypted message
       let txId: string | undefined;
       try {
-        console.log('[MessageComposer] Calling requestTransfer with memo:', {
+        logger.sensitive('[MessageComposer] Calling requestTransfer with memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
           memoPreview: encryptedMemo.substring(0, 30) + '...'
         });
@@ -346,7 +347,7 @@ export function MessageComposer({
           'HBD'
         );
         
-        console.log('[MessageComposer] Transfer response:', {
+        logger.info('[MessageComposer] Transfer response:', {
           success: transfer.success,
           message: transfer.message,
           error: transfer.error
@@ -358,7 +359,7 @@ export function MessageComposer({
         
         txId = transfer.result;
       } catch (transferError: any) {
-        console.error('[MessageComposer] Transfer error caught:', transferError);
+        logger.error('[MessageComposer] Transfer error caught:', transferError);
         
         // Handle specific error cases
         if (transferError?.error?.includes('cancel') || transferError?.message?.includes('cancel')) {
@@ -395,7 +396,7 @@ export function MessageComposer({
       try {
         await confirmMessage(tempId, txId || '', encryptedMemo, user.username);
       } catch (confirmError: any) {
-        console.error('Failed to confirm message in IndexedDB:', confirmError);
+        logger.error('Failed to confirm message in IndexedDB:', confirmError);
         // Don't show error to user - message was sent successfully
         // The next sync will pick it up from the blockchain
       }
@@ -411,7 +412,7 @@ export function MessageComposer({
         onMessageSent();
       }
     } catch (error: any) {
-      console.error('Unexpected error:', error);
+      logger.error('Unexpected error:', error);
       toast({
         title: 'Error',
         description: error?.message || 'An unexpected error occurred',

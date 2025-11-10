@@ -3,6 +3,7 @@
 // Integrates with Hive Keychain for secure key management
 
 import { PrivateKey, Memo, PublicKey } from '@hiveio/dhive';
+import { logger } from '@/lib/logger';
 
 export interface EncryptionResult {
   encrypted: string;
@@ -211,7 +212,7 @@ export const requestKeychainDecryption = async (
         return cachedMemo;
       }
     } catch (cacheError) {
-      console.warn('[MEMO CACHE] Failed to check cache, proceeding with decryption:', cacheError);
+      logger.warn('[MEMO CACHE] Failed to check cache, proceeding with decryption:', cacheError);
     }
   }
 
@@ -239,7 +240,7 @@ export const requestKeychainDecryption = async (
               const { cacheDecryptedMemo } = await import('@/lib/messageCache');
               await cacheDecryptedMemo(txId, decryptedMemo, username);
             } catch (cacheError) {
-              console.warn('[MEMO CACHE] Failed to cache decrypted memo:', cacheError);
+              logger.warn('[MEMO CACHE] Failed to cache decrypted memo:', cacheError);
             }
           }
           
@@ -270,7 +271,7 @@ export const requestKeychainEncryption = async (
 ): Promise<string> => {
   // Use Keychain for encryption (works on desktop AND Keychain Mobile browser!)
   if (typeof window !== 'undefined' && window.hive_keychain) {
-    console.log('[ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption');
+    logger.info('[ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption');
     
     return new Promise((resolve, reject) => {
       // Validate inputs
@@ -290,7 +291,7 @@ export const requestKeychainEncryption = async (
       // We automatically add '#' prefix so users don't have to type it manually
       const messageWithPrefix = message.startsWith('#') ? message : `#${message}`;
 
-      console.log('[ENCRYPTION] Auto-adding # prefix:', {
+      logger.sensitive('[ENCRYPTION] Auto-adding # prefix:', {
         original: message,
         withPrefix: messageWithPrefix,
         userTypedHash: message.startsWith('#')
@@ -304,10 +305,10 @@ export const requestKeychainEncryption = async (
         'Memo',
         (response: any) => {
           if (response.success) {
-            console.log('[ENCRYPTION] ✅ Encryption successful');
+            logger.info('[ENCRYPTION] ✅ Encryption successful');
             resolve(response.result);
           } else {
-            console.error('[ENCRYPTION] ❌ Encryption failed:', response);
+            logger.error('[ENCRYPTION] ❌ Encryption failed:', response);
             reject(new Error(response.message || 'Keychain encryption failed'));
           }
         }

@@ -15,6 +15,7 @@ import {
 } from '@/lib/messageCache';
 import { queryClient } from '@/lib/queryClient';
 import { useEffect, useState } from 'react';
+import { logger } from '@/lib/logger';
 
 interface UseBlockchainMessagesOptions {
   partnerUsername: string;
@@ -45,7 +46,7 @@ export function useBlockchainMessages({
     if (user?.username && partnerUsername && enabled) {
       getMessagesByConversation(user.username, partnerUsername).then(cachedMessages => {
         if (cachedMessages.length > 0) {
-          console.log('[MESSAGES] Pre-populating cache with', cachedMessages.length, 'cached messages');
+          logger.info('[MESSAGES] Pre-populating cache with', cachedMessages.length, 'cached messages');
           const queryKey = ['blockchain-messages', user.username, partnerUsername];
           
           // Seed cache with cached data (shows instantly)
@@ -61,7 +62,7 @@ export function useBlockchainMessages({
   const query = useQuery({
     queryKey: ['blockchain-messages', user?.username, partnerUsername],
     queryFn: async () => {
-      console.log('[QUERY] Starting blockchain messages query for:', { username: user?.username, partner: partnerUsername });
+      logger.info('[QUERY] Starting blockchain messages query for:', { username: user?.username, partner: partnerUsername });
       
       if (!user?.username) {
         throw new Error('User not authenticated');
@@ -73,9 +74,9 @@ export function useBlockchainMessages({
         partnerUsername
       );
       
-      console.log('[QUERY] Retrieved cached messages:', cachedMessages.length);
+      logger.info('[QUERY] Retrieved cached messages:', cachedMessages.length);
       cachedMessages.forEach((msg, idx) => {
-        console.log(`[QUERY] Cached msg ${idx}:`, { 
+        logger.sensitive(`[QUERY] Cached msg ${idx}:`, { 
           id: msg.id.substring(0, 15) + '...', 
           from: msg.from, 
           contentPreview: msg.content.substring(0, 50) + '...',
@@ -92,13 +93,13 @@ export function useBlockchainMessages({
           
           // Case 0: content starts with # (encrypted memo format) - THIS IS THE MOST OBVIOUS CASE!
           if (msg.content && msg.content.startsWith('#')) {
-            console.log('[QUERY] Corrupted (case 0): content starts with # (encrypted memo), msg:', msg.id.substring(0, 20));
+            logger.info('[QUERY] Corrupted (case 0): content starts with # (encrypted memo), msg:', msg.id.substring(0, 20));
             isCorrupted = true;
           }
           
           // Case 1: content exactly matches encryptedContent (most obvious corruption)
           if (!isCorrupted && msg.content === msg.encryptedContent && msg.encryptedContent) {
-            console.log('[QUERY] Corrupted (case 1): content === encryptedContent, msg:', msg.id.substring(0, 20));
+            logger.info('[QUERY] Corrupted (case 1): content === encryptedContent, msg:', msg.id.substring(0, 20));
             isCorrupted = true;
           }
           
@@ -110,7 +111,7 @@ export function useBlockchainMessages({
             const looksLikeEncrypted = !hasSpaces && !hasCommonWords && msg.content.length > 80;
             
             if (looksLikeEncrypted && msg.encryptedContent && msg.encryptedContent.length > 80) {
-              console.log('[QUERY] Corrupted (case 2): content looks encrypted, msg:', msg.id.substring(0, 20));
+              logger.info('[QUERY] Corrupted (case 2): content looks encrypted, msg:', msg.id.substring(0, 20));
               isCorrupted = true;
             }
           }
@@ -118,14 +119,14 @@ export function useBlockchainMessages({
           // Case 3: content is encrypted placeholder but doesn't match our standard format
           if (!isCorrupted && msg.content && msg.content.includes('[Encrypted') && 
               msg.content !== '[🔒 Encrypted - Click to decrypt]') {
-            console.log('[QUERY] Corrupted (case 3): non-standard placeholder, msg:', msg.id.substring(0, 20));
+            logger.info('[QUERY] Corrupted (case 3): non-standard placeholder, msg:', msg.id.substring(0, 20));
             isCorrupted = true;
           }
           
           if (isCorrupted) {
-            console.log('[QUERY] FIXING corrupted message, setting placeholder');
+            logger.info('[QUERY] FIXING corrupted message, setting placeholder');
             msg.content = '[🔒 Encrypted - Click to decrypt]';
-            cacheMessage(msg, user.username).catch(err => console.error('[QUERY] Failed to fix message:', err));
+            cacheMessage(msg, user.username).catch(err => logger.error('[QUERY] Failed to fix message:', err));
           }
         }
         
@@ -141,7 +142,7 @@ export function useBlockchainMessages({
         // CRITICAL FIX: If no cached messages exist, ignore lastSyncedOpId to fetch ALL messages
         // This handles case where user cleared messages but metadata persisted
         if (cachedMessages.length === 0) {
-          console.log('[QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)');
+          logger.info('[QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)');
           lastSyncedOpId = null;
         }
         
@@ -206,7 +207,7 @@ export function useBlockchainMessages({
 
         // TIER 1 OPTIMIZATION: Single batched write instead of N individual writes
         if (newMessagesToCache.length > 0) {
-          console.log('[QUERY] Batching', newMessagesToCache.length, 'new messages for single IndexedDB write');
+          logger.info('[QUERY] Batching', newMessagesToCache.length, 'new messages for single IndexedDB write');
           await import('@/lib/messageCache').then(({ cacheMessages }) => 
             cacheMessages(newMessagesToCache, user.username)
           );
@@ -217,16 +218,16 @@ export function useBlockchainMessages({
           await setLastSyncedOpId(conversationKey, highestOpId, user.username);
         }
       } catch (blockchainError) {
-        console.error('Failed to fetch from blockchain, using cached data:', blockchainError);
+        logger.error('Failed to fetch from blockchain, using cached data:', blockchainError);
       }
 
       const allMessages = Array.from(mergedMessages.values()).sort(
         (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
       );
 
-      console.log('[QUERY] Returning messages, total count:', allMessages.length);
+      logger.info('[QUERY] Returning messages, total count:', allMessages.length);
       allMessages.forEach((msg, idx) => {
-        console.log(`[QUERY] Returning msg ${idx}:`, { 
+        logger.sensitive(`[QUERY] Returning msg ${idx}:`, { 
           id: msg.id.substring(0, 15) + '...', 
           from: msg.from, 
           contentPreview: msg.content.substring(0, 50) + '...',
@@ -284,7 +285,7 @@ export function useConversationDiscovery() {
     if (user?.username) {
       import('@/lib/messageCache').then(({ getConversations }) => {
         getConversations(user.username).then(cached => {
-          console.log('[CONV DISCOVERY] Loaded', cached.length, 'cached conversations immediately');
+          logger.info('[CONV DISCOVERY] Loaded', cached.length, 'cached conversations immediately');
           setCachedConversations(cached);
         });
       });
@@ -300,18 +301,18 @@ export function useConversationDiscovery() {
         throw new Error('User not authenticated');
       }
 
-      console.log('[CONV DISCOVERY] Starting progressive discovery for user:', user.username);
+      logger.info('[CONV DISCOVERY] Starting progressive discovery for user:', user.username);
       
       // TIER 3 OPTIMIZATION: Progressive Loading - Two-phase discovery
       // Phase 1: Quick scan of recent 50 operations (5-7 seconds)
       // Phase 2: Full scan of 200 operations in background (runs after returning Phase 1 results)
       
       // ========== PHASE 1: Quick Initial Scan (50 operations) ==========
-      console.log('[PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...');
+      logger.info('[PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...');
       const phase1Start = performance.now();
       
       const phase1Partners = await discoverConversations(user.username, 50);
-      console.log('[PROGRESSIVE] Phase 1 discovered', phase1Partners.length, 'partners in', 
+      logger.info('[PROGRESSIVE] Phase 1 discovered', phase1Partners.length, 'partners in', 
                   Math.round(performance.now() - phase1Start), 'ms');
 
       // Process Phase 1 partners
@@ -321,7 +322,7 @@ export function useConversationDiscovery() {
 
       const phase1Uncached = phase1Partners.filter((_, index) => !phase1Cached[index]);
       
-      console.log('[PROGRESSIVE] Phase 1 - Cached:', phase1Cached.filter(Boolean).length, 
+      logger.info('[PROGRESSIVE] Phase 1 - Cached:', phase1Cached.filter(Boolean).length, 
                   'Uncached:', phase1Uncached.length);
 
       // Create placeholders for Phase 1 uncached partners
@@ -347,19 +348,19 @@ export function useConversationDiscovery() {
         ...phase1NewConversations.filter(Boolean)
       ];
 
-      console.log('[PROGRESSIVE] Phase 1 complete:', phase1Conversations.length, 
+      logger.info('[PROGRESSIVE] Phase 1 complete:', phase1Conversations.length, 
                   'conversations ready to display');
 
       // ========== PHASE 2: Background Full Scan (200 operations) ==========
       // Launch Phase 2 in background - don't await, let it run async
       (async () => {
         try {
-          console.log('[PROGRESSIVE] Phase 2: Starting background scan of 200 operations...');
+          logger.info('[PROGRESSIVE] Phase 2: Starting background scan of 200 operations...');
           const phase2Start = performance.now();
           const queryKey = ['blockchain-conversations', user.username];
           
           const allPartners = await discoverConversations(user.username, 200);
-          console.log('[PROGRESSIVE] Phase 2 discovered', allPartners.length, 'total partners in',
+          logger.info('[PROGRESSIVE] Phase 2 discovered', allPartners.length, 'total partners in',
                       Math.round(performance.now() - phase2Start), 'ms');
 
           // Find NEW partners not in Phase 1
@@ -367,11 +368,11 @@ export function useConversationDiscovery() {
           const newPartners = allPartners.filter(p => !phase1Usernames.has(p.username));
           
           if (newPartners.length === 0) {
-            console.log('[PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1');
+            logger.info('[PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1');
             return;
           }
 
-          console.log('[PROGRESSIVE] Phase 2: Found', newPartners.length, 'additional partners');
+          logger.info('[PROGRESSIVE] Phase 2: Found', newPartners.length, 'additional partners');
 
           // Process new partners
           const newCached = await Promise.all(
@@ -401,14 +402,14 @@ export function useConversationDiscovery() {
             ...newConversationsData.filter(Boolean)
           ];
 
-          console.log('[PROGRESSIVE] Phase 2 complete: Found', phase2NewConversations.length, 
+          logger.info('[PROGRESSIVE] Phase 2 complete: Found', phase2NewConversations.length, 
                       'additional conversations');
 
           // RACE CONDITION FIX: Use functional setQueryData to merge with current cache
           // This prevents Phase 2 from overwriting newer refetch results
           queryClient.setQueryData(queryKey, (currentData: any) => {
             if (!currentData) {
-              console.warn('[PROGRESSIVE] Phase 2: Cache cleared, skipping update');
+              logger.warn('[PROGRESSIVE] Phase 2: Cache cleared, skipping update');
               return currentData;
             }
 
@@ -423,17 +424,17 @@ export function useConversationDiscovery() {
             );
 
             if (trulyNewConversations.length === 0) {
-              console.log('[PROGRESSIVE] Phase 2: All conversations already in cache');
+              logger.info('[PROGRESSIVE] Phase 2: All conversations already in cache');
               return currentData;
             }
 
-            console.log('[PROGRESSIVE] Phase 2: Adding', trulyNewConversations.length, 
+            logger.info('[PROGRESSIVE] Phase 2: Adding', trulyNewConversations.length, 
                         'new conversations to cache');
 
             return [...currentData, ...trulyNewConversations];
           });
         } catch (error) {
-          console.error('[PROGRESSIVE] Phase 2 error:', error);
+          logger.error('[PROGRESSIVE] Phase 2 error:', error);
         }
       })();
 
