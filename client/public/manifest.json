@@ -26,11 +26,5 @@
   "lang": "en-US",
   "dir": "ltr",
   "screenshots": [],
-  "shortcuts": [],
-  "protocol_handlers": [
-    {
-      "protocol": "web+has",
-      "url": "/login?has=%s"
-    }
-  ]
+  "shortcuts": []
 }
