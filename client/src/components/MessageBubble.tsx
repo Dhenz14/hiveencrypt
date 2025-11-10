@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, Check, CheckCheck, Clock, Unlock } from 'lucide-react';
+import { Lock, Check, CheckCheck, Clock, Unlock, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Message } from '@shared/schema';
 import { useAuth } from '@/contexts/AuthContext';
@@ -126,6 +126,11 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
     }
   };
 
+  const getBlockchainExplorerUrl = (txId: string) => {
+    // Use hiveblocks.com - most popular Hive blockchain explorer
+    return `https://hiveblocks.com/tx/${txId}`;
+  };
+
   return (
     <div
         className={cn(
@@ -199,6 +204,23 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             )}>
               {getStatusIcon()}
             </span>
+          )}
+          
+          {/* Blockchain verification link - only show for confirmed messages */}
+          {message.status === 'confirmed' && message.trxId && (
+            <a
+              href={getBlockchainExplorerUrl(message.trxId)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                'inline-flex items-center gap-1 opacity-70 hover-elevate transition-opacity',
+                isSent ? 'text-primary-foreground/70' : 'text-muted-foreground'
+              )}
+              title="View on Hive blockchain"
+              data-testid={`link-blockchain-${message.id}`}
+            >
+              <ExternalLink className="w-3 h-3" />
+            </a>
           )}
         </div>
       </div>
