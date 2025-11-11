@@ -31,9 +31,6 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const { toast } = useToast();
   const [isReauthenticating, setIsReauthenticating] = useState(false);
   
-  // Debug log to verify v2.0.0 is loaded
-  console.log('[SettingsModal] v2.0.0 with Message Filter loaded');
-  
   // Message Filter state
   const {
     currentMinimum,
