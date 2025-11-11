@@ -31,6 +31,27 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const { toast } = useToast();
   const [isReauthenticating, setIsReauthenticating] = useState(false);
   
+  // Auto-decrypt setting (localStorage-based, default: off)
+  const [autoDecrypt, setAutoDecrypt] = useState(() => {
+    if (!user?.username) return false;
+    const stored = localStorage.getItem(`hive_messenger_auto_decrypt_${user.username}`);
+    return stored === 'true';
+  });
+  
+  // Save auto-decrypt preference to localStorage
+  const handleAutoDecryptToggle = (checked: boolean) => {
+    if (!user?.username) return;
+    setAutoDecrypt(checked);
+    localStorage.setItem(`hive_messenger_auto_decrypt_${user.username}`, String(checked));
+    
+    toast({
+      title: checked ? 'Auto-decrypt Enabled' : 'Auto-decrypt Disabled',
+      description: checked 
+        ? 'New received messages will automatically decrypt' 
+        : 'Messages will show encrypted placeholders',
+    });
+  };
+  
   // Message Filter state
   const {
     currentMinimum,
@@ -198,12 +219,38 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-body font-medium">
                 <Filter className="w-4 h-4" />
-                <span>Message Filter</span>
+                <span>Messages</span>
               </div>
-              <div className="space-y-3 pl-6">
+              <div className="space-y-4 pl-6">
+                {/* Auto-Decrypt Toggle */}
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="auto-decrypt" className="text-body cursor-pointer">
+                      Auto-Decrypt Messages
+                    </Label>
+                    <p className="text-caption text-muted-foreground">
+                      Automatically decrypt received messages using Keychain
+                    </p>
+                  </div>
+                  <Switch
+                    id="auto-decrypt"
+                    checked={autoDecrypt}
+                    onCheckedChange={handleAutoDecryptToggle}
+                    data-testid="switch-auto-decrypt"
+                  />
+                </div>
+                <p className="text-caption text-muted-foreground flex items-start gap-2">
+                  <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <span>
+                    When enabled, new messages are decrypted immediately. When disabled, you must click each message to decrypt it manually.
+                  </span>
+                </p>
+                
+                <Separator />
+                {/* Minimum HBD Filter */}
                 <div className="space-y-2">
                   <Label htmlFor="min-hbd" className="text-body">
-                    Minimum HBD Required
+                    Minimum HBD Filter
                   </Label>
                   <p className="text-caption text-muted-foreground">
                     Set minimum HBD amount others must send to message you. Acts as an economic anti-spam filter.
@@ -310,9 +357,9 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                 <span>About</span>
               </div>
               <div className="space-y-2 pl-6 text-caption text-muted-foreground">
-                <p>Hive Messenger v2.0.0</p>
+                <p>Hive Messenger v2.1.0</p>
                 <p>
-                  Encrypted messaging with minimum HBD filter
+                  Encrypted messaging with exceptions list and auto-decrypt
                 </p>
                 <p className="pt-2">
                   <a 

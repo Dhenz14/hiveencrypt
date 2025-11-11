@@ -58,6 +58,18 @@ export function ConversationsList({
     return 'now';
   };
 
+  const truncatePreview = (text: string, maxLength: number = 50): string => {
+    if (!text) return '';
+    
+    const firstLine = text.split('\n')[0].trim();
+    
+    if (firstLine.length <= maxLength) {
+      return firstLine;
+    }
+    
+    return firstLine.substring(0, maxLength).trim() + '...';
+  };
+
   return (
     <div className="flex flex-col h-full">
       <div className="p-4 space-y-4 border-b">
@@ -147,7 +159,7 @@ export function ConversationsList({
                       )}
                     </div>
                     {conversation.lastMessageTime && (
-                      <span className="text-caption text-muted-foreground flex-shrink-0">
+                      <span className="text-[11px] text-muted-foreground/70 flex-shrink-0 font-normal">
                         {formatTimestamp(conversation.lastMessageTime)}
                       </span>
                     )}
@@ -158,14 +170,14 @@ export function ConversationsList({
                     )}
                     <p 
                       className={cn(
-                        'text-caption truncate flex-1 min-w-0',
+                        'text-caption flex-1 min-w-0',
                         conversation.unreadCount > 0 
                           ? 'text-foreground font-medium' 
                           : 'text-muted-foreground'
                       )}
                       title={conversation.lastMessage || 'No messages yet'}
                     >
-                      {conversation.lastMessage || 'No messages yet'}
+                      {truncatePreview(conversation.lastMessage || 'No messages yet')}
                     </p>
                   </div>
                 </div>

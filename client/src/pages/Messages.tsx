@@ -294,7 +294,7 @@ export default function Messages() {
   return (
     <div className="h-screen flex overflow-hidden bg-background">
       <div className={cn(
-        "w-full md:w-80 border-r flex flex-col bg-sidebar",
+        "w-full md:w-[400px] border-r flex flex-col bg-sidebar",
         isMobile && showChat && "hidden"
       )}>
         <div className="h-16 border-b px-4 flex items-center justify-between gap-3">
