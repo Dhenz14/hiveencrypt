@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { Settings, Moon, Sun } from 'lucide-react';
+import { Settings, Moon, Sun, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -80,10 +81,15 @@ export default function Messages() {
 
   const { data: conversationCaches = [], isLoading: isLoadingConversations, isFetching: isFetchingConversations } = useConversationDiscovery();
   
-  const { data: messageCaches = [], isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({
+  // PHASE 4.1: Hook now returns { messages, hiddenCount }
+  const { data: messageData, isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({
     partnerUsername: selectedPartner,
     enabled: !!selectedPartner,
   });
+  
+  // Extract messages and hiddenCount from new shape
+  const messageCaches = messageData?.messages || [];
+  const hiddenCount = messageData?.hiddenCount || 0;
 
   const conversations: Conversation[] = conversationCaches
     .filter((conv): conv is ConversationCache => conv !== null && conv !== undefined)
@@ -105,7 +111,7 @@ export default function Messages() {
     mapMessageCacheToMessage(msg, selectedConversationId || '')
   );
 
-  console.log('[MESSAGES PAGE] Text messages:', currentMessages.length);
+  console.log('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Hidden:', hiddenCount);
 
   // Fix corrupted cached messages on mount and clear base64-corrupted cache
   useEffect(() => {
@@ -365,6 +371,31 @@ export default function Messages() {
               onDeleteLocalData={handleDeleteLocalData}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
+
+            {/* PHASE 4.2: Hidden Message Banner */}
+            {hiddenCount > 0 && (
+              <div className="border-b bg-muted/50 px-4 py-2">
+                <Alert variant="default" className="border-0 bg-transparent p-0" data-testid="alert-hidden-messages">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <Info className="w-4 h-4 text-muted-foreground" />
+                      <AlertDescription className="text-caption text-muted-foreground">
+                        {hiddenCount} {hiddenCount === 1 ? 'message' : 'messages'} hidden by your filter
+                      </AlertDescription>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsSettingsOpen(true)}
+                      className="h-7 text-caption"
+                      data-testid="button-adjust-filter"
+                    >
+                      Adjust Filter
+                    </Button>
+                  </div>
+                </Alert>
+              </div>
+            )}
 
             <ScrollArea className="flex-1 p-4 pb-[env(safe-area-inset-bottom)]">
               <div className="max-w-3xl mx-auto space-y-3">

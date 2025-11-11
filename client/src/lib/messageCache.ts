@@ -11,6 +11,8 @@ interface MessageCache {
   txId: string;
   confirmed: boolean;
   isDecrypted?: boolean; // Flag to indicate manual decryption
+  amount?: string; // HBD transfer amount (e.g., "0.001 HBD")
+  hidden?: boolean; // Flag for messages filtered by minimum HBD threshold
 }
 
 interface ConversationCache {

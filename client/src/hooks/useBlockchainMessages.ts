@@ -16,6 +16,7 @@ import {
 import { queryClient } from '@/lib/queryClient';
 import { useEffect, useState } from 'react';
 import { logger } from '@/lib/logger';
+import { getAccountMetadata, parseMinimumHBD, DEFAULT_MINIMUM_HBD } from '@/lib/accountMetadata';
 
 interface UseBlockchainMessagesOptions {
   partnerUsername: string;
@@ -70,11 +71,18 @@ export function useBlockchainMessages({
     if (user?.username && partnerUsername && enabled) {
       getMessagesByConversation(user.username, partnerUsername).then(cachedMessages => {
         if (cachedMessages.length > 0) {
-          logger.info('[MESSAGES] Pre-populating cache with', cachedMessages.length, 'cached messages');
+          // PHASE 4.1: Filter out hidden messages for instant display
+          const visibleCached = cachedMessages.filter(msg => !msg.hidden);
+          const hiddenCachedCount = cachedMessages.length - visibleCached.length;
+          
+          logger.info('[MESSAGES] Pre-populating cache with', visibleCached.length, 'visible messages (', hiddenCachedCount, 'hidden)');
           const queryKey = ['blockchain-messages', user.username, partnerUsername];
           
-          // Seed cache with cached data (shows instantly)
-          queryClient.setQueryData(queryKey, cachedMessages);
+          // Seed cache with cached data (shows instantly) - new format with hiddenCount
+          queryClient.setQueryData(queryKey, {
+            messages: visibleCached,
+            hiddenCount: hiddenCachedCount,
+          });
           
           // OPTIMIZATION: Don't immediately invalidate - let staleTime/refetchInterval handle it
           // This prevents excessive refetches on tab switch / component remount
@@ -91,6 +99,28 @@ export function useBlockchainMessages({
       if (!user?.username) {
         throw new Error('User not authenticated');
       }
+
+      // PHASE 4.1: Load user's minimum HBD preference ONCE per query
+      let userMinimumHBD = DEFAULT_MINIMUM_HBD;
+      try {
+        const metadata = await getAccountMetadata(user.username);
+        userMinimumHBD = parseMinimumHBD(metadata);
+        logger.info('[FILTER] User minimum HBD:', userMinimumHBD);
+      } catch (error) {
+        logger.warn('[FILTER] Failed to load minimum HBD, using default:', DEFAULT_MINIMUM_HBD);
+      }
+
+      // Helper: Parse HBD amount string to number for comparison
+      const parseHBDAmount = (amountString: string): number => {
+        // Amount format: "0.001 HBD" or "1.000 HBD"
+        const parts = amountString.trim().split(' ');
+        if (parts.length === 2 && parts[1] === 'HBD') {
+          return parseFloat(parts[0]);
+        }
+        return 0;
+      };
+
+      const userMinimumAmount = parseHBDAmount(userMinimumHBD);
 
       // PERFORMANCE FIX: Load cached messages FIRST to display instantly
       const cachedMessages = await getMessagesByConversation(
@@ -196,6 +226,7 @@ export function useBlockchainMessages({
           if (msg.from === user.username) {
             // Sent messages CAN be decrypted using sender's memo key (ECDH encryption)
             // Store as encrypted placeholder initially, user can decrypt with Keychain
+            // PHASE 4.1: NEVER filter sent messages - user always sees their own messages
             const messageCache: MessageCache = {
               id: msg.trx_id,
               conversationKey,
@@ -206,12 +237,25 @@ export function useBlockchainMessages({
               timestamp: msg.timestamp,
               txId: msg.trx_id,
               confirmed: true,
+              amount: msg.amount, // Store HBD transfer amount
             };
 
             newMessagesToCache.push(messageCache);
             mergedMessages.set(msg.trx_id, messageCache);
           } else {
             // Received message - store with placeholder, will decrypt on demand
+            // PHASE 4.1: Filter received messages below user's minimum HBD threshold
+            const messageAmount = parseHBDAmount(msg.amount || '0.000 HBD');
+            const shouldHide = messageAmount < userMinimumAmount;
+            
+            if (shouldHide) {
+              logger.info('[FILTER] Hiding message below minimum:', {
+                txId: msg.trx_id.substring(0, 20),
+                amount: msg.amount,
+                minimum: userMinimumHBD
+              });
+            }
+            
             const messageCache: MessageCache = {
               id: msg.trx_id,
               conversationKey,
@@ -222,6 +266,8 @@ export function useBlockchainMessages({
               timestamp: msg.timestamp,
               txId: msg.trx_id,
               confirmed: true,
+              amount: msg.amount, // Store HBD transfer amount
+              hidden: shouldHide, // Mark as hidden if below minimum
             };
 
             newMessagesToCache.push(messageCache);
@@ -245,22 +291,60 @@ export function useBlockchainMessages({
         logger.error('Failed to fetch from blockchain, using cached data:', blockchainError);
       }
 
+      // PHASE 4 FIX: Re-evaluate ALL messages (cached + new) against current user minimum
+      // This ensures that when user changes their minimum threshold, cached messages are updated
+      logger.info('[PHASE4] Re-evaluating', mergedMessages.size, 'messages against current minimum:', userMinimumHBD);
+      let reEvaluatedCount = 0;
+      
+      mergedMessages.forEach((msg, id) => {
+        if (msg.from !== user.username) {
+          // RECEIVED message: Re-evaluate against current minimum
+          const msgAmount = parseHBDAmount(msg.amount || '0.000 HBD');
+          const isHidden = msgAmount < userMinimumAmount;
+          
+          // Only update if hidden state changed
+          if (msg.hidden !== isHidden) {
+            mergedMessages.set(id, { ...msg, hidden: isHidden });
+            reEvaluatedCount++;
+            logger.info('[PHASE4] Updated hidden flag:', {
+              txId: msg.id.substring(0, 20),
+              amount: msg.amount,
+              oldHidden: msg.hidden,
+              newHidden: isHidden
+            });
+          }
+        } else {
+          // SENT message: Always visible (never hide sent messages)
+          if (msg.hidden !== false) {
+            mergedMessages.set(id, { ...msg, hidden: false });
+            reEvaluatedCount++;
+          }
+        }
+      });
+      
+      logger.info('[PHASE4] Re-evaluated', reEvaluatedCount, 'messages with changed hidden state');
+
       const allMessages = Array.from(mergedMessages.values()).sort(
         (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
       );
 
-      logger.info('[QUERY] Returning messages, total count:', allMessages.length);
-      allMessages.forEach((msg, idx) => {
-        logger.sensitive(`[QUERY] Returning msg ${idx}:`, { 
+      // PHASE 4.1: Filter out hidden messages and track count
+      const visibleMessages = allMessages.filter(msg => !msg.hidden);
+      const hiddenCount = allMessages.length - visibleMessages.length;
+
+      logger.info('[QUERY] Total messages:', allMessages.length, 'Visible:', visibleMessages.length, 'Hidden:', hiddenCount);
+      visibleMessages.forEach((msg, idx) => {
+        logger.sensitive(`[QUERY] Visible msg ${idx}:`, { 
           id: msg.id.substring(0, 15) + '...', 
           from: msg.from, 
           contentPreview: msg.content.substring(0, 50) + '...',
-          contentLength: msg.content.length 
+          contentLength: msg.content.length,
+          amount: msg.amount 
         });
       });
 
-      if (allMessages.length > 0) {
-        const lastMessage = allMessages[allMessages.length - 1];
+      if (visibleMessages.length > 0) {
+        const lastMessage = visibleMessages[visibleMessages.length - 1];
         await updateConversation({
           conversationKey: getConversationKey(user.username, partnerUsername),
           partnerUsername,
@@ -271,7 +355,11 @@ export function useBlockchainMessages({
         }, user.username);
       }
 
-      return allMessages;
+      // PHASE 4.1: Return object with filtered messages and hidden count
+      return {
+        messages: visibleMessages,
+        hiddenCount,
+      };
     },
     enabled: enabled && !!user?.username && !!partnerUsername,
     refetchInterval: (data) => {
