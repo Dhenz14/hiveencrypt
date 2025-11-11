@@ -40,14 +40,94 @@ This version serves as the stable baseline before implementing v2 features.
 
 ---
 
-### v2.0.0 - Planned Features
-**Target:** TBD
+### v2.0.0 - Minimum HBD Filter (Stable Release)
+**Date:** November 11, 2025  
+**Status:** Production Ready ✅
 
-**Planned Enhancements:**
-- Minimum HBD filter (anti-spam economic barrier)
-- Recipient-set minimum transfer amounts
-- Pre-send validation and UX improvements
-- Account metadata integration for preferences
+**New Features:**
+- **Configurable Minimum HBD Requirements**: Users can set their own minimum HBD amount (0.001 to 1,000,000) required for incoming messages
+- **Economic Anti-Spam Mechanism**: Recipient-controlled transfer minimums create economic barrier against unwanted messages
+- **Sender Pre-Validation**: Message composer displays recipient's minimum requirement and validates send amounts before blockchain broadcast
+- **Intelligent Inbox Filtering**: Received messages below user's minimum are automatically filtered client-side (cached but hidden from display)
+- **Dynamic Re-Evaluation**: Cached messages are re-evaluated when user changes their minimum threshold
+- **User-Friendly UX**: Hidden message count banner, empty state for fully filtered conversations, and one-click settings access
+- **Accessibility Improvements**: ARIA labels, live regions, and screen reader support for filter features
+
+**Architecture Implementation:**
+
+**Phase 1 - Metadata Plumbing:**
+- `accountMetadata.ts` library for Hive account metadata operations
+- `getAccountMetadata()` - Fetches custom_json account data with TTL caching
+- `updateMinimumHBD()` - Writes min_hbd preference via Keychain broadcast
+- `parseMinimumHBD()` - Extracts minimum with fallback to 0.001 HBD default
+- Integration with Hive blockchain custom_json operations
+
+**Phase 2 - Settings UI:**
+- `useMinimumHBD` hook for state management and persistence
+- Message Filter section in SettingsModal with:
+  - Numeric input validation (0.001 to 1,000,000 HBD)
+  - Save and Reset functionality
+  - Economic anti-spam explanation with icon
+  - Toast notifications for success/error states
+
+**Phase 3 - Sender Validation:**
+- `useRecipientMinimum` hook to fetch recipient's minimum requirement
+- MessageComposer integration showing recipient's minimum
+- Customizable send amount input (default to recipient minimum if > 0.001)
+- Comprehensive validation guards:
+  - `hasVerifiedMinimum` flag prevents sends during metadata loading
+  - Network error handling with user-friendly messages
+  - Amount comparison validation before blockchain broadcast
+
+**Phase 4 - Inbox Filtering:**
+- Extended MessageCache interface with `amount` and `hidden` fields
+- Modified `useBlockchainMessages` hook with filtering logic:
+  - Filters RECEIVED messages where amount < user's minimum
+  - NEVER filters SENT messages (user always sees own messages)
+  - Caches ALL messages (preserves incremental sync)
+  - Re-evaluation loop updates hidden flags on every query
+- Return value changed to `{ messages, hiddenCount }` for UI awareness
+- Hidden message banner with:
+  - Accurate count display with proper pluralization
+  - "Adjust Filter" button linking to Settings
+  - Subtle, non-alarming styling (bg-muted, Info icon)
+  - ARIA live region for screen reader announcements
+- Empty state for fully filtered conversations:
+  - Detects when `hiddenCount > 0 && messages.length === 0`
+  - Filter icon with clear explanation
+  - "Adjust Filter Settings" button
+  - Preserves normal empty state for new chats
+- Accessibility enhancements:
+  - aria-labels on all interactive elements
+  - aria-live="polite" for dynamic content
+  - aria-describedby linking for context
+
+**Technical Highlights:**
+- Zero server-side changes (100% client-side implementation)
+- Metadata cached with TTL to minimize RPC calls
+- Re-evaluation preserves cache efficiency
+- Graceful degradation when metadata unavailable
+- No breaking changes to core messaging functionality
+
+**Performance:**
+- Metadata caching reduces redundant blockchain queries
+- Re-evaluation loop only updates changed messages
+- Parallel decryption maintained for message batches
+- IndexedDB caching preserves instant loading experience
+
+**Security:**
+- Metadata operations use Keychain signing (no private key exposure)
+- Client-side filtering prevents malicious server manipulation
+- Amount validation prevents accidental under-minimum sends
+- Fail-safe defaults protect against metadata query failures
+
+**Manual Testing Prerequisites:**
+- Hive Keychain extension (desktop) or Keychain Mobile app required
+- Existing Hive account with message history recommended
+- Multiple conversations with varying HBD amounts for comprehensive testing
+- Automated E2E testing blocked by Keychain authentication requirement
+
+This version builds on v1.0.0 with backward compatibility, adding economic spam protection while maintaining the decentralized, privacy-first architecture.
 
 ---
 
