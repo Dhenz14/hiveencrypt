@@ -21,6 +21,7 @@ export interface UseRecipientMinimumResult {
   recipientMinimum: string;
   isLoading: boolean;
   isError: boolean;
+  hasVerifiedMinimum: boolean; // True if minimum was successfully fetched (not failed/errored)
   error: Error | null;
   refetch: () => void;
 }
@@ -47,6 +48,7 @@ export function useRecipientMinimum(
     isError,
     error,
     refetch,
+    isSuccess,
   } = useQuery({
     queryKey: ['recipientMinimum', recipientUsername],
     queryFn: async () => {
@@ -64,10 +66,15 @@ export function useRecipientMinimum(
   // Parse recipient's minimum (with fallback to default)
   const recipientMinimum = parseMinimumHBD(metadata) || DEFAULT_MINIMUM_HBD;
   
+  // hasVerifiedMinimum: True only if query succeeded (not loading, not errored)
+  // Distinguishes between "default because unset" vs "default because fetch failed"
+  const hasVerifiedMinimum = isSuccess && !isError && !isLoading;
+  
   return {
     recipientMinimum,
     isLoading,
     isError,
+    hasVerifiedMinimum,
     error: error as Error | null,
     refetch,
   };

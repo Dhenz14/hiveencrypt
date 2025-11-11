@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip, Smile, X, Image as ImageIcon } from 'lucide-react';
+import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
@@ -15,6 +16,8 @@ import { checkSufficientRC, estimateCustomJsonRC, formatRC, getRCWarningLevel } 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { logger } from '@/lib/logger';
 import { triggerFastPolling } from '@/hooks/useBlockchainMessages';
+import { useRecipientMinimum } from '@/hooks/useRecipientMinimum';
+import { DEFAULT_MINIMUM_HBD } from '@/lib/accountMetadata';
 
 interface MessageComposerProps {
   onSend?: (content: string) => void;
@@ -42,6 +45,24 @@ export function MessageComposer({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
   const { toast } = useToast();
+  
+  // v2.0.0: Fetch recipient's minimum HBD requirement
+  const { 
+    recipientMinimum, 
+    isLoading: isLoadingMinimum,
+    hasVerifiedMinimum,
+    isError: isErrorMinimum,
+  } = useRecipientMinimum(recipientUsername);
+  
+  // v2.0.0: Send amount state (initialize with safe default to avoid NaN)
+  const [sendAmount, setSendAmount] = useState(DEFAULT_MINIMUM_HBD);
+  
+  // Update send amount when recipient minimum changes (after loading)
+  useEffect(() => {
+    if (!isLoadingMinimum && recipientMinimum) {
+      setSendAmount(recipientMinimum);
+    }
+  }, [recipientMinimum, isLoadingMinimum]);
 
   // Handle image selection
   const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -265,6 +286,64 @@ export function MessageComposer({
     
     setIsSending(true);
 
+    // v2.0.0: Step 1: Block sends until recipient minimum is verified (prevent race condition + network bypass)
+    if (isLoadingMinimum) {
+      toast({
+        title: 'Loading Recipient Preferences',
+        description: 'Please wait while we check the recipient\'s minimum requirement...',
+      });
+      setIsSending(false);
+      return;
+    }
+    
+    if (!hasVerifiedMinimum) {
+      toast({
+        title: 'Cannot Verify Minimum',
+        description: 'Failed to fetch recipient\'s minimum requirement. Please check your connection and try again.',
+        variant: 'destructive',
+      });
+      setIsSending(false);
+      return;
+    }
+    
+    // v2.0.0: Step 2: Validate send amount BEFORE encryption (prevent wasted Keychain prompts)
+    // Guard against undefined recipientMinimum (error or disabled query)
+    const effectiveRecipientMinimum = recipientMinimum || DEFAULT_MINIMUM_HBD;
+    const numericSendAmount = parseFloat(sendAmount);
+    const numericMinimum = parseFloat(effectiveRecipientMinimum);
+    
+    if (isNaN(numericSendAmount) || numericSendAmount < 0.001) {
+      toast({
+        title: 'Invalid Amount',
+        description: 'Send amount must be at least 0.001 HBD',
+        variant: 'destructive',
+      });
+      setIsSending(false);
+      return;
+    }
+    
+    if (isNaN(numericMinimum)) {
+      // Should never happen due to DEFAULT fallback, but guard anyway
+      logger.error('[MessageComposer] Invalid recipient minimum:', recipientMinimum);
+      toast({
+        title: 'Validation Error',
+        description: 'Could not determine recipient minimum. Please try again.',
+        variant: 'destructive',
+      });
+      setIsSending(false);
+      return;
+    }
+    
+    if (numericSendAmount < numericMinimum) {
+      toast({
+        title: 'Amount Below Minimum',
+        description: `@${recipientUsername} requires at least ${effectiveRecipientMinimum} HBD. Your amount: ${sendAmount} HBD`,
+        variant: 'destructive',
+      });
+      setIsSending(false);
+      return;
+    }
+
     // Optimistic Update: Add message to IndexedDB immediately
     // Note: We store the plaintext for sent messages since we can decrypt them later
     try {
@@ -294,7 +373,7 @@ export function MessageComposer({
     }
 
     try {
-      // Step 1: Encrypt message using Hive Keychain
+      // Step 2: Encrypt message using Hive Keychain
       let encryptedMemo: string;
       try {
         // Use the recommended requestKeychainEncryption from encryption.ts
@@ -332,7 +411,7 @@ export function MessageComposer({
         return;
       }
 
-      // Step 2: Create 0.001 HBD transfer with encrypted memo
+      // Step 3: Create HBD transfer with encrypted memo
       // NOTE: Keychain may show "private key" warning - this is a FALSE POSITIVE
       // The memo contains encrypted data which triggers Keychain's pattern detection
       // We are NOT sending any private keys - only the encrypted message
@@ -346,7 +425,7 @@ export function MessageComposer({
         const transfer = await requestTransfer(
           user.username,
           recipientUsername,
-          '0.001',
+          sendAmount, // v2.0.0: Use custom amount instead of hardcoded 0.001
           encryptedMemo,
           'HBD'
         );
@@ -484,6 +563,63 @@ export function MessageComposer({
           </Alert>
         )}
 
+        {/* v2.0.0: Send Amount Input & Recipient Minimum */}
+        {recipientUsername && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-muted-foreground" />
+              <span className="text-caption text-muted-foreground">
+                Send Amount:
+              </span>
+              <Input
+                type="number"
+                step="0.001"
+                min="0.001"
+                max="1000000.000"
+                value={sendAmount}
+                onChange={(e) => setSendAmount(e.target.value)}
+                disabled={disabled || isSending || isLoadingMinimum}
+                className="max-w-32 h-8 text-sm"
+                data-testid="input-send-amount"
+              />
+              <span className="text-caption text-muted-foreground">HBD</span>
+            </div>
+            
+            {/* Show recipient minimum info - guard against undefined */}
+            {!isLoadingMinimum && recipientMinimum && parseFloat(sendAmount) < parseFloat(recipientMinimum) && (
+              <Alert variant="destructive" data-testid="alert-amount-warning">
+                <Info className="w-4 h-4" />
+                <AlertDescription>
+                  @{recipientUsername} requires minimum {recipientMinimum} HBD per message
+                </AlertDescription>
+              </Alert>
+            )}
+            
+            {!isLoadingMinimum && recipientMinimum && recipientMinimum !== DEFAULT_MINIMUM_HBD && parseFloat(sendAmount) >= parseFloat(recipientMinimum) && (
+              <div className="flex items-center gap-2 text-caption text-muted-foreground">
+                <Info className="w-3 h-3" />
+                <span>@{recipientUsername}'s minimum: {recipientMinimum} HBD</span>
+              </div>
+            )}
+            
+            {isLoadingMinimum && (
+              <div className="flex items-center gap-2 text-caption text-muted-foreground">
+                <Info className="w-3 h-3" />
+                <span>Checking recipient's minimum...</span>
+              </div>
+            )}
+            
+            {isErrorMinimum && !isLoadingMinimum && (
+              <Alert variant="destructive" data-testid="alert-minimum-error">
+                <Info className="w-4 h-4" />
+                <AlertDescription>
+                  Could not verify recipient's minimum requirement. Sending disabled.
+                </AlertDescription>
+              </Alert>
+            )}
+          </div>
+        )}
+
         <div className="flex items-end gap-2">
           <div className="flex-1 relative">
             <Textarea
@@ -533,7 +669,7 @@ export function MessageComposer({
             type="submit"
             size="icon"
             className="h-11 w-11 flex-shrink-0"
-            disabled={(!content.trim() && !selectedImage) || disabled || isSending}
+            disabled={(!content.trim() && !selectedImage) || disabled || isSending || isLoadingMinimum || !hasVerifiedMinimum}
             data-testid="button-send"
           >
             <Send className="w-5 h-5" />
