@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { LogOut, Moon, Sun, User, Shield, Bell, Info } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -12,10 +12,13 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Input } from '@/components/ui/input';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { requestHandshake } from '@/lib/hive';
 import { useToast } from '@/hooks/use-toast';
+import { useMinimumHBD } from '@/hooks/useMinimumHBD';
+import { formatHBDAmount, MIN_MINIMUM_HBD, MAX_MINIMUM_HBD } from '@/lib/accountMetadata';
 
 interface SettingsModalProps {
   open: boolean;
@@ -27,6 +30,22 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const { user, logout } = useAuth();
   const { toast } = useToast();
   const [isReauthenticating, setIsReauthenticating] = useState(false);
+  
+  // Message Filter state
+  const {
+    currentMinimum,
+    isLoading: isLoadingMinimum,
+    updateMinimum,
+    isUpdating,
+    resetToDefault,
+  } = useMinimumHBD();
+  
+  const [minHBDInput, setMinHBDInput] = useState(currentMinimum);
+  
+  // Update input when current minimum changes
+  useEffect(() => {
+    setMinHBDInput(currentMinimum);
+  }, [currentMinimum]);
 
   const handleLogout = () => {
     logout();
@@ -170,6 +189,91 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                     Click this if Keychain stopped prompting for verification due to "Don't ask again" setting
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Message Filter Section - v2.0.0 Feature */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-body font-medium">
+                <Filter className="w-4 h-4" />
+                <span>Message Filter</span>
+              </div>
+              <div className="space-y-3 pl-6">
+                <div className="space-y-2">
+                  <Label htmlFor="min-hbd" className="text-body">
+                    Minimum HBD Required
+                  </Label>
+                  <p className="text-caption text-muted-foreground">
+                    Set minimum HBD amount others must send to message you. Acts as an economic anti-spam filter.
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="min-hbd"
+                      type="number"
+                      step="0.001"
+                      min={MIN_MINIMUM_HBD}
+                      max={MAX_MINIMUM_HBD}
+                      value={minHBDInput}
+                      onChange={(e) => setMinHBDInput(e.target.value)}
+                      disabled={isLoadingMinimum || isUpdating}
+                      placeholder="0.001"
+                      className="max-w-32"
+                      data-testid="input-minimum-hbd"
+                    />
+                    <span className="text-caption text-muted-foreground">HBD</span>
+                  </div>
+                  <p className="text-caption text-muted-foreground">
+                    Current: <span className="font-medium">{currentMinimum} HBD</span> · Default: 0.001 HBD · Max: 1,000,000 HBD
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={async () => {
+                      try {
+                        const amount = parseFloat(minHBDInput);
+                        const formattedAmount = formatHBDAmount(amount);
+                        await updateMinimum(formattedAmount);
+                      } catch (error: any) {
+                        toast({
+                          title: 'Invalid Amount',
+                          description: error?.message || 'Please enter a valid HBD amount',
+                          variant: 'destructive',
+                        });
+                      }
+                    }}
+                    disabled={isUpdating || minHBDInput === currentMinimum}
+                    className="flex-1"
+                    data-testid="button-save-minimum"
+                  >
+                    {isUpdating ? (
+                      <>
+                        <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+                        Saving...
+                      </>
+                    ) : (
+                      'Save Preference'
+                    )}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={async () => {
+                      await resetToDefault();
+                      setMinHBDInput('0.001');
+                    }}
+                    disabled={isUpdating || currentMinimum === '0.001'}
+                    data-testid="button-reset-minimum"
+                  >
+                    Reset
+                  </Button>
+                </div>
+                <p className="text-caption text-muted-foreground">
+                  💡 Tip: Messages below your threshold won't appear in your inbox, but remain on the blockchain. Lower your filter anytime to see them.
+                </p>
               </div>
             </div>
 
