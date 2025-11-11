@@ -128,16 +128,19 @@ export function ConversationsList({
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
                     {conversation.isEncrypted && (
                       <Lock className="w-3 h-3 text-primary flex-shrink-0" />
                     )}
-                    <p className={cn(
-                      'text-caption truncate',
-                      conversation.unreadCount > 0 
-                        ? 'text-foreground font-medium' 
-                        : 'text-muted-foreground'
-                    )}>
+                    <p 
+                      className={cn(
+                        'text-caption truncate flex-1 min-w-0',
+                        conversation.unreadCount > 0 
+                          ? 'text-foreground font-medium' 
+                          : 'text-muted-foreground'
+                      )}
+                      title={conversation.lastMessage || 'No messages yet'}
+                    >
                       {conversation.lastMessage || 'No messages yet'}
                     </p>
                   </div>
