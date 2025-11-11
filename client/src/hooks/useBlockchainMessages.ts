@@ -17,6 +17,7 @@ import { queryClient } from '@/lib/queryClient';
 import { useEffect, useState } from 'react';
 import { logger } from '@/lib/logger';
 import { getAccountMetadata, parseMinimumHBD, DEFAULT_MINIMUM_HBD } from '@/lib/accountMetadata';
+import { useExceptionsList } from '@/hooks/useExceptionsList';
 
 interface UseBlockchainMessagesOptions {
   partnerUsername: string;
@@ -28,9 +29,28 @@ export function useBlockchainMessages({
   enabled = true,
 }: UseBlockchainMessagesOptions) {
   const { user } = useAuth();
+  const { isException } = useExceptionsList(); // Check if contact is on exceptions list (from context)
   const [isActive, setIsActive] = useState(true);
   const [lastSendTime, setLastSendTime] = useState<number>(0);
   const [lastActivityTime, setLastActivityTime] = useState<number>(Date.now());
+  
+  // Listen for exceptions changes and invalidate query to trigger re-evaluation
+  useEffect(() => {
+    const handleExceptionsChanged = (event: CustomEvent) => {
+      if (user?.username && event.detail?.username === user.username) {
+        console.log('[useBlockchainMessages] Exceptions changed, invalidating query for re-evaluation');
+        queryClient.invalidateQueries({ 
+          queryKey: ['blockchain-messages', user.username, partnerUsername] 
+        });
+      }
+    };
+    
+    window.addEventListener('exceptionsChanged', handleExceptionsChanged as EventListener);
+    
+    return () => {
+      window.removeEventListener('exceptionsChanged', handleExceptionsChanged as EventListener);
+    };
+  }, [user?.username, partnerUsername]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -244,15 +264,24 @@ export function useBlockchainMessages({
             mergedMessages.set(msg.trx_id, messageCache);
           } else {
             // Received message - store with placeholder, will decrypt on demand
-            // PHASE 4.1: Filter received messages below user's minimum HBD threshold
+            // PHASE 4.1 + EXCEPTIONS: Filter received messages below user's minimum HBD threshold
+            // UNLESS sender is on exceptions list (whitelisted contacts always visible)
             const messageAmount = parseHBDAmount(msg.amount || '0.000 HBD');
-            const shouldHide = messageAmount < userMinimumAmount;
+            const senderIsException = isException(msg.from);
+            const shouldHide = !senderIsException && messageAmount < userMinimumAmount;
             
             if (shouldHide) {
               logger.info('[FILTER] Hiding message below minimum:', {
                 txId: msg.trx_id.substring(0, 20),
+                from: msg.from,
                 amount: msg.amount,
                 minimum: userMinimumHBD
+              });
+            } else if (senderIsException && messageAmount < userMinimumAmount) {
+              logger.info('[FILTER] Showing message from exception despite low amount:', {
+                txId: msg.trx_id.substring(0, 20),
+                from: msg.from,
+                amount: msg.amount
               });
             }
             
@@ -267,7 +296,7 @@ export function useBlockchainMessages({
               txId: msg.trx_id,
               confirmed: true,
               amount: msg.amount, // Store HBD transfer amount
-              hidden: shouldHide, // Mark as hidden if below minimum
+              hidden: shouldHide, // Mark as hidden if below minimum AND not exception
             };
 
             newMessagesToCache.push(messageCache);
@@ -291,16 +320,18 @@ export function useBlockchainMessages({
         logger.error('Failed to fetch from blockchain, using cached data:', blockchainError);
       }
 
-      // PHASE 4 FIX: Re-evaluate ALL messages (cached + new) against current user minimum
-      // This ensures that when user changes their minimum threshold, cached messages are updated
+      // PHASE 4 FIX + EXCEPTIONS: Re-evaluate ALL messages (cached + new) against current user minimum
+      // This ensures that when user changes their minimum threshold OR exceptions list, cached messages are updated
       logger.info('[PHASE4] Re-evaluating', mergedMessages.size, 'messages against current minimum:', userMinimumHBD);
       let reEvaluatedCount = 0;
       
       mergedMessages.forEach((msg, id) => {
         if (msg.from !== user.username) {
-          // RECEIVED message: Re-evaluate against current minimum
+          // RECEIVED message: Re-evaluate against current minimum AND exceptions list
           const msgAmount = parseHBDAmount(msg.amount || '0.000 HBD');
-          const isHidden = msgAmount < userMinimumAmount;
+          const senderIsException = isException(msg.from);
+          // Hide if: below minimum AND not an exception
+          const isHidden = !senderIsException && msgAmount < userMinimumAmount;
           
           // Only update if hidden state changed
           if (msg.hidden !== isHidden) {
@@ -308,7 +339,9 @@ export function useBlockchainMessages({
             reEvaluatedCount++;
             logger.info('[PHASE4] Updated hidden flag:', {
               txId: msg.id.substring(0, 20),
+              from: msg.from,
               amount: msg.amount,
+              isException: senderIsException,
               oldHidden: msg.hidden,
               newHidden: isHidden
             });

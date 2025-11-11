@@ -1,4 +1,4 @@
-import { MoreVertical, Lock, User, Trash2, ArrowLeft } from 'lucide-react';
+import { MoreVertical, Lock, User, Trash2, ArrowLeft, Shield, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +8,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { useExceptionsList } from '@/hooks/useExceptionsList';
+import { useToast } from '@/hooks/use-toast';
 
 interface ChatHeaderProps {
   contactUsername: string;
@@ -28,8 +35,29 @@ export function ChatHeader({
   onDeleteLocalData,
   onBackClick
 }: ChatHeaderProps) {
+  const { isException, toggleException } = useExceptionsList();
+  const { toast } = useToast();
+  
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
+  };
+  
+  const handleToggleException = () => {
+    toggleException(contactUsername);
+    
+    if (isException(contactUsername)) {
+      // Was in exceptions, now removed
+      toast({
+        title: 'Filter Removed',
+        description: `@${contactUsername} will now need to meet your minimum HBD requirement`,
+      });
+    } else {
+      // Was not in exceptions, now added
+      toast({
+        title: 'Exception Added',
+        description: `@${contactUsername} can now message at 0.001 HBD regardless of your filter`,
+      });
+    }
   };
 
   return (
@@ -70,6 +98,31 @@ export function ChatHeader({
             <span className="text-caption">E2E Encrypted</span>
           </Badge>
         )}
+        
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleToggleException}
+              data-testid="button-toggle-exception"
+              aria-label={isException(contactUsername) ? 'Remove from exceptions list' : 'Add to exceptions list'}
+            >
+              {isException(contactUsername) ? (
+                <ShieldCheck className="w-5 h-5 text-primary" />
+              ) : (
+                <Shield className="w-5 h-5" />
+              )}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="text-caption">
+              {isException(contactUsername) 
+                ? 'On exceptions list (bypasses minimum HBD filter)'
+                : 'Click to add to exceptions list'}
+            </p>
+          </TooltipContent>
+        </Tooltip>
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

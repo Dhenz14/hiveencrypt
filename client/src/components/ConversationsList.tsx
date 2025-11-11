@@ -1,4 +1,4 @@
-import { Search, Plus } from 'lucide-react';
+import { Search, Plus, ShieldCheck } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -7,6 +7,12 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import type { Conversation } from '@shared/schema';
 import { Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useExceptionsList } from '@/hooks/useExceptionsList';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 interface ConversationsListProps {
   conversations: Conversation[];
@@ -25,6 +31,8 @@ export function ConversationsList({
   searchQuery,
   onSearchChange,
 }: ConversationsListProps) {
+  const { isException } = useExceptionsList();
+  
   const filteredConversations = conversations.filter(conv =>
     conv.contactUsername.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -116,12 +124,28 @@ export function ConversationsList({
 
                 <div className="flex-1 min-w-0 text-left">
                   <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className={cn(
-                      'text-body font-medium truncate',
-                      conversation.unreadCount > 0 && 'font-semibold'
-                    )}>
-                      @{conversation.contactUsername}
-                    </span>
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className={cn(
+                        'text-body font-medium truncate',
+                        conversation.unreadCount > 0 && 'font-semibold'
+                      )}>
+                        @{conversation.contactUsername}
+                      </span>
+                      {isException(conversation.contactUsername) && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <ShieldCheck 
+                              className="w-3.5 h-3.5 text-primary flex-shrink-0" 
+                              data-testid={`icon-exception-${conversation.contactUsername}`}
+                              aria-label="On exceptions list"
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="text-caption">On exceptions list</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
+                    </div>
                     {conversation.lastMessageTime && (
                       <span className="text-caption text-muted-foreground flex-shrink-0">
                         {formatTimestamp(conversation.lastMessageTime)}

@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { ExceptionsProvider } from "@/contexts/ExceptionsContext";
 import { KeychainRedirect } from "@/components/KeychainRedirect";
 import Login from "@/pages/Login";
 import Messages from "@/pages/Messages";
@@ -69,10 +70,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
+          <ExceptionsProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Router />
+            </TooltipProvider>
+          </ExceptionsProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
