@@ -93,10 +93,11 @@ export function useMinimumHBD(): UseMinimumHBDResult {
       const previousMetadata = queryClient.getQueryData(['minimumHBD', user?.username]);
       
       // Optimistically update cache
+      // Guard against undefined profile (common for accounts without posting metadata)
       queryClient.setQueryData(['minimumHBD', user?.username], (old: any) => ({
         ...old,
         profile: {
-          ...old?.profile,
+          ...(old?.profile ?? {}),
           hive_messenger: {
             min_hbd: newMinimum,
             version: '1.0',

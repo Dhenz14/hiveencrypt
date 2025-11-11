@@ -283,10 +283,11 @@ export async function updateMinimumHBD(
     const currentMetadata = await getAccountMetadata(username, true);
     
     // Merge with new hive_messenger data
+    // Guard against undefined profile (common for accounts without posting metadata)
     const updatedMetadata: AccountMetadata = {
       ...currentMetadata,
       profile: {
-        ...currentMetadata.profile,
+        ...(currentMetadata.profile ?? {}),
         hive_messenger: {
           min_hbd: minHBD,
           version: METADATA_VERSION,
