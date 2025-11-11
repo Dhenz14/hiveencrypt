@@ -31,6 +31,9 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const { toast } = useToast();
   const [isReauthenticating, setIsReauthenticating] = useState(false);
   
+  // Debug log to verify v2.0.0 is loaded
+  console.log('[SettingsModal] v2.0.0 with Message Filter loaded');
+  
   // Message Filter state
   const {
     currentMinimum,
@@ -310,9 +313,9 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                 <span>About</span>
               </div>
               <div className="space-y-2 pl-6 text-caption text-muted-foreground">
-                <p>Hive Messenger v1.0.0</p>
+                <p>Hive Messenger v2.0.0</p>
                 <p>
-                  Encrypted messaging on the Hive blockchain
+                  Encrypted messaging with minimum HBD filter
                 </p>
                 <p className="pt-2">
                   <a 
