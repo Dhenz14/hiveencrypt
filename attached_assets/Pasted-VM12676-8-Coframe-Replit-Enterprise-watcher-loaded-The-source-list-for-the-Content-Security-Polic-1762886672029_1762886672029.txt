@@ -1,0 +1,214 @@
+VM12676:8 [Coframe] Replit Enterprise watcher loaded
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+HiveEncrypt:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+HiveEncrypt:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+HiveEncrypt:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+0eb799b5cc89f147.js:2 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+0eb799b5cc89f147.js:2 Download the Apollo DevTools for a better development experience: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+0eb799b5cc89f147.js:2 [LaunchDarkly] LaunchDarkly client initialized
+2fbf716ae3c453cc.js:2 Uncaught (in promise) TypeError: i.enterprise.execute is not a function
+    at 2fbf716ae3c453cc.js:2:88320
+0eb799b5cc89f147.js:2 Cache data may be lost when replacing the dealContext field of a Org object.
+
+This could cause additional (usually avoidable) network requests to fetch data that were otherwise cached.
+
+To address this problem (which is not a bug in Apollo Client), either ensure all objects of type OrgDealContext have an ID or a custom merge function, or define a custom merge function for the Org.dealContext field, so InMemoryCache can safely merge these objects:
+
+  existing: {"__typename":"OrgDealContext","dealType":"default","salesContactEmail":null}
+  incoming: {"__typename":"OrgDealContext","dealType":"default"}
+
+For more information about these options, please refer to the documentation:
+
+  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers
+  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects
+
+(anonymous) @ 0eb799b5cc89f147.js:2
+HiveEncrypt:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ed1e693c96a75807.js:2 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'ambient-light-sensor'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'battery'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'execution-while-not-rendered'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'execution-while-out-of-viewport'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'layout-animations'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'legacy-image-formats'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'navigation-override'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'oversized-images'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'publickey-credentials'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'speaker-selection'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'unoptimized-images'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'unsized-media'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Unrecognized feature: 'pointer-lock'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Allow attribute will take precedence over 'allowfullscreen'.
+z @ ed1e693c96a75807.js:2
+ed1e693c96a75807.js:2 Allow attribute will take precedence over 'allowpaymentrequest'.
+z @ ed1e693c96a75807.js:2
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar1b%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+client:536 WebSocket connection to 'wss://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/?token=efbClv4ky6c1' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=efbClv4ky6c1' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-OIM7OLJW.js?v=8dcd9ab4:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=8dcd9ab4:136
+chunk-OIM7OLJW.js?v=8dcd9ab4:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=8dcd9ab4:136
+chunk-OIM7OLJW.js?v=8dcd9ab4:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-OIM7OLJW.js?v=8dcd9ab4:1066:29)
+    at ThemeProvider (ThemeContext.tsx:13:29)
+    at renderWithHooks (chunk-UZOKQUDP.js?v=91397c5a:11548:26)
+    at mountIndeterminateComponent (chunk-UZOKQUDP.js?v=91397c5a:14926:21)
+    at beginWork (chunk-UZOKQUDP.js?v=91397c5a:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-UZOKQUDP.js?v=91397c5a:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-UZOKQUDP.js?v=91397c5a:3699:24)
+    at invokeGuardedCallback (chunk-UZOKQUDP.js?v=91397c5a:3733:39)
+    at beginWork$1 (chunk-UZOKQUDP.js?v=91397c5a:19765:15)
+    at performUnitOfWork (chunk-UZOKQUDP.js?v=91397c5a:19198:20)
+chunk-OIM7OLJW.js?v=8dcd9ab4:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=8dcd9ab4:136
+chunk-OIM7OLJW.js?v=8dcd9ab4:136 Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+printWarning @ chunk-OIM7OLJW.js?v=8dcd9ab4:136
+chunk-OIM7OLJW.js?v=8dcd9ab4:1066 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-OIM7OLJW.js?v=8dcd9ab4:1066:29)
+    at ThemeProvider (ThemeContext.tsx:13:29)
+    at renderWithHooks (chunk-UZOKQUDP.js?v=91397c5a:11548:26)
+    at mountIndeterminateComponent (chunk-UZOKQUDP.js?v=91397c5a:14926:21)
+    at beginWork (chunk-UZOKQUDP.js?v=91397c5a:15914:22)
+    at HTMLUnknownElement.callCallback2 (chunk-UZOKQUDP.js?v=91397c5a:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-UZOKQUDP.js?v=91397c5a:3699:24)
+    at invokeGuardedCallback (chunk-UZOKQUDP.js?v=91397c5a:3733:39)
+    at beginWork$1 (chunk-UZOKQUDP.js?v=91397c5a:19765:15)
+    at performUnitOfWork (chunk-UZOKQUDP.js?v=91397c5a:19198:20)
+chunk-UZOKQUDP.js?v=91397c5a:14032 The above error occurred in the <ThemeProvider> component:
+
+    at ThemeProvider (https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/src/contexts/ThemeContext.tsx:20:33)
+    at QueryClientProvider (https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=91397c5a:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-UZOKQUDP.js?v=91397c5a:14032
+chunk-UZOKQUDP.js?v=91397c5a:19413 Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (chunk-OIM7OLJW.js?v=8dcd9ab4:1066:29)
+    at ThemeProvider (ThemeContext.tsx:13:29)
+    at renderWithHooks (chunk-UZOKQUDP.js?v=91397c5a:11548:26)
+    at mountIndeterminateComponent (chunk-UZOKQUDP.js?v=91397c5a:14926:21)
+    at beginWork (chunk-UZOKQUDP.js?v=91397c5a:15914:22)
+    at beginWork$1 (chunk-UZOKQUDP.js?v=91397c5a:19753:22)
+    at performUnitOfWork (chunk-UZOKQUDP.js?v=91397c5a:19198:20)
+    at workLoopSync (chunk-UZOKQUDP.js?v=91397c5a:19137:13)
+    at renderRootSync (chunk-UZOKQUDP.js?v=91397c5a:19116:15)
+    at recoverFromConcurrentError (chunk-UZOKQUDP.js?v=91397c5a:18736:28)
+(index):170 [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+0eb799b5cc89f147.js:2 Adding extension: API Request Tester Object
+0eb799b5cc89f147.js:2 Adding extension: Javascript Commands Object
+ed1e693c96a75807.js:2 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+0eb799b5cc89f147.js:2 Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu Object
+(anonymous) @ 0eb799b5cc89f147.js:2
+0eb799b5cc89f147.js:2 Adding extension: Prettier - Code Formatter Object
+0eb799b5cc89f147.js:2 Adding extension: JSON Editor Object
+0eb799b5cc89f147.js:2 Adding extension: CSS Gradient Generator Object
+0eb799b5cc89f147.js:2 Adding extension: ReplDB Export and Import Object
+sw.js:147 [ServiceWorker] Loaded and ready!
