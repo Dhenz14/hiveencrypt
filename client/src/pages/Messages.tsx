@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Settings, Moon, Sun, Info } from 'lucide-react';
+import { Settings, Moon, Sun, Info, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -372,15 +372,20 @@ export default function Messages() {
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
 
-            {/* PHASE 4.2: Hidden Message Banner */}
+            {/* PHASE 4.3: Hidden Message Banner with Accessibility */}
             {hiddenCount > 0 && (
               <div className="border-b bg-muted/50 px-4 py-2">
-                <Alert variant="default" className="border-0 bg-transparent p-0" data-testid="alert-hidden-messages">
+                <Alert 
+                  variant="default" 
+                  className="border-0 bg-transparent p-0" 
+                  data-testid="alert-hidden-messages"
+                  aria-live="polite"
+                >
                   <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2" id="hidden-count-description">
                       <Info className="w-4 h-4 text-muted-foreground" />
                       <AlertDescription className="text-caption text-muted-foreground">
-                        {hiddenCount} {hiddenCount === 1 ? 'message' : 'messages'} hidden by your filter
+                        {hiddenCount} {hiddenCount === 1 ? 'message' : 'messages'} hidden by minimum HBD filter
                       </AlertDescription>
                     </div>
                     <Button
@@ -389,6 +394,8 @@ export default function Messages() {
                       onClick={() => setIsSettingsOpen(true)}
                       className="h-7 text-caption"
                       data-testid="button-adjust-filter"
+                      aria-label="Adjust minimum HBD filter settings"
+                      aria-describedby="hidden-count-description"
                     >
                       Adjust Filter
                     </Button>
@@ -409,11 +416,36 @@ export default function Messages() {
                     <Skeleton className="h-16 w-1/2 ml-auto" />
                   </div>
                 ) : currentMessages.length === 0 ? (
-                  <div className="text-center py-12" data-testid="empty-messages">
-                    <p className="text-muted-foreground text-body">
-                      No messages yet. Start the conversation!
-                    </p>
-                  </div>
+                  hiddenCount > 0 ? (
+                    <div className="text-center py-12 space-y-4" data-testid="empty-filtered-messages">
+                      <div className="flex justify-center">
+                        <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+                          <Filter className="w-6 h-6 text-muted-foreground" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-body font-medium">All Messages Filtered</p>
+                        <p className="text-caption text-muted-foreground max-w-sm mx-auto">
+                          {hiddenCount} {hiddenCount === 1 ? 'message is' : 'messages are'} hidden by your minimum HBD filter. Lower your filter to see {hiddenCount === 1 ? 'it' : 'them'}.
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsSettingsOpen(true)}
+                        data-testid="button-adjust-filter-empty"
+                        aria-label="Open settings to adjust filter"
+                      >
+                        <Filter className="w-4 h-4 mr-2" />
+                        Adjust Filter Settings
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="text-center py-12" data-testid="empty-messages">
+                      <p className="text-muted-foreground text-body">
+                        No messages yet. Start the conversation!
+                      </p>
+                    </div>
+                  )
                 ) : (
                   currentMessages.map((message, index) => {
                     const prevMessage = index > 0 ? currentMessages[index - 1] : null;

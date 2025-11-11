@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter } from 'lucide-react';
+import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter, Lightbulb } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -271,9 +271,12 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                     Reset
                   </Button>
                 </div>
-                <p className="text-caption text-muted-foreground">
-                  💡 Tip: Messages below your threshold won't appear in your inbox, but remain on the blockchain. Lower your filter anytime to see them.
-                </p>
+                <div className="flex items-start gap-2 text-caption text-muted-foreground">
+                  <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <p>
+                    Messages below your threshold won't appear in your inbox, but remain on the blockchain. Lower your filter anytime to see them.
+                  </p>
+                </div>
               </div>
             </div>
 
