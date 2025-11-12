@@ -542,11 +542,11 @@ export function MessageComposer({
               type="button"
               size="icon"
               variant="destructive"
-              className="absolute -top-2 -right-2 h-6 w-6 rounded-full"
+              className="absolute -top-2 -right-2 min-h-11 min-w-11 rounded-full"
               onClick={handleRemoveImage}
               data-testid="button-remove-image"
             >
-              <X className="w-3 h-3" />
+              <X className="w-4 h-4" />
             </Button>
             {selectedImage && (
               <div className="text-caption text-muted-foreground mt-1">
@@ -579,7 +579,7 @@ export function MessageComposer({
                 value={sendAmount}
                 onChange={(e) => setSendAmount(e.target.value)}
                 disabled={disabled || isSending || isLoadingMinimum}
-                className="max-w-32 h-8 text-sm"
+                className="max-w-32 h-11 text-base"
                 data-testid="input-send-amount"
               />
               <span className="text-caption text-muted-foreground">HBD</span>
@@ -638,7 +638,7 @@ export function MessageComposer({
                 type="button"
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8"
+                className="min-h-11 min-w-11"
                 disabled={disabled}
                 data-testid="button-emoji"
               >
@@ -656,7 +656,7 @@ export function MessageComposer({
                 type="button"
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8"
+                className="min-h-11 min-w-11"
                 disabled={disabled || isSending}
                 onClick={() => fileInputRef.current?.click()}
                 data-testid="button-attach"

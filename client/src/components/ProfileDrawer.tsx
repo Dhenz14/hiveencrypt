@@ -84,7 +84,7 @@ export function ProfileDrawer({ open, onOpenChange, contact }: ProfileDrawerProp
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-6 w-6"
+                      className="min-h-11 min-w-11"
                       onClick={() => copyToClipboard(contact.publicKey, 'Public key')}
                       data-testid="button-copy-public-key"
                     >
@@ -105,7 +105,7 @@ export function ProfileDrawer({ open, onOpenChange, contact }: ProfileDrawerProp
                 <div className="space-y-2">
                   <Button
                     variant="outline"
-                    className="w-full justify-start h-10"
+                    className="w-full justify-start h-11"
                     onClick={() => window.open(`https://peakd.com/@${contact.username}`, '_blank')}
                     data-testid="button-view-hive-profile"
                   >
@@ -114,7 +114,7 @@ export function ProfileDrawer({ open, onOpenChange, contact }: ProfileDrawerProp
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-full justify-start h-10"
+                    className="w-full justify-start h-11"
                     onClick={() => window.open(`https://hivehub.dev/@${contact.username}`, '_blank')}
                     data-testid="button-view-blockchain"
                   >

@@ -87,7 +87,7 @@ export function KeychainRedirect() {
         
         <CardFooter className="flex-col gap-3">
           <Button 
-            className="w-full" 
+            className="w-full min-h-11" 
             size="lg"
             asChild
             data-testid="button-open-keychain"
@@ -100,7 +100,7 @@ export function KeychainRedirect() {
           
           <Button 
             variant="outline" 
-            className="w-full"
+            className="w-full h-11"
             onClick={handleCopyUrl}
             data-testid="button-copy-url"
           >
@@ -124,8 +124,7 @@ export function KeychainRedirect() {
             <div className="flex gap-2">
               <Button 
                 variant="ghost" 
-                size="sm" 
-                className="flex-1 text-xs"
+                className="flex-1 text-xs h-11"
                 asChild
                 data-testid="link-ios-store"
               >
@@ -139,8 +138,7 @@ export function KeychainRedirect() {
               </Button>
               <Button 
                 variant="ghost" 
-                size="sm" 
-                className="flex-1 text-xs"
+                className="flex-1 text-xs h-11"
                 asChild
                 data-testid="link-android-store"
               >

@@ -61,13 +61,13 @@ export function ChatHeader({
   };
 
   return (
-    <div className="h-16 border-b bg-background px-4 flex items-center justify-between gap-4">
+    <div className="min-h-[calc(4rem+env(safe-area-inset-top))] border-b bg-background px-4 flex items-center justify-between gap-4 pt-[env(safe-area-inset-top)]">
       {onBackClick && (
         <Button
           variant="ghost"
           size="icon"
           onClick={onBackClick}
-          className="md:hidden flex-shrink-0"
+          className="md:hidden flex-shrink-0 min-h-11 min-w-11"
           data-testid="button-back-to-conversations"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -93,7 +93,7 @@ export function ChatHeader({
 
       <div className="flex items-center gap-2 flex-shrink-0">
         {isEncrypted && (
-          <Badge variant="secondary" className="gap-1.5 px-3 h-8">
+          <Badge variant="secondary" className="gap-1.5 px-3 h-8 hidden sm:flex">
             <Lock className="w-3 h-3" />
             <span className="text-caption">E2E Encrypted</span>
           </Badge>
@@ -107,6 +107,7 @@ export function ChatHeader({
               onClick={handleToggleException}
               data-testid="button-toggle-exception"
               aria-label={isException(contactUsername) ? 'Remove from exceptions list' : 'Add to exceptions list'}
+              className="min-h-11 min-w-11"
             >
               {isException(contactUsername) ? (
                 <ShieldCheck className="w-5 h-5 text-primary" />
@@ -126,7 +127,7 @@ export function ChatHeader({
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" data-testid="button-chat-menu">
+            <Button variant="ghost" size="icon" data-testid="button-chat-menu" className="min-h-11 min-w-11">
               <MoreVertical className="w-5 h-5" />
             </Button>
           </DropdownMenuTrigger>

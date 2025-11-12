@@ -188,10 +188,9 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   </div>
                   <Button
                     variant="outline"
-                    size="sm"
                     onClick={handleReauthenticate}
                     disabled={isReauthenticating}
-                    className="w-full"
+                    className="w-full h-11"
                     data-testid="button-reauthenticate"
                   >
                     {isReauthenticating ? (
@@ -266,7 +265,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       onChange={(e) => setMinHBDInput(e.target.value)}
                       disabled={isLoadingMinimum || isUpdating}
                       placeholder="0.001"
-                      className="max-w-32"
+                      className="max-w-32 h-11"
                       data-testid="input-minimum-hbd"
                     />
                     <span className="text-caption text-muted-foreground">HBD</span>
@@ -278,7 +277,6 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                 <div className="flex gap-2">
                   <Button
                     variant="default"
-                    size="sm"
                     onClick={async () => {
                       try {
                         const amount = parseFloat(minHBDInput);
@@ -293,7 +291,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       }
                     }}
                     disabled={isUpdating || minHBDInput === currentMinimum}
-                    className="flex-1"
+                    className="flex-1 h-11"
                     data-testid="button-save-minimum"
                   >
                     {isUpdating ? (
@@ -307,12 +305,12 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   </Button>
                   <Button
                     variant="outline"
-                    size="sm"
                     onClick={async () => {
                       await resetToDefault();
                       setMinHBDInput('0.001');
                     }}
                     disabled={isUpdating || currentMinimum === '0.001'}
+                    className="h-11"
                     data-testid="button-reset-minimum"
                   >
                     Reset

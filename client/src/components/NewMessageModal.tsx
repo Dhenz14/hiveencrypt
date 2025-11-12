@@ -117,6 +117,7 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
               variant="outline"
               onClick={() => handleOpenChange(false)}
               disabled={isValidating}
+              className="h-11"
               data-testid="button-cancel-new-message"
             >
               Cancel
@@ -124,6 +125,7 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
             <Button
               type="submit"
               disabled={!username.trim() || isValidating}
+              className="h-11"
               data-testid="button-start-chat"
             >
               {isValidating ? (

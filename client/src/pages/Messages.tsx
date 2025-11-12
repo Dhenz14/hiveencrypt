@@ -321,7 +321,7 @@ export default function Messages() {
   // Sidebar content component (reused in mobile and desktop layouts)
   const sidebarContent = (
     <>
-      <div className="h-16 border-b px-4 flex items-center justify-between gap-3">
+      <div className="min-h-[calc(4rem+env(safe-area-inset-top))] border-b px-4 flex items-center justify-between gap-3 pt-[env(safe-area-inset-top)]">
         <div className="flex items-center gap-3 min-w-0">
           <Avatar className="w-9 h-9 flex-shrink-0">
             <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
@@ -339,6 +339,7 @@ export default function Messages() {
             size="icon"
             onClick={toggleTheme}
             data-testid="button-toggle-theme"
+            className="min-h-11 min-w-11"
           >
             {theme === 'dark' ? (
               <Sun className="w-5 h-5" />
@@ -351,6 +352,7 @@ export default function Messages() {
             size="icon"
             onClick={() => setIsSettingsOpen(true)}
             data-testid="button-settings"
+            className="min-h-11 min-w-11"
           >
             <Settings className="w-5 h-5" />
           </Button>
