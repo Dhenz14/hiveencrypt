@@ -43,9 +43,10 @@ export function ChatHeader({
   };
   
   const handleToggleException = () => {
+    const wasException = isException(contactUsername);
     toggleException(contactUsername);
     
-    if (isException(contactUsername)) {
+    if (wasException) {
       // Was in exceptions, now removed
       toast({
         title: 'Filter Removed',
