@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Settings, Moon, Sun, Info, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -76,6 +77,32 @@ export default function Messages() {
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
   });
+
+  // State for sidebar sizes - initialized once from localStorage
+  const [sidebarSizes, setSidebarSizes] = useState<number[]>(() => {
+    if (typeof window === 'undefined' || isMobile) return [22, 78];
+    
+    try {
+      const saved = localStorage.getItem('hive-messenger-sidebar-layout');
+      if (saved) {
+        const parsed: unknown = JSON.parse(saved);
+        if (
+          Array.isArray(parsed) && 
+          parsed.length === 2 &&
+          parsed.every(n => typeof n === 'number' && n > 0) &&
+          Math.abs(parsed[0] + parsed[1] - 100) < 0.1
+        ) {
+          return parsed as number[];
+        }
+      }
+    } catch (error) {
+      console.error('[ResizableSidebar] Failed to load layout:', error);
+    }
+    return [22, 78];
+  });
+
+  // Static mount key - only changes when component mounts, not during resize
+  const mountKey = useMemo(() => Math.random().toString(), []);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -291,190 +318,231 @@ export default function Messages() {
     return username.slice(0, 2).toUpperCase();
   };
 
-  return (
-    <div className="h-screen flex overflow-hidden bg-background">
-      <div className={cn(
-        "w-full md:w-[400px] border-r flex flex-col bg-sidebar",
-        isMobile && showChat && "hidden"
-      )}>
-        <div className="h-16 border-b px-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <Avatar className="w-9 h-9 flex-shrink-0">
-              <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
-                {user?.username ? getInitials(user.username) : 'U'}
-              </AvatarFallback>
-            </Avatar>
-            <div className="min-w-0">
-              <p className="text-body font-semibold truncate">@{user?.username}</p>
-              <BlockchainSyncIndicator status={syncStatus} />
-            </div>
-          </div>
-          <div className="flex items-center gap-1 flex-shrink-0">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              data-testid="button-toggle-theme"
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsSettingsOpen(true)}
-              data-testid="button-settings"
-            >
-              <Settings className="w-5 h-5" />
-            </Button>
+  // Sidebar content component (reused in mobile and desktop layouts)
+  const sidebarContent = (
+    <>
+      <div className="h-16 border-b px-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <Avatar className="w-9 h-9 flex-shrink-0">
+            <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
+              {user?.username ? getInitials(user.username) : 'U'}
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0">
+            <p className="text-body font-semibold truncate">@{user?.username}</p>
+            <BlockchainSyncIndicator status={syncStatus} />
           </div>
         </div>
-
-        <ConversationsList
-          conversations={conversations}
-          selectedConversationId={selectedConversationId || undefined}
-          onSelectConversation={(id) => {
-            const conversation = conversations.find(c => c.id === id);
-            if (conversation) {
-              setSelectedPartner(conversation.contactUsername);
-              if (isMobile) {
-                setShowChat(true);
-              }
-            }
-          }}
-          onNewMessage={() => setIsNewMessageOpen(true)}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <div className="flex items-center gap-1 flex-shrink-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            data-testid="button-toggle-theme"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsSettingsOpen(true)}
+            data-testid="button-settings"
+          >
+            <Settings className="w-5 h-5" />
+          </Button>
+        </div>
       </div>
 
-      <div className={cn(
-        "flex-1 flex flex-col",
-        isMobile && !showChat && "hidden"
-      )}>
-        {!selectedConversation ? (
-          conversations.length === 0 ? (
-            <EmptyState onNewMessage={() => setIsNewMessageOpen(true)} />
-          ) : (
-            <NoConversationSelected onNewMessage={() => setIsNewMessageOpen(true)} />
-          )
+      <ConversationsList
+        conversations={conversations}
+        selectedConversationId={selectedConversationId || undefined}
+        onSelectConversation={(id) => {
+          const conversation = conversations.find(c => c.id === id);
+          if (conversation) {
+            setSelectedPartner(conversation.contactUsername);
+            if (isMobile) {
+              setShowChat(true);
+            }
+          }
+        }}
+        onNewMessage={() => setIsNewMessageOpen(true)}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+      />
+    </>
+  );
+
+  // Chat content component (reused in mobile and desktop layouts)
+  const chatContent = (
+    <>
+      {!selectedConversation ? (
+        conversations.length === 0 ? (
+          <EmptyState onNewMessage={() => setIsNewMessageOpen(true)} />
         ) : (
-          <>
-            <ChatHeader
-              contactUsername={selectedConversation.contactUsername}
-              isEncrypted={selectedConversation.isEncrypted}
-              onViewProfile={handleViewProfile}
-              onViewBlockchain={handleViewBlockchain}
-              onDeleteLocalData={handleDeleteLocalData}
-              onBackClick={isMobile ? () => setShowChat(false) : undefined}
-            />
+          <NoConversationSelected onNewMessage={() => setIsNewMessageOpen(true)} />
+        )
+      ) : (
+        <>
+          <ChatHeader
+            contactUsername={selectedConversation.contactUsername}
+            isEncrypted={selectedConversation.isEncrypted}
+            onViewProfile={handleViewProfile}
+            onViewBlockchain={handleViewBlockchain}
+            onDeleteLocalData={handleDeleteLocalData}
+            onBackClick={isMobile ? () => setShowChat(false) : undefined}
+          />
 
-            {/* PHASE 4.3: Hidden Message Banner with Accessibility */}
-            {hiddenCount > 0 && (
-              <div className="border-b bg-muted/50 px-4 py-2">
-                <Alert 
-                  variant="default" 
-                  className="border-0 bg-transparent p-0" 
-                  data-testid="alert-hidden-messages"
-                  aria-live="polite"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2" id="hidden-count-description">
-                      <Info className="w-4 h-4 text-muted-foreground" />
-                      <AlertDescription className="text-caption text-muted-foreground">
-                        {hiddenCount} {hiddenCount === 1 ? 'message' : 'messages'} hidden by minimum HBD filter
-                      </AlertDescription>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsSettingsOpen(true)}
-                      className="h-7 text-caption"
-                      data-testid="button-adjust-filter"
-                      aria-label="Adjust minimum HBD filter settings"
-                      aria-describedby="hidden-count-description"
-                    >
-                      Adjust Filter
-                    </Button>
+          {/* PHASE 4.3: Hidden Message Banner with Accessibility */}
+          {hiddenCount > 0 && (
+            <div className="border-b bg-muted/50 px-4 py-2">
+              <Alert 
+                variant="default" 
+                className="border-0 bg-transparent p-0" 
+                data-testid="alert-hidden-messages"
+                aria-live="polite"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2" id="hidden-count-description">
+                    <Info className="w-4 h-4 text-muted-foreground" />
+                    <AlertDescription className="text-caption text-muted-foreground">
+                      {hiddenCount} {hiddenCount === 1 ? 'message' : 'messages'} hidden by minimum HBD filter
+                    </AlertDescription>
                   </div>
-                </Alert>
-              </div>
-            )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsSettingsOpen(true)}
+                    className="h-7 text-caption"
+                    data-testid="button-adjust-filter"
+                    aria-label="Adjust minimum HBD filter settings"
+                    aria-describedby="hidden-count-description"
+                  >
+                    Adjust Filter
+                  </Button>
+                </div>
+              </Alert>
+            </div>
+          )}
 
-            <ScrollArea className="flex-1 p-4 pb-[env(safe-area-inset-bottom)]">
-              <div className="max-w-3xl mx-auto space-y-3">
-                <SystemMessage text="Encryption keys exchanged. Messages are end-to-end encrypted." />
-                
-                {isLoadingMessages ? (
-                  <div className="space-y-4" data-testid="loading-messages">
-                    <Skeleton className="h-16 w-3/4" />
-                    <Skeleton className="h-16 w-2/3 ml-auto" />
-                    <Skeleton className="h-16 w-3/4" />
-                    <Skeleton className="h-16 w-1/2 ml-auto" />
-                  </div>
-                ) : currentMessages.length === 0 ? (
-                  hiddenCount > 0 ? (
-                    <div className="text-center py-12 space-y-4" data-testid="empty-filtered-messages">
-                      <div className="flex justify-center">
-                        <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
-                          <Filter className="w-6 h-6 text-muted-foreground" />
-                        </div>
+          <ScrollArea className="flex-1 p-4 pb-[env(safe-area-inset-bottom)]">
+            <div className="max-w-3xl mx-auto space-y-3">
+              <SystemMessage text="Encryption keys exchanged. Messages are end-to-end encrypted." />
+              
+              {isLoadingMessages ? (
+                <div className="space-y-4" data-testid="loading-messages">
+                  <Skeleton className="h-16 w-3/4" />
+                  <Skeleton className="h-16 w-2/3 ml-auto" />
+                  <Skeleton className="h-16 w-3/4" />
+                  <Skeleton className="h-16 w-1/2 ml-auto" />
+                </div>
+              ) : currentMessages.length === 0 ? (
+                hiddenCount > 0 ? (
+                  <div className="text-center py-12 space-y-4" data-testid="empty-filtered-messages">
+                    <div className="flex justify-center">
+                      <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+                        <Filter className="w-6 h-6 text-muted-foreground" />
                       </div>
-                      <div className="space-y-2">
-                        <p className="text-body font-medium">All Messages Filtered</p>
-                        <p className="text-caption text-muted-foreground max-w-sm mx-auto">
-                          {hiddenCount} {hiddenCount === 1 ? 'message is' : 'messages are'} hidden by your minimum HBD filter. Lower your filter to see {hiddenCount === 1 ? 'it' : 'them'}.
-                        </p>
-                      </div>
-                      <Button
-                        variant="outline"
-                        onClick={() => setIsSettingsOpen(true)}
-                        data-testid="button-adjust-filter-empty"
-                        aria-label="Open settings to adjust filter"
-                      >
-                        <Filter className="w-4 h-4 mr-2" />
-                        Adjust Filter Settings
-                      </Button>
                     </div>
-                  ) : (
-                    <div className="text-center py-12" data-testid="empty-messages">
-                      <p className="text-muted-foreground text-body">
-                        No messages yet. Start the conversation!
+                    <div className="space-y-2">
+                      <p className="text-body font-medium">All Messages Filtered</p>
+                      <p className="text-caption text-muted-foreground max-w-sm mx-auto">
+                        {hiddenCount} {hiddenCount === 1 ? 'message is' : 'messages are'} hidden by your minimum HBD filter. Lower your filter to see {hiddenCount === 1 ? 'it' : 'them'}.
                       </p>
                     </div>
-                  )
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsSettingsOpen(true)}
+                      data-testid="button-adjust-filter-empty"
+                      aria-label="Open settings to adjust filter"
+                    >
+                      <Filter className="w-4 h-4 mr-2" />
+                      Adjust Filter Settings
+                    </Button>
+                  </div>
                 ) : (
-                  currentMessages.map((message, index) => {
-                    const prevMessage = index > 0 ? currentMessages[index - 1] : null;
-                    const showTimestamp = !prevMessage || 
-                      new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime() > 300000;
+                  <div className="text-center py-12" data-testid="empty-messages">
+                    <p className="text-muted-foreground text-body">
+                      No messages yet. Start the conversation!
+                    </p>
+                  </div>
+                )
+              ) : (
+                currentMessages.map((message, index) => {
+                  const prevMessage = index > 0 ? currentMessages[index - 1] : null;
+                  const showTimestamp = !prevMessage || 
+                    new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime() > 300000;
 
-                    const isSent = message.sender === user?.username;
-                    return (
-                      <MessageBubble
-                        key={message.id}
-                        message={message}
-                        isSent={isSent}
-                        showTimestamp={showTimestamp}
-                      />
-                    );
-                  })
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
+                  const isSent = message.sender === user?.username;
+                  return (
+                    <MessageBubble
+                      key={message.id}
+                      message={message}
+                      isSent={isSent}
+                      showTimestamp={showTimestamp}
+                    />
+                  );
+                })
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          </ScrollArea>
 
-            <MessageComposer
-              conversationId={selectedConversation.id}
-              recipientUsername={selectedConversation.contactUsername}
-              onMessageSent={handleMessageSent}
-            />
-          </>
-        )}
-      </div>
+          <MessageComposer
+            conversationId={selectedConversation.id}
+            recipientUsername={selectedConversation.contactUsername}
+            onMessageSent={handleMessageSent}
+          />
+        </>
+      )}
+    </>
+  );
+
+  return (
+    <div className="h-screen overflow-hidden bg-background">
+      {isMobile ? (
+        // Mobile: Flex layout with conditional show/hide
+        <div className="flex h-full">
+          <div className={cn(
+            "w-full flex flex-col bg-sidebar border-r",
+            showChat && "hidden"
+          )}>
+            {sidebarContent}
+          </div>
+
+          <div className={cn(
+            "flex-1 flex flex-col",
+            !showChat && "hidden"
+          )}>
+            {chatContent}
+          </div>
+        </div>
+      ) : (
+        // Desktop: Resizable panels with one-time hydration from localStorage
+        <ResizablePanelGroup 
+          key={mountKey}
+          direction="horizontal"
+          onLayout={(sizes: number[]) => {
+            setSidebarSizes(sizes);
+            localStorage.setItem('hive-messenger-sidebar-layout', JSON.stringify(sizes));
+          }}
+        >
+          <ResizablePanel defaultSize={sidebarSizes[0]} minSize={18} maxSize={40}>
+            <div className="flex flex-col h-full bg-sidebar border-r">
+              {sidebarContent}
+            </div>
+          </ResizablePanel>
+          <ResizableHandle withHandle aria-label="Resize sidebar" />
+          <ResizablePanel defaultSize={sidebarSizes[1]}>
+            <div className="flex flex-col h-full">
+              {chatContent}
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      )}
 
       <NewMessageModal
         open={isNewMessageOpen}
