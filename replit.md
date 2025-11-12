@@ -13,7 +13,8 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 - **Responsive Design**: Mobile-first approach, single-view mobile, split-view desktop.
 - **Theming**: Dark mode support.
 - **Component Library**: Utilizes Shadcn UI.
-- **Touch-Friendly UI**: 44px+ targets, safe-area padding.
+- **Touch-Friendly UI**: 44px+ targets (min-h-11/min-w-11), iOS safe-area padding for notched devices.
+- **Mobile Accessibility**: Viewport allows user zoom, 16px+ input font-size prevents auto-zoom, all interactive elements meet 44px minimum.
 
 ### Technical Implementations
 - **Client-Side Authentication**: Hive Keychain exclusively (browser extension for desktop, Keychain Mobile in-app browser for mobile).
@@ -26,6 +27,7 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 - **Economic Anti-Spam**: Configurable minimum HBD requirements for incoming messages, stored as custom_json metadata on the blockchain.
 - **Whitelist Management**: Local storage-based exceptions list for bypassing minimum HBD filters for trusted contacts.
 - **Resizable Sidebar**: Desktop-only (md+ breakpoint) using react-resizable-panels with one-time hydration pattern (static mountKey, default 22%, min 18%, max 40%, persists to localStorage key 'hive-messenger-sidebar-layout').
+- **Mobile Optimization**: Viewport meta allows user zoom without auto-zoom (16px+ inputs), 24 interactive elements upgraded to 44px+ touch targets, iOS safe-area padding with min-h-[calc()] for notched devices (iPhone 14+, Dynamic Island).
 
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted messages via memo transfers (0.001 HBD per message).
