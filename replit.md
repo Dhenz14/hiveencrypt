@@ -7,13 +7,14 @@ Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive We
 - **Duplicate Message Fix**: Removed optimistic message updates entirely. Messages now appear ONLY after blockchain confirmation (no instant preview).
   - Trade-off: Slight delay (2-5 seconds) before messages appear, but 100% reliable with no duplicates.
   - Fast polling (15 seconds) triggers after send to minimize perceived latency.
-- **Service Worker Cache**: Bumped to v10 to force cache invalidation after code changes.
+- **Service Worker Cache**: Bumped to v11 to force cache invalidation after precision fix.
 - **Timezone Fixes**: All timestamps normalized to UTC with 'Z' suffix for consistency.
 - **Migration System**: Implemented idempotent UTC timestamp migration for existing cached messages.
 - **Exemption Indicator**: Added friendly UX indicator when users may be exempted from paying higher minimum HBD fees.
   - Green success badge with checkmark appears when sending at 0.001 HBD below recipient's higher minimum
   - Message: "{amount} HBD - You may be exempted from their {minimum} HBD minimum!"
   - Allows sending at default 0.001 HBD even if recipient requires more (assumes exemption stored in recipient's localStorage)
+  - Uses precise integer thousandths validation to ensure ONLY exactly 0.001 HBD triggers exemption (no floating-point rounding issues)
 
 ## User Preferences
 I prefer simple language. I want iterative development. Ask before making major changes. I prefer detailed explanations.

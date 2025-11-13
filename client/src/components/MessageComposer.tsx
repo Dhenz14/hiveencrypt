@@ -335,7 +335,11 @@ export function MessageComposer({
     
     // v2.1.0: Allow sending at DEFAULT_MINIMUM_HBD (0.001) even if below recipient's minimum
     // This assumes the sender is exempted by the recipient (stored in recipient's localStorage)
-    const isDefaultAmount = numericSendAmount === parseFloat(DEFAULT_MINIMUM_HBD);
+    // Use precise integer thousandths comparison to avoid floating-point precision issues
+    const thousandthsRaw = numericSendAmount * 1000;
+    const thousandthsRounded = Math.round(thousandthsRaw);
+    const isValidPrecision = Math.abs(thousandthsRaw - thousandthsRounded) < 1e-9;
+    const isDefaultAmount = isValidPrecision && thousandthsRounded === 1;
     
     if (numericSendAmount < numericMinimum && !isDefaultAmount) {
       toast({
