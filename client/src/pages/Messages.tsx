@@ -145,34 +145,46 @@ export default function Messages() {
 
   console.log('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Hidden:', hiddenCount);
 
-  // Fix corrupted cached messages on mount and clear base64-corrupted cache
+  // Run timestamp migration and fix corrupted cached messages on mount
   useEffect(() => {
-    if (user?.username) {
-      // One-time cleanup: clear cache to remove old base64-corrupted messages
-      const cacheVersion = localStorage.getItem('hive_cache_version');
-      if (cacheVersion !== '6.0') {
-        console.log('[INIT] Cache version outdated, clearing all corrupted data...');
-        import('@/lib/messageCache').then(({ clearAllCache }) => {
-          clearAllCache(user.username).then(() => {
-            localStorage.setItem('hive_cache_version', '6.0');
-            console.log('[INIT] Cache cleared successfully');
-            queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
-            queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
-          });
-        });
-        return;
-      }
-      
-      // Regular corruption fix (for content === encryptedContent cases)
-      fixCorruptedMessages(user.username).then(count => {
-        if (count > 0) {
-          console.log(`[INIT] Fixed ${count} corrupted messages, refreshing...`);
+    if (!user?.username) return;
+    
+    // Run UTC timestamp migration first
+    import('@/lib/messageCache').then(async ({ migrateTimestampsToUTC, clearAllCache, fixCorruptedMessages }) => {
+      try {
+        // Run migration
+        const counts = await migrateTimestampsToUTC(user.username);
+        if (counts.messages > 0 || counts.conversations > 0 || counts.customJsonMessages > 0) {
+          console.log('[INIT] Migrated timestamps to UTC:', counts);
+          queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
+          queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+        }
+        
+        // Check cache version for other fixes
+        const cacheVersion = localStorage.getItem('hive_cache_version');
+        if (cacheVersion !== '7.0') {
+          console.log('[INIT] Cache version outdated, clearing cache...');
+          await clearAllCache(user.username);
+          localStorage.setItem('hive_cache_version', '7.0');
+          console.log('[INIT] Cache cleared successfully');
+          queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
+          queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+        }
+        
+        // Regular corruption fix (for content === encryptedContent cases)
+        const fixCount = await fixCorruptedMessages(user.username);
+        if (fixCount > 0) {
+          console.log(`[INIT] Fixed ${fixCount} corrupted messages, refreshing...`);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
         }
-      }).catch(err => {
-        console.error('[INIT] Failed to fix corrupted messages:', err);
-      });
-    }
+      } catch (error) {
+        console.error('[INIT] Migration failed, clearing cache as fallback:', error);
+        await clearAllCache(user.username);
+        localStorage.setItem('hive_cache_version', '7.0');
+        queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
+        queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+      }
+    });
   }, [user?.username, queryClient]);
 
   useEffect(() => {

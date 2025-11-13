@@ -1,4 +1,5 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
+import { normalizeHiveTimestamp } from './hive';
 
 interface MessageCache {
   id: string;
@@ -238,6 +239,95 @@ export async function clearAllCache(username?: string): Promise<void> {
   await db.clear('messages');
   await db.clear('conversations');
   await db.clear('metadata');
+}
+
+/**
+ * Migrates all cached timestamps to UTC-normalized format
+ * Runs once per user, tracked by metadata flag
+ * 
+ * @param username - Current user
+ * @returns Object with counts of migrated items
+ */
+export async function migrateTimestampsToUTC(username: string): Promise<{
+  messages: number;
+  conversations: number;
+  customJsonMessages: number;
+}> {
+  const db = await getDB(username);
+  
+  // Check if migration already ran
+  const migrationFlag = await db.get('metadata', 'utc-timestamp-migration-v1');
+  if (migrationFlag) {
+    console.log('[MIGRATION] UTC timestamp migration already completed');
+    return { messages: 0, conversations: 0, customJsonMessages: 0 };
+  }
+  
+  console.log('[MIGRATION] Starting UTC timestamp migration...');
+  
+  let messagesUpdated = 0;
+  let conversationsUpdated = 0;
+  let customJsonUpdated = 0;
+  
+  try {
+    // Use single transaction for all stores
+    const tx = db.transaction(['messages', 'conversations', 'customJsonMessages', 'metadata'], 'readwrite');
+    
+    // Migrate messages
+    const messageStore = tx.objectStore('messages');
+    const allMessages = await messageStore.getAll();
+    for (const msg of allMessages) {
+      const normalizedTimestamp = normalizeHiveTimestamp(msg.timestamp);
+      if (normalizedTimestamp !== msg.timestamp) {
+        msg.timestamp = normalizedTimestamp;
+        await messageStore.put(msg);
+        messagesUpdated++;
+      }
+    }
+    
+    // Migrate conversations
+    const conversationStore = tx.objectStore('conversations');
+    const allConversations = await conversationStore.getAll();
+    for (const conv of allConversations) {
+      const normalizedTimestamp = normalizeHiveTimestamp(conv.lastTimestamp);
+      if (normalizedTimestamp !== conv.lastTimestamp) {
+        conv.lastTimestamp = normalizedTimestamp;
+        await conversationStore.put(conv);
+        conversationsUpdated++;
+      }
+    }
+    
+    // Migrate custom JSON messages
+    const customJsonStore = tx.objectStore('customJsonMessages');
+    const allCustomJson = await customJsonStore.getAll();
+    for (const msg of allCustomJson) {
+      const normalizedTimestamp = normalizeHiveTimestamp(msg.timestamp);
+      if (normalizedTimestamp !== msg.timestamp) {
+        msg.timestamp = normalizedTimestamp;
+        await customJsonStore.put(msg);
+        customJsonUpdated++;
+      }
+    }
+    
+    // Mark migration as complete
+    const metadataStore = tx.objectStore('metadata');
+    await metadataStore.put({ 
+      key: 'utc-timestamp-migration-v1', 
+      value: new Date().toISOString() 
+    });
+    
+    await tx.done;
+    
+    console.log('[MIGRATION] UTC timestamp migration complete:', {
+      messages: messagesUpdated,
+      conversations: conversationsUpdated,
+      customJsonMessages: customJsonUpdated
+    });
+    
+    return { messages: messagesUpdated, conversations: conversationsUpdated, customJsonMessages: customJsonUpdated };
+  } catch (error) {
+    console.error('[MIGRATION] UTC timestamp migration failed:', error);
+    throw error;
+  }
 }
 
 export async function fixCorruptedMessages(currentUsername: string): Promise<number> {

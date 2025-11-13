@@ -10,6 +10,29 @@ export const hiveClient = new Client([
   'https://hive-api.arcange.eu',
 ]);
 
+/**
+ * Normalizes Hive blockchain timestamps to proper UTC format
+ * Hive returns timestamps like "2025-02-27T23:27:00" or "2024-11-18T22:11:54+00:00"
+ * JavaScript interprets timestamps without timezone as local time, so we append "Z" to mark them as UTC
+ * 
+ * @param timestamp - Raw timestamp from Hive blockchain
+ * @returns ISO 8601 timestamp with UTC indicator
+ */
+export const normalizeHiveTimestamp = (timestamp: string | null | undefined): string => {
+  if (!timestamp) return new Date().toISOString();
+  
+  // Check if timestamp already ends with a timezone indicator
+  // Match: Z at end, or +/-HH:MM at end, or +/-HHMM at end, or +/-HH at end
+  const hasTimezone = /[Z]$|[+-]\d{2}:\d{2}$|[+-]\d{4}$|[+-]\d{2}$/.test(timestamp);
+  
+  if (hasTimezone) {
+    return timestamp;
+  }
+  
+  // No timezone found at end - append Z to mark as UTC
+  return timestamp + 'Z';
+};
+
 // Hive Keychain integration
 export interface KeychainResponse {
   success: boolean;
@@ -180,7 +203,7 @@ export const filterEncryptedMessages = (history: any[], currentUser: string) => 
     .map(([index, op]) => ({
       index,
       ...op.op[1],
-      timestamp: op.timestamp,
+      timestamp: normalizeHiveTimestamp(op.timestamp),
       block: op.block,
       trx_id: op.trx_id,
     }));
@@ -375,7 +398,7 @@ export const getConversationMessages = async (
         to: op.op[1].to,
         memo: op.op[1].memo,
         amount: op.op[1].amount,
-        timestamp: op.timestamp,
+        timestamp: normalizeHiveTimestamp(op.timestamp),
         block: op.block,
         trx_id: op.trx_id,
       }));
@@ -627,7 +650,7 @@ export async function getCustomJsonMessages(
           idx: jsonData.idx,
           data: jsonData.e,
           hash: jsonData.h,
-          timestamp: op.timestamp,
+          timestamp: normalizeHiveTimestamp(op.timestamp),
           from,
           to,
           txId: op.trx_id
@@ -636,7 +659,7 @@ export async function getCustomJsonMessages(
         // Single operation message
         singleMessages.push({
           txId: op.trx_id,
-          timestamp: op.timestamp,
+          timestamp: normalizeHiveTimestamp(op.timestamp),
           from,
           to,
           encryptedPayload: jsonData.e,
