@@ -347,6 +347,13 @@ export function MessageComposer({
     // Optimistic Update: Add message to IndexedDB immediately
     // Note: We store the plaintext for sent messages since we can decrypt them later
     try {
+      console.log('[SEND] Step 1: Adding optimistic message to cache:', {
+        from: user.username,
+        to: recipientUsername,
+        tempId,
+        contentPreview: messageText.substring(0, 30) + '...'
+      });
+      
       await addOptimisticMessage(
         user.username,
         recipientUsername,
@@ -354,6 +361,8 @@ export function MessageComposer({
         '', // Will be filled with encrypted content after encryption
         tempId
       );
+      
+      console.log('[SEND] ✅ Optimistic message added to cache successfully');
 
       // Clear the input immediately for instant feedback
       setContent('');
@@ -369,6 +378,7 @@ export function MessageComposer({
         onSend(messageText);
       }
     } catch (optimisticError) {
+      console.error('[SEND] ❌ Failed to add optimistic message:', optimisticError);
       logger.error('Failed to add optimistic message:', optimisticError);
     }
 
@@ -376,6 +386,11 @@ export function MessageComposer({
       // Step 2: Encrypt message using Hive Keychain
       let encryptedMemo: string;
       try {
+        console.log('[SEND] Step 2: Starting encryption...', {
+          from: user.username,
+          to: recipientUsername
+        });
+        
         // Use the recommended requestKeychainEncryption from encryption.ts
         // Works on desktop Keychain extension AND Keychain Mobile browser
         encryptedMemo = await requestKeychainEncryption(
@@ -384,12 +399,19 @@ export function MessageComposer({
           recipientUsername
         );
         
+        console.log('[SEND] ✅ Encryption successful:', {
+          hasPrefix: encryptedMemo.startsWith('#'),
+          length: encryptedMemo.length,
+          preview: encryptedMemo.substring(0, 30) + '...'
+        });
+        
         logger.sensitive('[MessageComposer] ✅ Successfully encrypted memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
           length: encryptedMemo.length,
           preview: encryptedMemo.substring(0, 30) + '...'
         });
       } catch (encryptError: any) {
+        console.error('[SEND] ❌ Encryption failed:', encryptError);
         logger.error('[MessageComposer] ❌ Encryption error:', encryptError);
         
         const errorMessage = encryptError?.message || String(encryptError);
@@ -417,6 +439,13 @@ export function MessageComposer({
       // We are NOT sending any private keys - only the encrypted message
       let txId: string | undefined;
       try {
+        console.log('[SEND] Step 3: Broadcasting to blockchain...', {
+          from: user.username,
+          to: recipientUsername,
+          amount: sendAmount + ' HBD',
+          memoPreview: encryptedMemo.substring(0, 30) + '...'
+        });
+        
         logger.sensitive('[MessageComposer] Calling requestTransfer with memo:', {
           hasPrefix: encryptedMemo.startsWith('#'),
           memoPreview: encryptedMemo.substring(0, 30) + '...'
@@ -430,6 +459,11 @@ export function MessageComposer({
           'HBD'
         );
         
+        console.log('[SEND] Transfer response received:', {
+          success: transfer.success,
+          hasTxId: !!transfer.result
+        });
+        
         logger.info('[MessageComposer] Transfer response:', {
           success: transfer.success,
           message: transfer.message,
@@ -441,7 +475,9 @@ export function MessageComposer({
         }
         
         txId = transfer.result;
+        console.log('[SEND] ✅ Blockchain broadcast successful, txId:', txId);
       } catch (transferError: any) {
+        console.error('[SEND] ❌ Blockchain transfer failed:', transferError);
         logger.error('[MessageComposer] Transfer error caught:', transferError);
         
         // Handle specific error cases
@@ -474,14 +510,29 @@ export function MessageComposer({
         return;
       }
 
-      // Step 3: Confirm message in IndexedDB with real txId and encrypted content
-      // Also immediately update the UI
+      // Step 4: Confirm message in IndexedDB with real txId and encrypted content
+      // This is CRITICAL - it replaces the temp optimistic message with the real blockchain message
+      // Without this, we get duplicate messages (temp + blockchain sync)
+      console.log('[SEND] Step 4: Confirming message in cache...', {
+        tempId,
+        txId: txId || 'MISSING',
+        hasEncryptedMemo: !!encryptedMemo
+      });
+      
       try {
         await confirmMessage(tempId, txId || '', encryptedMemo, user.username);
+        console.log('[SEND] ✅ SUCCESS - confirmMessage completed! Message confirmed in cache with txId:', txId);
       } catch (confirmError: any) {
+        console.error('[SEND] ❌ CRITICAL ERROR - confirmMessage FAILED:', {
+          error: confirmError?.message || confirmError,
+          stack: confirmError?.stack,
+          tempId,
+          txId
+        });
         logger.error('Failed to confirm message in IndexedDB:', confirmError);
         // Don't show error to user - message was sent successfully
         // The next sync will pick it up from the blockchain
+        // But this WILL cause duplicate messages!
       }
 
       // Show success message

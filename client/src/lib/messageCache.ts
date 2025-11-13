@@ -365,6 +365,11 @@ export async function addOptimisticMessage(
 ): Promise<void> {
   const conversationKey = getConversationKey(from, to);
   
+  // CRITICAL: Use .toISOString() which always returns UTC format with 'Z' suffix
+  // Example: "2024-11-13T12:34:56.789Z"
+  // This ensures consistency with blockchain timestamps that are normalized via normalizeHiveTimestamp()
+  const timestamp = new Date().toISOString();
+  
   const message: MessageCache = {
     id: tempId,
     conversationKey,
@@ -372,7 +377,7 @@ export async function addOptimisticMessage(
     to,
     content,
     encryptedContent,
-    timestamp: new Date().toISOString(),
+    timestamp, // Always UTC with 'Z' suffix
     txId: '',
     confirmed: false,
   };
@@ -384,9 +389,9 @@ export async function addOptimisticMessage(
     conversationKey,
     partnerUsername: to,
     lastMessage: content,
-    lastTimestamp: message.timestamp,
+    lastTimestamp: timestamp, // Use same normalized timestamp
     unreadCount: conversation?.unreadCount || 0,
-    lastChecked: new Date().toISOString(),
+    lastChecked: new Date().toISOString(), // Also UTC with 'Z' suffix
   }, from);
 }
 

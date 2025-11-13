@@ -147,43 +147,63 @@ export default function Messages() {
 
   // Run timestamp migration and fix corrupted cached messages on mount
   useEffect(() => {
-    if (!user?.username) return;
+    console.log('[INIT] ⚡ Migration useEffect triggered, user:', user?.username);
+    
+    if (!user?.username) {
+      console.log('[INIT] ⚠️ No username, skipping migration');
+      return;
+    }
+    
+    console.log('[INIT] ✅ Username verified, starting migration checks for:', user.username);
     
     // Run UTC timestamp migration first
     import('@/lib/messageCache').then(async ({ migrateTimestampsToUTC, clearAllCache, fixCorruptedMessages }) => {
+      console.log('[INIT] 📦 messageCache module loaded successfully');
+      
       try {
         // Run migration
+        console.log('[INIT] 🔄 Running UTC timestamp migration...');
         const counts = await migrateTimestampsToUTC(user.username);
         if (counts.messages > 0 || counts.conversations > 0 || counts.customJsonMessages > 0) {
-          console.log('[INIT] Migrated timestamps to UTC:', counts);
+          console.log('[INIT] ✅ Migrated timestamps to UTC:', counts);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
           queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+        } else {
+          console.log('[INIT] ℹ️ No timestamps needed migration (already completed or no messages)');
         }
         
         // Check cache version for other fixes
         const cacheVersion = localStorage.getItem('hive_cache_version');
+        console.log('[INIT] 🔍 Checking cache version:', cacheVersion, 'vs expected: 7.0');
         if (cacheVersion !== '7.0') {
-          console.log('[INIT] Cache version outdated, clearing cache...');
+          console.log('[INIT] 🗑️ Cache version outdated, clearing cache...');
           await clearAllCache(user.username);
           localStorage.setItem('hive_cache_version', '7.0');
-          console.log('[INIT] Cache cleared successfully');
+          console.log('[INIT] ✅ Cache cleared successfully, version updated to 7.0');
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
           queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
         }
         
         // Regular corruption fix (for content === encryptedContent cases)
+        console.log('[INIT] 🔍 Checking for corrupted messages...');
         const fixCount = await fixCorruptedMessages(user.username);
         if (fixCount > 0) {
-          console.log(`[INIT] Fixed ${fixCount} corrupted messages, refreshing...`);
+          console.log(`[INIT] ✅ Fixed ${fixCount} corrupted messages, refreshing...`);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
+        } else {
+          console.log('[INIT] ℹ️ No corrupted messages found');
         }
+        
+        console.log('[INIT] ✅ ALL MIGRATION CHECKS COMPLETE');
       } catch (error) {
-        console.error('[INIT] Migration failed, clearing cache as fallback:', error);
+        console.error('[INIT] ❌ Migration failed, clearing cache as fallback:', error);
         await clearAllCache(user.username);
         localStorage.setItem('hive_cache_version', '7.0');
         queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
         queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
       }
+    }).catch((importError) => {
+      console.error('[INIT] ❌ CRITICAL: Failed to import messageCache module:', importError);
     });
   }, [user?.username, queryClient]);
 
