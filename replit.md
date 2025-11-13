@@ -10,6 +10,10 @@ Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive We
 - **Service Worker Cache**: Bumped to v10 to force cache invalidation after code changes.
 - **Timezone Fixes**: All timestamps normalized to UTC with 'Z' suffix for consistency.
 - **Migration System**: Implemented idempotent UTC timestamp migration for existing cached messages.
+- **Exemption Indicator**: Added friendly UX indicator when users may be exempted from paying higher minimum HBD fees.
+  - Green success badge with checkmark appears when sending at 0.001 HBD below recipient's higher minimum
+  - Message: "{amount} HBD - You may be exempted from their {minimum} HBD minimum!"
+  - Allows sending at default 0.001 HBD even if recipient requires more (assumes exemption stored in recipient's localStorage)
 
 ## User Preferences
 I prefer simple language. I want iterative development. Ask before making major changes. I prefer detailed explanations.
