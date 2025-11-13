@@ -3,8 +3,8 @@
  * Provides offline support and caching for 100% decentralized operation
  */
 
-const CACHE_NAME = 'hive-messenger-v10';
-const RUNTIME_CACHE = 'hive-messenger-runtime-v10';
+const CACHE_NAME = 'hive-messenger-v11';
+const RUNTIME_CACHE = 'hive-messenger-runtime-v11';
 
 // Assets to cache immediately on install
 const PRECACHE_ASSETS = [
