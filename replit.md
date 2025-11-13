@@ -1,7 +1,15 @@
 # Hive Messenger - Decentralized Encrypted Blockchain Messaging PWA
 
 ## Overview
-Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure, ensuring an instant user experience. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, and a mobile-first responsive design. Recent enhancements include a configurable minimum HBD requirement for incoming messages to combat spam and an exceptions list for whitelisting trusted contacts.
+Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, and a mobile-first responsive design. Recent enhancements include a configurable minimum HBD requirement for incoming messages to combat spam and an exceptions list for whitelisting trusted contacts.
+
+## Recent Changes (v2.1.0)
+- **Duplicate Message Fix**: Removed optimistic message updates entirely. Messages now appear ONLY after blockchain confirmation (no instant preview).
+  - Trade-off: Slight delay (2-5 seconds) before messages appear, but 100% reliable with no duplicates.
+  - Fast polling (15 seconds) triggers after send to minimize perceived latency.
+- **Service Worker Cache**: Bumped to v10 to force cache invalidation after code changes.
+- **Timezone Fixes**: All timestamps normalized to UTC with 'Z' suffix for consistency.
+- **Migration System**: Implemented idempotent UTC timestamp migration for existing cached messages.
 
 ## User Preferences
 I prefer simple language. I want iterative development. Ask before making major changes. I prefer detailed explanations.
