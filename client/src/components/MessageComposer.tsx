@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info } from 'lucide-react';
+import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -333,7 +333,11 @@ export function MessageComposer({
       return;
     }
     
-    if (numericSendAmount < numericMinimum) {
+    // v2.1.0: Allow sending at DEFAULT_MINIMUM_HBD (0.001) even if below recipient's minimum
+    // This assumes the sender is exempted by the recipient (stored in recipient's localStorage)
+    const isDefaultAmount = numericSendAmount === parseFloat(DEFAULT_MINIMUM_HBD);
+    
+    if (numericSendAmount < numericMinimum && !isDefaultAmount) {
       toast({
         title: 'Amount Below Minimum',
         description: `@${recipientUsername} requires at least ${effectiveRecipientMinimum} HBD. Your amount: ${sendAmount} HBD`,
@@ -578,14 +582,25 @@ export function MessageComposer({
               <span className="text-caption text-muted-foreground">HBD</span>
             </div>
             
-            {/* Show recipient minimum info - guard against undefined */}
+            {/* v2.1.0: Show exemption indicator when sending at default amount below recipient's minimum */}
             {!isLoadingMinimum && recipientMinimum && parseFloat(sendAmount) < parseFloat(recipientMinimum) && (
-              <Alert variant="destructive" data-testid="alert-amount-warning">
-                <Info className="w-4 h-4" />
-                <AlertDescription>
-                  @{recipientUsername} requires minimum {recipientMinimum} HBD per message
-                </AlertDescription>
-              </Alert>
+              <>
+                {parseFloat(sendAmount) === parseFloat(DEFAULT_MINIMUM_HBD) ? (
+                  <div className="flex items-center gap-2 px-3 py-2 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-md" data-testid="alert-exemption-indicator">
+                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
+                    <span className="text-caption text-green-700 dark:text-green-300">
+                      {sendAmount} HBD - You may be exempted from their {recipientMinimum} HBD minimum!
+                    </span>
+                  </div>
+                ) : (
+                  <Alert variant="destructive" data-testid="alert-amount-warning">
+                    <Info className="w-4 h-4" />
+                    <AlertDescription>
+                      @{recipientUsername} requires minimum {recipientMinimum} HBD per message
+                    </AlertDescription>
+                  </Alert>
+                )}
+              </>
             )}
             
             {!isLoadingMinimum && recipientMinimum && recipientMinimum !== DEFAULT_MINIMUM_HBD && parseFloat(sendAmount) >= parseFloat(recipientMinimum) && (
