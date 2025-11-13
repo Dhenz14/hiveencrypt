@@ -26,6 +26,7 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 - **Conversation Discovery**: Achieved by scanning blockchain transactions for communication partners.
 - **Economic Anti-Spam**: Configurable minimum HBD requirements for incoming messages, stored as custom_json metadata on the blockchain.
 - **Whitelist Management**: Local storage-based exceptions list for bypassing minimum HBD filters for trusted contacts.
+- **Hidden Conversations**: Client-side conversation hiding to declutter sidebar without deleting message data, stored per-user in localStorage with centralized state management.
 - **Resizable Sidebar**: Desktop-only (md+ breakpoint) using react-resizable-panels with one-time hydration pattern (static mountKey, default 22%, min 18%, max 40%, persists to localStorage key 'hive-messenger-sidebar-layout').
 - **Mobile Optimization**: Viewport meta allows user zoom without auto-zoom (16px+ inputs), 24 interactive elements upgraded to 44px+ touch targets, iOS safe-area padding with min-h-[calc()] for notched devices (iPhone 14+, Dynamic Island).
 
@@ -39,6 +40,7 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 - No private keys are ever transmitted or stored by the application.
 - Configurable minimum HBD filter for incoming messages.
 - User-managed exceptions/whitelist for the HBD filter.
+- Hide/unhide conversations from sidebar (message data remains in cache, accessible via "Hidden Chats" menu).
 
 ### System Design Choices
 - **Decentralized Storage**: Hive blockchain.

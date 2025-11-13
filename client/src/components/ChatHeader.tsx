@@ -1,4 +1,4 @@
-import { MoreVertical, Lock, User, Trash2, ArrowLeft, Shield, ShieldCheck } from 'lucide-react';
+import { MoreVertical, Lock, User, Trash2, ArrowLeft, Shield, ShieldCheck, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +23,7 @@ interface ChatHeaderProps {
   onViewProfile: () => void;
   onViewBlockchain?: () => void;
   onDeleteLocalData?: () => void;
+  onHideChat?: () => void;
   onBackClick?: () => void;
 }
 
@@ -33,6 +34,7 @@ export function ChatHeader({
   onViewProfile,
   onViewBlockchain,
   onDeleteLocalData,
+  onHideChat,
   onBackClick
 }: ChatHeaderProps) {
   const { isException, toggleException } = useExceptionsList();
@@ -141,6 +143,12 @@ export function ChatHeader({
               <DropdownMenuItem onClick={onViewBlockchain} data-testid="menu-view-blockchain">
                 <Lock className="w-4 h-4 mr-2" />
                 View on Blockchain
+              </DropdownMenuItem>
+            )}
+            {onHideChat && (
+              <DropdownMenuItem onClick={onHideChat} data-testid="menu-hide-chat">
+                <EyeOff className="w-4 h-4 mr-2" />
+                Hide Chat
               </DropdownMenuItem>
             )}
             {onDeleteLocalData && (

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { Settings, Moon, Sun, Info, Filter } from 'lucide-react';
+import { Settings, Moon, Sun, Info, Filter, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -23,10 +23,12 @@ import { MessageComposer } from '@/components/MessageComposer';
 import { NewMessageModal } from '@/components/NewMessageModal';
 import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
+import { HiddenChatsModal } from '@/components/HiddenChatsModal';
 import { EmptyState, NoConversationSelected } from '@/components/EmptyState';
 import { BlockchainSyncIndicator } from '@/components/BlockchainSyncIndicator';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useHiddenConversations } from '@/contexts/HiddenConversationsContext';
 import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shared/schema';
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
@@ -66,6 +68,7 @@ export default function Messages() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { isMobile, showChat, setShowChat } = useMobileLayout();
+  const { isHidden, hideConversation, hiddenConversations } = useHiddenConversations();
   
   const [selectedPartner, setSelectedPartner] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -73,6 +76,7 @@ export default function Messages() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isHiddenChatsOpen, setIsHiddenChatsOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
@@ -120,6 +124,7 @@ export default function Messages() {
 
   const conversations: Conversation[] = conversationCaches
     .filter((conv): conv is ConversationCache => conv !== null && conv !== undefined)
+    .filter(conv => !isHidden(conv.partnerUsername))
     .map(mapConversationCacheToConversation);
   
   // Debug logging
@@ -287,6 +292,23 @@ export default function Messages() {
     setIsDeleteDialogOpen(true);
   };
 
+  const handleHideChat = () => {
+    if (!selectedPartner) return;
+    
+    hideConversation(selectedPartner);
+    
+    toast({
+      title: 'Chat Hidden',
+      description: `@${selectedPartner} has been hidden from your conversations. You can unhide it from the Hidden Chats menu.`,
+    });
+    
+    // Clear selection and go back to conversation list on mobile
+    setSelectedPartner('');
+    if (isMobile) {
+      setShowChat(false);
+    }
+  };
+
   const handleConfirmDelete = async () => {
     if (!user?.username || !selectedPartner) return;
     
@@ -350,6 +372,20 @@ export default function Messages() {
           <Button
             variant="ghost"
             size="icon"
+            onClick={() => setIsHiddenChatsOpen(true)}
+            data-testid="button-hidden-chats"
+            className="min-h-11 min-w-11 relative"
+          >
+            <EyeOff className="w-5 h-5" />
+            {hiddenConversations.length > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium">
+                {hiddenConversations.length}
+              </span>
+            )}
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setIsSettingsOpen(true)}
             data-testid="button-settings"
             className="min-h-11 min-w-11"
@@ -395,6 +431,7 @@ export default function Messages() {
             onViewProfile={handleViewProfile}
             onViewBlockchain={handleViewBlockchain}
             onDeleteLocalData={handleDeleteLocalData}
+            onHideChat={handleHideChat}
             onBackClick={isMobile ? () => setShowChat(false) : undefined}
           />
 
@@ -561,6 +598,11 @@ export default function Messages() {
       <SettingsModal
         open={isSettingsOpen}
         onOpenChange={setIsSettingsOpen}
+      />
+
+      <HiddenChatsModal
+        open={isHiddenChatsOpen}
+        onOpenChange={setIsHiddenChatsOpen}
       />
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>

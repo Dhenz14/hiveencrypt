@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ExceptionsProvider } from "@/contexts/ExceptionsContext";
+import { HiddenConversationsProvider } from "@/contexts/HiddenConversationsContext";
 import { KeychainRedirect } from "@/components/KeychainRedirect";
 import Login from "@/pages/Login";
 import Messages from "@/pages/Messages";
@@ -71,10 +72,12 @@ function App() {
       <ThemeProvider>
         <AuthProvider>
           <ExceptionsProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Router />
-            </TooltipProvider>
+            <HiddenConversationsProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Router />
+              </TooltipProvider>
+            </HiddenConversationsProvider>
           </ExceptionsProvider>
         </AuthProvider>
       </ThemeProvider>
