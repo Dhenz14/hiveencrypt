@@ -1,0 +1,976 @@
+logger.ts:10 [PROGRESSIVE] Phase 1 discovered 3 partners in 66 ms
+logger.ts:10 [PROGRESSIVE] Phase 1 - Cached: 3 Uncached: 0
+logger.ts:10 [PROGRESSIVE] Phase 1 complete: 3 conversations ready to display
+logger.ts:10 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 78, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [PROGRESSIVE] Phase 2 discovered 3 total partners in 78 ms
+logger.ts:10 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 25
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6}
+messageCache.ts:449 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 628
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 77, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [PHASE4] Re-evaluating 25 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 14 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 25 Visible: 25 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6, amount: '0.001 HBD'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+logger.ts:30 [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: {original: 'yoyo', withPrefix: '#yoyo', userTypedHash: false}
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 26
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6}
+messageCache.ts:449 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 628
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 78, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [PHASE4] Re-evaluating 26 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 15 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 26 Visible: 26 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6, amount: '0.001 HBD'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 25 Hidden: 0
+logger.ts:10 [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+logger.ts:10 [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 87, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [PROGRESSIVE] Phase 1 discovered 3 partners in 68 ms
+logger.ts:10 [PROGRESSIVE] Phase 1 - Cached: 3 Uncached: 0
+logger.ts:10 [PROGRESSIVE] Phase 1 complete: 3 conversations ready to display
+logger.ts:10 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 85, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [PROGRESSIVE] Phase 2 discovered 3 total partners in 77 ms
+logger.ts:10 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+logger.ts:10 [ENCRYPTION] ✅ Encryption successful
+logger.ts:30 [SENSITIVE] [MessageComposer] ✅ Successfully encrypted memo: {hasPrefix: true, length: 130, preview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSF...'}
+logger.ts:30 [SENSITIVE] [MessageComposer] Calling requestTransfer with memo: {hasPrefix: true, memoPreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSF...'}
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 26
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6}
+messageCache.ts:449 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 628
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 85, successRate: '100.0%'}
+logger.ts:10 [PHASE4] Re-evaluating 26 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 15 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 26 Visible: 26 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6, amount: '0.001 HBD'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [MessageComposer] Transfer response: {success: true, message: 'Successfully transfered 0.001 HBD from @dandandan123 to @pro-content.', error: undefined}
+messageCache.ts:304 [confirmMessage] Starting confirmation: {tempId: 'temp-1763052766869-5fmxaz8au', txId: {…}, hasEncrypted: true, username: 'dandandan123'}
+messageCache.ts:314 [confirmMessage] Found message in cache: {id: 'temp-1763052766869-5fmxaz8au', from: 'dandandan123', to: 'pro-content', contentLength: 4, encryptedContentLength: 0, …}
+messageCache.ts:334 [confirmMessage] Stored encrypted content, length: 130
+messageCache.ts:337 [confirmMessage] Deleting temp message with id: temp-1763052766869-5fmxaz8au
+messageCache.ts:340 [confirmMessage] Storing confirmed message with id: {id: 'a3b378acec25d01738181b911290dffa64c6ae0a', tx_id: 'a3b378acec25d01738181b911290dffa64c6ae0a', confirmed: true}
+messageCache.ts:350 [confirmMessage] ❌ Error confirming message: {error: "Failed to execute 'put' on 'IDBObjectStore': Evalu…key path yielded a value that is not a valid key.", stack: "DataError: Failed to execute 'put' on 'IDBObjectSt…lit.dev/src/components/MessageComposer.tsx:393:9)", tempId: 'temp-1763052766869-5fmxaz8au', txId: {…}}
+confirmMessage @ messageCache.ts:350
+await in confirmMessage
+handleSubmit @ MessageComposer.tsx:480
+await in handleSubmit
+callCallback2 @ chunk-UZOKQUDP.js?v=70759bfa:3674
+invokeGuardedCallbackDev @ chunk-UZOKQUDP.js?v=70759bfa:3699
+invokeGuardedCallback @ chunk-UZOKQUDP.js?v=70759bfa:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-UZOKQUDP.js?v=70759bfa:3736
+executeDispatch @ chunk-UZOKQUDP.js?v=70759bfa:7014
+processDispatchQueueItemsInOrder @ chunk-UZOKQUDP.js?v=70759bfa:7034
+processDispatchQueue @ chunk-UZOKQUDP.js?v=70759bfa:7043
+dispatchEventsForPlugins @ chunk-UZOKQUDP.js?v=70759bfa:7051
+(anonymous) @ chunk-UZOKQUDP.js?v=70759bfa:7174
+batchedUpdates$1 @ chunk-UZOKQUDP.js?v=70759bfa:18913
+batchedUpdates @ chunk-UZOKQUDP.js?v=70759bfa:3579
+dispatchEventForPluginEventSystem @ chunk-UZOKQUDP.js?v=70759bfa:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-UZOKQUDP.js?v=70759bfa:5478
+dispatchEvent @ chunk-UZOKQUDP.js?v=70759bfa:5472
+dispatchDiscreteEvent @ chunk-UZOKQUDP.js?v=70759bfa:5449
+messageCache.ts:366 [confirmMessage] Restored temp message after error
+logger.ts:23 Failed to confirm message in IndexedDB: DataError: Failed to execute 'put' on 'IDBObjectStore': Evaluating the object store's key path yielded a value that is not a valid key.
+    at Proxy.<anonymous> (idb.js?v=70759bfa:102:22)
+    at Proxy.method (idb.js?v=70759bfa:188:30)
+    at confirmMessage (messageCache.ts:341:14)
+    at async handleSubmit (MessageComposer.tsx:480:9)
+error @ logger.ts:23
+handleSubmit @ MessageComposer.tsx:482
+await in handleSubmit
+callCallback2 @ chunk-UZOKQUDP.js?v=70759bfa:3674
+invokeGuardedCallbackDev @ chunk-UZOKQUDP.js?v=70759bfa:3699
+invokeGuardedCallback @ chunk-UZOKQUDP.js?v=70759bfa:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-UZOKQUDP.js?v=70759bfa:3736
+executeDispatch @ chunk-UZOKQUDP.js?v=70759bfa:7014
+processDispatchQueueItemsInOrder @ chunk-UZOKQUDP.js?v=70759bfa:7034
+processDispatchQueue @ chunk-UZOKQUDP.js?v=70759bfa:7043
+dispatchEventsForPlugins @ chunk-UZOKQUDP.js?v=70759bfa:7051
+(anonymous) @ chunk-UZOKQUDP.js?v=70759bfa:7174
+batchedUpdates$1 @ chunk-UZOKQUDP.js?v=70759bfa:18913
+batchedUpdates @ chunk-UZOKQUDP.js?v=70759bfa:3579
+dispatchEventForPluginEventSystem @ chunk-UZOKQUDP.js?v=70759bfa:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-UZOKQUDP.js?v=70759bfa:5478
+dispatchEvent @ chunk-UZOKQUDP.js?v=70759bfa:5472
+dispatchDiscreteEvent @ chunk-UZOKQUDP.js?v=70759bfa:5449
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 26
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6}
+messageCache.ts:449 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 628
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 89, successRate: '100.0%'}
+logger.ts:10 [PHASE4] Re-evaluating 26 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 15 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 26 Visible: 26 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6, amount: '0.001 HBD'}
+logger.ts:10 [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+logger.ts:10 [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 89, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [PROGRESSIVE] Phase 1 discovered 3 partners in 74 ms
+logger.ts:10 [PROGRESSIVE] Phase 1 - Cached: 3 Uncached: 0
+logger.ts:10 [PROGRESSIVE] Phase 1 complete: 3 conversations ready to display
+logger.ts:10 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 89, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [PROGRESSIVE] Phase 2 discovered 3 total partners in 70 ms
+logger.ts:10 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 26
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+messageCache.ts:449 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 628
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 87, successRate: '100.0%'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 26 Hidden: 0
+logger.ts:10 [INCREMENTAL] Found 1 new messages (filtered > opId: 628 )
+logger.ts:10 [QUERY] Batching 1 new messages for single IndexedDB write
+messageCache.ts:460 [INCREMENTAL] Updated last synced opId for dandandan123-pro-content : 629
+logger.ts:10 [PHASE4] Re-evaluating 27 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 16 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 27 Visible: 27 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 26: {id: 'a3b378acec25d01...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 27
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 26: {id: 'a3b378acec25d01...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+messageCache.ts:449 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 629
+hiveClient.ts:149 [RPC] Selected best node: https://api.deathwing.me {avgLatency: 88, successRate: '100.0%'}
+logger.ts:10 [PHASE4] Re-evaluating 27 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 16 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 27 Visible: 27 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '#yo...', contentLength: 3, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: 'temp-1763051412...', from: 'dandandan123', contentPreview: 'yoyoy...', contentLength: 5, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: 'temp-1763052766...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '#yoyoy...', contentLength: 6, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 26: {id: 'a3b378acec25d01...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 27 Hidden: 0
