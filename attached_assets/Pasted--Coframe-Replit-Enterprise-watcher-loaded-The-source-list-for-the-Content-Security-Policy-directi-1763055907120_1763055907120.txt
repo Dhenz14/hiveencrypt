@@ -1,0 +1,1294 @@
+ [Coframe] Replit Enterprise watcher loaded
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+HiveEncrypt:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+HiveEncrypt:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+HiveEncrypt:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ ✅ blakejs loaded successfully (self-contained version)
+   Available functions: Array(5)
+ 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+ 🏛️ ArcHive Content Script Loaded
+ 🏛️ ArcHive Content Script Ready - 100% Decentralized
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ Download the Apollo DevTools for a better development experience: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+ [LaunchDarkly] LaunchDarkly client initialized
+HiveEncrypt:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ Cache data may be lost when replacing the dealContext field of a Org object.
+
+This could cause additional (usually avoidable) network requests to fetch data that were otherwise cached.
+
+To address this problem (which is not a bug in Apollo Client), either ensure all objects of type OrgDealContext have an ID or a custom merge function, or define a custom merge function for the Org.dealContext field, so InMemoryCache can safely merge these objects:
+
+  existing: {"__typename":"OrgDealContext","dealType":"default","salesContactEmail":null}
+  incoming: {"__typename":"OrgDealContext","dealType":"default"}
+
+For more information about these options, please refer to the documentation:
+
+  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers
+  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects
+
+(anonymous) @ 7f31f23f9cd63bda.js:2
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'ambient-light-sensor'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'battery'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-not-rendered'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'layout-animations'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'legacy-image-formats'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'navigation-override'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'oversized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'publickey-credentials'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'speaker-selection'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unoptimized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unsized-media'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'pointer-lock'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowfullscreen'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+z @ ed1e693c96a75807.js:2
+ [ServiceWorker] Loaded and ready!
+ Adding extension: API Request Tester Object
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2g%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ Adding extension: Javascript Commands Object
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+ Command: javascript-root-command has unrecognized contributions: commandbar. Valid contributions are commandbar,filetree-context-menu,sidebar-search,editor-context-menu Object
+(anonymous) @ 7f31f23f9cd63bda.js:2
+ WebSocket connection to 'wss://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/?token=LlnxJDvsMqAV' failed: 
+setupWebSocket @ client:536
+ Adding extension: Prettier - Code Formatter Object
+ Adding extension: JSON Editor Object
+ Adding extension: CSS Gradient Generator Object
+ Adding extension: ReplDB Export and Import Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: curatorhulk
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Retrieved cached messages: 0
+ [INCREMENTAL] No last synced opId for curatorhulk-dandandan123 - first sync
+ [QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)
+ [RPC] Selected best node: https://api.hive.blog Object
+ [METADATA] Fetched and cached: curatorhulk undefined
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Batching 5 new messages for single IndexedDB write
+ [INCREMENTAL] Updated last synced opId for curatorhulk-dandandan123 : 621
+ [PHASE4] Re-evaluating 5 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 4 messages with changed hidden state
+ [QUERY] Total messages: 5 Visible: 5 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 5 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: pro-content
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Retrieved cached messages: 0
+ [INCREMENTAL] No last synced opId for dandandan123-pro-content - first sync
+ [QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)
+ [RPC] Selected best node: https://api.hive.blog Object
+ [METADATA] Fetched and cached: pro-content undefined
+ [QUERY] Batching 26 new messages for single IndexedDB write
+ [INCREMENTAL] Updated last synced opId for dandandan123-pro-content : 630
+ [PHASE4] Re-evaluating 26 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 15 messages with changed hidden state
+ [QUERY] Total messages: 26 Visible: 26 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [QUERY] Visible msg 14: Object
+ [SENSITIVE] [QUERY] Visible msg 15: Object
+ [SENSITIVE] [QUERY] Visible msg 16: Object
+ [SENSITIVE] [QUERY] Visible msg 17: Object
+ [SENSITIVE] [QUERY] Visible msg 18: Object
+ [SENSITIVE] [QUERY] Visible msg 19: Object
+ [SENSITIVE] [QUERY] Visible msg 20: Object
+ [SENSITIVE] [QUERY] Visible msg 21: Object
+ [SENSITIVE] [QUERY] Visible msg 22: Object
+ [SENSITIVE] [QUERY] Visible msg 23: Object
+ [SENSITIVE] [QUERY] Visible msg 24: Object
+ [SENSITIVE] [QUERY] Visible msg 25: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [SEND] Step 1: Adding optimistic message to cache: Object
+ [SEND] ✅ Optimistic message added to cache successfully
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [SEND] Step 2: Starting encryption... Object
+ [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+ [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: Object
+ [FILTER] User minimum HBD: 0.010
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [QUERY] Retrieved cached messages: 27
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [SENSITIVE] [QUERY] Cached msg 4: Object
+ [SENSITIVE] [QUERY] Cached msg 5: Object
+ [SENSITIVE] [QUERY] Cached msg 6: Object
+ [SENSITIVE] [QUERY] Cached msg 7: Object
+ [SENSITIVE] [QUERY] Cached msg 8: Object
+ [SENSITIVE] [QUERY] Cached msg 9: Object
+ [SENSITIVE] [QUERY] Cached msg 10: Object
+ [SENSITIVE] [QUERY] Cached msg 11: Object
+ [SENSITIVE] [QUERY] Cached msg 12: Object
+ [SENSITIVE] [QUERY] Cached msg 13: Object
+ [SENSITIVE] [QUERY] Cached msg 14: Object
+ [SENSITIVE] [QUERY] Cached msg 15: Object
+ [SENSITIVE] [QUERY] Cached msg 16: Object
+ [SENSITIVE] [QUERY] Cached msg 17: Object
+ [SENSITIVE] [QUERY] Cached msg 18: Object
+ [SENSITIVE] [QUERY] Cached msg 19: Object
+ [SENSITIVE] [QUERY] Cached msg 20: Object
+ [SENSITIVE] [QUERY] Cached msg 21: Object
+ [SENSITIVE] [QUERY] Cached msg 22: Object
+ [SENSITIVE] [QUERY] Cached msg 23: Object
+ [SENSITIVE] [QUERY] Cached msg 24: Object
+ [SENSITIVE] [QUERY] Cached msg 25: Object
+ [SENSITIVE] [QUERY] Cached msg 26: Object
+ [INCREMENTAL] Last synced opId for dandandan123-pro-content : 630
+ [RPC] Selected best node: https://api.hive.blog Object
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 26 Hidden: 0
+ [PHASE4] Re-evaluating 27 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 16 messages with changed hidden state
+ [QUERY] Total messages: 27 Visible: 27 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [QUERY] Visible msg 14: Object
+ [SENSITIVE] [QUERY] Visible msg 15: Object
+ [SENSITIVE] [QUERY] Visible msg 16: Object
+ [SENSITIVE] [QUERY] Visible msg 17: Object
+ [SENSITIVE] [QUERY] Visible msg 18: Object
+ [SENSITIVE] [QUERY] Visible msg 19: Object
+ [SENSITIVE] [QUERY] Visible msg 20: Object
+ [SENSITIVE] [QUERY] Visible msg 21: Object
+ [SENSITIVE] [QUERY] Visible msg 22: Object
+ [SENSITIVE] [QUERY] Visible msg 23: Object
+ [SENSITIVE] [QUERY] Visible msg 24: Object
+ [SENSITIVE] [QUERY] Visible msg 25: Object
+ [SENSITIVE] [QUERY] Visible msg 26: Object
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [PROGRESSIVE] Phase 1 discovered 3 partners in 370 ms
+ [PROGRESSIVE] Phase 1 - Cached: 3 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 3 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [PROGRESSIVE] Phase 1 discovered 3 partners in 163 ms
+ [PROGRESSIVE] Phase 1 - Cached: 3 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 3 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [ENCRYPTION] ✅ Encryption successful
+ [SEND] ✅ Encryption successful: Object
+ [SENSITIVE] [MessageComposer] ✅ Successfully encrypted memo: Object
+ [SEND] Step 3: Broadcasting to blockchain... Object
+ [SENSITIVE] [MessageComposer] Calling requestTransfer with memo: Object
+ [PROGRESSIVE] Phase 2 discovered 3 total partners in 90 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [PROGRESSIVE] Phase 2 discovered 3 total partners in 96 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [QUERY] Retrieved cached messages: 27
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [SENSITIVE] [QUERY] Cached msg 4: Object
+ [SENSITIVE] [QUERY] Cached msg 5: Object
+ [SENSITIVE] [QUERY] Cached msg 6: Object
+ [SENSITIVE] [QUERY] Cached msg 7: Object
+ [SENSITIVE] [QUERY] Cached msg 8: Object
+ [SENSITIVE] [QUERY] Cached msg 9: Object
+ [SENSITIVE] [QUERY] Cached msg 10: Object
+ [SENSITIVE] [QUERY] Cached msg 11: Object
+ [SENSITIVE] [QUERY] Cached msg 12: Object
+ [SENSITIVE] [QUERY] Cached msg 13: Object
+ [SENSITIVE] [QUERY] Cached msg 14: Object
+ [SENSITIVE] [QUERY] Cached msg 15: Object
+ [SENSITIVE] [QUERY] Cached msg 16: Object
+ [SENSITIVE] [QUERY] Cached msg 17: Object
+ [SENSITIVE] [QUERY] Cached msg 18: Object
+ [SENSITIVE] [QUERY] Cached msg 19: Object
+ [SENSITIVE] [QUERY] Cached msg 20: Object
+ [SENSITIVE] [QUERY] Cached msg 21: Object
+ [SENSITIVE] [QUERY] Cached msg 22: Object
+ [SENSITIVE] [QUERY] Cached msg 23: Object
+ [SENSITIVE] [QUERY] Cached msg 24: Object
+ [SENSITIVE] [QUERY] Cached msg 25: Object
+ [SENSITIVE] [QUERY] Cached msg 26: Object
+ [INCREMENTAL] Last synced opId for dandandan123-pro-content : 630
+ [RPC] Selected best node: https://api.hive.blog Object
+ [PHASE4] Re-evaluating 27 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 16 messages with changed hidden state
+ [QUERY] Total messages: 27 Visible: 27 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [QUERY] Visible msg 14: Object
+ [SENSITIVE] [QUERY] Visible msg 15: Object
+ [SENSITIVE] [QUERY] Visible msg 16: Object
+ [SENSITIVE] [QUERY] Visible msg 17: Object
+ [SENSITIVE] [QUERY] Visible msg 18: Object
+ [SENSITIVE] [QUERY] Visible msg 19: Object
+ [SENSITIVE] [QUERY] Visible msg 20: Object
+ [SENSITIVE] [QUERY] Visible msg 21: Object
+ [SENSITIVE] [QUERY] Visible msg 22: Object
+ [SENSITIVE] [QUERY] Visible msg 23: Object
+ [SENSITIVE] [QUERY] Visible msg 24: Object
+ [SENSITIVE] [QUERY] Visible msg 25: Object
+ [SENSITIVE] [QUERY] Visible msg 26: Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [SEND] Transfer response received: Object
+ [MessageComposer] Transfer response: Object
+ [SEND] ✅ Blockchain broadcast successful, txId: Object
+ [SEND] Step 4: Confirming message in cache... Object
+ [confirmMessage] Starting confirmation: Object
+ [confirmMessage] Found message in cache: Object
+ [confirmMessage] Stored encrypted content, length: 130
+ [confirmMessage] Deleting temp message with id: temp-1763055889110-n14afjq9m
+ [confirmMessage] Storing confirmed message with id: Object
+ [confirmMessage] ❌ Error confirming message: Object
+confirmMessage @ messageCache.ts?t=1763053550585:253
+ [confirmMessage] Restored temp message after error
+ [SEND] ❌ CRITICAL ERROR - confirmMessage FAILED: Object
+handleSubmit @ MessageComposer.tsx?t=1763053550585:431
+ Failed to confirm message in IndexedDB: 
+error @ logger.ts:17
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [QUERY] Retrieved cached messages: 27
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [SENSITIVE] [QUERY] Cached msg 4: Object
+ [SENSITIVE] [QUERY] Cached msg 5: Object
+ [SENSITIVE] [QUERY] Cached msg 6: Object
+ [SENSITIVE] [QUERY] Cached msg 7: Object
+ [SENSITIVE] [QUERY] Cached msg 8: Object
+ [SENSITIVE] [QUERY] Cached msg 9: Object
+ [SENSITIVE] [QUERY] Cached msg 10: Object
+ [SENSITIVE] [QUERY] Cached msg 11: Object
+ [SENSITIVE] [QUERY] Cached msg 12: Object
+ [SENSITIVE] [QUERY] Cached msg 13: Object
+ [SENSITIVE] [QUERY] Cached msg 14: Object
+ [SENSITIVE] [QUERY] Cached msg 15: Object
+ [SENSITIVE] [QUERY] Cached msg 16: Object
+ [SENSITIVE] [QUERY] Cached msg 17: Object
+ [SENSITIVE] [QUERY] Cached msg 18: Object
+ [SENSITIVE] [QUERY] Cached msg 19: Object
+ [SENSITIVE] [QUERY] Cached msg 20: Object
+ [SENSITIVE] [QUERY] Cached msg 21: Object
+ [SENSITIVE] [QUERY] Cached msg 22: Object
+ [SENSITIVE] [QUERY] Cached msg 23: Object
+ [SENSITIVE] [QUERY] Cached msg 24: Object
+ [SENSITIVE] [QUERY] Cached msg 25: Object
+ [SENSITIVE] [QUERY] Cached msg 26: Object
+ [INCREMENTAL] Last synced opId for dandandan123-pro-content : 630
+ [RPC] Selected best node: https://api.hive.blog Object
+ [PHASE4] Re-evaluating 27 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 16 messages with changed hidden state
+ [QUERY] Total messages: 27 Visible: 27 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [QUERY] Visible msg 14: Object
+ [SENSITIVE] [QUERY] Visible msg 15: Object
+ [SENSITIVE] [QUERY] Visible msg 16: Object
+ [SENSITIVE] [QUERY] Visible msg 17: Object
+ [SENSITIVE] [QUERY] Visible msg 18: Object
+ [SENSITIVE] [QUERY] Visible msg 19: Object
+ [SENSITIVE] [QUERY] Visible msg 20: Object
+ [SENSITIVE] [QUERY] Visible msg 21: Object
+ [SENSITIVE] [QUERY] Visible msg 22: Object
+ [SENSITIVE] [QUERY] Visible msg 23: Object
+ [SENSITIVE] [QUERY] Visible msg 24: Object
+ [SENSITIVE] [QUERY] Visible msg 25: Object
+ [SENSITIVE] [QUERY] Visible msg 26: Object
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [PROGRESSIVE] Phase 1 discovered 3 partners in 108 ms
+ [PROGRESSIVE] Phase 1 - Cached: 3 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 3 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [PROGRESSIVE] Phase 2 discovered 3 total partners in 90 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 27 Hidden: 0
+ [QUERY] Retrieved cached messages: 27
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [SENSITIVE] [QUERY] Cached msg 4: Object
+ [SENSITIVE] [QUERY] Cached msg 5: Object
+ [SENSITIVE] [QUERY] Cached msg 6: Object
+ [SENSITIVE] [QUERY] Cached msg 7: Object
+ [SENSITIVE] [QUERY] Cached msg 8: Object
+ [SENSITIVE] [QUERY] Cached msg 9: Object
+ [SENSITIVE] [QUERY] Cached msg 10: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: Object
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 26: Object
+messageCache.ts:544 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 630
+hiveClient.ts:149 [RPC] Selected best node: https://api.hive.blog Object
+logger.ts:10 [INCREMENTAL] Found 1 new messages (filtered > opId: 630 )
+logger.ts:10 [QUERY] Batching 1 new messages for single IndexedDB write
+messageCache.ts:555 [INCREMENTAL] Updated last synced opId for dandandan123-pro-content : 631
+logger.ts:10 [PHASE4] Re-evaluating 28 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 17 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 28 Visible: 28 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 26: Object
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 27: Object
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: Array(3)
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 28
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: 'a3b378acec25d01...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: {id: '306f3a8f9cd8961...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 26: {id: 'temp-1763055889...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 27: {id: 'b06d71ebed457fd...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+messageCache.ts:544 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 631
+hiveClient.ts:149 [RPC] Selected best node: https://api.hive.blog {avgLatency: 196, successRate: '100.0%'}
+logger.ts:10 [PHASE4] Re-evaluating 28 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 17 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 28 Visible: 28 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: 'a3b378acec25d01...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: {id: '306f3a8f9cd8961...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 26: {id: 'temp-1763055889...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 27: {id: 'b06d71ebed457fd...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+logger.ts:10 [QUERY] Starting blockchain messages query for: {username: 'dandandan123', partner: 'pro-content'}
+accountMetadata.ts:131 [METADATA] Cache hit for: dandandan123
+logger.ts:10 [FILTER] User minimum HBD: 0.010
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+logger.ts:10 [QUERY] Retrieved cached messages: 28
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 23: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 24: {id: 'a3b378acec25d01...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 25: {id: '306f3a8f9cd8961...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 26: {id: 'temp-1763055889...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4}
+logger.ts:30 [SENSITIVE] [QUERY] Cached msg 27: {id: 'b06d71ebed457fd...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33}
+messageCache.ts:544 [INCREMENTAL] Last synced opId for dandandan123-pro-content : 631
+hiveClient.ts:149 [RPC] Selected best node: https://api.hive.blog {avgLatency: 167, successRate: '100.0%'}
+logger.ts:10 [PHASE4] Re-evaluating 28 messages against current minimum: 0.010
+logger.ts:10 [PHASE4] Re-evaluated 17 messages with changed hidden state
+logger.ts:10 [QUERY] Total messages: 28 Visible: 28 Hidden: 0
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 0: {id: 'ff76b2783111e40...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 1: {id: 'd72f2ba992d051f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 2: {id: '9e493e2284fd708...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 3: {id: '823ec6cb5d4f01f...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 4: {id: '1a6e0daa5d9187a...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 5: {id: '3cae3543d04abee...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 6: {id: '2b1dcdef6ad62b6...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 7: {id: '316ec3d91183615...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 8: {id: 'ce45a20ef4d1157...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 9: {id: 'fda3d063c0b4c3c...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 10: {id: 'd3ef693280d0a49...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 11: {id: 'ff4736b17dead06...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 12: {id: '3a5c07ac90ebb2c...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 13: {id: 'ffd25c9351c7aaa...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 14: {id: '4372c319724328b...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 15: {id: '5eeaa215b056d91...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 16: {id: 'c2fea85ec892687...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 17: {id: '9e93a90f7bc3995...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 18: {id: '926b089610559d8...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 19: {id: '7db32ca47aeb2da...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 20: {id: '684b12395ca4917...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 21: {id: '7345781f254adaf...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.010 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 22: {id: 'c1e1c1ce4c95d11...', from: 'pro-content', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.050 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 23: {id: '81f14f9c533d434...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 24: {id: 'a3b378acec25d01...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 25: {id: '306f3a8f9cd8961...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 26: {id: 'temp-1763055889...', from: 'dandandan123', contentPreview: 'yoyo...', contentLength: 4, amount: undefined}
+logger.ts:30 [SENSITIVE] [QUERY] Visible msg 27: {id: 'b06d71ebed457fd...', from: 'dandandan123', contentPreview: '[🔒 Encrypted - Click to decrypt]...', contentLength: 33, amount: '0.001 HBD'}
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
+Messages.tsx:132 [MESSAGES PAGE] Mapped conversations: (3) [{…}, {…}, {…}]
+Messages.tsx:146 [MESSAGES PAGE] Text messages: 28 Hidden: 0
