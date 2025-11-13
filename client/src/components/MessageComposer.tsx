@@ -8,7 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { requestTransfer } from '@/lib/hive';
 import { requestKeychainEncryption } from '@/lib/encryption';
-import { addOptimisticMessage, confirmMessage, cacheCustomJsonMessage } from '@/lib/messageCache';
+import { cacheCustomJsonMessage } from '@/lib/messageCache';
 import { processImageForBlockchain } from '@/lib/imageUtils';
 import { encryptImagePayload, type ImagePayload } from '@/lib/customJsonEncryption';
 import { broadcastImageMessage } from '@/lib/imageChunking';
@@ -282,7 +282,6 @@ export function MessageComposer({
     }
 
     const messageText = content.trim();
-    const tempId = `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
     setIsSending(true);
 
@@ -344,42 +343,10 @@ export function MessageComposer({
       return;
     }
 
-    // Optimistic Update: Add message to IndexedDB immediately
-    // Note: We store the plaintext for sent messages since we can decrypt them later
-    try {
-      console.log('[SEND] Step 1: Adding optimistic message to cache:', {
-        from: user.username,
-        to: recipientUsername,
-        tempId,
-        contentPreview: messageText.substring(0, 30) + '...'
-      });
-      
-      await addOptimisticMessage(
-        user.username,
-        recipientUsername,
-        messageText, // Store plaintext initially (will be encrypted on blockchain)
-        '', // Will be filled with encrypted content after encryption
-        tempId
-      );
-      
-      console.log('[SEND] ✅ Optimistic message added to cache successfully');
-
-      // Clear the input immediately for instant feedback
-      setContent('');
-      if (textareaRef.current) {
-        textareaRef.current.style.height = 'auto';
-      }
-
-      // Notify parent to refresh UI
-      if (onMessageSent) {
-        onMessageSent();
-      }
-      if (onSend) {
-        onSend(messageText);
-      }
-    } catch (optimisticError) {
-      console.error('[SEND] ❌ Failed to add optimistic message:', optimisticError);
-      logger.error('Failed to add optimistic message:', optimisticError);
+    // Clear the input immediately for instant feedback
+    setContent('');
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
     }
 
     try {
@@ -508,31 +475,6 @@ export function MessageComposer({
         }
         setIsSending(false);
         return;
-      }
-
-      // Step 4: Confirm message in IndexedDB with real txId and encrypted content
-      // This is CRITICAL - it replaces the temp optimistic message with the real blockchain message
-      // Without this, we get duplicate messages (temp + blockchain sync)
-      console.log('[SEND] Step 4: Confirming message in cache...', {
-        tempId,
-        txId: txId || 'MISSING',
-        hasEncryptedMemo: !!encryptedMemo
-      });
-      
-      try {
-        await confirmMessage(tempId, txId || '', encryptedMemo, user.username);
-        console.log('[SEND] ✅ SUCCESS - confirmMessage completed! Message confirmed in cache with txId:', txId);
-      } catch (confirmError: any) {
-        console.error('[SEND] ❌ CRITICAL ERROR - confirmMessage FAILED:', {
-          error: confirmError?.message || confirmError,
-          stack: confirmError?.stack,
-          tempId,
-          txId
-        });
-        logger.error('Failed to confirm message in IndexedDB:', confirmError);
-        // Don't show error to user - message was sent successfully
-        // The next sync will pick it up from the blockchain
-        // But this WILL cause duplicate messages!
       }
 
       // Show success message
