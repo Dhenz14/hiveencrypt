@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Zap, Loader2, AlertCircle } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Zap, Loader2, AlertCircle, Copy, Check, Wallet } from 'lucide-react';
+import QRCode from 'qrcode';
 import { useToast } from '@/hooks/use-toast';
 import { 
   generateLightningInvoice, 
@@ -38,6 +40,11 @@ export function LightningTipDialog({
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false);
   const [isSendingTip, setIsSendingTip] = useState(false);
   const [invoiceError, setInvoiceError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'v4v' | 'wallet'>('v4v');
+  const [isCopied, setIsCopied] = useState(false);
+  const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
+  const [isPayingWithWebLN, setIsPayingWithWebLN] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   
   // Invoice state (stores rich LightningInvoice object)
   const [lightningInvoiceData, setLightningInvoiceData] = useState<LightningInvoice | null>(null);
@@ -57,13 +64,103 @@ export function LightningTipDialog({
       setTotalHBDCost(0);
       setV4vFee(0);
       setBtcHbdRate(0);
+      setActiveTab('v4v');
+      setIsCopied(false);
+      setQrDataUrl(null);
     }
   }, [isOpen]);
+  
+  // Generate QR code when invoice is available
+  useEffect(() => {
+    if (lightningInvoiceData?.invoice) {
+      QRCode.toDataURL(lightningInvoiceData.invoice, {
+        errorCorrectionLevel: 'M',
+        width: 300,
+        margin: 2,
+      })
+        .then(setQrDataUrl)
+        .catch(err => {
+          console.error('[LIGHTNING TIP] Failed to generate QR code:', err);
+          setQrDataUrl(null);
+        });
+    } else {
+      setQrDataUrl(null);
+    }
+  }, [lightningInvoiceData]);
 
   // Clear errors when amount changes
   useEffect(() => {
     setInvoiceError(null);
   }, [satsAmount]);
+  
+  // Check if WebLN is available
+  const hasWebLN = typeof window !== 'undefined' && 'webln' in window;
+  
+  // Copy invoice to clipboard
+  const handleCopyInvoice = async () => {
+    if (!lightningInvoiceData?.invoice) return;
+    
+    try {
+      await navigator.clipboard.writeText(lightningInvoiceData.invoice);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+      toast({
+        title: 'Invoice Copied',
+        description: 'Lightning invoice copied to clipboard',
+      });
+    } catch (error) {
+      console.error('[LIGHTNING TIP] Failed to copy invoice:', error);
+      toast({
+        title: 'Copy Failed',
+        description: 'Failed to copy invoice to clipboard',
+        variant: 'destructive',
+      });
+    }
+  };
+  
+  // Pay with WebLN browser wallet
+  const handlePayWithWebLN = async () => {
+    if (!lightningInvoiceData?.invoice) return;
+    
+    setIsPayingWithWebLN(true);
+    
+    try {
+      // @ts-ignore - WebLN types
+      await window.webln.enable();
+      
+      // @ts-ignore - WebLN types
+      const result = await window.webln.sendPayment(lightningInvoiceData.invoice);
+      
+      console.log('[LIGHTNING TIP] WebLN payment successful:', result);
+      
+      toast({
+        title: 'Payment Sent',
+        description: `${formatNumber(invoiceAmountSats)} sats sent via WebLN`,
+      });
+      
+      // Close dialog on success
+      onOpenChange(false);
+    } catch (error) {
+      console.error('[LIGHTNING TIP] WebLN payment failed:', error);
+      
+      let errorMessage = 'Failed to send payment via WebLN';
+      if (error instanceof Error) {
+        if (error.message.includes('User rejected')) {
+          errorMessage = 'Payment cancelled by user';
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
+      toast({
+        title: 'Payment Failed',
+        description: errorMessage,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsPayingWithWebLN(false);
+    }
+  };
 
   const handleGenerateInvoice = async () => {
     const amount = parseInt(satsAmount);
@@ -288,34 +385,6 @@ export function LightningTipDialog({
             </div>
           )}
 
-          {/* Invoice Info - Only show if we have BOTH invoice AND rate */}
-          {lightningInvoiceData && btcHbdRate > 0 && totalHBDCost > 0 && (
-            <div className="space-y-2 p-3 bg-muted/50 border rounded-md">
-              <div className="flex justify-between items-center">
-                <span className="text-caption text-muted-foreground">Lightning Invoice:</span>
-                <span className="text-caption font-medium text-green-600 dark:text-green-500">
-                  {formatNumber(invoiceAmountSats)} sats
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-caption text-muted-foreground">V4V.app Fee (0.8%):</span>
-                <span className="text-caption font-medium">
-                  {v4vFee.toFixed(6)} HBD
-                </span>
-              </div>
-              <div className="flex justify-between items-center pt-2 border-t">
-                <span className="text-body font-medium">Total HBD Cost:</span>
-                <span className="text-body font-bold text-primary">
-                  {totalHBDCost.toFixed(3)} HBD
-                </span>
-              </div>
-              <div className="flex justify-between items-center text-caption text-muted-foreground mt-1">
-                <span>Exchange Rate:</span>
-                <span>{formatNumber(btcHbdRate)} HBD/BTC</span>
-              </div>
-            </div>
-          )}
-
           {/* Recipient Info */}
           <div className="p-3 bg-muted/30 border rounded-md">
             <div className="flex justify-between items-center">
@@ -330,76 +399,195 @@ export function LightningTipDialog({
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-2 pt-2">
-            {!lightningInvoiceData || btcHbdRate <= 0 || totalHBDCost <= 0 ? (
-              <>
-                <Button
-                  variant="outline"
-                  onClick={() => onOpenChange(false)}
-                  className="flex-1 h-11"
-                  data-testid="button-cancel-tip"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="default"
-                  onClick={handleGenerateInvoice}
-                  disabled={isGeneratingInvoice || !satsAmount || parseInt(satsAmount) < 1}
-                  className="flex-1 h-11"
-                  data-testid="button-generate-invoice"
-                >
-                  {isGeneratingInvoice ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="w-4 h-4 mr-2" />
-                      Generate Invoice
-                    </>
-                  )}
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setLightningInvoiceData(null);
-                    setInvoiceAmountSats(0);
-                    setTotalHBDCost(0);
-                    setV4vFee(0);
-                    setBtcHbdRate(0);
-                  }}
-                  className="flex-1 h-11"
-                  data-testid="button-regenerate-invoice"
-                >
-                  Change Amount
-                </Button>
-                <Button
-                  variant="default"
-                  onClick={handleSendTip}
-                  disabled={isSendingTip}
-                  className="flex-1 h-11"
-                  data-testid="button-send-tip"
-                >
-                  {isSendingTip ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="w-4 h-4 mr-2" />
-                      Send {totalHBDCost.toFixed(3)} HBD
-                    </>
-                  )}
-                </Button>
-              </>
-            )}
-          </div>
+          {/* Invoice State - Show tabs only when invoice is generated */}
+          {lightningInvoiceData && btcHbdRate > 0 && totalHBDCost > 0 ? (
+            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'v4v' | 'wallet')} className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="v4v" data-testid="tab-v4v-bridge">
+                  V4V.app Bridge
+                </TabsTrigger>
+                <TabsTrigger value="wallet" data-testid="tab-lightning-wallet">
+                  <Wallet className="w-4 h-4 mr-2" />
+                  Lightning Wallet
+                </TabsTrigger>
+              </TabsList>
+              
+              {/* V4V.app Bridge Tab */}
+              <TabsContent value="v4v" className="space-y-3 mt-3">
+                <div className="space-y-2 p-3 bg-muted/50 border rounded-md">
+                  <div className="flex justify-between items-center">
+                    <span className="text-caption text-muted-foreground">Lightning Invoice:</span>
+                    <span className="text-caption font-medium text-green-600 dark:text-green-500">
+                      {formatNumber(invoiceAmountSats)} sats
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-caption text-muted-foreground">V4V.app Fee (0.8%):</span>
+                    <span className="text-caption font-medium">
+                      {v4vFee.toFixed(6)} HBD
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center pt-2 border-t">
+                    <span className="text-body font-medium">Total HBD Cost:</span>
+                    <span className="text-body font-bold text-primary">
+                      {totalHBDCost.toFixed(3)} HBD
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-caption text-muted-foreground mt-1">
+                    <span>Exchange Rate:</span>
+                    <span>{formatNumber(btcHbdRate)} HBD/BTC</span>
+                  </div>
+                </div>
+                
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setLightningInvoiceData(null);
+                      setInvoiceAmountSats(0);
+                      setTotalHBDCost(0);
+                      setV4vFee(0);
+                      setBtcHbdRate(0);
+                    }}
+                    className="flex-1 h-11"
+                    data-testid="button-regenerate-invoice"
+                  >
+                    Change Amount
+                  </Button>
+                  <Button
+                    variant="default"
+                    onClick={handleSendTip}
+                    disabled={isSendingTip}
+                    className="flex-1 h-11"
+                    data-testid="button-send-tip"
+                  >
+                    {isSendingTip ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-4 h-4 mr-2" />
+                        Send {totalHBDCost.toFixed(3)} HBD
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </TabsContent>
+              
+              {/* Lightning Wallet Tab */}
+              <TabsContent value="wallet" className="space-y-3 mt-3">
+                {/* Invoice Display */}
+                <div className="space-y-2">
+                  <Label className="text-caption text-muted-foreground">Lightning Invoice</Label>
+                  <div className="relative">
+                    <div className="p-3 bg-muted/50 border rounded-md font-mono text-xs break-all max-h-24 overflow-y-auto">
+                      {lightningInvoiceData.invoice}
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleCopyInvoice}
+                      className="absolute top-2 right-2 h-8"
+                      data-testid="button-copy-invoice"
+                    >
+                      {isCopied ? (
+                        <Check className="w-3 h-3" />
+                      ) : (
+                        <Copy className="w-3 h-3" />
+                      )}
+                    </Button>
+                  </div>
+                  <p className="text-caption text-muted-foreground">
+                    {formatNumber(invoiceAmountSats)} sats
+                  </p>
+                </div>
+                
+                {/* QR Code */}
+                {qrDataUrl && (
+                  <div className="flex justify-center p-4 bg-white dark:bg-muted rounded-md">
+                    <img 
+                      src={qrDataUrl} 
+                      alt="Lightning Invoice QR Code" 
+                      className="w-64 h-64"
+                      data-testid="img-qr-code"
+                    />
+                  </div>
+                )}
+                
+                {/* WebLN Button */}
+                {hasWebLN && (
+                  <Button
+                    variant="default"
+                    onClick={handlePayWithWebLN}
+                    disabled={isPayingWithWebLN}
+                    className="w-full h-11"
+                    data-testid="button-pay-webln"
+                  >
+                    {isPayingWithWebLN ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        <Wallet className="w-4 h-4 mr-2" />
+                        Pay with Browser Wallet
+                      </>
+                    )}
+                  </Button>
+                )}
+                
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setLightningInvoiceData(null);
+                      setInvoiceAmountSats(0);
+                      setTotalHBDCost(0);
+                      setV4vFee(0);
+                      setBtcHbdRate(0);
+                    }}
+                    className="flex-1 h-11"
+                    data-testid="button-regenerate-invoice-wallet"
+                  >
+                    Change Amount
+                  </Button>
+                </div>
+              </TabsContent>
+            </Tabs>
+          ) : (
+            <div className="flex gap-2 pt-2">
+              <Button
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+                className="flex-1 h-11"
+                data-testid="button-cancel-tip"
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="default"
+                onClick={handleGenerateInvoice}
+                disabled={isGeneratingInvoice || !satsAmount || parseInt(satsAmount) < 1}
+                className="flex-1 h-11"
+                data-testid="button-generate-invoice"
+              >
+                {isGeneratingInvoice ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-4 h-4 mr-2" />
+                    Generate Invoice
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
