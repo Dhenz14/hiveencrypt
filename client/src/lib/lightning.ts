@@ -339,6 +339,9 @@ export function decodeBOLT11Invoice(invoice: string): DecodedInvoice {
   }
 }
 
+// Lowercase alias for convenience (both exports point to same function)
+export const decodeBolt11Invoice = decodeBOLT11Invoice;
+
 /**
  * Validate invoice amount matches expected amount
  * Security check to prevent amount manipulation
