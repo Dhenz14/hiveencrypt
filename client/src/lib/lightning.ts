@@ -120,15 +120,25 @@ export async function verifyLightningAddress(lightningAddress: string): Promise<
   try {
     console.log('[LIGHTNING] Best-effort verification of Lightning Address:', lightningAddress);
     
+    const testAmountSats = 1000;
+    
     // Attempt LNURL verification (may fail due to CORS - that's expected)
     const result = await requestInvoice({
       lnUrlOrAddress: lightningAddress,
-      tokens: 1000 as any,  // Test amount for verification
+      tokens: testAmountSats as any,  // Test amount for verification
       comment: 'Hive Messenger address verification probe',
     });
     
-    // Missing invoice = genuine LNURL error (not CORS)
-    if (!result || !result.invoice) {
+    // Validate response structure
+    if (!result || typeof result !== 'object') {
+      return {
+        success: false,
+        error: 'Invalid Lightning Address - malformed LNURL response',
+      };
+    }
+    
+    // Check for invoice
+    if (!result.invoice) {
       return {
         success: false,
         error: 'Invalid Lightning Address - LNURL server returned no invoice',
@@ -136,11 +146,51 @@ export async function verifyLightningAddress(lightningAddress: string): Promise<
     }
     
     // Validate invoice format
-    if (!result.invoice.toLowerCase().startsWith('lnbc')) {
+    if (typeof result.invoice !== 'string' || !result.invoice.toLowerCase().startsWith('lnbc')) {
       return {
         success: false,
         error: 'Invalid invoice format from LNURL server',
       };
+    }
+    
+    // Validate LNURL params if present (optional in lnurl-pay response)
+    if (result.params) {
+      // Check callback exists
+      if (!result.params.callback) {
+        return {
+          success: false,
+          error: 'Invalid Lightning Address - missing callback URL',
+        };
+      }
+      
+      // Validate min/max limits if present
+      if (result.params.min !== undefined && result.params.max !== undefined) {
+        const min = Number(result.params.min);
+        const max = Number(result.params.max);
+        
+        if (isNaN(min) || isNaN(max)) {
+          return {
+            success: false,
+            error: 'Invalid Lightning Address - invalid payment limits',
+          };
+        }
+        
+        if (min > max) {
+          return {
+            success: false,
+            error: 'Invalid Lightning Address - malformed payment limits',
+          };
+        }
+        
+        // Check test amount is within bounds (convert sats to millisats)
+        const testAmountMsat = testAmountSats * 1000;
+        if (testAmountMsat < min || testAmountMsat > max) {
+          return {
+            success: false,
+            error: 'Invalid Lightning Address - test amount outside supported range',
+          };
+        }
+      }
     }
     
     console.log('[LIGHTNING] Lightning Address verified successfully:', lightningAddress);

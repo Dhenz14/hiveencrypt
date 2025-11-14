@@ -420,41 +420,48 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                           return;
                         }
                         
-                        // Non-empty input: best-effort verify, then save (non-blocking)
+                        // Non-empty input: verify first, then save only if valid or CORS warning
                         setIsVerifyingLightning(true);
+                        let shouldSave = false;
+                        
                         try {
                           const verifyResult = await verifyLightningAddress(trimmedInput);
                           
                           if (verifyResult.error) {
-                            // Hard error: invalid LNURL response
+                            // Hard error: invalid LNURL response - BLOCK SAVE
                             setLightningError(verifyResult.error);
                             toast({
                               title: 'Invalid Lightning Address',
                               description: verifyResult.error,
                               variant: 'destructive',
                             });
-                            return;
+                            shouldSave = false;  // Do NOT save
+                            return;  // Exit early
                           }
                           
                           if (verifyResult.warning) {
-                            // Soft warning: CORS failure (expected), still allow save
+                            // Soft warning: CORS failure (expected) - ALLOW SAVE
                             setLightningWarning(verifyResult.warning);
+                            shouldSave = true;  // Allow save (deferred verification)
                           }
                           
                           if (verifyResult.success) {
-                            // Successfully verified!
+                            // Successfully verified - ALLOW SAVE
                             toast({
                               title: 'Verification Successful',
                               description: 'Lightning Address verified and ready for tips',
                             });
+                            shouldSave = true;  // Allow save
                           }
                           
                         } finally {
                           setIsVerifyingLightning(false);
                         }
                         
-                        // Save to blockchain (regardless of verification status)
-                        await updateAddress(trimmedInput);
+                        // Only save if verification succeeded or CORS warning
+                        if (shouldSave) {
+                          await updateAddress(trimmedInput);
+                        }
                         
                       } catch (error: any) {
                         toast({
