@@ -10,9 +10,11 @@ import {
   calculateV4VTransfer, 
   decodeBOLT11Invoice,
   getBTCtoHBDRate,
+  sendV4VTransfer,
   type LightningInvoice 
 } from '@/lib/lightning';
 import { formatNumber } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface LightningTipDialogProps {
   isOpen: boolean;
@@ -28,10 +30,12 @@ export function LightningTipDialog({
   recipientLightningAddress
 }: LightningTipDialogProps) {
   const { toast } = useToast();
+  const { user } = useAuth();
   
   // UI State
   const [satsAmount, setSatsAmount] = useState('1000');
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false);
+  const [isSendingTip, setIsSendingTip] = useState(false);
   const [invoiceError, setInvoiceError] = useState<string | null>(null);
   
   // Invoice state (stores rich LightningInvoice object)
@@ -150,12 +154,57 @@ export function LightningTipDialog({
       return;
     }
 
-    // TODO: Phase 3 - Send HBD to v4v.app with invoice in memo
-    // Will use: lightningInvoiceData.invoice, totalHBDCost, btcHbdRate
-    toast({
-      title: 'Send Tip (Phase 3 Pending)',
-      description: `Ready to send ${totalHBDCost.toFixed(3)} HBD to v4v.app`,
-    });
+    // Guard: Ensure user is authenticated
+    if (!user?.username) {
+      toast({
+        title: 'Authentication Required',
+        description: 'Please log in to send tips',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsSendingTip(true);
+    
+    try {
+      console.log('[LIGHTNING TIP] Sending tip via v4v.app:', {
+        recipient: recipientUsername,
+        sats: invoiceAmountSats,
+        hbd: totalHBDCost,
+      });
+      
+      // Send HBD to v4v.app with invoice in memo
+      const txId = await sendV4VTransfer(
+        user.username,
+        lightningInvoiceData.invoice,
+        totalHBDCost,
+        invoiceAmountSats
+      );
+      
+      console.log('[LIGHTNING TIP] Transfer successful! Transaction:', txId);
+      
+      // Success feedback
+      toast({
+        title: 'Tip Sent Successfully',
+        description: `${formatNumber(invoiceAmountSats)} sats sent to @${recipientUsername}`,
+      });
+      
+      // Close dialog
+      onOpenChange(false);
+      
+      // TODO: Phase 4 - Send encrypted notification message
+      
+    } catch (error) {
+      console.error('[LIGHTNING TIP] Transfer failed:', error);
+      
+      toast({
+        title: 'Transfer Failed',
+        description: error instanceof Error ? error.message : 'Failed to send tip',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSendingTip(false);
+    }
   };
 
   return (
@@ -297,11 +346,21 @@ export function LightningTipDialog({
                 <Button
                   variant="default"
                   onClick={handleSendTip}
+                  disabled={isSendingTip}
                   className="flex-1 h-11"
                   data-testid="button-send-tip"
                 >
-                  <Zap className="w-4 h-4 mr-2" />
-                  Send {totalHBDCost.toFixed(3)} HBD
+                  {isSendingTip ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-4 h-4 mr-2" />
+                      Send {totalHBDCost.toFixed(3)} HBD
+                    </>
+                  )}
                 </Button>
               </>
             )}

@@ -435,6 +435,107 @@ export function validateV4VLimits(amountSats: number): void {
   }
 }
 
+/**
+ * Validate Lightning invoice before sending to v4v.app
+ * Checks:
+ * - Invoice is valid BOLT11 format
+ * - Invoice matches expected amount
+ * - Invoice is not expired
+ * 
+ * @param invoice - BOLT11 invoice string
+ * @param expectedAmountSats - Expected satoshi amount
+ * @throws Error if validation fails
+ */
+export function validateInvoiceForTransfer(
+  invoice: string,
+  expectedAmountSats: number
+): void {
+  // Decode invoice
+  const decoded = decodeBOLT11Invoice(invoice);
+  
+  // Verify amount exists
+  if (decoded.amount === null) {
+    throw new Error('Invoice does not contain an amount');
+  }
+  
+  // Verify amount matches
+  if (decoded.amount !== expectedAmountSats) {
+    throw new Error(
+      `Invoice amount mismatch: expected ${expectedAmountSats} sats, got ${decoded.amount} sats`
+    );
+  }
+  
+  // Check expiry
+  if (isInvoiceExpired(invoice)) {
+    throw new Error('Invoice has expired. Please generate a new invoice.');
+  }
+}
+
+/**
+ * Send HBD transfer to v4v.app bridge for Lightning payment
+ * Uses Hive Keychain to sign and broadcast the transfer
+ * 
+ * @param username - Current user's Hive username
+ * @param invoice - BOLT11 Lightning invoice
+ * @param amountHBD - Total HBD amount to send (includes v4v.app fee)
+ * @param invoiceAmountSats - Invoice amount in satoshis (for validation)
+ * @returns Transaction ID
+ * @throws Error if transfer fails
+ */
+export async function sendV4VTransfer(
+  username: string,
+  invoice: string,
+  amountHBD: number,
+  invoiceAmountSats: number
+): Promise<string> {
+  console.log('[V4V TRANSFER] Initiating transfer:', {
+    username,
+    amountHBD,
+    invoiceAmountSats,
+    invoiceLength: invoice.length,
+  });
+  
+  // Security validations
+  validateInvoiceForTransfer(invoice, invoiceAmountSats);
+  validateV4VLimits(invoiceAmountSats);
+  
+  // Format HBD amount (3 decimal places)
+  const formattedAmount = amountHBD.toFixed(3);
+  
+  console.log('[V4V TRANSFER] Requesting Keychain transfer:', {
+    to: V4VAPP_ACCOUNT,
+    amount: formattedAmount,
+    memo: invoice.substring(0, 50) + '...',
+  });
+  
+  // Request transfer via Hive Keychain
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain not found. Please install Hive Keychain.'));
+      return;
+    }
+    
+    window.hive_keychain.requestTransfer(
+      username,
+      V4VAPP_ACCOUNT,
+      formattedAmount,
+      invoice, // BOLT11 invoice in memo field
+      'HBD',
+      (response: KeychainResponse) => {
+        console.log('[V4V TRANSFER] Keychain response:', response);
+        
+        if (response.success) {
+          console.log('[V4V TRANSFER] Success! Transaction ID:', response.result?.id);
+          resolve(response.result?.id || 'success');
+        } else {
+          console.error('[V4V TRANSFER] Failed:', response.message);
+          reject(new Error(response.message || 'Transfer failed'));
+        }
+      }
+    );
+  });
+}
+
 // ============================================================================
 // Exchange Rate Functions
 // ============================================================================
