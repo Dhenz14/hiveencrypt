@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter, Lightbulb } from 'lucide-react';
+import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter, Lightbulb, Zap } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -18,7 +18,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { requestHandshake } from '@/lib/hive';
 import { useToast } from '@/hooks/use-toast';
 import { useMinimumHBD } from '@/hooks/useMinimumHBD';
-import { formatHBDAmount, MIN_MINIMUM_HBD, MAX_MINIMUM_HBD } from '@/lib/accountMetadata';
+import { useLightningAddress } from '@/hooks/useLightningAddress';
+import { formatHBDAmount, MIN_MINIMUM_HBD, MAX_MINIMUM_HBD, isValidLightningAddress } from '@/lib/accountMetadata';
+import { verifyLightningAddress } from '@/lib/lightning';
 
 interface SettingsModalProps {
   open: boolean;
@@ -67,6 +69,42 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   useEffect(() => {
     setMinHBDInput(currentMinimum);
   }, [currentMinimum]);
+  
+  // Lightning Address state (v2.2.0)
+  const {
+    currentAddress,
+    isLoading: isLoadingLightning,
+    updateAddress,
+    isUpdating: isUpdatingLightning,
+    removeAddress,
+  } = useLightningAddress();
+  
+  const [lightningInput, setLightningInput] = useState(currentAddress || '');
+  const [lightningError, setLightningError] = useState<string | null>(null);
+  const [isVerifyingLightning, setIsVerifyingLightning] = useState(false);
+  
+  // Update input when current address changes
+  useEffect(() => {
+    setLightningInput(currentAddress || '');
+  }, [currentAddress]);
+  
+  // Validate Lightning Address on input change
+  const handleLightningInputChange = (value: string) => {
+    setLightningInput(value);
+    
+    // Clear error if empty (allows removal)
+    if (!value.trim()) {
+      setLightningError(null);
+      return;
+    }
+    
+    // Validate format
+    if (!isValidLightningAddress(value)) {
+      setLightningError('Invalid format. Use: user@domain.com');
+    } else {
+      setLightningError(null);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -320,6 +358,127 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <p>
                     Messages below your threshold won't appear in your inbox, but remain on the blockchain. Lower your filter anytime to see them.
+                  </p>
+                </div>
+                
+                <Separator />
+                
+                {/* Lightning Address - v2.2.0 Feature */}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4" />
+                    <Label htmlFor="lightning-address" className="text-body">
+                      Lightning Address
+                    </Label>
+                  </div>
+                  <p className="text-caption text-muted-foreground">
+                    Enable Lightning Network tips. Others can send you Bitcoin (BTC) satoshis via Lightning.
+                  </p>
+                  <div className="space-y-2">
+                    <Input
+                      id="lightning-address"
+                      type="text"
+                      value={lightningInput}
+                      onChange={(e) => handleLightningInputChange(e.target.value)}
+                      disabled={isLoadingLightning || isUpdatingLightning}
+                      placeholder="user@getalby.com"
+                      className="h-11"
+                      data-testid="input-lightning-address"
+                    />
+                    {lightningError && (
+                      <p className="text-caption text-destructive">
+                        {lightningError}
+                      </p>
+                    )}
+                    {currentAddress && (
+                      <p className="text-caption text-muted-foreground">
+                        Current: <span className="font-medium">{currentAddress}</span>
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="default"
+                    onClick={async () => {
+                      try {
+                        const trimmedInput = lightningInput.trim();
+                        if (!trimmedInput) {
+                          toast({
+                            title: 'Invalid Input',
+                            description: 'Please enter a Lightning Address or click Remove',
+                            variant: 'destructive',
+                          });
+                          return;
+                        }
+                        
+                        // Verify Lightning Address is reachable before saving
+                        setIsVerifyingLightning(true);
+                        try {
+                          await verifyLightningAddress(trimmedInput);
+                        } catch (verifyError: any) {
+                          toast({
+                            title: 'Verification Failed',
+                            description: verifyError?.message || 'Could not verify Lightning Address. Please check and try again.',
+                            variant: 'destructive',
+                          });
+                          setIsVerifyingLightning(false);
+                          return;
+                        }
+                        setIsVerifyingLightning(false);
+                        
+                        // Verification successful, save to blockchain
+                        await updateAddress(trimmedInput);
+                      } catch (error: any) {
+                        setIsVerifyingLightning(false);
+                        toast({
+                          title: 'Update Failed',
+                          description: error?.message || 'Please enter a valid Lightning Address',
+                          variant: 'destructive',
+                        });
+                      }
+                    }}
+                    disabled={
+                      isUpdatingLightning || 
+                      isVerifyingLightning ||
+                      !!lightningError || 
+                      !lightningInput.trim() ||
+                      lightningInput.trim() === (currentAddress || '')
+                    }
+                    className="flex-1 h-11"
+                    data-testid="button-save-lightning"
+                  >
+                    {isVerifyingLightning ? (
+                      <>
+                        <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+                        Verifying...
+                      </>
+                    ) : isUpdatingLightning ? (
+                      <>
+                        <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+                        Saving...
+                      </>
+                    ) : (
+                      'Save Address'
+                    )}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={async () => {
+                      await removeAddress();
+                      setLightningInput('');
+                    }}
+                    disabled={isUpdatingLightning || !currentAddress}
+                    className="h-11"
+                    data-testid="button-remove-lightning"
+                  >
+                    Remove
+                  </Button>
+                </div>
+                <div className="flex items-start gap-2 text-caption text-muted-foreground">
+                  <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <p>
+                    Get a Lightning Address from <a href="https://getalby.com" target="_blank" rel="noopener noreferrer" className="underline hover-elevate">Alby</a>, <a href="https://www.walletofsatoshi.com" target="_blank" rel="noopener noreferrer" className="underline hover-elevate">Wallet of Satoshi</a>, or other Lightning wallet providers.
                   </p>
                 </div>
               </div>

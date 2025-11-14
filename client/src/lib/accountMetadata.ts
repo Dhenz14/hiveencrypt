@@ -1,10 +1,12 @@
 /**
  * Hive Account Metadata Management
  * 
- * Handles reading and updating Hive account metadata for minimum HBD preferences.
+ * Handles reading and updating Hive account metadata for minimum HBD preferences
+ * and Lightning Network integration.
  * All operations are decentralized - direct blockchain interaction via RPC nodes.
  * 
  * Phase 1 of Minimum HBD Filter Feature (v2.0.0)
+ * Lightning Network Integration (v2.2.0)
  */
 
 import { Client } from '@hiveio/dhive';
@@ -18,8 +20,9 @@ import { isKeychainInstalled } from './hive';
  * Hive Messenger specific metadata stored in account profile
  */
 export interface HiveMessengerMetadata {
-  min_hbd: string;        // Minimum HBD amount required (e.g., "0.001", "1.000")
-  version: string;        // Metadata version for future compatibility
+  min_hbd: string;              // Minimum HBD amount required (e.g., "0.001", "1.000")
+  lightning_address?: string;   // Lightning Network address (e.g., "user@getalby.com")
+  version: string;              // Metadata version for future compatibility
 }
 
 /**
@@ -376,5 +379,137 @@ export async function getMinimumHBD(username: string): Promise<string> {
   } catch (error) {
     console.error('[METADATA] Failed to get minimum HBD:', error);
     return DEFAULT_MINIMUM_HBD;
+  }
+}
+
+// ============================================================================
+// Lightning Network Functions (v2.2.0)
+// ============================================================================
+
+/**
+ * Validate Lightning Address format
+ * Must follow email format: user@domain.com
+ * Max length: 320 characters (email standard)
+ * 
+ * @param address - Lightning Address string
+ * @returns true if valid format
+ */
+export function isValidLightningAddress(address: string): boolean {
+  if (!address || address.length > 320) {
+    return false;
+  }
+  
+  // Lightning Address regex: user@domain.tld
+  const lightningAddressRegex = /^[\w\.-]+@[\w\.-]+\.\w+$/;
+  return lightningAddressRegex.test(address);
+}
+
+/**
+ * Parse Lightning Address from account metadata
+ * Returns null if not set or invalid
+ * 
+ * @param metadata - Account metadata object
+ * @returns Lightning Address string or null
+ */
+export function parseLightningAddress(metadata: AccountMetadata | null | undefined): string | null {
+  if (!metadata?.profile?.hive_messenger?.lightning_address) {
+    return null;
+  }
+  
+  const address = metadata.profile.hive_messenger.lightning_address;
+  
+  // Validate format
+  if (!isValidLightningAddress(address)) {
+    console.warn('[METADATA] Invalid lightning_address format:', address);
+    return null;
+  }
+  
+  return address;
+}
+
+/**
+ * Update user's Lightning Address on blockchain
+ * Broadcasts account_update2 operation via Hive Keychain
+ * 
+ * @param username - User's Hive account
+ * @param lightningAddress - Lightning Address (e.g., "user@getalby.com") or empty string to remove
+ * @returns Promise<boolean> - true if successful
+ */
+export async function updateLightningAddress(
+  username: string,
+  lightningAddress: string
+): Promise<boolean> {
+  // Validate inputs
+  if (!username) {
+    throw new Error('Username is required');
+  }
+  
+  // Allow empty string to remove Lightning Address
+  if (lightningAddress && !isValidLightningAddress(lightningAddress)) {
+    throw new Error(`Invalid Lightning Address format. Must be like: user@domain.com`);
+  }
+  
+  // Check Keychain availability
+  if (!isKeychainInstalled()) {
+    throw new Error('Hive Keychain not installed');
+  }
+  
+  try {
+    console.log('[METADATA] Updating Lightning Address for:', username, 'to:', lightningAddress || '(removed)');
+    
+    // Fetch current metadata
+    const currentMetadata = await getAccountMetadata(username, true);
+    
+    // Get existing hive_messenger data or create new
+    const existingMessengerData = currentMetadata.profile?.hive_messenger || {
+      min_hbd: DEFAULT_MINIMUM_HBD,
+      version: METADATA_VERSION,
+    };
+    
+    // Merge with new Lightning Address
+    const updatedMetadata: AccountMetadata = {
+      ...currentMetadata,
+      profile: {
+        ...(currentMetadata.profile ?? {}),
+        hive_messenger: {
+          ...existingMessengerData,
+          lightning_address: lightningAddress || undefined, // Remove if empty
+          version: METADATA_VERSION,
+        },
+      },
+    };
+    
+    // Broadcast via Keychain
+    const success = await broadcastAccountUpdate(username, updatedMetadata);
+    
+    if (success) {
+      // Clear cache to force refresh
+      clearMetadataCache(username);
+      console.log('[METADATA] Successfully updated Lightning Address');
+      return true;
+    }
+    
+    return false;
+    
+  } catch (error) {
+    console.error('[METADATA] Failed to update Lightning Address:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get Lightning Address for a specific user (convenience function)
+ * Combines getAccountMetadata + parseLightningAddress
+ * 
+ * @param username - Hive account username
+ * @returns Promise<string | null> - Lightning Address or null
+ */
+export async function getLightningAddress(username: string): Promise<string | null> {
+  try {
+    const metadata = await getAccountMetadata(username);
+    return parseLightningAddress(metadata);
+  } catch (error) {
+    console.error('[METADATA] Failed to get Lightning Address:', error);
+    return null;
   }
 }
