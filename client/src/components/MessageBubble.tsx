@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, Check, CheckCheck, Clock, Unlock, ExternalLink } from 'lucide-react';
+import { Lock, Check, CheckCheck, Clock, Unlock, ExternalLink, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Message } from '@shared/schema';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,6 +9,33 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { logger } from '@/lib/logger';
+
+interface TipNotification {
+  satsAmount: string;
+  txId: string;
+}
+
+// Helper function to detect and parse Lightning tip notifications
+function parseTipNotification(content: string): TipNotification | null {
+  if (!content.startsWith('Lightning Tip Received:')) {
+    return null;
+  }
+  
+  // Extract sats amount (e.g., "1,000 sats")
+  const satsMatch = content.match(/Lightning Tip Received:\s*([0-9,]+)\s*sats/);
+  
+  // Extract transaction ID from URL
+  const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-f0-9]+)/);
+  
+  if (satsMatch && txMatch) {
+    return {
+      satsAmount: satsMatch[1],
+      txId: txMatch[1],
+    };
+  }
+  
+  return null;
+}
 
 interface MessageBubbleProps {
   message: Message;
@@ -26,6 +53,9 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
   const isEncryptedPlaceholder = 
     message.content === '[🔒 Encrypted - Click to decrypt]' ||
     message.content.includes('[Encrypted');
+  
+  // Detect Lightning tip notifications
+  const tipNotification = !isEncryptedPlaceholder ? parseTipNotification(message.content) : null;
 
   const handleDecrypt = async () => {
     if (!user || !message.encryptedMemo) {
@@ -173,6 +203,26 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
                 </>
               )}
             </Button>
+          </div>
+        ) : tipNotification ? (
+          // Lightning Tip Notification Display
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-full bg-yellow-500/20">
+                <Zap className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+              </div>
+              <span className="font-semibold">Lightning Tip Received</span>
+            </div>
+            <p className="text-2xl font-bold">{tipNotification.satsAmount} sats</p>
+            <a
+              href={`https://hiveblocks.com/tx/${tipNotification.txId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-caption hover-elevate transition-colors underline"
+              data-testid={`link-tip-transaction-${message.id}`}
+            >
+              View Transaction <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
         ) : (
           <p className={cn(

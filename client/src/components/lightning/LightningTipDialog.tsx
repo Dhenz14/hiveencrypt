@@ -15,6 +15,7 @@ import {
 } from '@/lib/lightning';
 import { formatNumber } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
+import { requestEncode, requestTransfer } from '@/lib/hive';
 
 interface LightningTipDialogProps {
   isOpen: boolean;
@@ -183,6 +184,42 @@ export function LightningTipDialog({
       
       console.log('[LIGHTNING TIP] Transfer successful! Transaction:', txId);
       
+      // Phase 4: Send encrypted notification message
+      try {
+        console.log('[LIGHTNING TIP] Sending notification message to', recipientUsername);
+        
+        // Format tip notification message
+        const notificationMessage = `Lightning Tip Received: ${formatNumber(invoiceAmountSats)} sats\n\nTransaction: https://hiveblocks.com/tx/${txId}`;
+        
+        // Encrypt message using Keychain
+        const encryptResponse = await requestEncode(
+          user.username,
+          recipientUsername,
+          notificationMessage,
+          'Memo'
+        );
+        
+        if (!encryptResponse.success || !encryptResponse.result) {
+          throw new Error('Failed to encrypt notification message');
+        }
+        
+        const encryptedMemo = encryptResponse.result;
+        
+        // Send notification as minimal HBD transfer with encrypted memo
+        await requestTransfer(
+          user.username,
+          recipientUsername,
+          '0.001', // Minimal HBD for notification
+          encryptedMemo,
+          'HBD'
+        );
+        
+        console.log('[LIGHTNING TIP] Notification sent successfully');
+      } catch (notifError) {
+        console.error('[LIGHTNING TIP] Failed to send notification:', notifError);
+        // Don't block success - notification is optional
+      }
+      
       // Success feedback
       toast({
         title: 'Tip Sent Successfully',
@@ -191,8 +228,6 @@ export function LightningTipDialog({
       
       // Close dialog
       onOpenChange(false);
-      
-      // TODO: Phase 4 - Send encrypted notification message
       
     } catch (error) {
       console.error('[LIGHTNING TIP] Transfer failed:', error);
