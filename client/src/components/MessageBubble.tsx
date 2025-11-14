@@ -11,27 +11,45 @@ import { useToast } from '@/hooks/use-toast';
 import { logger } from '@/lib/logger';
 
 interface TipNotification {
-  satsAmount: string;
+  amount: string;
+  currency: 'sats' | 'hbd';
   txId: string;
 }
 
-// Helper function to detect and parse Lightning tip notifications
+// Helper function to detect and parse tip notifications (both Lightning sats and HBD)
 function parseTipNotification(content: string): TipNotification | null {
-  if (!content.startsWith('Lightning Tip Received:')) {
-    return null;
+  // Check for Lightning sats notification
+  if (content.startsWith('Lightning Tip Received:')) {
+    // Extract sats amount (e.g., "1,000 sats")
+    const satsMatch = content.match(/Lightning Tip Received:\s*([0-9,]+)\s*sats/);
+    
+    // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
+    const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
+    
+    if (satsMatch && txMatch) {
+      return {
+        amount: satsMatch[1],
+        currency: 'sats',
+        txId: txMatch[1],
+      };
+    }
   }
   
-  // Extract sats amount (e.g., "1,000 sats")
-  const satsMatch = content.match(/Lightning Tip Received:\s*([0-9,]+)\s*sats/);
-  
-  // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
-  const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
-  
-  if (satsMatch && txMatch) {
-    return {
-      satsAmount: satsMatch[1],
-      txId: txMatch[1],
-    };
+  // Check for HBD tip notification
+  if (content.startsWith('Tip Received:')) {
+    // Extract HBD amount (e.g., "0.958 HBD")
+    const hbdMatch = content.match(/Tip Received:\s*([0-9.]+)\s*HBD/);
+    
+    // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
+    const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
+    
+    if (hbdMatch && txMatch) {
+      return {
+        amount: hbdMatch[1],
+        currency: 'hbd',
+        txId: txMatch[1],
+      };
+    }
   }
   
   return null;
@@ -205,15 +223,19 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             </Button>
           </div>
         ) : tipNotification ? (
-          // Lightning Tip Notification Display
+          // Tip Notification Display (Lightning sats or HBD)
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded-full bg-yellow-500/20">
                 <Zap className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
               </div>
-              <span className="font-semibold">Lightning Tip Received</span>
+              <span className="font-semibold">
+                {tipNotification.currency === 'sats' ? 'Lightning Tip Received' : 'Tip Received'}
+              </span>
             </div>
-            <p className="text-2xl font-bold">{tipNotification.satsAmount} sats</p>
+            <p className="text-2xl font-bold">
+              {tipNotification.amount} {tipNotification.currency === 'sats' ? 'sats' : 'HBD'}
+            </p>
             <a
               href={`https://hiveblocks.com/tx/${tipNotification.txId}`}
               target="_blank"

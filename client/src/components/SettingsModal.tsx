@@ -19,8 +19,9 @@ import { requestHandshake } from '@/lib/hive';
 import { useToast } from '@/hooks/use-toast';
 import { useMinimumHBD } from '@/hooks/useMinimumHBD';
 import { useLightningAddress } from '@/hooks/useLightningAddress';
-import { formatHBDAmount, MIN_MINIMUM_HBD, MAX_MINIMUM_HBD, isValidLightningAddress } from '@/lib/accountMetadata';
+import { formatHBDAmount, MIN_MINIMUM_HBD, MAX_MINIMUM_HBD, isValidLightningAddress, inferTipReceivePreference, type TipReceivePreference } from '@/lib/accountMetadata';
 import { verifyLightningAddress } from '@/lib/lightning';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 interface SettingsModalProps {
   open: boolean;
@@ -88,6 +89,60 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   useEffect(() => {
     setLightningInput(currentAddress || '');
   }, [currentAddress]);
+  
+  // Tip receive preference state (v2.3.0)
+  const [tipReceivePreference, setTipReceivePreference] = useState<TipReceivePreference>('hbd');
+  const [isLoadingPreference, setIsLoadingPreference] = useState(false);
+  const [isUpdatingPreference, setIsUpdatingPreference] = useState(false);
+  
+  // Load tip receive preference from metadata
+  useEffect(() => {
+    if (!user?.username || !open) return;
+    
+    const loadPreference = async () => {
+      setIsLoadingPreference(true);
+      try {
+        const { getAccountMetadata, inferTipReceivePreference } = await import('@/lib/accountMetadata');
+        const metadata = await getAccountMetadata(user.username);
+        const preference = inferTipReceivePreference(metadata.profile?.hive_messenger);
+        setTipReceivePreference(preference);
+      } catch (error) {
+        console.error('[SETTINGS] Failed to load tip receive preference:', error);
+        setTipReceivePreference('hbd'); // Default fallback
+      } finally {
+        setIsLoadingPreference(false);
+      }
+    };
+    
+    loadPreference();
+  }, [user?.username, open]);
+  
+  // Update tip receive preference
+  const handleUpdateTipPreference = async (newPreference: TipReceivePreference) => {
+    if (!user?.username) return;
+    
+    setIsUpdatingPreference(true);
+    try {
+      const { updateTipReceivePreference } = await import('@/lib/accountMetadata');
+      await updateTipReceivePreference(user.username, newPreference);
+      
+      setTipReceivePreference(newPreference);
+      
+      toast({
+        title: 'Preference Updated',
+        description: `You will now receive tips as ${newPreference === 'lightning' ? 'Lightning sats' : 'HBD in your Hive wallet'}`,
+      });
+    } catch (error: any) {
+      console.error('[SETTINGS] Failed to update tip preference:', error);
+      toast({
+        title: 'Update Failed',
+        description: error?.message || 'Failed to update tip receive preference',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsUpdatingPreference(false);
+    }
+  };
   
   // Validate Lightning Address on input change
   const handleLightningInputChange = (value: string) => {
@@ -510,6 +565,67 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
                   <p>
                     Get a Lightning Address from <a href="https://getalby.com" target="_blank" rel="noopener noreferrer" className="underline hover-elevate">Alby</a>, <a href="https://www.walletofsatoshi.com" target="_blank" rel="noopener noreferrer" className="underline hover-elevate">Wallet of Satoshi</a>, or other Lightning wallet providers.
+                  </p>
+                </div>
+                
+                <Separator />
+                
+                {/* Tip Receive Preference - v2.3.0 Feature */}
+                <div className="space-y-2">
+                  <Label className="text-body">
+                    Receive tips as:
+                  </Label>
+                  <p className="text-caption text-muted-foreground">
+                    Choose how you want to receive tips from other users
+                  </p>
+                  <RadioGroup
+                    value={tipReceivePreference}
+                    onValueChange={(value) => handleUpdateTipPreference(value as TipReceivePreference)}
+                    disabled={isLoadingPreference || isUpdatingPreference}
+                    className="space-y-3"
+                  >
+                    <div className="flex items-start space-x-3">
+                      <RadioGroupItem 
+                        value="lightning" 
+                        id="tip-lightning"
+                        disabled={!currentAddress || isLoadingPreference || isUpdatingPreference}
+                        data-testid="radio-tip-lightning"
+                      />
+                      <div className="flex-1">
+                        <Label
+                          htmlFor="tip-lightning"
+                          className={`text-body cursor-pointer ${!currentAddress ? 'text-muted-foreground' : ''}`}
+                        >
+                          ⚡ Lightning sats
+                        </Label>
+                        <p className="text-caption text-muted-foreground">
+                          {!currentAddress 
+                            ? 'Add Lightning Address first to enable this option' 
+                            : 'Receive Bitcoin (BTC) satoshis via Lightning Network'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <RadioGroupItem 
+                        value="hbd" 
+                        id="tip-hbd"
+                        data-testid="radio-tip-hbd"
+                      />
+                      <div className="flex-1">
+                        <Label htmlFor="tip-hbd" className="text-body cursor-pointer">
+                          💰 HBD in Hive wallet
+                        </Label>
+                        <p className="text-caption text-muted-foreground">
+                          Receive Hive Backed Dollars (HBD) directly to your Hive wallet
+                        </p>
+                      </div>
+                    </div>
+                  </RadioGroup>
+                </div>
+                <div className="flex items-start gap-2 text-caption text-muted-foreground">
+                  <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <p>
+                    When set to Lightning, tippers send you BTC sats. When set to HBD, tippers pay with Lightning but you receive HBD (V4V.app bridge fee: 50 sats + 0.5%).
                   </p>
                 </div>
               </div>

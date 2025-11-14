@@ -2,22 +2,31 @@ import { Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { LightningTipDialog } from './LightningTipDialog';
+import type { TipReceivePreference } from '@/lib/accountMetadata';
 
 interface LightningTipButtonProps {
   recipientUsername: string;
   recipientLightningAddress?: string;
+  recipientTipPreference: TipReceivePreference;
   disabled?: boolean;
 }
 
 export function LightningTipButton({ 
   recipientUsername, 
   recipientLightningAddress,
+  recipientTipPreference,
   disabled 
 }: LightningTipButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // Don't show tip button if recipient has no Lightning Address
-  if (!recipientLightningAddress) {
+  // Show tip button when:
+  // - Recipient prefers HBD (anyone can tip with Lightning, recipient gets HBD) OR
+  // - Recipient prefers Lightning AND has a Lightning Address
+  const shouldShowTipButton = 
+    recipientTipPreference === 'hbd' || 
+    (recipientTipPreference === 'lightning' && !!recipientLightningAddress);
+
+  if (!shouldShowTipButton) {
     return null;
   }
 
@@ -39,6 +48,7 @@ export function LightningTipButton({
         onOpenChange={setIsDialogOpen}
         recipientUsername={recipientUsername}
         recipientLightningAddress={recipientLightningAddress}
+        recipientTipPreference={recipientTipPreference}
       />
     </>
   );

@@ -8,7 +8,8 @@ import { Zap, Loader2, AlertCircle, Copy, Check, Wallet } from 'lucide-react';
 import QRCode from 'qrcode';
 import { useToast } from '@/hooks/use-toast';
 import { 
-  generateLightningInvoice, 
+  generateLightningInvoice,
+  generateV4VReverseInvoice,
   calculateV4VTransfer, 
   decodeBOLT11Invoice,
   getBTCtoHBDRate,
@@ -18,19 +19,22 @@ import {
 import { formatNumber } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { requestEncode, requestTransfer } from '@/lib/hive';
+import type { TipReceivePreference } from '@/lib/accountMetadata';
 
 interface LightningTipDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   recipientUsername: string;
-  recipientLightningAddress: string;
+  recipientLightningAddress?: string;
+  recipientTipPreference: TipReceivePreference;
 }
 
 export function LightningTipDialog({ 
   isOpen, 
   onOpenChange, 
   recipientUsername,
-  recipientLightningAddress
+  recipientLightningAddress,
+  recipientTipPreference
 }: LightningTipDialogProps) {
   const { toast } = useToast();
   const { user } = useAuth();
@@ -139,10 +143,47 @@ export function LightningTipDialog({
       
       console.log('[LIGHTNING TIP] WebLN payment successful:', result);
       
+      const successMessage = recipientTipPreference === 'hbd'
+        ? `${formatNumber(invoiceAmountSats)} sats paid → recipient receives ${totalHBDCost.toFixed(3)} HBD`
+        : `${formatNumber(invoiceAmountSats)} sats sent via WebLN`;
+      
       toast({
         title: 'Payment Sent',
-        description: `${formatNumber(invoiceAmountSats)} sats sent via WebLN`,
+        description: successMessage,
       });
+      
+      // Send notification if we have user context and it's an HBD recipient
+      // Note: For Lightning recipients, the wallet provider handles the payment directly
+      if (user?.username && recipientTipPreference === 'hbd') {
+        try {
+          console.log('[LIGHTNING TIP] Sending HBD notification to', recipientUsername);
+          
+          // Note: We don't have the Hive transaction ID yet since V4V.app handles the conversion
+          // So we'll send a simpler notification without the Hive tx link
+          const notificationMessage = `Tip Received: ${totalHBDCost.toFixed(3)} HBD\n\nSent via Lightning by @${user.username}`;
+          
+          const encryptResponse = await requestEncode(
+            user.username,
+            recipientUsername,
+            notificationMessage,
+            'Memo'
+          );
+          
+          if (encryptResponse.success && encryptResponse.result) {
+            await requestTransfer(
+              user.username,
+              recipientUsername,
+              '0.001',
+              encryptResponse.result,
+              'HBD'
+            );
+            console.log('[LIGHTNING TIP] HBD notification sent');
+          }
+        } catch (notifError) {
+          console.error('[LIGHTNING TIP] Failed to send notification:', notifError);
+          // Don't block success - notification is optional
+        }
+      }
       
       // Close dialog on success
       onOpenChange(false);
@@ -190,38 +231,91 @@ export function LightningTipDialog({
     setInvoiceError(null);
     
     try {
-      console.log('[LIGHTNING TIP] Starting invoice generation, requestId:', currentRequestId);
+      console.log('[LIGHTNING TIP] Starting invoice generation, requestId:', currentRequestId, 'preference:', recipientTipPreference);
       
-      // Generate Lightning invoice via LNURL (returns rich object)
-      const invoiceData = await generateLightningInvoice(
-        recipientLightningAddress,
-        amount,
-        `Hive Messenger tip from @${recipientUsername}`
-      );
+      let invoiceData: LightningInvoice;
+      let invoiceSats: number;
+      let fetchedRate = 0;
+      let hbdCost = 0;
+      let v4vFeeAmount = 0;
       
-      if (!invoiceData || !invoiceData.invoice) {
-        throw new Error('Failed to generate invoice - no invoice returned');
+      if (recipientTipPreference === 'hbd') {
+        // HBD preference: Generate V4V reverse bridge invoice (Lightning → HBD)
+        console.log('[LIGHTNING TIP] Generating V4V reverse bridge invoice (Lightning → HBD)');
+        
+        // Get BTC/HBD exchange rate first
+        fetchedRate = await getBTCtoHBDRate();
+        
+        // Convert sats to HBD amount
+        const hbdAmount = (amount / 100000000) * fetchedRate;
+        
+        // Generate invoice via V4V reverse bridge
+        invoiceData = await generateV4VReverseInvoice(
+          recipientUsername,
+          hbdAmount,
+          user?.username || 'anonymous'
+        );
+        
+        if (!invoiceData || !invoiceData.invoice) {
+          throw new Error('Failed to generate reverse bridge invoice');
+        }
+        
+        console.log('[LIGHTNING TIP] Reverse bridge invoice generated:', invoiceData.invoice.substring(0, 50) + '...');
+        
+        // Decode invoice to get actual amount (includes V4V fee)
+        const decoded = decodeBOLT11Invoice(invoiceData.invoice);
+        invoiceSats = decoded.amount || 0;
+        
+        // Calculate fee breakdown (V4V reverse bridge fee: 50 sats + 0.5%)
+        const v4vFeeRate = 0.005; // 0.5%
+        const v4vFeeSats = 50 + (amount * v4vFeeRate);
+        
+        hbdCost = hbdAmount;
+        v4vFeeAmount = (v4vFeeSats / 100000000) * fetchedRate;
+        
+        console.log('[LIGHTNING TIP] Reverse bridge invoice verified:', invoiceSats, 'sats → recipient gets', hbdAmount.toFixed(3), 'HBD');
+      } else {
+        // Lightning preference: Generate standard Lightning invoice
+        console.log('[LIGHTNING TIP] Generating standard Lightning invoice');
+        
+        if (!recipientLightningAddress) {
+          throw new Error('Recipient Lightning Address not available');
+        }
+        
+        // Generate Lightning invoice via LNURL (returns rich object)
+        invoiceData = await generateLightningInvoice(
+          recipientLightningAddress,
+          amount,
+          `Hive Messenger tip from @${user?.username || 'anonymous'}`
+        );
+        
+        if (!invoiceData || !invoiceData.invoice) {
+          throw new Error('Failed to generate invoice - no invoice returned');
+        }
+        
+        console.log('[LIGHTNING TIP] Invoice generated:', invoiceData.invoice.substring(0, 50) + '...');
+        
+        // Decode invoice to verify amount
+        const decoded = decodeBOLT11Invoice(invoiceData.invoice);
+        invoiceSats = decoded.amount || 0;
+        
+        if (invoiceSats !== amount) {
+          throw new Error(`Invoice amount mismatch: requested ${amount} sats, got ${invoiceSats} sats`);
+        }
+        
+        // Get BTC/HBD exchange rate
+        fetchedRate = await getBTCtoHBDRate();
+        
+        // Calculate total HBD cost (invoice amount + V4V.app 0.8% fee for HBD bridge)
+        const transfer = calculateV4VTransfer(invoiceData.invoice, invoiceSats, fetchedRate);
+        hbdCost = transfer.totalHBD;
+        v4vFeeAmount = transfer.v4vFee;
+        
+        console.log('[LIGHTNING TIP] Invoice verified:', invoiceSats, 'sats =', hbdCost, 'HBD');
       }
       
-      console.log('[LIGHTNING TIP] Invoice generated:', invoiceData.invoice.substring(0, 50) + '...');
-      
-      // Decode invoice to verify amount
-      const decoded = decodeBOLT11Invoice(invoiceData.invoice);
-      const invoiceSats = decoded.amount || 0;
-      
-      if (invoiceSats !== amount) {
-        throw new Error(`Invoice amount mismatch: requested ${amount} sats, got ${invoiceSats} sats`);
-      }
-      
-      // Get BTC/HBD exchange rate
-      const fetchedRate = await getBTCtoHBDRate();
-      
-      // Calculate total HBD cost (invoice amount + V4V.app 0.8% fee)
-      const transfer = calculateV4VTransfer(invoiceData.invoice, invoiceSats, fetchedRate);
-      
-      console.log('[LIGHTNING TIP] Invoice verified:', invoiceSats, 'sats =', transfer.totalHBD, 'HBD');
       console.log('[LIGHTNING TIP] Exchange rate:', fetchedRate, 'HBD per BTC');
-      console.log('[LIGHTNING TIP] Fee breakdown:', transfer);
+      console.log('[LIGHTNING TIP] Fee breakdown: HBD:', hbdCost, 'Fee:', v4vFeeAmount);
       
       // Only update state if this request is still current
       if (requestIdRef.current !== currentRequestId) {
@@ -233,13 +327,17 @@ export function LightningTipDialog({
       // Store invoice state INCLUDING exchange rate for consistency
       setLightningInvoiceData(invoiceData);
       setInvoiceAmountSats(invoiceSats);
-      setTotalHBDCost(transfer.totalHBD);
-      setV4vFee(transfer.v4vFee);
+      setTotalHBDCost(hbdCost);
+      setV4vFee(v4vFeeAmount);
       setBtcHbdRate(fetchedRate);
+      
+      const description = recipientTipPreference === 'hbd'
+        ? `${formatNumber(invoiceSats)} sats → ${hbdCost.toFixed(3)} HBD`
+        : `${formatNumber(invoiceSats)} sats = ${hbdCost.toFixed(3)} HBD`;
       
       toast({
         title: 'Invoice Generated',
-        description: `${formatNumber(invoiceSats)} sats = ${transfer.totalHBD.toFixed(3)} HBD`,
+        description,
       });
       
     } catch (error) {
@@ -376,8 +474,16 @@ export function LightningTipDialog({
             Send Lightning Tip
           </DialogTitle>
           <DialogDescription>
-            Send Bitcoin (BTC) satoshis to @{recipientUsername} via Lightning Network. 
-            You'll pay in HBD through v4v.app bridge (0.8% fee).
+            {recipientTipPreference === 'hbd' ? (
+              <>
+                Send a Lightning tip to @{recipientUsername}. They will receive HBD in their Hive wallet via V4V.app reverse bridge (50 sats + 0.5% fee). You must pay with Lightning.
+              </>
+            ) : (
+              <>
+                Send Bitcoin (BTC) satoshis to @{recipientUsername} via Lightning Network. 
+                You can pay in HBD through v4v.app bridge (0.8% fee) or with Lightning wallet.
+              </>
+            )}
           </DialogDescription>
         </DialogHeader>
 
@@ -419,21 +525,30 @@ export function LightningTipDialog({
               <span className="text-caption text-muted-foreground">Recipient:</span>
               <span className="text-caption font-medium">@{recipientUsername}</span>
             </div>
-            <div className="flex justify-between items-center mt-1">
-              <span className="text-caption text-muted-foreground">Lightning Address:</span>
-              <span className="text-caption font-mono text-xs truncate max-w-[200px]">
-                {recipientLightningAddress}
-              </span>
-            </div>
+            {recipientTipPreference === 'hbd' ? (
+              <div className="flex justify-between items-center mt-1">
+                <span className="text-caption text-muted-foreground">Receives as:</span>
+                <span className="text-caption font-medium">💰 HBD in Hive wallet</span>
+              </div>
+            ) : recipientLightningAddress ? (
+              <div className="flex justify-between items-center mt-1">
+                <span className="text-caption text-muted-foreground">Lightning Address:</span>
+                <span className="text-caption font-mono text-xs truncate max-w-[200px]">
+                  {recipientLightningAddress}
+                </span>
+              </div>
+            ) : null}
           </div>
 
           {/* Invoice State - Show tabs only when invoice is generated */}
           {lightningInvoiceData && btcHbdRate > 0 && totalHBDCost > 0 ? (
             <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'v4v' | 'wallet')} className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="v4v" data-testid="tab-v4v-bridge">
-                  V4V.app Bridge
-                </TabsTrigger>
+              <TabsList className={`grid w-full ${recipientTipPreference === 'hbd' ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                {recipientTipPreference === 'lightning' && (
+                  <TabsTrigger value="v4v" data-testid="tab-v4v-bridge">
+                    V4V.app Bridge
+                  </TabsTrigger>
+                )}
                 <TabsTrigger value="wallet" data-testid="tab-lightning-wallet">
                   <Wallet className="w-4 h-4 mr-2" />
                   Lightning Wallet
@@ -506,6 +621,18 @@ export function LightningTipDialog({
               
               {/* Lightning Wallet Tab */}
               <TabsContent value="wallet" className="space-y-3 mt-3">
+                {/* Recipient receives info for HBD preference */}
+                {recipientTipPreference === 'hbd' && (
+                  <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-md">
+                    <p className="text-caption font-medium text-green-700 dark:text-green-400">
+                      Recipient will receive: {totalHBDCost.toFixed(3)} HBD in their Hive wallet
+                    </p>
+                    <p className="text-caption text-muted-foreground mt-1">
+                      V4V.app bridge fee: 50 sats + 0.5%
+                    </p>
+                  </div>
+                )}
+                
                 {/* Invoice Display */}
                 <div className="space-y-2">
                   <Label className="text-caption text-muted-foreground">Lightning Invoice</Label>
@@ -529,6 +656,7 @@ export function LightningTipDialog({
                   </div>
                   <p className="text-caption text-muted-foreground">
                     {formatNumber(invoiceAmountSats)} sats
+                    {recipientTipPreference === 'hbd' && ` → ${totalHBDCost.toFixed(3)} HBD`}
                   </p>
                 </div>
                 

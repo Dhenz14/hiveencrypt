@@ -621,3 +621,230 @@ export function hbdToSats(hbd: number, btcHbdRate: number): number {
   const btc = hbd / btcHbdRate;
   return Math.floor(btc * 100_000_000);
 }
+
+// ============================================================================
+// V4V.app Reverse Bridge (Lightning → HBD) (v2.3.0)
+// ============================================================================
+
+/**
+ * V4V.app Reverse Bridge API constants
+ */
+export const V4VAPP_REVERSE_BRIDGE = {
+  endpoint: 'https://api.v4v.app/v1/new_invoice_hive/qrcode',
+  appName: 'hive_messenger',
+  expirySeconds: 600,  // 10 minutes
+  minSats: 133,        // Minimum invoice amount
+  maxSats: 70000,      // Maximum invoice amount
+  baseFee: 50,         // 50 sats base fee
+  feePercent: 0.005,   // 0.5% fee
+};
+
+/**
+ * Generate Lightning invoice via V4V.app Reverse Bridge (Lightning → HBD)
+ * When paid, the Lightning sats are converted to HBD and sent to recipient's Hive wallet
+ * 
+ * This is the REVERSE of the normal V4V bridge:
+ * - Normal bridge: User sends HBD → v4v.app pays Lightning invoice
+ * - Reverse bridge: User pays Lightning invoice → v4v.app sends HBD to Hive account
+ * 
+ * @param recipientUsername - Hive username to receive HBD
+ * @param hbdAmount - Amount of HBD to receive (e.g., 0.958)
+ * @param senderUsername - Username of sender (for message)
+ * @returns Promise<LightningInvoice> - Lightning invoice that when paid sends HBD
+ */
+export async function generateV4VReverseInvoice(
+  recipientUsername: string,
+  hbdAmount: number,
+  senderUsername: string
+): Promise<LightningInvoice> {
+  try {
+    console.log('[V4V REVERSE BRIDGE] Generating invoice:', {
+      recipient: recipientUsername,
+      hbdAmount,
+      sender: senderUsername,
+    });
+    
+    // Validate inputs
+    if (!recipientUsername || !senderUsername) {
+      throw new Error('Recipient and sender usernames are required');
+    }
+    
+    if (hbdAmount <= 0) {
+      throw new Error('HBD amount must be positive');
+    }
+    
+    // Format request body
+    const requestBody = {
+      app_name: V4VAPP_REVERSE_BRIDGE.appName,
+      expiry: V4VAPP_REVERSE_BRIDGE.expirySeconds,
+      hive_accname: recipientUsername,
+      message: `Tip from @${senderUsername} via Hive Messenger`,
+      hbd_amount: parseFloat(hbdAmount.toFixed(3)), // Ensure 3 decimal places
+    };
+    
+    console.log('[V4V REVERSE BRIDGE] API request:', requestBody);
+    
+    // Call V4V.app reverse bridge API
+    const response = await fetch(V4VAPP_REVERSE_BRIDGE.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[V4V REVERSE BRIDGE] API error:', response.status, errorText);
+      throw new Error(`V4V.app API error: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    // Validate response
+    if (!data || !data.invoice) {
+      throw new Error('Invalid response from V4V.app - no invoice returned');
+    }
+    
+    const invoice = data.invoice;
+    
+    // Validate invoice format
+    if (typeof invoice !== 'string' || !invoice.toLowerCase().startsWith('lnbc')) {
+      throw new Error('Invalid invoice format from V4V.app');
+    }
+    
+    // Decode invoice to extract details and validate amount
+    const decoded = decodeBOLT11Invoice(invoice);
+    
+    if (!decoded.amount) {
+      throw new Error('Invoice does not contain an amount');
+    }
+    
+    console.log('[V4V REVERSE BRIDGE] Invoice generated successfully:', {
+      invoiceLength: invoice.length,
+      amountSats: decoded.amount,
+      hbdAmount,
+    });
+    
+    // Return Lightning invoice object
+    // Note: V4V reverse bridge doesn't provide LNURL params, so we create a minimal structure
+    return {
+      invoice,
+      params: {
+        min: decoded.amount * 1000, // Convert sats to millisats
+        max: decoded.amount * 1000,
+        metadata: JSON.stringify([['text/plain', `Tip to @${recipientUsername} via Hive Messenger`]]),
+        callback: V4VAPP_REVERSE_BRIDGE.endpoint,
+      },
+      minSendable: decoded.amount,
+      maxSendable: decoded.amount,
+    };
+    
+  } catch (error) {
+    console.error('[V4V REVERSE BRIDGE] Failed to generate invoice:', error);
+    throw new Error(
+      `Failed to generate HBD tip invoice: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+  }
+}
+
+/**
+ * Calculate total sats required for V4V reverse bridge transfer
+ * Includes V4V.app fee (50 sats + 0.5%)
+ * 
+ * @param hbdAmount - HBD amount to receive
+ * @param btcHbdRate - Current BTC/HBD exchange rate
+ * @returns Object with satoshis breakdown
+ */
+export function calculateV4VReverseFee(
+  hbdAmount: number,
+  btcHbdRate: number
+): {
+  hbdAmount: number;
+  baseSats: number;
+  baseFee: number;
+  percentFee: number;
+  totalSats: number;
+} {
+  // Convert HBD to base sats
+  const baseSats = hbdToSats(hbdAmount, btcHbdRate);
+  
+  // Calculate fees
+  const baseFee = V4VAPP_REVERSE_BRIDGE.baseFee;  // 50 sats
+  const percentFee = Math.ceil(baseSats * V4VAPP_REVERSE_BRIDGE.feePercent);  // 0.5%
+  
+  // Total sats = base amount + fees
+  const totalSats = baseSats + baseFee + percentFee;
+  
+  return {
+    hbdAmount,
+    baseSats,
+    baseFee,
+    percentFee,
+    totalSats,
+  };
+}
+
+// ============================================================================
+// Tip Notifications (v2.3.0)
+// ============================================================================
+
+/**
+ * Send tip notification message to recipient
+ * Creates encrypted message on Hive blockchain notifying recipient of tip
+ * 
+ * @param senderUsername - Username of tip sender
+ * @param recipientUsername - Username of tip recipient
+ * @param txId - Hive transaction ID of the tip transfer
+ * @param receivedCurrency - Currency type ('sats' | 'hbd')
+ * @param amount - Amount as formatted string (e.g., "1,000" for sats, "0.958" for HBD)
+ * @returns Promise<string> - Transaction ID of notification message
+ */
+export async function sendTipNotification(
+  senderUsername: string,
+  recipientUsername: string,
+  txId: string,
+  receivedCurrency: 'sats' | 'hbd',
+  amount: string
+): Promise<string> {
+  // Format notification message based on currency type
+  let notificationContent: string;
+  
+  if (receivedCurrency === 'sats') {
+    notificationContent = `Lightning Tip Received: ${amount} sats\nhttps://hiveblocks.com/tx/${txId}`;
+  } else {
+    // HBD
+    notificationContent = `Tip Received: ${amount} HBD\nhttps://hiveblocks.com/tx/${txId}`;
+  }
+  
+  console.log('[TIP NOTIFICATION] Sending notification:', {
+    from: senderUsername,
+    to: recipientUsername,
+    txId,
+    receivedCurrency,
+    amount,
+  });
+  
+  // Import sendEncryptedMemo function (avoiding circular dependency)
+  const { sendEncryptedMemo } = await import('./hive');
+  
+  try {
+    // Send encrypted notification to recipient
+    const notificationTxId = await sendEncryptedMemo(
+      senderUsername,
+      recipientUsername,
+      notificationContent,
+      '0.001' // Minimum HBD amount for notification
+    );
+    
+    console.log('[TIP NOTIFICATION] Notification sent successfully:', notificationTxId);
+    return notificationTxId;
+    
+  } catch (error) {
+    console.error('[TIP NOTIFICATION] Failed to send notification:', error);
+    throw new Error(
+      `Failed to send tip notification: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+  }
+}

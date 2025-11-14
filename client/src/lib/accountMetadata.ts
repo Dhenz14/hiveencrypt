@@ -17,12 +17,18 @@ import { isKeychainInstalled } from './hive';
 // ============================================================================
 
 /**
+ * Tip receive preference options
+ */
+export type TipReceivePreference = 'lightning' | 'hbd';
+
+/**
  * Hive Messenger specific metadata stored in account profile
  */
 export interface HiveMessengerMetadata {
-  min_hbd?: string;             // Minimum HBD amount required (e.g., "0.001", "1.000") - optional
-  lightning_address?: string;   // Lightning Network address (e.g., "user@getalby.com") - optional
-  version?: string;             // Metadata version for future compatibility - optional
+  min_hbd?: string;                          // Minimum HBD amount required (e.g., "0.001", "1.000") - optional
+  lightning_address?: string;                // Lightning Network address (e.g., "user@getalby.com") - optional
+  tip_receive_preference?: TipReceivePreference;  // How user wants to receive tips - optional
+  version?: string;                          // Metadata version for future compatibility - optional
 }
 
 /**
@@ -511,5 +517,126 @@ export async function getLightningAddress(username: string): Promise<string | nu
   } catch (error) {
     console.error('[METADATA] Failed to get Lightning Address:', error);
     return null;
+  }
+}
+
+// ============================================================================
+// Tip Receive Preference Functions (v2.3.0)
+// ============================================================================
+
+/**
+ * Infer tip receive preference from metadata
+ * Used for backward compatibility with legacy users who don't have explicit preference set
+ * 
+ * Logic:
+ * 1. If tip_receive_preference is explicitly set, use it
+ * 2. Else if lightning_address exists, infer 'lightning' (legacy user)
+ * 3. Else default to 'hbd' (new users without Lightning Address)
+ * 
+ * @param metadata - Hive Messenger metadata object
+ * @returns TipReceivePreference ('lightning' | 'hbd')
+ */
+export function inferTipReceivePreference(metadata: HiveMessengerMetadata | null | undefined): TipReceivePreference {
+  // If explicit preference is set, use it
+  if (metadata?.tip_receive_preference) {
+    return metadata.tip_receive_preference;
+  }
+  
+  // Legacy inference: if Lightning Address exists, assume user wants Lightning tips
+  if (metadata?.lightning_address) {
+    return 'lightning';
+  }
+  
+  // Default: HBD (no Lightning Address needed)
+  return 'hbd';
+}
+
+/**
+ * Update user's tip receive preference on blockchain
+ * Broadcasts account_update2 operation via Hive Keychain
+ * 
+ * VALIDATION: User can only set preference='lightning' if they have a valid lightning_address
+ * 
+ * @param username - User's Hive account
+ * @param preference - Tip receive preference ('lightning' | 'hbd')
+ * @returns Promise<boolean> - true if successful
+ */
+export async function updateTipReceivePreference(
+  username: string,
+  preference: TipReceivePreference
+): Promise<boolean> {
+  // Validate inputs
+  if (!username) {
+    throw new Error('Username is required');
+  }
+  
+  if (preference !== 'lightning' && preference !== 'hbd') {
+    throw new Error('Invalid preference. Must be "lightning" or "hbd"');
+  }
+  
+  // Check Keychain availability
+  if (!isKeychainInstalled()) {
+    throw new Error('Hive Keychain not installed');
+  }
+  
+  try {
+    console.log('[METADATA] Updating tip receive preference for:', username, 'to:', preference);
+    
+    // Fetch current metadata
+    const currentMetadata = await getAccountMetadata(username, true);
+    
+    // Get existing hive_messenger data
+    const existingMessengerData = currentMetadata.profile?.hive_messenger || {};
+    
+    // VALIDATION: If setting preference='lightning', require lightning_address
+    if (preference === 'lightning' && !existingMessengerData.lightning_address) {
+      throw new Error('Cannot set preference to Lightning without a Lightning Address. Please add your Lightning Address first.');
+    }
+    
+    // Merge with new preference (preserve all existing fields)
+    const updatedMetadata: AccountMetadata = {
+      ...currentMetadata,
+      profile: {
+        ...(currentMetadata.profile ?? {}),
+        hive_messenger: {
+          ...existingMessengerData,  // Preserve min_hbd, lightning_address, etc.
+          tip_receive_preference: preference,
+          version: METADATA_VERSION,
+        },
+      },
+    };
+    
+    // Broadcast via Keychain
+    const success = await broadcastAccountUpdate(username, updatedMetadata);
+    
+    if (success) {
+      // Clear cache to force refresh
+      clearMetadataCache(username);
+      console.log('[METADATA] Successfully updated tip receive preference');
+      return true;
+    }
+    
+    return false;
+    
+  } catch (error) {
+    console.error('[METADATA] Failed to update tip receive preference:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get tip receive preference for a specific user (convenience function)
+ * Combines getAccountMetadata + inferTipReceivePreference
+ * 
+ * @param username - Hive account username
+ * @returns Promise<TipReceivePreference> - Tip receive preference
+ */
+export async function getTipReceivePreference(username: string): Promise<TipReceivePreference> {
+  try {
+    const metadata = await getAccountMetadata(username);
+    return inferTipReceivePreference(metadata.profile?.hive_messenger);
+  } catch (error) {
+    console.error('[METADATA] Failed to get tip receive preference:', error);
+    return 'hbd'; // Default fallback
   }
 }
