@@ -1,7 +1,22 @@
 # Hive Messenger - Decentralized Encrypted Blockchain Messaging PWA
 
 ## Overview
-Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, Lightning Network Bitcoin tips via v4v.app bridge, and a mobile-first responsive design.
+Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, bidirectional Lightning Network Bitcoin tips via v4v.app bridge, and a mobile-first responsive design.
+
+## Recent Changes (v2.3.0)
+- **Bidirectional Tipping**: Users can now choose whether to receive tips as Lightning sats OR HBD in their Hive wallet.
+  - **Tip Receive Preference**: New user setting stored on-chain (tip_receive_preference: 'lightning' | 'hbd').
+  - **Lightning Preference**: Requires Lightning Address. Sender pays Lightning, recipient receives sats in Lightning wallet.
+  - **HBD Preference**: No Lightning Address needed. Sender pays Lightning via V4V.app reverse bridge, recipient receives HBD in Hive wallet (50 sats + 0.5% fee).
+  - **Smart Inference**: Legacy users with Lightning Address auto-infer 'lightning' preference. Users without preference default to 'hbd'.
+  - **Dialog Branching**: Tip dialog shows different payment flows based on recipient preference.
+  - **Tip Notifications**: Display correct currency ("Lightning Tip Received: X sats" vs "Tip Received: X HBD").
+  - **Settings UI**: Radio group with validation (Lightning option disabled without Lightning Address).
+  - **Backward Compatibility**: Existing Lightning tipping flow unchanged for users who prefer Lightning.
+- **V4V.app Reverse Bridge**: Integrated Lightning → HBD conversion API.
+  - Sender pays Lightning invoice, V4V.app converts to HBD and sends to recipient's Hive wallet.
+  - Fee structure: 50 sats + 0.5% (clearly displayed to users).
+  - Maintains 100% decentralization (no backend proxy).
 
 ## Recent Changes (v2.2.1)
 - **Bug Fix: Real Exchange Rate API**: Replaced mock BTC/HBD exchange rate (100,000) with real-time CoinGecko API integration.
@@ -78,11 +93,14 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted messages via memo transfers (0.001 HBD per message).
 - **Lightning Network Tips**: Send Bitcoin satoshis via Lightning Network to users with Lightning Addresses.
-  - **V4V.app Bridge**: Convert HBD to BTC Lightning payments through v4v.app service (0.8% fee).
-  - **LNURL Invoice Generation**: Generate Lightning invoices via recipient's LNURL endpoint.
+  - **Bidirectional Tipping**: Users choose to receive tips as Lightning sats OR HBD in Hive wallet.
+    - **Lightning Preference**: Requires Lightning Address. Sender can pay with HBD (via V4V.app 0.8% fee) or Lightning wallet. Recipient receives sats.
+    - **HBD Preference**: No Lightning Address needed. Sender pays Lightning, V4V.app converts to HBD (50 sats + 0.5% fee). Recipient receives HBD.
+  - **V4V.app Bidirectional Bridge**: Supports both HBD → Lightning (0.8% fee) and Lightning → HBD (50 sats + 0.5% fee).
+  - **LNURL Invoice Generation**: Generate Lightning invoices via recipient's LNURL endpoint (for Lightning preference).
   - **Multiple Payment Methods**: V4V.app HBD bridge, manual Lightning wallet (copy/QR), or WebLN browser wallet.
-  - **Encrypted Notifications**: Recipients receive encrypted tip notifications with sats amount and transaction link.
-  - **Lightning Address Profile**: Users can set their Lightning Address in settings, stored on-chain.
+  - **Encrypted Notifications**: Recipients receive encrypted tip notifications showing received currency ("Lightning Tip Received: X sats" or "Tip Received: X HBD") with transaction link.
+  - **Lightning Address Profile**: Users can set their Lightning Address and tip receive preference in settings, both stored on-chain.
 - Real-time message synchronization with the blockchain.
 - Offline message browsing of cached data.
 - Selective local conversation deletion.
@@ -118,7 +136,9 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 - **Hive Keychain**: Universal authentication solution for both desktop (browser extension) and mobile (Keychain Mobile in-app browser).
 
 ### Lightning Network Services
-- **V4V.app**: HBD-to-Lightning bridge service for Bitcoin tips (0.8% fee, 4-hour transfer limits).
+- **V4V.app**: Bidirectional bridge service for Bitcoin tips.
+  - HBD → Lightning: 0.8% fee, 4-hour transfer limits.
+  - Lightning → HBD: 50 sats + 0.5% fee (reverse bridge).
 - **LNURL Protocol**: Decentralized Lightning Address infrastructure for invoice generation.
 - **WebLN**: Browser wallet API for one-click Lightning payments (optional, user-dependent).
 - **CoinGecko API**: Real-time Bitcoin price data for accurate HBD/BTC exchange rate calculations (free tier, no authentication).
