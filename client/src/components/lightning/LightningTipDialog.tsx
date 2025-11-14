@@ -35,6 +35,9 @@ export function LightningTipDialog({
   const { toast } = useToast();
   const { user } = useAuth();
   
+  // Request ID to track current invoice generation session
+  const requestIdRef = useRef(0);
+  
   // UI State
   const [satsAmount, setSatsAmount] = useState('1000');
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false);
@@ -52,10 +55,13 @@ export function LightningTipDialog({
   const [totalHBDCost, setTotalHBDCost] = useState<number>(0);
   const [v4vFee, setV4vFee] = useState<number>(0);
   const [btcHbdRate, setBtcHbdRate] = useState<number>(0);
-
+  
   // Reset state when dialog opens/closes
   useEffect(() => {
     if (!isOpen) {
+      // Increment request ID to invalidate any in-flight requests
+      requestIdRef.current += 1;
+      
       setSatsAmount('1000');
       setIsGeneratingInvoice(false);
       setInvoiceError(null);
@@ -176,11 +182,15 @@ export function LightningTipDialog({
       return;
     }
 
+    // Increment request ID at start of new request
+    requestIdRef.current += 1;
+    const currentRequestId = requestIdRef.current;
+    
     setIsGeneratingInvoice(true);
     setInvoiceError(null);
     
     try {
-      console.log('[LIGHTNING TIP] Generating invoice for', amount, 'sats to', recipientLightningAddress);
+      console.log('[LIGHTNING TIP] Starting invoice generation, requestId:', currentRequestId);
       
       // Generate Lightning invoice via LNURL (returns rich object)
       const invoiceData = await generateLightningInvoice(
@@ -213,6 +223,13 @@ export function LightningTipDialog({
       console.log('[LIGHTNING TIP] Exchange rate:', fetchedRate, 'HBD per BTC');
       console.log('[LIGHTNING TIP] Fee breakdown:', transfer);
       
+      // Only update state if this request is still current
+      if (requestIdRef.current !== currentRequestId) {
+        console.log('[LIGHTNING TIP] Request ID mismatch, skipping state update (stale request)');
+        console.log('[LIGHTNING TIP] Current ID:', requestIdRef.current, 'Request ID:', currentRequestId);
+        return;
+      }
+      
       // Store invoice state INCLUDING exchange rate for consistency
       setLightningInvoiceData(invoiceData);
       setInvoiceAmountSats(invoiceSats);
@@ -228,6 +245,12 @@ export function LightningTipDialog({
     } catch (error) {
       console.error('[LIGHTNING TIP] Invoice generation failed:', error);
       
+      // Only show errors if this request is still current
+      if (requestIdRef.current !== currentRequestId) {
+        console.log('[LIGHTNING TIP] Request ID mismatch in error handler, skipping error display');
+        return;
+      }
+      
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       setInvoiceError(errorMessage);
       
@@ -237,7 +260,12 @@ export function LightningTipDialog({
         variant: 'destructive',
       });
     } finally {
-      setIsGeneratingInvoice(false);
+      // Only clear loading state if this request is still current
+      if (requestIdRef.current === currentRequestId) {
+        setIsGeneratingInvoice(false);
+      } else {
+        console.log('[LIGHTNING TIP] Request ID mismatch in finally, keeping loading state');
+      }
     }
   };
 

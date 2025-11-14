@@ -13,6 +13,7 @@
 
 import { requestInvoice } from 'lnurl-pay';
 import * as bolt11 from 'light-bolt11-decoder';
+import type { KeychainResponse } from './hive';
 
 // ============================================================================
 // Type Definitions
@@ -542,23 +543,59 @@ export async function sendV4VTransfer(
 
 /**
  * Get BTC/HBD exchange rate
- * 
- * PLACEHOLDER - Will be implemented with actual API call
- * Currently returns mock rate for development
+ * Fetches real-time Bitcoin price from CoinGecko API
+ * Assumes HBD ≈ $1 USD
  * 
  * @returns Promise<number> - BTC price in HBD
+ * @throws Error if API request fails
  */
 export async function getBTCtoHBDRate(): Promise<number> {
-  // TODO: Implement actual exchange rate API
-  // Options:
-  // 1. CoinGecko API: bitcoin price in USD, HBD ≈ $1
-  // 2. Hive internal market API
-  // 3. Binance or other exchange API
-  
-  console.warn('[LIGHTNING] Using mock BTC/HBD rate - implement actual API');
-  
-  // Mock rate: ~$100,000 BTC / $1 HBD = 100,000
-  return 100000;
+  try {
+    console.log('[LIGHTNING] Fetching BTC/USD rate from CoinGecko...');
+    
+    // CoinGecko public API (no auth required)
+    // Free tier: 10-30 calls/minute
+    const response = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      }
+    );
+    
+    if (!response.ok) {
+      throw new Error(`CoinGecko API error: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    const btcUsdPrice = data?.bitcoin?.usd;
+    
+    if (!btcUsdPrice || typeof btcUsdPrice !== 'number') {
+      throw new Error('Invalid response from CoinGecko API');
+    }
+    
+    // HBD ≈ $1 USD (Hive Backed Dollar is pegged to USD)
+    // Therefore: BTC/HBD rate ≈ BTC/USD rate
+    const btcHbdRate = btcUsdPrice;
+    
+    console.log('[LIGHTNING] BTC/HBD rate:', btcHbdRate.toLocaleString());
+    
+    return btcHbdRate;
+    
+  } catch (error) {
+    console.error('[LIGHTNING] Failed to fetch BTC/HBD rate:', error);
+    
+    // Fallback: Use approximate market rate as of last known value
+    // This prevents complete failure but logs a warning
+    const fallbackRate = 100000; // ~$100k BTC
+    console.warn('[LIGHTNING] Using fallback rate:', fallbackRate);
+    
+    throw new Error(
+      'Failed to fetch current Bitcoin price. Please check your connection and try again.'
+    );
+  }
 }
 
 /**

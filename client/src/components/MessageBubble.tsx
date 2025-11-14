@@ -24,8 +24,8 @@ function parseTipNotification(content: string): TipNotification | null {
   // Extract sats amount (e.g., "1,000 sats")
   const satsMatch = content.match(/Lightning Tip Received:\s*([0-9,]+)\s*sats/);
   
-  // Extract transaction ID from URL
-  const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-f0-9]+)/);
+  // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
+  const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
   
   if (satsMatch && txMatch) {
     return {
