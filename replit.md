@@ -1,7 +1,24 @@
 # Hive Messenger - Decentralized Encrypted Blockchain Messaging PWA
 
 ## Overview
-Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, and a mobile-first responsive design. Recent enhancements include a configurable minimum HBD requirement for incoming messages to combat spam and an exceptions list for whitelisting trusted contacts.
+Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, Lightning Network Bitcoin tips via v4v.app bridge, and a mobile-first responsive design.
+
+## Recent Changes (v2.2.0)
+- **Lightning Network Integration**: Added Bitcoin Lightning Network tipping functionality with multiple payment methods.
+  - Users can send Bitcoin satoshis to recipients with Lightning Addresses via three payment options.
+  - **V4V.app HBD Bridge**: Send tips using HBD balance through Hive Keychain with automatic BTC conversion (0.8% fee).
+  - **Manual Lightning Payment**: Copy invoice or scan QR code for payment with any Lightning wallet.
+  - **WebLN Support**: One-click payment for users with WebLN-enabled browser wallets (Alby, etc.).
+- **Lightning Address Settings**: Users can add their Lightning Address to profile, stored on-chain as custom_json metadata.
+  - LNURL verification during tip generation ensures address validity and reachability.
+  - Settings page with real-time validation and save confirmation.
+- **Encrypted Tip Notifications**: Recipients receive encrypted notifications when tips are sent.
+  - Special rendering with Zap icon badge and highlighted background.
+  - Displays sats amount and clickable blockchain transaction link.
+  - Maintains end-to-end encryption via memo keys.
+- **QR Code Generation**: Automatic QR code display for Lightning invoices for mobile wallet scanning.
+- **Security**: Invoice validation (BOLT11 decode, amount verification, expiry check) before transfer.
+- **No Backend Proxy**: 100% client-side Lightning integration maintains decentralization principles.
 
 ## Recent Changes (v2.1.0)
 - **Duplicate Message Fix**: Removed optimistic message updates entirely. Messages now appear ONLY after blockchain confirmation (no instant preview).
@@ -45,6 +62,12 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted messages via memo transfers (0.001 HBD per message).
+- **Lightning Network Tips**: Send Bitcoin satoshis via Lightning Network to users with Lightning Addresses.
+  - **V4V.app Bridge**: Convert HBD to BTC Lightning payments through v4v.app service (0.8% fee).
+  - **LNURL Invoice Generation**: Generate Lightning invoices via recipient's LNURL endpoint.
+  - **Multiple Payment Methods**: V4V.app HBD bridge, manual Lightning wallet (copy/QR), or WebLN browser wallet.
+  - **Encrypted Notifications**: Recipients receive encrypted tip notifications with sats amount and transaction link.
+  - **Lightning Address Profile**: Users can set their Lightning Address in settings, stored on-chain.
 - Real-time message synchronization with the blockchain.
 - Offline message browsing of cached data.
 - Selective local conversation deletion.
@@ -68,6 +91,9 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 - **@hiveio/dhive**: JavaScript client for Hive blockchain API.
 - **keychain-sdk**: For Hive Keychain integration.
 - **idb**: IndexedDB wrapper for local caching.
+- **lnurl-pay**: LNURL protocol implementation for Lightning Address invoice generation.
+- **light-bolt11-decoder**: BOLT11 Lightning invoice decoding and validation.
+- **qrcode**: QR code generation for Lightning invoices.
 
 ### Blockchain Infrastructure
 - **Hive Blockchain**: Primary decentralized storage.
@@ -75,6 +101,11 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 
 ### Authentication Services
 - **Hive Keychain**: Universal authentication solution for both desktop (browser extension) and mobile (Keychain Mobile in-app browser).
+
+### Lightning Network Services
+- **V4V.app**: HBD-to-Lightning bridge service for Bitcoin tips (0.8% fee, 4-hour transfer limits).
+- **LNURL Protocol**: Decentralized Lightning Address infrastructure for invoice generation.
+- **WebLN**: Browser wallet API for one-click Lightning payments (optional, user-dependent).
 
 ### Platform Support
 - **Desktop Browsers**: Full functionality with Keychain browser extension.
