@@ -42,6 +42,9 @@ export function LightningTipDialog({
   // Request ID to track current invoice generation session
   const requestIdRef = useRef(0);
   
+  // Timeout ref for copy button cleanup (MEMORY-2)
+  const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
   // UI State
   const [satsAmount, setSatsAmount] = useState('1000');
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false);
@@ -82,22 +85,34 @@ export function LightningTipDialog({
     }
   }, [isOpen, recipientTipPreference]);
   
-  // Generate QR code when invoice is available
+  // Generate QR code when invoice is available (MEMORY-1: Add cleanup)
   useEffect(() => {
+    let isMounted = true;
+    
     if (lightningInvoiceData?.invoice) {
       QRCode.toDataURL(lightningInvoiceData.invoice, {
         errorCorrectionLevel: 'M',
         width: 300,
         margin: 2,
       })
-        .then(setQrDataUrl)
+        .then(dataUrl => {
+          if (isMounted) {
+            setQrDataUrl(dataUrl);
+          }
+        })
         .catch(err => {
-          console.error('[LIGHTNING TIP] Failed to generate QR code:', err);
-          setQrDataUrl(null);
+          if (isMounted) {
+            console.error('[LIGHTNING TIP] Failed to generate QR code:', err);
+            setQrDataUrl(null);
+          }
         });
     } else {
       setQrDataUrl(null);
     }
+    
+    return () => {
+      isMounted = false;
+    };
   }, [lightningInvoiceData]);
 
   // Clear errors when amount changes
@@ -105,17 +120,49 @@ export function LightningTipDialog({
     setInvoiceError(null);
   }, [satsAmount]);
   
+  // HIGH-1: Reset invoice when preference changes (user updated settings)
+  useEffect(() => {
+    if (isOpen) {
+      setLightningInvoiceData(null);
+      setInvoiceAmountSats(0);
+      setTotalHBDCost(0);
+      setV4vFee(0);
+      setBtcHbdRate(0);
+      setActiveTab(recipientTipPreference === 'hbd' ? 'wallet' : 'v4v');
+    }
+  }, [recipientTipPreference, isOpen]);
+  
+  // MEMORY-2: Clean up copy timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+    };
+  }, []);
+  
   // Check if WebLN is available
   const hasWebLN = typeof window !== 'undefined' && 'webln' in window;
   
-  // Copy invoice to clipboard
+  // Copy invoice to clipboard (MEMORY-2: Add timeout cleanup)
   const handleCopyInvoice = async () => {
     if (!lightningInvoiceData?.invoice) return;
     
     try {
       await navigator.clipboard.writeText(lightningInvoiceData.invoice);
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+      
+      // Clear existing timeout
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+      
+      // Set new timeout with cleanup
+      copyTimeoutRef.current = setTimeout(() => {
+        setIsCopied(false);
+        copyTimeoutRef.current = null;
+      }, 2000);
+      
       toast({
         title: 'Invoice Copied',
         description: 'Lightning invoice copied to clipboard',
@@ -212,7 +259,15 @@ export function LightningTipDialog({
   };
 
   const handleGenerateInvoice = async () => {
-    const amount = parseInt(satsAmount);
+    // HIGH-4: Fix parseInt decimal truncation - explicitly reject decimals
+    const rawAmount = parseFloat(satsAmount);
+    
+    if (!Number.isInteger(rawAmount)) {
+      setInvoiceError('Satoshis must be whole numbers (no decimals)');
+      return;
+    }
+    
+    const amount = Math.floor(rawAmount); // Safe now since we validated integer
     
     // Validation
     if (!amount || amount < 1) {
@@ -499,6 +554,12 @@ export function LightningTipDialog({
                 type="number"
                 value={satsAmount}
                 onChange={(e) => setSatsAmount(e.target.value)}
+                onKeyDown={(e) => {
+                  // HIGH-5: Block invalid characters: decimal, minus, plus, scientific notation
+                  if (['.', '-', '+', 'e', 'E'].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
                 disabled={isGeneratingInvoice || !!lightningInvoiceData}
                 placeholder="1000"
                 min="1"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter, Lightbulb, Zap } from 'lucide-react';
 import {
   Dialog,
@@ -85,6 +85,9 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const [lightningWarning, setLightningWarning] = useState<string | null>(null);
   const [isVerifyingLightning, setIsVerifyingLightning] = useState(false);
   
+  // PERF-3: Debounce timer ref for Lightning Address validation
+  const validationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
   // Update input when current address changes
   useEffect(() => {
     setLightningInput(currentAddress || '');
@@ -95,9 +98,11 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const [isLoadingPreference, setIsLoadingPreference] = useState(false);
   const [isUpdatingPreference, setIsUpdatingPreference] = useState(false);
   
-  // Load tip receive preference from metadata
+  // Load tip receive preference from metadata (MEMORY-3: Add cleanup flag)
   useEffect(() => {
     if (!user?.username || !open) return;
+    
+    let isMounted = true;
     
     const loadPreference = async () => {
       setIsLoadingPreference(true);
@@ -105,21 +110,52 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
         const { getAccountMetadata, inferTipReceivePreference } = await import('@/lib/accountMetadata');
         const metadata = await getAccountMetadata(user.username);
         const preference = inferTipReceivePreference(metadata.profile?.hive_messenger);
-        setTipReceivePreference(preference);
+        
+        // Only update if component still mounted
+        if (isMounted) {
+          setTipReceivePreference(preference);
+        }
       } catch (error) {
         console.error('[SETTINGS] Failed to load tip receive preference:', error);
-        setTipReceivePreference('hbd'); // Default fallback
+        if (isMounted) {
+          setTipReceivePreference('hbd'); // Default fallback
+        }
       } finally {
-        setIsLoadingPreference(false);
+        if (isMounted) {
+          setIsLoadingPreference(false);
+        }
       }
     };
     
     loadPreference();
+    
+    return () => {
+      isMounted = false;
+    };
   }, [user?.username, open]);
   
-  // Update tip receive preference
+  // PERF-3: Clean up debounce timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (validationTimeoutRef.current) {
+        clearTimeout(validationTimeoutRef.current);
+      }
+    };
+  }, []);
+  
+  // Update tip receive preference (HIGH-2: Add validation)
   const handleUpdateTipPreference = async (newPreference: TipReceivePreference) => {
     if (!user?.username) return;
+    
+    // HIGH-2: Can't set preference='lightning' without Lightning Address
+    if (newPreference === 'lightning' && !currentAddress) {
+      toast({
+        title: 'Lightning Address Required',
+        description: 'Please add a Lightning Address before setting this preference',
+        variant: 'destructive',
+      });
+      return;
+    }
     
     setIsUpdatingPreference(true);
     try {
@@ -144,7 +180,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
     }
   };
   
-  // Validate Lightning Address on input change
+  // Validate Lightning Address on input change (PERF-3: Add debouncing)
   const handleLightningInputChange = (value: string) => {
     setLightningInput(value);
     
@@ -157,10 +193,19 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       return;
     }
     
-    // Validate format
-    if (!isValidLightningAddress(value)) {
-      setLightningError('Invalid format. Use: user@domain.com');
+    // Clear existing timeout
+    if (validationTimeoutRef.current) {
+      clearTimeout(validationTimeoutRef.current);
     }
+    
+    // Debounce validation (500ms after user stops typing)
+    validationTimeoutRef.current = setTimeout(() => {
+      // Validate format
+      if (!isValidLightningAddress(value)) {
+        setLightningError('Invalid format. Use: user@domain.com');
+      }
+      validationTimeoutRef.current = null;
+    }, 500);
   };
 
   const handleLogout = () => {
@@ -358,6 +403,13 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       max={MAX_MINIMUM_HBD}
                       value={minHBDInput}
                       onChange={(e) => setMinHBDInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        // HIGH-5: Block invalid characters (minus, plus, scientific notation)
+                        // Allow decimal point for HBD amounts
+                        if (['-', '+', 'e', 'E'].includes(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
                       disabled={isLoadingMinimum || isUpdating}
                       placeholder="0.001"
                       className="max-w-32 h-11"

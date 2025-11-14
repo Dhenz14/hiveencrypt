@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Lock, Check, CheckCheck, Clock, Unlock, ExternalLink, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Message } from '@shared/schema';
@@ -72,8 +72,10 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
     message.content === '[🔒 Encrypted - Click to decrypt]' ||
     message.content.includes('[Encrypted');
   
-  // Detect Lightning tip notifications
-  const tipNotification = !isEncryptedPlaceholder ? parseTipNotification(message.content) : null;
+  // PERF-1: Memoize tip notification parsing to prevent re-renders
+  const tipNotification = useMemo(() => {
+    return !isEncryptedPlaceholder ? parseTipNotification(message.content) : null;
+  }, [isEncryptedPlaceholder, message.content]);
 
   const handleDecrypt = async () => {
     if (!user || !message.encryptedMemo) {

@@ -14,6 +14,7 @@
 import { requestInvoice } from 'lnurl-pay';
 import * as bolt11 from 'light-bolt11-decoder';
 import type { KeychainResponse } from './hive';
+import { getAccount } from './hive';
 
 // ============================================================================
 // Type Definitions
@@ -489,52 +490,128 @@ export async function sendV4VTransfer(
   amountHBD: number,
   invoiceAmountSats: number
 ): Promise<string> {
-  console.log('[V4V TRANSFER] Initiating transfer:', {
-    username,
-    amountHBD,
-    invoiceAmountSats,
-    invoiceLength: invoice.length,
-  });
-  
-  // Security validations
-  validateInvoiceForTransfer(invoice, invoiceAmountSats);
-  validateV4VLimits(invoiceAmountSats);
-  
-  // Format HBD amount (3 decimal places)
-  const formattedAmount = amountHBD.toFixed(3);
-  
-  console.log('[V4V TRANSFER] Requesting Keychain transfer:', {
-    to: V4VAPP_ACCOUNT,
-    amount: formattedAmount,
-    memo: invoice.substring(0, 50) + '...',
-  });
-  
-  // Request transfer via Hive Keychain
-  return new Promise((resolve, reject) => {
-    if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not found. Please install Hive Keychain.'));
-      return;
+  try {
+    console.log('[V4V TRANSFER] Initiating transfer:', {
+      username,
+      amountHBD,
+      invoiceAmountSats,
+      invoiceLength: invoice.length,
+    });
+    
+    // HIGH-3: PRE-FLIGHT HBD Balance Check
+    const account = await getAccount(username);
+    
+    if (!account) {
+      throw new Error('BALANCE_CHECK_FAILED: Unable to verify account balance. Please check your connection and try again.');
     }
     
-    window.hive_keychain.requestTransfer(
-      username,
-      V4VAPP_ACCOUNT,
-      formattedAmount,
-      invoice, // BOLT11 invoice in memo field
-      'HBD',
-      (response: KeychainResponse) => {
-        console.log('[V4V TRANSFER] Keychain response:', response);
-        
-        if (response.success) {
-          console.log('[V4V TRANSFER] Success! Transaction ID:', response.result?.id);
-          resolve(response.result?.id || 'success');
-        } else {
-          console.error('[V4V TRANSFER] Failed:', response.message);
-          reject(new Error(response.message || 'Transfer failed'));
-        }
+    const hbdBalance = parseFloat(account.hbd_balance.split(' ')[0]);
+    
+    if (hbdBalance < amountHBD) {
+      throw new Error(`INSUFFICIENT_BALANCE: You need ${amountHBD.toFixed(3)} HBD but only have ${hbdBalance.toFixed(3)} HBD available.`);
+    }
+    
+    console.log('[V4V TRANSFER] Balance check passed:', hbdBalance, 'HBD available');
+    
+    // Security validations
+    validateInvoiceForTransfer(invoice, invoiceAmountSats);
+    validateV4VLimits(invoiceAmountSats);
+    
+    // Format HBD amount (3 decimal places)
+    const formattedAmount = amountHBD.toFixed(3);
+    
+    console.log('[V4V TRANSFER] Requesting Keychain transfer:', {
+      to: V4VAPP_ACCOUNT,
+      amount: formattedAmount,
+      memo: invoice.substring(0, 50) + '...',
+    });
+    
+    // Request transfer via Hive Keychain
+    return await new Promise<string>((resolve, reject) => {
+      if (!window.hive_keychain) {
+        reject(new Error('KEYCHAIN_MISSING: Hive Keychain not installed. Please install Hive Keychain browser extension to continue.'));
+        return;
       }
-    );
-  });
+      
+      window.hive_keychain.requestTransfer(
+        username,
+        V4VAPP_ACCOUNT,
+        formattedAmount,
+        invoice, // BOLT11 invoice in memo field
+        'HBD',
+        (response: KeychainResponse) => {
+          console.log('[V4V TRANSFER] Keychain response:', response);
+          
+          if (response.success) {
+            console.log('[V4V TRANSFER] Success! Transaction ID:', response.result?.id);
+            resolve(response.result?.id || 'success');
+          } else {
+            console.error('[V4V TRANSFER] Failed:', response.message);
+            
+            // Normalize Keychain rejection messages
+            const keychainMessage = response.message || '';
+            if (keychainMessage.toLowerCase().includes('cancel')) {
+              reject(new Error('KEYCHAIN_CANCELLED: Transfer cancelled. Please approve the transfer in Hive Keychain to continue.'));
+            } else if (keychainMessage.toLowerCase().includes('denied')) {
+              reject(new Error('KEYCHAIN_DENIED: Transfer denied. Please approve the transfer in Hive Keychain to continue.'));
+            } else {
+              reject(new Error(`KEYCHAIN_ERROR: ${keychainMessage || 'Transfer failed. Please try again.'}`));
+            }
+          }
+        }
+      );
+    });
+    
+  } catch (error) {
+    console.error('[V4V TRANSFER] Error:', error);
+    
+    // Comprehensive error normalization
+    if (error instanceof Error) {
+      const message = error.message;
+      
+      // Pass through our prefixed user-friendly messages
+      if (message.startsWith('BALANCE_CHECK_FAILED:') || 
+          message.startsWith('INSUFFICIENT_BALANCE:') ||
+          message.startsWith('KEYCHAIN_MISSING:') ||
+          message.startsWith('KEYCHAIN_CANCELLED:') ||
+          message.startsWith('KEYCHAIN_DENIED:') ||
+          message.startsWith('KEYCHAIN_ERROR:')) {
+        // Strip prefix and throw clean message
+        throw new Error(message.split(': ').slice(1).join(': '));
+      }
+      
+      // Handle validation errors from validateInvoiceForTransfer
+      if (message.includes('Invalid invoice') || 
+          message.includes('expired') || 
+          message.includes('BOLT11') ||
+          message.includes('does not contain an amount') ||
+          message.includes('does not specify an amount') ||
+          message.includes('amount mismatch') ||
+          message.includes('Invoice amount') ||
+          message.includes('Invalid amount')) {
+        throw new Error('Invalid Lightning invoice. Please regenerate the invoice and try again.');
+      }
+      
+      // Handle V4V limit errors
+      if (message.includes('limit') || message.includes('maximum')) {
+        throw new Error('Amount exceeds V4V.app transfer limits. Please try a smaller amount.');
+      }
+      
+      // Handle network errors
+      if (message.toLowerCase().includes('fetch') || 
+          message.toLowerCase().includes('network') || 
+          message.toLowerCase().includes('timeout') ||
+          message.toLowerCase().includes('connection')) {
+        throw new Error('Network error. Please check your connection and try again.');
+      }
+      
+      // Generic fallback for unknown errors
+      throw new Error('Unable to complete transfer. Please try again or contact support if the problem persists.');
+    }
+    
+    // Non-Error instances (defensive)
+    throw new Error('Unexpected error during transfer. Please try again.');
+  }
 }
 
 // ============================================================================
