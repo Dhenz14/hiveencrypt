@@ -13,7 +13,7 @@ import { logger } from '@/lib/logger';
 interface TipNotification {
   amount: string;
   currency: 'sats' | 'hbd';
-  txId: string;
+  txId?: string;
 }
 
 // Helper function to detect and parse tip notifications (both Lightning sats and HBD)
@@ -26,11 +26,11 @@ function parseTipNotification(content: string): TipNotification | null {
     // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
     const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
     
-    if (satsMatch && txMatch) {
+    if (satsMatch) {
       return {
         amount: satsMatch[1],
         currency: 'sats',
-        txId: txMatch[1],
+        txId: txMatch ? txMatch[1] : undefined,
       };
     }
   }
@@ -43,11 +43,11 @@ function parseTipNotification(content: string): TipNotification | null {
     // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
     const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
     
-    if (hbdMatch && txMatch) {
+    if (hbdMatch) {
       return {
         amount: hbdMatch[1],
         currency: 'hbd',
-        txId: txMatch[1],
+        txId: txMatch ? txMatch[1] : undefined,
       };
     }
   }
@@ -236,15 +236,17 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             <p className="text-2xl font-bold">
               {tipNotification.amount} {tipNotification.currency === 'sats' ? 'sats' : 'HBD'}
             </p>
-            <a
-              href={`https://hiveblocks.com/tx/${tipNotification.txId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-caption hover-elevate transition-colors underline"
-              data-testid={`link-tip-transaction-${message.id}`}
-            >
-              View Transaction <ExternalLink className="w-3 h-3" />
-            </a>
+            {tipNotification.txId && (
+              <a
+                href={`https://hiveblocks.com/tx/${tipNotification.txId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-caption hover-elevate transition-colors underline"
+                data-testid={`link-tip-transaction-${message.id}`}
+              >
+                View Transaction <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
           </div>
         ) : (
           <p className={cn(

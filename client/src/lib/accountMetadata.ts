@@ -472,6 +472,11 @@ export async function updateLightningAddress(
     // Get existing hive_messenger data (preserve all fields, no defaults)
     const existingMessengerData = currentMetadata.profile?.hive_messenger || {};
     
+    // SERVER-SIDE VALIDATION: Prevent removing Lightning Address while preference='lightning'
+    if (!lightningAddress && existingMessengerData.tip_receive_preference === 'lightning') {
+      throw new Error('Cannot remove Lightning Address while tip preference is Lightning. Change preference to HBD first.');
+    }
+    
     // Merge with new Lightning Address (preserve existing fields)
     const updatedMetadata: AccountMetadata = {
       ...currentMetadata,

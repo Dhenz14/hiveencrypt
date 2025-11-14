@@ -471,6 +471,21 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       try {
                         // Allow empty input to remove Lightning Address (alternative to Remove button)
                         if (!trimmedInput) {
+                          if (!user?.username) return;
+                          
+                          // Check if preference is 'lightning'
+                          if (tipReceivePreference === 'lightning') {
+                            // Show confirmation dialog
+                            const confirmed = window.confirm(
+                              'Removing your Lightning Address will automatically switch your tip preference to HBD. Continue?'
+                            );
+                            
+                            if (!confirmed) return;
+                            
+                            // Auto-switch preference to 'hbd' FIRST
+                            await handleUpdateTipPreference('hbd');
+                          }
+                          
                           await removeAddress();
                           return;
                         }
@@ -551,8 +566,32 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   <Button
                     variant="outline"
                     onClick={async () => {
-                      await removeAddress();
-                      setLightningInput('');
+                      if (!user?.username) return;
+                      
+                      try {
+                        // Check if preference is 'lightning'
+                        if (tipReceivePreference === 'lightning') {
+                          // Show confirmation dialog
+                          const confirmed = window.confirm(
+                            'Removing your Lightning Address will automatically switch your tip preference to HBD. Continue?'
+                          );
+                          
+                          if (!confirmed) return;
+                          
+                          // Auto-switch preference to 'hbd' FIRST
+                          await handleUpdateTipPreference('hbd');
+                        }
+                        
+                        // Then remove address
+                        await removeAddress();
+                        setLightningInput('');
+                      } catch (error: any) {
+                        toast({
+                          title: 'Remove Failed',
+                          description: error?.message || 'Failed to remove Lightning Address',
+                          variant: 'destructive',
+                        });
+                      }
                     }}
                     disabled={isUpdatingLightning || !currentAddress}
                     className="h-11"
