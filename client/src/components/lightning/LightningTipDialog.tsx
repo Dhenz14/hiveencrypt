@@ -47,7 +47,9 @@ export function LightningTipDialog({
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false);
   const [isSendingTip, setIsSendingTip] = useState(false);
   const [invoiceError, setInvoiceError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'v4v' | 'wallet'>('v4v');
+  const [activeTab, setActiveTab] = useState<'v4v' | 'wallet'>(
+    recipientTipPreference === 'hbd' ? 'wallet' : 'v4v'
+  );
   const [isCopied, setIsCopied] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [isPayingWithWebLN, setIsPayingWithWebLN] = useState(false);
@@ -74,11 +76,11 @@ export function LightningTipDialog({
       setTotalHBDCost(0);
       setV4vFee(0);
       setBtcHbdRate(0);
-      setActiveTab('v4v');
+      setActiveTab(recipientTipPreference === 'hbd' ? 'wallet' : 'v4v');
       setIsCopied(false);
       setQrDataUrl(null);
     }
-  }, [isOpen]);
+  }, [isOpen, recipientTipPreference]);
   
   // Generate QR code when invoice is available
   useEffect(() => {
