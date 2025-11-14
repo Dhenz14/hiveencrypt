@@ -703,6 +703,46 @@ export function hbdToSats(hbd: number, btcHbdRate: number): number {
   return Math.floor(btc * 100_000_000);
 }
 
+/**
+ * Convert satoshis to USD
+ * HBD ≈ $1 USD, so BTC/HBD rate ≈ BTC/USD rate
+ * 
+ * @param sats - Amount in satoshis
+ * @param btcHbdRate - BTC/HBD exchange rate (approximately BTC/USD)
+ * @returns USD amount
+ */
+export function satsToUSD(sats: number, btcHbdRate: number): number {
+  return satsToHBD(sats, btcHbdRate); // Since HBD ≈ $1 USD
+}
+
+/**
+ * Convert HBD to USD
+ * HBD is pegged to $1 USD
+ * 
+ * @param hbd - Amount in HBD
+ * @returns USD amount (1:1 with HBD)
+ */
+export function hbdToUSD(hbd: number): number {
+  return hbd; // HBD ≈ $1 USD (pegged)
+}
+
+/**
+ * Format USD amount for display
+ * 
+ * @param usd - Amount in USD
+ * @param showCents - Whether to show cents (default: true)
+ * @returns Formatted USD string (e.g., "$1.23")
+ */
+export function formatUSD(usd: number, showCents: boolean = true): string {
+  if (showCents) {
+    // Always show 2 decimal places for accurate cost context
+    return `$${usd.toFixed(2)}`;
+  } else {
+    // Round to nearest dollar when cents not needed
+    return `$${Math.round(usd).toLocaleString()}`;
+  }
+}
+
 // ============================================================================
 // V4V.app Reverse Bridge (Lightning → HBD) (v2.3.0)
 // ============================================================================

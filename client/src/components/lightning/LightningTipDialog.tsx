@@ -14,6 +14,9 @@ import {
   decodeBOLT11Invoice,
   getBTCtoHBDRate,
   sendV4VTransfer,
+  satsToUSD,
+  hbdToUSD,
+  formatUSD,
   type LightningInvoice 
 } from '@/lib/lightning';
 import { formatNumber } from '@/lib/utils';
@@ -547,7 +550,14 @@ export function LightningTipDialog({
         <div className="space-y-4">
           {/* Amount Input */}
           <div className="space-y-2">
-            <Label htmlFor="sats-amount">Amount (satoshis)</Label>
+            <Label htmlFor="sats-amount">
+              Amount (satoshis)
+              {btcHbdRate > 0 && satsAmount && !isNaN(parseInt(satsAmount)) && parseInt(satsAmount) > 0 && (
+                <span className="ml-2 text-muted-foreground font-normal">
+                  ≈ {formatUSD(satsToUSD(parseInt(satsAmount), btcHbdRate))}
+                </span>
+              )}
+            </Label>
             <div className="flex items-center gap-2">
               <Input
                 id="sats-amount"
@@ -569,9 +579,11 @@ export function LightningTipDialog({
               />
               <span className="text-caption text-muted-foreground whitespace-nowrap">sats</span>
             </div>
-            <p className="text-caption text-muted-foreground">
-              1 sat = 0.00000001 BTC
-            </p>
+            {btcHbdRate === 0 && (
+              <p className="text-caption text-muted-foreground">
+                1 sat = 0.00000001 BTC
+              </p>
+            )}
           </div>
 
           {/* Error Message */}
@@ -609,12 +621,12 @@ export function LightningTipDialog({
               <TabsList className={`grid w-full ${recipientTipPreference === 'hbd' ? 'grid-cols-1' : 'grid-cols-2'}`}>
                 {recipientTipPreference === 'lightning' && (
                   <TabsTrigger value="v4v" data-testid="tab-v4v-bridge">
-                    V4V.app Bridge
+                    Pay with HBD
                   </TabsTrigger>
                 )}
                 <TabsTrigger value="wallet" data-testid="tab-lightning-wallet">
                   <Wallet className="w-4 h-4 mr-2" />
-                  Lightning Wallet
+                  Pay with Lightning
                 </TabsTrigger>
               </TabsList>
               
@@ -623,21 +635,38 @@ export function LightningTipDialog({
                 <div className="space-y-2 p-3 bg-muted/50 border rounded-md">
                   <div className="flex justify-between items-center">
                     <span className="text-caption text-muted-foreground">Lightning Invoice:</span>
-                    <span className="text-caption font-medium text-green-600 dark:text-green-500">
-                      {formatNumber(invoiceAmountSats)} sats
-                    </span>
+                    <div className="text-right">
+                      <div className="text-caption font-medium text-green-600 dark:text-green-500">
+                        {formatNumber(invoiceAmountSats)} sats
+                      </div>
+                      {btcHbdRate > 0 && (
+                        <div className="text-caption text-muted-foreground">
+                          ≈ {formatUSD(satsToUSD(invoiceAmountSats, btcHbdRate))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-caption text-muted-foreground">V4V.app Fee (0.8%):</span>
-                    <span className="text-caption font-medium">
-                      {v4vFee.toFixed(6)} HBD
-                    </span>
+                    <div className="text-right">
+                      <div className="text-caption font-medium">
+                        {v4vFee.toFixed(6)} HBD
+                      </div>
+                      <div className="text-caption text-muted-foreground">
+                        ≈ {formatUSD(hbdToUSD(v4vFee))}
+                      </div>
+                    </div>
                   </div>
                   <div className="flex justify-between items-center pt-2 border-t">
                     <span className="text-body font-medium">Total HBD Cost:</span>
-                    <span className="text-body font-bold text-primary">
-                      {totalHBDCost.toFixed(3)} HBD
-                    </span>
+                    <div className="text-right">
+                      <div className="text-body font-bold text-primary">
+                        {totalHBDCost.toFixed(3)} HBD
+                      </div>
+                      <div className="text-caption text-muted-foreground">
+                        ≈ {formatUSD(hbdToUSD(totalHBDCost))}
+                      </div>
+                    </div>
                   </div>
                   <div className="flex justify-between items-center text-caption text-muted-foreground mt-1">
                     <span>Exchange Rate:</span>
@@ -688,7 +717,7 @@ export function LightningTipDialog({
                 {recipientTipPreference === 'hbd' && (
                   <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-md">
                     <p className="text-caption font-medium text-green-700 dark:text-green-400">
-                      Recipient will receive: {totalHBDCost.toFixed(3)} HBD in their Hive wallet
+                      Recipient will receive: {totalHBDCost.toFixed(3)} HBD (≈ {formatUSD(hbdToUSD(totalHBDCost))}) in their Hive wallet
                     </p>
                     <p className="text-caption text-muted-foreground mt-1">
                       V4V.app bridge fee: 50 sats + 0.5%
@@ -719,6 +748,7 @@ export function LightningTipDialog({
                   </div>
                   <p className="text-caption text-muted-foreground">
                     {formatNumber(invoiceAmountSats)} sats
+                    {btcHbdRate > 0 && ` (≈ ${formatUSD(satsToUSD(invoiceAmountSats, btcHbdRate))})`}
                     {recipientTipPreference === 'hbd' && ` → ${totalHBDCost.toFixed(3)} HBD`}
                   </p>
                 </div>
