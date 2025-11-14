@@ -15,6 +15,9 @@ import {
 } from '@/components/ui/tooltip';
 import { useExceptionsList } from '@/hooks/useExceptionsList';
 import { useToast } from '@/hooks/use-toast';
+import { LightningTipButton } from '@/components/lightning/LightningTipButton';
+import { useQuery } from '@tanstack/react-query';
+import { getAccountMetadata, parseLightningAddress } from '@/lib/accountMetadata';
 
 interface ChatHeaderProps {
   contactUsername: string;
@@ -39,6 +42,17 @@ export function ChatHeader({
 }: ChatHeaderProps) {
   const { isException, toggleException } = useExceptionsList();
   const { toast } = useToast();
+  
+  // Fetch recipient's Lightning Address for tip button
+  const { data: recipientMetadata } = useQuery({
+    queryKey: ['recipientLightningAddress', contactUsername],
+    queryFn: async () => await getAccountMetadata(contactUsername),
+    enabled: !!contactUsername,
+    staleTime: 5 * 60 * 1000,  // Cache for 5 minutes
+    gcTime: 10 * 60 * 1000,
+  });
+  
+  const recipientLightningAddress = parseLightningAddress(recipientMetadata);
   
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
@@ -127,6 +141,12 @@ export function ChatHeader({
             </p>
           </TooltipContent>
         </Tooltip>
+        
+        {/* Lightning Tip Button - v2.2.0 Feature */}
+        <LightningTipButton
+          recipientUsername={contactUsername}
+          recipientLightningAddress={recipientLightningAddress || undefined}
+        />
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

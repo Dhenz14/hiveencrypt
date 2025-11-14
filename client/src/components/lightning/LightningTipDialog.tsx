@@ -39,6 +39,7 @@ export function LightningTipDialog({
   const [invoiceAmountSats, setInvoiceAmountSats] = useState<number>(0);
   const [totalHBDCost, setTotalHBDCost] = useState<number>(0);
   const [v4vFee, setV4vFee] = useState<number>(0);
+  const [btcHbdRate, setBtcHbdRate] = useState<number>(0);
 
   // Reset state when dialog opens/closes
   useEffect(() => {
@@ -50,6 +51,7 @@ export function LightningTipDialog({
       setInvoiceAmountSats(0);
       setTotalHBDCost(0);
       setV4vFee(0);
+      setBtcHbdRate(0);
     }
   }, [isOpen]);
 
@@ -100,18 +102,21 @@ export function LightningTipDialog({
       }
       
       // Get BTC/HBD exchange rate
-      const btcHbdRate = await getBTCtoHBDRate();
+      const fetchedRate = await getBTCtoHBDRate();
       
       // Calculate total HBD cost (invoice amount + V4V.app 0.8% fee)
-      const transfer = calculateV4VTransfer(invoiceData.invoice, invoiceSats, btcHbdRate);
+      const transfer = calculateV4VTransfer(invoiceData.invoice, invoiceSats, fetchedRate);
       
       console.log('[LIGHTNING TIP] Invoice verified:', invoiceSats, 'sats =', transfer.totalHBD, 'HBD');
+      console.log('[LIGHTNING TIP] Exchange rate:', fetchedRate, 'HBD per BTC');
+      console.log('[LIGHTNING TIP] Fee breakdown:', transfer);
       
-      // Store invoice state
+      // Store invoice state INCLUDING exchange rate for consistency
       setLightningInvoiceData(invoiceData);
       setInvoiceAmountSats(invoiceSats);
       setTotalHBDCost(transfer.totalHBD);
       setV4vFee(transfer.v4vFee);
+      setBtcHbdRate(fetchedRate);
       
       toast({
         title: 'Invoice Generated',
@@ -135,19 +140,21 @@ export function LightningTipDialog({
   };
 
   const handleSendTip = async () => {
-    if (!lightningInvoiceData) {
+    // Guard: Ensure we have complete invoice data with valid rate
+    if (!lightningInvoiceData || btcHbdRate <= 0 || totalHBDCost <= 0) {
       toast({
-        title: 'No Invoice',
-        description: 'Please generate an invoice first',
+        title: 'Invalid State',
+        description: 'Please regenerate the invoice before sending',
         variant: 'destructive',
       });
       return;
     }
 
     // TODO: Phase 3 - Send HBD to v4v.app with invoice in memo
+    // Will use: lightningInvoiceData.invoice, totalHBDCost, btcHbdRate
     toast({
-      title: 'Send Tip',
-      description: 'Phase 3 implementation pending - send to v4v.app',
+      title: 'Send Tip (Phase 3 Pending)',
+      description: `Ready to send ${totalHBDCost.toFixed(3)} HBD to v4v.app`,
     });
   };
 
@@ -197,8 +204,8 @@ export function LightningTipDialog({
             </div>
           )}
 
-          {/* Invoice Info */}
-          {lightningInvoiceData && (
+          {/* Invoice Info - Only show if we have BOTH invoice AND rate */}
+          {lightningInvoiceData && btcHbdRate > 0 && totalHBDCost > 0 && (
             <div className="space-y-2 p-3 bg-muted/50 border rounded-md">
               <div className="flex justify-between items-center">
                 <span className="text-caption text-muted-foreground">Lightning Invoice:</span>
@@ -217,6 +224,10 @@ export function LightningTipDialog({
                 <span className="text-body font-bold text-primary">
                   {totalHBDCost.toFixed(3)} HBD
                 </span>
+              </div>
+              <div className="flex justify-between items-center text-caption text-muted-foreground mt-1">
+                <span>Exchange Rate:</span>
+                <span>{formatNumber(btcHbdRate)} HBD/BTC</span>
               </div>
             </div>
           )}
@@ -237,7 +248,7 @@ export function LightningTipDialog({
 
           {/* Action Buttons */}
           <div className="flex gap-2 pt-2">
-            {!lightningInvoiceData ? (
+            {!lightningInvoiceData || btcHbdRate <= 0 || totalHBDCost <= 0 ? (
               <>
                 <Button
                   variant="outline"
@@ -276,6 +287,7 @@ export function LightningTipDialog({
                     setInvoiceAmountSats(0);
                     setTotalHBDCost(0);
                     setV4vFee(0);
+                    setBtcHbdRate(0);
                   }}
                   className="flex-1 h-11"
                   data-testid="button-regenerate-invoice"
