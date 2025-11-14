@@ -3,6 +3,21 @@
 ## Overview
 Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform with no centralized servers, backend, database, or sessions. All operations are client-side, using the Hive blockchain for immutable storage and IndexedDB for local caching. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, Lightning Network Bitcoin tips via v4v.app bridge, and a mobile-first responsive design.
 
+## Recent Changes (v2.2.1)
+- **Bug Fix: Real Exchange Rate API**: Replaced mock BTC/HBD exchange rate (100,000) with real-time CoinGecko API integration.
+  - Fetches live Bitcoin price in USD from CoinGecko public API (no authentication required).
+  - HBD assumed at $1 USD (correct, as HBD is USD-pegged stablecoin).
+  - Users now see accurate HBD costs for Lightning tips based on current market rates.
+  - Prevents financial loss from incorrect exchange rate calculations.
+- **Bug Fix: Race Condition Protection**: Implemented comprehensive request ID pattern to prevent stale invoice data.
+  - Dialog close/reopen no longer allows stale async responses to corrupt UI state.
+  - Rapid invoice regeneration now properly cancels previous requests.
+  - All state mutations (success, error, loading) gated behind request ID equality check.
+  - Eliminates React warnings and ensures consistent UI behavior.
+- **Bug Fix: Case-Insensitive TX ID Parsing**: Updated tip notification regex to handle mixed-case transaction IDs.
+  - Changed regex from `[a-f0-9]+` to `[a-fA-F0-9]+` for broader compatibility.
+  - Ensures tip notifications render correctly regardless of blockchain explorer case formatting.
+
 ## Recent Changes (v2.2.0)
 - **Lightning Network Integration**: Added Bitcoin Lightning Network tipping functionality with multiple payment methods.
   - Users can send Bitcoin satoshis to recipients with Lightning Addresses via three payment options.
@@ -106,6 +121,7 @@ Hive Messenger features a 100% decentralized architecture. It's a React PWA host
 - **V4V.app**: HBD-to-Lightning bridge service for Bitcoin tips (0.8% fee, 4-hour transfer limits).
 - **LNURL Protocol**: Decentralized Lightning Address infrastructure for invoice generation.
 - **WebLN**: Browser wallet API for one-click Lightning payments (optional, user-dependent).
+- **CoinGecko API**: Real-time Bitcoin price data for accurate HBD/BTC exchange rate calculations (free tier, no authentication).
 
 ### Platform Support
 - **Desktop Browsers**: Full functionality with Keychain browser extension.
