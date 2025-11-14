@@ -20,9 +20,9 @@ import { isKeychainInstalled } from './hive';
  * Hive Messenger specific metadata stored in account profile
  */
 export interface HiveMessengerMetadata {
-  min_hbd: string;              // Minimum HBD amount required (e.g., "0.001", "1.000")
-  lightning_address?: string;   // Lightning Network address (e.g., "user@getalby.com")
-  version: string;              // Metadata version for future compatibility
+  min_hbd?: string;             // Minimum HBD amount required (e.g., "0.001", "1.000") - optional
+  lightning_address?: string;   // Lightning Network address (e.g., "user@getalby.com") - optional
+  version?: string;             // Metadata version for future compatibility - optional
 }
 
 /**
@@ -285,13 +285,16 @@ export async function updateMinimumHBD(
     // Fetch current metadata
     const currentMetadata = await getAccountMetadata(username, true);
     
-    // Merge with new hive_messenger data
-    // Guard against undefined profile (common for accounts without posting metadata)
+    // Get existing hive_messenger data to preserve lightning_address and other fields
+    const existingMessengerData = currentMetadata.profile?.hive_messenger || {};
+    
+    // Merge with new minimum HBD (preserve existing fields like lightning_address)
     const updatedMetadata: AccountMetadata = {
       ...currentMetadata,
       profile: {
         ...(currentMetadata.profile ?? {}),
         hive_messenger: {
+          ...existingMessengerData,  // Preserve lightning_address, etc.
           min_hbd: minHBD,
           version: METADATA_VERSION,
         },
@@ -460,21 +463,18 @@ export async function updateLightningAddress(
     // Fetch current metadata
     const currentMetadata = await getAccountMetadata(username, true);
     
-    // Get existing hive_messenger data or create new
-    const existingMessengerData = currentMetadata.profile?.hive_messenger || {
-      min_hbd: DEFAULT_MINIMUM_HBD,
-      version: METADATA_VERSION,
-    };
+    // Get existing hive_messenger data (preserve all fields, no defaults)
+    const existingMessengerData = currentMetadata.profile?.hive_messenger || {};
     
-    // Merge with new Lightning Address
+    // Merge with new Lightning Address (preserve existing fields)
     const updatedMetadata: AccountMetadata = {
       ...currentMetadata,
       profile: {
         ...(currentMetadata.profile ?? {}),
         hive_messenger: {
-          ...existingMessengerData,
+          ...existingMessengerData,  // Preserve min_hbd, version, etc.
           lightning_address: lightningAddress || undefined, // Remove if empty
-          version: METADATA_VERSION,
+          version: METADATA_VERSION,  // Always set version when updating
         },
       },
     };

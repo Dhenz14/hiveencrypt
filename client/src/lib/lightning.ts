@@ -96,37 +96,84 @@ export const INVOICE_EXPIRY_SECONDS = 15 * 60;
 // ============================================================================
 
 /**
- * Verify Lightning Address is reachable and valid
- * Attempts to fetch LNURL metadata without generating invoice
+ * Verification result for Lightning Address
+ */
+export interface LightningVerificationResult {
+  success: boolean;
+  error?: string;
+  warning?: string;
+}
+
+/**
+ * Verify Lightning Address is reachable and valid (best-effort, non-blocking)
+ * 
+ * ARCHITECTURE NOTE: Deferred verification approach
+ * - Phase 1 (Settings): Best-effort LNURL probe, never blocks saves (CORS may fail)
+ * - Phase 2 (Tipping): Authoritative verification during invoice generation
+ * 
+ * This preserves 100% decentralization (no backend proxy) while providing useful feedback
  * 
  * @param lightningAddress - Lightning Address to verify
- * @returns Promise<boolean> - true if reachable and valid
+ * @returns Promise<LightningVerificationResult> - never throws, returns status
  */
-export async function verifyLightningAddress(lightningAddress: string): Promise<void> {
+export async function verifyLightningAddress(lightningAddress: string): Promise<LightningVerificationResult> {
   try {
-    console.log('[LIGHTNING] Verifying Lightning Address:', lightningAddress);
+    console.log('[LIGHTNING] Best-effort verification of Lightning Address:', lightningAddress);
     
-    // Attempt to generate a minimal invoice (1 sat) as verification
-    // This tests both LNURL server reachability and address validity
+    // Attempt LNURL verification (may fail due to CORS - that's expected)
     const result = await requestInvoice({
       lnUrlOrAddress: lightningAddress,
-      tokens: 1 as any,  // Minimal amount for verification
-      comment: 'Address verification',
+      tokens: 1000 as any,  // Test amount for verification
+      comment: 'Hive Messenger address verification probe',
     });
     
+    // Missing invoice = genuine LNURL error (not CORS)
     if (!result || !result.invoice) {
-      throw new Error('Lightning Address verification failed');
+      return {
+        success: false,
+        error: 'Invalid Lightning Address - LNURL server returned no invoice',
+      };
     }
     
-    console.log('[LIGHTNING] Lightning Address verified successfully');
+    // Validate invoice format
+    if (!result.invoice.toLowerCase().startsWith('lnbc')) {
+      return {
+        success: false,
+        error: 'Invalid invoice format from LNURL server',
+      };
+    }
+    
+    console.log('[LIGHTNING] Lightning Address verified successfully:', lightningAddress);
+    return { success: true };
     
   } catch (error) {
-    console.error('[LIGHTNING] Lightning Address verification failed:', error);
-    throw new Error(
-      `Lightning Address verification failed. Please check the address and try again. ${
-        error instanceof Error ? error.message : ''
-      }`
-    );
+    // Log full technical error for debugging
+    console.warn('[LIGHTNING] Verification probe failed:', error);
+    
+    // Differentiate between CORS failures and genuine LNURL errors
+    const errorMessage = error instanceof Error ? error.message.toLowerCase() : '';
+    
+    // CORS errors typically contain 'cors', 'network', or 'fetch' keywords
+    const isCORSError = 
+      errorMessage.includes('cors') || 
+      errorMessage.includes('network') ||
+      errorMessage.includes('fetch') ||
+      errorMessage.includes('failed to fetch');
+    
+    if (isCORSError) {
+      // Expected CORS failure - allow save with warning
+      return {
+        success: false,
+        warning: 'Could not verify address (browser restriction). Will verify during tip.',
+      };
+    } else {
+      // Genuine LNURL error - block save with user-friendly message
+      // (Technical details logged above for debugging)
+      return {
+        success: false,
+        error: 'Invalid Lightning Address. Please check and try again.',
+      };
+    }
   }
 }
 

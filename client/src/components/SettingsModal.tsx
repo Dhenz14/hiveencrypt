@@ -81,6 +81,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   
   const [lightningInput, setLightningInput] = useState(currentAddress || '');
   const [lightningError, setLightningError] = useState<string | null>(null);
+  const [lightningWarning, setLightningWarning] = useState<string | null>(null);
   const [isVerifyingLightning, setIsVerifyingLightning] = useState(false);
   
   // Update input when current address changes
@@ -92,17 +93,18 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const handleLightningInputChange = (value: string) => {
     setLightningInput(value);
     
-    // Clear error if empty (allows removal)
+    // Clear errors and warnings on input change (allows retry)
+    setLightningError(null);
+    setLightningWarning(null);
+    
+    // Clear if empty (allows removal)
     if (!value.trim()) {
-      setLightningError(null);
       return;
     }
     
     // Validate format
     if (!isValidLightningAddress(value)) {
       setLightningError('Invalid format. Use: user@domain.com');
-    } else {
-      setLightningError(null);
     }
   };
 
@@ -380,7 +382,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       type="text"
                       value={lightningInput}
                       onChange={(e) => handleLightningInputChange(e.target.value)}
-                      disabled={isLoadingLightning || isUpdatingLightning}
+                      disabled={isLoadingLightning || isUpdatingLightning || isVerifyingLightning}
                       placeholder="user@getalby.com"
                       className="h-11"
                       data-testid="input-lightning-address"
@@ -388,6 +390,11 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                     {lightningError && (
                       <p className="text-caption text-destructive">
                         {lightningError}
+                      </p>
+                    )}
+                    {lightningWarning && !lightningError && (
+                      <p className="text-caption text-yellow-600 dark:text-yellow-500">
+                        {lightningWarning}
                       </p>
                     )}
                     {currentAddress && (
@@ -401,39 +408,58 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   <Button
                     variant="default"
                     onClick={async () => {
+                      const trimmedInput = lightningInput.trim();
+                      
+                      // Clear previous warnings
+                      setLightningWarning(null);
+                      
                       try {
-                        const trimmedInput = lightningInput.trim();
+                        // Allow empty input to remove Lightning Address (alternative to Remove button)
                         if (!trimmedInput) {
-                          toast({
-                            title: 'Invalid Input',
-                            description: 'Please enter a Lightning Address or click Remove',
-                            variant: 'destructive',
-                          });
+                          await removeAddress();
                           return;
                         }
                         
-                        // Verify Lightning Address is reachable before saving
+                        // Non-empty input: best-effort verify, then save (non-blocking)
                         setIsVerifyingLightning(true);
                         try {
-                          await verifyLightningAddress(trimmedInput);
-                        } catch (verifyError: any) {
-                          toast({
-                            title: 'Verification Failed',
-                            description: verifyError?.message || 'Could not verify Lightning Address. Please check and try again.',
-                            variant: 'destructive',
-                          });
+                          const verifyResult = await verifyLightningAddress(trimmedInput);
+                          
+                          if (verifyResult.error) {
+                            // Hard error: invalid LNURL response
+                            setLightningError(verifyResult.error);
+                            toast({
+                              title: 'Invalid Lightning Address',
+                              description: verifyResult.error,
+                              variant: 'destructive',
+                            });
+                            return;
+                          }
+                          
+                          if (verifyResult.warning) {
+                            // Soft warning: CORS failure (expected), still allow save
+                            setLightningWarning(verifyResult.warning);
+                          }
+                          
+                          if (verifyResult.success) {
+                            // Successfully verified!
+                            toast({
+                              title: 'Verification Successful',
+                              description: 'Lightning Address verified and ready for tips',
+                            });
+                          }
+                          
+                        } finally {
                           setIsVerifyingLightning(false);
-                          return;
                         }
-                        setIsVerifyingLightning(false);
                         
-                        // Verification successful, save to blockchain
+                        // Save to blockchain (regardless of verification status)
                         await updateAddress(trimmedInput);
+                        
                       } catch (error: any) {
-                        setIsVerifyingLightning(false);
                         toast({
                           title: 'Update Failed',
-                          description: error?.message || 'Please enter a valid Lightning Address',
+                          description: error?.message || 'Failed to save Lightning Address',
                           variant: 'destructive',
                         });
                       }
@@ -441,9 +467,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                     disabled={
                       isUpdatingLightning || 
                       isVerifyingLightning ||
-                      !!lightningError || 
-                      !lightningInput.trim() ||
-                      lightningInput.trim() === (currentAddress || '')
+                      lightningInput.trim() === (currentAddress || '')        // Disable only if no change
                     }
                     className="flex-1 h-11"
                     data-testid="button-save-lightning"
