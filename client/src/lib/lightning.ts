@@ -505,7 +505,11 @@ export async function sendV4VTransfer(
       throw new Error('BALANCE_CHECK_FAILED: Unable to verify account balance. Please check your connection and try again.');
     }
     
-    const hbdBalance = parseFloat(account.hbd_balance.split(' ')[0]);
+    // Handle both string ("X.XXX HBD") and Asset type from dhive
+    const hbdBalanceStr = typeof account.hbd_balance === 'string' 
+      ? account.hbd_balance 
+      : account.hbd_balance.toString();
+    const hbdBalance = parseFloat(hbdBalanceStr.split(' ')[0]);
     
     if (hbdBalance < amountHBD) {
       throw new Error(`INSUFFICIENT_BALANCE: You need ${amountHBD.toFixed(3)} HBD but only have ${hbdBalance.toFixed(3)} HBD available.`);
@@ -867,61 +871,6 @@ export function calculateV4VReverseFee(
 // Tip Notifications (v2.3.0)
 // ============================================================================
 
-/**
- * Send tip notification message to recipient
- * Creates encrypted message on Hive blockchain notifying recipient of tip
- * 
- * @param senderUsername - Username of tip sender
- * @param recipientUsername - Username of tip recipient
- * @param txId - Hive transaction ID of the tip transfer
- * @param receivedCurrency - Currency type ('sats' | 'hbd')
- * @param amount - Amount as formatted string (e.g., "1,000" for sats, "0.958" for HBD)
- * @returns Promise<string> - Transaction ID of notification message
- */
-export async function sendTipNotification(
-  senderUsername: string,
-  recipientUsername: string,
-  txId: string,
-  receivedCurrency: 'sats' | 'hbd',
-  amount: string
-): Promise<string> {
-  // Format notification message based on currency type
-  let notificationContent: string;
-  
-  if (receivedCurrency === 'sats') {
-    notificationContent = `Lightning Tip Received: ${amount} sats\nhttps://hiveblocks.com/tx/${txId}`;
-  } else {
-    // HBD
-    notificationContent = `Tip Received: ${amount} HBD\nhttps://hiveblocks.com/tx/${txId}`;
-  }
-  
-  console.log('[TIP NOTIFICATION] Sending notification:', {
-    from: senderUsername,
-    to: recipientUsername,
-    txId,
-    receivedCurrency,
-    amount,
-  });
-  
-  // Import sendEncryptedMemo function (avoiding circular dependency)
-  const { sendEncryptedMemo } = await import('./hive');
-  
-  try {
-    // Send encrypted notification to recipient
-    const notificationTxId = await sendEncryptedMemo(
-      senderUsername,
-      recipientUsername,
-      notificationContent,
-      '0.001' // Minimum HBD amount for notification
-    );
-    
-    console.log('[TIP NOTIFICATION] Notification sent successfully:', notificationTxId);
-    return notificationTxId;
-    
-  } catch (error) {
-    console.error('[TIP NOTIFICATION] Failed to send notification:', error);
-    throw new Error(
-      `Failed to send tip notification: ${error instanceof Error ? error.message : 'Unknown error'}`
-    );
-  }
-}
+// Note: Tip notifications are sent inline in LightningTipDialog component
+// using requestEncode + requestTransfer from './hive'
+// This keeps notification logic close to the tipping flow
