@@ -71,6 +71,7 @@ export function LightningTipDialog({
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [userHbdBalance, setUserHbdBalance] = useState<number | null>(null);
   const [isLoadingBalance, setIsLoadingBalance] = useState(false);
+  const [balanceFetchFailed, setBalanceFetchFailed] = useState(false);
   
   // Reset state when dialog opens/closes
   useEffect(() => {
@@ -92,6 +93,7 @@ export function LightningTipDialog({
       setInvoiceExpiryTime(null);
       setTimeRemaining(null);
       setUserHbdBalance(null);
+      setBalanceFetchFailed(false);
     }
   }, [isOpen, recipientTipPreference]);
   
@@ -237,12 +239,8 @@ export function LightningTipDialog({
       } catch (error) {
         console.error('[LIGHTNING TIP] Failed to fetch HBD balance:', error);
         setUserHbdBalance(null);
-        // Optional: Notify user of balance fetch failure
-        toast({
-          title: 'Balance Unavailable',
-          description: 'Could not load your HBD balance',
-          variant: 'destructive',
-        });
+        setBalanceFetchFailed(true);
+        // Don't toast - will show inline error in V4V tab
       } finally {
         setIsLoadingBalance(false);
       }
@@ -551,6 +549,33 @@ export function LightningTipDialog({
       return;
     }
 
+    // Guard: Check invoice expiry (race condition: countdown interval is 1s, so check immediately)
+    if (invoiceExpiryTime && Date.now() >= invoiceExpiryTime) {
+      toast({
+        title: 'Invoice Expired',
+        description: 'Please generate a new invoice',
+        variant: 'destructive',
+      });
+      // Trigger auto-clear
+      setLightningInvoiceData(null);
+      setInvoiceAmountSats(0);
+      setTotalHBDCost(0);
+      setV4vFee(0);
+      setInvoiceExpiryTime(null);
+      setTimeRemaining(0);
+      return;
+    }
+
+    // Guard: Check sufficient HBD balance
+    if (userHbdBalance !== null && userHbdBalance < totalHBDCost) {
+      toast({
+        title: 'Insufficient Balance',
+        description: `You need ${totalHBDCost.toFixed(3)} HBD but only have ${userHbdBalance.toFixed(3)} HBD`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
     // Guard: Ensure user is authenticated
     if (!user?.username) {
       toast({
@@ -789,8 +814,18 @@ export function LightningTipDialog({
                   </div>
                 )}
                 
-                {/* HBD Balance Display */}
-                {userHbdBalance !== null && (
+                {/* HBD Balance Display or Error */}
+                {balanceFetchFailed && (
+                  <div className="p-2 rounded-md border border-muted bg-muted/30">
+                    <div className="flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      <span className="text-caption text-muted-foreground">
+                        Could not load HBD balance
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {!balanceFetchFailed && userHbdBalance !== null && (
                   <div className={`p-2 rounded-md border ${
                     userHbdBalance < totalHBDCost 
                       ? 'bg-destructive/10 border-destructive/20' 
