@@ -67,6 +67,10 @@ export function LightningTipDialog({
   const [totalHBDCost, setTotalHBDCost] = useState<number>(0);
   const [v4vFee, setV4vFee] = useState<number>(0);
   const [btcHbdRate, setBtcHbdRate] = useState<number>(0);
+  const [invoiceExpiryTime, setInvoiceExpiryTime] = useState<number | null>(null);
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const [userHbdBalance, setUserHbdBalance] = useState<number | null>(null);
+  const [isLoadingBalance, setIsLoadingBalance] = useState(false);
   
   // Reset state when dialog opens/closes
   useEffect(() => {
@@ -85,6 +89,9 @@ export function LightningTipDialog({
       setActiveTab(recipientTipPreference === 'hbd' ? 'wallet' : 'v4v');
       setIsCopied(false);
       setQrDataUrl(null);
+      setInvoiceExpiryTime(null);
+      setTimeRemaining(null);
+      setUserHbdBalance(null);
     }
   }, [isOpen, recipientTipPreference]);
   
@@ -143,6 +150,106 @@ export function LightningTipDialog({
       }
     };
   }, []);
+  
+  // Invoice expiry countdown timer
+  useEffect(() => {
+    if (!invoiceExpiryTime) {
+      setTimeRemaining(null);
+      return;
+    }
+    
+    let hasExpired = false;
+    
+    const updateCountdown = () => {
+      const now = Date.now();
+      const remaining = Math.max(0, Math.floor((invoiceExpiryTime - now) / 1000));
+      setTimeRemaining(remaining);
+      
+      // Only show expiry toast once and auto-clear invoice
+      if (remaining === 0 && !hasExpired) {
+        hasExpired = true;
+        
+        // Auto-clear expired invoice to prevent reuse
+        setLightningInvoiceData(null);
+        setInvoiceAmountSats(0);
+        setTotalHBDCost(0);
+        setV4vFee(0);
+        setInvoiceExpiryTime(null);
+        
+        toast({
+          title: 'Invoice Expired',
+          description: 'Generate a new invoice to continue',
+          variant: 'destructive',
+        });
+      }
+    };
+    
+    // Update immediately
+    updateCountdown();
+    
+    // Update every second
+    const interval = setInterval(updateCountdown, 1000);
+    
+    return () => clearInterval(interval);
+  }, [invoiceExpiryTime, toast]);
+  
+  // Pre-fetch BTC/HBD exchange rate when dialog opens (for preset buttons)
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    
+    const fetchRate = async () => {
+      try {
+        const rate = await getBTCtoHBDRate();
+        // Only set if no invoice exists (don't overwrite existing rate)
+        if (!lightningInvoiceData) {
+          setBtcHbdRate(rate);
+        }
+      } catch (error) {
+        console.error('[LIGHTNING TIP] Failed to pre-fetch exchange rate:', error);
+      }
+    };
+    
+    fetchRate();
+  }, [isOpen, lightningInvoiceData]);
+  
+  // Fetch user's HBD balance when dialog opens
+  useEffect(() => {
+    if (!isOpen || !user?.username) {
+      setUserHbdBalance(null);
+      return;
+    }
+    
+    const fetchBalance = async () => {
+      setIsLoadingBalance(true);
+      try {
+        const { getAccount } = await import('@/lib/hive');
+        const account = await getAccount(user.username);
+        
+        if (account) {
+          const hbdBalanceStr = typeof account.hbd_balance === 'string' 
+            ? account.hbd_balance 
+            : account.hbd_balance.toString();
+          const balance = parseFloat(hbdBalanceStr.split(' ')[0]);
+          setUserHbdBalance(balance);
+        }
+      } catch (error) {
+        console.error('[LIGHTNING TIP] Failed to fetch HBD balance:', error);
+        setUserHbdBalance(null);
+        // Optional: Notify user of balance fetch failure
+        toast({
+          title: 'Balance Unavailable',
+          description: 'Could not load your HBD balance',
+          variant: 'destructive',
+        });
+      } finally {
+        setIsLoadingBalance(false);
+      }
+    };
+    
+    fetchBalance();
+  }, [isOpen, user?.username]);
   
   // Check if WebLN is available
   const hasWebLN = typeof window !== 'undefined' && 'webln' in window;
@@ -384,12 +491,18 @@ export function LightningTipDialog({
         return;
       }
       
+      // Decode invoice to get expiry time
+      const decodedForExpiry = decodeBOLT11Invoice(invoiceData.invoice);
+      const expirySeconds = decodedForExpiry.expiry || 3600; // Default 1 hour
+      const expiryTimestamp = (decodedForExpiry.timestamp + expirySeconds) * 1000; // Convert to milliseconds
+      
       // Store invoice state INCLUDING exchange rate for consistency
       setLightningInvoiceData(invoiceData);
       setInvoiceAmountSats(invoiceSats);
       setTotalHBDCost(hbdCost);
       setV4vFee(v4vFeeAmount);
       setBtcHbdRate(fetchedRate);
+      setInvoiceExpiryTime(expiryTimestamp);
       
       const description = recipientTipPreference === 'hbd'
         ? `${formatNumber(invoiceSats)} sats → ${hbdCost.toFixed(3)} HBD`
@@ -584,6 +697,29 @@ export function LightningTipDialog({
                 1 sat = 0.00000001 BTC
               </p>
             )}
+            
+            {/* Preset Amount Buttons */}
+            {!lightningInvoiceData && btcHbdRate > 0 && (
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-caption text-muted-foreground w-full">Quick amounts:</span>
+                {[1, 5, 10, 20].map((usd) => {
+                  const sats = Math.floor((usd / btcHbdRate) * 100000000);
+                  return (
+                    <Button
+                      key={usd}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setSatsAmount(sats.toString())}
+                      disabled={isGeneratingInvoice}
+                      className="flex-1 min-w-[60px]"
+                      data-testid={`button-preset-${usd}`}
+                    >
+                      ${usd}
+                    </Button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Error Message */}
@@ -632,6 +768,46 @@ export function LightningTipDialog({
               
               {/* V4V.app Bridge Tab */}
               <TabsContent value="v4v" className="space-y-3 mt-3">
+                {/* Countdown Timer */}
+                {timeRemaining !== null && (
+                  <div className={`p-2 rounded-md border text-center ${
+                    timeRemaining < 60 
+                      ? 'bg-destructive/10 border-destructive/20' 
+                      : 'bg-muted/30 border-border'
+                  }`}>
+                    <p className={`text-caption font-medium ${
+                      timeRemaining < 60 ? 'text-destructive' : 'text-muted-foreground'
+                    }`}>
+                      {timeRemaining > 0 ? (
+                        <>
+                          Invoice expires in {Math.floor(timeRemaining / 60)}:{String(timeRemaining % 60).padStart(2, '0')}
+                        </>
+                      ) : (
+                        'Invoice expired - generate a new one'
+                      )}
+                    </p>
+                  </div>
+                )}
+                
+                {/* HBD Balance Display */}
+                {userHbdBalance !== null && (
+                  <div className={`p-2 rounded-md border ${
+                    userHbdBalance < totalHBDCost 
+                      ? 'bg-destructive/10 border-destructive/20' 
+                      : 'bg-muted/30 border-border'
+                  }`}>
+                    <div className="flex justify-between items-center">
+                      <span className="text-caption text-muted-foreground">Your HBD Balance:</span>
+                      <span className={`text-caption font-medium ${
+                        userHbdBalance < totalHBDCost ? 'text-destructive' : 'text-foreground'
+                      }`}>
+                        {userHbdBalance.toFixed(3)} HBD
+                        {userHbdBalance < totalHBDCost && ' (insufficient)'}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                
                 <div className="space-y-2 p-3 bg-muted/50 border rounded-md">
                   <div className="flex justify-between items-center">
                     <span className="text-caption text-muted-foreground">Lightning Invoice:</span>
@@ -682,7 +858,8 @@ export function LightningTipDialog({
                       setInvoiceAmountSats(0);
                       setTotalHBDCost(0);
                       setV4vFee(0);
-                      setBtcHbdRate(0);
+                      setInvoiceExpiryTime(null);
+                      // Don't reset btcHbdRate - keep it for preset buttons
                     }}
                     className="flex-1 h-11"
                     data-testid="button-regenerate-invoice"
@@ -692,7 +869,7 @@ export function LightningTipDialog({
                   <Button
                     variant="default"
                     onClick={handleSendTip}
-                    disabled={isSendingTip}
+                    disabled={isSendingTip || timeRemaining === 0}
                     className="flex-1 h-11"
                     data-testid="button-send-tip"
                   >
@@ -770,7 +947,7 @@ export function LightningTipDialog({
                   <Button
                     variant="default"
                     onClick={handlePayWithWebLN}
-                    disabled={isPayingWithWebLN}
+                    disabled={isPayingWithWebLN || timeRemaining === 0}
                     className="w-full h-11"
                     data-testid="button-pay-webln"
                   >
@@ -796,7 +973,8 @@ export function LightningTipDialog({
                       setInvoiceAmountSats(0);
                       setTotalHBDCost(0);
                       setV4vFee(0);
-                      setBtcHbdRate(0);
+                      setInvoiceExpiryTime(null);
+                      // Don't reset btcHbdRate - keep it for preset buttons
                     }}
                     className="flex-1 h-11"
                     data-testid="button-regenerate-invoice-wallet"
