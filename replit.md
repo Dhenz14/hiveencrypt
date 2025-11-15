@@ -47,7 +47,7 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 - **Decentralized Storage**: Hive blockchain.
 - **Client-Side Logic**: No backend servers or databases.
 - **Security**: Memo encryption and secure authentication; private keys never leave Keychain.
-- **Performance Optimizations**: Adaptive blockchain polling, IndexedDB caching, parallel decryption, RPC node health scoring, and React Query cache optimization.
+- **Performance Optimizations**: Multi-layer optimization strategy delivering <100ms conversation loads. See `PERFORMANCE_GUIDE.md` for complete technical documentation covering IndexedDB caching, parallel decryption, adaptive polling, RPC node health scoring, React Query cache strategy, incremental pagination, and batched writes.
 - **Zero Centralization**: All operations are client-side with direct Hive RPC node communication.
 
 ## External Dependencies
