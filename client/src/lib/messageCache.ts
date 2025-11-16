@@ -705,8 +705,21 @@ export async function deleteCustomJsonConversation(
 
 export async function cacheGroupConversation(group: GroupConversationCache, username?: string): Promise<void> {
   const db = await getDB(username);
+  
+  // Cache versioning: Read existing version and increment
+  const existing = await db.get('groupConversations', group.groupId);
+  if (existing) {
+    group.version = (existing.version || 1) + 1;
+    console.log('[GROUP CACHE] Incrementing group conversation version:', group.groupId, 'to', group.version);
+  } else {
+    // First time caching this group, set version to 1
+    if (!group.version) {
+      group.version = 1;
+    }
+  }
+  
   await db.put('groupConversations', group);
-  console.log('[GROUP CACHE] Cached group conversation:', group.groupId);
+  console.log('[GROUP CACHE] Cached group conversation:', group.groupId, 'version:', group.version);
 }
 
 export async function getGroupConversations(username?: string): Promise<GroupConversationCache[]> {
@@ -810,6 +823,13 @@ export async function confirmGroupMessage(
   message.status = failedRecipients.length > 0 
     ? (txIds.length > 0 ? 'partial' : 'failed')
     : 'confirmed';
+  
+  // Add deliveryStatus for partial failures
+  if (failedRecipients.length > 0 && txIds.length > 0) {
+    (message as any).deliveryStatus = 'partial';
+  } else if (failedRecipients.length === 0) {
+    (message as any).deliveryStatus = 'full';
+  }
 
   // Delete temp message
   await db.delete('groupMessages', tempId);
@@ -818,6 +838,24 @@ export async function confirmGroupMessage(
   await db.put('groupMessages', message);
   
   console.log('[GROUP CACHE] ✅ Group message confirmed:', finalTxId);
+}
+
+/**
+ * Removes an optimistic group message from cache (used for rollback on complete failure)
+ */
+export async function removeOptimisticGroupMessage(tempId: string, username?: string): Promise<void> {
+  console.log('[GROUP CACHE] Removing optimistic group message:', tempId);
+  
+  const db = await getDB(username);
+  
+  try {
+    // Remove the message from cache
+    await db.delete('groupMessages', tempId);
+    console.log('[GROUP CACHE] ✅ Optimistic message removed:', tempId);
+  } catch (error) {
+    console.error('[GROUP CACHE] ❌ Failed to remove optimistic message:', error);
+    throw error;
+  }
 }
 
 export async function deleteGroupConversation(groupId: string, username?: string): Promise<void> {

@@ -238,6 +238,7 @@ export interface GroupMessage {
   confirmed: boolean;                 // All transactions confirmed
   status: 'sending' | 'partial' | 'sent' | 'confirmed' | 'failed';
   failedRecipients?: string[];        // Recipients whose transactions failed
+  deliveryStatus?: 'full' | 'partial'; // Delivery status for partial failures
 }
 
 export interface GroupConversation extends Omit<Conversation, 'contactUsername'> {

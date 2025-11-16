@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo, memo } from 'react';
 import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { requestTransfer } from '@/lib/hive';
 import { requestKeychainEncryption } from '@/lib/encryption';
-import { cacheCustomJsonMessage, cacheMessage, updateConversation, getConversationKey, addOptimisticGroupMessage, confirmGroupMessage, getGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
+import { cacheCustomJsonMessage, cacheMessage, updateConversation, getConversationKey, addOptimisticGroupMessage, confirmGroupMessage, getGroupConversation, cacheGroupConversation, removeOptimisticGroupMessage } from '@/lib/messageCache';
 import { processImageForBlockchain } from '@/lib/imageUtils';
 import { encryptImagePayload, type ImagePayload } from '@/lib/customJsonEncryption';
 import { broadcastImageMessage } from '@/lib/imageChunking';
@@ -33,6 +33,32 @@ interface MessageComposerProps {
   groupId?: string;
   groupMembers?: string[];
 }
+
+// Memoized batch progress UI component to prevent unnecessary re-renders
+const BatchProgressUI = memo(({ current, total }: { current: number; total: number }) => {
+  // Memoize progress percentage calculation
+  const progressPercentage = useMemo(() => {
+    return total > 0 ? (current / total) * 100 : 0;
+  }, [current, total]);
+
+  if (total === 0) return null;
+
+  return (
+    <div className="space-y-2" data-testid="batch-progress-container">
+      <div className="flex items-center justify-between text-caption text-muted-foreground">
+        <span>Sending to {total} member{total !== 1 ? 's' : ''}...</span>
+        <span>{current} / {total}</span>
+      </div>
+      <Progress 
+        value={progressPercentage} 
+        className="h-2"
+        data-testid="progress-batch-send"
+      />
+    </div>
+  );
+});
+
+BatchProgressUI.displayName = 'BatchProgressUI';
 
 export function MessageComposer({ 
   onSend, 
@@ -355,6 +381,11 @@ export function MessageComposer({
       // Step 3: Encrypt and send to each member
       const txIds: string[] = [];
       const failedRecipients: string[] = [];
+      const remainingRecipients: string[] = [];
+      let rcDepleted = false;
+      
+      // Throttle progress updates to max 10 updates/second
+      const throttleInterval = Math.ceil(groupMembers.length / 10);
       
       for (let i = 0; i < groupMembers.length; i++) {
         const member = groupMembers[i];
@@ -362,8 +393,38 @@ export function MessageComposer({
         // Skip sending to yourself
         if (member === user.username) {
           logger.info('[GROUP SEND] Skipping self:', member);
-          setBatchProgress({ current: i + 1, total: groupMembers.length });
+          // Only update progress if throttle allows or it's the last item
+          if (i % throttleInterval === 0 || i === groupMembers.length - 1) {
+            setBatchProgress({ current: i + 1, total: groupMembers.length });
+          }
           continue;
+        }
+
+        // Per-send RC validation: Check RC before EACH individual send
+        try {
+          const { percentage } = await checkSufficientRC(user.username, 200000000);
+          
+          // If RC drops below 10% during batch, stop sending
+          if (percentage < 10) {
+            logger.warn('[GROUP SEND] RC critically low mid-batch, stopping sends');
+            rcDepleted = true;
+            
+            // Add remaining members to the remaining list
+            for (let j = i; j < groupMembers.length; j++) {
+              if (groupMembers[j] !== user.username) {
+                remainingRecipients.push(groupMembers[j]);
+              }
+            }
+            break;
+          }
+          
+          // If RC is between 10-30%, log warning but continue
+          if (percentage < 30) {
+            logger.warn('[GROUP SEND] Low RC mid-batch:', percentage.toFixed(1) + '%');
+          }
+        } catch (rcError) {
+          logger.warn('[GROUP SEND] Could not check RC for member:', member, rcError);
+          // Don't block if RC check fails
         }
 
         try {
@@ -397,14 +458,32 @@ export function MessageComposer({
           logger.error('[GROUP SEND] ❌ Error sending to', member, ':', error);
         }
 
-        // Update progress
-        setBatchProgress({ current: i + 1, total: groupMembers.length });
+        // Throttled progress update: Only update every N sends or on last item
+        if (i % throttleInterval === 0 || i === groupMembers.length - 1) {
+          setBatchProgress({ current: i + 1, total: groupMembers.length });
+        }
       }
 
-      // Step 4: Confirm the group message with results
+      // Step 4: Handle rollback for complete failures
+      if (txIds.length === 0) {
+        // ALL sends failed - rollback optimistic message
+        logger.warn('[GROUP SEND] All sends failed, rolling back optimistic message');
+        await removeOptimisticGroupMessage(tempId, user.username);
+        
+        toast({
+          title: 'Send Failed',
+          description: 'Failed to send to all group members. Message not saved.',
+          variant: 'destructive',
+        });
+        
+        // Don't update conversation preview for failed sends
+        return;
+      }
+
+      // Step 5: Confirm the group message with results (partial or full success)
       await confirmGroupMessage(tempId, txIds, failedRecipients, user.username);
 
-      // Step 5: Update group conversation cache with last message
+      // Step 6: Update group conversation cache with last message
       const timestamp = new Date().toISOString();
       const groupConv = await getGroupConversation(groupId, user.username);
       if (groupConv) {
@@ -414,27 +493,39 @@ export function MessageComposer({
         logger.info('[GROUP SEND] Updated group conversation cache');
       }
 
-      // Step 6: Show appropriate toast based on results
-      if (failedRecipients.length === 0) {
+      // Step 7: Show appropriate toast based on results
+      if (rcDepleted && remainingRecipients.length > 0) {
+        // RC depleted mid-batch
         toast({
-          title: 'Group Message Sent',
-          description: `Successfully sent to ${txIds.length} member${txIds.length !== 1 ? 's' : ''}`,
+          title: 'RC Depleted',
+          description: `Sent to ${txIds.length} of ${txIds.length + remainingRecipients.length} members. Remaining: ${remainingRecipients.join(', ')}`,
+          variant: 'destructive',
         });
-      } else if (txIds.length > 0) {
+      } else if (failedRecipients.length === 0) {
+        // Full success
+        const { percentage } = await checkSufficientRC(user.username, 0).catch(() => ({ percentage: 100 }));
+        
+        if (percentage < 30) {
+          toast({
+            title: 'Group Message Sent',
+            description: `Successfully sent to ${txIds.length} member${txIds.length !== 1 ? 's' : ''}. RC now at ${percentage.toFixed(1)}%`,
+          });
+        } else {
+          toast({
+            title: 'Group Message Sent',
+            description: `Successfully sent to ${txIds.length} member${txIds.length !== 1 ? 's' : ''}`,
+          });
+        }
+      } else {
+        // Partial failure
         toast({
           title: 'Partial Send',
           description: `Sent to ${txIds.length} member${txIds.length !== 1 ? 's' : ''}, failed: ${failedRecipients.join(', ')}`,
           variant: 'destructive',
         });
-      } else {
-        toast({
-          title: 'Send Failed',
-          description: 'Failed to send to all group members',
-          variant: 'destructive',
-        });
       }
 
-      // Step 7: Invalidate group caches with correct query keys
+      // Step 8: Invalidate group caches with correct query keys
       queryClient.invalidateQueries({
         queryKey: ['blockchain-group-messages', user.username, groupId],
       });
@@ -849,20 +940,8 @@ export function MessageComposer({
           </Alert>
         )}
 
-        {/* Batch Send Progress UI */}
-        {batchProgress.total > 0 && (
-          <div className="space-y-2" data-testid="batch-progress-container">
-            <div className="flex items-center justify-between text-caption text-muted-foreground">
-              <span>Sending to {batchProgress.total} member{batchProgress.total !== 1 ? 's' : ''}...</span>
-              <span>{batchProgress.current} / {batchProgress.total}</span>
-            </div>
-            <Progress 
-              value={(batchProgress.current / batchProgress.total) * 100} 
-              className="h-2"
-              data-testid="progress-batch-send"
-            />
-          </div>
-        )}
+        {/* Batch Send Progress UI - Memoized to prevent lag */}
+        <BatchProgressUI current={batchProgress.current} total={batchProgress.total} />
 
         {/* v2.0.0: Send Amount Input & Recipient Minimum */}
         {recipientUsername && (

@@ -158,6 +158,12 @@ export function useGroupMessages(groupId?: string) {
             // Parse group message format
             const parsed = parseGroupMessageMemo(decryptedMemo);
             
+            // Skip null results (malformed memos) - don't crash, just log and continue
+            if (parsed === null) {
+              logger.warn('[GROUP MESSAGES] Skipping malformed group message memo, txId:', txId);
+              continue;
+            }
+            
             // Only process messages for this group
             if (!parsed.isGroupMessage || parsed.groupId !== groupId) {
               continue;

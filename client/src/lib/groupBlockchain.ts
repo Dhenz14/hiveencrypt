@@ -247,29 +247,42 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 /**
  * Checks if a message memo contains a group prefix
  * Group messages are formatted as: "group:{groupId}:{encryptedContent}"
+ * Returns null if malformed (instead of throwing) to prevent crashes
  */
-export function parseGroupMessageMemo(memo: string): { isGroupMessage: boolean; groupId?: string; content?: string } {
-  const groupPrefix = 'group:';
-  
-  if (!memo.startsWith(groupPrefix)) {
-    return { isGroupMessage: false };
+export function parseGroupMessageMemo(memo: string): { isGroupMessage: boolean; groupId?: string; content?: string } | null {
+  try {
+    const groupPrefix = 'group:';
+    
+    if (!memo.startsWith(groupPrefix)) {
+      return { isGroupMessage: false };
+    }
+
+    // Parse format: group:{groupId}:{content}
+    const parts = memo.split(':');
+    
+    if (parts.length < 3) {
+      logger.warn('[GROUP BLOCKCHAIN] Malformed group message memo (too few parts):', memo.substring(0, 50));
+      return null;
+    }
+
+    const groupId = parts[1];
+    const content = parts.slice(2).join(':'); // Rejoin in case content contains ":"
+
+    // Basic validation
+    if (!groupId || !content) {
+      logger.warn('[GROUP BLOCKCHAIN] Malformed group message memo (missing groupId or content)');
+      return null;
+    }
+
+    return {
+      isGroupMessage: true,
+      groupId,
+      content,
+    };
+  } catch (error) {
+    logger.warn('[GROUP BLOCKCHAIN] Failed to parse group message memo:', error);
+    return null;
   }
-
-  // Parse format: group:{groupId}:{content}
-  const parts = memo.split(':');
-  
-  if (parts.length < 3) {
-    return { isGroupMessage: false };
-  }
-
-  const groupId = parts[1];
-  const content = parts.slice(2).join(':'); // Rejoin in case content contains ":"
-
-  return {
-    isGroupMessage: true,
-    groupId,
-    content,
-  };
 }
 
 /**
