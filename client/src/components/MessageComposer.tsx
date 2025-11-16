@@ -8,7 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { requestTransfer } from '@/lib/hive';
 import { requestKeychainEncryption } from '@/lib/encryption';
-import { cacheCustomJsonMessage } from '@/lib/messageCache';
+import { cacheCustomJsonMessage, cacheMessage, updateConversation, getConversationKey } from '@/lib/messageCache';
 import { processImageForBlockchain } from '@/lib/imageUtils';
 import { encryptImagePayload, type ImagePayload } from '@/lib/customJsonEncryption';
 import { broadcastImageMessage } from '@/lib/imageChunking';
@@ -18,6 +18,7 @@ import { logger } from '@/lib/logger';
 import { triggerFastPolling } from '@/hooks/useBlockchainMessages';
 import { useRecipientMinimum } from '@/hooks/useRecipientMinimum';
 import { DEFAULT_MINIMUM_HBD } from '@/lib/accountMetadata';
+import { queryClient } from '@/lib/queryClient';
 
 interface MessageComposerProps {
   onSend?: (content: string) => void;
@@ -451,6 +452,66 @@ export function MessageComposer({
         
         txId = transfer.result;
         console.log('[SEND] ✅ Blockchain broadcast successful, txId:', txId);
+        
+        // OPTIMISTIC UPDATE: Cache sent message locally for instant display
+        if (txId) {
+          try {
+            const conversationKey = getConversationKey(user.username, recipientUsername);
+            const timestamp = new Date().toISOString();
+            
+            // Create optimistic message cache
+            await cacheMessage({
+              id: txId,
+              conversationKey,
+              from: user.username,
+              to: recipientUsername,
+              content: messageText, // Store decrypted text for immediate display
+              encryptedContent: encryptedMemo,
+              timestamp,
+              txId,
+              confirmed: false, // Not yet confirmed on blockchain
+              isDecrypted: true, // We know the content (we just sent it)
+              amount: `${sendAmount} HBD`,
+            }, user.username);
+            
+            // Update conversation cache (safe field merging to preserve lastChecked)
+            const { getConversation: getConv } = await import('@/lib/messageCache');
+            const existingConv = await getConv(user.username, recipientUsername);
+            
+            // Build conversation update - ONLY touch lastMessage and lastTimestamp
+            // Preserve all other fields (especially lastChecked and unreadCount) from existing conversation
+            const conversationUpdate = existingConv ? {
+              // Existing conversation: spread all existing fields first (preserves lastChecked, unreadCount)
+              ...existingConv,
+              // Then override only the fields we want to update
+              lastMessage: messageText,
+              lastTimestamp: timestamp,
+            } : {
+              // New conversation: set all required fields
+              conversationKey,
+              partnerUsername: recipientUsername,
+              lastMessage: messageText,
+              lastTimestamp: timestamp,
+              unreadCount: 0,
+              lastChecked: timestamp, // First message = "seen" at send time
+            };
+            
+            await updateConversation(conversationUpdate, user.username);
+            
+            // Invalidate React Query caches to trigger re-render
+            queryClient.invalidateQueries({ 
+              queryKey: ['blockchain-messages', user.username, recipientUsername] 
+            });
+            queryClient.invalidateQueries({ 
+              queryKey: ['blockchain-conversations', user.username] 
+            });
+            
+            logger.info('[SEND] ✅ Optimistically cached sent message:', txId.substring(0, 16));
+          } catch (cacheError) {
+            // Don't fail the send if caching fails - polling will pick it up
+            logger.error('[SEND] Failed to cache optimistic message:', cacheError);
+          }
+        }
       } catch (transferError: any) {
         console.error('[SEND] ❌ Blockchain transfer failed:', transferError);
         logger.error('[MessageComposer] Transfer error caught:', transferError);
