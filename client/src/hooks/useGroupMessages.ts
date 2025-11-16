@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, QueryFunctionContext } from '@tanstack/react-query';
 import { useAuth } from '@/contexts/AuthContext';
 import { logger } from '@/lib/logger';
 import {
@@ -21,15 +21,26 @@ import {
 } from '@/lib/groupSyncState';
 
 /**
+ * Helper to check if query was cancelled and throw appropriate error
+ */
+function checkCancellation(signal: AbortSignal, context: string) {
+  if (signal.aborted) {
+    logger.info(`[QUERY CANCELLED] ${context}`);
+    throw new DOMException('Query was cancelled', 'AbortError');
+  }
+}
+
+/**
  * Hook to discover and fetch all groups the user is a member of
  * Combines blockchain discovery with local cache
+ * Supports query cancellation via signal to prevent stale state
  */
 export function useGroupDiscovery() {
   const { user } = useAuth();
 
   return useQuery({
     queryKey: ['blockchain-group-conversations', user?.username],
-    queryFn: async (): Promise<GroupConversationCache[]> => {
+    queryFn: async ({ signal }: QueryFunctionContext): Promise<GroupConversationCache[]> => {
       if (!user?.username) {
         logger.warn('[GROUP DISCOVERY] No username, skipping group discovery');
         return [];
@@ -42,9 +53,15 @@ export function useGroupDiscovery() {
         const cachedGroups = await getGroupConversations(user.username);
         logger.info('[GROUP DISCOVERY] Loaded', cachedGroups.length, 'groups from cache');
 
+        // Check if query was cancelled after cache read
+        checkCancellation(signal, 'Group discovery after cache read');
+
         // STEP 2: Discover groups from blockchain
         const blockchainGroups = await discoverUserGroups(user.username);
         logger.info('[GROUP DISCOVERY] Discovered', blockchainGroups.length, 'groups from blockchain');
+
+        // Check if query was cancelled after blockchain fetch
+        checkCancellation(signal, 'Group discovery after blockchain fetch');
 
         // STEP 3: Merge and update cache
         const groupMap = new Map<string, GroupConversationCache>();
@@ -56,6 +73,9 @@ export function useGroupDiscovery() {
 
         // Update with blockchain data (newer versions)
         for (const blockchainGroup of blockchainGroups) {
+          // Check cancellation periodically in loop
+          checkCancellation(signal, 'Group discovery during merge loop');
+
           const existing = groupMap.get(blockchainGroup.groupId);
           
           // Use blockchain version if it's newer or doesn't exist in cache
@@ -75,10 +95,15 @@ export function useGroupDiscovery() {
 
             groupMap.set(blockchainGroup.groupId, groupCache);
             
-            // Update cache
-            await cacheGroupConversation(groupCache, user.username);
+            // Update cache (skip if cancelled)
+            if (!signal.aborted) {
+              await cacheGroupConversation(groupCache, user.username);
+            }
           }
         }
+
+        // Final cancellation check before returning
+        checkCancellation(signal, 'Group discovery before return');
 
         const mergedGroups = Array.from(groupMap.values());
         logger.info('[GROUP DISCOVERY] ✅ Total groups:', mergedGroups.length);
@@ -102,6 +127,7 @@ export function useGroupDiscovery() {
  * Hook to fetch messages for a specific group
  * Scans blockchain for incoming transfers with group: prefix
  * Now supports pagination to prevent message loss for active users
+ * Supports query cancellation via signal to prevent stale state
  */
 export function useGroupMessages(groupId?: string) {
   const { user } = useAuth();
@@ -109,7 +135,7 @@ export function useGroupMessages(groupId?: string) {
 
   return useQuery({
     queryKey: ['blockchain-group-messages', user?.username, groupId],
-    queryFn: async (): Promise<GroupMessageCache[]> => {
+    queryFn: async ({ signal }: QueryFunctionContext): Promise<GroupMessageCache[]> => {
       if (!user?.username || !groupId) {
         return [];
       }
@@ -120,6 +146,9 @@ export function useGroupMessages(groupId?: string) {
         // Step 1: Load cached messages first (instant display)
         const cachedMessages = await getGroupMessages(groupId, user.username);
         logger.info('[GROUP MESSAGES] Loaded', cachedMessages.length, 'cached messages');
+
+        // Check if query was cancelled after cache read
+        checkCancellation(signal, 'Group messages after cache read');
 
         // Step 2: Get last synced operation index for pagination
         const lastSyncedOp = getLastSyncedOperation(user.username);
@@ -139,6 +168,9 @@ export function useGroupMessages(groupId?: string) {
         );
 
         logger.info('[GROUP MESSAGES] Fetched', latestHistory.length, 'latest operations');
+
+        // Check if query was cancelled after blockchain fetch
+        checkCancellation(signal, 'Group messages after initial blockchain fetch');
         
         // Track the highest operation index seen
         if (latestHistory.length > 0) {
@@ -171,6 +203,9 @@ export function useGroupMessages(groupId?: string) {
             const chunks = Math.ceil(operationsToFetch / 200);
             
             for (let i = 0; i < chunks; i++) {
+              // Check cancellation before each chunk fetch
+              checkCancellation(signal, `Group messages backfill chunk ${i + 1}`);
+
               const startIndex = highestOpIndex - 200 - (i * 200);
               if (startIndex <= lastSyncedOp) break;
               
@@ -183,6 +218,9 @@ export function useGroupMessages(groupId?: string) {
                 startIndex
               );
               
+              // Check cancellation after chunk fetch
+              checkCancellation(signal, `Group messages after backfill chunk ${i + 1}`);
+
               // Filter out operations we already have
               const newOps = olderHistory.filter(([idx]) => 
                 !allOperations.some(([existingIdx]) => existingIdx === idx)
@@ -202,13 +240,23 @@ export function useGroupMessages(groupId?: string) {
           }
         }
 
+        // Check cancellation after all blockchain fetches complete
+        checkCancellation(signal, 'Group messages after all blockchain fetches');
+
         logger.info('[GROUP MESSAGES] Processing', allOperations.length, 'total operations');
 
         // Step 5: Parse and decrypt group messages
         const newMessages: GroupMessageCache[] = [];
         const seenTxIds = new Set(cachedMessages.map(m => m.txIds).flat());
 
-        for (const [index, operation] of allOperations) {
+        for (let i = 0; i < allOperations.length; i++) {
+          // Check cancellation periodically (every 10 messages)
+          if (i % 10 === 0) {
+            checkCancellation(signal, `Group messages processing loop (${i}/${allOperations.length})`);
+          }
+
+          const [index, operation] = allOperations[i];
+          
           try {
             const op = operation[1].op;
             
@@ -274,14 +322,17 @@ export function useGroupMessages(groupId?: string) {
           }
         }
 
-        // Step 6: Cache newly discovered messages
-        if (newMessages.length > 0) {
+        // Check cancellation before cache writes
+        checkCancellation(signal, 'Group messages before cache writes');
+
+        // Step 6: Cache newly discovered messages (skip if cancelled)
+        if (newMessages.length > 0 && !signal.aborted) {
           logger.info('[GROUP MESSAGES] Discovered', newMessages.length, 'new messages from blockchain');
           await cacheGroupMessages(newMessages, user.username);
         }
 
-        // Step 7: Update last synced operation
-        if (highestOpIndex > 0) {
+        // Step 7: Update last synced operation (skip if cancelled)
+        if (highestOpIndex > 0 && !signal.aborted) {
           setLastSyncedOperation(user.username, highestOpIndex);
           logger.info('[GROUP MESSAGES] Updated last synced operation to:', highestOpIndex);
         }
@@ -293,6 +344,9 @@ export function useGroupMessages(groupId?: string) {
         ).sort((a, b) => 
           new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
         );
+
+        // Final cancellation check before returning
+        checkCancellation(signal, 'Group messages before return');
 
         logger.info('[GROUP MESSAGES] ✅ Total messages:', uniqueMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
 
