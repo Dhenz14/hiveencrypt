@@ -38,6 +38,7 @@ import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache } from '@/lib/messageCache';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
+import { logger } from '@/lib/logger';
 
 const mapMessageCacheToMessage = (msg: MessageCache, conversationId: string): Message => ({
   id: msg.id,
@@ -127,9 +128,9 @@ export default function Messages() {
     .filter(conv => !isHidden(conv.partnerUsername))
     .map(mapConversationCacheToConversation);
   
-  // Debug logging
+  // Debug logging (dev only, contains sensitive usernames)
   if (conversations.length > 0) {
-    console.log('[MESSAGES PAGE] Mapped conversations:', conversations.map(c => ({
+    logger.sensitive('[MESSAGES PAGE] Mapped conversations:', conversations.map(c => ({
       id: c.id,
       contactUsername: c.contactUsername,
       lastMessage: c.lastMessage?.substring(0, 30) || ''
@@ -143,67 +144,67 @@ export default function Messages() {
     mapMessageCacheToMessage(msg, selectedConversationId || '')
   );
 
-  console.log('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Hidden:', hiddenCount);
+  logger.info('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Hidden:', hiddenCount);
 
   // Run timestamp migration and fix corrupted cached messages on mount
   useEffect(() => {
-    console.log('[INIT] ⚡ Migration useEffect triggered, user:', user?.username);
+    logger.info('[INIT] ⚡ Migration useEffect triggered, user:', user?.username);
     
     if (!user?.username) {
-      console.log('[INIT] ⚠️ No username, skipping migration');
+      logger.info('[INIT] ⚠️ No username, skipping migration');
       return;
     }
     
-    console.log('[INIT] ✅ Username verified, starting migration checks for:', user.username);
+    logger.info('[INIT] ✅ Username verified, starting migration checks for:', user.username);
     
     // Run UTC timestamp migration first
     import('@/lib/messageCache').then(async ({ migrateTimestampsToUTC, clearAllCache, fixCorruptedMessages }) => {
-      console.log('[INIT] 📦 messageCache module loaded successfully');
+      logger.info('[INIT] 📦 messageCache module loaded successfully');
       
       try {
         // Run migration
-        console.log('[INIT] 🔄 Running UTC timestamp migration...');
+        logger.info('[INIT] 🔄 Running UTC timestamp migration...');
         const counts = await migrateTimestampsToUTC(user.username);
         if (counts.messages > 0 || counts.conversations > 0 || counts.customJsonMessages > 0) {
-          console.log('[INIT] ✅ Migrated timestamps to UTC:', counts);
+          logger.info('[INIT] ✅ Migrated timestamps to UTC:', counts);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
           queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
         } else {
-          console.log('[INIT] ℹ️ No timestamps needed migration (already completed or no messages)');
+          logger.info('[INIT] ℹ️ No timestamps needed migration (already completed or no messages)');
         }
         
         // Check cache version for other fixes
         const cacheVersion = localStorage.getItem('hive_cache_version');
-        console.log('[INIT] 🔍 Checking cache version:', cacheVersion, 'vs expected: 7.0');
+        logger.info('[INIT] 🔍 Checking cache version:', cacheVersion, 'vs expected: 7.0');
         if (cacheVersion !== '7.0') {
-          console.log('[INIT] 🗑️ Cache version outdated, clearing cache...');
+          logger.info('[INIT] 🗑️ Cache version outdated, clearing cache...');
           await clearAllCache(user.username);
           localStorage.setItem('hive_cache_version', '7.0');
-          console.log('[INIT] ✅ Cache cleared successfully, version updated to 7.0');
+          logger.info('[INIT] ✅ Cache cleared successfully, version updated to 7.0');
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
           queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
         }
         
         // Regular corruption fix (for content === encryptedContent cases)
-        console.log('[INIT] 🔍 Checking for corrupted messages...');
+        logger.info('[INIT] 🔍 Checking for corrupted messages...');
         const fixCount = await fixCorruptedMessages(user.username);
         if (fixCount > 0) {
-          console.log(`[INIT] ✅ Fixed ${fixCount} corrupted messages, refreshing...`);
+          logger.info(`[INIT] ✅ Fixed ${fixCount} corrupted messages, refreshing...`);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
         } else {
-          console.log('[INIT] ℹ️ No corrupted messages found');
+          logger.info('[INIT] ℹ️ No corrupted messages found');
         }
         
-        console.log('[INIT] ✅ ALL MIGRATION CHECKS COMPLETE');
+        logger.info('[INIT] ✅ ALL MIGRATION CHECKS COMPLETE');
       } catch (error) {
-        console.error('[INIT] ❌ Migration failed, clearing cache as fallback:', error);
+        logger.error('[INIT] ❌ Migration failed, clearing cache as fallback:', error);
         await clearAllCache(user.username);
         localStorage.setItem('hive_cache_version', '7.0');
         queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
         queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
       }
     }).catch((importError) => {
-      console.error('[INIT] ❌ CRITICAL: Failed to import messageCache module:', importError);
+      logger.error('[INIT] ❌ CRITICAL: Failed to import messageCache module:', importError);
     });
   }, [user?.username, queryClient]);
 
@@ -345,7 +346,7 @@ export default function Messages() {
     if (!user?.username || !selectedPartner) return;
     
     try {
-      console.log('[DELETE] Deleting conversation with:', selectedPartner);
+      logger.info('[DELETE] Deleting conversation with:', selectedPartner);
       await deleteConversation(user.username, selectedPartner);
       
       // Invalidate queries to refresh the UI with correct query keys
