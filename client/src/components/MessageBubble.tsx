@@ -60,9 +60,11 @@ interface MessageBubbleProps {
   isSent: boolean;
   showAvatar?: boolean;
   showTimestamp?: boolean;
+  isGroupMessage?: boolean;
+  senderName?: string;
 }
 
-export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: MessageBubbleProps) {
+export function MessageBubble({ message, isSent, showAvatar, showTimestamp, isGroupMessage, senderName }: MessageBubbleProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -198,6 +200,15 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp }: Me
             : 'bg-card text-card-foreground rounded-bl-md border border-card-border'
         )}
       >
+        {/* Show sender name for group messages (only for messages not sent by current user) */}
+        {isGroupMessage && !isSent && senderName && (
+          <div className="mb-1">
+            <span className="text-caption font-semibold text-muted-foreground">
+              @{senderName}
+            </span>
+          </div>
+        )}
+        
         {isEncryptedPlaceholder ? (
           <div className="flex flex-col gap-2">
             <p className="text-body-lg text-muted-foreground italic">

@@ -1,4 +1,4 @@
-import { Search, Plus, ShieldCheck } from 'lucide-react';
+import { Search, Plus, ShieldCheck, Users } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -19,6 +19,7 @@ interface ConversationsListProps {
   selectedConversationId?: string;
   onSelectConversation: (id: string) => void;
   onNewMessage: () => void;
+  onNewGroup?: () => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
 }
@@ -28,6 +29,7 @@ export function ConversationsList({
   selectedConversationId,
   onSelectConversation,
   onNewMessage,
+  onNewGroup,
   searchQuery,
   onSearchChange,
 }: ConversationsListProps) {
@@ -83,14 +85,27 @@ export function ConversationsList({
             data-testid="input-search-conversations"
           />
         </div>
-        <Button
-          onClick={onNewMessage}
-          className="w-full h-11"
-          data-testid="button-new-message"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          New Message
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={onNewMessage}
+            className="flex-1 h-11"
+            data-testid="button-new-message"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            New Chat
+          </Button>
+          {onNewGroup && (
+            <Button
+              onClick={onNewGroup}
+              variant="outline"
+              className="flex-1 h-11"
+              data-testid="button-new-group"
+            >
+              <Users className="w-4 h-4 mr-2" />
+              New Group
+            </Button>
+          )}
+        </div>
       </div>
 
       <ScrollArea className="flex-1">

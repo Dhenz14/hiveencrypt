@@ -21,6 +21,7 @@ import { ChatHeader } from '@/components/ChatHeader';
 import { MessageBubble, SystemMessage } from '@/components/MessageBubble';
 import { MessageComposer } from '@/components/MessageComposer';
 import { NewMessageModal } from '@/components/NewMessageModal';
+import { GroupCreationModal } from '@/components/GroupCreationModal';
 import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { HiddenChatsModal } from '@/components/HiddenChatsModal';
@@ -33,9 +34,11 @@ import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shar
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
-import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation } from '@/lib/messageCache';
+import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
+import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
-import type { MessageCache, ConversationCache } from '@/lib/messageCache';
+import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
+import { generateGroupId, broadcastGroupCreation } from '@/lib/groupBlockchain';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/logger';
@@ -63,6 +66,15 @@ const mapConversationCacheToConversation = (conv: ConversationCache): Conversati
   isEncrypted: true,
 });
 
+const mapGroupCacheToConversation = (group: GroupConversationCache): Conversation => ({
+  id: group.groupId,
+  contactUsername: `👥 ${group.name} (${group.members.length})`,
+  lastMessage: group.lastMessage,
+  lastMessageTime: group.lastTimestamp,
+  unreadCount: group.unreadCount,
+  isEncrypted: true,
+});
+
 export default function Messages() {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -72,8 +84,10 @@ export default function Messages() {
   const { isHidden, hideConversation, hiddenConversations } = useHiddenConversations();
   
   const [selectedPartner, setSelectedPartner] = useState<string>('');
+  const [selectedGroupId, setSelectedGroupId] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
   const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
+  const [isGroupCreationOpen, setIsGroupCreationOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -112,21 +126,38 @@ export default function Messages() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const { data: conversationCaches = [], isLoading: isLoadingConversations, isFetching: isFetchingConversations } = useConversationDiscovery();
+  const { data: groupCaches = [], isLoading: isLoadingGroups, isFetching: isFetchingGroups } = useGroupDiscovery();
   
   // PHASE 4.1: Hook now returns { messages, hiddenCount }
   const { data: messageData, isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({
     partnerUsername: selectedPartner,
-    enabled: !!selectedPartner,
+    enabled: !!selectedPartner && !selectedGroupId,
   });
+  
+  // Group messages (when a group is selected)
+  const { data: groupMessageCaches = [], isLoading: isLoadingGroupMessages, isFetching: isFetchingGroupMessages } = useGroupMessages(selectedGroupId);
   
   // Extract messages and hiddenCount from new shape
   const messageCaches = messageData?.messages || [];
   const hiddenCount = messageData?.hiddenCount || 0;
 
-  const conversations: Conversation[] = conversationCaches
+  // Merge 1:1 conversations and group conversations
+  const directConversations: Conversation[] = conversationCaches
     .filter((conv): conv is ConversationCache => conv !== null && conv !== undefined)
     .filter(conv => !isHidden(conv.partnerUsername))
     .map(mapConversationCacheToConversation);
+  
+  const groupConversations: Conversation[] = groupCaches
+    .filter((group): group is GroupConversationCache => group !== null && group !== undefined)
+    .map(mapGroupCacheToConversation);
+  
+  // Combine and sort by last message time
+  const conversations: Conversation[] = [...directConversations, ...groupConversations]
+    .sort((a, b) => {
+      const aTime = a.lastMessageTime ? new Date(a.lastMessageTime).getTime() : 0;
+      const bTime = b.lastMessageTime ? new Date(b.lastMessageTime).getTime() : 0;
+      return bTime - aTime;
+    });
   
   // Debug logging (dev only, contains sensitive usernames)
   if (conversations.length > 0) {
@@ -138,11 +169,31 @@ export default function Messages() {
   }
   
   const selectedConversationId = selectedPartner ? getConversationKey(user?.username || '', selectedPartner) : null;
-  const selectedConversation = conversations.find(c => c.contactUsername === selectedPartner);
+  const selectedConversation = selectedPartner 
+    ? conversations.find(c => c.id === selectedConversationId)
+    : selectedGroupId
+      ? conversations.find(c => c.id === selectedGroupId)
+      : undefined;
   
-  const currentMessages: Message[] = messageCaches.map(msg => 
-    mapMessageCacheToMessage(msg, selectedConversationId || '')
-  );
+  const selectedGroup = selectedGroupId ? groupCaches.find(g => g.groupId === selectedGroupId) : undefined;
+  
+  // Map messages based on type (group or direct)
+  const currentMessages: Message[] = selectedGroupId
+    ? groupMessageCaches.map(msg => ({
+        id: msg.id,
+        conversationId: msg.groupId,
+        sender: msg.sender,
+        recipient: '', // Groups don't have a single recipient
+        content: msg.content,
+        encryptedMemo: msg.encryptedContent,
+        decryptedContent: msg.content,
+        timestamp: msg.timestamp,
+        status: msg.confirmed ? 'confirmed' : 'sending',
+        isEncrypted: true,
+      }))
+    : messageCaches.map(msg => 
+        mapMessageCacheToMessage(msg, selectedConversationId || '')
+      );
 
   logger.info('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Hidden:', hiddenCount);
 
@@ -303,6 +354,75 @@ export default function Messages() {
     }
   };
 
+  const handleCreateGroup = async (groupName: string, members: string[]) => {
+    try {
+      if (!user?.username) {
+        throw new Error('You must be logged in to create a group');
+      }
+
+      logger.info('[GROUP CREATION] Creating group:', { groupName, members });
+
+      // Generate unique group ID
+      const groupId = generateGroupId();
+      const timestamp = new Date().toISOString();
+
+      // Broadcast group creation to blockchain (free - custom_json)
+      await broadcastGroupCreation(user.username, groupId, groupName, members);
+
+      // Create group cache entry
+      const groupCache: GroupConversationCache = {
+        groupId,
+        name: groupName,
+        members,
+        creator: user.username,
+        createdAt: timestamp,
+        version: 1,
+        lastMessage: '',
+        lastTimestamp: timestamp,
+        unreadCount: 0,
+        lastChecked: timestamp,
+      };
+
+      // Save to IndexedDB
+      await cacheGroupConversation(groupCache, user.username);
+
+      // Optimistically update query cache (TODO: integrate with conversation list)
+      queryClient.setQueryData(
+        ['blockchain-group-conversations', user.username],
+        (oldData: GroupConversationCache[] | undefined) => {
+          if (!oldData) return [groupCache];
+          return [groupCache, ...oldData];
+        }
+      );
+
+      // Select the new group
+      setSelectedGroupId(groupId);
+      setSelectedPartner(''); // Clear direct message selection
+      setIsGroupCreationOpen(false);
+      if (isMobile) {
+        setShowChat(true);
+      }
+
+      toast({
+        title: 'Group Created',
+        description: `Created group "${groupName}" with ${members.length} members`,
+      });
+
+      logger.info('[GROUP CREATION] ✅ Group created successfully:', groupId);
+    } catch (error) {
+      logger.error('[GROUP CREATION] ❌ Failed to create group:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to create group';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        variant: 'destructive',
+      });
+      
+      throw error;
+    }
+  };
+
   const handleMessageSent = async () => {
     // Force immediate refetch to show the sent message instantly
     await queryClient.invalidateQueries({ 
@@ -315,6 +435,10 @@ export default function Messages() {
     });
     await queryClient.invalidateQueries({ 
       queryKey: ['blockchain-conversations', user?.username],
+      refetchType: 'active'
+    });
+    await queryClient.invalidateQueries({ 
+      queryKey: ['blockchain-group-conversations', user?.username],
       refetchType: 'active'
     });
   };
@@ -448,17 +572,30 @@ export default function Messages() {
 
       <ConversationsList
         conversations={conversations}
-        selectedConversationId={selectedConversationId || undefined}
+        selectedConversationId={selectedConversationId || selectedGroupId || undefined}
         onSelectConversation={(id) => {
-          const conversation = conversations.find(c => c.id === id);
-          if (conversation) {
-            setSelectedPartner(conversation.contactUsername);
+          // Check if it's a group conversation
+          const groupConv = groupCaches.find(g => g.groupId === id);
+          if (groupConv) {
+            setSelectedGroupId(id);
+            setSelectedPartner(''); // Clear direct message selection
             if (isMobile) {
               setShowChat(true);
+            }
+          } else {
+            // It's a direct conversation
+            const conversation = conversationCaches.find(c => c.conversationKey === id);
+            if (conversation) {
+              setSelectedPartner(conversation.partnerUsername);
+              setSelectedGroupId(''); // Clear group selection
+              if (isMobile) {
+                setShowChat(true);
+              }
             }
           }
         }}
         onNewMessage={() => setIsNewMessageOpen(true)}
+        onNewGroup={() => setIsGroupCreationOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
@@ -567,12 +704,15 @@ export default function Messages() {
                     new Date(message.timestamp).getTime() - new Date(prevMessage.timestamp).getTime() > 300000;
 
                   const isSent = message.sender === user?.username;
+                  const isGroupMessage = !!selectedGroupId;
                   return (
                     <MessageBubble
                       key={message.id}
                       message={message}
                       isSent={isSent}
                       showTimestamp={showTimestamp}
+                      isGroupMessage={isGroupMessage}
+                      senderName={message.sender}
                     />
                   );
                 })
@@ -583,7 +723,9 @@ export default function Messages() {
 
           <MessageComposer
             conversationId={selectedConversation.id}
-            recipientUsername={selectedConversation.contactUsername}
+            recipientUsername={selectedGroup ? undefined : selectedConversation.contactUsername}
+            groupId={selectedGroup?.groupId}
+            groupMembers={selectedGroup?.members}
             onMessageSent={handleMessageSent}
           />
         </>
@@ -638,6 +780,13 @@ export default function Messages() {
         open={isNewMessageOpen}
         onOpenChange={setIsNewMessageOpen}
         onStartChat={handleStartChat}
+      />
+
+      <GroupCreationModal
+        open={isGroupCreationOpen}
+        onOpenChange={setIsGroupCreationOpen}
+        onCreateGroup={handleCreateGroup}
+        currentUsername={user?.username}
       />
 
       <ProfileDrawer

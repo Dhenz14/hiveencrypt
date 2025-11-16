@@ -3,12 +3,14 @@ import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info, CheckC
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { requestTransfer } from '@/lib/hive';
 import { requestKeychainEncryption } from '@/lib/encryption';
-import { cacheCustomJsonMessage, cacheMessage, updateConversation, getConversationKey } from '@/lib/messageCache';
+import { cacheCustomJsonMessage, cacheMessage, updateConversation, getConversationKey, addOptimisticGroupMessage, confirmGroupMessage, getGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { processImageForBlockchain } from '@/lib/imageUtils';
 import { encryptImagePayload, type ImagePayload } from '@/lib/customJsonEncryption';
 import { broadcastImageMessage } from '@/lib/imageChunking';
@@ -19,6 +21,7 @@ import { triggerFastPolling } from '@/hooks/useBlockchainMessages';
 import { useRecipientMinimum } from '@/hooks/useRecipientMinimum';
 import { DEFAULT_MINIMUM_HBD } from '@/lib/accountMetadata';
 import { queryClient } from '@/lib/queryClient';
+import { formatGroupMessageMemo } from '@/lib/groupBlockchain';
 
 interface MessageComposerProps {
   onSend?: (content: string) => void;
@@ -27,6 +30,8 @@ interface MessageComposerProps {
   recipientUsername?: string;
   conversationId?: string;
   onMessageSent?: () => void;
+  groupId?: string;
+  groupMembers?: string[];
 }
 
 export function MessageComposer({ 
@@ -35,13 +40,16 @@ export function MessageComposer({
   placeholder = "Type a message...",
   recipientUsername,
   conversationId,
-  onMessageSent
+  onMessageSent,
+  groupId,
+  groupMembers
 }: MessageComposerProps) {
   const [content, setContent] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [rcWarning, setRcWarning] = useState<{ level: 'critical' | 'low' | 'ok'; message: string } | null>(null);
+  const [batchProgress, setBatchProgress] = useState({ current: 0, total: 0 });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
@@ -64,6 +72,18 @@ export function MessageComposer({
       setSendAmount(recipientMinimum);
     }
   }, [recipientMinimum, isLoadingMinimum]);
+
+  // Clear image state when switching to group chats (images not supported in groups)
+  useEffect(() => {
+    if (groupId) {
+      setSelectedImage(null);
+      setImagePreview(null);
+      setRcWarning(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  }, [groupId]);
 
   // Handle image selection
   const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -248,16 +268,217 @@ export function MessageComposer({
     }
   };
 
+  // Handle sending to group chat (batch send to all members)
+  const handleGroupSend = async () => {
+    if (!user || !groupId || !groupMembers || groupMembers.length === 0) {
+      toast({
+        title: 'Invalid Group',
+        description: 'Group information is missing',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    const messageText = content.trim();
+    if (!messageText) return;
+
+    // RC Validation: Check if user has sufficient RC for batch sending
+    try {
+      const recipientCount = groupMembers.filter(m => m !== user.username).length;
+      
+      if (recipientCount > 0) {
+        // Estimate RC cost per transfer (rough estimate: 200M RC per transfer)
+        const estimatedRCPerTransfer = 200000000;
+        const totalEstimatedRC = estimatedRCPerTransfer * recipientCount;
+        
+        const { current, percentage } = await checkSufficientRC(user.username, totalEstimatedRC);
+        const warningLevel = getRCWarningLevel(percentage);
+        
+        logger.info('[GROUP SEND] RC Check:', {
+          recipientCount,
+          estimatedRC: totalEstimatedRC,
+          currentRC: current,
+          percentage: percentage.toFixed(1) + '%',
+          warningLevel
+        });
+        
+        if (warningLevel === 'critical') {
+          toast({
+            title: 'Very Low RC',
+            description: `Your RC is critically low (${percentage.toFixed(1)}%). Group sending may fail. Please wait for RC to regenerate.`,
+            variant: 'destructive',
+          });
+          return;
+        } else if (warningLevel === 'low') {
+          toast({
+            title: 'Low RC Warning',
+            description: `Your RC is low (${percentage.toFixed(1)}%). Sending to ${recipientCount} members will use approximately ${formatRC(totalEstimatedRC)} RC.`,
+          });
+        }
+      }
+    } catch (rcError) {
+      logger.warn('[GROUP SEND] Could not check RC:', rcError);
+      // Don't block sending if RC check fails
+    }
+
+    setIsSending(true);
+    setBatchProgress({ current: 0, total: groupMembers.length });
+
+    // Clear input immediately for instant feedback
+    setContent('');
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
+
+    try {
+      // Step 1: Generate tempId and format message with group prefix
+      const tempId = crypto.randomUUID();
+      const formattedMessage = formatGroupMessageMemo(groupId, messageText);
+      
+      logger.info('[GROUP SEND] Starting batch send:', {
+        groupId,
+        memberCount: groupMembers.length,
+        tempId,
+      });
+
+      // Step 2: Add optimistic message to cache
+      await addOptimisticGroupMessage(
+        groupId,
+        user.username,
+        groupMembers,
+        messageText,
+        formattedMessage,
+        tempId,
+        user.username
+      );
+
+      // Step 3: Encrypt and send to each member
+      const txIds: string[] = [];
+      const failedRecipients: string[] = [];
+      
+      for (let i = 0; i < groupMembers.length; i++) {
+        const member = groupMembers[i];
+        
+        // Skip sending to yourself
+        if (member === user.username) {
+          logger.info('[GROUP SEND] Skipping self:', member);
+          setBatchProgress({ current: i + 1, total: groupMembers.length });
+          continue;
+        }
+
+        try {
+          // Encrypt the formatted message for this member
+          logger.info('[GROUP SEND] Encrypting for member:', member);
+          const encryptedMemo = await requestKeychainEncryption(
+            formattedMessage,
+            user.username,
+            member
+          );
+
+          // Send the encrypted message
+          logger.info('[GROUP SEND] Sending to member:', member);
+          const transfer = await requestTransfer(
+            user.username,
+            member,
+            DEFAULT_MINIMUM_HBD,
+            encryptedMemo,
+            'HBD'
+          );
+
+          if (transfer.success && transfer.result) {
+            txIds.push(transfer.result);
+            logger.info('[GROUP SEND] ✅ Sent to', member, '- txId:', transfer.result);
+          } else {
+            failedRecipients.push(member);
+            logger.error('[GROUP SEND] ❌ Failed to send to', member);
+          }
+        } catch (error) {
+          failedRecipients.push(member);
+          logger.error('[GROUP SEND] ❌ Error sending to', member, ':', error);
+        }
+
+        // Update progress
+        setBatchProgress({ current: i + 1, total: groupMembers.length });
+      }
+
+      // Step 4: Confirm the group message with results
+      await confirmGroupMessage(tempId, txIds, failedRecipients, user.username);
+
+      // Step 5: Update group conversation cache with last message
+      const timestamp = new Date().toISOString();
+      const groupConv = await getGroupConversation(groupId, user.username);
+      if (groupConv) {
+        groupConv.lastMessage = messageText;
+        groupConv.lastTimestamp = timestamp;
+        await cacheGroupConversation(groupConv, user.username);
+        logger.info('[GROUP SEND] Updated group conversation cache');
+      }
+
+      // Step 6: Show appropriate toast based on results
+      if (failedRecipients.length === 0) {
+        toast({
+          title: 'Group Message Sent',
+          description: `Successfully sent to ${txIds.length} member${txIds.length !== 1 ? 's' : ''}`,
+        });
+      } else if (txIds.length > 0) {
+        toast({
+          title: 'Partial Send',
+          description: `Sent to ${txIds.length} member${txIds.length !== 1 ? 's' : ''}, failed: ${failedRecipients.join(', ')}`,
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Send Failed',
+          description: 'Failed to send to all group members',
+          variant: 'destructive',
+        });
+      }
+
+      // Step 7: Invalidate group caches with correct query keys
+      queryClient.invalidateQueries({
+        queryKey: ['blockchain-group-messages', user.username, groupId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['blockchain-group-conversations', user.username],
+      });
+
+      // Trigger fast polling
+      triggerFastPolling();
+
+      // Notify parent
+      if (onMessageSent) {
+        onMessageSent();
+      }
+
+    } catch (error: any) {
+      logger.error('[GROUP SEND] Unexpected error:', error);
+      toast({
+        title: 'Group Send Failed',
+        description: error?.message || 'An unexpected error occurred',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSending(false);
+      setBatchProgress({ current: 0, total: 0 });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // If image is selected, send as image message
-    if (selectedImage) {
+    // If image is selected AND not in a group, send as image message
+    // (images are not supported in groups, so ignore residual image state)
+    if (selectedImage && !groupId) {
       return handleImageSend();
     }
     
     if (!content.trim() || disabled || isSending) {
       return;
+    }
+
+    // Route to group send if groupId is provided
+    if (groupId) {
+      return handleGroupSend();
     }
 
     // If no conversationId or recipientUsername, fall back to legacy onSend
@@ -628,6 +849,21 @@ export function MessageComposer({
           </Alert>
         )}
 
+        {/* Batch Send Progress UI */}
+        {batchProgress.total > 0 && (
+          <div className="space-y-2" data-testid="batch-progress-container">
+            <div className="flex items-center justify-between text-caption text-muted-foreground">
+              <span>Sending to {batchProgress.total} member{batchProgress.total !== 1 ? 's' : ''}...</span>
+              <span>{batchProgress.current} / {batchProgress.total}</span>
+            </div>
+            <Progress 
+              value={(batchProgress.current / batchProgress.total) * 100} 
+              className="h-2"
+              data-testid="progress-batch-send"
+            />
+          </div>
+        )}
+
         {/* v2.0.0: Send Amount Input & Recipient Minimum */}
         {recipientUsername && (
           <div className="space-y-2">
@@ -728,17 +964,26 @@ export function MessageComposer({
                 className="hidden"
                 data-testid="input-file"
               />
-              <Button
-                type="button"
-                size="icon"
-                variant="ghost"
-                className="min-h-11 min-w-11"
-                disabled={disabled || isSending}
-                onClick={() => fileInputRef.current?.click()}
-                data-testid="button-attach"
-              >
-                <Paperclip className="w-4 h-4" />
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    className="min-h-11 min-w-11"
+                    disabled={disabled || isSending || !!groupId}
+                    onClick={() => fileInputRef.current?.click()}
+                    data-testid="button-attach"
+                  >
+                    <Paperclip className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                {groupId && (
+                  <TooltipContent>
+                    <p>Image sending in groups coming soon</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
             </div>
           </div>
           <Button

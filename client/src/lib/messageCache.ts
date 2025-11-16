@@ -51,6 +51,37 @@ interface CustomJsonMessage {
   confirmed: boolean;
 }
 
+// ============================================================================
+// GROUP CHAT: IndexedDB Cache Interfaces
+// ============================================================================
+
+interface GroupConversationCache {
+  groupId: string;                 // Primary key (UUID v4)
+  name: string;                    // Group name
+  members: string[];               // Array of usernames
+  creator: string;                 // Creator username
+  createdAt: string;               // ISO timestamp
+  version: number;                 // Membership version
+  lastMessage: string;             // Last message preview
+  lastTimestamp: string;           // Last message timestamp
+  unreadCount: number;             // Unread message count
+  lastChecked: string;             // Last time user viewed group
+}
+
+interface GroupMessageCache {
+  id: string;                      // Primary key (txId or tempId)
+  groupId: string;                 // References GroupConversationCache.groupId
+  sender: string;                  // Username who sent message
+  content: string;                 // Decrypted content
+  encryptedContent: string;        // Original encrypted memo
+  timestamp: string;               // ISO timestamp
+  recipients: string[];            // Target usernames
+  txIds: string[];                 // Array of blockchain txIds
+  confirmed: boolean;              // All sends confirmed
+  status: 'sending' | 'partial' | 'sent' | 'confirmed' | 'failed';
+  failedRecipients?: string[];     // Failed recipient usernames
+}
+
 interface HiveMessengerDB extends DBSchema {
   messages: {
     key: string;
@@ -90,6 +121,23 @@ interface HiveMessengerDB extends DBSchema {
       'by-sessionId': string;
     };
   };
+  // GROUP CHAT: Group conversations table
+  groupConversations: {
+    key: string;
+    value: GroupConversationCache;
+    indexes: {
+      'by-timestamp': string;
+    };
+  };
+  // GROUP CHAT: Group messages table
+  groupMessages: {
+    key: string;
+    value: GroupMessageCache;
+    indexes: {
+      'by-group': string;
+      'by-timestamp': string;
+    };
+  };
 }
 
 let dbInstance: IDBPDatabase<HiveMessengerDB> | null = null;
@@ -110,8 +158,8 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
   }
 
   // Scope database to username to prevent data mixing between accounts
-  // v5: Add customJsonMessages table for image messaging
-  const dbName = username ? `hive-messenger-${username}-v5` : 'hive-messenger-v5';
+  // v6: Add group chat support (groupConversations, groupMessages)
+  const dbName = username ? `hive-messenger-${username}-v6` : 'hive-messenger-v6';
   
   dbInstance = await openDB<HiveMessengerDB>(dbName, 1, {
     upgrade(db: IDBPDatabase<HiveMessengerDB>) {
@@ -144,6 +192,19 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
         customJsonStore.createIndex('by-conversation', 'conversationKey');
         customJsonStore.createIndex('by-timestamp', 'timestamp');
         customJsonStore.createIndex('by-sessionId', 'sessionId');
+      }
+
+      // GROUP CHAT: Add group conversations table
+      if (!db.objectStoreNames.contains('groupConversations')) {
+        const groupConvStore = db.createObjectStore('groupConversations', { keyPath: 'groupId' });
+        groupConvStore.createIndex('by-timestamp', 'lastTimestamp');
+      }
+
+      // GROUP CHAT: Add group messages table
+      if (!db.objectStoreNames.contains('groupMessages')) {
+        const groupMsgStore = db.createObjectStore('groupMessages', { keyPath: 'id' });
+        groupMsgStore.createIndex('by-group', 'groupId');
+        groupMsgStore.createIndex('by-timestamp', 'timestamp');
       }
     },
   });
@@ -638,5 +699,154 @@ export async function deleteCustomJsonConversation(
   console.log('[CUSTOM JSON] ✅ Image conversation deleted from local storage');
 }
 
-export type { MessageCache, ConversationCache, DecryptedMemoCache, CustomJsonMessage };
+// ============================================================================
+// GROUP CHAT: Cache Management Functions
+// ============================================================================
+
+export async function cacheGroupConversation(group: GroupConversationCache, username?: string): Promise<void> {
+  const db = await getDB(username);
+  await db.put('groupConversations', group);
+  console.log('[GROUP CACHE] Cached group conversation:', group.groupId);
+}
+
+export async function getGroupConversations(username?: string): Promise<GroupConversationCache[]> {
+  const db = await getDB(username);
+  const groups = await db.getAll('groupConversations');
+  
+  return groups.sort((a, b) => 
+    new Date(b.lastTimestamp).getTime() - new Date(a.lastTimestamp).getTime()
+  );
+}
+
+export async function getGroupConversation(groupId: string, username?: string): Promise<GroupConversationCache | undefined> {
+  const db = await getDB(username);
+  return await db.get('groupConversations', groupId);
+}
+
+export async function cacheGroupMessage(message: GroupMessageCache, username?: string): Promise<void> {
+  const db = await getDB(username);
+  await db.put('groupMessages', message);
+  console.log('[GROUP CACHE] Cached group message:', message.id);
+}
+
+export async function cacheGroupMessages(messages: GroupMessageCache[], username?: string): Promise<void> {
+  const db = await getDB(username);
+  const tx = db.transaction('groupMessages', 'readwrite');
+  await Promise.all([
+    ...messages.map((msg) => tx.store.put(msg)),
+    tx.done,
+  ]);
+  console.log('[GROUP CACHE] Batch cached', messages.length, 'group messages');
+}
+
+export async function getGroupMessages(groupId: string, username?: string): Promise<GroupMessageCache[]> {
+  const db = await getDB(username);
+  const messages = await db.getAllFromIndex('groupMessages', 'by-group', groupId);
+  
+  return messages.sort((a, b) => 
+    new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+}
+
+export async function addOptimisticGroupMessage(
+  groupId: string,
+  sender: string,
+  recipients: string[],
+  content: string,
+  encryptedContent: string,
+  tempId: string,
+  username?: string
+): Promise<void> {
+  const timestamp = new Date().toISOString();
+  
+  const message: GroupMessageCache = {
+    id: tempId,
+    groupId,
+    sender,
+    content,
+    encryptedContent,
+    timestamp,
+    recipients,
+    txIds: [],
+    confirmed: false,
+    status: 'sending',
+  };
+
+  await cacheGroupMessage(message, username);
+
+  // Update group conversation's last message
+  const group = await getGroupConversation(groupId, username);
+  if (group) {
+    group.lastMessage = content;
+    group.lastTimestamp = timestamp;
+    await cacheGroupConversation(group, username);
+  }
+}
+
+export async function confirmGroupMessage(
+  tempId: string,
+  txIds: string[],
+  failedRecipients: string[],
+  username?: string
+): Promise<void> {
+  console.log('[GROUP CACHE] Confirming group message:', { tempId, txIds, failedRecipients });
+  
+  const db = await getDB(username);
+  const message = await db.get('groupMessages', tempId);
+  
+  if (!message) {
+    console.warn('[GROUP CACHE] Group message not found:', tempId);
+    return;
+  }
+
+  // Determine final transaction ID (use first successful tx)
+  const finalTxId = txIds[0] || tempId;
+
+  // Update message with confirmation
+  message.id = finalTxId;
+  message.txIds = txIds;
+  message.confirmed = failedRecipients.length === 0;
+  message.failedRecipients = failedRecipients.length > 0 ? failedRecipients : undefined;
+  message.status = failedRecipients.length > 0 
+    ? (txIds.length > 0 ? 'partial' : 'failed')
+    : 'confirmed';
+
+  // Delete temp message
+  await db.delete('groupMessages', tempId);
+  
+  // Store confirmed message
+  await db.put('groupMessages', message);
+  
+  console.log('[GROUP CACHE] ✅ Group message confirmed:', finalTxId);
+}
+
+export async function deleteGroupConversation(groupId: string, username?: string): Promise<void> {
+  console.log('[GROUP CACHE] Deleting group conversation:', groupId);
+  
+  const db = await getDB(username);
+  
+  // Delete all messages for this group
+  const messages = await getGroupMessages(groupId, username);
+  console.log('[GROUP CACHE] Deleting', messages.length, 'group messages');
+  
+  const tx = db.transaction('groupMessages', 'readwrite');
+  await Promise.all([
+    ...messages.map((msg) => tx.store.delete(msg.id)),
+    tx.done,
+  ]);
+  
+  // Delete group conversation
+  await db.delete('groupConversations', groupId);
+  
+  console.log('[GROUP CACHE] ✅ Group conversation deleted');
+}
+
+export type { 
+  MessageCache, 
+  ConversationCache, 
+  DecryptedMemoCache, 
+  CustomJsonMessage,
+  GroupConversationCache,
+  GroupMessageCache
+};
 export { getConversationKey };

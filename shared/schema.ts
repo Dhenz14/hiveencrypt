@@ -210,3 +210,54 @@ export type LoginInput = z.infer<typeof loginSchema>;
 export interface ConversationWithMessages extends Conversation {
   messages: Message[];
 }
+
+// ============================================================================
+// GROUP CHAT: Decentralized Multi-Recipient Messaging
+// ============================================================================
+
+export interface Group {
+  groupId: string;                    // UUID v4 - unique group identifier
+  name: string;                       // User-defined group name
+  members: string[];                  // Array of Hive usernames
+  creator: string;                    // Username of group creator
+  createdAt: string;                  // ISO timestamp
+  version: number;                    // Increments on membership changes
+  lastMessage?: string;               // Preview of last group message
+  lastMessageTime?: string;           // Timestamp of last message
+}
+
+export interface GroupMessage {
+  id: string;                         // Transaction ID or temp ID
+  groupId: string;                    // References Group.groupId
+  sender: string;                     // Username who sent the message
+  content: string;                    // Decrypted message content
+  encryptedContent: string;           // Original encrypted memo
+  timestamp: string;                  // ISO timestamp
+  recipients: string[];               // Usernames message was sent to
+  txIds: string[];                    // Blockchain transaction IDs (one per recipient)
+  confirmed: boolean;                 // All transactions confirmed
+  status: 'sending' | 'partial' | 'sent' | 'confirmed' | 'failed';
+  failedRecipients?: string[];        // Recipients whose transactions failed
+}
+
+export interface GroupConversation extends Omit<Conversation, 'contactUsername'> {
+  type: 'group';
+  groupId: string;
+  groupName: string;
+  members: string[];
+  memberCount: number;
+  creator: string;
+}
+
+// Discriminated union for conversation types
+export type AnyConversation = 
+  | (Conversation & { type: 'direct' })
+  | GroupConversation;
+
+// Zod schema for group validation
+export const createGroupSchema = z.object({
+  name: z.string().min(1).max(50, 'Group name must be 50 characters or less'),
+  members: z.array(z.string().min(3).max(16)).min(2, 'Groups must have at least 2 members'),
+});
+
+export type CreateGroupInput = z.infer<typeof createGroupSchema>;
