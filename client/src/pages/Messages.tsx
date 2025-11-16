@@ -250,14 +250,30 @@ export default function Messages() {
       }
 
       const conversationKey = getConversationKey(user?.username || '', username);
-      await updateConversation({
+      const timestamp = new Date().toISOString();
+      const newConvCache: ConversationCache = {
         conversationKey,
         partnerUsername: username,
         lastMessage: '',
-        lastTimestamp: new Date().toISOString(),
+        lastTimestamp: timestamp,
         unreadCount: 0,
-        lastChecked: new Date().toISOString(),
-      }, user?.username);
+        lastChecked: timestamp,
+      };
+      
+      await updateConversation(newConvCache, user?.username);
+
+      // CRITICAL: Optimistically update query cache so conversation appears immediately
+      queryClient.setQueryData(
+        ['blockchain-conversations', user?.username],
+        (oldData: ConversationCache[] | undefined) => {
+          if (!oldData) return [newConvCache];
+          // Check if already exists (shouldn't, but be safe)
+          const exists = oldData.some(c => c.conversationKey === conversationKey);
+          if (exists) return oldData;
+          // Add to front of list (most recent)
+          return [newConvCache, ...oldData];
+        }
+      );
 
       setSelectedPartner(username);
       setIsNewMessageOpen(false);
