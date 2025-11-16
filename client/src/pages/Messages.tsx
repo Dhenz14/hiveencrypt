@@ -168,7 +168,7 @@ export default function Messages() {
         if (counts.messages > 0 || counts.conversations > 0 || counts.customJsonMessages > 0) {
           logger.info('[INIT] ✅ Migrated timestamps to UTC:', counts);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
-          queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+          queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user.username] });
         } else {
           logger.info('[INIT] ℹ️ No timestamps needed migration (already completed or no messages)');
         }
@@ -182,7 +182,7 @@ export default function Messages() {
           localStorage.setItem('hive_cache_version', '7.0');
           logger.info('[INIT] ✅ Cache cleared successfully, version updated to 7.0');
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
-          queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+          queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user.username] });
         }
         
         // Regular corruption fix (for content === encryptedContent cases)
@@ -201,7 +201,7 @@ export default function Messages() {
         await clearAllCache(user.username);
         localStorage.setItem('hive_cache_version', '7.0');
         queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
-        queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+        queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user.username] });
       }
     }).catch((importError) => {
       logger.error('[INIT] ❌ CRITICAL: Failed to import messageCache module:', importError);
@@ -265,7 +265,7 @@ export default function Messages() {
         setShowChat(true);
       }
 
-      queryClient.invalidateQueries({ queryKey: ['blockchain-conversations'] });
+      queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user?.username] });
 
       toast({
         title: 'Conversation Started',
@@ -296,7 +296,7 @@ export default function Messages() {
       refetchType: 'active' // Force refetch of image messages
     });
     await queryClient.invalidateQueries({ 
-      queryKey: ['blockchain-conversations'],
+      queryKey: ['blockchain-conversations', user?.username],
       refetchType: 'active'
     });
   };
