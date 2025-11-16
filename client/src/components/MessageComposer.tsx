@@ -509,7 +509,10 @@ export function MessageComposer({
             logger.info('[SEND] ✅ Optimistically cached sent message:', txId.substring(0, 16));
           } catch (cacheError) {
             // Don't fail the send if caching fails - polling will pick it up
-            logger.error('[SEND] Failed to cache optimistic message:', cacheError);
+            logger.error('[SEND] Failed to cache optimistic message:', {
+              error: cacheError instanceof Error ? cacheError.message : String(cacheError),
+              stack: cacheError instanceof Error ? cacheError.stack : undefined
+            });
           }
         }
       } catch (transferError: any) {

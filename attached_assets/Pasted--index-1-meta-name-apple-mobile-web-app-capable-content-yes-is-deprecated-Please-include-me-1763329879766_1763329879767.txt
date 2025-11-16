@@ -1,0 +1,1003 @@
+(index):1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(3)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [NEW CHAT] Updating query cache. Old data length: 3
+ [NEW CHAT] Adding new conversation to cache. New length: 4
+ [NEW CHAT] Setting selected partner: theycallmedan
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: theycallmedan
+ [METADATA] Fetching from blockchain: theycallmedan
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Retrieved cached messages: 0
+ [INCREMENTAL] No last synced opId for dandandan123-theycallmedan - first sync
+ [QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [METADATA] Fetched and cached: theycallmedan undefined
+ [METADATA] Fetched and cached: theycallmedan undefined
+ [PHASE4] Re-evaluating 0 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 0 messages with changed hidden state
+ [QUERY] Total messages: 0 Visible: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Retrieved cached messages: 0
+ [INCREMENTAL] No last synced opId for dandandan123-theycallmedan - first sync
+ [QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [PHASE4] Re-evaluating 0 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 0 messages with changed hidden state
+ [QUERY] Total messages: 0 Visible: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SEND] Step 2: Starting encryption... Object
+ [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+ [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [ENCRYPTION] ✅ Encryption successful
+ [SEND] ✅ Encryption successful: Object
+ [SENSITIVE] [MessageComposer] ✅ Successfully encrypted memo: Object
+ [SEND] Step 3: Broadcasting to blockchain... Object
+ [SENSITIVE] [MessageComposer] Calling requestTransfer with memo: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Retrieved cached messages: 0
+ [INCREMENTAL] No last synced opId for dandandan123-theycallmedan - first sync
+ [QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [PHASE4] Re-evaluating 0 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 0 messages with changed hidden state
+ [QUERY] Total messages: 0 Visible: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SEND] Transfer response received: Object
+ [MessageComposer] Transfer response: Object
+ [SEND] ✅ Blockchain broadcast successful, txId: Object
+ [SEND] Failed to cache optimistic message: 
+error @ logger.ts:17
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Retrieved cached messages: 0
+ [INCREMENTAL] No last synced opId for dandandan123-theycallmedan - first sync
+ [QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [PHASE4] Re-evaluating 0 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 0 messages with changed hidden state
+ [QUERY] Total messages: 0 Visible: 0 Hidden: 0
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [PROGRESSIVE] Phase 1 discovered 4 partners in 51 ms
+ [PROGRESSIVE] Phase 1 - Cached: 4 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 4 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [PROGRESSIVE] Phase 2 discovered 3 total partners in 36 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [QUERY] Retrieved cached messages: 0
+ [INCREMENTAL] No last synced opId for dandandan123-theycallmedan - first sync
+ [QUERY] No cached messages - fetching ALL from blockchain (ignoring lastSyncedOpId)
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [QUERY] Batching 1 new messages for single IndexedDB write
+ [INCREMENTAL] Updated last synced opId for dandandan123-theycallmedan : 652
+ [PHASE4] Re-evaluating 1 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 1 messages with changed hidden state
+ [QUERY] Total messages: 1 Visible: 1 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [QUERY] Starting blockchain messages query for: Object
+accountMetadata.ts:140 [METADATA] Cache hit for: dandandan123
+logger.ts:11 [FILTER] User minimum HBD: 0.010
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [QUERY] Retrieved cached messages: 1
+logger.ts:31 [SENSITIVE] [QUERY] Cached msg 0: Object
+messageCache.ts:544 [INCREMENTAL] Last synced opId for dandandan123-theycallmedan : 652
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:11 [PHASE4] Re-evaluating 1 messages against current minimum: 0.010
+logger.ts:11 [PHASE4] Re-evaluated 1 messages with changed hidden state
+logger.ts:11 [QUERY] Total messages: 1 Visible: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [QUERY] Visible msg 0: Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [QUERY] Starting blockchain messages query for: Object
+accountMetadata.ts:140 [METADATA] Cache hit for: dandandan123
+logger.ts:11 [FILTER] User minimum HBD: 0.010
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [QUERY] Retrieved cached messages: 1
+logger.ts:31 [SENSITIVE] [QUERY] Cached msg 0: Object
+messageCache.ts:544 [INCREMENTAL] Last synced opId for dandandan123-theycallmedan : 652
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:11 [PHASE4] Re-evaluating 1 messages against current minimum: 0.010
+logger.ts:11 [PHASE4] Re-evaluated 1 messages with changed hidden state
+logger.ts:11 [QUERY] Total messages: 1 Visible: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [QUERY] Visible msg 0: Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
