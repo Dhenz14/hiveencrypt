@@ -1,4 +1,5 @@
 import { gzipCompress, gzipDecompress } from './compression';
+import { logger } from './logger';
 
 /**
  * Custom JSON encryption module for Hive Messenger image messaging
@@ -138,7 +139,7 @@ export async function encryptImagePayload(
   payload: ImagePayload,
   senderUsername: string
 ): Promise<{ encrypted: string; hash: string }> {
-  console.log('[ENCRYPT] Starting encryption process:', {
+  logger.info('[ENCRYPT] Starting encryption process:', {
     from: payload.from,
     to: payload.to,
     imageSize: payload.imageData.length,
@@ -161,13 +162,13 @@ export async function encryptImagePayload(
 
   // Step 2: Stringify with no whitespace
   const jsonStr = JSON.stringify(optimized);
-  console.log('[ENCRYPT] Optimized JSON size:', jsonStr.length, 'bytes');
+  logger.info('[ENCRYPT] Optimized JSON size:', jsonStr.length, 'bytes');
 
   // Step 3: Generate SHA-256 hash for integrity (hash the JSON directly)
   // Note: Skipping gzip compression because base64 image data doesn't compress well
   // WebP images are already compressed, so gzip adds no benefit (~99% size)
   const hash = await generateSHA256(jsonStr);
-  console.log('[ENCRYPT] Generated SHA-256 hash:', hash.substring(0, 16) + '...');
+  logger.info('[ENCRYPT] Generated SHA-256 hash:', hash.substring(0, 16) + '...');
 
   // Step 4: Encrypt via Keychain (prefix with # for memo encryption)
   const messageToEncrypt = `#${jsonStr}`;
@@ -177,7 +178,7 @@ export async function encryptImagePayload(
     payload.to
   );
 
-  console.log('[ENCRYPT] ✅ Encryption complete, final size:', encrypted.length, 'bytes');
+  logger.info('[ENCRYPT] ✅ Encryption complete, final size:', encrypted.length, 'bytes');
 
   return { encrypted, hash };
 }
@@ -202,7 +203,7 @@ export async function decryptImagePayload(
   username: string,
   expectedHash?: string
 ): Promise<ImagePayload> {
-  console.log('[DECRYPT] Starting decryption process:', {
+  logger.info('[DECRYPT] Starting decryption process:', {
     username,
     payloadLength: encryptedPayload.length,
     hasHash: !!expectedHash
@@ -213,7 +214,7 @@ export async function decryptImagePayload(
 
   // Step 2: Remove # prefix if present
   const jsonStr = decrypted.startsWith('#') ? decrypted.substring(1) : decrypted;
-  console.log('[DECRYPT] Decrypted JSON size:', jsonStr.length, 'bytes');
+  logger.info('[DECRYPT] Decrypted JSON size:', jsonStr.length, 'bytes');
 
   // Step 3: Verify integrity if hash provided
   if (expectedHash) {
@@ -225,7 +226,7 @@ export async function decryptImagePayload(
       });
       throw new Error('Integrity check failed - data may be corrupted');
     }
-    console.log('[DECRYPT] ✅ Integrity verified');
+    logger.info('[DECRYPT] ✅ Integrity verified');
   }
 
   // Step 4: Parse JSON
@@ -234,7 +235,7 @@ export async function decryptImagePayload(
   // Step 5: Decompress the gzipped image data
   // The imageData field contains gzipped WebP binary encoded as base64
   // We need to decompress it back to WebP binary, then re-encode as base64 for display
-  console.log('[DECRYPT] Decompressing gzipped image data...');
+  logger.info('[DECRYPT] Decompressing gzipped image data...');
   
   let finalImageData: string;
   try {
@@ -248,7 +249,7 @@ export async function decryptImagePayload(
     const binaryString = Array.from(webpBinary).map(byte => String.fromCharCode(byte)).join('');
     finalImageData = btoa(binaryString);
     
-    console.log('[DECRYPT] Image decompressed:', {
+    logger.info('[DECRYPT] Image decompressed:', {
       compressedSize: optimized.i.length,
       decompressedSize: finalImageData.length,
       ratio: Math.round((optimized.i.length / finalImageData.length) * 100) + '%'
@@ -268,7 +269,7 @@ export async function decryptImagePayload(
     timestamp: optimized.ts
   };
 
-  console.log('[DECRYPT] ✅ Decryption complete:', {
+  logger.info('[DECRYPT] ✅ Decryption complete:', {
     from: payload.from,
     to: payload.to,
     imageSize: payload.imageData.length,

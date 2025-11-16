@@ -1,7 +1,8 @@
 // Development-only logging utility
 // Prevents sensitive data from being logged in production builds
 
-const isDevelopment = import.meta.env.DEV;
+// Support both Vite (import.meta.env.DEV) and Node.js (process.env.NODE_ENV) environments
+const isDevelopment = (typeof import.meta !== 'undefined' ? import.meta.env?.DEV : undefined) ?? process.env.NODE_ENV !== 'production';
 
 export const logger = {
   // Use for general info that's safe to log

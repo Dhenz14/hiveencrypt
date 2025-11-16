@@ -6,6 +6,7 @@
  */
 
 import pako from 'pako';
+import { logger } from './logger';
 
 /**
  * Compress an image to WebP format with specified dimensions and quality
@@ -56,7 +57,7 @@ export async function compressImageToWebP(
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              console.log('[IMAGE] Compressed:', {
+              logger.info('[IMAGE] Compressed:', {
                 original: file.size,
                 compressed: blob.size,
                 reduction: Math.round((1 - blob.size / file.size) * 100) + '%',
@@ -126,7 +127,7 @@ export async function compressBinaryToBase64(arrayBuffer: ArrayBuffer): Promise<
   
   const compressionRatio = Math.round((compressedSize / originalSize) * 100);
   
-  console.log('[COMPRESS] Binary compression stats:', {
+  logger.info('[COMPRESS] Binary compression stats:', {
     originalSize,
     compressedSize,
     compressionRatio: `${compressionRatio}%`,
@@ -275,7 +276,7 @@ export async function processImageForBlockchain(
   };
 }> {
   const originalSize = file.size;
-  console.log('[IMAGE] 🚀 Starting blockchain processing pipeline:', {
+  logger.info('[IMAGE] 🚀 Starting blockchain processing pipeline:', {
     name: file.name,
     originalSize,
     type: file.type
@@ -286,7 +287,7 @@ export async function processImageForBlockchain(
   const webpSize = webpBlob.size;
   const webpSavings = Math.round((1 - webpSize / originalSize) * 100);
   
-  console.log(`[IMAGE] ✅ Step 1/3: WebP conversion - ${webpSize} bytes (${webpSavings}% saved)`);
+  logger.info(`[IMAGE] ✅ Step 1/3: WebP conversion - ${webpSize} bytes (${webpSavings}% saved)`);
 
   // Step 2: Convert WebP to binary ArrayBuffer
   const arrayBuffer = await blobToArrayBuffer(webpBlob);
@@ -297,18 +298,18 @@ export async function processImageForBlockchain(
   const uncompressedBase64 = btoa(binaryString);
   
   // Step 3: Gzip compress the WebP binary BEFORE base64 encoding (for blockchain)
-  console.log('[IMAGE] ⚙️  Step 2/3: Gzip compressing binary data...');
+  logger.info('[IMAGE] ⚙️  Step 2/3: Gzip compressing binary data...');
   const { base64: compressedBase64, compressedSize } = await compressBinaryToBase64(arrayBuffer);
   const gzipSavings = Math.round((1 - compressedSize / webpSize) * 100);
   
-  console.log(`[IMAGE] ✅ Step 2/3: Gzip compression - ${compressedSize} bytes (${gzipSavings}% saved from WebP)`);
+  logger.info(`[IMAGE] ✅ Step 2/3: Gzip compression - ${compressedSize} bytes (${gzipSavings}% saved from WebP)`);
   
   // Step 4: Base64 encoding (already done in compressBinaryToBase64)
   const base64Size = compressedBase64.length;
   const totalSavings = Math.round((1 - base64Size / originalSize) * 100);
   
-  console.log(`[IMAGE] ✅ Step 3/3: Base64 encoding - ${base64Size} bytes`);
-  console.log(`[IMAGE] 🎉 Pipeline complete! Total savings: ${totalSavings}%`, {
+  logger.info(`[IMAGE] ✅ Step 3/3: Base64 encoding - ${base64Size} bytes`);
+  logger.info(`[IMAGE] 🎉 Pipeline complete! Total savings: ${totalSavings}%`, {
     original: originalSize,
     webp: webpSize,
     gzipped: compressedSize,

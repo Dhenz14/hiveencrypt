@@ -1,4 +1,5 @@
 import { Client } from '@hiveio/dhive';
+import { logger } from './logger';
 
 /**
  * Resource Credits (RC) estimation and warning system
@@ -57,7 +58,7 @@ export async function getAccountRC(username: string): Promise<RCInfo> {
     
     const percentage = (currentMana / maxMana) * 100;
     
-    console.log('[RC] Retrieved RC info:', {
+    logger.info('[RC] Retrieved RC info:', {
       current: currentMana,
       max: maxMana,
       percentage: percentage.toFixed(2) + '%'

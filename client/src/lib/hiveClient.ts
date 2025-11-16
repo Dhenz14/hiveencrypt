@@ -1,4 +1,5 @@
 import { Client, type ExtendedAccount } from '@hiveio/dhive';
+import { logger } from './logger';
 
 interface RetryConfig {
   maxRetries: number;
@@ -146,7 +147,7 @@ class HiveBlockchainClient {
     }
 
     const bestNode = healthyNodes[0];
-    console.log('[RPC] Selected best node:', bestNode.url, {
+    logger.info('[RPC] Selected best node:', bestNode.url, {
       avgLatency: Math.round(bestNode.avgLatency),
       successRate: (bestNode.successRate * 100).toFixed(1) + '%',
     });
@@ -202,7 +203,7 @@ class HiveBlockchainClient {
           const nextBestNode = this.selectBestNode();
           this.switchToNode(nextBestNode);
           
-          console.log(`[RPC] Retry ${attempt + 1}/${config.maxRetries} with node:`, nextBestNode);
+          logger.info(`[RPC] Retry ${attempt + 1}/${config.maxRetries} with node:`, nextBestNode);
         }
       }
     }
@@ -231,7 +232,7 @@ class HiveBlockchainClient {
       h.isHealthy = true;
       h.lastChecked = new Date(0);
     });
-    console.log('[RPC] Node health stats reset');
+    logger.info('[RPC] Node health stats reset');
   }
 
   private validateUsername(username: string): boolean {
