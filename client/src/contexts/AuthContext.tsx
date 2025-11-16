@@ -10,6 +10,7 @@ import {
   isKeychainAvailable,
   type KeychainPlatform 
 } from '@/lib/keychainDetection';
+import { cleanupOrphanedMessages } from '@/lib/messageCache';
 
 interface AuthContextType {
   user: UserSession | null;
@@ -64,6 +65,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (account) {
           setUser(session);
           console.log('[Auth] Session restored for:', session.username);
+          
+          // EDGE CASE FIX #2: Cleanup orphaned messages after session restore
+          try {
+            const cleanedCount = await cleanupOrphanedMessages(session.username);
+            if (cleanedCount > 0) {
+              console.log('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
+            }
+          } catch (cleanupError) {
+            console.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
+            // Don't block login if cleanup fails
+          }
         } else {
           console.log('[Auth] Account no longer exists on blockchain, clearing session...');
           localStorage.removeItem(SESSION_KEY);
@@ -126,6 +138,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     
     console.log('[Auth] ✅ Login complete! Session stored locally.');
+    
+    // EDGE CASE FIX #2: Cleanup orphaned messages after login
+    try {
+      const cleanedCount = await cleanupOrphanedMessages(username);
+      if (cleanedCount > 0) {
+        console.log('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
+      }
+    } catch (cleanupError) {
+      console.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
+      // Don't block login if cleanup fails
+    }
   };
 
   const logout = async () => {

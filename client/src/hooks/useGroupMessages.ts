@@ -154,12 +154,7 @@ export function useGroupMessages(groupId?: string) {
         const lastSyncedOp = getLastSyncedOperation(user.username);
         logger.info('[GROUP MESSAGES] Last synced operation:', lastSyncedOp ?? 'none (first sync)');
 
-        // Step 3: Fetch operations from blockchain with pagination support
-        const MAX_BACKFILL = getMaxBackfill();
-        let allOperations: Array<[number, any]> = [];
-        let highestOpIndex = -1;
-        
-        // Fetch the latest operations first
+        // Step 3: Fetch initial 200 operations from blockchain
         const latestHistory = await optimizedHiveClient.getAccountHistory(
           user.username,
           200,      // limit
@@ -173,89 +168,24 @@ export function useGroupMessages(groupId?: string) {
         checkCancellation(signal, 'Group messages after initial blockchain fetch');
         
         // Track the highest operation index seen
+        let highestOpIndex = -1;
         if (latestHistory.length > 0) {
           highestOpIndex = Math.max(...latestHistory.map(([idx]) => idx));
           logger.info('[GROUP MESSAGES] Highest operation index:', highestOpIndex);
         }
 
-        allOperations = [...latestHistory];
-
-        // Step 4: Check if we need to backfill and show warning if gap is too large
-        if (lastSyncedOp !== null && highestOpIndex > 0) {
-          const gap = highestOpIndex - lastSyncedOp;
-          logger.info('[GROUP MESSAGES] Operation gap since last sync:', gap);
-
-          if (shouldShowBackfillWarning(lastSyncedOp, highestOpIndex)) {
-            logger.warn('[GROUP MESSAGES] ⚠️ Large gap detected, showing backfill warning');
-            toast({
-              title: "Many New Operations",
-              description: `You have ${gap} new operations. Some older messages may not be visible due to backfill limits.`,
-              variant: "default",
-            });
-          }
-
-          // Implement pagination if gap exists but is within backfill limit
-          if (gap > 200 && gap <= MAX_BACKFILL) {
-            logger.info('[GROUP MESSAGES] Gap within backfill limit, fetching older operations...');
-            
-            // Calculate how many more operations we need to fetch
-            const operationsToFetch = Math.min(gap - 200, MAX_BACKFILL - 200);
-            const chunks = Math.ceil(operationsToFetch / 200);
-            
-            for (let i = 0; i < chunks; i++) {
-              // Check cancellation before each chunk fetch
-              checkCancellation(signal, `Group messages backfill chunk ${i + 1}`);
-
-              const startIndex = highestOpIndex - 200 - (i * 200);
-              if (startIndex <= lastSyncedOp) break;
-              
-              logger.info('[GROUP MESSAGES] Fetching chunk', i + 1, 'of', chunks, 'starting at index:', startIndex);
-              
-              const olderHistory = await optimizedHiveClient.getAccountHistory(
-                user.username,
-                200,
-                true,
-                startIndex
-              );
-              
-              // Check cancellation after chunk fetch
-              checkCancellation(signal, `Group messages after backfill chunk ${i + 1}`);
-
-              // Filter out operations we already have
-              const newOps = olderHistory.filter(([idx]) => 
-                !allOperations.some(([existingIdx]) => existingIdx === idx)
-              );
-              
-              allOperations = [...allOperations, ...newOps];
-              logger.info('[GROUP MESSAGES] Added', newOps.length, 'new operations from chunk', i + 1);
-              
-              // Stop if we've reached the last synced operation
-              if (olderHistory.some(([idx]) => idx <= lastSyncedOp)) {
-                logger.info('[GROUP MESSAGES] Reached last synced operation, stopping backfill');
-                break;
-              }
-            }
-            
-            logger.info('[GROUP MESSAGES] Backfill complete, total operations:', allOperations.length);
-          }
-        }
-
-        // Check cancellation after all blockchain fetches complete
-        checkCancellation(signal, 'Group messages after all blockchain fetches');
-
-        logger.info('[GROUP MESSAGES] Processing', allOperations.length, 'total operations');
-
-        // Step 5: Parse and decrypt group messages
+        // Step 4: Process initial 200 operations and cache them BEFORE checking backfill limit
+        logger.info('[GROUP MESSAGES] Processing initial', latestHistory.length, 'operations');
         const newMessages: GroupMessageCache[] = [];
         const seenTxIds = new Set(cachedMessages.map(m => m.txIds).flat());
 
-        for (let i = 0; i < allOperations.length; i++) {
+        for (let i = 0; i < latestHistory.length; i++) {
           // Check cancellation periodically (every 10 messages)
           if (i % 10 === 0) {
-            checkCancellation(signal, `Group messages processing loop (${i}/${allOperations.length})`);
+            checkCancellation(signal, `Group messages processing initial ops (${i}/${latestHistory.length})`);
           }
 
-          const [index, operation] = allOperations[i];
+          const [index, operation] = latestHistory[i];
           
           try {
             const op = operation[1].op;
@@ -323,16 +253,210 @@ export function useGroupMessages(groupId?: string) {
         }
 
         // Check cancellation before cache writes
-        checkCancellation(signal, 'Group messages before cache writes');
+        checkCancellation(signal, 'Group messages before initial cache writes');
 
-        // Step 6: Cache newly discovered messages (skip if cancelled)
+        // Step 5: Cache newly discovered messages from initial 200 operations
         if (newMessages.length > 0 && !signal.aborted) {
-          logger.info('[GROUP MESSAGES] Discovered', newMessages.length, 'new messages from blockchain');
+          logger.info('[GROUP MESSAGES] Discovered', newMessages.length, 'new messages from initial operations');
           await cacheGroupMessages(newMessages, user.username);
         }
 
-        // Step 7: Update last synced operation (skip if cancelled)
-        if (highestOpIndex > 0 && !signal.aborted) {
+        // Step 6: NOW check if we should backfill
+        const MAX_BACKFILL = getMaxBackfill();
+        
+        if (lastSyncedOp !== null && highestOpIndex > 0) {
+          const gap = highestOpIndex - lastSyncedOp;
+          logger.info('[GROUP MESSAGES] Operation gap since last sync:', gap);
+
+          if (shouldShowBackfillWarning(lastSyncedOp, highestOpIndex)) {
+            logger.warn('[GROUP MESSAGES] ⚠️ Large gap detected, showing backfill warning');
+            toast({
+              title: 'Message History Limited',
+              description: 'Showing recent messages. Older messages beyond 1000 operations may not be visible.',
+            });
+            
+            // Update lastSynced to highestOpIndex so we don't keep checking this gap
+            setLastSyncedOperation(user.username, highestOpIndex);
+            
+            // Return combined: newly processed + previously cached
+            const combinedMessages = [...cachedMessages, ...newMessages];
+            const sortedMessages = Array.from(
+              new Map(combinedMessages.map(m => [m.id, m])).values()
+            ).sort((a, b) => 
+              new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+            );
+
+            logger.info('[GROUP MESSAGES] ✅ Total messages (backfill limit hit):', sortedMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
+            return sortedMessages;
+          }
+
+          // Implement pagination if gap exists but is within backfill limit
+          const shouldBackfill = gap > 200 && gap <= MAX_BACKFILL;
+          
+          if (shouldBackfill) {
+            logger.info('[GROUP MESSAGES] Gap within backfill limit, fetching older operations...');
+            
+            // Start backfill from older operations
+            let allOperations: Array<[number, any]> = [...latestHistory];
+            
+            // Calculate how many more operations we need to fetch
+            const operationsToFetch = Math.min(gap - 200, MAX_BACKFILL - 200);
+            const chunks = Math.ceil(operationsToFetch / 200);
+            
+            // EDGE CASE FIX #4: Track highest operation index seen during backfill
+            let highestOpIndexSeen = highestOpIndex;
+            
+            for (let i = 0; i < chunks; i++) {
+              // Check cancellation before each chunk fetch
+              checkCancellation(signal, `Group messages backfill chunk ${i + 1}`);
+
+              const startIndex = highestOpIndex - 200 - (i * 200);
+              if (startIndex <= lastSyncedOp) break;
+              
+              logger.info('[GROUP MESSAGES] Fetching chunk', i + 1, 'of', chunks, 'starting at index:', startIndex);
+              
+              try {
+                const olderHistory = await optimizedHiveClient.getAccountHistory(
+                  user.username,
+                  200,
+                  true,
+                  startIndex
+                );
+                
+                // Check cancellation after chunk fetch
+                checkCancellation(signal, `Group messages after backfill chunk ${i + 1}`);
+
+                // Filter out operations we already have
+                const newOps = olderHistory.filter(([idx]) => 
+                  !allOperations.some(([existingIdx]) => existingIdx === idx)
+                );
+                
+                allOperations = [...allOperations, ...newOps];
+                logger.info('[GROUP MESSAGES] Added', newOps.length, 'new operations from chunk', i + 1);
+                
+                // Update highest operation index seen
+                if (olderHistory.length > 0) {
+                  const maxIdx = Math.max(...olderHistory.map(([idx]) => idx));
+                  highestOpIndexSeen = Math.max(highestOpIndexSeen, maxIdx);
+                }
+                
+                // Stop if we've reached the last synced operation
+                if (olderHistory.some(([idx]) => idx <= lastSyncedOp)) {
+                  logger.info('[GROUP MESSAGES] Reached last synced operation, stopping backfill');
+                  break;
+                }
+              } catch (error) {
+                // EDGE CASE FIX #4: Network failure during backfill
+                logger.error('[GROUP MESSAGES] Backfill chunk', i + 1, 'failed:', error);
+                
+                // Even on error, update lastSynced to what we've successfully processed
+                // This prevents infinite retry loops
+                if (highestOpIndexSeen > (lastSyncedOp || 0)) {
+                  logger.warn('[GROUP MESSAGES] Updating lastSyncedOperation to', highestOpIndexSeen, 'after backfill error');
+                  setLastSyncedOperation(user.username, highestOpIndexSeen);
+                }
+                
+                // Return what we have so far - don't crash, just stop backfill
+                break;
+              }
+            }
+            
+            logger.info('[GROUP MESSAGES] Backfill complete, total operations:', allOperations.length);
+            
+            // Process additional backfilled operations
+            logger.info('[GROUP MESSAGES] Processing', allOperations.length - latestHistory.length, 'backfilled operations');
+            
+            for (let i = 0; i < allOperations.length; i++) {
+              // Skip operations we already processed from initial fetch
+              const [index] = allOperations[i];
+              if (latestHistory.some(([idx]) => idx === index)) continue;
+              
+              // Check cancellation periodically (every 10 messages)
+              if (i % 10 === 0) {
+                checkCancellation(signal, `Group messages processing backfill (${i}/${allOperations.length})`);
+              }
+
+              const operation = allOperations[i][1];
+              
+              try {
+                const op = operation.op;
+                
+                // Only process incoming transfers
+                if (op[0] !== 'transfer') continue;
+                
+                const transfer = op[1];
+                const memo = transfer.memo;
+                const txId = operation.trx_id;
+                
+                // Skip if already cached
+                if (seenTxIds.has(txId)) continue;
+                
+                // Only process incoming transfers with encrypted memos
+                if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
+                  continue;
+                }
+
+                // Decrypt the memo
+                const decryptedMemo = await decryptMemo(
+                  user.username,
+                  memo,
+                  transfer.from,
+                  txId
+                );
+
+                if (!decryptedMemo) continue;
+
+                // Parse group message format
+                const parsed = parseGroupMessageMemo(decryptedMemo);
+                
+                // Skip null results (malformed memos)
+                if (parsed === null) {
+                  logger.warn('[GROUP MESSAGES] Skipping malformed group message memo, txId:', txId);
+                  continue;
+                }
+                
+                // Only process messages for this group
+                if (!parsed.isGroupMessage || parsed.groupId !== groupId) {
+                  continue;
+                }
+
+                // Create group message cache entry
+                const messageCache: GroupMessageCache = {
+                  id: txId,
+                  groupId: parsed.groupId,
+                  sender: transfer.from,
+                  content: parsed.content || '',
+                  encryptedContent: memo,
+                  timestamp: operation.timestamp + 'Z', // Normalize to UTC
+                  recipients: [user.username],
+                  txIds: [txId],
+                  confirmed: true,
+                  status: 'confirmed',
+                };
+
+                newMessages.push(messageCache);
+                seenTxIds.add(txId);
+
+              } catch (parseError) {
+                logger.warn('[GROUP MESSAGES] Failed to parse/decrypt backfilled message:', parseError);
+                continue;
+              }
+            }
+            
+            // Check cancellation before cache writes
+            checkCancellation(signal, 'Group messages before backfill cache writes');
+
+            // Cache newly discovered messages from backfill
+            if (newMessages.length > latestHistory.length && !signal.aborted) {
+              const backfillMessages = newMessages.slice(latestHistory.length);
+              logger.info('[GROUP MESSAGES] Discovered', backfillMessages.length, 'additional messages from backfill');
+              await cacheGroupMessages(backfillMessages, user.username);
+            }
+          }
+        }
+
+        // Step 7: Update last synced operation (skip if cancelled or already updated)
+        if (highestOpIndex > 0 && !signal.aborted && (lastSyncedOp === null || highestOpIndex > lastSyncedOp)) {
           setLastSyncedOperation(user.username, highestOpIndex);
           logger.info('[GROUP MESSAGES] Updated last synced operation to:', highestOpIndex);
         }

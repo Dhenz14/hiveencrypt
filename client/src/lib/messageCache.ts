@@ -879,6 +879,53 @@ export async function deleteGroupConversation(groupId: string, username?: string
   console.log('[GROUP CACHE] ✅ Group conversation deleted');
 }
 
+/**
+ * EDGE CASE FIX #2: Cleanup orphaned messages with 'pending' status
+ * If user closes browser during batch send, optimistic entries remain stuck
+ * This function reconciles orphaned messages based on their txIds
+ */
+export async function cleanupOrphanedMessages(username: string): Promise<number> {
+  console.log('[CLEANUP] Starting orphaned message cleanup for:', username);
+  
+  const db = await getDB(username);
+  const tx = db.transaction(['groupMessages'], 'readwrite');
+  const store = tx.objectStore('groupMessages');
+  
+  // Find messages older than 5 minutes with status 'pending' or 'sending'
+  const allMessages = await store.getAll();
+  const fiveMinutesAgo = Date.now() - (5 * 60 * 1000);
+  
+  let cleanedCount = 0;
+  
+  for (const msg of allMessages) {
+    const messageAge = new Date(msg.timestamp).getTime();
+    const isOrphaned = (msg.status === 'pending' || msg.status === 'sending') && 
+                       messageAge < fiveMinutesAgo;
+    
+    if (isOrphaned) {
+      // If has txIds, it was partially or fully sent - mark as confirmed
+      if (msg.txIds && msg.txIds.length > 0) {
+        msg.status = 'confirmed';
+        (msg as any).deliveryStatus = msg.failedRecipients && msg.failedRecipients.length > 0 ? 'partial' : 'success';
+        await store.put(msg);
+        cleanedCount++;
+        console.log('[CLEANUP] Reconciled orphaned message with txIds as confirmed:', msg.id.substring(0, 20), 'txIds:', msg.txIds.length);
+      } else {
+        // No txIds - truly failed/orphaned
+        msg.status = 'failed';
+        await store.put(msg);
+        cleanedCount++;
+        console.log('[CLEANUP] Marked orphaned message as failed:', msg.id.substring(0, 20));
+      }
+    }
+  }
+  
+  await tx.done;
+  
+  console.log(`[CLEANUP] ✅ Cleaned up ${cleanedCount} orphaned messages`);
+  return cleanedCount;
+}
+
 export type { 
   MessageCache, 
   ConversationCache, 

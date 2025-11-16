@@ -382,10 +382,12 @@ export function MessageComposer({
       const txIds: string[] = [];
       const failedRecipients: string[] = [];
       const remainingRecipients: string[] = [];
+      const attemptedRecipients: string[] = []; // Track who we actually attempted to send to (RC may be consumed)
       let rcDepleted = false;
+      let completedAttempts = 0; // Track actual completed attempts (success or failure)
       
-      // Throttle progress updates to max 10 updates/second
-      const throttleInterval = Math.ceil(groupMembers.length / 10);
+      // Calculate total recipients (excluding self)
+      const totalRecipients = groupMembers.filter(m => m !== user.username).length;
       
       for (let i = 0; i < groupMembers.length; i++) {
         const member = groupMembers[i];
@@ -393,10 +395,6 @@ export function MessageComposer({
         // Skip sending to yourself
         if (member === user.username) {
           logger.info('[GROUP SEND] Skipping self:', member);
-          // Only update progress if throttle allows or it's the last item
-          if (i % throttleInterval === 0 || i === groupMembers.length - 1) {
-            setBatchProgress({ current: i + 1, total: groupMembers.length });
-          }
           continue;
         }
 
@@ -409,7 +407,7 @@ export function MessageComposer({
             logger.warn('[GROUP SEND] RC critically low mid-batch, stopping sends');
             rcDepleted = true;
             
-            // Add remaining members to the remaining list
+            // Add remaining members to the remaining list (not attempted, no RC consumed)
             for (let j = i; j < groupMembers.length; j++) {
               if (groupMembers[j] !== user.username) {
                 remainingRecipients.push(groupMembers[j]);
@@ -426,6 +424,9 @@ export function MessageComposer({
           logger.warn('[GROUP SEND] Could not check RC for member:', member, rcError);
           // Don't block if RC check fails
         }
+
+        // Mark as attempted (transfer will be attempted, RC may be consumed)
+        attemptedRecipients.push(member);
 
         try {
           // Encrypt the formatted message for this member
@@ -450,37 +451,71 @@ export function MessageComposer({
             txIds.push(transfer.result);
             logger.info('[GROUP SEND] ✅ Sent to', member, '- txId:', transfer.result);
           } else {
+            // Transfer was attempted but failed (RC likely consumed)
             failedRecipients.push(member);
             logger.error('[GROUP SEND] ❌ Failed to send to', member);
           }
         } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
+          
+          // EDGE CASE FIX #1: Detect user abort/cancellation
+          const isUserAbort = errorMessage.toLowerCase().includes('cancel') ||
+                              errorMessage.toLowerCase().includes('denied') ||
+                              errorMessage.toLowerCase().includes('abort');
+          
+          if (isUserAbort) {
+            // User cancelled - abort entire batch and rollback
+            logger.warn('[GROUP SEND] User cancelled, rolling back entire batch');
+            await removeOptimisticGroupMessage(tempId, user.username);
+            
+            // attemptedRecipients includes the one we just tried, so subtract 1
+            const successfulSends = attemptedRecipients.length - 1 - failedRecipients.length;
+            
+            toast({ 
+              title: 'Cancelled', 
+              description: successfulSends > 0 
+                ? `Group message cancelled. Successfully sent to ${successfulSends} member(s).`
+                : 'Group message cancelled.',
+              variant: 'default'
+            });
+            
+            setIsSending(false);
+            setBatchProgress({ current: 0, total: 0 });
+            return; // Exit immediately, don't confirm anything
+          }
+          
+          // For non-abort errors, track as failed recipient
           failedRecipients.push(member);
           logger.error('[GROUP SEND] ❌ Error sending to', member, ':', error);
         }
 
-        // Throttled progress update: Only update every N sends or on last item
-        if (i % throttleInterval === 0 || i === groupMembers.length - 1) {
-          setBatchProgress({ current: i + 1, total: groupMembers.length });
-        }
+        // Update progress based on actual completed attempts (not loop iteration)
+        completedAttempts++;
+        setBatchProgress({ current: completedAttempts, total: totalRecipients });
       }
 
-      // Step 4: Handle rollback for complete failures
-      if (txIds.length === 0) {
-        // ALL sends failed - rollback optimistic message
-        logger.warn('[GROUP SEND] All sends failed, rolling back optimistic message');
+      // Step 4: Handle results based on what was attempted
+      // CRITICAL FIX: Don't rollback if any attempts were made (RC was consumed)
+      // Only rollback if NO attempts were made (no RC consumed)
+      if (attemptedRecipients.length === 0) {
+        // NO attempts made - safe to rollback (no RC consumed)
+        logger.warn('[GROUP SEND] No attempts made, rolling back optimistic message');
         await removeOptimisticGroupMessage(tempId, user.username);
         
         toast({
           title: 'Send Failed',
-          description: 'Failed to send to all group members. Message not saved.',
+          description: 'No transfers were attempted. Message not saved.',
           variant: 'destructive',
         });
         
-        // Don't update conversation preview for failed sends
         return;
       }
 
-      // Step 5: Confirm the group message with results (partial or full success)
+      // Step 5: Confirm the group message with results
+      // This handles all cases where attempts were made:
+      // - All succeeded (txIds.length === attemptedRecipients.length, failedRecipients.length === 0)
+      // - Some failed (txIds.length > 0, failedRecipients.length > 0)
+      // - All failed (txIds.length === 0, failedRecipients.length === attemptedRecipients.length)
       await confirmGroupMessage(tempId, txIds, failedRecipients, user.username);
 
       // Step 6: Update group conversation cache with last message
