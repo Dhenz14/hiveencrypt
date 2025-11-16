@@ -140,6 +140,15 @@ export default function Messages() {
   const selectedConversationId = selectedPartner ? getConversationKey(user?.username || '', selectedPartner) : null;
   const selectedConversation = conversations.find(c => c.contactUsername === selectedPartner);
   
+  // Debug logging for conversation selection
+  if (selectedPartner && !selectedConversation) {
+    logger.warn('[SELECTION] Partner selected but conversation not found!', {
+      selectedPartner,
+      conversationsCount: conversations.length,
+      conversationUsernames: conversations.map(c => c.contactUsername)
+    });
+  }
+  
   const currentMessages: Message[] = messageCaches.map(msg => 
     mapMessageCacheToMessage(msg, selectedConversationId || '')
   );
@@ -266,15 +275,24 @@ export default function Messages() {
       queryClient.setQueryData(
         ['blockchain-conversations', user?.username],
         (oldData: ConversationCache[] | undefined) => {
-          if (!oldData) return [newConvCache];
+          logger.info('[NEW CHAT] Updating query cache. Old data length:', oldData?.length || 0);
+          if (!oldData) {
+            logger.info('[NEW CHAT] No old data, returning new conversation');
+            return [newConvCache];
+          }
           // Check if already exists (shouldn't, but be safe)
           const exists = oldData.some(c => c.conversationKey === conversationKey);
-          if (exists) return oldData;
+          if (exists) {
+            logger.warn('[NEW CHAT] Conversation already exists in cache!');
+            return oldData;
+          }
           // Add to front of list (most recent)
+          logger.info('[NEW CHAT] Adding new conversation to cache. New length:', oldData.length + 1);
           return [newConvCache, ...oldData];
         }
       );
 
+      logger.info('[NEW CHAT] Setting selected partner:', username);
       setSelectedPartner(username);
       setIsNewMessageOpen(false);
       if (isMobile) {
