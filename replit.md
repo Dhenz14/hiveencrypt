@@ -30,6 +30,15 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted messages via memo transfers (0.001 HBD per message).
+- **Group Chats**: Decentralized group messaging with multiple participants.
+  - **Group Creation**: Create named groups with 2+ members via custom_json operations (free, no HBD cost).
+  - **Batch Messaging**: Send encrypted messages to all group members individually (N separate memo transfers).
+  - **Progress Tracking**: Real-time UI showing "Sending to X members..." with progress bar during batch sends.
+  - **Sender Attribution**: Group messages display sender usernames for proper conversation flow.
+  - **Resource Credits Validation**: Checks RC before batch sends (blocks if <10%, warns if <30%).
+  - **Error Handling**: Tracks failed recipients and shows partial success/failure status.
+  - **Blockchain Sync**: Scans incoming memos for `group:` prefix to aggregate group messages.
+  - **Known Limitations**: Image attachments disabled for groups (post-MVP), 200-operation history window.
 - **Lightning Network Tips**: Users can send Bitcoin satoshis via the Lightning Network to users with Lightning Addresses.
   - **Bidirectional Tipping**: Users choose to receive tips as Lightning sats or HBD in their Hive wallet.
   - **Payment Methods**: V4V.app HBD bridge, manual Lightning wallet (copy/QR), or WebLN browser wallet.
