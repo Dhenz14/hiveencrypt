@@ -299,7 +299,9 @@ export default function Messages() {
         setShowChat(true);
       }
 
-      queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user?.username] });
+      // DON'T invalidate here - it would trigger a refetch that overwrites the optimistic update
+      // The conversation will appear from optimistic data until the first message is sent,
+      // at which point handleMessageSent will invalidate and fetch the real blockchain data
 
       toast({
         title: 'Conversation Started',
