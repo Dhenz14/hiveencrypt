@@ -1,0 +1,1634 @@
+ [ServiceWorker] Loaded and ready!
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Failed to parse group operation: 
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] ✅ Total groups: 1
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: 👥 TEAM (2)
+ [GROUP MESSAGES] Syncing messages for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP MESSAGES] Loaded 0 cached messages
+ [GROUP MESSAGES] Last synced operation: 657
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [METADATA] Failed to fetch account metadata: 
+getAccountMetadata @ accountMetadata.ts:55
+ [GROUP MESSAGES] Fetched 69 latest operations
+ [GROUP MESSAGES] Highest operation index: 657
+ [GROUP MESSAGES] Processing initial 69 operations
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Operation gap since last sync: 0
+ [GROUP MESSAGES] ✅ Total messages: 0 ( 0 cached + 0 new)
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [RC] Retrieved RC info: Object
+ [GROUP SEND] RC Check: Object
+ [GROUP SEND] Starting batch send: Object
+ [GROUP CACHE] Attempting to cache group message: Object
+ [GROUP CACHE] ✅ Cached group message: 659f317f-19a2-4e27-9fa1-9c128bf5202e
+ [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 3
+ [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 3
+ [RC] Retrieved RC info: Object
+ [GROUP SEND] Encrypting for member: pro-content
+ [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+ [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:11 [ENCRYPTION] ✅ Encryption successful
+logger.ts:11 [GROUP SEND] Sending to member: pro-content
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:11 [GROUP SEND] ✅ Sent to pro-content - txId: Object
+logger.ts:11 [RC] Retrieved RC info: Object
+logger.ts:11 [GROUP SEND] Encrypting for member: somecallmejake
+logger.ts:11 [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+logger.ts:31 [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:11 [ENCRYPTION] ✅ Encryption successful
+logger.ts:11 [GROUP SEND] Sending to member: somecallmejake
+logger.ts:11 [GROUP MESSAGES] Syncing messages for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:11 [GROUP MESSAGES] Loaded 1 cached messages
+logger.ts:11 [GROUP MESSAGES] Last synced operation: 657
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:11 [GROUP MESSAGES] Fetched 71 latest operations
+logger.ts:11 [GROUP MESSAGES] Highest operation index: 659
+logger.ts:11 [GROUP MESSAGES] Processing initial 71 operations
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:11 [GROUP MESSAGES] Operation gap since last sync: 2
+logger.ts:11 [GROUP MESSAGES] Updated last synced operation to: 659
+logger.ts:11 [GROUP MESSAGES] ✅ Total messages: 1 ( 1 cached + 0 new)
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [GROUP SEND] ✅ Sent to somecallmejake - txId: Object
+messageCache.ts:821 [GROUP CACHE] Confirming group message: Object
+logger.ts:24 [GROUP SEND] Unexpected error: DataError: Failed to execute 'put' on 'IDBObjectStore': Evaluating the object store's key path yielded a value that is not a valid key.
+    at Proxy.<anonymous> (idb.js?v=ea328ecf:102:22)
+    at Proxy.method (idb.js?v=ea328ecf:188:30)
+    at confirmGroupMessage (messageCache.ts:854:12)
+    at async handleGroupSend (MessageComposer.tsx:519:7)
+error @ logger.ts:24
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+logger.ts:11 [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [PROGRESSIVE] Phase 1 discovered 5 partners in 58 ms
+logger.ts:11 [PROGRESSIVE] Phase 1 - Cached: 5 Uncached: 0
+logger.ts:11 [PROGRESSIVE] Phase 1 complete: 5 conversations ready to display
+logger.ts:11 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:11 [PROGRESSIVE] Phase 2 discovered 5 total partners in 48 ms
+logger.ts:11 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 1 Hidden: 0
