@@ -478,6 +478,12 @@ export default function Messages() {
         }
       );
 
+      // Invalidate queries to force refetch and sync
+      await queryClient.invalidateQueries({ 
+        queryKey: ['blockchain-group-conversations', user.username],
+        refetchType: 'active'
+      });
+
       // Close modal
       setIsManageMembersOpen(false);
 
