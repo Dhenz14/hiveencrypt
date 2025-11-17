@@ -278,16 +278,28 @@ export function useGroupMessages(groupId?: string) {
             // Update lastSynced to highestOpIndex so we don't keep checking this gap
             setLastSyncedOperation(user.username, highestOpIndex);
             
-            // Return combined: newly processed + previously cached
-            const combinedMessages = [...cachedMessages, ...newMessages];
-            const sortedMessages = Array.from(
-              new Map(combinedMessages.map(m => [m.id, m])).values()
-            ).sort((a, b) => 
+            // EDGE CASE FIX #3: Deduplicate by ID and sort by timestamp
+            const messageMap = new Map<string, GroupMessageCache>();
+            
+            // Add new messages first (take precedence)
+            for (const msg of newMessages) {
+              messageMap.set(msg.id, msg);
+            }
+            
+            // Add cached messages (only if not already present)
+            for (const msg of cachedMessages) {
+              if (!messageMap.has(msg.id)) {
+                messageMap.set(msg.id, msg);
+              }
+            }
+            
+            // Convert to array and sort by timestamp (oldest first for chronological order)
+            const dedupedMessages = Array.from(messageMap.values()).sort((a, b) => 
               new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
             );
 
-            logger.info('[GROUP MESSAGES] ✅ Total messages (backfill limit hit):', sortedMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
-            return sortedMessages;
+            logger.info('[GROUP MESSAGES] ✅ Total messages (backfill limit hit):', dedupedMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
+            return dedupedMessages;
           }
 
           // Implement pagination if gap exists but is within backfill limit
@@ -461,20 +473,32 @@ export function useGroupMessages(groupId?: string) {
           logger.info('[GROUP MESSAGES] Updated last synced operation to:', highestOpIndex);
         }
 
-        // Step 8: Merge and sort all messages
-        const allMessages = [...cachedMessages, ...newMessages];
-        const uniqueMessages = Array.from(
-          new Map(allMessages.map(m => [m.id, m])).values()
-        ).sort((a, b) => 
+        // Step 8: EDGE CASE FIX #3: Deduplicate by ID and sort by timestamp
+        const messageMap = new Map<string, GroupMessageCache>();
+        
+        // Add new messages first (take precedence)
+        for (const msg of newMessages) {
+          messageMap.set(msg.id, msg);
+        }
+        
+        // Add cached messages (only if not already present)
+        for (const msg of cachedMessages) {
+          if (!messageMap.has(msg.id)) {
+            messageMap.set(msg.id, msg);
+          }
+        }
+        
+        // Convert to array and sort by timestamp (oldest first for chronological order)
+        const dedupedMessages = Array.from(messageMap.values()).sort((a, b) => 
           new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
         );
 
         // Final cancellation check before returning
         checkCancellation(signal, 'Group messages before return');
 
-        logger.info('[GROUP MESSAGES] ✅ Total messages:', uniqueMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
+        logger.info('[GROUP MESSAGES] ✅ Total messages:', dedupedMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
 
-        return uniqueMessages;
+        return dedupedMessages;
       } catch (error) {
         logger.error('[GROUP MESSAGES] ❌ Failed to sync group messages:', error);
         

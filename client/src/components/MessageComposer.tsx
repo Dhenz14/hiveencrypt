@@ -468,8 +468,8 @@ export function MessageComposer({
             logger.warn('[GROUP SEND] User cancelled, rolling back entire batch');
             await removeOptimisticGroupMessage(tempId, user.username);
             
-            // attemptedRecipients includes the one we just tried, so subtract 1
-            const successfulSends = attemptedRecipients.length - 1 - failedRecipients.length;
+            // EDGE CASE FIX #1: Use actual successful txIds count for accurate reporting
+            const successfulSends = txIds.length;
             
             toast({ 
               title: 'Cancelled', 

@@ -880,9 +880,11 @@ export async function deleteGroupConversation(groupId: string, username?: string
 }
 
 /**
- * EDGE CASE FIX #2: Cleanup orphaned messages with 'pending' status
+ * EDGE CASE FIX #2: Cleanup orphaned messages with proper reconciliation
  * If user closes browser during batch send, optimistic entries remain stuck
- * This function reconciles orphaned messages based on their txIds
+ * Proper reconciliation logic:
+ * - Messages with txIds → Broadcasts reached blockchain, mark as 'confirmed'
+ * - Messages without txIds → Truly orphaned, mark as 'failed'
  */
 export async function cleanupOrphanedMessages(username: string): Promise<number> {
   console.log('[CLEANUP] Starting orphaned message cleanup for:', username);
@@ -891,7 +893,7 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
   const tx = db.transaction(['groupMessages'], 'readwrite');
   const store = tx.objectStore('groupMessages');
   
-  // Find messages older than 5 minutes with status 'pending' or 'sending'
+  // Find messages older than 5 minutes with status 'sending'
   const allMessages = await store.getAll();
   const fiveMinutesAgo = Date.now() - (5 * 60 * 1000);
   
@@ -899,24 +901,56 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
   
   for (const msg of allMessages) {
     const messageAge = new Date(msg.timestamp).getTime();
-    const isOrphaned = (msg.status === 'pending' || msg.status === 'sending') && 
-                       messageAge < fiveMinutesAgo;
+    const isOrphaned = msg.status === 'sending' && messageAge < fiveMinutesAgo;
     
     if (isOrphaned) {
-      // If has txIds, it was partially or fully sent - mark as confirmed
       if (msg.txIds && msg.txIds.length > 0) {
-        msg.status = 'confirmed';
-        (msg as any).deliveryStatus = msg.failedRecipients && msg.failedRecipients.length > 0 ? 'partial' : 'success';
-        await store.put(msg);
-        cleanedCount++;
-        console.log('[CLEANUP] Reconciled orphaned message with txIds as confirmed:', msg.id.substring(0, 20), 'txIds:', msg.txIds.length);
+        // Calculate successful recipients
+        const totalRecipients = msg.recipients.length;
+        const failedCount = msg.failedRecipients?.length || 0;
+        
+        // Guard against inconsistent data where failed > total
+        if (failedCount >= totalRecipients) {
+          // All recipients failed (or data is inconsistent)
+          msg.status = 'failed';
+          (msg as any).deliveryStatus = 'failed';
+          msg.confirmed = false;
+          
+          console.log('[CLEANUP] All recipients failed - marked as failed:', msg.id.substring(0, 20), 'failed:', failedCount, 'total:', totalRecipients);
+        } else {
+          const successfulCount = totalRecipients - failedCount;
+          
+          if (successfulCount === 0) {
+            msg.status = 'failed';
+            (msg as any).deliveryStatus = 'failed';
+            msg.confirmed = false;
+            
+            console.log('[CLEANUP] All recipients failed - marked as failed:', msg.id.substring(0, 20), 'failed:', failedCount, 'total:', totalRecipients);
+          } else if (successfulCount < totalRecipients) {
+            msg.status = 'confirmed';
+            (msg as any).deliveryStatus = 'partial';
+            msg.confirmed = true;
+            
+            console.log('[CLEANUP] Partial delivery - marked as confirmed/partial:', msg.id.substring(0, 20), 'succeeded:', successfulCount, 'failed:', failedCount, 'total:', totalRecipients);
+          } else {
+            msg.status = 'confirmed';
+            (msg as any).deliveryStatus = 'success';
+            msg.confirmed = true;
+            
+            console.log('[CLEANUP] All recipients succeeded - marked as confirmed/success:', msg.id.substring(0, 20), 'total:', totalRecipients);
+          }
+        }
       } else {
-        // No txIds - truly failed/orphaned
+        // No txIds - truly orphaned/failed
         msg.status = 'failed';
-        await store.put(msg);
-        cleanedCount++;
-        console.log('[CLEANUP] Marked orphaned message as failed:', msg.id.substring(0, 20));
+        (msg as any).deliveryStatus = 'failed';
+        msg.confirmed = false;
+        
+        console.log('[CLEANUP] No txIds - marked orphaned message as failed:', msg.id.substring(0, 20));
       }
+      
+      await store.put(msg);
+      cleanedCount++;
     }
   }
   
