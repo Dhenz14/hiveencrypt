@@ -1,0 +1,1505 @@
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [METADATA] Cache hit for: dandandan123
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [Auth] Logging out...
+ [Auth] ✅ Logout complete
+ [Auth] Starting login for: curatorhulk platform: desktop-extension
+ [Auth] Keychain authentication successful
+ [Auth] ✅ Login complete! Session stored locally.
+ [CLEANUP] Starting orphaned message cleanup for: curatorhulk
+ [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Loaded exceptions: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: curatorhulk
+ [METADATA] Fetching from blockchain: curatorhulk
+ [CONV DISCOVERY] Starting progressive discovery for user: curatorhulk
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [GROUP PRESYNC] Starting pre-sync for user: curatorhulk
+ [INIT] ⚡ Migration useEffect triggered, user: curatorhulk
+ [INIT] ✅ Username verified, starting migration checks for: curatorhulk
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [useBlockchainMessages] Exceptions changed, invalidating query for re-evaluation
+ [INIT] 📦 messageCache module loaded successfully
+ [INIT] 🔄 Running UTC timestamp migration...
+ [CONV DISCOVERY] Loaded 1 cached conversations immediately
+ [MIGRATION] UTC timestamp migration already completed
+ [INIT] ℹ️ No timestamps needed migration (already completed or no messages)
+ [INIT] 🔍 Checking cache version: 7.0 vs expected: 7.0
+ [INIT] 🔍 Checking for corrupted messages...
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [CLEANUP] ✅ Cleaned up 0 orphaned messages
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP PRESYNC] Found 0 existing cached messages, 0 unique confirmed txIds
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [CACHE FIX] Fixed 0 corrupted messages
+ [INIT] ℹ️ No corrupted messages found
+ [INIT] ✅ ALL MIGRATION CHECKS COMPLETE
+ [PROGRESSIVE] Phase 1 discovered 1 partners in 68 ms
+ [PROGRESSIVE] Phase 1 - Cached: 1 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 1 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetched and cached: curatorhulk undefined
+ [METADATA] Fetched and cached: curatorhulk undefined
+ [GROUP PRESYNC] Fetched 500 recent transfers
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] Failed to process transfer: 
+warn @ logger.ts:12
+ [GROUP PRESYNC] ✅ Pre-sync complete, cached 0 group messages
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP DISCOVERY] Discovering groups for: curatorhulk
+ [GROUP DISCOVERY] Loaded 0 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: curatorhulk
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [PROGRESSIVE] Phase 2 discovered 1 total partners in 77 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP BLOCKCHAIN] Scanned 1000 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:11 [GROUP BLOCKCHAIN] Scanned 1000 transfer operations
+logger.ts:11 [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+logger.ts:11 [GROUP DISCOVERY] Discovered 0 groups from blockchain
+logger.ts:11 [GROUP DISCOVERY] Scanning cached group messages for new groups...
+logger.ts:11 [GROUP DISCOVERY] Found 0 cached group messages
+logger.ts:11 [GROUP DISCOVERY] Found 0 unique groups from cached messages
+logger.ts:11 [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 0
+logger.ts:11 [GROUP DISCOVERY] ✅ Total groups: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: [{…}]
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: [{…}]
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0

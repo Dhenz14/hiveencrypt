@@ -96,15 +96,23 @@ export function useGroupMessagePreSync() {
             checkCancellation(signal, `Group presync processing (${i}/${history.length})`);
           }
 
-          const [, operation] = history[i];
+          let txId: string = '';
+          let transfer: any = null;
+          let memo: string = '';
           
           try {
-            const op = operation[1].op;
-            if (op[0] !== 'transfer') continue;
+            const [, operation] = history[i];
+            if (!operation || !operation[1]) {
+              logger.warn('[GROUP PRESYNC] Invalid operation structure at index', i);
+              continue;
+            }
             
-            const transfer = op[1];
-            const memo = transfer.memo;
-            const txId = operation[1].trx_id;
+            const op = operation[1].op;
+            if (!op || op[0] !== 'transfer') continue;
+            
+            transfer = op[1];
+            memo = transfer.memo;
+            txId = operation[1].trx_id;
             
             // Skip if already processed
             if (seenTxIds.has(txId)) continue;
@@ -151,7 +159,14 @@ export function useGroupMessagePreSync() {
             logger.info('[GROUP PRESYNC] Found group message for:', parsed.groupId, 'from:', transfer.from);
 
           } catch (error) {
-            logger.warn('[GROUP PRESYNC] Failed to process transfer:', error);
+            logger.warn('[GROUP PRESYNC] Failed to process transfer:', {
+              error: error instanceof Error ? error.message : String(error),
+              stack: error instanceof Error ? error.stack : undefined,
+              txId,
+              from: transfer?.from,
+              to: transfer?.to,
+              memo: memo?.substring(0, 20) + '...'
+            });
             continue;
           }
         }
