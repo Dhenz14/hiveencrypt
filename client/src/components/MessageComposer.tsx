@@ -1104,7 +1104,7 @@ export function MessageComposer({
             type="submit"
             size="icon"
             className="h-11 w-11 flex-shrink-0"
-            disabled={(!content.trim() && !selectedImage) || disabled || isSending || isLoadingMinimum || !hasVerifiedMinimum}
+            disabled={(!content.trim() && !selectedImage) || disabled || isSending || (!!recipientUsername && (isLoadingMinimum || !hasVerifiedMinimum))}
             data-testid="button-send"
           >
             <Send className="w-5 h-5" />
