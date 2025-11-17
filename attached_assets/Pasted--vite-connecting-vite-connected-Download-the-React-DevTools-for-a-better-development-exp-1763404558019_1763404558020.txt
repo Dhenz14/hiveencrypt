@@ -1,0 +1,1159 @@
+ [vite] connecting...
+ [vite] connected.
+ Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ Module "util" has been externalized for browser compatibility. Cannot access "util.debuglog" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=bd194e1d:2839
+ Module "util" has been externalized for browser compatibility. Cannot access "util.inspect" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=bd194e1d:2839
+ Module "stream" has been externalized for browser compatibility. Cannot access "stream.Transform" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=bd194e1d:6178
+ [Platform Detection] Starting detection...
+ [Platform Detection] User Agent: mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/142.0.0.0 safari/537.36
+ [Platform Detection] Is Mobile: false
+ ✅ blakejs loaded successfully (self-contained version)
+   Available functions: Array(5)
+ 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+ 🏛️ ArcHive Content Script Loaded
+ 🏛️ ArcHive Content Script Ready - 100% Decentralized
+ [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+ [Keychain Detection] window.hive_keychain found after 54 ms
+ [Keychain Detection] Handshake successful
+ [Platform Detection] ✅ Detected: desktop-extension
+ [Auth] Platform detected: desktop-extension
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [Auth] Session restored for: dandandan123
+ [CLEANUP] Starting orphaned message cleanup for: dandandan123
+ [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Loaded exceptions: Array(1)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(1)
+ [CLEANUP] ✅ Cleaned up 0 orphaned messages
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: dandandan123
+ [METADATA] Fetching from blockchain: dandandan123
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [GROUP DISCOVERY] Discovering groups for: dandandan123
+ [INIT] ⚡ Migration useEffect triggered, user: dandandan123
+ [INIT] ✅ Username verified, starting migration checks for: dandandan123
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP DISCOVERY] Loaded 1 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+ [RPC] Selected best node: https://api.hive.blog Object
+ [INIT] 📦 messageCache module loaded successfully
+ [INIT] 🔄 Running UTC timestamp migration...
+ [CONV DISCOVERY] Loaded 5 cached conversations immediately
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MIGRATION] UTC timestamp migration already completed
+ [INIT] ℹ️ No timestamps needed migration (already completed or no messages)
+ [INIT] 🔍 Checking cache version: 7.0 vs expected: 7.0
+ [INIT] 🔍 Checking for corrupted messages...
+ [CACHE FIX] Fixed 0 corrupted messages
+ [INIT] ℹ️ No corrupted messages found
+ [INIT] ✅ ALL MIGRATION CHECKS COMPLETE
+ [METADATA] Fetched and cached: dandandan123 Object
+ [METADATA] Fetched and cached: dandandan123 Object
+ [PROGRESSIVE] Phase 1 discovered 5 partners in 454 ms
+ [PROGRESSIVE] Phase 1 - Cached: 5 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 5 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [PROGRESSIVE] Phase 2 discovered 5 total partners in 392 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: somecallmejake
+ [METADATA] Fetching from blockchain: somecallmejake
+ [QUERY] Starting blockchain messages query for: Object
+ [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES] Pre-populating cache with 4 visible messages ( 0 hidden)
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [QUERY] Retrieved cached messages: 4
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [INCREMENTAL] Last synced opId for dandandan123-somecallmejake : 661
+ [RPC] Selected best node: https://api.hive.blog Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [METADATA] Fetched and cached: somecallmejake undefined
+ [METADATA] Fetched and cached: somecallmejake undefined
+ [GROUP BLOCKCHAIN] Scanned 671 operations
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] ✅ Total groups: 1
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 4 Hidden: 0
+ [INCREMENTAL] Found 2 new messages (filtered > opId: 661 )
+ [QUERY] Batching 2 new messages for single IndexedDB write
+ [INCREMENTAL] Updated last synced opId for dandandan123-somecallmejake : 670
+ [PHASE4] Re-evaluating 6 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 6 messages with changed hidden state
+ [QUERY] Total messages: 6 Visible: 6 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 6 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP MESSAGES] Syncing messages for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP MESSAGES] Loaded 3 cached messages
+ [GROUP MESSAGES] Last synced operation: 670
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [GROUP MESSAGES] Fetched 77 latest operations
+ [GROUP MESSAGES] Highest operation index: 670
+ [GROUP MESSAGES] Processing initial 77 operations
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Failed to parse/decrypt message: 
+warn @ logger.ts:12
+ [GROUP MESSAGES] Operation gap since last sync: 0
+ [GROUP MESSAGES] ✅ Total messages: 3 ( 3 cached + 0 new)
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [RC] Retrieved RC info: Object
+ [GROUP SEND] RC Check: Object
+ [GROUP SEND] Starting batch send: Object
+ [GROUP CACHE] Attempting to cache group message: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [GROUP CACHE] ✅ Cached group message: 0468c958-7ff1-4e5d-9001-a6cc315aa301
+ [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 11
+ [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 11
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [RC] Retrieved RC info: Object
+ [GROUP SEND] Encrypting for member: pro-content
+ [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+ [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [ENCRYPTION] ✅ Encryption successful
+ [GROUP SEND] Sending to member: pro-content
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+ [MESSAGES PAGE] Text messages: 3 Hidden: 0
+ [GROUP SEND] ✅ Sent to pro-content - txId: 05318a283f955542e0bd6e0d520b89015c9e837e
+ [RC] Retrieved RC info: Object
+logger.ts:11 [GROUP SEND] Encrypting for member: somecallmejake
+logger.ts:11 [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+logger.ts:31 [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 3 Hidden: 0
+logger.ts:11 [ENCRYPTION] ✅ Encryption successful
+logger.ts:11 [GROUP SEND] Sending to member: somecallmejake
+logger.ts:11 [GROUP SEND] ✅ Sent to somecallmejake - txId: b8d9fc1d9630c08f999bc810ad0745628fddb637
+logger.ts:11 [RC] Retrieved RC info: Object
+logger.ts:11 [GROUP SEND] Encrypting for member: curatorhullk
+logger.ts:11 [ENCRYPTION] Keychain detected, using requestEncodeMessage for encryption
+logger.ts:31 [SENSITIVE] [ENCRYPTION] Auto-adding # prefix: Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 3 Hidden: 0
+logger.ts:24 [ENCRYPTION] ❌ Encryption failed: Object
+error @ logger.ts:24
+logger.ts:24 [GROUP SEND] ❌ Error sending to curatorhullk : Error: Could not encode the message.
+    at Object.<anonymous> (encryption.ts:312:20)
+    at hive_keychain.js:1:5436
+error @ logger.ts:24
+messageCache.ts:821 [GROUP CACHE] Confirming group message: Object
+messageCache.ts:856 [GROUP CACHE] ✅ Group message confirmed: 05318a283f955542e0bd6e0d520b89015c9e837e
+messageCache.ts:713 [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 12
+messageCache.ts:722 [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 12
+logger.ts:11 [GROUP SEND] Updated group conversation cache
+logger.ts:11 [GROUP MESSAGES] Syncing messages for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+logger.ts:11 [GROUP DISCOVERY] Discovering groups for: dandandan123
+logger.ts:11 [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+logger.ts:11 [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 3 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 3 Hidden: 0
+logger.ts:11 [GROUP MESSAGES] Loaded 4 cached messages
+logger.ts:11 [GROUP MESSAGES] Last synced operation: 670
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:11 [GROUP DISCOVERY] Loaded 1 groups from cache
+logger.ts:11 [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:11 [PROGRESSIVE] Phase 1 discovered 4 partners in 60 ms
+logger.ts:11 [PROGRESSIVE] Phase 1 - Cached: 4 Uncached: 0
+logger.ts:11 [PROGRESSIVE] Phase 1 complete: 4 conversations ready to display
+logger.ts:11 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:11 [GROUP DISCOVERY] Discovering groups for: dandandan123
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+logger.ts:11 [MESSAGES PAGE] Text messages: 3 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+logger.ts:11 [MESSAGES PAGE] Text messages: 3 Hidden: 0
+logger.ts:11 [GROUP DISCOVERY] Loaded 1 groups from cache
+logger.ts:11 [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+logger.ts:11 [RPC] Selected best node: https://api.deathwing.me Object
+logger.ts:11 [GROUP MESSAGES] Fetched 79 latest operations
+logger.ts:11 [GROUP MESSAGES] Highest operation index: 672
+logger.ts:11 [GROUP MESSAGES] Processing initial 79 operations
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:18 [GROUP MESSAGES] Failed to parse/decrypt message: TypeError: Cannot read properties of undefined (reading 'op')
+    at queryFn (useGroupMessages.ts:191:37)
+warn @ logger.ts:18
+logger.ts:11 [GROUP MESSAGES] Operation gap since last sync: 2
+logger.ts:11 [GROUP MESSAGES] Updated last synced operation to: 672
+logger.ts:11 [GROUP MESSAGES] ✅ Total messages: 4 ( 4 cached + 0 new)
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(5)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:11 [PROGRESSIVE] Phase 2 discovered 5 total partners in 38 ms
+logger.ts:11 [PROGRESSIVE] Phase 2: Found 1 additional partners
+logger.ts:11 [PROGRESSIVE] Phase 2 complete: Found 1 additional conversations
+logger.ts:11 [PROGRESSIVE] Phase 2: Adding 1 new conversations to cache
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:11 [GROUP BLOCKCHAIN] Scanned 673 operations
+logger.ts:11 [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+logger.ts:11 [GROUP DISCOVERY] Discovered 0 groups from blockchain
+logger.ts:11 [QUERY CANCELLED] Group discovery after blockchain fetch
+logger.ts:24 [GROUP DISCOVERY] ❌ Failed to discover groups: AbortError: Query was cancelled
+error @ logger.ts:24
+logger.ts:11 [GROUP BLOCKCHAIN] Scanned 673 operations
+logger.ts:11 [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+logger.ts:11 [GROUP DISCOVERY] Discovered 0 groups from blockchain
+logger.ts:11 [GROUP DISCOVERY] ✅ Total groups: 1
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(6)
+logger.ts:11 [MESSAGES PAGE] Text messages: 4 Hidden: 0
