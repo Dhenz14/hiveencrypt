@@ -36,7 +36,7 @@ export const normalizeHiveTimestamp = (timestamp: string | null | undefined): st
 // Hive Keychain integration
 export interface KeychainResponse {
   success: boolean;
-  result?: any;
+  result?: string | { id: string } | any; // Can be string, object with id, or other formats
   message?: string;
   error?: string;
   data?: any;
@@ -146,6 +146,21 @@ export const requestTransfer = async (
       false // Don't re-encrypt - memo is already encrypted by requestEncode
     );
   });
+};
+
+/**
+ * Extracts the transaction ID string from a Keychain transfer response.
+ * Keychain may return the ID directly as a string or wrapped in an object.
+ */
+export const extractTransactionId = (result: any): string => {
+  if (typeof result === 'string') {
+    return result;
+  }
+  if (result && typeof result === 'object' && result.id) {
+    return result.id;
+  }
+  // Fallback: convert to string
+  return String(result);
 };
 
 export const getAccount = async (username: string) => {

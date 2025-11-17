@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { requestTransfer } from '@/lib/hive';
+import { requestTransfer, extractTransactionId } from '@/lib/hive';
 import { requestKeychainEncryption } from '@/lib/encryption';
 import { cacheCustomJsonMessage, cacheMessage, updateConversation, getConversationKey, addOptimisticGroupMessage, confirmGroupMessage, getGroupConversation, cacheGroupConversation, removeOptimisticGroupMessage } from '@/lib/messageCache';
 import { processImageForBlockchain } from '@/lib/imageUtils';
@@ -448,8 +448,9 @@ export function MessageComposer({
           );
 
           if (transfer.success && transfer.result) {
-            txIds.push(transfer.result);
-            logger.info('[GROUP SEND] ✅ Sent to', member, '- txId:', transfer.result);
+            const txId = extractTransactionId(transfer.result);
+            txIds.push(txId);
+            logger.info('[GROUP SEND] ✅ Sent to', member, '- txId:', txId);
           } else {
             // Transfer was attempted but failed (RC likely consumed)
             failedRecipients.push(member);
@@ -797,7 +798,7 @@ export function MessageComposer({
           throw new Error(transfer.message || 'Transfer failed');
         }
         
-        txId = transfer.result;
+        txId = extractTransactionId(transfer.result);
         console.log('[SEND] ✅ Blockchain broadcast successful, txId:', txId);
         
         // OPTIMISTIC UPDATE: Cache sent message locally for instant display
