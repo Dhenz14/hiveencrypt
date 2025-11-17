@@ -32,11 +32,159 @@ function checkCancellation(signal: AbortSignal, context: string) {
 }
 
 /**
+ * Hook to pre-sync incoming group messages BEFORE discovery
+ * This solves the chicken-and-egg problem where:
+ * - Discovery needs cached messages to find groups
+ * - But messages aren't cached until a group is opened
+ * 
+ * This hook fetches recent incoming transfers, decrypts group messages,
+ * and caches them so that discovery can find groups created by others
+ */
+export function useGroupMessagePreSync() {
+  const { user } = useAuth();
+
+  return useQuery({
+    queryKey: ['group-message-presync', user?.username],
+    queryFn: async ({ signal }: QueryFunctionContext): Promise<number> => {
+      if (!user?.username) {
+        return 0;
+      }
+
+      logger.info('[GROUP PRESYNC] Starting pre-sync for user:', user.username);
+
+      try {
+        // Load existing cached messages to avoid duplicates
+        const existingMessages = await getAllGroupMessages(user.username);
+        // Build deduplication set from confirmed messages, handling both old and new cache formats
+        const cachedTxIds = new Set(
+          existingMessages
+            .filter(m => m.confirmed)
+            .flatMap(m => {
+              // Prefer txIds array if it has items
+              const validTxIds = m.txIds?.filter(id => id && !id.startsWith('temp-')) || [];
+              
+              // Fallback: use id field if txIds is empty AND id is a real txId (not temp)
+              // This handles legacy cache entries that don't have txIds populated
+              if (validTxIds.length === 0 && m.id && !m.id.startsWith('temp-')) {
+                return [m.id];
+              }
+              
+              return validTxIds;
+            })
+        );
+        logger.info('[GROUP PRESYNC] Found', existingMessages.length, 'existing cached messages,', cachedTxIds.size, 'unique confirmed txIds');
+
+        // Fetch recent incoming transfers (500 operations should cover most cases)
+        // Always scan to find new messages even if cache exists
+        const history = await optimizedHiveClient.getAccountHistory(
+          user.username,
+          500,      // limit - scan last 500 operations
+          true,     // filterTransfersOnly = true
+          -1        // start = -1 (latest)
+        );
+
+        checkCancellation(signal, 'Group presync after blockchain fetch');
+
+        logger.info('[GROUP PRESYNC] Fetched', history.length, 'recent transfers');
+
+        const newGroupMessages: GroupMessageCache[] = [];
+        const seenTxIds = new Set<string>(cachedTxIds); // Initialize with cached txIds
+
+        // Process transfers to find group messages
+        for (let i = 0; i < history.length; i++) {
+          if (i % 10 === 0) {
+            checkCancellation(signal, `Group presync processing (${i}/${history.length})`);
+          }
+
+          const [, operation] = history[i];
+          
+          try {
+            const op = operation[1].op;
+            if (op[0] !== 'transfer') continue;
+            
+            const transfer = op[1];
+            const memo = transfer.memo;
+            const txId = operation[1].trx_id;
+            
+            // Skip if already processed
+            if (seenTxIds.has(txId)) continue;
+            seenTxIds.add(txId);
+            
+            // Only process incoming encrypted memos
+            if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
+              continue;
+            }
+
+            // Decrypt the memo
+            const decryptedMemo = await decryptMemo(
+              user.username,
+              memo,
+              transfer.from,
+              txId
+            );
+
+            if (!decryptedMemo) continue;
+
+            // Check if it's a group message
+            const parsed = parseGroupMessageMemo(decryptedMemo);
+            
+            if (parsed === null || !parsed.isGroupMessage) {
+              continue;
+            }
+
+            // Cache this group message
+            const groupMessage: GroupMessageCache = {
+              id: txId,
+              groupId: parsed.groupId!,
+              sender: transfer.from,
+              creator: parsed.creator,
+              content: parsed.content || '',
+              encryptedContent: memo,
+              timestamp: operation[1].timestamp + 'Z',
+              recipients: [user.username],
+              txIds: [txId],
+              confirmed: true,
+              status: 'confirmed',
+            };
+
+            newGroupMessages.push(groupMessage);
+            logger.info('[GROUP PRESYNC] Found group message for:', parsed.groupId, 'from:', transfer.from);
+
+          } catch (error) {
+            logger.warn('[GROUP PRESYNC] Failed to process transfer:', error);
+            continue;
+          }
+        }
+
+        // Cache all discovered group messages
+        if (newGroupMessages.length > 0) {
+          logger.info('[GROUP PRESYNC] Caching', newGroupMessages.length, 'group messages');
+          await cacheGroupMessages(newGroupMessages, user.username);
+        }
+
+        logger.info('[GROUP PRESYNC] ✅ Pre-sync complete, cached', newGroupMessages.length, 'group messages');
+        return newGroupMessages.length;
+
+      } catch (error) {
+        logger.error('[GROUP PRESYNC] ❌ Failed to pre-sync group messages:', error);
+        return 0;
+      }
+    },
+    enabled: !!user?.username,
+    staleTime: Infinity, // Only run once per session
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+}
+
+/**
  * Hook to discover and fetch all groups the user is a member of
  * Combines blockchain discovery with local cache
  * Supports query cancellation via signal to prevent stale state
+ * @param preSyncComplete - Only run after pre-sync completes to ensure messages are cached first
  */
-export function useGroupDiscovery() {
+export function useGroupDiscovery(preSyncComplete: boolean = true) {
   const { user } = useAuth();
 
   return useQuery({
@@ -222,7 +370,7 @@ export function useGroupDiscovery() {
         return cachedGroups;
       }
     },
-    enabled: !!user?.username,
+    enabled: !!user?.username && preSyncComplete,
     staleTime: 30000, // 30 seconds
     refetchInterval: 60000, // Refetch every minute
   });

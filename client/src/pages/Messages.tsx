@@ -36,7 +36,7 @@ import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shar
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
-import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
+import { useGroupDiscovery, useGroupMessages, useGroupMessagePreSync } from '@/hooks/useGroupMessages';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
@@ -129,7 +129,12 @@ export default function Messages() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const { data: conversationCaches = [], isLoading: isLoadingConversations, isFetching: isFetchingConversations } = useConversationDiscovery();
-  const { data: groupCaches = [], isLoading: isLoadingGroups, isFetching: isFetchingGroups } = useGroupDiscovery();
+  
+  // Pre-sync group messages before discovery (solves chicken-and-egg problem)
+  const { data: preSyncCount, isLoading: isPreSyncing, isSuccess: preSyncComplete } = useGroupMessagePreSync();
+  
+  // Only run group discovery after pre-sync completes
+  const { data: groupCaches = [], isLoading: isLoadingGroups, isFetching: isFetchingGroups } = useGroupDiscovery(preSyncComplete);
   
   // PHASE 4.1: Hook now returns { messages, hiddenCount }
   const { data: messageData, isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({
@@ -261,6 +266,14 @@ export default function Messages() {
       logger.error('[INIT] ❌ CRITICAL: Failed to import messageCache module:', importError);
     });
   }, [user?.username, queryClient]);
+
+  // Invalidate group discovery after pre-sync completes to show newly cached groups
+  useEffect(() => {
+    if (preSyncComplete && preSyncCount !== undefined && preSyncCount > 0) {
+      logger.info('[GROUP PRESYNC] ✅ Pre-sync completed with', preSyncCount, 'messages, invalidating group discovery');
+      queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user?.username] });
+    }
+  }, [preSyncComplete, preSyncCount, user?.username, queryClient]);
 
   useEffect(() => {
     if (isFetchingConversations || isFetchingMessages) {
