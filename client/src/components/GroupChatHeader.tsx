@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2 } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 interface GroupChatHeaderProps {
   groupName: string;
   members: string[];
+  onManageMembers?: () => void;
   onDeleteLocalData?: () => void;
   onBackClick?: () => void;
 }
@@ -25,6 +26,7 @@ interface GroupChatHeaderProps {
 export function GroupChatHeader({ 
   groupName,
   members,
+  onManageMembers,
   onDeleteLocalData,
   onBackClick
 }: GroupChatHeaderProps) {
@@ -113,6 +115,15 @@ export function GroupChatHeader({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            {onManageMembers && (
+              <DropdownMenuItem 
+                onClick={onManageMembers} 
+                data-testid="menu-manage-members"
+              >
+                <UserCog className="w-4 h-4 mr-2" />
+                Manage Members
+              </DropdownMenuItem>
+            )}
             {onDeleteLocalData && (
               <DropdownMenuItem 
                 onClick={onDeleteLocalData} 
