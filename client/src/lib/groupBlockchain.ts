@@ -184,6 +184,11 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
     for (const [, operation] of history) {
       try {
+        // Safely access operation data with null check
+        if (!operation || !operation[1] || !operation[1].op) {
+          continue;
+        }
+        
         const op = operation[1].op;
         
         // Ensure it's a custom_json operation with our ID
