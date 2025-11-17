@@ -777,6 +777,15 @@ export async function getGroupMessages(groupId: string, username?: string): Prom
   );
 }
 
+export async function getAllGroupMessages(username?: string): Promise<GroupMessageCache[]> {
+  const db = await getDB(username);
+  const messages = await db.getAll('groupMessages');
+  
+  return messages.sort((a, b) => 
+    new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+}
+
 export async function addOptimisticGroupMessage(
   groupId: string,
   sender: string,

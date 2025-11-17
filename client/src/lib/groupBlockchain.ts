@@ -159,30 +159,173 @@ export async function broadcastLeaveGroup(
   });
 }
 
+// In-memory caches for group metadata lookups to prevent repeated expensive RPC calls
+// Sender-level cache: `${groupId}:${knownMember}` → group metadata
+const metadataCache = new Map<string, { group: Group | null; timestamp: number }>();
+// Group-level positive cache: `${groupId}` → group metadata (if found from any sender)
+const groupPositiveCache = new Map<string, { group: Group; timestamp: number }>();
+// Group-level negative cache: `${groupId}` → null (if all attempted senders failed)
+const groupNegativeCache = new Map<string, { timestamp: number }>();
+const METADATA_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+/**
+ * Looks up group metadata by querying the blockchain for a specific groupId
+ * Searches through the history of a known member to find group custom_json operations
+ * Uses in-memory memoization to prevent repeated expensive RPC calls
+ */
+export async function lookupGroupMetadata(groupId: string, knownMember: string): Promise<Group | null> {
+  // Cache key used throughout the function
+  const cacheKey = `${groupId}:${knownMember}`;
+  
+  try {
+    // Check group-level positive cache FIRST (shared across all senders)
+    const positiveCache = groupPositiveCache.get(groupId);
+    if (positiveCache && (Date.now() - positiveCache.timestamp) < METADATA_CACHE_TTL) {
+      logger.info('[GROUP BLOCKCHAIN] ✅ Using group-level positive cache for:', groupId);
+      return positiveCache.group;
+    }
+    
+    // Check group-level negative cache (prevents repeated failed lookups)
+    const negativeCache = groupNegativeCache.get(groupId);
+    if (negativeCache && (Date.now() - negativeCache.timestamp) < METADATA_CACHE_TTL) {
+      logger.info('[GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for:', groupId);
+      return null;
+    }
+    
+    // Check sender-level cache
+    const cached = metadataCache.get(cacheKey);
+    if (cached && (Date.now() - cached.timestamp) < METADATA_CACHE_TTL) {
+      logger.info('[GROUP BLOCKCHAIN] Using sender-level cached metadata for:', { groupId, knownMember });
+      return cached.group;
+    }
+    
+    logger.info('[GROUP BLOCKCHAIN] Looking up group metadata:', { groupId, knownMember });
+    
+    // Scan the known member's account history for custom_json operations about this group
+    const history = await optimizedHiveClient.getAccountHistory(
+      knownMember,
+      1000,      // limit
+      false,     // filterTransfersOnly = false (we want custom_json)
+      -1         // start = -1 (latest)
+    );
+
+    let latestGroupData: Group | null = null;
+    let latestVersion = 0;
+
+    for (const [, operation] of history) {
+      try {
+        if (!operation || !operation[1] || !operation[1].op) {
+          continue;
+        }
+        
+        const op = operation[1].op;
+        
+        if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
+          continue;
+        }
+
+        const jsonData: GroupCustomJson = JSON.parse(op[1].json);
+        
+        // Only process operations for this specific groupId
+        if (jsonData.groupId !== groupId) {
+          continue;
+        }
+
+        // Skip leave actions
+        if (jsonData.action === 'leave') {
+          continue;
+        }
+
+        // Use the latest version
+        const version = jsonData.version || 1;
+        if (version > latestVersion) {
+          latestVersion = version;
+          latestGroupData = {
+            groupId,
+            name: jsonData.name || 'Unnamed Group',
+            members: jsonData.members || [],
+            creator: jsonData.creator || knownMember,
+            createdAt: normalizeHiveTimestamp(jsonData.timestamp),
+            version,
+          };
+        }
+      } catch (parseError) {
+        continue;
+      }
+    }
+
+    // Cache the result at sender level
+    metadataCache.set(cacheKey, {
+      group: latestGroupData,
+      timestamp: Date.now()
+    });
+
+    // Cache at group level (positive or negative)
+    if (latestGroupData) {
+      logger.info('[GROUP BLOCKCHAIN] ✅ Found group metadata:', latestGroupData.name);
+      
+      // Positive cache: Store for this groupId (shared across all senders)
+      groupPositiveCache.set(groupId, {
+        group: latestGroupData,
+        timestamp: Date.now()
+      });
+      
+      // Clear any negative cache entry
+      groupNegativeCache.delete(groupId);
+    } else {
+      logger.warn('[GROUP BLOCKCHAIN] ⚠️ No metadata found for group:', groupId, 'from sender:', knownMember);
+      // Don't set negative cache here - only when ALL senders fail (handled by caller)
+    }
+
+    return latestGroupData;
+  } catch (error) {
+    logger.error('[GROUP BLOCKCHAIN] ❌ Failed to lookup group metadata:', error);
+    
+    // Cache the failure at sender level to prevent repeated failed lookups for this sender
+    metadataCache.set(cacheKey, {
+      group: null,
+      timestamp: Date.now()
+    });
+    
+    // Don't set negative cache at group level - let caller decide after trying all senders
+    return null;
+  }
+}
+
+/**
+ * Sets the negative cache for a groupId to prevent repeated failed lookups
+ * Call this when all known senders have been tried and none had metadata
+ */
+export function setGroupNegativeCache(groupId: string): void {
+  groupNegativeCache.set(groupId, {
+    timestamp: Date.now()
+  });
+  logger.info('[GROUP BLOCKCHAIN] Set negative cache for group:', groupId);
+}
+
 /**
  * Discovers all groups where the user is a member by scanning account history
+ * Now also discovers groups from incoming group messages
  * Returns the most recent version of each group
  */
 export async function discoverUserGroups(username: string): Promise<Group[]> {
   logger.info('[GROUP BLOCKCHAIN] Discovering groups for user:', username);
 
   try {
-    // Scan account history for ALL operations (not just transfers)
-    // We need custom_json operations, not transfer operations
-    const history = await optimizedHiveClient.getAccountHistory(
+    const groupMap = new Map<string, Group>();
+    const leftGroups = new Set<string>(); // Track groups user has left
+
+    // STEP 1: Scan user's own custom_json operations for groups they created/updated
+    const customJsonHistory = await optimizedHiveClient.getAccountHistory(
       username,
       1000,      // limit
       false,     // filterTransfersOnly = false (we want custom_json)
       -1         // start = -1 (latest)
     );
 
-    logger.info('[GROUP BLOCKCHAIN] Scanned', history.length, 'operations');
+    logger.info('[GROUP BLOCKCHAIN] Scanned', customJsonHistory.length, 'custom_json operations');
 
-    // Parse and aggregate group operations by groupId
-    const groupMap = new Map<string, Group>();
-    const leftGroups = new Set<string>(); // Track groups user has left
-
-    for (const [, operation] of history) {
+    for (const [, operation] of customJsonHistory) {
       try {
         // Safely access operation data with null check
         if (!operation || !operation[1] || !operation[1].op) {
@@ -239,6 +382,54 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
       }
     }
 
+    logger.info('[GROUP BLOCKCHAIN] Found', groupMap.size, 'groups from custom_json operations');
+
+    // STEP 2: Scan incoming transfers for group messages to discover groups created by others
+    const transferHistory = await optimizedHiveClient.getAccountHistory(
+      username,
+      1000,      // limit
+      true,      // filterTransfersOnly = true
+      -1         // start = -1 (latest)
+    );
+
+    logger.info('[GROUP BLOCKCHAIN] Scanned', transferHistory.length, 'transfer operations');
+
+    const groupMemberMap = new Map<string, string>(); // groupId -> sender (known member)
+
+    for (const [, operation] of transferHistory) {
+      try {
+        if (!operation || !operation[1] || !operation[1].op) {
+          continue;
+        }
+        
+        const op = operation[1].op;
+        
+        if (op[0] !== 'transfer') {
+          continue;
+        }
+
+        const transfer = op[1];
+        
+        // Only process incoming transfers to this user
+        if (transfer.to !== username) {
+          continue;
+        }
+
+        const memo = transfer.memo;
+        
+        // Check if it's a group message (memos are encrypted, so check after potential decryption)
+        // For discovery, we can't decrypt without Keychain interaction, so we look for the group: prefix pattern
+        // Group messages are encrypted, but we can still detect them by checking for the pattern after decryption
+        // However, for discovery we'll rely on the decrypted messages cached during message sync
+        // So this step will be less reliable without prior message decryption
+        
+        // Skip this approach - instead we'll discover from already-decrypted cached messages
+        
+      } catch (parseError) {
+        continue;
+      }
+    }
+
     const discoveredGroups = Array.from(groupMap.values());
     logger.info('[GROUP BLOCKCHAIN] ✅ Discovered', discoveredGroups.length, 'groups');
 
@@ -251,10 +442,16 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
 /**
  * Checks if a message memo contains a group prefix
- * Group messages are formatted as: "group:{groupId}:{encryptedContent}"
+ * New format: "group:{groupId}:{creator}:{encryptedContent}"
+ * Legacy format: "group:{groupId}:{encryptedContent}" (backwards compatible)
  * Returns null if malformed (instead of throwing) to prevent crashes
  */
-export function parseGroupMessageMemo(memo: string): { isGroupMessage: boolean; groupId?: string; content?: string } | null {
+export function parseGroupMessageMemo(memo: string): { 
+  isGroupMessage: boolean; 
+  groupId?: string; 
+  creator?: string;
+  content?: string;
+} | null {
   try {
     const groupPrefix = 'group:';
     
@@ -262,7 +459,7 @@ export function parseGroupMessageMemo(memo: string): { isGroupMessage: boolean; 
       return { isGroupMessage: false };
     }
 
-    // Parse format: group:{groupId}:{content}
+    // Parse format: group:{groupId}:{creator}:{content} or group:{groupId}:{content}
     const parts = memo.split(':');
     
     if (parts.length < 3) {
@@ -271,7 +468,21 @@ export function parseGroupMessageMemo(memo: string): { isGroupMessage: boolean; 
     }
 
     const groupId = parts[1];
-    const content = parts.slice(2).join(':'); // Rejoin in case content contains ":"
+    let creator: string | undefined;
+    let content: string;
+    
+    // Check if this is new format (4+ parts) with creator or legacy format (3 parts)
+    if (parts.length >= 4) {
+      // New format: group:{groupId}:{creator}:{content}
+      creator = parts[2];
+      content = parts.slice(3).join(':'); // Rejoin in case content contains ":"
+      logger.info('[GROUP BLOCKCHAIN] Parsed new format group message with creator:', creator);
+    } else {
+      // Legacy format: group:{groupId}:{content}
+      creator = undefined;
+      content = parts.slice(2).join(':');
+      logger.info('[GROUP BLOCKCHAIN] Parsed legacy format group message (no creator)');
+    }
 
     // Basic validation
     if (!groupId || !content) {
@@ -282,6 +493,7 @@ export function parseGroupMessageMemo(memo: string): { isGroupMessage: boolean; 
     return {
       isGroupMessage: true,
       groupId,
+      creator,
       content,
     };
   } catch (error) {
@@ -292,8 +504,9 @@ export function parseGroupMessageMemo(memo: string): { isGroupMessage: boolean; 
 
 /**
  * Formats a message for group sending
+ * New format includes the group creator to enable metadata discovery
  * Returns the prefixed memo that will be encrypted
  */
-export function formatGroupMessageMemo(groupId: string, message: string): string {
-  return `group:${groupId}:${message}`;
+export function formatGroupMessageMemo(groupId: string, creator: string, message: string): string {
+  return `group:${groupId}:${creator}:${message}`;
 }

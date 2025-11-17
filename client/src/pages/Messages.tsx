@@ -869,6 +869,7 @@ export default function Messages() {
             recipientUsername={selectedGroup ? undefined : selectedConversation.contactUsername}
             groupId={selectedGroup?.groupId}
             groupMembers={selectedGroup?.members}
+            groupCreator={selectedGroup?.creator}
             onMessageSent={handleMessageSent}
           />
         </>

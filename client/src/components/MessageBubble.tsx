@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils';
 import type { Message } from '@shared/schema';
 import { useAuth } from '@/contexts/AuthContext';
 import { decryptMemo } from '@/lib/hive';
-import { updateMessageContent } from '@/lib/messageCache';
+import { updateMessageContent, cacheGroupConversation, cacheGroupMessage, getAllGroupMessages, type GroupMessageCache } from '@/lib/messageCache';
+import { parseGroupMessageMemo, lookupGroupMetadata, setGroupNegativeCache } from '@/lib/groupBlockchain';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -109,9 +110,119 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp, isGr
       logger.sensitive('[MessageBubble] decryptMemo returned:', decrypted ? decrypted.substring(0, 50) + '...' : null);
 
       if (decrypted) {
-        logger.info('[DECRYPT] Updating cache with decrypted content, length:', decrypted.length);
-        await updateMessageContent(message.id, decrypted, user.username);
+        // Check if this is a group message FIRST (to strip prefix before caching)
+        const parsed = parseGroupMessageMemo(decrypted);
+        
+        // CRITICAL: Cache only the actual message content (strip group: prefix)
+        const contentToCache = (parsed && parsed.isGroupMessage && parsed.content) 
+          ? parsed.content 
+          : decrypted;
+        
+        logger.info('[DECRYPT] Updating cache with content (prefix stripped if group), length:', contentToCache.length);
+        await updateMessageContent(message.id, contentToCache, user.username);
         logger.info('[DECRYPT] Cache updated successfully');
+        
+        if (parsed && parsed.isGroupMessage && parsed.groupId) {
+          logger.info('[GROUP AUTO-DISCOVERY] Detected group message for groupId:', parsed.groupId);
+          
+          try {
+            let groupMetadata = null;
+            
+            // NEW: If memo includes creator, try that FIRST (most reliable)
+            if (parsed.creator) {
+              logger.info('[GROUP AUTO-DISCOVERY] Trying creator from memo:', parsed.creator);
+              groupMetadata = await lookupGroupMetadata(parsed.groupId, parsed.creator);
+              
+              if (groupMetadata) {
+                logger.info('[GROUP AUTO-DISCOVERY] ✅ Found metadata from creator in memo:', parsed.creator);
+              }
+            }
+            
+            // Fallback: If creator lookup failed or no creator in memo, try all known senders
+            if (!groupMetadata) {
+              const allGroupMessages = await getAllGroupMessages(user.username);
+              const sendersForGroup = new Set<string>();
+              sendersForGroup.add(message.sender); // Try current sender
+              
+              // Add other known senders from cache
+              for (const msg of allGroupMessages) {
+                if (msg.groupId === parsed.groupId) {
+                  sendersForGroup.add(msg.sender);
+                }
+              }
+              
+              logger.info('[GROUP AUTO-DISCOVERY] Trying', sendersForGroup.size, 'fallback senders');
+              
+              // Try each sender until we find metadata
+              for (const sender of sendersForGroup) {
+                groupMetadata = await lookupGroupMetadata(parsed.groupId, sender);
+                if (groupMetadata) {
+                  logger.info('[GROUP AUTO-DISCOVERY] ✅ Found metadata from fallback sender:', sender);
+                  break;
+                }
+              }
+              
+              // If all senders failed, set negative cache to prevent repeated attempts
+              if (!groupMetadata) {
+                logger.warn('[GROUP AUTO-DISCOVERY] ❌ All', sendersForGroup.size, 'senders failed for group:', parsed.groupId);
+                setGroupNegativeCache(parsed.groupId);
+              }
+            }
+            
+            if (groupMetadata) {
+              logger.info('[GROUP AUTO-DISCOVERY] ✅ Found group:', groupMetadata.name);
+              
+              // CRITICAL: Only cache if metadata lookup succeeded
+              // Cache the group conversation FIRST
+              await cacheGroupConversation({
+                groupId: groupMetadata.groupId,
+                name: groupMetadata.name,
+                members: groupMetadata.members,
+                creator: groupMetadata.creator,
+                createdAt: groupMetadata.createdAt,
+                version: groupMetadata.version,
+                lastMessage: parsed.content || '',
+                lastTimestamp: message.timestamp,
+                unreadCount: 0,
+                lastChecked: new Date().toISOString(),
+              }, user.username);
+              
+              // Then cache the group message (only after conversation exists)
+              const groupMessage: GroupMessageCache = {
+                id: message.id,
+                groupId: parsed.groupId,
+                sender: message.sender,
+                content: parsed.content || '',
+                encryptedContent: message.encryptedMemo,
+                timestamp: message.timestamp,
+                recipients: [user.username],
+                txIds: [message.id],
+                confirmed: true,
+                status: 'confirmed',
+              };
+              
+              await cacheGroupMessage(groupMessage, user.username);
+              
+              // Invalidate group conversations query to show the new group
+              queryClient.invalidateQueries({ 
+                queryKey: ['blockchain-group-conversations', user.username] 
+              });
+              
+              toast({
+                title: 'Group Discovered!',
+                description: `You've been added to "${groupMetadata.name}"`,
+              });
+              
+              logger.info('[GROUP AUTO-DISCOVERY] ✅ Group cached and UI updated');
+            } else {
+              logger.warn('[GROUP AUTO-DISCOVERY] ⚠️ Could not resolve group metadata for groupId:', parsed.groupId);
+              // Don't cache anything if metadata lookup failed - avoid pollution
+            }
+          } catch (groupError) {
+            logger.error('[GROUP AUTO-DISCOVERY] Failed to discover group:', groupError);
+            // Don't cache anything on error - avoid pollution and repeated failed lookups
+          }
+        }
         
         // Get partner username from message
         const partnerUsername = message.sender === user.username ? message.recipient : message.sender;

@@ -32,6 +32,7 @@ interface MessageComposerProps {
   onMessageSent?: () => void;
   groupId?: string;
   groupMembers?: string[];
+  groupCreator?: string; // Creator of the group (for metadata discovery)
 }
 
 // Memoized batch progress UI component to prevent unnecessary re-renders
@@ -68,7 +69,8 @@ export function MessageComposer({
   conversationId,
   onMessageSent,
   groupId,
-  groupMembers
+  groupMembers,
+  groupCreator
 }: MessageComposerProps) {
   const [content, setContent] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -357,12 +359,14 @@ export function MessageComposer({
     }
 
     try {
-      // Step 1: Generate tempId and format message with group prefix
+      // Step 1: Generate tempId and format message with group prefix (includes creator for discovery)
       const tempId = crypto.randomUUID();
-      const formattedMessage = formatGroupMessageMemo(groupId, messageText);
+      const creator = groupCreator || user.username; // Fallback to current user if creator unknown
+      const formattedMessage = formatGroupMessageMemo(groupId, creator, messageText);
       
       logger.info('[GROUP SEND] Starting batch send:', {
         groupId,
+        creator,
         memberCount: groupMembers.length,
         tempId,
       });

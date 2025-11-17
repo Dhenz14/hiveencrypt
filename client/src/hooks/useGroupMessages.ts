@@ -4,12 +4,13 @@ import { logger } from '@/lib/logger';
 import {
   getGroupConversations,
   getGroupMessages,
+  getAllGroupMessages,
   cacheGroupConversation,
   cacheGroupMessages,
   type GroupConversationCache,
   type GroupMessageCache,
 } from '@/lib/messageCache';
-import { discoverUserGroups, parseGroupMessageMemo } from '@/lib/groupBlockchain';
+import { discoverUserGroups, parseGroupMessageMemo, lookupGroupMetadata, setGroupNegativeCache } from '@/lib/groupBlockchain';
 import { hiveClient as optimizedHiveClient } from '@/lib/hiveClient';
 import { decryptMemo } from '@/lib/hive';
 import { useToast } from '@/hooks/use-toast';
@@ -56,12 +57,87 @@ export function useGroupDiscovery() {
         // Check if query was cancelled after cache read
         checkCancellation(signal, 'Group discovery after cache read');
 
-        // STEP 2: Discover groups from blockchain
+        // STEP 2: Discover groups from blockchain custom_json operations
         const blockchainGroups = await discoverUserGroups(user.username);
         logger.info('[GROUP DISCOVERY] Discovered', blockchainGroups.length, 'groups from blockchain');
 
         // Check if query was cancelled after blockchain fetch
         checkCancellation(signal, 'Group discovery after blockchain fetch');
+
+        // STEP 2.5: Discover groups from already-cached group messages
+        // This is critical for discovering groups created by others!
+        // We use cached messages to avoid triggering Keychain popups
+        logger.info('[GROUP DISCOVERY] Scanning cached group messages for new groups...');
+        
+        const cachedGroupMessages = await getAllGroupMessages(user.username);
+        logger.info('[GROUP DISCOVERY] Found', cachedGroupMessages.length, 'cached group messages');
+
+        checkCancellation(signal, 'Group discovery after cached message scan');
+
+        const discoveredGroupIds = new Set<string>();
+        const groupSendersMap = new Map<string, Set<string>>(); // groupId -> Set of all senders
+
+        // Extract unique groupIds and collect ALL senders per group
+        for (const message of cachedGroupMessages) {
+          const groupId = message.groupId;
+          const sender = message.sender;
+          
+          if (!discoveredGroupIds.has(groupId)) {
+            discoveredGroupIds.add(groupId);
+            groupSendersMap.set(groupId, new Set([sender]));
+          } else {
+            // Add this sender to the list of known senders for this group
+            const senders = groupSendersMap.get(groupId);
+            if (senders) {
+              senders.add(sender);
+            }
+          }
+          
+          logger.info('[GROUP DISCOVERY] Found cached group message for groupId:', groupId, 'from:', sender);
+        }
+
+        logger.info('[GROUP DISCOVERY] Found', discoveredGroupIds.size, 'unique groups from cached messages');
+
+        // Look up metadata for discovered groups
+        for (const groupId of Array.from(discoveredGroupIds)) {
+          checkCancellation(signal, `Group discovery looking up metadata for ${groupId}`);
+
+          // Skip if we already have this group from blockchain discovery
+          if (blockchainGroups.some(g => g.groupId === groupId)) {
+            continue;
+          }
+
+          const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
+          if (knownSenders.length === 0) continue;
+
+          logger.info('[GROUP DISCOVERY] Trying', knownSenders.length, 'known senders for group:', groupId);
+
+          // Try each known sender until we find the metadata
+          let groupMetadata = null;
+          for (const sender of knownSenders) {
+            try {
+              groupMetadata = await lookupGroupMetadata(groupId, sender);
+              
+              if (groupMetadata) {
+                logger.info('[GROUP DISCOVERY] ✅ Resolved group metadata from sender:', sender, 'group:', groupMetadata.name);
+                break; // Found it!
+              }
+            } catch (lookupError) {
+              logger.warn('[GROUP DISCOVERY] Failed to lookup from sender:', sender, lookupError);
+              // Try next sender
+            }
+          }
+
+          if (groupMetadata) {
+            blockchainGroups.push(groupMetadata);
+          } else {
+            logger.warn('[GROUP DISCOVERY] ⚠️ Could not resolve metadata for group:', groupId, 'tried', knownSenders.length, 'senders');
+            // Set negative cache to prevent repeated failed lookups
+            setGroupNegativeCache(groupId);
+          }
+        }
+
+        logger.info('[GROUP DISCOVERY] Total discovered groups (custom_json + transfers):', blockchainGroups.length);
 
         // STEP 3: Merge and update cache
         const groupMap = new Map<string, GroupConversationCache>();
