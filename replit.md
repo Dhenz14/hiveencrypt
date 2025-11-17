@@ -32,6 +32,11 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 - **Text Messaging**: End-to-end encrypted messages via memo transfers (0.001 HBD per message).
 - **Group Chats**: Decentralized group messaging with multiple participants.
   - **Group Creation**: Create named groups with 2+ members via custom_json operations (free, no HBD cost).
+  - **Member Management**: Post-creation ability to add/remove members via ManageMembersModal with blockchain sync.
+    - **Version Tracking**: Group updates increment version numbers to maintain state consistency.
+    - **Creator Protection**: Group creators cannot be removed from their groups.
+    - **Validation**: Prevents duplicate members and enforces minimum 2-member requirement.
+    - **UI Features**: Two-column interface showing current members and add-member input with real-time validation.
   - **Batch Messaging**: Send encrypted messages to all group members individually (N separate memo transfers).
   - **Progress Tracking**: Real-time UI showing "Sending to X members..." with progress bar during batch sends.
   - **Sender Attribution**: Group messages display sender usernames for proper conversation flow.
