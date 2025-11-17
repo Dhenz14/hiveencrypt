@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, Plus, X, AlertCircle, Crown } from 'lucide-react';
+import { Users, Plus, X, AlertCircle, Crown, Loader2 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { getHiveMemoKey } from '@/lib/hive';
 
 interface ManageMembersModalProps {
   open: boolean;
@@ -38,6 +39,7 @@ export function ManageMembersModal({
   const [newMemberInput, setNewMemberInput] = useState('');
   const [members, setMembers] = useState<string[]>(currentMembers);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Reset members when modal opens with fresh data
@@ -75,7 +77,7 @@ export function ManageMembersModal({
     return null;
   };
 
-  const handleAddMember = () => {
+  const handleAddMember = async () => {
     const validationError = validateUsername(newMemberInput);
     
     if (validationError) {
@@ -84,9 +86,30 @@ export function ManageMembersModal({
     }
 
     const cleanUsername = newMemberInput.toLowerCase().trim().replace('@', '');
-    setMembers([...members, cleanUsername]);
-    setNewMemberInput('');
+    
+    // Validate username exists on Hive blockchain
+    setIsValidating(true);
     setError(null);
+    
+    try {
+      const memoKey = await getHiveMemoKey(cleanUsername);
+      
+      if (!memoKey) {
+        setError(`User @${cleanUsername} not found on Hive blockchain`);
+        setIsValidating(false);
+        return;
+      }
+      
+      // Username exists, add to members
+      setMembers([...members, cleanUsername]);
+      setNewMemberInput('');
+      setError(null);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to verify username';
+      setError(errorMessage);
+    } finally {
+      setIsValidating(false);
+    }
   };
 
   const handleRemoveMember = (username: string) => {
@@ -196,7 +219,7 @@ export function ManageMembersModal({
                   setError(null);
                 }}
                 onKeyPress={handleKeyPress}
-                disabled={isUpdating}
+                disabled={isUpdating || isValidating}
                 className="h-11 flex-1"
                 autoComplete="off"
                 data-testid="input-add-member"
@@ -206,15 +229,19 @@ export function ManageMembersModal({
                 variant="outline"
                 size="icon"
                 onClick={handleAddMember}
-                disabled={!newMemberInput.trim() || isUpdating}
+                disabled={!newMemberInput.trim() || isUpdating || isValidating}
                 className="h-11 w-11"
                 data-testid="button-add-member"
               >
-                <Plus className="w-4 h-4" />
+                {isValidating ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Plus className="w-4 h-4" />
+                )}
               </Button>
             </div>
             <p className="text-caption text-muted-foreground">
-              Press Enter or click + to add a member
+              {isValidating ? 'Verifying username on Hive blockchain...' : 'Press Enter or click + to add a member'}
             </p>
           </div>
 
