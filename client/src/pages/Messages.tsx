@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { ConversationsList } from '@/components/ConversationsList';
 import { ChatHeader } from '@/components/ChatHeader';
+import { GroupChatHeader } from '@/components/GroupChatHeader';
 import { MessageBubble, SystemMessage } from '@/components/MessageBubble';
 import { MessageComposer } from '@/components/MessageComposer';
 import { NewMessageModal } from '@/components/NewMessageModal';
@@ -35,7 +36,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
 import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
-import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, cacheGroupConversation } from '@/lib/messageCache';
+import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
 import { generateGroupId, broadcastGroupCreation } from '@/lib/groupBlockchain';
@@ -485,22 +486,62 @@ export default function Messages() {
   };
 
   const handleConfirmDelete = async () => {
-    if (!user?.username || !selectedPartner) return;
+    if (!user?.username) return;
     
     try {
-      logger.info('[DELETE] Deleting conversation with:', selectedPartner);
-      await deleteConversation(user.username, selectedPartner);
-      
-      // Invalidate queries to refresh the UI with correct query keys
-      await queryClient.invalidateQueries({ queryKey: ['blockchain-messages', user.username, selectedPartner] });
-      await queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user.username] });
-      
-      toast({
-        title: 'Local data deleted',
-        description: `Conversation with @${selectedPartner} has been removed from local storage. Messages will need to be decrypted again.`,
-      });
-      
-      setIsDeleteDialogOpen(false);
+      if (selectedGroupId) {
+        // Capture group name before clearing selection
+        const groupName = selectedGroup?.name || 'Unknown Group';
+        
+        // Delete group conversation
+        logger.info('[DELETE] Deleting group conversation:', selectedGroupId);
+        await deleteGroupConversation(selectedGroupId, user.username);
+        
+        // Invalidate queries to refresh the UI
+        await queryClient.invalidateQueries({ queryKey: ['blockchain-group-messages', user.username, selectedGroupId] });
+        await queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user.username] });
+        
+        // Show toast before clearing selection
+        toast({
+          title: 'Local data deleted',
+          description: `Group chat "${groupName}" has been removed from local storage. Messages will need to be decrypted again.`,
+        });
+        
+        // Close dialog first
+        setIsDeleteDialogOpen(false);
+        
+        // Clear selection and go back to conversation list
+        setSelectedGroupId('');
+        if (isMobile) {
+          setShowChat(false);
+        }
+      } else if (selectedPartner) {
+        // Capture username before clearing selection
+        const username = selectedPartner;
+        
+        // Delete 1-to-1 conversation
+        logger.info('[DELETE] Deleting conversation with:', username);
+        await deleteConversation(user.username, username);
+        
+        // Invalidate queries to refresh the UI
+        await queryClient.invalidateQueries({ queryKey: ['blockchain-messages', user.username, username] });
+        await queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user.username] });
+        
+        // Show toast before clearing selection
+        toast({
+          title: 'Local data deleted',
+          description: `Conversation with @${username} has been removed from local storage. Messages will need to be decrypted again.`,
+        });
+        
+        // Close dialog first
+        setIsDeleteDialogOpen(false);
+        
+        // Clear selection and go back to conversation list
+        setSelectedPartner('');
+        if (isMobile) {
+          setShowChat(false);
+        }
+      }
     } catch (error) {
       console.error('[DELETE] Failed to delete conversation:', error);
       toast({
@@ -613,15 +654,24 @@ export default function Messages() {
         )
       ) : (
         <>
-          <ChatHeader
-            contactUsername={selectedConversation.contactUsername}
-            isEncrypted={selectedConversation.isEncrypted}
-            onViewProfile={handleViewProfile}
-            onViewBlockchain={handleViewBlockchain}
-            onDeleteLocalData={handleDeleteLocalData}
-            onHideChat={handleHideChat}
-            onBackClick={isMobile ? () => setShowChat(false) : undefined}
-          />
+          {selectedGroup ? (
+            <GroupChatHeader
+              groupName={selectedGroup.name}
+              members={selectedGroup.members}
+              onDeleteLocalData={handleDeleteLocalData}
+              onBackClick={isMobile ? () => setShowChat(false) : undefined}
+            />
+          ) : (
+            <ChatHeader
+              contactUsername={selectedConversation.contactUsername}
+              isEncrypted={selectedConversation.isEncrypted}
+              onViewProfile={handleViewProfile}
+              onViewBlockchain={handleViewBlockchain}
+              onDeleteLocalData={handleDeleteLocalData}
+              onHideChat={handleHideChat}
+              onBackClick={isMobile ? () => setShowChat(false) : undefined}
+            />
+          )}
 
           {/* PHASE 4.3: Hidden Message Banner with Accessibility */}
           {hiddenCount > 0 && (
@@ -808,9 +858,11 @@ export default function Messages() {
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent data-testid="dialog-delete-conversation">
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Conversation Data?</AlertDialogTitle>
+            <AlertDialogTitle>Delete {selectedGroupId ? 'Group' : 'Conversation'} Data?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will remove all locally stored messages with @{selectedPartner} from your device. 
+              This will remove all locally stored messages {selectedGroupId 
+                ? `for "${selectedGroup?.name}"` 
+                : `with @${selectedPartner}`} from your device. 
               Messages will be re-encrypted and require decryption again. 
               <br /><br />
               <strong>This does NOT delete messages from the blockchain.</strong> They remain permanently stored and can be decrypted again anytime.
