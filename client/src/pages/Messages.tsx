@@ -23,6 +23,7 @@ import { MessageBubble, SystemMessage } from '@/components/MessageBubble';
 import { MessageComposer } from '@/components/MessageComposer';
 import { NewMessageModal } from '@/components/NewMessageModal';
 import { GroupCreationModal } from '@/components/GroupCreationModal';
+import { ManageMembersModal } from '@/components/ManageMembersModal';
 import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { HiddenChatsModal } from '@/components/HiddenChatsModal';
@@ -39,7 +40,7 @@ import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
-import { generateGroupId, broadcastGroupCreation } from '@/lib/groupBlockchain';
+import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate } from '@/lib/groupBlockchain';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/logger';
@@ -89,6 +90,7 @@ export default function Messages() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
   const [isGroupCreationOpen, setIsGroupCreationOpen] = useState(false);
+  const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -424,6 +426,90 @@ export default function Messages() {
     }
   };
 
+  const handleManageMembers = () => {
+    setIsManageMembersOpen(true);
+  };
+
+  const handleUpdateMembers = async (newMembers: string[]) => {
+    try {
+      if (!user?.username || !selectedGroup) {
+        throw new Error('No group selected');
+      }
+
+      const added = newMembers.filter(m => !selectedGroup.members.includes(m));
+      const removed = selectedGroup.members.filter(m => !newMembers.includes(m));
+
+      logger.info('[GROUP UPDATE] Updating group members:', { 
+        groupId: selectedGroup.groupId, 
+        added, 
+        removed 
+      });
+
+      // Increment version number
+      const newVersion = selectedGroup.version + 1;
+
+      // Broadcast group update to blockchain (free - custom_json)
+      await broadcastGroupUpdate(
+        user.username,
+        selectedGroup.groupId,
+        selectedGroup.name,
+        newMembers,
+        newVersion
+      );
+
+      // Update group cache entry
+      const updatedGroupCache: GroupConversationCache = {
+        ...selectedGroup,
+        members: newMembers,
+        version: newVersion,
+      };
+
+      // Save to IndexedDB
+      await cacheGroupConversation(updatedGroupCache, user.username);
+
+      // Update query cache
+      queryClient.setQueryData(
+        ['blockchain-group-conversations', user.username],
+        (oldData: GroupConversationCache[] | undefined) => {
+          if (!oldData) return [updatedGroupCache];
+          return oldData.map(g => 
+            g.groupId === selectedGroup.groupId ? updatedGroupCache : g
+          );
+        }
+      );
+
+      // Close modal
+      setIsManageMembersOpen(false);
+
+      // Build description message
+      const changes: string[] = [];
+      if (added.length > 0) {
+        changes.push(`Added: ${added.map(m => `@${m}`).join(', ')}`);
+      }
+      if (removed.length > 0) {
+        changes.push(`Removed: ${removed.map(m => `@${m}`).join(', ')}`);
+      }
+
+      toast({
+        title: 'Group Updated',
+        description: changes.join('. '),
+      });
+
+      logger.info('[GROUP UPDATE] ✅ Group updated successfully:', selectedGroup.groupId);
+    } catch (error) {
+      logger.error('[GROUP UPDATE] ❌ Failed to update group:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to update group members';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        variant: 'destructive',
+      });
+      
+      throw error;
+    }
+  };
+
   const handleMessageSent = async () => {
     // Force immediate refetch to show the sent message instantly
     await queryClient.invalidateQueries({ 
@@ -658,6 +744,7 @@ export default function Messages() {
             <GroupChatHeader
               groupName={selectedGroup.name}
               members={selectedGroup.members}
+              onManageMembers={handleManageMembers}
               onDeleteLocalData={handleDeleteLocalData}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
@@ -838,6 +925,18 @@ export default function Messages() {
         onCreateGroup={handleCreateGroup}
         currentUsername={user?.username}
       />
+
+      {selectedGroup && (
+        <ManageMembersModal
+          open={isManageMembersOpen}
+          onOpenChange={setIsManageMembersOpen}
+          groupName={selectedGroup.name}
+          currentMembers={selectedGroup.members}
+          creator={selectedGroup.creator}
+          currentUsername={user?.username}
+          onUpdateMembers={handleUpdateMembers}
+        />
+      )}
 
       <ProfileDrawer
         open={isProfileOpen}
