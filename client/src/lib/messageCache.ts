@@ -738,8 +738,24 @@ export async function getGroupConversation(groupId: string, username?: string): 
 
 export async function cacheGroupMessage(message: GroupMessageCache, username?: string): Promise<void> {
   const db = await getDB(username);
-  await db.put('groupMessages', message);
-  console.log('[GROUP CACHE] Cached group message:', message.id);
+  console.log('[GROUP CACHE] Attempting to cache group message:', {
+    id: message.id,
+    idType: typeof message.id,
+    idLength: message.id?.length,
+    groupId: message.groupId,
+    sender: message.sender,
+    recipientsCount: message.recipients?.length,
+    messageKeys: Object.keys(message)
+  });
+  
+  try {
+    await db.put('groupMessages', message);
+    console.log('[GROUP CACHE] ✅ Cached group message:', message.id);
+  } catch (error) {
+    console.error('[GROUP CACHE] ❌ Failed to cache group message:', error);
+    console.error('[GROUP CACHE] Message object:', JSON.stringify(message, null, 2));
+    throw error;
+  }
 }
 
 export async function cacheGroupMessages(messages: GroupMessageCache[], username?: string): Promise<void> {
