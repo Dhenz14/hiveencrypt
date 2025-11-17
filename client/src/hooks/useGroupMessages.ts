@@ -76,8 +76,9 @@ export function useGroupDiscovery() {
 
         const discoveredGroupIds = new Set<string>();
         const groupSendersMap = new Map<string, Set<string>>(); // groupId -> Set of all senders
+        const groupCreatorMap = new Map<string, string>(); // groupId -> creator (from cached messages)
 
-        // Extract unique groupIds and collect ALL senders per group
+        // Extract unique groupIds and collect ALL senders + creators per group
         for (const message of cachedGroupMessages) {
           const groupId = message.groupId;
           const sender = message.sender;
@@ -91,6 +92,12 @@ export function useGroupDiscovery() {
             if (senders) {
               senders.add(sender);
             }
+          }
+          
+          // CRITICAL: Store creator if available (for direct metadata lookup)
+          if (message.creator && !groupCreatorMap.has(groupId)) {
+            groupCreatorMap.set(groupId, message.creator);
+            logger.info('[GROUP DISCOVERY] Found creator from cached message:', message.creator, 'for group:', groupId);
           }
           
           logger.info('[GROUP DISCOVERY] Found cached group message for groupId:', groupId, 'from:', sender);
@@ -107,31 +114,53 @@ export function useGroupDiscovery() {
             continue;
           }
 
-          const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
-          if (knownSenders.length === 0) continue;
-
-          logger.info('[GROUP DISCOVERY] Trying', knownSenders.length, 'known senders for group:', groupId);
-
-          // Try each known sender until we find the metadata
           let groupMetadata = null;
-          for (const sender of knownSenders) {
+          
+          // PRIORITY 1: Try creator from cached messages FIRST (most reliable)
+          const cachedCreator = groupCreatorMap.get(groupId);
+          if (cachedCreator) {
+            logger.info('[GROUP DISCOVERY] Trying cached creator for group:', groupId, 'creator:', cachedCreator);
             try {
-              groupMetadata = await lookupGroupMetadata(groupId, sender);
-              
+              groupMetadata = await lookupGroupMetadata(groupId, cachedCreator);
               if (groupMetadata) {
-                logger.info('[GROUP DISCOVERY] ✅ Resolved group metadata from sender:', sender, 'group:', groupMetadata.name);
-                break; // Found it!
+                logger.info('[GROUP DISCOVERY] ✅ Resolved group metadata from cached creator:', cachedCreator, 'group:', groupMetadata.name);
               }
             } catch (lookupError) {
-              logger.warn('[GROUP DISCOVERY] Failed to lookup from sender:', sender, lookupError);
-              // Try next sender
+              logger.warn('[GROUP DISCOVERY] Failed to lookup from cached creator:', cachedCreator, lookupError);
+            }
+          }
+          
+          // PRIORITY 2: Fallback to trying all known senders
+          if (!groupMetadata) {
+            const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
+            if (knownSenders.length === 0) continue;
+
+            logger.info('[GROUP DISCOVERY] Trying', knownSenders.length, 'fallback senders for group:', groupId);
+
+            for (const sender of knownSenders) {
+              try {
+                groupMetadata = await lookupGroupMetadata(groupId, sender);
+                
+                if (groupMetadata) {
+                  logger.info('[GROUP DISCOVERY] ✅ Resolved group metadata from fallback sender:', sender, 'group:', groupMetadata.name);
+                  break; // Found it!
+                }
+              } catch (lookupError) {
+                logger.warn('[GROUP DISCOVERY] Failed to lookup from fallback sender:', sender, lookupError);
+                // Try next sender
+              }
             }
           }
 
           if (groupMetadata) {
             blockchainGroups.push(groupMetadata);
           } else {
-            logger.warn('[GROUP DISCOVERY] ⚠️ Could not resolve metadata for group:', groupId, 'tried', knownSenders.length, 'senders');
+            const attemptedMethods = [];
+            if (cachedCreator) attemptedMethods.push(`creator: ${cachedCreator}`);
+            const senderCount = groupSendersMap.get(groupId)?.size || 0;
+            if (senderCount > 0) attemptedMethods.push(`${senderCount} senders`);
+            
+            logger.warn('[GROUP DISCOVERY] ⚠️ Could not resolve metadata for group:', groupId, 'tried:', attemptedMethods.join(', '));
             // Set negative cache to prevent repeated failed lookups
             setGroupNegativeCache(groupId);
           }
@@ -310,6 +339,7 @@ export function useGroupMessages(groupId?: string) {
               id: txId,
               groupId: parsed.groupId,
               sender: transfer.from,
+              creator: parsed.creator, // Store creator for group discovery
               content: parsed.content || '',
               encryptedContent: memo,
               timestamp: operation[1].timestamp + 'Z', // Normalize to UTC
@@ -513,6 +543,7 @@ export function useGroupMessages(groupId?: string) {
                   id: txId,
                   groupId: parsed.groupId,
                   sender: transfer.from,
+                  creator: parsed.creator, // Store creator for group discovery
                   content: parsed.content || '',
                   encryptedContent: memo,
                   timestamp: operation.timestamp + 'Z', // Normalize to UTC

@@ -192,6 +192,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp, isGr
                 id: message.id,
                 groupId: parsed.groupId,
                 sender: message.sender,
+                creator: parsed.creator, // Store creator for group discovery
                 content: parsed.content || '',
                 encryptedContent: message.encryptedMemo,
                 timestamp: message.timestamp,

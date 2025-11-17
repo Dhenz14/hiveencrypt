@@ -72,6 +72,7 @@ interface GroupMessageCache {
   id: string;                      // Primary key (txId or tempId)
   groupId: string;                 // References GroupConversationCache.groupId
   sender: string;                  // Username who sent message
+  creator?: string;                // Group creator (for metadata discovery)
   content: string;                 // Decrypted content
   encryptedContent: string;        // Original encrypted memo
   timestamp: string;               // ISO timestamp
