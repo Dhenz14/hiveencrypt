@@ -1003,14 +1003,16 @@ export async function migrateGroupMessages(username: string): Promise<number> {
   
   // Debug: Log all message content to see what we're dealing with
   allMessages.forEach((msg, idx) => {
-    console.log(`[MIGRATION DEBUG] Message ${idx}:`, {
-      id: msg.id.substring(0, 20),
-      from: msg.from,
-      contentPreview: msg.content?.substring(0, 60) || 'null',
-      encryptedPreview: msg.encryptedContent?.substring(0, 60) || 'null',
-      contentStartsWithGroup: msg.content?.trim().startsWith('group:') || msg.content?.trim().startsWith('#group:'),
-      encryptedStartsWithGroup: msg.encryptedContent?.trim().startsWith('group:') || msg.encryptedContent?.trim().startsWith('#group:')
-    });
+    const contentPreview = msg.content?.substring(0, 80) || 'null';
+    const encryptedPreview = msg.encryptedContent?.substring(0, 80) || 'null';
+    const contentTrimmed = msg.content?.trim() || '';
+    const encryptedTrimmed = msg.encryptedContent?.trim() || '';
+    
+    console.log(`[MIGRATION DEBUG ${idx}] ID: ${msg.id.substring(0, 20)} FROM: ${msg.from}`);
+    console.log(`[MIGRATION DEBUG ${idx}] Content: "${contentPreview}"`);
+    console.log(`[MIGRATION DEBUG ${idx}] Encrypted: "${encryptedPreview}"`);
+    console.log(`[MIGRATION DEBUG ${idx}] Content starts with group?: ${contentTrimmed.startsWith('group:') || contentTrimmed.startsWith('#group:')}`);
+    console.log(`[MIGRATION DEBUG ${idx}] Encrypted starts with group?: ${encryptedTrimmed.startsWith('group:') || encryptedTrimmed.startsWith('#group:')}`);
   });
   
   let migratedCount = 0;

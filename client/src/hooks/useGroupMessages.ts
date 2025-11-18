@@ -20,6 +20,7 @@ import {
   getMaxBackfill,
   shouldShowBackfillWarning,
 } from '@/lib/groupSyncState';
+import type { Group } from '@shared/schema';
 
 /**
  * Helper to check if query was cancelled and throw appropriate error
@@ -330,7 +331,23 @@ export function useGroupDiscovery() {
             if (senderCount > 0) attemptedMethods.push(`${senderCount} senders`);
             
             logger.warn('[GROUP DISCOVERY] ⚠️ Could not resolve metadata for group:', groupId, 'tried:', attemptedMethods.join(', '));
-            // Set negative cache to prevent repeated failed lookups
+            
+            // FALLBACK: Create a minimal group entry even without full metadata
+            // This ensures the group is still visible and usable, just without the full member list
+            const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
+            const fallbackGroup: Group = {
+              groupId,
+              name: `Group (${groupId.substring(0, 8)}...)`, // Use first 8 chars of groupId as name
+              members: [user.username, ...knownSenders], // Include user and all known senders
+              creator: cachedCreator || knownSenders[0] || user.username,
+              createdAt: new Date().toISOString(), // Use current time as fallback
+              version: 1,
+            };
+            
+            logger.info('[GROUP DISCOVERY] ✅ Created fallback group entry:', fallbackGroup.name, 'with', fallbackGroup.members.length, 'members');
+            blockchainGroups.push(fallbackGroup);
+            
+            // Set negative cache to prevent repeated blockchain lookups
             setGroupNegativeCache(groupId);
           }
         }
