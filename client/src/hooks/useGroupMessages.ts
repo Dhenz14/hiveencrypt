@@ -680,7 +680,12 @@ export function useGroupMessages(groupId?: string) {
               }
               
               // Update oldestSeqNum for the next iteration
+              // Defensive: Validate Math.min result to catch edge cases
               const chunkOldest = Math.min(...olderHistory.map(([idx]) => idx));
+              if (!Number.isFinite(chunkOldest)) {
+                logger.error('[GROUP MESSAGES] Invalid sequence number from chunk, stopping backfill');
+                break;
+              }
               oldestSeqNum = chunkOldest;
               totalChunksScanned++;
               totalOpsScanned += olderHistory.length;

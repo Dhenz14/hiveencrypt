@@ -346,6 +346,11 @@ class HiveBlockchainClient {
           case 'all':
             // No filtering, get all operations
             return await this.client.database.getAccountHistory(username, start, limit);
+          default:
+            // This should never happen due to TypeScript typing, but handle it anyway
+            logger.error('[RPC] Invalid operation filter:', filter, '- falling back to transfers only');
+            operationFilterLow = OPERATION_FILTERS.TRANSFER;
+            break;
         }
 
         // Use filtered query
