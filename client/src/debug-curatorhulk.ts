@@ -27,7 +27,7 @@ export async function debugCuratorhulk() {
     const history = await hiveClient.getAccountHistory(
       username,
       50, // Just check last 50 for now
-      true, // filterTransfersOnly
+      'transfers', // filter only transfer operations
       -1
     );
     

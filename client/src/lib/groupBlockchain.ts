@@ -209,7 +209,7 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
     const history = await optimizedHiveClient.getAccountHistory(
       knownMember,
       1000,      // limit (Hive's max per request)
-      false,     // filterTransfersOnly = false (we want custom_json)
+      'custom_json',  // filter only custom_json operations (10-100x faster than unfiltered)
       -1         // start = -1 (latest)
     );
 
@@ -324,7 +324,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     const customJsonHistory = await optimizedHiveClient.getAccountHistory(
       username,
       1000,      // limit (Hive's max per request)
-      false,     // filterTransfersOnly = false (we want custom_json)
+      'custom_json',  // filter only custom_json operations (10-100x faster than unfiltered)
       -1         // start = -1 (latest)
     );
 
@@ -363,7 +363,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
         const olderHistory = await optimizedHiveClient.getAccountHistory(
           username,
           BACKFILL_CHUNK_SIZE,
-          false,
+          'custom_json',  // filter only custom_json operations (10-100x faster than unfiltered)
           nextStart  // Start from the operation BEFORE the oldest we've seen
         );
         
@@ -458,7 +458,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     let transferHistory = await optimizedHiveClient.getAccountHistory(
       username,
       500,
-      false,  // filterTransfersOnly = false to bypass potential RPC caching
+      'all',  // Use 'all' filter to bypass potential RPC caching (includes transfers + custom_json)
       -1
     );
 
@@ -504,7 +504,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
         transferHistory = await optimizedHiveClient.getAccountHistory(
           username,
           1000,  // Hive's max per request
-          false,  // filterTransfersOnly = false to bypass potential RPC caching
+          'all',  // Use 'all' filter to bypass potential RPC caching (includes transfers + custom_json)
           -1
         );
 
@@ -569,7 +569,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
           const senderHistory = await optimizedHiveClient.getAccountHistory(
             sender,
             200,       // limit - check last 200 operations
-            false,     // filterTransfersOnly = false (we want custom_json)
+            'custom_json',  // filter only custom_json operations (10-100x faster than unfiltered)
             -1         // start = -1 (latest)
           );
 

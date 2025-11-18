@@ -177,18 +177,19 @@ export const getAccount = async (username: string) => {
 };
 
 // TIER 2 OPTIMIZATION: Added start parameter for incremental pagination
+// TIER 3 OPTIMIZATION: Updated to use new OperationFilter type
 export const getAccountHistory = async (
   username: string,
-  start: number = -1,
   limit: number = 100,
-  filterTransfersOnly: boolean = true
+  filter: import('./hiveClient').OperationFilter = 'transfers',
+  start: number = -1
 ) => {
   try {
     // Use filtered query for 10-100x performance improvement
     const history = await optimizedHiveClient.getAccountHistory(
       username,
       limit,
-      filterTransfersOnly,
+      filter,  // TIER 3: Use new filter parameter
       start  // TIER 2: Pass start for incremental sync
     );
     return history;
@@ -385,7 +386,7 @@ export const getConversationMessages = async (
     // TIER 2 FIX: Always fetch latest operations (start = -1)
     // Then filter client-side for operations > lastSyncedOpId
     // Hive API's start parameter goes BACKWARDS, so we can't use it for incremental
-    const history = await getAccountHistory(currentUser, -1, limit);
+    const history = await getAccountHistory(currentUser, limit, 'transfers', -1);
     
     const conversationMessages = history
       .filter(([index, op]: [any, any]) => {
@@ -434,7 +435,7 @@ export const discoverConversations = async (
   limit: number = 200
 ): Promise<Array<{ username: string; lastTimestamp: string }>> => {
   try {
-    const history = await getAccountHistory(currentUser, -1, limit);
+    const history = await getAccountHistory(currentUser, limit, 'transfers', -1);
     const encryptedMessages = filterEncryptedMessages(history, currentUser);
     
     // Track last message timestamp for each partner

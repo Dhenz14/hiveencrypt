@@ -15,6 +15,16 @@ const DEFAULT_RETRY_CONFIG: RetryConfig = {
   backoffMultiplier: 2,
 };
 
+// Operation type constants for bitwise filtering
+// Reference: https://developers.hive.io/apidefinitions/
+const OPERATION_FILTERS = {
+  TRANSFER: 4,           // Type 2: 2^2 = 4
+  CUSTOM_JSON: 262144,   // Type 18: 2^18 = 262144
+  TRANSFER_AND_CUSTOM_JSON: 262148  // Combined: 4 + 262144
+} as const;
+
+export type OperationFilter = 'all' | 'transfers' | 'custom_json' | 'transfers_and_custom_json';
+
 interface NodeHealth {
   url: string;
   latencies: number[];
@@ -300,10 +310,11 @@ class HiveBlockchainClient {
   }
 
   // TIER 2 OPTIMIZATION: Added start parameter for incremental pagination
+  // TIER 3 OPTIMIZATION: Added operation type filtering for custom_json operations
   async getAccountHistory(
     username: string,
     limit: number = 100,
-    filterTransfersOnly: boolean = true,
+    filter: OperationFilter = 'transfers',
     start: number = -1  // -1 = latest, otherwise start from specific opId for incremental sync
   ): Promise<any[]> {
     if (!this.validateUsername(username)) {
@@ -316,26 +327,35 @@ class HiveBlockchainClient {
 
     try {
       const history = await this.retryWithBackoff(async () => {
-        // PERFORMANCE OPTIMIZATION: Filter for transfer operations only (which contain memos)
-        // This makes queries 10-100x faster by skipping all other operation types
-        // Transfer operation is type 2, so the bit is 2^2 = 4 (operation_filter_low)
-        // Reference: https://developers.hive.io/apidefinitions/#apidefinitions-broadcast-ops-transfer
-        if (filterTransfersOnly) {
-          return await this.client.call('condenser_api', 'get_account_history', [
-            username,
-            start,  // TIER 2: Use provided start for incremental sync
-            limit,
-            4,   // operation_filter_low: 2^2 = 4 for transfer operations
-            0    // operation_filter_high: not used
-          ]);
-        } else {
-          // Fallback to unfiltered query (slower, returns all operations)
-          return await this.client.database.getAccountHistory(
-            username,
-            start,
-            limit
-          );
+        let operationFilterLow = 0;
+        let operationFilterHigh = 0;
+
+        switch (filter) {
+          case 'transfers':
+            // Transfer operation type 2: 2^2 = 4
+            operationFilterLow = OPERATION_FILTERS.TRANSFER;
+            break;
+          case 'custom_json':
+            // Custom_json operation type 18: 2^18 = 262144
+            operationFilterLow = OPERATION_FILTERS.CUSTOM_JSON;
+            break;
+          case 'transfers_and_custom_json':
+            // Combined: 4 + 262144 = 262148
+            operationFilterLow = OPERATION_FILTERS.TRANSFER_AND_CUSTOM_JSON;
+            break;
+          case 'all':
+            // No filtering, get all operations
+            return await this.client.database.getAccountHistory(username, start, limit);
         }
+
+        // Use filtered query
+        return await this.client.call('condenser_api', 'get_account_history', [
+          username,
+          start,
+          limit,
+          operationFilterLow,
+          operationFilterHigh
+        ]);
       });
 
       return history || [];

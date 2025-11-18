@@ -468,7 +468,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let newMessagesCount = 0;
 
       try {
-        const history = await hiveClient.getAccountHistory(currentUsername, 100);
+        const history = await hiveClient.getAccountHistory(currentUsername, 100, 'transfers');
         
         for (const entry of history) {
           const [, operation] = entry;

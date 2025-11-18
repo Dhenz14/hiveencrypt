@@ -565,7 +565,7 @@ export function useGroupMessages(groupId?: string) {
         const latestHistory = await optimizedHiveClient.getAccountHistory(
           user.username,
           initialLimit,
-          true,     // filterTransfersOnly = true
+          'transfers',  // filter only transfer operations (10-100x faster than unfiltered)
           -1        // start = -1 (latest)
         );
 
@@ -670,7 +670,7 @@ export function useGroupMessages(groupId?: string) {
               const olderHistory = await optimizedHiveClient.getAccountHistory(
                 user.username,
                 BACKFILL_CHUNK_SIZE,
-                true,  // filterTransfersOnly
+                'transfers',  // filter only transfer operations (10-100x faster than unfiltered)
                 nextStart  // Start from the operation BEFORE the oldest we've seen
               );
               
@@ -820,7 +820,7 @@ export function useGroupMessages(groupId?: string) {
                 const olderHistory = await optimizedHiveClient.getAccountHistory(
                   user.username,
                   200,
-                  true,
+                  'transfers',  // filter only transfer operations (10-100x faster than unfiltered)
                   startIndex
                 );
                 
