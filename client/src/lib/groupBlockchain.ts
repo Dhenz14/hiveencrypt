@@ -417,14 +417,14 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
     logger.info('[GROUP BLOCKCHAIN] Stage 1: Found', potentialGroupSenders.size, 'potential senders');
 
-    // Stage 2: If no senders found, expand to 2000 transfers (deeper history)
+    // Stage 2: If no senders found, expand to 1000 transfers (Hive's max limit per request)
     if (potentialGroupSenders.size === 0) {
       try {
-        logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 2000 transfers...');
+        logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 transfers...');
         
         transferHistory = await optimizedHiveClient.getAccountHistory(
           username,
-          2000,
+          1000,  // Hive's hard limit is 1000 operations per request
           true,
           -1
         );
