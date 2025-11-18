@@ -459,90 +459,111 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     const initialGroupCount = groupMap.size;
 
     // STEP 3: Check each sender's custom_json for group creations that include us
-    // Use Promise.all to scan all senders in parallel (faster)
-    const senderScans = Array.from(potentialGroupSenders).map(async (sender) => {
-      try {
-        logger.info('[GROUP BLOCKCHAIN] Checking', sender, 'for group creations');
-        
-        const senderHistory = await optimizedHiveClient.getAccountHistory(
-          sender,
-          200,       // limit - check last 200 operations
-          false,     // filterTransfersOnly = false (we want custom_json)
-          -1         // start = -1 (latest)
-        );
-
-        const foundGroups: Group[] = [];
-
-        for (const [, operation] of senderHistory) {
-          try {
-            if (!operation || !operation[1] || !operation[1].op) {
-              continue;
-            }
-            
-            const op = operation[1].op;
-            
-            if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
-              continue;
-            }
-
-            const jsonData: GroupCustomJson = JSON.parse(op[1].json);
-            const { groupId, action } = jsonData;
-
-            // Skip leave actions
-            if (action === 'leave') {
-              continue;
-            }
-
-            // Only include groups where current user is a member
-            if (!jsonData.members?.includes(username)) {
-              continue;
-            }
-
-            // Check if we already have this group with a newer version
-            const existing = groupMap.get(groupId);
-            if (existing && existing.version >= (jsonData.version || 1)) {
-              continue;
-            }
-
-            // Create or update group entry
-            const group: Group = {
-              groupId,
-              name: jsonData.name || 'Unnamed Group',
-              members: jsonData.members || [],
-              creator: jsonData.creator || sender,
-              createdAt: normalizeHiveTimestamp(jsonData.timestamp),
-              version: jsonData.version || 1,
-            };
-
-            foundGroups.push(group);
-            logger.info('[GROUP BLOCKCHAIN] Discovered group from', sender, ':', group.name);
-
-          } catch (parseError) {
-            logger.warn('[GROUP BLOCKCHAIN] Failed to parse group operation from', sender, ':', parseError);
-            continue;
-          }
-        }
-
-        return foundGroups;
-      } catch (error) {
-        logger.warn('[GROUP BLOCKCHAIN] Failed to scan', sender, 'history:', error);
-        return [];
-      }
-    });
-
-    // Wait for all sender scans to complete
-    const senderResults = await Promise.all(senderScans);
+    // Use batched parallel scanning to avoid overwhelming RPC nodes
+    const BATCH_SIZE = 10; // Process 10 senders at a time to avoid RPC overload
+    const senders = Array.from(potentialGroupSenders);
+    const allFoundGroups: Group[] = [];
     
-    // Merge all discovered groups into groupMap (respecting leftGroups)
-    for (const foundGroups of senderResults) {
-      for (const group of foundGroups) {
-        // Skip groups the user has left
-        if (leftGroups.has(group.groupId)) {
-          logger.info('[GROUP BLOCKCHAIN] Skipping left group:', group.name);
-          continue;
+    // Process senders in batches
+    for (let i = 0; i < senders.length; i += BATCH_SIZE) {
+      const batch = senders.slice(i, i + BATCH_SIZE);
+      logger.info('[GROUP BLOCKCHAIN] Processing batch', Math.floor(i / BATCH_SIZE) + 1, '/', Math.ceil(senders.length / BATCH_SIZE), '(', batch.length, 'senders)');
+      
+      const batchScans = batch.map(async (sender) => {
+        try {
+          logger.info('[GROUP BLOCKCHAIN] Checking', sender, 'for group creations');
+          
+          const senderHistory = await optimizedHiveClient.getAccountHistory(
+            sender,
+            200,       // limit - check last 200 operations
+            false,     // filterTransfersOnly = false (we want custom_json)
+            -1         // start = -1 (latest)
+          );
+
+          const foundGroups: Group[] = [];
+
+          for (const [, operation] of senderHistory) {
+            try {
+              if (!operation || !operation[1] || !operation[1].op) {
+                continue;
+              }
+              
+              const op = operation[1].op;
+              
+              if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
+                continue;
+              }
+
+              const jsonData: GroupCustomJson = JSON.parse(op[1].json);
+              const { groupId, action } = jsonData;
+
+              // Skip leave actions
+              if (action === 'leave') {
+                continue;
+              }
+
+              // Only include groups where current user is a member
+              if (!jsonData.members?.includes(username)) {
+                continue;
+              }
+
+              // Check if we already have this group with a newer version
+              const existing = groupMap.get(groupId);
+              if (existing && existing.version >= (jsonData.version || 1)) {
+                continue;
+              }
+
+              // Create or update group entry
+              const group: Group = {
+                groupId,
+                name: jsonData.name || 'Unnamed Group',
+                members: jsonData.members || [],
+                creator: jsonData.creator || sender,
+                createdAt: normalizeHiveTimestamp(jsonData.timestamp),
+                version: jsonData.version || 1,
+              };
+
+              foundGroups.push(group);
+              logger.info('[GROUP BLOCKCHAIN] Discovered group from', sender, ':', group.name);
+
+            } catch (parseError) {
+              logger.warn('[GROUP BLOCKCHAIN] Failed to parse group operation from', sender, ':', parseError);
+              continue;
+            }
+          }
+
+          return foundGroups;
+        } catch (error) {
+          logger.warn('[GROUP BLOCKCHAIN] Failed to scan', sender, 'history:', error);
+          return [];
         }
-        groupMap.set(group.groupId, group);
+      });
+
+      // Wait for this batch to complete
+      const batchResults = await Promise.all(batchScans);
+      
+      // Merge batch results
+      for (const foundGroups of batchResults) {
+        allFoundGroups.push(...foundGroups);
       }
+    }
+
+    // Now merge all discovered groups into groupMap (respecting leftGroups and versions)
+    for (const group of allFoundGroups) {
+      // Skip groups the user has left
+      if (leftGroups.has(group.groupId)) {
+        logger.info('[GROUP BLOCKCHAIN] Skipping left group:', group.name);
+        continue;
+      }
+      
+      // Check if we already have a newer version
+      const existing = groupMap.get(group.groupId);
+      if (existing && existing.version >= group.version) {
+        logger.info('[GROUP BLOCKCHAIN] Skipping older version of', group.name, '(have v', existing.version, ', found v', group.version, ')');
+        continue;
+      }
+      
+      groupMap.set(group.groupId, group);
     }
 
     logger.info('[GROUP BLOCKCHAIN] Scanned', potentialGroupSenders.size, 'senders, found', groupMap.size - initialGroupCount, 'new groups');
