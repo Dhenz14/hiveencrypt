@@ -1,0 +1,118 @@
+sw.js:147 [ServiceWorker] Loaded and ready!
+index-Ci5RjSKa.js:724 [Platform Detection] Starting detection...
+index-Ci5RjSKa.js:724 [Platform Detection] User Agent: mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/142.0.0.0 safari/537.36
+index-Ci5RjSKa.js:724 [Platform Detection] Is Mobile: false
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+(index):49 [PWA] Service Worker registered: https://hive-encrypt-theycallmethank.replit.app/
+(index):1 Error while trying to use the following icon from the Manifest: https://hive-encrypt-theycallmethank.replit.app/favicon.png (Resource size is not correct - typo in the Manifest?)
+index-Ci5RjSKa.js:724 [Keychain Detection] window.hive_keychain found after 116 ms
+index-Ci5RjSKa.js:724 [Keychain Detection] Handshake successful
+index-Ci5RjSKa.js:724 [Platform Detection] ✅ Detected: desktop-extension
+index-Ci5RjSKa.js:724 [Auth] Platform detected: desktop-extension
+index-Ci5RjSKa.js:724 [Auth] Session restored for: dandandan123
+index-Ci5RjSKa.js:724 [CLEANUP] Starting orphaned message cleanup for: dandandan123
+index-Ci5RjSKa.js:724 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-Ci5RjSKa.js:724 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-Ci5RjSKa.js:724 [ExceptionsContext] Loaded exceptions: Array(0)
+index-Ci5RjSKa.js:724 [ExceptionsContext] Saved exceptions: Array(0)
+index-Ci5RjSKa.js:724 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-Ci5RjSKa.js:724 [ExceptionsContext] Saved exceptions: Array(0)
+index-Ci5RjSKa.js:724 [CLEANUP] ✅ Cleaned up 0 orphaned messages
+index-Ci5RjSKa.js:799 [METADATA] Fetching from blockchain: dandandan123
+index-Ci5RjSKa.js:799 [METADATA] Fetching from blockchain: dandandan123
+index-Ci5RjSKa.js:724 [MIGRATION] UTC timestamp migration already completed
+index-Ci5RjSKa.js:724 [CACHE FIX] Fixed 0 corrupted messages
+index-Ci5RjSKa.js:724 [MIGRATION] Starting group message migration for: dandandan123
+index-Ci5RjSKa.js:724 [MIGRATION] Scanning 0 messages for misplaced group messages
+index-Ci5RjSKa.js:724 [MIGRATION] No misplaced group messages found
+index-Ci5RjSKa.js:799 [METADATA] Fetched and cached: dandandan123 Object
+index-Ci5RjSKa.js:799 [METADATA] Fetched and cached: dandandan123 Object
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-Ci5RjSKa.js:799 [METADATA] Cache hit for: dandandan123
+index-Ci5RjSKa.js:724 [Auth] Logging out...
+index-Ci5RjSKa.js:724 [Auth] ✅ Logout complete
+index-Ci5RjSKa.js:724 [Auth] Starting login for: theycallmedan platform: desktop-extension
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-Ci5RjSKa.js:724 [Auth] Keychain authentication successful
+index-Ci5RjSKa.js:724 [Auth] ✅ Login complete! Session stored locally.
+index-Ci5RjSKa.js:724 [CLEANUP] Starting orphaned message cleanup for: theycallmedan
+index-Ci5RjSKa.js:724 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-Ci5RjSKa.js:724 [ExceptionsContext] Saved exceptions: Array(0)
+index-Ci5RjSKa.js:799 [METADATA] Fetching from blockchain: theycallmedan
+index-Ci5RjSKa.js:799 [METADATA] Fetching from blockchain: theycallmedan
+index-Ci5RjSKa.js:724 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-Ci5RjSKa.js:724 [ExceptionsContext] Saved exceptions: Array(0)
+index-Ci5RjSKa.js:804 [useBlockchainMessages] Exceptions changed, invalidating query for re-evaluation
+index-Ci5RjSKa.js:724 [MIGRATION] Starting UTC timestamp migration...
+index-Ci5RjSKa.js:724 [CLEANUP] ✅ Cleaned up 0 orphaned messages
+index-Ci5RjSKa.js:724 [MIGRATION] UTC timestamp migration complete: Object
+index-Ci5RjSKa.js:724 [CACHE FIX] Fixed 0 corrupted messages
+index-Ci5RjSKa.js:724 [MIGRATION] Starting group message migration for: theycallmedan
+index-Ci5RjSKa.js:724 [MIGRATION] Scanning 0 messages for misplaced group messages
+index-Ci5RjSKa.js:724 [MIGRATION] No misplaced group messages found
+index-Ci5RjSKa.js:799 [METADATA] Fetched and cached: theycallmedan undefined
+index-Ci5RjSKa.js:799 [METADATA] Fetched and cached: theycallmedan undefined
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-Ci5RjSKa.js:799 [METADATA] Cache hit for: theycallmedan
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-Ci5RjSKa.js:799 [METADATA] Cache hit for: theycallmedan
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-Ci5RjSKa.js:799 [METADATA] Cache hit for: theycallmedan
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-Ci5RjSKa.js:724 [Auth] Logging out...
+index-Ci5RjSKa.js:724 [Auth] ✅ Logout complete
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-Ci5RjSKa.js:724 [Auth] Starting login for: curatorhulk platform: desktop-extension
+index-Ci5RjSKa.js:724 [Auth] Keychain authentication successful
+index-Ci5RjSKa.js:724 [Auth] ✅ Login complete! Session stored locally.
+index-Ci5RjSKa.js:724 [CLEANUP] Starting orphaned message cleanup for: curatorhulk
+index-Ci5RjSKa.js:724 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-Ci5RjSKa.js:724 [ExceptionsContext] Saved exceptions: Array(0)
+index-Ci5RjSKa.js:799 [METADATA] Fetching from blockchain: curatorhulk
+index-Ci5RjSKa.js:799 [METADATA] Fetching from blockchain: curatorhulk
+index-Ci5RjSKa.js:724 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-Ci5RjSKa.js:724 [ExceptionsContext] Saved exceptions: Array(0)
+index-Ci5RjSKa.js:804 [useBlockchainMessages] Exceptions changed, invalidating query for re-evaluation
+index-Ci5RjSKa.js:724 [MIGRATION] Starting UTC timestamp migration...
+index-Ci5RjSKa.js:724 [CLEANUP] ✅ Cleaned up 0 orphaned messages
+index-Ci5RjSKa.js:724 [MIGRATION] UTC timestamp migration complete: Object
+index-Ci5RjSKa.js:724 [CACHE FIX] Fixed 0 corrupted messages
+index-Ci5RjSKa.js:724 [MIGRATION] Starting group message migration for: curatorhulk
+index-Ci5RjSKa.js:724 [MIGRATION] Scanning 0 messages for misplaced group messages
+index-Ci5RjSKa.js:724 [MIGRATION] No misplaced group messages found
+index-Ci5RjSKa.js:799 [METADATA] Fetched and cached: curatorhulk undefined
+index-Ci5RjSKa.js:799 [METADATA] Fetched and cached: curatorhulk undefined
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT

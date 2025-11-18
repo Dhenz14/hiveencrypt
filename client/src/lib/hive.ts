@@ -6,8 +6,9 @@ import { logger } from '@/lib/logger';
 // Initialize Hive client with public node (for direct access)
 export const hiveClient = new Client([
   'https://api.hive.blog',
-  'https://api.deathwing.me',
-  'https://hive-api.arcange.eu',
+  'https://api.hivekings.com',
+  'https://anyx.io',
+  'https://api.openhive.network',
 ]);
 
 /**

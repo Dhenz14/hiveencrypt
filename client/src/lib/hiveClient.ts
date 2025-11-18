@@ -437,8 +437,9 @@ class HiveBlockchainClient {
 // Export singleton instance
 export const hiveClient = new HiveBlockchainClient([
   'https://api.hive.blog',
-  'https://api.deathwing.me',
-  'https://hive-api.arcange.eu',
+  'https://api.hivekings.com',
+  'https://anyx.io',
+  'https://api.openhive.network',
 ]);
 
 // Export the class for testing purposes
