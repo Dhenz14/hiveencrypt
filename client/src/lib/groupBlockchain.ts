@@ -620,14 +620,22 @@ export function parseGroupMessageMemo(memo: string): {
   content?: string;
 } | null {
   try {
+    // CRITICAL FIX: Strip leading # if present (Keychain bug workaround)
+    // Sometimes Keychain returns decrypted content with # prefix still attached
+    let cleanMemo = memo;
+    if (cleanMemo.startsWith('#')) {
+      cleanMemo = cleanMemo.substring(1);
+      logger.warn('[GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)');
+    }
+    
     const groupPrefix = 'group:';
     
-    if (!memo.startsWith(groupPrefix)) {
+    if (!cleanMemo.startsWith(groupPrefix)) {
       return { isGroupMessage: false };
     }
 
     // Parse format: group:{groupId}:{creator}:{content} or group:{groupId}:{content}
-    const parts = memo.split(':');
+    const parts = cleanMemo.split(':');
     
     if (parts.length < 3) {
       logger.warn('[GROUP BLOCKCHAIN] Malformed group message memo (too few parts):', memo.substring(0, 50));
