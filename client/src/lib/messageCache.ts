@@ -1001,6 +1001,18 @@ export async function migrateGroupMessages(username: string): Promise<number> {
   const allMessages = await db.getAll('messages');
   console.log('[MIGRATION] Scanning', allMessages.length, 'messages for misplaced group messages');
   
+  // Debug: Log all message content to see what we're dealing with
+  allMessages.forEach((msg, idx) => {
+    console.log(`[MIGRATION DEBUG] Message ${idx}:`, {
+      id: msg.id.substring(0, 20),
+      from: msg.from,
+      contentPreview: msg.content?.substring(0, 60) || 'null',
+      encryptedPreview: msg.encryptedContent?.substring(0, 60) || 'null',
+      contentStartsWithGroup: msg.content?.trim().startsWith('group:') || msg.content?.trim().startsWith('#group:'),
+      encryptedStartsWithGroup: msg.encryptedContent?.trim().startsWith('group:') || msg.encryptedContent?.trim().startsWith('#group:')
+    });
+  });
+  
   let migratedCount = 0;
   const groupMessagesToAdd: GroupMessageCache[] = [];
   const messageIdsToDelete: string[] = [];
@@ -1011,17 +1023,24 @@ export async function migrateGroupMessages(username: string): Promise<number> {
     let isGroupMessage = false;
     let parsed: any = null;
     
-    // Try parsing the content field first (might have decrypted group message)
-    if (msg.content && (msg.content.startsWith('group:') || msg.content.startsWith('#group:'))) {
-      console.log('[MIGRATION] Found potential group message in content:', msg.id.substring(0, 20));
-      parsed = parseGroupMessageMemo(msg.content);
-      isGroupMessage = parsed?.isGroupMessage ?? false;
+    // Normalize and check content field (might have decrypted group message)
+    if (msg.content) {
+      const normalizedContent = msg.content.trim();
+      if (normalizedContent.startsWith('group:') || normalizedContent.startsWith('#group:')) {
+        console.log('[MIGRATION] Found potential group message in content:', msg.id.substring(0, 20), 'content preview:', normalizedContent.substring(0, 50));
+        parsed = parseGroupMessageMemo(normalizedContent);
+        isGroupMessage = parsed?.isGroupMessage ?? false;
+      }
     }
     
-    if (!isGroupMessage && msg.encryptedContent && (msg.encryptedContent.startsWith('group:') || msg.encryptedContent.startsWith('#group:'))) {
-      console.log('[MIGRATION] Found potential group message in encryptedContent:', msg.id.substring(0, 20));
-      parsed = parseGroupMessageMemo(msg.encryptedContent);
-      isGroupMessage = parsed?.isGroupMessage ?? false;
+    // Check encrypted content field if not found yet
+    if (!isGroupMessage && msg.encryptedContent) {
+      const normalizedEncrypted = msg.encryptedContent.trim();
+      if (normalizedEncrypted.startsWith('group:') || normalizedEncrypted.startsWith('#group:')) {
+        console.log('[MIGRATION] Found potential group message in encryptedContent:', msg.id.substring(0, 20), 'encrypted preview:', normalizedEncrypted.substring(0, 50));
+        parsed = parseGroupMessageMemo(normalizedEncrypted);
+        isGroupMessage = parsed?.isGroupMessage ?? false;
+      }
     }
     
     if (isGroupMessage && parsed && parsed.groupId) {

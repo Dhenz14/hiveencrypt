@@ -1,0 +1,384 @@
+ [vite] connecting...
+ [vite] connected.
+ Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ Module "util" has been externalized for browser compatibility. Cannot access "util.debuglog" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=bd194e1d:2839
+ Module "util" has been externalized for browser compatibility. Cannot access "util.inspect" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=bd194e1d:2839
+ Module "stream" has been externalized for browser compatibility. Cannot access "stream.Transform" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=bd194e1d:6178
+ [Platform Detection] Starting detection...
+ [Platform Detection] User Agent: mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/142.0.0.0 safari/537.36
+ [Platform Detection] Is Mobile: false
+ ✅ blakejs loaded successfully (self-contained version)
+   Available functions: Array(5)
+ 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+ 🏛️ ArcHive Content Script Loaded
+ 🏛️ ArcHive Content Script Ready - 100% Decentralized
+ [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+ [Keychain Detection] window.hive_keychain found after 54 ms
+ [Keychain Detection] Handshake successful
+ [Platform Detection] ✅ Detected: desktop-extension
+ [Auth] Platform detected: desktop-extension
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [Auth] Session restored for: curatorhulk
+ [CLEANUP] Starting orphaned message cleanup for: curatorhulk
+ [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Loaded exceptions: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [CLEANUP] ✅ Cleaned up 0 orphaned messages
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [METADATA] Fetching from blockchain: curatorhulk
+ [METADATA] Fetching from blockchain: curatorhulk
+ [CONV DISCOVERY] Starting progressive discovery for user: curatorhulk
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [GROUP DISCOVERY] Discovering groups for: curatorhulk
+ [INIT] ⚡ Migration useEffect triggered, user: curatorhulk
+ [INIT] ✅ Username verified, starting migration checks for: curatorhulk
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [INIT] 📦 messageCache module loaded successfully
+ [INIT] 🔄 Running UTC timestamp migration...
+ [GROUP DISCOVERY] Loaded 0 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: curatorhulk
+ [RPC] Selected best node: https://api.hive.blog Object
+ [CONV DISCOVERY] Loaded 1 cached conversations immediately
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [MIGRATION] UTC timestamp migration already completed
+ [INIT] ℹ️ No timestamps needed migration (already completed or no messages)
+ [INIT] 🔍 Checking cache version: 7.0 vs expected: 7.0
+ [INIT] 🔍 Checking for corrupted messages...
+ [CACHE FIX] Fixed 0 corrupted messages
+ [INIT] ℹ️ No corrupted messages found
+ [INIT] 🔍 Checking for misplaced group messages...
+ [MIGRATION] Starting group message migration for: curatorhulk
+ [MIGRATION] Scanning 10 messages for misplaced group messages
+ [MIGRATION] No misplaced group messages found
+ [INIT] ℹ️ No misplaced group messages found
+ [INIT] ✅ ALL MIGRATION CHECKS COMPLETE
+ [METADATA] Fetched and cached: curatorhulk undefined
+ [METADATA] Fetched and cached: curatorhulk undefined
+ [PROGRESSIVE] Phase 1 discovered 1 partners in 379 ms
+ [PROGRESSIVE] Phase 1 - Cached: 1 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 1 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP BLOCKCHAIN] Scanned 1000 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [PROGRESSIVE] Phase 2 discovered 1 total partners in 764 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 1000 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 1 cached group messages
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+ [GROUP DISCOVERY] Found 1 unique groups from cached messages
+ [GROUP DISCOVERY] Trying cached creator for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc creator: dandandan123
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [RPC] Selected best node: https://api.deathwing.me Object
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:12
+ [GROUP DISCOVERY] Trying 1 fallback senders for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP BLOCKCHAIN] Using sender-level cached metadata for: Object
+ [GROUP DISCOVERY] ⚠️ Could not resolve metadata for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc tried: creator: dandandan123, 1 senders
+warn @ logger.ts:12
+ [GROUP BLOCKCHAIN] Set negative cache for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 0
+ [GROUP DISCOVERY] ✅ Total groups: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:31 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:11 [MESSAGES PAGE] Text messages: 0 Hidden: 0

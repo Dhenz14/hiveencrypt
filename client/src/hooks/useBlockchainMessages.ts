@@ -243,6 +243,15 @@ export function useBlockchainMessages({
             continue;
           }
 
+          // CRITICAL: Skip group messages - they should ONLY appear in group conversations
+          // Check if memo looks like a group message (will be handled by group discovery)
+          if (msg.memo && msg.memo.startsWith('#')) {
+            // This is an encrypted memo that MIGHT be a group message
+            // We can't check without decrypting, but group discovery will handle it
+            // For now, we cache it and the migration will move it if needed
+            logger.info('[QUERY] Found encrypted memo, caching as placeholder (migration will fix if group message):', msg.trx_id.substring(0, 20));
+          }
+
           if (msg.from === user.username) {
             // Sent messages CAN be decrypted using sender's memo key (ECDH encryption)
             // Store as encrypted placeholder initially, user can decrypt with Keychain
