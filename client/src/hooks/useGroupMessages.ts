@@ -20,6 +20,7 @@ import {
   getMaxBackfill,
   shouldShowBackfillWarning,
 } from '@/lib/groupSyncState';
+import { getCustomGroupName } from '@/lib/customGroupNames';
 import type { Group } from '@shared/schema';
 
 /**
@@ -335,16 +336,21 @@ export function useGroupDiscovery() {
             // FALLBACK: Create a minimal group entry even without full metadata
             // This ensures the group is still visible and usable, just without the full member list
             const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
+            
+            // Check if user has set a custom name for this group
+            const customName = getCustomGroupName(user.username, groupId);
+            const displayName = customName || `Group (${groupId.substring(0, 8)}...)`;
+            
             const fallbackGroup: Group = {
               groupId,
-              name: `Group (${groupId.substring(0, 8)}...)`, // Use first 8 chars of groupId as name
+              name: displayName, // Use custom name if set, otherwise fallback to groupId prefix
               members: [user.username, ...knownSenders], // Include user and all known senders
               creator: cachedCreator || knownSenders[0] || user.username,
               createdAt: new Date().toISOString(), // Use current time as fallback
               version: 1,
             };
             
-            logger.info('[GROUP DISCOVERY] ✅ Created fallback group entry:', fallbackGroup.name, 'with', fallbackGroup.members.length, 'members');
+            logger.info('[GROUP DISCOVERY] ✅ Created fallback group entry:', fallbackGroup.name, customName ? '(custom name)' : '(generated)', 'with', fallbackGroup.members.length, 'members');
             blockchainGroups.push(fallbackGroup);
             
             // Set negative cache to prevent repeated blockchain lookups
@@ -362,34 +368,37 @@ export function useGroupDiscovery() {
           groupMap.set(group.groupId, group);
         });
 
-        // Update with blockchain data (newer versions)
+        // Update with blockchain data (ALWAYS overwrite to ensure custom names are applied)
         for (const blockchainGroup of blockchainGroups) {
           // Check cancellation periodically in loop
           checkCancellation(signal, 'Group discovery during merge loop');
 
           const existing = groupMap.get(blockchainGroup.groupId);
           
-          // Use blockchain version if it's newer or doesn't exist in cache
-          if (!existing || blockchainGroup.version > existing.version) {
-            const groupCache: GroupConversationCache = {
-              groupId: blockchainGroup.groupId,
-              name: blockchainGroup.name,
-              members: blockchainGroup.members,
-              creator: blockchainGroup.creator,
-              createdAt: blockchainGroup.createdAt,
-              version: blockchainGroup.version,
-              lastMessage: existing?.lastMessage || '',
-              lastTimestamp: existing?.lastTimestamp || blockchainGroup.createdAt,
-              unreadCount: existing?.unreadCount || 0,
-              lastChecked: existing?.lastChecked || new Date().toISOString(),
-            };
+          // Check for custom name for this group (applies to ALL groups, not just fallbacks)
+          const customName = getCustomGroupName(user.username, blockchainGroup.groupId);
+          const displayName = customName || blockchainGroup.name;
+          
+          // ALWAYS overwrite with blockchain/fallback data (with custom names)
+          // This ensures custom name updates replace stale cached entries
+          const groupCache: GroupConversationCache = {
+            groupId: blockchainGroup.groupId,
+            name: displayName,  // Use custom name if set, otherwise use blockchain name
+            members: blockchainGroup.members,
+            creator: blockchainGroup.creator,
+            createdAt: blockchainGroup.createdAt,
+            version: blockchainGroup.version,
+            lastMessage: existing?.lastMessage || '',
+            lastTimestamp: existing?.lastTimestamp || blockchainGroup.createdAt,
+            unreadCount: existing?.unreadCount || 0,
+            lastChecked: existing?.lastChecked || new Date().toISOString(),
+          };
 
-            groupMap.set(blockchainGroup.groupId, groupCache);
-            
-            // Update cache (skip if cancelled)
-            if (!signal.aborted) {
-              await cacheGroupConversation(groupCache, user.username);
-            }
+          groupMap.set(blockchainGroup.groupId, groupCache);
+          
+          // Update cache (skip if cancelled)
+          if (!signal.aborted) {
+            await cacheGroupConversation(groupCache, user.username);
           }
         }
 
@@ -561,6 +570,17 @@ export function useGroupMessages(groupId?: string) {
 
         // Step 6: NOW check if we should backfill
         const MAX_BACKFILL = getMaxBackfill();
+        
+        // FIRST SYNC BACKFILL: If this is the first sync and we fetched 1000 ops but found
+        // no group messages, do NOT backfill further (would cause Keychain spam)
+        // Instead, rely on the initial 1000-op scan
+        if (lastSyncedOp === null) {
+          logger.info('[GROUP MESSAGES] First sync complete, fetched', initialLimit, 'operations');
+          // Set lastSyncedOp to highestOpIndex so future syncs can paginate
+          if (highestOpIndex > 0) {
+            setLastSyncedOperation(user.username, highestOpIndex);
+          }
+        }
         
         if (lastSyncedOp !== null && highestOpIndex > 0) {
           const gap = highestOpIndex - lastSyncedOp;

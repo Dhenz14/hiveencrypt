@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Input } from '@/components/ui/input';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import {
   AlertDialog,
@@ -16,6 +17,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { ConversationsList } from '@/components/ConversationsList';
 import { ChatHeader } from '@/components/ChatHeader';
 import { GroupChatHeader } from '@/components/GroupChatHeader';
@@ -41,6 +50,7 @@ import { getConversationKey, getConversation, updateConversation, fixCorruptedMe
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
 import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate } from '@/lib/groupBlockchain';
+import { setCustomGroupName } from '@/lib/customGroupNames';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/logger';
@@ -95,6 +105,8 @@ export default function Messages() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isHiddenChatsOpen, setIsHiddenChatsOpen] = useState(false);
+  const [isEditNameOpen, setIsEditNameOpen] = useState(false);
+  const [editNameValue, setEditNameValue] = useState('');
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
@@ -591,6 +603,60 @@ export default function Messages() {
     }
   };
 
+  const handleEditGroupName = () => {
+    if (!selectedGroup) return;
+    setEditNameValue(selectedGroup.name);
+    setIsEditNameOpen(true);
+  };
+
+  const handleSaveGroupName = async () => {
+    if (!user?.username || !selectedGroupId || !editNameValue.trim()) return;
+
+    try {
+      const newName = editNameValue.trim();
+      
+      // Step 1: Save custom name to localStorage
+      setCustomGroupName(user.username, selectedGroupId, newName);
+      
+      // Step 2: Optimistically update React Query cache for immediate UI update
+      queryClient.setQueryData(['blockchain-group-conversations', user.username], (oldData: GroupConversationCache[] | undefined) => {
+        if (!oldData) return oldData;
+        
+        return oldData.map(group => 
+          group.groupId === selectedGroupId
+            ? { ...group, name: newName }
+            : group
+        );
+      });
+      
+      // Step 3: Update IndexedDB cache for persistence
+      const currentGroup = groupCaches.find(g => g.groupId === selectedGroupId);
+      if (currentGroup) {
+        await cacheGroupConversation({
+          ...currentGroup,
+          name: newName
+        }, user.username);
+      }
+      
+      // Step 4: Invalidate queries to trigger background refetch (don't await - allow immediate UI update)
+      queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user.username] });
+      
+      toast({
+        title: 'Group name updated',
+        description: `Group renamed to "${newName}"`,
+      });
+      
+      setIsEditNameOpen(false);
+    } catch (error) {
+      logger.error('[EDIT GROUP NAME] Failed:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to update group name',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const handleConfirmDelete = async () => {
     if (!user?.username) return;
     
@@ -766,6 +832,7 @@ export default function Messages() {
               members={selectedGroup.members}
               onManageMembers={handleManageMembers}
               onDeleteLocalData={handleDeleteLocalData}
+              onEditName={handleEditGroupName}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
           ) : (
@@ -974,6 +1041,52 @@ export default function Messages() {
         open={isHiddenChatsOpen}
         onOpenChange={setIsHiddenChatsOpen}
       />
+
+      <Dialog open={isEditNameOpen} onOpenChange={setIsEditNameOpen}>
+        <DialogContent data-testid="dialog-edit-group-name">
+          <DialogHeader>
+            <DialogTitle>Edit Group Name</DialogTitle>
+            <DialogDescription>
+              Enter a custom name for this group. This is stored locally on your device.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label htmlFor="group-name-input" className="text-sm font-medium">
+                Group Name
+              </label>
+              <Input
+                id="group-name-input"
+                value={editNameValue}
+                onChange={(e) => setEditNameValue(e.target.value)}
+                placeholder="Enter group name"
+                data-testid="input-group-name"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && editNameValue.trim()) {
+                    handleSaveGroupName();
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsEditNameOpen(false)}
+              data-testid="button-cancel-edit-name"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSaveGroupName}
+              disabled={!editNameValue.trim()}
+              data-testid="button-save-group-name"
+            >
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent data-testid="dialog-delete-conversation">

@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2, UserCog } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -21,6 +21,7 @@ interface GroupChatHeaderProps {
   onManageMembers?: () => void;
   onDeleteLocalData?: () => void;
   onBackClick?: () => void;
+  onEditName?: () => void;
 }
 
 export function GroupChatHeader({ 
@@ -28,7 +29,8 @@ export function GroupChatHeader({
   members,
   onManageMembers,
   onDeleteLocalData,
-  onBackClick
+  onBackClick,
+  onEditName
 }: GroupChatHeaderProps) {
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
@@ -53,9 +55,22 @@ export function GroupChatHeader({
           <Users className="w-5 h-5 text-primary" />
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="text-headline font-semibold truncate" data-testid="text-group-name">
-            {groupName}
-          </h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-headline font-semibold truncate" data-testid="text-group-name">
+              {groupName}
+            </h2>
+            {onEditName && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onEditName}
+                className="h-7 w-7 flex-shrink-0"
+                data-testid="button-edit-group-name"
+              >
+                <Pencil className="w-3.5 h-3.5" />
+              </Button>
+            )}
+          </div>
           <div className="flex items-center gap-2">
             <Popover>
               <PopoverTrigger asChild>
