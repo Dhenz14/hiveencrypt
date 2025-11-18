@@ -37,12 +37,22 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
     - **Creator Protection**: Group creators cannot be removed from their groups.
     - **Validation**: Prevents duplicate members and enforces minimum 2-member requirement.
     - **UI Features**: Two-column interface showing current members and add-member input with real-time validation.
+  - **Custom Group Names**: Local nickname system for personalizing group names.
+    - **Personal Labels**: Each user can rename any group to their preference (stored in localStorage).
+    - **Instant Updates**: Custom names apply immediately without blockchain transactions.
+    - **Persistent**: Names survive browser refreshes and are user-specific.
+    - **Fallback Display**: Shows blockchain group name or auto-generated ID when no custom name is set.
+  - **Message Previews**: Conversation list shows latest message from each group.
+    - **Real-time Updates**: Previews refresh when new messages arrive or are sent.
+    - **Cache-aware**: Loads previews from cached messages for instant display.
+    - **Encrypted Content**: Shows decrypted preview text for authenticated users.
   - **Batch Messaging**: Send encrypted messages to all group members individually (N separate memo transfers).
   - **Progress Tracking**: Real-time UI showing "Sending to X members..." with progress bar during batch sends.
   - **Sender Attribution**: Group messages display sender usernames for proper conversation flow.
   - **Resource Credits Validation**: Checks RC before batch sends (blocks if <10%, warns if <30%).
   - **Error Handling**: Tracks failed recipients and shows partial success/failure status.
   - **Blockchain Sync**: Scans incoming memos for `group:` prefix to aggregate group messages.
+  - **Privacy**: New members only see messages sent after they joined (true end-to-end encryption).
   - **Known Limitations**: Image attachments disabled for groups (post-MVP), 200-operation history window.
 - **Lightning Network Tips**: Users can send Bitcoin satoshis via the Lightning Network to users with Lightning Addresses.
   - **Bidirectional Tipping**: Users choose to receive tips as Lightning sats or HBD in their Hive wallet.
