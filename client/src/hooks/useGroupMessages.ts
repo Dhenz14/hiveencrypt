@@ -443,12 +443,18 @@ export function useGroupMessages(groupId?: string) {
 
         // Step 2: Get last synced operation index for pagination
         const lastSyncedOp = getLastSyncedOperation(user.username);
+        const isFirstSync = lastSyncedOp === null;
         logger.info('[GROUP MESSAGES] Last synced operation:', lastSyncedOp ?? 'none (first sync)');
 
-        // Step 3: Fetch initial 200 operations from blockchain
+        // Step 3: Fetch initial operations from blockchain
+        // If first sync, fetch 1000 operations to ensure we find older group messages
+        // Otherwise, fetch 200 operations (normal incremental sync)
+        const initialLimit = isFirstSync ? 1000 : 200;
+        logger.info('[GROUP MESSAGES] Fetching', initialLimit, 'operations', isFirstSync ? '(first sync - deep scan)' : '(incremental sync)');
+        
         const latestHistory = await optimizedHiveClient.getAccountHistory(
           user.username,
-          200,      // limit
+          initialLimit,
           true,     // filterTransfersOnly = true
           -1        // start = -1 (latest)
         );

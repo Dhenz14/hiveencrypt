@@ -70,7 +70,7 @@ const mapConversationCacheToConversation = (conv: ConversationCache): Conversati
 
 const mapGroupCacheToConversation = (group: GroupConversationCache): Conversation => ({
   id: group.groupId,
-  contactUsername: `👥 ${group.name} (${group.members.length})`,
+  contactUsername: `👥 ${group.name}`,  // Just show group name cleanly
   lastMessage: group.lastMessage,
   lastMessageTime: group.lastTimestamp,
   unreadCount: group.unreadCount,

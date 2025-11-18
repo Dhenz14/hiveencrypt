@@ -204,7 +204,7 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
     // Scan the known member's account history for custom_json operations about this group
     const history = await optimizedHiveClient.getAccountHistory(
       knownMember,
-      1000,      // limit
+      1000,      // limit (Hive's max per request)
       false,     // filterTransfersOnly = false (we want custom_json)
       -1         // start = -1 (latest)
     );
@@ -318,7 +318,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     // STEP 1: Scan user's own custom_json operations for groups they created/updated
     const customJsonHistory = await optimizedHiveClient.getAccountHistory(
       username,
-      1000,      // limit
+      1000,      // limit (Hive's max per request)
       false,     // filterTransfersOnly = false (we want custom_json)
       -1         // start = -1 (latest)
     );
@@ -432,14 +432,14 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     logger.info('[GROUP BLOCKCHAIN] Stage 1: Total transfers:', totalTransfers, 'Incoming:', incomingTransfers, 'Encrypted:', encryptedIncoming);
     logger.info('[GROUP BLOCKCHAIN] Stage 1: Found', potentialGroupSenders.size, 'potential senders');
 
-    // Stage 2: If no senders found, expand to 1000 transfers (Hive's max limit per request)
+    // Stage 2: If no senders found, expand deeper
     if (potentialGroupSenders.size === 0) {
       try {
         logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...');
         
         transferHistory = await optimizedHiveClient.getAccountHistory(
           username,
-          1000,  // Hive's hard limit is 1000 operations per request
+          1000,  // Hive's max per request
           false,  // filterTransfersOnly = false to bypass potential RPC caching
           -1
         );
