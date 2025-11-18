@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { logger } from '@/lib/logger';
 import {
   getGroupConversations,
+  getGroupConversation,
   getGroupMessages,
   getAllGroupMessages,
   cacheGroupConversation,
@@ -629,6 +630,23 @@ export function useGroupMessages(groupId?: string) {
           logger.info('[GROUP MESSAGES] 💾 Caching', newMessages.length, 'newly discovered messages');
           await cacheGroupMessages(newMessages, user.username);
           logger.info('[GROUP MESSAGES] ✅ Cache write complete');
+          
+          // Step 5.1: Update group conversation with latest message (for preview)
+          const allMessages = [...cachedMessages, ...newMessages].sort((a, b) => 
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+          );
+          
+          if (allMessages.length > 0) {
+            const latestMessage = allMessages[0];
+            const groupConv = await getGroupConversation(groupId, user.username);
+            
+            if (groupConv) {
+              groupConv.lastMessage = latestMessage.content;
+              groupConv.lastTimestamp = latestMessage.timestamp;
+              await cacheGroupConversation(groupConv, user.username);
+              logger.info('[GROUP MESSAGES] ✅ Updated group conversation preview');
+            }
+          }
         }
 
         // Step 6: NOW check if we should backfill
@@ -737,6 +755,23 @@ export function useGroupMessages(groupId?: string) {
             logger.info('[GROUP MESSAGES] 💾 Caching', newMessages.length, 'messages from deep backfill');
             await cacheGroupMessages(newMessages, user.username);
             logger.info('[GROUP MESSAGES] ✅ Cache write complete');
+            
+            // Update group conversation with latest message (for preview)
+            const allMessages = [...cachedMessages, ...newMessages].sort((a, b) => 
+              new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+            );
+            
+            if (allMessages.length > 0) {
+              const latestMessage = allMessages[0];
+              const groupConv = await getGroupConversation(groupId, user.username);
+              
+              if (groupConv) {
+                groupConv.lastMessage = latestMessage.content;
+                groupConv.lastTimestamp = latestMessage.timestamp;
+                await cacheGroupConversation(groupConv, user.username);
+                logger.info('[GROUP MESSAGES] ✅ Updated group conversation preview after backfill');
+              }
+            }
           }
           
           // Set lastSyncedOp to highestOpIndex
