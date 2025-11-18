@@ -384,45 +384,71 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
     logger.info('[GROUP BLOCKCHAIN] Found', groupMap.size, 'groups from custom_json operations');
 
-    // STEP 2: Scan incoming transfers to find potential group senders
-    // Then check those senders' custom_json for group creations that include us
-    const transferHistory = await optimizedHiveClient.getAccountHistory(
+    // STEP 2: Tiered transfer scanning to find potential group senders
+    // Start with quick scan, expand if needed
+    const potentialGroupSenders = new Set<string>();
+    
+    // Stage 1: Quick scan of recent 500 transfers
+    logger.info('[GROUP BLOCKCHAIN] Stage 1: Scanning last 500 transfers...');
+    let transferHistory = await optimizedHiveClient.getAccountHistory(
       username,
-      500,       // limit - scan last 500 transfers
-      true,      // filterTransfersOnly = true
-      -1         // start = -1 (latest)
+      500,
+      true,
+      -1
     );
 
-    logger.info('[GROUP BLOCKCHAIN] Scanned', transferHistory.length, 'transfer operations');
+    logger.info('[GROUP BLOCKCHAIN] Stage 1: Scanned', transferHistory.length, 'operations');
 
-    // Collect unique senders who sent us encrypted messages
-    const potentialGroupSenders = new Set<string>();
-
+    // Collect senders from Stage 1
     for (const [, operation] of transferHistory) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
-          continue;
-        }
-        
+        if (!operation || !operation[1] || !operation[1].op) continue;
         const op = operation[1].op;
-        
-        if (op[0] !== 'transfer') {
-          continue;
-        }
-
+        if (op[0] !== 'transfer') continue;
         const transfer = op[1];
         
-        // Only process incoming encrypted transfers
         if (transfer.to === username && transfer.memo && transfer.memo.startsWith('#')) {
           potentialGroupSenders.add(transfer.from);
         }
-        
       } catch (parseError) {
         continue;
       }
     }
 
-    logger.info('[GROUP BLOCKCHAIN] Found', potentialGroupSenders.size, 'potential group senders');
+    logger.info('[GROUP BLOCKCHAIN] Stage 1: Found', potentialGroupSenders.size, 'potential senders');
+
+    // Stage 2: If no senders found, expand to 2000 transfers (deeper history)
+    if (potentialGroupSenders.size === 0) {
+      logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 2000 transfers...');
+      
+      transferHistory = await optimizedHiveClient.getAccountHistory(
+        username,
+        2000,
+        true,
+        -1
+      );
+
+      logger.info('[GROUP BLOCKCHAIN] Stage 2: Scanned', transferHistory.length, 'operations');
+
+      for (const [, operation] of transferHistory) {
+        try {
+          if (!operation || !operation[1] || !operation[1].op) continue;
+          const op = operation[1].op;
+          if (op[0] !== 'transfer') continue;
+          const transfer = op[1];
+          
+          if (transfer.to === username && transfer.memo && transfer.memo.startsWith('#')) {
+            potentialGroupSenders.add(transfer.from);
+          }
+        } catch (parseError) {
+          continue;
+        }
+      }
+
+      logger.info('[GROUP BLOCKCHAIN] Stage 2: Found', potentialGroupSenders.size, 'total potential senders');
+    }
+
+    logger.info('[GROUP BLOCKCHAIN] ✅ Discovery complete:', potentialGroupSenders.size, 'potential group senders to scan');
 
     // Track how many groups we had before sender scans
     const initialGroupCount = groupMap.size;
