@@ -419,33 +419,38 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
     // Stage 2: If no senders found, expand to 2000 transfers (deeper history)
     if (potentialGroupSenders.size === 0) {
-      logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 2000 transfers...');
-      
-      transferHistory = await optimizedHiveClient.getAccountHistory(
-        username,
-        2000,
-        true,
-        -1
-      );
+      try {
+        logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 2000 transfers...');
+        
+        transferHistory = await optimizedHiveClient.getAccountHistory(
+          username,
+          2000,
+          true,
+          -1
+        );
 
-      logger.info('[GROUP BLOCKCHAIN] Stage 2: Scanned', transferHistory.length, 'operations');
+        logger.info('[GROUP BLOCKCHAIN] Stage 2: Scanned', transferHistory.length, 'operations');
 
-      for (const [, operation] of transferHistory) {
-        try {
-          if (!operation || !operation[1] || !operation[1].op) continue;
-          const op = operation[1].op;
-          if (op[0] !== 'transfer') continue;
-          const transfer = op[1];
-          
-          if (transfer.to === username && transfer.memo && transfer.memo.startsWith('#')) {
-            potentialGroupSenders.add(transfer.from);
+        for (const [, operation] of transferHistory) {
+          try {
+            if (!operation || !operation[1] || !operation[1].op) continue;
+            const op = operation[1].op;
+            if (op[0] !== 'transfer') continue;
+            const transfer = op[1];
+            
+            if (transfer.to === username && transfer.memo && transfer.memo.startsWith('#')) {
+              potentialGroupSenders.add(transfer.from);
+            }
+          } catch (parseError) {
+            continue;
           }
-        } catch (parseError) {
-          continue;
         }
-      }
 
-      logger.info('[GROUP BLOCKCHAIN] Stage 2: Found', potentialGroupSenders.size, 'total potential senders');
+        logger.info('[GROUP BLOCKCHAIN] Stage 2: Found', potentialGroupSenders.size, 'total potential senders');
+      } catch (stage2Error) {
+        logger.error('[GROUP BLOCKCHAIN] Stage 2 failed:', stage2Error);
+        logger.info('[GROUP BLOCKCHAIN] Continuing with', potentialGroupSenders.size, 'senders from Stage 1');
+      }
     }
 
     logger.info('[GROUP BLOCKCHAIN] ✅ Discovery complete:', potentialGroupSenders.size, 'potential group senders to scan');
