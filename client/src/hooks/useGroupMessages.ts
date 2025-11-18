@@ -464,9 +464,14 @@ export function useGroupDiscovery() {
         // STEP 3: Merge and update cache
         const groupMap = new Map<string, GroupConversationCache>();
 
-        // Add cached groups first
+        // Add cached groups first (with custom names applied)
         cachedGroups.forEach(group => {
-          groupMap.set(group.groupId, group);
+          // Apply custom name to cached groups too (not just blockchain-discovered groups)
+          const customName = getCustomGroupName(user.username, group.groupId);
+          const updatedGroup = customName 
+            ? { ...group, name: customName }
+            : group;
+          groupMap.set(group.groupId, updatedGroup);
         });
 
         // Update with blockchain data (ALWAYS overwrite to ensure custom names are applied)
