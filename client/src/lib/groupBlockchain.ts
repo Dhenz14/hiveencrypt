@@ -389,11 +389,12 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     const potentialGroupSenders = new Set<string>();
     
     // Stage 1: Quick scan of recent 500 transfers
-    logger.info('[GROUP BLOCKCHAIN] Stage 1: Scanning last 500 transfers...');
+    // CRITICAL FIX: Use unfiltered query to bypass RPC node caching issues
+    logger.info('[GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...');
     let transferHistory = await optimizedHiveClient.getAccountHistory(
       username,
       500,
-      true,
+      false,  // filterTransfersOnly = false to bypass potential RPC caching
       -1
     );
 
@@ -434,12 +435,12 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     // Stage 2: If no senders found, expand to 1000 transfers (Hive's max limit per request)
     if (potentialGroupSenders.size === 0) {
       try {
-        logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 transfers...');
+        logger.info('[GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...');
         
         transferHistory = await optimizedHiveClient.getAccountHistory(
           username,
           1000,  // Hive's hard limit is 1000 operations per request
-          true,
+          false,  // filterTransfersOnly = false to bypass potential RPC caching
           -1
         );
 
