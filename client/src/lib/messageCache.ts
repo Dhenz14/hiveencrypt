@@ -986,6 +986,131 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
   return cleanedCount;
 }
 
+/**
+ * MIGRATION: Find and move misplaced group messages from messages table to groupMessages table
+ * This fixes the bug where group messages were initially cached as direct messages
+ */
+export async function migrateGroupMessages(username: string): Promise<number> {
+  console.log('[MIGRATION] Starting group message migration for:', username);
+  
+  const db = await getDB(username);
+  const { parseGroupMessageMemo } = await import('./groupBlockchain');
+  const { lookupGroupMetadata } = await import('./groupBlockchain');
+  
+  // Get all messages from the messages table
+  const allMessages = await db.getAll('messages');
+  console.log('[MIGRATION] Scanning', allMessages.length, 'messages for misplaced group messages');
+  
+  let migratedCount = 0;
+  const groupMessagesToAdd: GroupMessageCache[] = [];
+  const messageIdsToDelete: string[] = [];
+  const groupsToUpdate = new Map<string, { name: string; members: string[]; creator: string; lastMessage: string; lastTimestamp: string }>();
+  
+  for (const msg of allMessages) {
+    // Check if content or encryptedContent starts with group: or #group:
+    let isGroupMessage = false;
+    let parsed: any = null;
+    
+    // Try parsing the content field first (might have decrypted group message)
+    if (msg.content && (msg.content.startsWith('group:') || msg.content.startsWith('#group:'))) {
+      console.log('[MIGRATION] Found potential group message in content:', msg.id.substring(0, 20));
+      parsed = parseGroupMessageMemo(msg.content);
+      isGroupMessage = parsed?.isGroupMessage ?? false;
+    }
+    
+    if (!isGroupMessage && msg.encryptedContent && (msg.encryptedContent.startsWith('group:') || msg.encryptedContent.startsWith('#group:'))) {
+      console.log('[MIGRATION] Found potential group message in encryptedContent:', msg.id.substring(0, 20));
+      parsed = parseGroupMessageMemo(msg.encryptedContent);
+      isGroupMessage = parsed?.isGroupMessage ?? false;
+    }
+    
+    if (isGroupMessage && parsed && parsed.groupId) {
+      console.log('[MIGRATION] Migrating group message:', {
+        txId: msg.id.substring(0, 20),
+        groupId: parsed.groupId,
+        creator: parsed.creator,
+        from: msg.from
+      });
+      
+      // Create group message entry
+      const groupMessage: GroupMessageCache = {
+        id: msg.txId,
+        groupId: parsed.groupId,
+        sender: msg.from,
+        creator: parsed.creator,
+        content: parsed.content || '',
+        encryptedContent: msg.encryptedContent,
+        timestamp: msg.timestamp,
+        recipients: [msg.to],
+        txIds: [msg.txId],
+        confirmed: msg.confirmed ?? true,
+        status: 'confirmed',
+      };
+      
+      groupMessagesToAdd.push(groupMessage);
+      messageIdsToDelete.push(msg.id);
+      
+      // Try to lookup group metadata
+      try {
+        const groupMetadata = await lookupGroupMetadata(parsed.groupId, msg.from);
+        if (groupMetadata) {
+          groupsToUpdate.set(parsed.groupId, {
+            name: groupMetadata.name,
+            members: groupMetadata.members,
+            creator: groupMetadata.creator,
+            lastMessage: parsed.content || '',
+            lastTimestamp: msg.timestamp
+          });
+        }
+      } catch (error) {
+        console.warn('[MIGRATION] Failed to lookup group metadata for:', parsed.groupId);
+      }
+      
+      migratedCount++;
+    }
+  }
+  
+  // Write all changes in a transaction
+  if (groupMessagesToAdd.length > 0) {
+    console.log('[MIGRATION] Writing', groupMessagesToAdd.length, 'group messages to groupMessages table');
+    
+    // Add group messages
+    await cacheGroupMessages(groupMessagesToAdd, username);
+    
+    // Delete old messages from messages table
+    const tx = db.transaction('messages', 'readwrite');
+    for (const msgId of messageIdsToDelete) {
+      await tx.store.delete(msgId);
+    }
+    await tx.done;
+    
+    // Update group conversation caches
+    const groupEntries = Array.from(groupsToUpdate.entries());
+    for (const [groupId, groupData] of groupEntries) {
+      const existingGroup = await db.get('groupConversations', groupId);
+      const groupConv: GroupConversationCache = {
+        groupId,
+        name: groupData.name,
+        members: groupData.members,
+        creator: groupData.creator,
+        createdAt: existingGroup?.createdAt || new Date().toISOString(),
+        version: existingGroup?.version || 1,
+        lastMessage: groupData.lastMessage,
+        lastTimestamp: groupData.lastTimestamp,
+        unreadCount: existingGroup?.unreadCount || 0,
+        lastChecked: existingGroup?.lastChecked || new Date().toISOString(),
+      };
+      await db.put('groupConversations', groupConv);
+    }
+    
+    console.log('[MIGRATION] ✅ Migrated', migratedCount, 'group messages');
+  } else {
+    console.log('[MIGRATION] No misplaced group messages found');
+  }
+  
+  return migratedCount;
+}
+
 export type { 
   MessageCache, 
   ConversationCache, 

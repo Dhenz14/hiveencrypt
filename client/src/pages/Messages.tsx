@@ -214,7 +214,7 @@ export default function Messages() {
     logger.info('[INIT] ✅ Username verified, starting migration checks for:', user.username);
     
     // Run UTC timestamp migration first
-    import('@/lib/messageCache').then(async ({ migrateTimestampsToUTC, clearAllCache, fixCorruptedMessages }) => {
+    import('@/lib/messageCache').then(async ({ migrateTimestampsToUTC, clearAllCache, fixCorruptedMessages, migrateGroupMessages }) => {
       logger.info('[INIT] 📦 messageCache module loaded successfully');
       
       try {
@@ -249,6 +249,18 @@ export default function Messages() {
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
         } else {
           logger.info('[INIT] ℹ️ No corrupted messages found');
+        }
+        
+        // Migrate misplaced group messages from messages table to groupMessages table
+        logger.info('[INIT] 🔍 Checking for misplaced group messages...');
+        const migratedCount = await migrateGroupMessages(user.username);
+        if (migratedCount > 0) {
+          logger.info(`[INIT] ✅ Migrated ${migratedCount} group messages, refreshing...`);
+          queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
+          queryClient.invalidateQueries({ queryKey: ['blockchain-group-messages'] });
+          queryClient.invalidateQueries({ queryKey: ['group-discovery', user.username] });
+        } else {
+          logger.info('[INIT] ℹ️ No misplaced group messages found');
         }
         
         logger.info('[INIT] ✅ ALL MIGRATION CHECKS COMPLETE');
