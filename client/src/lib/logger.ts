@@ -5,6 +5,13 @@
 const isDevelopment = (typeof import.meta !== 'undefined' ? import.meta.env?.DEV : undefined) ?? process.env.NODE_ENV !== 'production';
 
 export const logger = {
+  // Use for verbose debug logging (only in development)
+  debug: (...args: any[]) => {
+    if (isDevelopment) {
+      console.log('[DEBUG]', ...args);
+    }
+  },
+  
   // Use for general info that's safe to log
   info: (...args: any[]) => {
     if (isDevelopment) {

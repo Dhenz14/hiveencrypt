@@ -10,7 +10,14 @@ import {
   type GroupConversationCache,
   type GroupMessageCache,
 } from '@/lib/messageCache';
-import { discoverUserGroups, parseGroupMessageMemo, lookupGroupMetadata, setGroupNegativeCache } from '@/lib/groupBlockchain';
+import { 
+  discoverUserGroups, 
+  parseGroupMessageMemo, 
+  lookupGroupMetadata, 
+  setGroupNegativeCache,
+  MAX_DEEP_BACKFILL_OPS,
+  BACKFILL_CHUNK_SIZE 
+} from '@/lib/groupBlockchain';
 import { hiveClient as optimizedHiveClient } from '@/lib/hiveClient';
 import { decryptMemo } from '@/lib/hive';
 import { useToast } from '@/hooks/use-toast';
@@ -30,6 +37,100 @@ function checkCancellation(signal: AbortSignal, context: string) {
   if (signal.aborted) {
     logger.info(`[QUERY CANCELLED] ${context}`);
     throw new DOMException('Query was cancelled', 'AbortError');
+  }
+}
+
+/**
+ * Helper function to process a single transfer operation
+ * Returns GroupMessageCache if valid group message, null otherwise
+ */
+async function processTransferOperation(
+  operation: any,
+  index: number,
+  groupId: string,
+  username: string,
+  seenTxIds: Set<string>
+): Promise<GroupMessageCache | null> {
+  try {
+    const op = operation[1].op;
+    
+    // Only process incoming transfers
+    if (op[0] !== 'transfer') return null;
+    
+    const transfer = op[1];
+    const memo = transfer.memo;
+    const txId = operation[1].trx_id;
+    
+    // Skip if already cached
+    if (seenTxIds.has(txId)) {
+      logger.debug('[GROUP MESSAGES] Cache hit for txId:', txId);
+      return null;
+    }
+    
+    // Only process incoming transfers with encrypted memos
+    if (transfer.to !== username || !memo || !memo.startsWith('#')) {
+      logger.debug('[GROUP MESSAGES] Skipping non-encrypted transfer from:', transfer.from);
+      return null;
+    }
+
+    logger.info('[GROUP MESSAGES] 🔐 Attempting to decrypt memo from:', transfer.from, 'txId:', txId.substring(0, 8));
+
+    // Decrypt the memo
+    const decryptedMemo = await decryptMemo(
+      username,
+      memo,
+      transfer.from,
+      txId
+    );
+
+    if (!decryptedMemo) {
+      logger.warn('[GROUP MESSAGES] ❌ Failed to decrypt memo from:', transfer.from, 'txId:', txId.substring(0, 8));
+      return null;
+    }
+
+    logger.info('[GROUP MESSAGES] ✅ Successfully decrypted memo from:', transfer.from);
+
+    // Parse group message format
+    const parsed = parseGroupMessageMemo(decryptedMemo);
+    
+    // Skip null results (malformed memos) - don't crash, just log and continue
+    if (parsed === null) {
+      logger.warn('[GROUP MESSAGES] ⚠️ Malformed group message memo from:', transfer.from, 'content:', decryptedMemo.substring(0, 50));
+      return null;
+    }
+    
+    // Only process messages for this group
+    if (!parsed.isGroupMessage) {
+      logger.debug('[GROUP MESSAGES] Not a group message, skipping');
+      return null;
+    }
+    
+    if (parsed.groupId !== groupId) {
+      logger.debug('[GROUP MESSAGES] Different group (', parsed.groupId, '), skipping');
+      return null;
+    }
+
+    logger.info('[GROUP MESSAGES] 📨 Found group message for group:', groupId, 'from:', transfer.from, 'creator:', parsed.creator);
+
+    // Create group message cache entry
+    const messageCache: GroupMessageCache = {
+      id: txId,
+      groupId: parsed.groupId,
+      sender: transfer.from,
+      creator: parsed.creator, // Store creator for group discovery
+      content: parsed.content || '',
+      encryptedContent: memo,
+      timestamp: operation[1].timestamp + 'Z', // Normalize to UTC
+      recipients: [username], // This user received it
+      txIds: [txId],
+      confirmed: true,
+      status: 'confirmed',
+    };
+
+    return messageCache;
+  } catch (parseError) {
+    logger.error('[GROUP MESSAGES] ❌ Error processing transfer:', parseError);
+    return null;
   }
 }
 
@@ -480,7 +581,7 @@ export function useGroupMessages(groupId?: string) {
           logger.info('[GROUP MESSAGES] Highest operation index:', highestOpIndex);
         }
 
-        // Step 4: Process initial 200 operations and cache them BEFORE checking backfill limit
+        // Step 4: Process initial operations and cache them BEFORE checking backfill limit
         logger.info('[GROUP MESSAGES] Processing initial', latestHistory.length, 'operations');
         const newMessages: GroupMessageCache[] = [];
         const seenTxIds = new Set(cachedMessages.map(m => m.txIds).flat());
@@ -493,93 +594,152 @@ export function useGroupMessages(groupId?: string) {
 
           const [index, operation] = latestHistory[i];
           
-          try {
-            const op = operation[1].op;
-            
-            // Only process incoming transfers
-            if (op[0] !== 'transfer') continue;
-            
-            const transfer = op[1];
-            const memo = transfer.memo;
-            const txId = operation[1].trx_id;
-            
-            // Skip if already cached
-            if (seenTxIds.has(txId)) continue;
-            
-            // Only process incoming transfers with encrypted memos
-            if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
-              continue;
-            }
-
-            // Decrypt the memo
-            const decryptedMemo = await decryptMemo(
-              user.username,
-              memo,
-              transfer.from,
-              txId
-            );
-
-            if (!decryptedMemo) continue;
-
-            // Parse group message format
-            const parsed = parseGroupMessageMemo(decryptedMemo);
-            
-            // Skip null results (malformed memos) - don't crash, just log and continue
-            if (parsed === null) {
-              logger.warn('[GROUP MESSAGES] Skipping malformed group message memo, txId:', txId);
-              continue;
-            }
-            
-            // Only process messages for this group
-            if (!parsed.isGroupMessage || parsed.groupId !== groupId) {
-              continue;
-            }
-
-            // Create group message cache entry
-            const messageCache: GroupMessageCache = {
-              id: txId,
-              groupId: parsed.groupId,
-              sender: transfer.from,
-              creator: parsed.creator, // Store creator for group discovery
-              content: parsed.content || '',
-              encryptedContent: memo,
-              timestamp: operation[1].timestamp + 'Z', // Normalize to UTC
-              recipients: [user.username], // This user received it
-              txIds: [txId],
-              confirmed: true,
-              status: 'confirmed',
-            };
-
+          const messageCache = await processTransferOperation(
+            operation,
+            index,
+            groupId,
+            user.username,
+            seenTxIds
+          );
+          
+          if (messageCache) {
             newMessages.push(messageCache);
-            seenTxIds.add(txId);
-
-          } catch (parseError) {
-            logger.warn('[GROUP MESSAGES] Failed to parse/decrypt message:', parseError);
-            continue;
+            seenTxIds.add(messageCache.id);
           }
         }
+
+        // Log statistics after initial scan
+        logger.info('[GROUP MESSAGES] 📊 Initial scan stats:', {
+          operationsExamined: latestHistory.length,
+          newMessagesFound: newMessages.length,
+          cachedMessages: cachedMessages.length
+        });
 
         // Check cancellation before cache writes
         checkCancellation(signal, 'Group messages before initial cache writes');
 
-        // Step 5: Cache newly discovered messages from initial 200 operations
+        // Step 5: Cache newly discovered messages from initial operations
         if (newMessages.length > 0 && !signal.aborted) {
-          logger.info('[GROUP MESSAGES] Discovered', newMessages.length, 'new messages from initial operations');
+          logger.info('[GROUP MESSAGES] 💾 Caching', newMessages.length, 'newly discovered messages');
           await cacheGroupMessages(newMessages, user.username);
+          logger.info('[GROUP MESSAGES] ✅ Cache write complete');
         }
 
         // Step 6: NOW check if we should backfill
         const MAX_BACKFILL = getMaxBackfill();
         
-        // FIRST SYNC BACKFILL: If this is the first sync and we fetched 1000 ops but found
-        // no group messages, do NOT backfill further (would cause Keychain spam)
-        // Instead, rely on the initial 1000-op scan
+        // FIRST SYNC DEEP BACKFILL: Scan up to 5000 operations to discover old group messages
         if (lastSyncedOp === null) {
-          logger.info('[GROUP MESSAGES] First sync complete, fetched', initialLimit, 'operations');
-          // Set lastSyncedOp to highestOpIndex so future syncs can paginate
+          logger.info('[GROUP MESSAGES] First sync - starting deep backfill');
+          
+          // Track the oldest sequence number from initial fetch
+          let oldestSeqNum = -1;
+          if (latestHistory.length > 0) {
+            oldestSeqNum = Math.min(...latestHistory.map(([idx]) => idx));
+            logger.info('[GROUP MESSAGES] Oldest sequence from initial scan:', oldestSeqNum);
+          }
+          
+          // Calculate how many more chunks we need
+          const totalOpsTarget = MAX_DEEP_BACKFILL_OPS;
+          const alreadyFetched = initialLimit;
+          const remainingOps = totalOpsTarget - alreadyFetched;
+          const chunksToFetch = Math.ceil(remainingOps / BACKFILL_CHUNK_SIZE);
+          
+          let totalChunksScanned = 0;
+          let totalOpsScanned = alreadyFetched;
+          
+          if (oldestSeqNum > 0 && chunksToFetch > 0) {
+            toast({
+              title: 'Scanning Message History',
+              description: 'Looking for older messages, this may take a moment...',
+            });
+            
+            for (let i = 0; i < chunksToFetch; i++) {
+              checkCancellation(signal, `Group messages deep backfill chunk ${i + 1}`);
+              
+              // Use the oldestSeqNum as the starting point for the next chunk
+              const nextStart = oldestSeqNum - 1;
+              
+              if (nextStart < 0) {
+                logger.info('[GROUP MESSAGES] Reached beginning of account history, stopping backfill');
+                break;
+              }
+              
+              logger.info('[GROUP MESSAGES] Backfill chunk', i + 1, '/', chunksToFetch, 'starting at sequence:', nextStart);
+              
+              const olderHistory = await optimizedHiveClient.getAccountHistory(
+                user.username,
+                BACKFILL_CHUNK_SIZE,
+                true,  // filterTransfersOnly
+                nextStart  // Start from the operation BEFORE the oldest we've seen
+              );
+              
+              if (olderHistory.length === 0) {
+                logger.info('[GROUP MESSAGES] No more operations, stopping backfill');
+                break;
+              }
+              
+              // Update oldestSeqNum for the next iteration
+              const chunkOldest = Math.min(...olderHistory.map(([idx]) => idx));
+              oldestSeqNum = chunkOldest;
+              totalChunksScanned++;
+              totalOpsScanned += olderHistory.length;
+              
+              logger.info('[GROUP MESSAGES] Processing chunk', i + 1, '(', olderHistory.length, 'operations), oldest sequence:', oldestSeqNum);
+              
+              // Process these operations using the helper function
+              for (let j = 0; j < olderHistory.length; j++) {
+                // Check cancellation periodically (every 10 messages)
+                if (j % 10 === 0) {
+                  checkCancellation(signal, `Group messages backfill chunk ${i + 1} (${j}/${olderHistory.length})`);
+                }
+                
+                const [index, operation] = olderHistory[j];
+                const message = await processTransferOperation(
+                  operation,
+                  index,
+                  groupId,
+                  user.username,
+                  seenTxIds
+                );
+                
+                if (message) {
+                  newMessages.push(message);
+                  seenTxIds.add(message.id);
+                }
+              }
+              
+              logger.info('[GROUP MESSAGES] Chunk', i + 1, 'complete, total new messages so far:', newMessages.length);
+              
+              // Stop if we've fetched enough
+              if (totalOpsScanned >= totalOpsTarget) {
+                logger.info('[GROUP MESSAGES] Reached target of', totalOpsTarget, 'operations, stopping backfill');
+                break;
+              }
+            }
+          }
+          
+          // Cache all newly discovered messages from deep backfill
+          checkCancellation(signal, 'Group messages before deep backfill cache write');
+          
+          if (newMessages.length > 0 && !signal.aborted) {
+            logger.info('[GROUP MESSAGES] 💾 Caching', newMessages.length, 'messages from deep backfill');
+            await cacheGroupMessages(newMessages, user.username);
+            logger.info('[GROUP MESSAGES] ✅ Cache write complete');
+          }
+          
+          // Set lastSyncedOp to highestOpIndex
           if (highestOpIndex > 0) {
             setLastSyncedOperation(user.username, highestOpIndex);
           }
+          
+          logger.info('[GROUP MESSAGES] 📊 Deep backfill stats:', {
+            chunksScanned: totalChunksScanned,
+            totalOperationsScanned: totalOpsScanned,
+            newMessagesFound: newMessages.length
+          });
+          
+          logger.info('[GROUP MESSAGES] ✅ First sync deep backfill complete');
         }
         
         if (lastSyncedOp !== null && highestOpIndex > 0) {
@@ -616,7 +776,18 @@ export function useGroupMessages(groupId?: string) {
               new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
             );
 
-            logger.info('[GROUP MESSAGES] ✅ Total messages (backfill limit hit):', dedupedMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
+            // Calculate cache hit rate
+            const cacheHitRate = dedupedMessages.length > 0 
+              ? ((cachedMessages.length / dedupedMessages.length) * 100).toFixed(1) + '%'
+              : '0%';
+
+            logger.info('[GROUP MESSAGES] 📊 Final summary (backfill limit hit):', {
+              totalMessages: dedupedMessages.length,
+              fromCache: cachedMessages.length,
+              newlyDiscovered: newMessages.length,
+              cacheHitRate: cacheHitRate
+            });
+            
             return dedupedMessages;
           }
 
@@ -706,73 +877,26 @@ export function useGroupMessages(groupId?: string) {
                 checkCancellation(signal, `Group messages processing backfill (${i}/${allOperations.length})`);
               }
 
-              const operation = allOperations[i][1];
+              const messageCache = await processTransferOperation(
+                allOperations[i][1],
+                index,
+                groupId,
+                user.username,
+                seenTxIds
+              );
               
-              try {
-                const op = operation.op;
-                
-                // Only process incoming transfers
-                if (op[0] !== 'transfer') continue;
-                
-                const transfer = op[1];
-                const memo = transfer.memo;
-                const txId = operation.trx_id;
-                
-                // Skip if already cached
-                if (seenTxIds.has(txId)) continue;
-                
-                // Only process incoming transfers with encrypted memos
-                if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
-                  continue;
-                }
-
-                // Decrypt the memo
-                const decryptedMemo = await decryptMemo(
-                  user.username,
-                  memo,
-                  transfer.from,
-                  txId
-                );
-
-                if (!decryptedMemo) continue;
-
-                // Parse group message format
-                const parsed = parseGroupMessageMemo(decryptedMemo);
-                
-                // Skip null results (malformed memos)
-                if (parsed === null) {
-                  logger.warn('[GROUP MESSAGES] Skipping malformed group message memo, txId:', txId);
-                  continue;
-                }
-                
-                // Only process messages for this group
-                if (!parsed.isGroupMessage || parsed.groupId !== groupId) {
-                  continue;
-                }
-
-                // Create group message cache entry
-                const messageCache: GroupMessageCache = {
-                  id: txId,
-                  groupId: parsed.groupId,
-                  sender: transfer.from,
-                  creator: parsed.creator, // Store creator for group discovery
-                  content: parsed.content || '',
-                  encryptedContent: memo,
-                  timestamp: operation.timestamp + 'Z', // Normalize to UTC
-                  recipients: [user.username],
-                  txIds: [txId],
-                  confirmed: true,
-                  status: 'confirmed',
-                };
-
+              if (messageCache) {
                 newMessages.push(messageCache);
-                seenTxIds.add(txId);
-
-              } catch (parseError) {
-                logger.warn('[GROUP MESSAGES] Failed to parse/decrypt backfilled message:', parseError);
-                continue;
+                seenTxIds.add(messageCache.id);
               }
             }
+            
+            // Log backfill statistics
+            logger.info('[GROUP MESSAGES] 📊 Backfill stats:', {
+              chunksScanned: chunks,
+              totalOperationsScanned: allOperations.length,
+              newMessagesFound: newMessages.length
+            });
             
             // Check cancellation before cache writes
             checkCancellation(signal, 'Group messages before backfill cache writes');
@@ -780,8 +904,9 @@ export function useGroupMessages(groupId?: string) {
             // Cache newly discovered messages from backfill
             if (newMessages.length > latestHistory.length && !signal.aborted) {
               const backfillMessages = newMessages.slice(latestHistory.length);
-              logger.info('[GROUP MESSAGES] Discovered', backfillMessages.length, 'additional messages from backfill');
+              logger.info('[GROUP MESSAGES] 💾 Caching', backfillMessages.length, 'additional messages from backfill');
               await cacheGroupMessages(backfillMessages, user.username);
+              logger.info('[GROUP MESSAGES] ✅ Cache write complete');
             }
           }
         }
@@ -815,7 +940,17 @@ export function useGroupMessages(groupId?: string) {
         // Final cancellation check before returning
         checkCancellation(signal, 'Group messages before return');
 
-        logger.info('[GROUP MESSAGES] ✅ Total messages:', dedupedMessages.length, '(', cachedMessages.length, 'cached +', newMessages.length, 'new)');
+        // Calculate cache hit rate
+        const cacheHitRate = dedupedMessages.length > 0 
+          ? ((cachedMessages.length / dedupedMessages.length) * 100).toFixed(1) + '%'
+          : '0%';
+
+        logger.info('[GROUP MESSAGES] 📊 Final summary:', {
+          totalMessages: dedupedMessages.length,
+          fromCache: cachedMessages.length,
+          newlyDiscovered: newMessages.length,
+          cacheHitRate: cacheHitRate
+        });
 
         return dedupedMessages;
       } catch (error) {
