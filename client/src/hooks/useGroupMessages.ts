@@ -50,6 +50,12 @@ export function useGroupMessagePreSync() {
         return 0;
       }
 
+      // DISABLED: Pre-sync is no longer needed because discovery now scans
+      // blockchain metadata directly without triggering Keychain popups
+      logger.info('[GROUP PRESYNC] Pre-sync disabled - discovery uses blockchain metadata');
+      return 0;
+
+      /* PREVIOUS APPROACH (CAUSED KEYCHAIN POPUP SPAM):
       logger.info('[GROUP PRESYNC] Starting pre-sync for user:', user.username);
 
       try {
@@ -184,6 +190,7 @@ export function useGroupMessagePreSync() {
         logger.error('[GROUP PRESYNC] ❌ Failed to pre-sync group messages:', error);
         return 0;
       }
+      */
     },
     enabled: !!user?.username,
     staleTime: Infinity, // Only run once per session
@@ -195,11 +202,10 @@ export function useGroupMessagePreSync() {
 
 /**
  * Hook to discover and fetch all groups the user is a member of
- * Combines blockchain discovery with local cache
+ * Now discovers groups directly from blockchain metadata without needing cached messages
  * Supports query cancellation via signal to prevent stale state
- * @param preSyncComplete - Only run after pre-sync completes to ensure messages are cached first
  */
-export function useGroupDiscovery(preSyncComplete: boolean = true) {
+export function useGroupDiscovery() {
   const { user } = useAuth();
 
   return useQuery({
@@ -385,7 +391,7 @@ export function useGroupDiscovery(preSyncComplete: boolean = true) {
         return cachedGroups;
       }
     },
-    enabled: !!user?.username && preSyncComplete,
+    enabled: !!user?.username,
     staleTime: 30000, // 30 seconds
     refetchInterval: 60000, // Refetch every minute
   });
