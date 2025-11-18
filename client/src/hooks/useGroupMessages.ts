@@ -514,6 +514,29 @@ export function useGroupDiscovery() {
         checkCancellation(signal, 'Group discovery before return');
 
         const mergedGroups = Array.from(groupMap.values());
+        
+        // STEP 4: Update group previews from cached messages (if not already set)
+        for (const group of mergedGroups) {
+          if (!group.lastMessage || group.lastMessage === '') {
+            // Check if we have cached messages for this group
+            const cachedMessages = await getGroupMessages(group.groupId, user.username);
+            
+            if (cachedMessages.length > 0) {
+              // Get the most recent message
+              const latestMessage = cachedMessages[cachedMessages.length - 1];
+              
+              // Update the group conversation with the latest message
+              group.lastMessage = latestMessage.content;
+              group.lastTimestamp = latestMessage.timestamp;
+              
+              // Save updated group to cache
+              await cacheGroupConversation(group, user.username);
+              
+              logger.info('[GROUP DISCOVERY] 📝 Updated preview for group:', group.name, 'with cached message');
+            }
+          }
+        }
+        
         logger.info('[GROUP DISCOVERY] ✅ Total groups:', mergedGroups.length);
 
         return mergedGroups;
