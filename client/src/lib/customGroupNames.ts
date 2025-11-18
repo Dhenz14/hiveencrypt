@@ -28,10 +28,15 @@ export function getCustomGroupNames(username: string): Record<string, string> {
  */
 export function setCustomGroupName(username: string, groupId: string, customName: string): void {
   try {
+    console.log('[CUSTOM GROUP NAMES] 📥 setCustomGroupName called with:', { username, groupId, customName });
     const names = getCustomGroupNames(username);
+    console.log('[CUSTOM GROUP NAMES] 📦 Current names before update:', names);
     names[groupId] = customName;
-    localStorage.setItem(getStorageKey(username), JSON.stringify(names));
-    console.log('[CUSTOM GROUP NAMES] Set custom name for group:', groupId, 'name:', customName);
+    console.log('[CUSTOM GROUP NAMES] 📦 Updated names object:', names);
+    const key = getStorageKey(username);
+    console.log('[CUSTOM GROUP NAMES] 🔑 Storage key:', key);
+    localStorage.setItem(key, JSON.stringify(names));
+    console.log('[CUSTOM GROUP NAMES] ✅ Set custom name for group:', groupId, 'name:', customName);
   } catch (error) {
     console.error('[CUSTOM GROUP NAMES] Failed to save custom name:', error);
     throw error;

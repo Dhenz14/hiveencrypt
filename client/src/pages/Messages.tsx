@@ -610,10 +610,21 @@ export default function Messages() {
   };
 
   const handleSaveGroupName = async () => {
-    if (!user?.username || !selectedGroupId || !editNameValue.trim()) return;
+    console.log('[SAVE GROUP NAME] 🔍 Function called with:', { 
+      user: user?.username, 
+      selectedGroupId, 
+      editNameValue,
+      trimmed: editNameValue.trim()
+    });
+    
+    if (!user?.username || !selectedGroupId || !editNameValue.trim()) {
+      console.log('[SAVE GROUP NAME] ❌ Early return - missing data');
+      return;
+    }
 
     try {
       const newName = editNameValue.trim();
+      console.log('[SAVE GROUP NAME] 💾 Calling setCustomGroupName with:', { username: user.username, groupId: selectedGroupId, newName });
       
       // Step 1: Save custom name to localStorage
       setCustomGroupName(user.username, selectedGroupId, newName);
