@@ -399,22 +399,36 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
     logger.info('[GROUP BLOCKCHAIN] Stage 1: Scanned', transferHistory.length, 'operations');
 
+    // Diagnostic: Count all types of operations
+    let totalTransfers = 0;
+    let incomingTransfers = 0;
+    let encryptedIncoming = 0;
+
     // Collect senders from Stage 1
     for (const [, operation] of transferHistory) {
       try {
         if (!operation || !operation[1] || !operation[1].op) continue;
         const op = operation[1].op;
         if (op[0] !== 'transfer') continue;
+        
+        totalTransfers++;
         const transfer = op[1];
         
-        if (transfer.to === username && transfer.memo && transfer.memo.startsWith('#')) {
-          potentialGroupSenders.add(transfer.from);
+        if (transfer.to === username) {
+          incomingTransfers++;
+          
+          if (transfer.memo && transfer.memo.startsWith('#')) {
+            encryptedIncoming++;
+            potentialGroupSenders.add(transfer.from);
+            logger.info('[GROUP BLOCKCHAIN] Found encrypted transfer from:', transfer.from, 'amount:', transfer.amount);
+          }
         }
       } catch (parseError) {
         continue;
       }
     }
 
+    logger.info('[GROUP BLOCKCHAIN] Stage 1: Total transfers:', totalTransfers, 'Incoming:', incomingTransfers, 'Encrypted:', encryptedIncoming);
     logger.info('[GROUP BLOCKCHAIN] Stage 1: Found', potentialGroupSenders.size, 'potential senders');
 
     // Stage 2: If no senders found, expand to 1000 transfers (Hive's max limit per request)
@@ -431,21 +445,35 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
         logger.info('[GROUP BLOCKCHAIN] Stage 2: Scanned', transferHistory.length, 'operations');
 
+        // Diagnostic: Count all types of operations
+        let stage2TotalTransfers = 0;
+        let stage2IncomingTransfers = 0;
+        let stage2EncryptedIncoming = 0;
+
         for (const [, operation] of transferHistory) {
           try {
             if (!operation || !operation[1] || !operation[1].op) continue;
             const op = operation[1].op;
             if (op[0] !== 'transfer') continue;
+            
+            stage2TotalTransfers++;
             const transfer = op[1];
             
-            if (transfer.to === username && transfer.memo && transfer.memo.startsWith('#')) {
-              potentialGroupSenders.add(transfer.from);
+            if (transfer.to === username) {
+              stage2IncomingTransfers++;
+              
+              if (transfer.memo && transfer.memo.startsWith('#')) {
+                stage2EncryptedIncoming++;
+                potentialGroupSenders.add(transfer.from);
+                logger.info('[GROUP BLOCKCHAIN] Stage 2: Found encrypted transfer from:', transfer.from, 'amount:', transfer.amount);
+              }
             }
           } catch (parseError) {
             continue;
           }
         }
 
+        logger.info('[GROUP BLOCKCHAIN] Stage 2: Total transfers:', stage2TotalTransfers, 'Incoming:', stage2IncomingTransfers, 'Encrypted:', stage2EncryptedIncoming);
         logger.info('[GROUP BLOCKCHAIN] Stage 2: Found', potentialGroupSenders.size, 'total potential senders');
       } catch (stage2Error) {
         logger.error('[GROUP BLOCKCHAIN] Stage 2 failed:', stage2Error);
