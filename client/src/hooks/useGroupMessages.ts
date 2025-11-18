@@ -440,6 +440,7 @@ export function useGroupDiscovery() {
             
             // Check if user has set a custom name for this group
             const customName = getCustomGroupName(user.username, groupId);
+            logger.info('[GROUP DISCOVERY] 🔍 Custom name check for group:', groupId, 'result:', customName);
             const displayName = customName || `Group (${groupId.substring(0, 8)}...)`;
             
             const fallbackGroup: Group = {

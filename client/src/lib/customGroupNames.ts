@@ -58,6 +58,7 @@ export function removeCustomGroupName(username: string, groupId: string): void {
  */
 export function getCustomGroupName(username: string, groupId: string): string | null {
   const names = getCustomGroupNames(username);
+  console.log('[CUSTOM GROUP NAMES] 🔍 Looking up custom name for:', { username, groupId, allNames: names, result: names[groupId] });
   return names[groupId] || null;
 }
 
