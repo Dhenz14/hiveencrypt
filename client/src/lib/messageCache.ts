@@ -174,9 +174,10 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
 
   // Scope database to username to prevent data mixing between accounts
   // v6: Add group chat support (groupConversations, groupMessages)
-  const dbName = username ? `hive-messenger-${username}-v6` : 'hive-messenger-v6';
+  // v7: Add groupManifestPointers object store for memo-pointer protocol
+  const dbName = username ? `hive-messenger-${username}-v7` : 'hive-messenger-v7';
   
-  dbInstance = await openDB<HiveMessengerDB>(dbName, 1, {
+  dbInstance = await openDB<HiveMessengerDB>(dbName, 2, {
     upgrade(db: IDBPDatabase<HiveMessengerDB>) {
       if (!db.objectStoreNames.contains('messages')) {
         const messageStore = db.createObjectStore('messages', { keyPath: 'id' });
