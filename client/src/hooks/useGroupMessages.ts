@@ -53,6 +53,12 @@ async function processTransferOperation(
   seenTxIds: Set<string>
 ): Promise<GroupMessageCache | null> {
   try {
+    // Validate operation structure before accessing properties
+    if (!operation || !operation[1] || !operation[1].op) {
+      logger.debug('[GROUP MESSAGES] ⚠️ Invalid operation structure, skipping');
+      return null;
+    }
+    
     const op = operation[1].op;
     
     // Only process incoming transfers
@@ -130,7 +136,7 @@ async function processTransferOperation(
 
     return messageCache;
   } catch (parseError) {
-    logger.error('[GROUP MESSAGES] ❌ Error processing transfer:', parseError);
+    logger.error('[GROUP MESSAGES] ❌ Error processing transfer:', parseError instanceof Error ? parseError.message : String(parseError));
     return null;
   }
 }

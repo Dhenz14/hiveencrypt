@@ -1,0 +1,1556 @@
+ [ServiceWorker] Loaded and ready!
+ [Platform Detection] Starting detection...
+ [Platform Detection] User Agent: mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/142.0.0.0 safari/537.36
+ [Platform Detection] Is Mobile: false
+ ✅ blakejs loaded successfully (self-contained version)
+   Available functions: Array(5)
+ 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+ 🏛️ ArcHive Content Script Loaded
+ 🏛️ ArcHive Content Script Ready - 100% Decentralized
+ [PWA] Service Worker registered: https://hive-encrypt-theycallmethank.replit.app/
+(index):1 Error while trying to use the following icon from the Manifest: https://hive-encrypt-theycallmethank.replit.app/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [Keychain Detection] window.hive_keychain found after 51 ms
+ [Keychain Detection] Handshake successful
+ [Platform Detection] ✅ Detected: desktop-extension
+ [Auth] Platform detected: desktop-extension
+ [Auth] Session restored for: curatorhulk
+ [CLEANUP] Starting orphaned message cleanup for: curatorhulk
+ [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Loaded exceptions: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [CLEANUP] ✅ Cleaned up 0 orphaned messages
+ [METADATA] Fetching from blockchain: curatorhulk
+ [METADATA] Fetching from blockchain: curatorhulk
+ [MIGRATION] UTC timestamp migration already completed
+ [CACHE FIX] Fixed 0 corrupted messages
+ [MIGRATION] Starting group message migration for: curatorhulk
+ [MIGRATION] Scanning 11 messages for misplaced group messages
+ [MIGRATION DEBUG 0] ID: 5d29792fa8f4239aa453 FROM: dandandan123
+ [MIGRATION DEBUG 0] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 0] Encrypted: "#2VDS1Hvtw8gAJG17a4m1TnYDy8hdVCeDCvEW9gYreu7G3siWPstVDZ2cvDaWrhB3urSF9uCPVGY8vJ3"
+ [MIGRATION DEBUG 0] Content starts with group?: false
+ [MIGRATION DEBUG 0] Encrypted starts with group?: false
+ [MIGRATION DEBUG 1] ID: 6cda45b609c6e1c4beda FROM: dandandan123
+ [MIGRATION DEBUG 1] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 1] Encrypted: "#3jBXnbpQ3TrGzABn3TYMCQDfFSfF5YWUAfRV1faxcYrPNFEJ79VJ9bZ6jSK8GzQZbitT1u2mLCsxrKC"
+ [MIGRATION DEBUG 1] Content starts with group?: false
+ [MIGRATION DEBUG 1] Encrypted starts with group?: false
+ [MIGRATION DEBUG 2] ID: 76b11dc9734693c2e233 FROM: dandandan123
+ [MIGRATION DEBUG 2] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 2] Encrypted: "#HqymTJ7CxXAT7M9qfFANWzzxPr5eNV95dhmj7J5FiYb4HKS4Wog7Sbritg5o4TyFEarXChpkqNFD8R3"
+ [MIGRATION DEBUG 2] Content starts with group?: false
+ [MIGRATION DEBUG 2] Encrypted starts with group?: false
+ [MIGRATION DEBUG 3] ID: 95552926b94046c5a932 FROM: dandandan123
+ [MIGRATION DEBUG 3] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 3] Encrypted: "#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHabGNsn9rzB2rEhQ7ZgnYZMMnQwqhMgWo9ZiRF82Dt"
+ [MIGRATION DEBUG 3] Content starts with group?: false
+ [MIGRATION DEBUG 3] Encrypted starts with group?: false
+ [MIGRATION DEBUG 4] ID: a00c5511bb72c1863a2f FROM: dandandan123
+ [MIGRATION DEBUG 4] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 4] Encrypted: "#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsFCDhPUGqD3VSkPJBoX8SBB4PGUvMt5h"
+ [MIGRATION DEBUG 4] Content starts with group?: false
+ [MIGRATION DEBUG 4] Encrypted starts with group?: false
+ [MIGRATION DEBUG 5] ID: a8ff7f4d1092d8acd5f5 FROM: curatorhulk
+ [MIGRATION DEBUG 5] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 5] Encrypted: "#RSqbfosJSErf62p4frn2RfgsG2qFaDX8TomLzjHUEX9udnCw6BjVHXR4boWBpGa1TPMPoi9Lbz4HjWn"
+ [MIGRATION DEBUG 5] Content starts with group?: false
+ [MIGRATION DEBUG 5] Encrypted starts with group?: false
+ [MIGRATION DEBUG 6] ID: bb991acfdcb313b049f4 FROM: curatorhulk
+ [MIGRATION DEBUG 6] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 6] Encrypted: "#RSqbfosJSErf62p4frn2RfgsG2qFaDX8TomLzjHUEX9udnCw6BjVHXR4boWBpGa1TPMPoi9Lbz4HjWn"
+ [MIGRATION DEBUG 6] Content starts with group?: false
+ [MIGRATION DEBUG 6] Encrypted starts with group?: false
+ [MIGRATION DEBUG 7] ID: ce7fab1c75f7f841c669 FROM: dandandan123
+ [MIGRATION DEBUG 7] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 7] Encrypted: "#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHabGNsn9rzB2rEhQ7ZgnYZMMnQwqhMgWo9ZiRF82Dt"
+ [MIGRATION DEBUG 7] Content starts with group?: false
+ [MIGRATION DEBUG 7] Encrypted starts with group?: false
+ [MIGRATION DEBUG 8] ID: d151580efada4d28d5f0 FROM: dandandan123
+ [MIGRATION DEBUG 8] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 8] Encrypted: "#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHabGNsn9rzB2rEhQ7ZgnYZMMnQwqhMgWo9ZiRF82Dt"
+ [MIGRATION DEBUG 8] Content starts with group?: false
+ [MIGRATION DEBUG 8] Encrypted starts with group?: false
+ [MIGRATION DEBUG 9] ID: f16a9382279cfb0c244d FROM: dandandan123
+ [MIGRATION DEBUG 9] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 9] Encrypted: "#ABVDyZiTBkNTGYxC5mjUfi5fowXTGeKhM5gHamAxo9rDMGgzyPcZM4YPgvLB7H9HT7PXz1w7jSVHhWU"
+ [MIGRATION DEBUG 9] Content starts with group?: false
+ [MIGRATION DEBUG 9] Encrypted starts with group?: false
+ [MIGRATION DEBUG 10] ID: f299c7be96fade3f9b6a FROM: dandandan123
+ [MIGRATION DEBUG 10] Content: "[🔒 Encrypted - Click to decrypt]"
+ [MIGRATION DEBUG 10] Encrypted: "#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHabGNsn9rzB2rEhQ7ZgnYZMMnQwqhMgWo9ZiRF82Dt"
+ [MIGRATION DEBUG 10] Content starts with group?: false
+ [MIGRATION DEBUG 10] Encrypted starts with group?: false
+ [MIGRATION] No misplaced group messages found
+ [METADATA] Fetched and cached: curatorhulk undefined
+ [METADATA] Fetched and cached: curatorhulk undefined
+ [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+ [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+ [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+ [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+ [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+ [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+ [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+ [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+ [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+ [GROUP CACHE] Batch cached 3 group messages
+ [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 3
+ [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 3
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [GROUP MESSAGES] ❌ Error processing transfer: 
+error @ index-CP4d_ZIF.js:724
+ [METADATA] Fetching from blockchain: dandandan123
+ [METADATA] Fetching from blockchain: dandandan123
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ index-CP4d_ZIF.js:724
+ [METADATA] Fetched and cached: dandandan123 Object
+ [METADATA] Fetched and cached: dandandan123 Object
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [GROUP BLOCKCHAIN] ❌ Failed to discover groups: 
+error @ index-CP4d_ZIF.js:724
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ index-CP4d_ZIF.js:724
+ [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+ [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+ [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+ [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+ [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+ [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+ [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+ [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+ [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+ [GROUP CACHE] Batch cached 3 group messages
+ [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 4
+ [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 4
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+ [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+ [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:724 [GROUP BLOCKCHAIN] ❌ Failed to discover groups: Error: Failed to fetch account history: Could not find filtered operation in 2000 operations, to continue searching, set start=158552.
+    at HiveBlockchainClient.getAccountHistory (index-CP4d_ZIF.js:724:11136)
+    at async discoverUserGroups (index-CP4d_ZIF.js:799:37175)
+    at async queryFn (index-CP4d_ZIF.js:804:159531)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+index-CP4d_ZIF.js:724 [GROUP CACHE] Batch cached 3 group messages
+index-CP4d_ZIF.js:724 [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 5
+index-CP4d_ZIF.js:724 [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 5
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:724 [GROUP BLOCKCHAIN] ❌ Failed to discover groups: Error: Failed to fetch account history: total_processed_items < 2000: Could not find filtered operation in 2000 operations, to continue searching, set start=158547.
+    at HiveBlockchainClient.getAccountHistory (index-CP4d_ZIF.js:724:11136)
+    at async discoverUserGroups (index-CP4d_ZIF.js:799:37175)
+    at async queryFn (index-CP4d_ZIF.js:804:159531)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+index-CP4d_ZIF.js:724 [GROUP CACHE] Batch cached 3 group messages
+index-CP4d_ZIF.js:724 [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 6
+index-CP4d_ZIF.js:724 [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 6
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:724 [GROUP BLOCKCHAIN] ❌ Failed to discover groups: Error: Failed to fetch account history: total_processed_items < 2000: Could not find filtered operation in 2000 operations, to continue searching, set start=158547.
+    at HiveBlockchainClient.getAccountHistory (index-CP4d_ZIF.js:724:11136)
+    at async discoverUserGroups (index-CP4d_ZIF.js:799:37175)
+    at async queryFn (index-CP4d_ZIF.js:804:159531)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+index-CP4d_ZIF.js:724 [GROUP CACHE] Batch cached 3 group messages
+index-CP4d_ZIF.js:724 [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 7
+index-CP4d_ZIF.js:724 [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 7
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Fetching from blockchain: curatorhulk
+index-CP4d_ZIF.js:799 [METADATA] Fetched and cached: curatorhulk undefined
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:804 [SEND] Step 2: Starting encryption... Object
+index-CP4d_ZIF.js:804 [SEND] ✅ Encryption successful: Object
+index-CP4d_ZIF.js:804 [SEND] Step 3: Broadcasting to blockchain... Object
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:804 [SEND] Transfer response received: Object
+index-CP4d_ZIF.js:804 [SEND] ✅ Blockchain broadcast successful, txId: 3a30607f581a7aeac16c7fe27ccbc04e55ff987c
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:799 [METADATA] Cache hit for: curatorhulk
+index-CP4d_ZIF.js:724 [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 160509
+index-CP4d_ZIF.js:724 [INCREMENTAL] Updated last synced opId for curatorhulk-dandandan123 : 160548
+index-CP4d_ZIF.js:724 [GROUP BLOCKCHAIN] ❌ Failed to discover groups: Error: Failed to fetch account history: total_processed_items < 2000: Could not find filtered operation in 2000 operations, to continue searching, set start=158548.
+    at HiveBlockchainClient.getAccountHistory (index-CP4d_ZIF.js:724:11136)
+    at async discoverUserGroups (index-CP4d_ZIF.js:799:37175)
+    at async queryFn (index-CP4d_ZIF.js:804:159531)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP DISCOVERY] ❌ Failed to discover groups: AbortError: Query was cancelled
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP BLOCKCHAIN] ❌ Failed to discover groups: Error: Failed to fetch account history: total_processed_items < 2000: Could not find filtered operation in 2000 operations, to continue searching, set start=158548.
+    at HiveBlockchainClient.getAccountHistory (index-CP4d_ZIF.js:724:11136)
+    at async discoverUserGroups (index-CP4d_ZIF.js:799:37175)
+    at async queryFn (index-CP4d_ZIF.js:804:159531)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+index-CP4d_ZIF.js:724 [GROUP CACHE] Attempting to cache group message: Object
+index-CP4d_ZIF.js:724 [GROUP CACHE] ✅ Cached group message: d471dac4-e819-48e3-8e52-caaee3c22866
+index-CP4d_ZIF.js:724 [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 8
+index-CP4d_ZIF.js:724 [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 8
+index-CP4d_ZIF.js:724 [decryptMemo] ❌ ERROR: User ignored this transaction
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [decryptMemo] Error for memo: #XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa... otherParty: dandandan123
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+index-CP4d_ZIF.js:724 [ENCRYPTION] ❌ Encryption failed: Object
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP SEND] ❌ Error sending to dandandan123 : Error: User ignored this transaction
+    at Object.<anonymous> (index-CP4d_ZIF.js:804:1163)
+    at hive_keychain.js:1:5436
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP CACHE] Confirming group message: Object
+index-CP4d_ZIF.js:724 [GROUP CACHE] ✅ Group message confirmed: d471dac4-e819-48e3-8e52-caaee3c22866
+index-CP4d_ZIF.js:724 [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 9
+index-CP4d_ZIF.js:724 [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 9
+index-CP4d_ZIF.js:724 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP MESSAGES] ❌ Error processing transfer: TypeError: Cannot read properties of undefined (reading 'op')
+    at processTransferOperation (index-CP4d_ZIF.js:804:157648)
+    at queryFn (index-CP4d_ZIF.js:804:167733)
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+index-CP4d_ZIF.js:724 [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+index-CP4d_ZIF.js:724 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [GROUP CACHE] Batch cached 3 group messages
+index-CP4d_ZIF.js:724 [GROUP DISCOVERY] ❌ Failed to discover groups: AbortError: Query was cancelled
+error @ index-CP4d_ZIF.js:724
+index-CP4d_ZIF.js:724 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ index-CP4d_ZIF.js:724
