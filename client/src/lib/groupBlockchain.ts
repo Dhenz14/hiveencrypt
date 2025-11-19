@@ -366,13 +366,13 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
     logger.info('[GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos');
     
     // Helper function for processing transfer chunks
-    async function processTransferChunk(
+    const processTransferChunk = async (
       transfers: any[],
       targetGroupId: string,
       recipientUsername: string,
       decodeMemo: any,
       cachePointer: any
-    ): Promise<Group | null> {
+    ): Promise<Group | null> => {
       for (const [seqNum, operation] of transfers) {
         // Wrap EACH transfer in individual try-catch
         try {
