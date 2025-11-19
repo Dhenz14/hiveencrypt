@@ -205,18 +205,96 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
     
     logger.info('[GROUP BLOCKCHAIN] Looking up group metadata:', { groupId, knownMember });
     
-    // Scan the known member's account history for custom_json operations about this group
-    const history = await optimizedHiveClient.getAccountHistory(
+    // DEEP BACKFILL: Scan the known member's account history for custom_json operations about this group
+    // Start with initial chunk of 1000 operations
+    let history = await optimizedHiveClient.getAccountHistory(
       knownMember,
-      1000,      // limit (Hive's max per request)
+      BACKFILL_CHUNK_SIZE,      // 1000 operations per chunk
       'custom_json',  // filter only custom_json operations (10-100x faster than unfiltered)
       -1         // start = -1 (latest)
     );
 
+    let allOps = [...history];
+    let oldestSeqNum = -1;
+
+    if (history.length > 0) {
+      oldestSeqNum = Math.min(...history.map(([idx]) => idx));
+      logger.info('[GROUP BLOCKCHAIN] Metadata lookup - initial fetch:', history.length, 'ops, oldest seq:', oldestSeqNum);
+    }
+
+    // Continue backfilling until we find the group or hit the limit
+    const totalOpsTarget = MAX_DEEP_BACKFILL_OPS; // 5000 operations max
+    const chunksToFetch = Math.ceil((totalOpsTarget - allOps.length) / BACKFILL_CHUNK_SIZE);
+
+    if (oldestSeqNum > 0 && chunksToFetch > 0 && allOps.length < totalOpsTarget) {
+      logger.info('[GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for:', knownMember, 'target:', totalOpsTarget, 'ops');
+
+      for (let chunkIdx = 0; chunkIdx < chunksToFetch; chunkIdx++) {
+        const nextStart = oldestSeqNum - 1;
+
+        if (nextStart < 0) {
+          logger.info('[GROUP BLOCKCHAIN] Metadata lookup - reached beginning of history for:', knownMember);
+          break;
+        }
+
+        const olderHistory = await optimizedHiveClient.getAccountHistory(
+          knownMember,
+          BACKFILL_CHUNK_SIZE,
+          'custom_json',
+          nextStart
+        );
+
+        if (olderHistory.length === 0) {
+          logger.info('[GROUP BLOCKCHAIN] Metadata lookup - no more operations for:', knownMember);
+          break;
+        }
+
+        const chunkOldest = Math.min(...olderHistory.map(([idx]) => idx));
+        if (!Number.isFinite(chunkOldest)) {
+          logger.error('[GROUP BLOCKCHAIN] Metadata lookup - invalid sequence number for:', knownMember);
+          break;
+        }
+
+        oldestSeqNum = chunkOldest;
+        allOps = [...allOps, ...olderHistory];
+
+        logger.info('[GROUP BLOCKCHAIN] Metadata lookup - chunk', chunkIdx + 1, ':', olderHistory.length, 'ops, total:', allOps.length);
+
+        // Early exit: Check if we found the group in this chunk
+        let foundInChunk = false;
+        for (const [, operation] of olderHistory) {
+          try {
+            if (!operation || !operation[1] || !operation[1].op) continue;
+            const op = operation[1].op;
+            if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) continue;
+            const jsonData: GroupCustomJson = JSON.parse(op[1].json);
+            if (jsonData.groupId === groupId && jsonData.action !== 'leave') {
+              foundInChunk = true;
+              logger.info('[GROUP BLOCKCHAIN] Metadata lookup - found group in chunk', chunkIdx + 1, '- stopping backfill');
+              break;
+            }
+          } catch (e) {
+            continue;
+          }
+        }
+
+        if (foundInChunk) {
+          break; // Stop backfilling - we found the group!
+        }
+
+        if (allOps.length >= totalOpsTarget) {
+          logger.info('[GROUP BLOCKCHAIN] Metadata lookup - reached target of', totalOpsTarget, 'ops for:', knownMember);
+          break;
+        }
+      }
+    }
+
+    logger.info('[GROUP BLOCKCHAIN] Metadata lookup - completed scan of', allOps.length, 'operations for:', knownMember);
+
     let latestGroupData: Group | null = null;
     let latestVersion = 0;
 
-    for (const [, operation] of history) {
+    for (const [, operation] of allOps) {
       try {
         if (!operation || !operation[1] || !operation[1].op) {
           continue;
