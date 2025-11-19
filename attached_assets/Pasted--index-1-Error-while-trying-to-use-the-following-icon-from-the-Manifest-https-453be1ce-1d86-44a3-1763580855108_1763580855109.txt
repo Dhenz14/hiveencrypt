@@ -1,0 +1,1588 @@
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP CREATION] Creating group: Object
+ [GROUP BLOCKCHAIN] Broadcasting group creation: Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP BLOCKCHAIN] ✅ Group created on blockchain: c2149abd76aece093eac0051da8ab4da1720fecd
+ [RPC] Selected best node: https://api.hive.blog Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [CONV DISCOVERY] Starting progressive discovery for user: curatorhulk
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [PROGRESSIVE] Phase 1 discovered 1 partners in 372 ms
+ [PROGRESSIVE] Phase 1 - Cached: 1 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 1 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [PROGRESSIVE] Phase 2 discovered 1 total partners in 505 ms
+ [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP DISCOVERY] 🚀 QUERY FUNCTION STARTED for user: curatorhulk
+queryFn @ useGroupMessages.ts:130
+ [GROUP DISCOVERY] 🔍 Step 1: Checking username...
+queryFn @ useGroupMessages.ts:132
+ [GROUP DISCOVERY] ✅ Username confirmed: curatorhulk
+queryFn @ useGroupMessages.ts:138
+ [GROUP DISCOVERY] Discovering groups for: curatorhulk
+ [GROUP DISCOVERY] 🔍 Step 2: Fetching from cache...
+queryFn @ useGroupMessages.ts:140
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP DISCOVERY] ✅ Loaded 1 groups from cache
+queryFn @ useGroupMessages.ts:142
+ [GROUP DISCOVERY] Loaded 1 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: curatorhulk
+ [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+ [RPC] Selected best node: https://api.hive.blog Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0
+ [GROUP BLOCKCHAIN] Initial scan: 190 operations
+ [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 35121
+ [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+ [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 35120
+ [RPC] Selected best node: https://api.hive.blog Object
+ [GROUP BLOCKCHAIN] No more operations, stopping backfill
+ [GROUP BLOCKCHAIN] ✅ Completed scanning 190 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [RPC] Selected best node: https://api.hive.blog Object
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 1000 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+ [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+ [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+ [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 3 cached group messages
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+ [GROUP DISCOVERY] Found 1 unique groups from cached messages
+ [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [GROUP DISCOVERY] Scanning 200 blockchain transfers for group messages
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+ [MEMO CACHE HIT] Using cached decryption for txId: a00c5511bb72c1863a2f
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 3
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 152
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 18
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #can you see this?...
+ [SENSITIVE] [decryptMemo] Final result: #can you see this?...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 8
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 5
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #test...
+ [SENSITIVE] [decryptMemo] Final result: #test...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 3
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 174
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 46
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:yo...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed legacy format group message (no creator)
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 196
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 61
+ [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 218
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 64
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+logger.ts:18 [GROUP DISCOVERY] Looking up metadata for 1 discovered groups
+logger.ts:18 [GROUP BLOCKCHAIN] Looking up group metadata: Object
+logger.ts:18 [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 90 ops, oldest seq: 2
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - completed: 90 transfer operations scanned, chunks processed: 0
+logger.ts:18 [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 55 ops, oldest seq: 8
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 55 operations for: dandandan123
+logger.ts:25 [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:25
+logger.ts:25 [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:25
+logger.ts:18 [GROUP DISCOVERY] ➕ Added minimal group: test
+logger.ts:18 [GROUP DISCOVERY] Caching 3 discovered group messages
+messageCache.ts:789 [GROUP CACHE] Batch cached 3 group messages
+logger.ts:18 [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 1
+logger.ts:18 [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 1
+messageCache.ts:734 [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 10
+messageCache.ts:743 [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 10
+logger.ts:18 [GROUP DISCOVERY] ✅ Total groups: 1
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:18 [CONV DISCOVERY] Starting progressive discovery for user: curatorhulk
+logger.ts:18 [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+hiveClient.ts:149 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:149
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:18 [PROGRESSIVE] Phase 1 discovered 1 partners in 370 ms
+logger.ts:18 [PROGRESSIVE] Phase 1 - Cached: 1 Uncached: 0
+logger.ts:18 [PROGRESSIVE] Phase 1 complete: 1 conversations ready to display
+logger.ts:18 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog Object
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:18 [PROGRESSIVE] Phase 2 discovered 1 total partners in 88 ms
+logger.ts:18 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:18 [CONV DISCOVERY] Starting progressive discovery for user: curatorhulk
+logger.ts:18 [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog Object
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:18 [PROGRESSIVE] Phase 1 discovered 1 partners in 372 ms
+logger.ts:18 [PROGRESSIVE] Phase 1 - Cached: 1 Uncached: 0
+logger.ts:18 [PROGRESSIVE] Phase 1 complete: 1 conversations ready to display
+logger.ts:18 [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog Object
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+logger.ts:18 [PROGRESSIVE] Phase 2 discovered 1 total partners in 493 ms
+logger.ts:18 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.hive.blog/:1  Failed to load resource: net::ERR_FAILED
+useGroupMessages.ts:329 [GROUP DISCOVERY] 🚀 QUERY FUNCTION STARTED for user: curatorhulk
+queryFn @ useGroupMessages.ts:329
+useGroupMessages.ts:332 [GROUP DISCOVERY] 🔍 Step 1: Checking username...
+queryFn @ useGroupMessages.ts:332
+useGroupMessages.ts:339 [GROUP DISCOVERY] ✅ Username confirmed: curatorhulk
+queryFn @ useGroupMessages.ts:339
+logger.ts:18 [GROUP DISCOVERY] Discovering groups for: curatorhulk
+useGroupMessages.ts:342 [GROUP DISCOVERY] 🔍 Step 2: Fetching from cache...
+queryFn @ useGroupMessages.ts:342
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(1)
+logger.ts:18 [MESSAGES PAGE] Text messages: 0 Hidden: 0
+useGroupMessages.ts:345 [GROUP DISCOVERY] ✅ Loaded 1 groups from cache
+queryFn @ useGroupMessages.ts:345
+logger.ts:18 [GROUP DISCOVERY] Loaded 1 groups from cache
+logger.ts:18 [GROUP BLOCKCHAIN] Discovering groups for user: curatorhulk
+logger.ts:18 [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog Object
+logger.ts:18 [GROUP BLOCKCHAIN] Initial scan: 190 operations
+logger.ts:18 [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 35121
+logger.ts:18 [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+logger.ts:18 [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 35120
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog Object
+logger.ts:18 [GROUP BLOCKCHAIN] No more operations, stopping backfill
+logger.ts:18 [GROUP BLOCKCHAIN] ✅ Completed scanning 190 custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog Object
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog Object
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: Scanned 1000 operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+logger.ts:18 [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+logger.ts:18 [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+logger.ts:18 [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+logger.ts:18 [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+logger.ts:18 [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+logger.ts:25 [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:25
+discoverUserGroups @ groupBlockchain.ts:1477
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:25 [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:25
+discoverUserGroups @ groupBlockchain.ts:1478
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+logger.ts:18 [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+logger.ts:18 [GROUP DISCOVERY] Discovered 0 groups from blockchain
+logger.ts:18 [GROUP DISCOVERY] Scanning cached group messages for new groups...
+logger.ts:18 [GROUP DISCOVERY] Found 3 cached group messages
+logger.ts:18 [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+logger.ts:18 [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+logger.ts:18 [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+logger.ts:18 [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+logger.ts:18 [GROUP DISCOVERY] Found 1 unique groups from cached messages
+logger.ts:18 [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network {avgLatency: 722, successRate: '100.0%'}
+logger.ts:18 [GROUP DISCOVERY] Scanning 200 blockchain transfers for group messages
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ8...', memoLength: 130, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:598 [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+logger.ts:18 [MEMO CACHE HIT] Using cached decryption for txId: a00c5511bb72c1863a2f
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #yooo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+parseGroupMessageMemo @ groupBlockchain.ts:1666
+queryFn @ useGroupMessages.ts:445
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', memoLength: 306, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', sender: 'dandandan123', txId: '95552926b94046c5a932', depth: 0, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsF...', resultLength: 130}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 130
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ8...', sender: 'dandandan123', txId: '95552926b94046c5a932', depth: 1, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#yo...', resultLength: 3}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 3
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+parseGroupMessageMemo @ groupBlockchain.ts:1666
+queryFn @ useGroupMessages.ts:445
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#HqymTJ7CxXAT7M9qfFANWzzxPr5eNV95dhmj7J5...', memoLength: 328, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#HqymTJ7CxXAT7M9qfFANWzzxPr5eNV95dhmj7J5...', sender: 'dandandan123', txId: '76b11dc9734693c2e233', depth: 0, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#9T4x9xZEX1rt6vaet5Ev8HZTFB4SPjWvEfTAqvhs44yCYPtdr...', resultLength: 152}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 152
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#9T4x9xZEX1rt6vaet5Ev8HZTFB4SPjWvEfTAqvh...', sender: 'dandandan123', txId: '76b11dc9734693c2e233', depth: 1, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+(index):1 Access to XMLHttpRequest at 'https://api.hive.blog/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+@hiveio_dhive.js?v=08a1bde0:6667  POST https://api.hive.blog/ net::ERR_FAILED 404 (Not Found)
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:6667
+fetch @ @hiveio_dhive.js?v=08a1bde0:6639
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13759
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#can you see this?...', resultLength: 18}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 18
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #can you see this?...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #can you see this?...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+parseGroupMessageMemo @ groupBlockchain.ts:1666
+queryFn @ useGroupMessages.ts:445
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', memoLength: 306, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', sender: 'dandandan123', txId: 'ce7fab1c75f7f841c669', depth: 0, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsF...', resultLength: 130}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 130
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ8...', sender: 'dandandan123', txId: 'ce7fab1c75f7f841c669', depth: 1, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#testing...', resultLength: 8}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 8
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #testing...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+parseGroupMessageMemo @ groupBlockchain.ts:1666
+queryFn @ useGroupMessages.ts:445
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', memoLength: 306, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', sender: 'dandandan123', txId: 'f299c7be96fade3f9b6a', depth: 0, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsF...', resultLength: 130}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 130
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ8...', sender: 'dandandan123', txId: 'f299c7be96fade3f9b6a', depth: 1, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#test...', resultLength: 5}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 5
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #test...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #test...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+parseGroupMessageMemo @ groupBlockchain.ts:1666
+queryFn @ useGroupMessages.ts:445
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', memoLength: 306, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa...', sender: 'dandandan123', txId: 'd151580efada4d28d5f0', depth: 0, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ88fPEw5SpsF...', resultLength: 130}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 130
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#GW9nb4ixWSVMv9wWPyLFHNo1kXaSFMqVCo1FDZ8...', sender: 'dandandan123', txId: 'd151580efada4d28d5f0', depth: 1, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#Yo...', resultLength: 3}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 3
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #Yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+parseGroupMessageMemo @ groupBlockchain.ts:1666
+queryFn @ useGroupMessages.ts:445
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#ABVDyZiTBkNTGYxC5mjUfi5fowXTGeKhM5gHamA...', memoLength: 350, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#ABVDyZiTBkNTGYxC5mjUfi5fowXTGeKhM5gHamA...', sender: 'dandandan123', txId: 'f16a9382279cfb0c244d', depth: 0, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#5c728BMiuAWncmrgkjBvjtru4QLKpcr2EzgM3z6ftu9dbvhJt...', resultLength: 174}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 174
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#5c728BMiuAWncmrgkjBvjtru4QLKpcr2EzgM3z6...', sender: 'dandandan123', txId: 'f16a9382279cfb0c244d', depth: 1, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#group:009ef04a-9163-4aa7-ad19-576a739fe6bc:yo...', resultLength: 46}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 46
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+parseGroupMessageMemo @ groupBlockchain.ts:1666
+queryFn @ useGroupMessages.ts:445
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed legacy format group message (no creator)
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#3jBXnbpQ3TrGzABn3TYMCQDfFSfF5YWUAfRV1fa...', memoLength: 394, isEncrypted: true, …}
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+messageCache.ts:602 [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#3jBXnbpQ3TrGzABn3TYMCQDfFSfF5YWUAfRV1fa...', sender: 'dandandan123', txId: '6cda45b609c6e1c4beda', depth: 0, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#3WagGr68kytvWtQcHjAAW1u9XAGPhN8sKj5FEUKSTzsVbFuae...', resultLength: 196}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 196
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#3WagGr68kytvWtQcHjAAW1u9XAGPhN8sKj5FEUK...', sender: 'dandandan123', txId: '6cda45b609c6e1c4beda', depth: 1, …}
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...', resultLength: 61}
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 61
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+parseGroupMessageMemo @ groupBlockchain.ts:1130
+queryFn @ useGroupMessages.ts:206
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: {username: 'curatorhulk', otherParty: 'dandandan123', memoPreview: '#2VDS1Hvtw8gAJG17a4m1TnYDy8hdVCeDCvEW9gY...', memoLength: 416, isEncrypted: true, …}
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#2VDS1Hvtw8gAJG17a4m1TnYDy8hdVCeDCvEW9gY...', sender: 'dandandan123', txId: '5d29792fa8f4239aa453', depth: 0, …}
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#2NM6HDkdjtyd8saXXo1wk44inyAfeAuDGo3tgwx1Cn89Dx8tn...', resultLength: 218}
+ [requestDecodeMemo] Decryption successful, result length: 218
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: {username: 'curatorhulk', messagePreview: '#2NM6HDkdjtyd8saXXo1wk44inyAfeAuDGo3tgwx...', sender: 'dandandan123', txId: '5d29792fa8f4239aa453', depth: 1, …}
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: {success: true, hasResult: true, resultPreview: '#group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...', resultLength: 64}
+ [requestDecodeMemo] Decryption successful, result length: 64
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+parseGroupMessageMemo @ groupBlockchain.ts:1130
+queryFn @ useGroupMessages.ts:206
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [GROUP DISCOVERY] Looking up metadata for 1 discovered groups
+ [GROUP BLOCKCHAIN] Looking up group metadata: {groupId: '009ef04a-9163-4aa7-ad19-576a739fe6bc', knownMember: 'dandandan123'}
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [RPC] Selected best node: https://anyx.io {avgLatency: 1100, successRate: '100.0%'}
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 90 ops, oldest seq: 2
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 90 transfer operations scanned, chunks processed: 0
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+retryWithBackoff @ hiveClient.ts:122
+getAccountHistory @ hiveClient.ts:217
+lookupGroupMetadata @ groupBlockchain.ts:497
+await in lookupGroupMetadata
+queryFn @ useGroupMessages.ts:266
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 55 ops, oldest seq: 8
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+ [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+ [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 55 operations for: dandandan123
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:18
+lookupGroupMetadata @ groupBlockchain.ts:617
+await in lookupGroupMetadata
+queryFn @ useGroupMessages.ts:266
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:18
+queryFn @ useGroupMessages.ts:288
+FileReader
+Body.text @ @hiveio_dhive.js?v=08a1bde0:6551
+Body.json @ @hiveio_dhive.js?v=08a1bde0:6561
+(anonymous) @ @hiveio_dhive.js?v=08a1bde0:13761
+fulfilled @ @hiveio_dhive.js?v=08a1bde0:13679
+ [GROUP DISCOVERY] ➕ Added minimal group: test
+ [GROUP DISCOVERY] Caching 3 discovered group messages
+ [GROUP CACHE] Batch cached 3 group messages
+ [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 1
+ [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 1
+ [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 11
+ [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 11
+ [GROUP DISCOVERY] ✅ Total groups: 1
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: curatorhulk enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+Messages @ Messages.tsx:144
+renderWithHooks @ chunk-UZOKQUDP.js?v=08a1bde0:11548
+updateFunctionComponent @ chunk-UZOKQUDP.js?v=08a1bde0:14582
+beginWork @ chunk-UZOKQUDP.js?v=08a1bde0:15924
+beginWork$1 @ chunk-UZOKQUDP.js?v=08a1bde0:19753
+performUnitOfWork @ chunk-UZOKQUDP.js?v=08a1bde0:19198
+workLoopSync @ chunk-UZOKQUDP.js?v=08a1bde0:19137
+renderRootSync @ chunk-UZOKQUDP.js?v=08a1bde0:19116
+performSyncWorkOnRoot @ chunk-UZOKQUDP.js?v=08a1bde0:18874
+flushSyncCallbacks @ chunk-UZOKQUDP.js?v=08a1bde0:9119
+(anonymous) @ chunk-UZOKQUDP.js?v=08a1bde0:18627
+setTimeout
+scheduleFn @ @tanstack_react-query.js?v=08a1bde0:555
+flush @ @tanstack_react-query.js?v=08a1bde0:569
+batch @ @tanstack_react-query.js?v=08a1bde0:587
+dispatch_fn @ @tanstack_react-query.js?v=08a1bde0:996
+setData @ @tanstack_react-query.js?v=08a1bde0:696
+onSuccess @ @tanstack_react-query.js?v=08a1bde0:897
+resolve @ @tanstack_react-query.js?v=08a1bde0:456
+ [useGroupDiscovery] 🔍 Hook called, user: curatorhulk enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: [{…}]
+ [MESSAGES PAGE] Text messages: 0 Hidden: 0

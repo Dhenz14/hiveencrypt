@@ -219,45 +219,62 @@ export async function broadcastGroupCreation(
             const txId = response.result.id;
             logger.info('[GROUP BLOCKCHAIN] ✅ Group created on blockchain:', txId);
             
-            try {
-              // Get full transaction details for manifest pointer
-              const transaction = await optimizedHiveClient.getTransaction(txId);
-              
-              if (transaction && transaction.block_num) {
-                // Find the operation index for our custom_json
-                let opIdx = 0;
-                if (transaction.operations) {
-                  for (let i = 0; i < transaction.operations.length; i++) {
-                    if (transaction.operations[i][0] === 'custom_json' && 
-                        transaction.operations[i][1]?.id === GROUP_CUSTOM_JSON_ID) {
-                      opIdx = i;
-                      break;
-                    }
-                  }
-                }
-                
-                // Send invite memos to all members
-                const manifestPointer = {
-                  trx_id: txId,
-                  block: transaction.block_num,
-                  op_idx: opIdx
-                };
-                
-                const inviteResults = await sendGroupInviteMemos(
-                  groupId,
-                  members,
-                  manifestPointer,
-                  username,
-                  'create'
+            // Send invite memos in background - don't block group creation
+            // Use Promise.race with timeout to prevent hanging
+            const sendInvitesWithTimeout = async () => {
+              try {
+                // Add 15-second timeout to prevent indefinite hanging
+                const timeoutPromise = new Promise((_, reject) => 
+                  setTimeout(() => reject(new Error('Invite memo send timeout after 15s')), 15000)
                 );
                 
-                logger.info('[GROUP BLOCKCHAIN] Invite memos sent:', inviteResults);
+                const sendPromise = (async () => {
+                  // Get full transaction details for manifest pointer
+                  const transaction = await optimizedHiveClient.getTransaction(txId);
+                  
+                  if (transaction && transaction.block_num) {
+                    // Find the operation index for our custom_json
+                    let opIdx = 0;
+                    if (transaction.operations) {
+                      for (let i = 0; i < transaction.operations.length; i++) {
+                        if (transaction.operations[i][0] === 'custom_json' && 
+                            transaction.operations[i][1]?.id === GROUP_CUSTOM_JSON_ID) {
+                          opIdx = i;
+                          break;
+                        }
+                      }
+                    }
+                    
+                    // Send invite memos to all members
+                    const manifestPointer = {
+                      trx_id: txId,
+                      block: transaction.block_num,
+                      op_idx: opIdx
+                    };
+                    
+                    const inviteResults = await sendGroupInviteMemos(
+                      groupId,
+                      members,
+                      manifestPointer,
+                      username,
+                      'create'
+                    );
+                    
+                    logger.info('[GROUP BLOCKCHAIN] Invite memos sent:', inviteResults);
+                  }
+                })();
+                
+                await Promise.race([sendPromise, timeoutPromise]);
+              } catch (inviteError) {
+                // Log but don't fail the group creation
+                logger.error('[GROUP BLOCKCHAIN] Failed to send invite memos:', inviteError);
               }
-            } catch (inviteError) {
-              // Log but don't fail the group creation
-              logger.error('[GROUP BLOCKCHAIN] Failed to send invite memos:', inviteError);
-            }
+            };
             
+            // Send invites in background without blocking
+            sendInvitesWithTimeout();
+            
+            // Resolve immediately - group creation succeeded
             resolve(txId);
           } else {
             logger.error('[GROUP BLOCKCHAIN] ❌ Failed to create group:', response.error);
@@ -311,45 +328,62 @@ export async function broadcastGroupUpdate(
             const txId = response.result.id;
             logger.info('[GROUP BLOCKCHAIN] ✅ Group updated on blockchain:', txId);
             
-            try {
-              // Get full transaction details for manifest pointer
-              const transaction = await optimizedHiveClient.getTransaction(txId);
-              
-              if (transaction && transaction.block_num) {
-                // Find the operation index for our custom_json
-                let opIdx = 0;
-                if (transaction.operations) {
-                  for (let i = 0; i < transaction.operations.length; i++) {
-                    if (transaction.operations[i][0] === 'custom_json' && 
-                        transaction.operations[i][1]?.id === GROUP_CUSTOM_JSON_ID) {
-                      opIdx = i;
-                      break;
-                    }
-                  }
-                }
-                
-                // Send invite memos to all members
-                const manifestPointer = {
-                  trx_id: txId,
-                  block: transaction.block_num,
-                  op_idx: opIdx
-                };
-                
-                const inviteResults = await sendGroupInviteMemos(
-                  groupId,
-                  members,
-                  manifestPointer,
-                  username,
-                  'update'
+            // Send invite memos in background - don't block group update
+            // Use Promise.race with timeout to prevent hanging
+            const sendInvitesWithTimeout = async () => {
+              try {
+                // Add 15-second timeout to prevent indefinite hanging
+                const timeoutPromise = new Promise((_, reject) => 
+                  setTimeout(() => reject(new Error('Invite memo send timeout after 15s')), 15000)
                 );
                 
-                logger.info('[GROUP BLOCKCHAIN] Invite memos sent:', inviteResults);
+                const sendPromise = (async () => {
+                  // Get full transaction details for manifest pointer
+                  const transaction = await optimizedHiveClient.getTransaction(txId);
+                  
+                  if (transaction && transaction.block_num) {
+                    // Find the operation index for our custom_json
+                    let opIdx = 0;
+                    if (transaction.operations) {
+                      for (let i = 0; i < transaction.operations.length; i++) {
+                        if (transaction.operations[i][0] === 'custom_json' && 
+                            transaction.operations[i][1]?.id === GROUP_CUSTOM_JSON_ID) {
+                          opIdx = i;
+                          break;
+                        }
+                      }
+                    }
+                    
+                    // Send invite memos to all members
+                    const manifestPointer = {
+                      trx_id: txId,
+                      block: transaction.block_num,
+                      op_idx: opIdx
+                    };
+                    
+                    const inviteResults = await sendGroupInviteMemos(
+                      groupId,
+                      members,
+                      manifestPointer,
+                      username,
+                      'update'
+                    );
+                    
+                    logger.info('[GROUP BLOCKCHAIN] Invite memos sent:', inviteResults);
+                  }
+                })();
+                
+                await Promise.race([sendPromise, timeoutPromise]);
+              } catch (inviteError) {
+                // Log but don't fail the group update
+                logger.error('[GROUP BLOCKCHAIN] Failed to send invite memos:', inviteError);
               }
-            } catch (inviteError) {
-              // Log but don't fail the group update
-              logger.error('[GROUP BLOCKCHAIN] Failed to send invite memos:', inviteError);
-            }
+            };
             
+            // Send invites in background without blocking
+            sendInvitesWithTimeout();
+            
+            // Resolve immediately - group update succeeded
             resolve(txId);
           } else {
             logger.error('[GROUP BLOCKCHAIN] ❌ Failed to update group:', response.error);
