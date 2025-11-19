@@ -325,18 +325,24 @@ export function useGroupDiscovery() {
   return useQuery({
     queryKey: ['blockchain-group-conversations', user?.username],
     queryFn: async ({ signal }: QueryFunctionContext): Promise<GroupConversationCache[]> => {
-      console.warn('[GROUP DISCOVERY] 🚀 QUERY FUNCTION STARTED for user:', user?.username);
+      const username = user?.username; // Capture immediately to prevent closure issues
+      console.warn('[GROUP DISCOVERY] 🚀 QUERY FUNCTION STARTED for user:', username);
       
-      if (!user?.username) {
-        logger.warn('[GROUP DISCOVERY] No username, skipping group discovery');
-        return [];
-      }
-
-      logger.info('[GROUP DISCOVERY] Discovering groups for:', user.username);
-
       try {
+        console.warn('[GROUP DISCOVERY] 🔍 Step 1: Checking username...');
+        if (!username) {
+          console.warn('[GROUP DISCOVERY] ❌ No username, returning empty array');
+          logger.warn('[GROUP DISCOVERY] No username, skipping group discovery');
+          return [];
+        }
+
+        console.warn('[GROUP DISCOVERY] ✅ Username confirmed:', username);
+        logger.info('[GROUP DISCOVERY] Discovering groups for:', username);
+
+        console.warn('[GROUP DISCOVERY] 🔍 Step 2: Fetching from cache...');
         // STEP 1: Fetch from local cache first (instant load)
-        const cachedGroups = await getGroupConversations(user.username);
+        const cachedGroups = await getGroupConversations(username);
+        console.warn('[GROUP DISCOVERY] ✅ Loaded', cachedGroups.length, 'groups from cache');
         logger.info('[GROUP DISCOVERY] Loaded', cachedGroups.length, 'groups from cache');
 
         // Check if query was cancelled after cache read
@@ -739,15 +745,28 @@ export function useGroupDiscovery() {
 
         return mergedGroups;
       } catch (error) {
+        console.error('[GROUP DISCOVERY] ❌❌❌ CRITICAL ERROR ❌❌❌');
+        console.error('[GROUP DISCOVERY] Error object:', error);
+        console.error('[GROUP DISCOVERY] Error message:', error instanceof Error ? error.message : String(error));
+        console.error('[GROUP DISCOVERY] Error stack:', error instanceof Error ? error.stack : 'No stack');
+        
         logger.error('[GROUP DISCOVERY] ❌ Failed to discover groups:', error);
         logger.error('[GROUP DISCOVERY] ❌ Error details:', error instanceof Error ? error.message : String(error));
         logger.error('[GROUP DISCOVERY] ❌ Stack:', error instanceof Error ? error.stack : 'No stack');
         
         // Fallback to cached groups on error
+        console.warn('[GROUP DISCOVERY] ⚠️ Attempting fallback to cached groups...');
         logger.warn('[GROUP DISCOVERY] ⚠️ Using fallback: Returning cached groups instead');
-        const cachedGroups = await getGroupConversations(user.username);
-        logger.warn('[GROUP DISCOVERY] ⚠️ Fallback returned', cachedGroups.length, 'cached groups');
-        return cachedGroups;
+        
+        try {
+          const cachedGroups = await getGroupConversations(username);
+          console.warn('[GROUP DISCOVERY] ⚠️ Fallback succeeded, returning', cachedGroups.length, 'cached groups');
+          logger.warn('[GROUP DISCOVERY] ⚠️ Fallback returned', cachedGroups.length, 'cached groups');
+          return cachedGroups;
+        } catch (fallbackError) {
+          console.error('[GROUP DISCOVERY] ❌ Fallback also failed:', fallbackError);
+          return [];
+        }
       }
     },
     enabled: !!user?.username,
