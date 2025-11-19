@@ -654,6 +654,14 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
             logger.info('[GROUP BLOCKCHAIN] Transfer scan - reached beginning of history');
             break;
           }
+          
+          // Hive API constraint: for filtered queries, start must be >= limit - 1
+          // If nextStart is too small, we've essentially reached the beginning of history
+          if (nextStart < TRANSFER_CHUNK_SIZE - 1) {
+            logger.info('[GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq:', nextStart, '< chunk size:', TRANSFER_CHUNK_SIZE, ')');
+            logger.info('[GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers');
+            break;
+          }
     
           const olderTransfers = await optimizedHiveClient.getAccountHistory(
             knownMember,
@@ -774,6 +782,14 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
 
         if (nextStart < 0) {
           logger.info('[GROUP BLOCKCHAIN] Metadata lookup - reached beginning of history for:', knownMember);
+          break;
+        }
+        
+        // Hive API constraint: for filtered queries, start must be >= limit - 1
+        // If nextStart is too small, we've essentially reached the beginning of history
+        if (nextStart < BACKFILL_CHUNK_SIZE - 1) {
+          logger.info('[GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq:', nextStart, '< chunk size:', BACKFILL_CHUNK_SIZE, ')');
+          logger.info('[GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations');
           break;
         }
 
