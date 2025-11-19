@@ -22,12 +22,19 @@ import { isKeychainInstalled } from './hive';
 export type TipReceivePreference = 'lightning' | 'hbd';
 
 /**
+ * Privacy mode options for messages and group invites
+ */
+export type PrivacyMode = 'everyone' | 'following' | 'disabled';
+
+/**
  * Hive Messenger specific metadata stored in account profile
  */
 export interface HiveMessengerMetadata {
   min_hbd?: string;                          // Minimum HBD amount required (e.g., "0.001", "1.000") - optional
   lightning_address?: string;                // Lightning Network address (e.g., "user@getalby.com") - optional
   tip_receive_preference?: TipReceivePreference;  // How user wants to receive tips - optional
+  message_privacy?: PrivacyMode;             // Who can send you messages: 'everyone' | 'following' | 'disabled' - optional
+  group_invite_privacy?: PrivacyMode;        // Who can add you to groups: 'everyone' | 'following' | 'disabled' - optional
   version?: string;                          // Metadata version for future compatibility - optional
 }
 
@@ -643,5 +650,171 @@ export async function getTipReceivePreference(username: string): Promise<TipRece
   } catch (error) {
     console.error('[METADATA] Failed to get tip receive preference:', error);
     return 'hbd'; // Default fallback
+  }
+}
+
+// ============================================================================
+// Privacy Settings Functions
+// ============================================================================
+
+/**
+ * Get message privacy setting for a user
+ * 
+ * @param username - Hive account username
+ * @returns Promise<PrivacyMode> - Message privacy mode ('everyone', 'following', 'disabled')
+ */
+export async function getMessagePrivacy(username: string): Promise<PrivacyMode> {
+  try {
+    const metadata = await getAccountMetadata(username);
+    return metadata.profile?.hive_messenger?.message_privacy || 'everyone'; // Default to 'everyone' for backwards compatibility
+  } catch (error) {
+    console.error('[METADATA] Failed to get message privacy:', error);
+    return 'everyone'; // Default fallback
+  }
+}
+
+/**
+ * Get group invite privacy setting for a user
+ * 
+ * @param username - Hive account username
+ * @returns Promise<PrivacyMode> - Group invite privacy mode ('everyone', 'following', 'disabled')
+ */
+export async function getGroupInvitePrivacy(username: string): Promise<PrivacyMode> {
+  try {
+    const metadata = await getAccountMetadata(username);
+    return metadata.profile?.hive_messenger?.group_invite_privacy || 'everyone'; // Default to 'everyone' for backwards compatibility
+  } catch (error) {
+    console.error('[METADATA] Failed to get group invite privacy:', error);
+    return 'everyone'; // Default fallback
+  }
+}
+
+/**
+ * Update message privacy setting
+ * 
+ * @param username - Hive account username
+ * @param privacy - Privacy mode ('everyone', 'following', 'disabled')
+ * @returns Promise<boolean> - true if successful
+ */
+export async function updateMessagePrivacy(
+  username: string,
+  privacy: PrivacyMode
+): Promise<boolean> {
+  // Validate inputs
+  if (!username) {
+    throw new Error('Username is required');
+  }
+  
+  if (!['everyone', 'following', 'disabled'].includes(privacy)) {
+    throw new Error('Invalid privacy mode. Must be "everyone", "following", or "disabled"');
+  }
+  
+  // Check Keychain availability
+  if (!isKeychainInstalled()) {
+    throw new Error('Hive Keychain not installed');
+  }
+  
+  try {
+    console.log('[METADATA] Updating message privacy for:', username, 'to:', privacy);
+    
+    // Fetch current metadata
+    const currentMetadata = await getAccountMetadata(username, true);
+    
+    // Get existing hive_messenger data
+    const existingMessengerData = currentMetadata.profile?.hive_messenger || {};
+    
+    // Merge with new privacy setting (preserve all existing fields)
+    const updatedMetadata: AccountMetadata = {
+      ...currentMetadata,
+      profile: {
+        ...(currentMetadata.profile ?? {}),
+        hive_messenger: {
+          ...existingMessengerData,
+          message_privacy: privacy,
+          version: METADATA_VERSION,
+        },
+      },
+    };
+    
+    // Broadcast via Keychain
+    const success = await broadcastAccountUpdate(username, updatedMetadata);
+    
+    if (success) {
+      // Clear cache to force refresh
+      clearMetadataCache(username);
+      console.log('[METADATA] Successfully updated message privacy');
+      return true;
+    }
+    
+    return false;
+    
+  } catch (error) {
+    console.error('[METADATA] Failed to update message privacy:', error);
+    throw error;
+  }
+}
+
+/**
+ * Update group invite privacy setting
+ * 
+ * @param username - Hive account username
+ * @param privacy - Privacy mode ('everyone', 'following', 'disabled')
+ * @returns Promise<boolean> - true if successful
+ */
+export async function updateGroupInvitePrivacy(
+  username: string,
+  privacy: PrivacyMode
+): Promise<boolean> {
+  // Validate inputs
+  if (!username) {
+    throw new Error('Username is required');
+  }
+  
+  if (!['everyone', 'following', 'disabled'].includes(privacy)) {
+    throw new Error('Invalid privacy mode. Must be "everyone", "following", or "disabled"');
+  }
+  
+  // Check Keychain availability
+  if (!isKeychainInstalled()) {
+    throw new Error('Hive Keychain not installed');
+  }
+  
+  try {
+    console.log('[METADATA] Updating group invite privacy for:', username, 'to:', privacy);
+    
+    // Fetch current metadata
+    const currentMetadata = await getAccountMetadata(username, true);
+    
+    // Get existing hive_messenger data
+    const existingMessengerData = currentMetadata.profile?.hive_messenger || {};
+    
+    // Merge with new privacy setting (preserve all existing fields)
+    const updatedMetadata: AccountMetadata = {
+      ...currentMetadata,
+      profile: {
+        ...(currentMetadata.profile ?? {}),
+        hive_messenger: {
+          ...existingMessengerData,
+          group_invite_privacy: privacy,
+          version: METADATA_VERSION,
+        },
+      },
+    };
+    
+    // Broadcast via Keychain
+    const success = await broadcastAccountUpdate(username, updatedMetadata);
+    
+    if (success) {
+      // Clear cache to force refresh
+      clearMetadataCache(username);
+      console.log('[METADATA] Successfully updated group invite privacy');
+      return true;
+    }
+    
+    return false;
+    
+  } catch (error) {
+    console.error('[METADATA] Failed to update group invite privacy:', error);
+    throw error;
   }
 }
