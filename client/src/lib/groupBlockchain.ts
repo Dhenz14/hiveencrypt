@@ -440,9 +440,9 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
       return null;
     }
     
-    // TIER 3: Check in-memory sender-level cache
+    // TIER 3: Check in-memory sender-level cache (only return if we have positive data)
     const cached = metadataCache.get(cacheKey);
-    if (cached && (Date.now() - cached.timestamp) < METADATA_CACHE_TTL) {
+    if (cached && cached.group && (Date.now() - cached.timestamp) < METADATA_CACHE_TTL) {
       logger.info('[GROUP BLOCKCHAIN] Using sender-level cached metadata for:', { groupId, knownMember });
       return cached.group;
     }
