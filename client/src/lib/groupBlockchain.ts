@@ -612,7 +612,7 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
     );
 
     let allOps = [...history];
-    let oldestSeqNum = -1;
+    oldestSeqNum = -1; // Reuse variable from Tier 5
 
     if (history.length > 0) {
       oldestSeqNum = Math.min(...history.map(([idx]) => idx));
