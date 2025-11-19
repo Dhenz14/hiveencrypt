@@ -32,6 +32,27 @@ export const GroupInviteMemoSchema = z.object({
 
 export type GroupInviteMemo = z.infer<typeof GroupInviteMemoSchema>;
 
+// ============================================================================
+// PAID GROUPS: Payment Configuration Schema
+// ============================================================================
+
+export interface PaymentSettings {
+  enabled: boolean;                    // Whether this group requires payment
+  amount: string;                      // HBD amount (e.g., "5.000")
+  type: 'one_time' | 'recurring';      // Payment type
+  recurringInterval?: number;          // Days between payments (for recurring)
+  description?: string;                // Optional payment description
+}
+
+export interface MemberPayment {
+  username: string;                    // Member who paid
+  txId: string;                        // Payment transaction ID
+  amount: string;                      // Amount paid (e.g., "5.000 HBD")
+  paidAt: string;                      // ISO timestamp of payment
+  nextDueDate?: string;                // For recurring payments (ISO timestamp)
+  status: 'active' | 'expired' | 'pending'; // Payment status
+}
+
 export interface GroupCustomJson {
   action: 'create' | 'update' | 'leave';
   groupId: string;
@@ -40,6 +61,9 @@ export interface GroupCustomJson {
   creator?: string;
   version?: number;
   timestamp: string;
+  // Paid groups extension
+  paymentSettings?: PaymentSettings;
+  memberPayments?: MemberPayment[];
 }
 
 // ============================================================================
@@ -187,9 +211,10 @@ export async function broadcastGroupCreation(
   username: string,
   groupId: string,
   name: string,
-  members: string[]
+  members: string[],
+  paymentSettings?: PaymentSettings
 ): Promise<string> {
-  logger.info('[GROUP BLOCKCHAIN] Broadcasting group creation:', { groupId, name, members });
+  logger.info('[GROUP BLOCKCHAIN] Broadcasting group creation:', { groupId, name, members, paymentSettings });
 
   const customJson: GroupCustomJson = {
     action: 'create',
@@ -199,6 +224,8 @@ export async function broadcastGroupCreation(
     creator: username,
     version: 1,
     timestamp: new Date().toISOString(),
+    paymentSettings,
+    memberPayments: [], // Initialize empty payments array
   };
 
   return new Promise((resolve, reject) => {

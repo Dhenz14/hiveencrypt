@@ -49,7 +49,7 @@ import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
-import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate, broadcastLeaveGroup } from '@/lib/groupBlockchain';
+import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate, broadcastLeaveGroup, type PaymentSettings } from '@/lib/groupBlockchain';
 import { setCustomGroupName } from '@/lib/customGroupNames';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
@@ -384,20 +384,20 @@ export default function Messages() {
     }
   };
 
-  const handleCreateGroup = async (groupName: string, members: string[]) => {
+  const handleCreateGroup = async (groupName: string, members: string[], paymentSettings?: PaymentSettings) => {
     try {
       if (!user?.username) {
         throw new Error('You must be logged in to create a group');
       }
 
-      logger.info('[GROUP CREATION] Creating group:', { groupName, members });
+      logger.info('[GROUP CREATION] Creating group:', { groupName, members, paymentSettings });
 
       // Generate unique group ID
       const groupId = generateGroupId();
       const timestamp = new Date().toISOString();
 
       // Broadcast group creation to blockchain (free - custom_json)
-      await broadcastGroupCreation(user.username, groupId, groupName, members);
+      await broadcastGroupCreation(user.username, groupId, groupName, members, paymentSettings);
 
       // Create group cache entry
       const groupCache: GroupConversationCache = {
@@ -411,6 +411,8 @@ export default function Messages() {
         lastTimestamp: timestamp,
         unreadCount: 0,
         lastChecked: timestamp,
+        paymentSettings,
+        memberPayments: [], // Initialize empty payments array
       };
 
       // Save to IndexedDB

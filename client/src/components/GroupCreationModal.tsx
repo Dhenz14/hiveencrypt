@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Users, Plus, X, AlertCircle } from 'lucide-react';
+import { Users, Plus, X, AlertCircle, DollarSign } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -13,11 +13,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Textarea } from '@/components/ui/textarea';
+import type { PaymentSettings } from '@/lib/groupBlockchain';
 
 interface GroupCreationModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreateGroup: (groupName: string, members: string[]) => Promise<void>;
+  onCreateGroup: (groupName: string, members: string[], paymentSettings?: PaymentSettings) => Promise<void>;
   currentUsername?: string;
 }
 
@@ -32,6 +36,13 @@ export function GroupCreationModal({
   const [members, setMembers] = useState<string[]>([]);
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Payment settings state
+  const [paymentEnabled, setPaymentEnabled] = useState(false);
+  const [paymentAmount, setPaymentAmount] = useState('');
+  const [paymentType, setPaymentType] = useState<'one_time' | 'recurring'>('one_time');
+  const [recurringInterval, setRecurringInterval] = useState('30');
+  const [paymentDescription, setPaymentDescription] = useState('');
 
   const validateUsername = (username: string): string | null => {
     const clean = username.toLowerCase().trim().replace('@', '');
@@ -96,16 +107,50 @@ export function GroupCreationModal({
       return;
     }
 
+    // Validate payment settings if enabled
+    if (paymentEnabled) {
+      const amount = parseFloat(paymentAmount);
+      if (isNaN(amount) || amount <= 0) {
+        setError('Please enter a valid payment amount greater than 0');
+        return;
+      }
+      if (amount < 0.001) {
+        setError('Minimum payment amount is 0.001 HBD');
+        return;
+      }
+      if (paymentType === 'recurring') {
+        const interval = parseInt(recurringInterval);
+        if (isNaN(interval) || interval < 1) {
+          setError('Please enter a valid recurring interval (minimum 1 day)');
+          return;
+        }
+      }
+    }
+
     setIsCreating(true);
     setError(null);
 
     try {
-      await onCreateGroup(groupName.trim(), members);
+      // Build payment settings object if enabled
+      const paymentSettings: PaymentSettings | undefined = paymentEnabled ? {
+        enabled: true,
+        amount: parseFloat(paymentAmount).toFixed(3),
+        type: paymentType,
+        recurringInterval: paymentType === 'recurring' ? parseInt(recurringInterval) : undefined,
+        description: paymentDescription.trim() || undefined,
+      } : undefined;
+
+      await onCreateGroup(groupName.trim(), members, paymentSettings);
       
       // Reset form
       setGroupName('');
       setMembers([]);
       setNewMemberInput('');
+      setPaymentEnabled(false);
+      setPaymentAmount('');
+      setPaymentType('one_time');
+      setRecurringInterval('30');
+      setPaymentDescription('');
       onOpenChange(false);
     } catch (err: any) {
       setError(err.message || 'Failed to create group');
@@ -119,6 +164,11 @@ export function GroupCreationModal({
       setGroupName('');
       setMembers([]);
       setNewMemberInput('');
+      setPaymentEnabled(false);
+      setPaymentAmount('');
+      setPaymentType('one_time');
+      setRecurringInterval('30');
+      setPaymentDescription('');
       setError(null);
     }
     onOpenChange(newOpen);
@@ -240,6 +290,136 @@ export function GroupCreationModal({
               </div>
             </div>
           )}
+
+          {/* Payment Settings Section */}
+          <div className="space-y-4 pt-4 border-t">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label htmlFor="payment-enabled" className="text-caption flex items-center gap-2">
+                  <DollarSign className="w-4 h-4" />
+                  Require Payment to Join
+                </Label>
+                <p className="text-caption text-muted-foreground">
+                  Members must pay to access this group
+                </p>
+              </div>
+              <Switch
+                id="payment-enabled"
+                checked={paymentEnabled}
+                onCheckedChange={setPaymentEnabled}
+                disabled={isCreating}
+                data-testid="switch-payment-enabled"
+              />
+            </div>
+
+            {paymentEnabled && (
+              <div className="space-y-4 pl-4 border-l-2">
+                {/* Payment Amount */}
+                <div className="space-y-2">
+                  <Label htmlFor="payment-amount" className="text-caption">
+                    Payment Amount (HBD)
+                  </Label>
+                  <Input
+                    id="payment-amount"
+                    type="number"
+                    step="0.001"
+                    min="0.001"
+                    placeholder="5.000"
+                    value={paymentAmount}
+                    onChange={(e) => {
+                      setPaymentAmount(e.target.value);
+                      setError(null);
+                    }}
+                    disabled={isCreating}
+                    className="h-11"
+                    data-testid="input-payment-amount"
+                  />
+                  <p className="text-caption text-muted-foreground">
+                    Minimum: 0.001 HBD
+                  </p>
+                </div>
+
+                {/* Payment Type */}
+                <div className="space-y-2">
+                  <Label className="text-caption">Payment Type</Label>
+                  <RadioGroup
+                    value={paymentType}
+                    onValueChange={(value) => setPaymentType(value as 'one_time' | 'recurring')}
+                    disabled={isCreating}
+                    data-testid="radio-payment-type"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="one_time" id="one-time" data-testid="radio-one-time" />
+                      <Label htmlFor="one-time" className="cursor-pointer">
+                        One-Time Payment
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="recurring" id="recurring" data-testid="radio-recurring" />
+                      <Label htmlFor="recurring" className="cursor-pointer">
+                        Recurring Payment
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Recurring Interval (only show if recurring selected) */}
+                {paymentType === 'recurring' && (
+                  <div className="space-y-2">
+                    <Label htmlFor="recurring-interval" className="text-caption">
+                      Billing Cycle (Days)
+                    </Label>
+                    <Input
+                      id="recurring-interval"
+                      type="number"
+                      min="1"
+                      placeholder="30"
+                      value={recurringInterval}
+                      onChange={(e) => {
+                        setRecurringInterval(e.target.value);
+                        setError(null);
+                      }}
+                      disabled={isCreating}
+                      className="h-11"
+                      data-testid="input-recurring-interval"
+                    />
+                    <p className="text-caption text-muted-foreground">
+                      Members will be charged every {recurringInterval || '30'} days
+                    </p>
+                  </div>
+                )}
+
+                {/* Payment Description (optional) */}
+                <div className="space-y-2">
+                  <Label htmlFor="payment-description" className="text-caption">
+                    Payment Description (Optional)
+                  </Label>
+                  <Textarea
+                    id="payment-description"
+                    placeholder="Premium content access, exclusive updates..."
+                    value={paymentDescription}
+                    onChange={(e) => setPaymentDescription(e.target.value)}
+                    disabled={isCreating}
+                    maxLength={200}
+                    rows={3}
+                    data-testid="textarea-payment-description"
+                  />
+                  <p className="text-caption text-muted-foreground">
+                    {paymentDescription.length}/200 characters
+                  </p>
+                </div>
+
+                {/* Payment Preview Alert */}
+                <Alert>
+                  <DollarSign className="h-4 w-4" />
+                  <AlertDescription className="text-caption">
+                    <strong>Payment Summary:</strong><br />
+                    Members will pay <strong>{paymentAmount || '0.000'} HBD</strong> {paymentType === 'recurring' ? `every ${recurringInterval || '30'} days` : 'once'} to join this group.
+                  </AlertDescription>
+                </Alert>
+              </div>
+            )}
+          </div>
 
           {/* Error Alert */}
           {error && (

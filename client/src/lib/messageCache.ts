@@ -55,6 +55,23 @@ interface CustomJsonMessage {
 // GROUP CHAT: IndexedDB Cache Interfaces
 // ============================================================================
 
+interface PaymentSettings {
+  enabled: boolean;
+  amount: string;
+  type: 'one_time' | 'recurring';
+  recurringInterval?: number;
+  description?: string;
+}
+
+interface MemberPayment {
+  username: string;
+  txId: string;
+  amount: string;
+  paidAt: string;
+  nextDueDate?: string;
+  status: 'active' | 'expired' | 'pending';
+}
+
 interface GroupConversationCache {
   groupId: string;                 // Primary key (UUID v4)
   name: string;                    // Group name
@@ -66,6 +83,9 @@ interface GroupConversationCache {
   lastTimestamp: string;           // Last message timestamp
   unreadCount: number;             // Unread message count
   lastChecked: string;             // Last time user viewed group
+  // Paid groups extension
+  paymentSettings?: PaymentSettings;
+  memberPayments?: MemberPayment[];
 }
 
 interface GroupMessageCache {
