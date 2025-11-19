@@ -285,29 +285,32 @@ const METADATA_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 /**
  * Looks up group metadata by querying the blockchain for a specific groupId
- * Searches through the history of a known member to find group custom_json operations
- * Uses in-memory memoization to prevent repeated expensive RPC calls
+ * Uses multi-tier discovery strategy:
+ * 1. In-memory caches (instant)
+ * 2. IndexedDB manifest pointer cache (instant)
+ * 3. Transfer scan for invite memos (scalable)
+ * 4. Legacy custom_json deep backfill (5k ops max)
  */
 export async function lookupGroupMetadata(groupId: string, knownMember: string): Promise<Group | null> {
   // Cache key used throughout the function
   const cacheKey = `${groupId}:${knownMember}`;
   
   try {
-    // Check group-level positive cache FIRST (shared across all senders)
+    // TIER 1: Check in-memory group-level positive cache
     const positiveCache = groupPositiveCache.get(groupId);
     if (positiveCache && (Date.now() - positiveCache.timestamp) < METADATA_CACHE_TTL) {
       logger.info('[GROUP BLOCKCHAIN] ✅ Using group-level positive cache for:', groupId);
       return positiveCache.group;
     }
     
-    // Check group-level negative cache (prevents repeated failed lookups)
+    // TIER 2: Check in-memory group-level negative cache
     const negativeCache = groupNegativeCache.get(groupId);
     if (negativeCache && (Date.now() - negativeCache.timestamp) < METADATA_CACHE_TTL) {
       logger.info('[GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for:', groupId);
       return null;
     }
     
-    // Check sender-level cache
+    // TIER 3: Check in-memory sender-level cache
     const cached = metadataCache.get(cacheKey);
     if (cached && (Date.now() - cached.timestamp) < METADATA_CACHE_TTL) {
       logger.info('[GROUP BLOCKCHAIN] Using sender-level cached metadata for:', { groupId, knownMember });
@@ -315,6 +318,150 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
     }
     
     logger.info('[GROUP BLOCKCHAIN] Looking up group metadata:', { groupId, knownMember });
+    
+    // TIER 4: Check IndexedDB for cached manifest pointer
+    const { getGroupManifestPointer } = await import('./messageCache');
+    const pointer = await getGroupManifestPointer(groupId);
+    
+    if (pointer) {
+      logger.info('[GROUP BLOCKCHAIN] ✅ Found cached manifest pointer for:', groupId);
+      
+      try {
+        // Direct lookup via get_transaction - instant!
+        const transaction = await optimizedHiveClient.getTransaction(pointer.manifest_trx_id);
+        
+        if (transaction && transaction.operations) {
+          const operation = transaction.operations[pointer.manifest_op_idx];
+          
+          if (operation && operation[0] === 'custom_json' && operation[1].id === GROUP_CUSTOM_JSON_ID) {
+            const jsonData: GroupCustomJson = JSON.parse(operation[1].json);
+            
+            if (jsonData.groupId === groupId && jsonData.action !== 'leave') {
+              const groupData: Group = {
+                groupId,
+                name: jsonData.name || 'Unnamed Group',
+                members: jsonData.members || [],
+                creator: jsonData.creator || knownMember,
+                createdAt: normalizeHiveTimestamp(jsonData.timestamp),
+                version: jsonData.version || 1,
+              };
+              
+              // Cache in memory
+              groupPositiveCache.set(groupId, {
+                group: groupData,
+                timestamp: Date.now()
+              });
+              
+              logger.info('[GROUP BLOCKCHAIN] ✅ Resolved manifest via pointer (instant lookup):', groupData.name);
+              return groupData;
+            }
+          }
+        }
+      } catch (pointerError) {
+        logger.warn('[GROUP BLOCKCHAIN] Failed to resolve manifest pointer, will try transfer scan:', pointerError);
+      }
+    }
+    
+    // TIER 5: Scan transfer operations for group invite memos
+    logger.info('[GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos');
+    
+    const transferHistory = await optimizedHiveClient.getAccountHistory(
+      knownMember,
+      1000,  // Transfers are much rarer than custom_json
+      'transfers',
+      -1
+    );
+    
+    // Import memo decryption utility
+    const { requestDecodeMemo } = await import('./hive');
+    
+    for (const [, operation] of transferHistory) {
+      try {
+        if (!operation || !operation[1] || !operation[1].op) continue;
+        const op = operation[1].op;
+        
+        if (op[0] !== 'transfer') continue;
+        
+        const transferData = op[1];
+        const { memo, from } = transferData;
+        
+        if (!memo || !memo.startsWith('#')) continue; // Must be encrypted
+        
+        // Decrypt memo
+        try {
+          const decryptedMemo = await requestDecodeMemo(knownMember, memo);
+          
+          // Try to parse as JSON
+          let memoData;
+          try {
+            const jsonStr = decryptedMemo.startsWith('#') ? decryptedMemo.substring(1) : decryptedMemo;
+            memoData = JSON.parse(jsonStr);
+          } catch {
+            continue; // Not JSON, skip
+          }
+          
+          // Validate against GroupInviteMemoSchema
+          const parseResult = GroupInviteMemoSchema.safeParse(memoData);
+          
+          if (!parseResult.success || parseResult.data.groupId !== groupId) {
+            continue; // Not a valid group invite for this group
+          }
+          
+          const inviteMemo = parseResult.data;
+          logger.info('[GROUP BLOCKCHAIN] ✅ Found group invite memo for:', groupId);
+          
+          // Cache the pointer in IndexedDB for future instant lookups
+          const { cacheGroupManifestPointer } = await import('./messageCache');
+          await cacheGroupManifestPointer({
+            groupId: inviteMemo.groupId,
+            manifest_trx_id: inviteMemo.manifest_trx_id,
+            manifest_block: inviteMemo.manifest_block,
+            manifest_op_idx: inviteMemo.manifest_op_idx,
+            cachedAt: new Date().toISOString(),
+            sender: from
+          });
+          
+          // Now fetch the manifest using the pointer
+          const transaction = await optimizedHiveClient.getTransaction(inviteMemo.manifest_trx_id);
+          
+          if (transaction && transaction.operations) {
+            const operation = transaction.operations[inviteMemo.manifest_op_idx];
+            
+            if (operation && operation[0] === 'custom_json' && operation[1].id === GROUP_CUSTOM_JSON_ID) {
+              const jsonData: GroupCustomJson = JSON.parse(operation[1].json);
+              
+              if (jsonData.groupId === groupId && jsonData.action !== 'leave') {
+                const groupData: Group = {
+                  groupId,
+                  name: jsonData.name || 'Unnamed Group',
+                  members: jsonData.members || [],
+                  creator: jsonData.creator || knownMember,
+                  createdAt: normalizeHiveTimestamp(jsonData.timestamp),
+                  version: jsonData.version || 1,
+                };
+                
+                // Cache in memory
+                groupPositiveCache.set(groupId, {
+                  group: groupData,
+                  timestamp: Date.now()
+                });
+                
+                logger.info('[GROUP BLOCKCHAIN] ✅ Resolved manifest via invite memo:', groupData.name);
+                return groupData;
+              }
+            }
+          }
+        } catch (decryptError) {
+          // Memo decryption failed (not for us), skip
+          continue;
+        }
+      } catch (error) {
+        continue; // Skip this operation
+      }
+    }
+    
+    // TIER 6: LEGACY FALLBACK - Scan custom_json operations (existing 5k deep backfill logic)
+    logger.info('[GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)');
     
     // DEEP BACKFILL: Scan the known member's account history for custom_json operations about this group
     // Start with initial chunk of 1000 operations
