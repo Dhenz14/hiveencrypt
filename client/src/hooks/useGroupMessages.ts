@@ -734,9 +734,13 @@ export function useGroupDiscovery() {
         return mergedGroups;
       } catch (error) {
         logger.error('[GROUP DISCOVERY] ❌ Failed to discover groups:', error);
+        logger.error('[GROUP DISCOVERY] ❌ Error details:', error instanceof Error ? error.message : String(error));
+        logger.error('[GROUP DISCOVERY] ❌ Stack:', error instanceof Error ? error.stack : 'No stack');
         
         // Fallback to cached groups on error
+        logger.warn('[GROUP DISCOVERY] ⚠️ Using fallback: Returning cached groups instead');
         const cachedGroups = await getGroupConversations(user.username);
+        logger.warn('[GROUP DISCOVERY] ⚠️ Fallback returned', cachedGroups.length, 'cached groups');
         return cachedGroups;
       }
     },
