@@ -27,6 +27,11 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 - **Whitelist Management**: Local storage-based exceptions for bypassing minimum HBD filters.
 - **Hidden Conversations**: Client-side conversation hiding to declutter the sidebar, stored in localStorage.
 - **Resizable Sidebar**: Desktop-only feature using `react-resizable-panels` with state persistence.
+- **Hive Following Integration**: Native integration with Hive's follow system for privacy controls and trust indicators.
+  - **Dual-Layer Caching**: IndexedDB for persistence + in-memory cache for synchronous access, preventing React Query thrashing.
+  - **Username Normalization**: All usernames lowercased before storage/comparison to prevent false negatives.
+  - **Deduplication**: Set-based storage prevents duplicate entries during pagination.
+  - **Synchronous Access**: In-memory shadow cache enables instant follow checks without async overhead.
 
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted messages via memo transfers (0.001 HBD per message).
@@ -70,6 +75,16 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
   - **Payment Methods**: V4V.app HBD bridge, manual Lightning wallet (copy/QR), or WebLN browser wallet.
   - **Encrypted Notifications**: Recipients receive encrypted tip notifications showing the received currency.
   - **Lightning Address Profile**: Users can set their Lightning Address and tip receive preference in settings, stored on-chain.
+- **Privacy Controls**: Hive Following-based privacy settings for messages and group invites.
+  - **Message Privacy**: Control who can send you direct messages (everyone, people you follow, or disabled).
+  - **Group Invite Privacy**: Control who can add you to groups (everyone, people you follow, or disabled).
+  - **Blockchain Storage**: Privacy settings stored in account metadata on Hive blockchain (decentralized, not local storage).
+  - **Permission Checking**: `canSendMessage()` and `canInviteToGroup()` helper functions enforce privacy rules.
+  - **Trust Indicators**: Visual badges in chat headers showing "You follow @username" for followed contacts.
+  - **Suggested Contacts**: New Message modal displays following list as suggested contacts for quick access.
+  - **Whitelist Override**: Exceptions list bypasses all privacy filters (HBD minimum AND following requirements).
+  - **Client-Side Filtering**: Incoming messages filtered during conversation discovery based on sender's follow status.
+  - **Group Member Validation**: ManageMembersModal checks invitee's privacy settings before allowing group additions.
 - Real-time message synchronization with the blockchain.
 - Offline message browsing of cached data.
 - Selective local conversation deletion.

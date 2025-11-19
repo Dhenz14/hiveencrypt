@@ -122,12 +122,23 @@ export function useBlockchainMessages({
 
       // PHASE 4.1: Load user's minimum HBD preference ONCE per query
       let userMinimumHBD = DEFAULT_MINIMUM_HBD;
+      let messagePrivacy: 'everyone' | 'following' | 'disabled' = 'everyone'; // Default to everyone
+      let userFollowingList: string[] = [];
+      
       try {
         const metadata = await getAccountMetadata(user.username);
         userMinimumHBD = parseMinimumHBD(metadata);
-        logger.info('[FILTER] User minimum HBD:', userMinimumHBD);
+        messagePrivacy = metadata.profile?.hive_messenger?.message_privacy || 'everyone';
+        logger.info('[FILTER] User minimum HBD:', userMinimumHBD, 'Message privacy:', messagePrivacy);
+        
+        // Load following list if privacy is 'following' (for efficient checking)
+        if (messagePrivacy === 'following') {
+          const { getFollowingList } = await import('@/lib/hiveFollowing');
+          userFollowingList = await getFollowingList(user.username);
+          logger.info('[FILTER] Loaded following list:', userFollowingList.length, 'accounts');
+        }
       } catch (error) {
-        logger.warn('[FILTER] Failed to load minimum HBD, using default:', DEFAULT_MINIMUM_HBD);
+        logger.warn('[FILTER] Failed to load user preferences, using defaults:', error);
       }
 
       // Helper: Parse HBD amount string to number for comparison
@@ -275,22 +286,47 @@ export function useBlockchainMessages({
             // Received message - store with placeholder, will decrypt on demand
             // PHASE 4.1 + EXCEPTIONS: Filter received messages below user's minimum HBD threshold
             // UNLESS sender is on exceptions list (whitelisted contacts always visible)
+            // PRIVACY: Also filter based on message_privacy setting and following status
             const messageAmount = parseHBDAmount(msg.amount || '0.000 HBD');
             const senderIsException = isException(msg.from);
-            const shouldHide = !senderIsException && messageAmount < userMinimumAmount;
             
-            if (shouldHide) {
+            let shouldHide = !senderIsException && messageAmount < userMinimumAmount;
+            
+            // Privacy filtering (only if not already hidden by HBD filter)
+            if (!shouldHide && messagePrivacy === 'disabled') {
+              // Disabled: Hide all incoming messages (except exceptions)
+              shouldHide = !senderIsException;
+              if (shouldHide) {
+                logger.info('[PRIVACY] Hiding message (privacy=disabled):', {
+                  txId: msg.trx_id.substring(0, 20),
+                  from: msg.from
+                });
+              }
+            } else if (!shouldHide && messagePrivacy === 'following') {
+              // Following-only: Hide if recipient doesn't follow sender (except exceptions)
+              const recipientFollowsSender = userFollowingList.includes(msg.from.toLowerCase());
+              shouldHide = !senderIsException && !recipientFollowsSender;
+              if (shouldHide) {
+                logger.info('[PRIVACY] Hiding message (privacy=following, not followed):', {
+                  txId: msg.trx_id.substring(0, 20),
+                  from: msg.from
+                });
+              }
+            }
+            
+            if (shouldHide && messageAmount < userMinimumAmount) {
               logger.info('[FILTER] Hiding message below minimum:', {
                 txId: msg.trx_id.substring(0, 20),
                 from: msg.from,
                 amount: msg.amount,
                 minimum: userMinimumHBD
               });
-            } else if (senderIsException && messageAmount < userMinimumAmount) {
-              logger.info('[FILTER] Showing message from exception despite low amount:', {
+            } else if (senderIsException && (messageAmount < userMinimumAmount || messagePrivacy !== 'everyone')) {
+              logger.info('[FILTER] Showing message from exception despite filters:', {
                 txId: msg.trx_id.substring(0, 20),
                 from: msg.from,
-                amount: msg.amount
+                amount: msg.amount,
+                privacy: messagePrivacy
               });
             }
             
@@ -336,11 +372,22 @@ export function useBlockchainMessages({
       
       mergedMessages.forEach((msg, id) => {
         if (msg.from !== user.username) {
-          // RECEIVED message: Re-evaluate against current minimum AND exceptions list
+          // RECEIVED message: Re-evaluate against current minimum, exceptions AND privacy settings
           const msgAmount = parseHBDAmount(msg.amount || '0.000 HBD');
           const senderIsException = isException(msg.from);
-          // Hide if: below minimum AND not an exception
-          const isHidden = !senderIsException && msgAmount < userMinimumAmount;
+          
+          // First check HBD minimum (unless exception)
+          let isHidden = !senderIsException && msgAmount < userMinimumAmount;
+          
+          // Then apply privacy filters (only if not already hidden)
+          if (!isHidden && messagePrivacy === 'disabled') {
+            // Disabled: Hide all incoming messages (except exceptions)
+            isHidden = !senderIsException;
+          } else if (!isHidden && messagePrivacy === 'following') {
+            // Following-only: Hide if recipient doesn't follow sender (except exceptions)
+            const recipientFollowsSender = userFollowingList.includes(msg.from.toLowerCase());
+            isHidden = !senderIsException && !recipientFollowsSender;
+          }
           
           // Only update if hidden state changed
           if (msg.hidden !== isHidden) {

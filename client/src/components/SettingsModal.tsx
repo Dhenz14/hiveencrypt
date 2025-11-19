@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter, Lightbulb, Zap } from 'lucide-react';
+import { LogOut, Moon, Sun, User, Shield, Bell, Info, Filter, Lightbulb, Zap, Lock } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -19,7 +19,7 @@ import { requestHandshake } from '@/lib/hive';
 import { useToast } from '@/hooks/use-toast';
 import { useMinimumHBD } from '@/hooks/useMinimumHBD';
 import { useLightningAddress } from '@/hooks/useLightningAddress';
-import { formatHBDAmount, MIN_MINIMUM_HBD, MAX_MINIMUM_HBD, isValidLightningAddress, inferTipReceivePreference, type TipReceivePreference } from '@/lib/accountMetadata';
+import { formatHBDAmount, MIN_MINIMUM_HBD, MAX_MINIMUM_HBD, isValidLightningAddress, inferTipReceivePreference, type TipReceivePreference, type PrivacyMode, getMessagePrivacy, getGroupInvitePrivacy, updateMessagePrivacy, updateGroupInvitePrivacy } from '@/lib/accountMetadata';
 import { verifyLightningAddress } from '@/lib/lightning';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
@@ -134,6 +134,53 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
     };
   }, [user?.username, open]);
   
+  // Privacy settings state (v3.0.0)
+  const [messagePrivacy, setMessagePrivacy] = useState<PrivacyMode>('everyone');
+  const [groupInvitePrivacy, setGroupInvitePrivacy] = useState<PrivacyMode>('everyone');
+  const [isLoadingPrivacy, setIsLoadingPrivacy] = useState(false);
+  const [isUpdatingMessagePrivacy, setIsUpdatingMessagePrivacy] = useState(false);
+  const [isUpdatingGroupPrivacy, setIsUpdatingGroupPrivacy] = useState(false);
+  
+  // Load privacy settings from metadata
+  useEffect(() => {
+    if (!user?.username || !open) return;
+    
+    let isMounted = true;
+    
+    const loadPrivacySettings = async () => {
+      setIsLoadingPrivacy(true);
+      try {
+        const [messagePref, groupPref] = await Promise.all([
+          getMessagePrivacy(user.username),
+          getGroupInvitePrivacy(user.username),
+        ]);
+        
+        // Only update if component still mounted
+        if (isMounted) {
+          setMessagePrivacy(messagePref);
+          setGroupInvitePrivacy(groupPref);
+        }
+      } catch (error) {
+        console.error('[SETTINGS] Failed to load privacy settings:', error);
+        if (isMounted) {
+          // Default fallbacks
+          setMessagePrivacy('everyone');
+          setGroupInvitePrivacy('everyone');
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoadingPrivacy(false);
+        }
+      }
+    };
+    
+    loadPrivacySettings();
+    
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.username, open]);
+  
   // PERF-3: Clean up debounce timeout on unmount
   useEffect(() => {
     return () => {
@@ -177,6 +224,70 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       });
     } finally {
       setIsUpdatingPreference(false);
+    }
+  };
+  
+  // Update message privacy setting
+  const handleUpdateMessagePrivacy = async (newPrivacy: PrivacyMode) => {
+    if (!user?.username) return;
+    
+    setIsUpdatingMessagePrivacy(true);
+    try {
+      await updateMessagePrivacy(user.username, newPrivacy);
+      
+      setMessagePrivacy(newPrivacy);
+      
+      const labels = {
+        everyone: 'everyone',
+        following: 'people you follow',
+        disabled: 'no one (disabled)',
+      };
+      
+      toast({
+        title: 'Message Privacy Updated',
+        description: `${labels[newPrivacy]} can now message you`,
+      });
+    } catch (error: any) {
+      console.error('[SETTINGS] Failed to update message privacy:', error);
+      toast({
+        title: 'Update Failed',
+        description: error?.message || 'Failed to update message privacy',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsUpdatingMessagePrivacy(false);
+    }
+  };
+  
+  // Update group invite privacy setting
+  const handleUpdateGroupPrivacy = async (newPrivacy: PrivacyMode) => {
+    if (!user?.username) return;
+    
+    setIsUpdatingGroupPrivacy(true);
+    try {
+      await updateGroupInvitePrivacy(user.username, newPrivacy);
+      
+      setGroupInvitePrivacy(newPrivacy);
+      
+      const labels = {
+        everyone: 'everyone',
+        following: 'people you follow',
+        disabled: 'no one (disabled)',
+      };
+      
+      toast({
+        title: 'Group Privacy Updated',
+        description: `${labels[newPrivacy]} can now add you to groups`,
+      });
+    } catch (error: any) {
+      console.error('[SETTINGS] Failed to update group privacy:', error);
+      toast({
+        title: 'Update Failed',
+        description: error?.message || 'Failed to update group invite privacy',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsUpdatingGroupPrivacy(false);
     }
   };
   
@@ -347,6 +458,118 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                   </Button>
                   <p className="text-caption text-muted-foreground">
                     Click this if Keychain stopped prompting for verification due to "Don't ask again" setting
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Privacy Section - v3.0.0 Feature */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-body font-medium">
+                <Lock className="w-4 h-4" />
+                <span>Privacy</span>
+              </div>
+              <div className="space-y-4 pl-6">
+                {/* Message Privacy */}
+                <div className="space-y-2">
+                  <Label className="text-body">Who can message you</Label>
+                  <p className="text-caption text-muted-foreground">
+                    Control who can send you direct messages
+                  </p>
+                  {isLoadingPrivacy ? (
+                    <div className="flex items-center gap-2 text-caption text-muted-foreground">
+                      <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      Loading settings...
+                    </div>
+                  ) : (
+                    <RadioGroup
+                      value={messagePrivacy}
+                      onValueChange={(value) => handleUpdateMessagePrivacy(value as PrivacyMode)}
+                      disabled={isUpdatingMessagePrivacy}
+                      data-testid="radio-message-privacy"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="everyone" id="msg-everyone" data-testid="radio-msg-everyone" />
+                        <Label htmlFor="msg-everyone" className="text-body cursor-pointer font-normal">
+                          Everyone
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="following" id="msg-following" data-testid="radio-msg-following" />
+                        <Label htmlFor="msg-following" className="text-body cursor-pointer font-normal">
+                          People you follow
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="disabled" id="msg-disabled" data-testid="radio-msg-disabled" />
+                        <Label htmlFor="msg-disabled" className="text-body cursor-pointer font-normal">
+                          Disabled
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  )}
+                  {isUpdatingMessagePrivacy && (
+                    <p className="text-caption text-muted-foreground flex items-center gap-2">
+                      <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      Updating on blockchain...
+                    </p>
+                  )}
+                </div>
+
+                <Separator />
+
+                {/* Group Invite Privacy */}
+                <div className="space-y-2">
+                  <Label className="text-body">Who can add you to groups</Label>
+                  <p className="text-caption text-muted-foreground">
+                    Control who can invite you to group chats
+                  </p>
+                  {isLoadingPrivacy ? (
+                    <div className="flex items-center gap-2 text-caption text-muted-foreground">
+                      <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      Loading settings...
+                    </div>
+                  ) : (
+                    <RadioGroup
+                      value={groupInvitePrivacy}
+                      onValueChange={(value) => handleUpdateGroupPrivacy(value as PrivacyMode)}
+                      disabled={isUpdatingGroupPrivacy}
+                      data-testid="radio-group-privacy"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="everyone" id="group-everyone" data-testid="radio-group-everyone" />
+                        <Label htmlFor="group-everyone" className="text-body cursor-pointer font-normal">
+                          Everyone
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="following" id="group-following" data-testid="radio-group-following" />
+                        <Label htmlFor="group-following" className="text-body cursor-pointer font-normal">
+                          People you follow
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="disabled" id="group-disabled" data-testid="radio-group-disabled" />
+                        <Label htmlFor="group-disabled" className="text-body cursor-pointer font-normal">
+                          Disabled
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  )}
+                  {isUpdatingGroupPrivacy && (
+                    <p className="text-caption text-muted-foreground flex items-center gap-2">
+                      <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                      Updating on blockchain...
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-start gap-2 text-caption text-muted-foreground">
+                  <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <p>
+                    Privacy settings are stored on the Hive blockchain. Changes take effect immediately after blockchain confirmation.
                   </p>
                 </div>
               </div>

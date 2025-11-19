@@ -16,6 +16,8 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getHiveMemoKey } from '@/lib/hive';
+import { canInviteToGroup } from '@/lib/accountMetadata';
+import { useToast } from '@/hooks/use-toast';
 
 interface ManageMembersModalProps {
   open: boolean;
@@ -36,6 +38,7 @@ export function ManageMembersModal({
   currentUsername,
   onUpdateMembers
 }: ManageMembersModalProps) {
+  const { toast } = useToast();
   const [newMemberInput, setNewMemberInput] = useState('');
   const [members, setMembers] = useState<string[]>(currentMembers);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -100,7 +103,24 @@ export function ManageMembersModal({
         return;
       }
       
-      // Username exists, add to members
+      // Check if current user can invite this member based on privacy settings
+      if (currentUsername) {
+        const inviteCheck = await canInviteToGroup(currentUsername, cleanUsername);
+        
+        if (!inviteCheck.allowed) {
+          // Show error toast with the privacy reason
+          toast({
+            title: 'Cannot Add Member',
+            description: inviteCheck.reason || `Unable to add @${cleanUsername} to this group`,
+            variant: 'destructive',
+          });
+          setError(inviteCheck.reason || 'Privacy settings prevent adding this member');
+          setIsValidating(false);
+          return;
+        }
+      }
+      
+      // Username exists and privacy check passed, add to members
       setMembers([...members, cleanUsername]);
       setNewMemberInput('');
       setError(null);

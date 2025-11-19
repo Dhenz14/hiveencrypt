@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -14,6 +14,9 @@ import {
 } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useAuth } from '@/contexts/AuthContext';
+import { useQuery } from '@tanstack/react-query';
+import { preloadFollowingList, doesUserFollowSync } from '@/lib/hiveFollowing';
 
 interface GroupChatHeaderProps {
   groupName: string;
@@ -34,8 +37,29 @@ export function GroupChatHeader({
   onEditName,
   onLeaveGroup
 }: GroupChatHeaderProps) {
+  const { user } = useAuth();
+  
+  // Preload current user's following list for trust indicators
+  const { data: followingList, isPending } = useQuery({
+    queryKey: ['following', user?.username],
+    queryFn: async () => {
+      if (!user?.username) return [];
+      return await preloadFollowingList(user.username);
+    },
+    enabled: !!user?.username,
+    staleTime: 5 * 60 * 1000,  // Cache for 5 minutes
+    gcTime: 10 * 60 * 1000,
+  });
+  
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
+  };
+  
+  // Check if current user follows a specific member
+  // Show badge if we have data (even if loading in background)
+  const isFollowingMember = (memberUsername: string): boolean => {
+    if (!user?.username || !followingList) return false;
+    return followingList.includes(memberUsername.toLowerCase());
   };
 
   return (
@@ -92,20 +116,29 @@ export function GroupChatHeader({
                 </div>
                 <ScrollArea className="h-[300px]">
                   <div className="p-2 space-y-1">
-                    {members.map((member) => (
-                      <div
-                        key={member}
-                        className="flex items-center gap-3 p-2 rounded-md hover-elevate"
-                        data-testid={`member-item-${member}`}
-                      >
-                        <Avatar className="w-8 h-8 flex-shrink-0">
-                          <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
-                            {getInitials(member)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span className="text-body font-medium truncate">@{member}</span>
-                      </div>
-                    ))}
+                    {members.map((member) => {
+                      const isFollowing = isFollowingMember(member);
+                      return (
+                        <div
+                          key={member}
+                          className="flex items-center gap-3 p-2 rounded-md hover-elevate"
+                          data-testid={`member-item-${member}`}
+                        >
+                          <Avatar className="w-8 h-8 flex-shrink-0">
+                            <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
+                              {getInitials(member)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="text-body font-medium truncate flex-1">@{member}</span>
+                          {isFollowing && (
+                            <Badge variant="secondary" className="gap-1 px-2 h-6 flex-shrink-0" data-testid={`badge-following-${member}`}>
+                              <UserCheck className="w-3 h-3" />
+                              <span className="text-xs">Following</span>
+                            </Badge>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </ScrollArea>
               </PopoverContent>

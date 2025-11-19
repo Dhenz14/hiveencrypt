@@ -884,19 +884,40 @@ export async function canSendMessage(
 /**
  * Check if an inviter can add an invitee to a group based on privacy settings
  * 
- * @param inviterUsername - Username trying to add someone to a group
- * @param inviteeUsername - Username being added to the group
+ * IMPORTANT: This function checks blockchain-based privacy settings only.
+ * Client-side whitelists (exceptions) cannot be checked here because they are stored in
+ * localStorage on the invitee's device. When called from ManageMembersModal (adding someone
+ * to a group), we cannot access the invitee's local whitelist.
+ * 
+ * The whitelist check (inviterIsException parameter) only applies when the current logged-in
+ * user IS the invitee (e.g., when receiving a group invite). In that case, the calling code
+ * can check if the inviter is on the current user's whitelist.
+ * 
+ * @param inviterUsername - Username trying to add someone to a group (the person adding)
+ * @param inviteeUsername - Username being added to the group (the person being invited)
  * @param inviteePrivacy - Invitee's group invite privacy mode (optional, will fetch if not provided)
- * @param isFollowing - Whether inviter is in invitee's following list (optional, will check if not provided)
+ * @param isFollowing - Whether invitee follows inviter (optional, will check if not provided)
+ * @param inviterIsException - Whether inviter is on invitee's exceptions list (optional, defaults to false)
  * @returns Promise<{allowed: boolean, reason?: string}>
  */
 export async function canInviteToGroup(
   inviterUsername: string,
   inviteeUsername: string,
   inviteePrivacy?: PrivacyMode,
-  isFollowing?: boolean
+  isFollowing?: boolean,
+  inviterIsException?: boolean
 ): Promise<{ allowed: boolean; reason?: string }> {
   try {
+    // Check if inviter is on invitee's exceptions list (whitelist override)
+    // NOTE: This can only be known if the current logged-in user IS the invitee
+    // When adding others to groups, this will default to false (correct behavior)
+    const inviterOnWhitelist = inviterIsException ?? false;
+    
+    // Whitelist overrides all privacy filters
+    if (inviterOnWhitelist) {
+      return { allowed: true };
+    }
+    
     // Get invitee's group invite privacy setting
     const privacy = inviteePrivacy || await getGroupInvitePrivacy(inviteeUsername);
     
@@ -915,7 +936,7 @@ export async function canInviteToGroup(
     
     // If privacy is 'following', check if invitee follows inviter
     if (privacy === 'following') {
-      // Check if invitee follows inviter
+      // Check if invitee follows inviter (invitee is the one with privacy settings)
       const { doesUserFollow } = await import('./hiveFollowing');
       const inviteeFollowsInviter = isFollowing !== undefined 
         ? isFollowing 

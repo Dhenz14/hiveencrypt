@@ -1,4 +1,4 @@
-import { MoreVertical, Lock, User, Trash2, ArrowLeft, Shield, ShieldCheck, EyeOff } from 'lucide-react';
+import { MoreVertical, Lock, User, Trash2, ArrowLeft, Shield, ShieldCheck, EyeOff, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -18,6 +18,8 @@ import { useToast } from '@/hooks/use-toast';
 import { LightningTipButton } from '@/components/lightning/LightningTipButton';
 import { useQuery } from '@tanstack/react-query';
 import { getAccountMetadata, parseLightningAddress, inferTipReceivePreference } from '@/lib/accountMetadata';
+import { preloadFollowingList, doesUserFollowSync } from '@/lib/hiveFollowing';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ChatHeaderProps {
   contactUsername: string;
@@ -40,6 +42,7 @@ export function ChatHeader({
   onHideChat,
   onBackClick
 }: ChatHeaderProps) {
+  const { user } = useAuth();
   const { isException, toggleException } = useExceptionsList();
   const { toast } = useToast();
   
@@ -52,8 +55,24 @@ export function ChatHeader({
     gcTime: 10 * 60 * 1000,
   });
   
+  // Preload current user's following list for trust indicator
+  const { data: followingList, isPending } = useQuery({
+    queryKey: ['following', user?.username],
+    queryFn: async () => {
+      if (!user?.username) return [];
+      return await preloadFollowingList(user.username);
+    },
+    enabled: !!user?.username,
+    staleTime: 5 * 60 * 1000,  // Cache for 5 minutes
+    gcTime: 10 * 60 * 1000,
+  });
+  
   const recipientLightningAddress = parseLightningAddress(recipientMetadata);
   const recipientTipPreference = inferTipReceivePreference(recipientMetadata?.profile?.hive_messenger);
+  
+  // Check if current user follows this contact
+  // Show badge if we have data (even if loading in background)
+  const isFollowing = followingList?.includes(contactUsername.toLowerCase()) ?? false;
   
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
@@ -115,6 +134,20 @@ export function ChatHeader({
             <Lock className="w-3 h-3" />
             <span className="text-caption">E2E Encrypted</span>
           </Badge>
+        )}
+        
+        {isFollowing && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Badge variant="secondary" className="gap-1.5 px-3 h-8 hidden md:flex" data-testid="badge-following">
+                <UserCheck className="w-3 h-3" />
+                <span className="text-caption">Following</span>
+              </Badge>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="text-caption">You follow @{contactUsername}</p>
+            </TooltipContent>
+          </Tooltip>
         )}
         
         <Tooltip>

@@ -154,16 +154,34 @@ export async function fetchFollowingList(username: string): Promise<string[]> {
 
       // Extract and normalize usernames, skip the duplicate start record on pagination
       const startIndex = (iterations === 0 || startFollowing === '') ? 0 : 1;
+      const beforeSize = followingSet.size;
+      let lastUniqueAdded: string | null = null;
+      
       for (let i = startIndex; i < result.length; i++) {
-        followingSet.add(result[i].following.toLowerCase());
+        const normalized = result[i].following.toLowerCase();
+        const sizeBefore = followingSet.size;
+        followingSet.add(normalized);
+        // Track if this entry was actually new (not a duplicate)
+        if (followingSet.size > sizeBefore) {
+          lastUniqueAdded = normalized;
+        }
       }
+      
+      // Count how many NEW unique usernames were added this iteration
+      const newEntriesAdded = followingSet.size - beforeSize;
 
-      // Check if we need to paginate
-      if (result.length < FETCH_LIMIT) {
+      // CRITICAL FIX: Pagination termination logic
+      // Stop if we added zero new entries (all duplicates) OR got a partial page
+      // Only continue if we got a full page AND added new unique entries
+      if (newEntriesAdded === 0 || result.length < FETCH_LIMIT) {
+        // No new entries or partial page - we've reached the end
         hasMore = false;
+      } else if (result.length === FETCH_LIMIT && lastUniqueAdded) {
+        // Full page with new entries - continue from last UNIQUE username we actually added
+        startFollowing = lastUniqueAdded;
+        hasMore = true;
       } else {
-        // Set start for next page (last username from current page)
-        startFollowing = result[result.length - 1].following;
+        hasMore = false;
       }
 
       iterations++;
