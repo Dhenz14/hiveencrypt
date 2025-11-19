@@ -2,6 +2,7 @@ import { hiveClient as optimizedHiveClient } from './hiveClient';
 import { normalizeHiveTimestamp } from './hive';
 import { logger } from './logger';
 import type { Group } from '@/../../shared/schema';
+import { z } from 'zod';
 
 // ============================================================================
 // GROUP CHAT: Blockchain Custom JSON Operations
@@ -12,6 +13,24 @@ export const MAX_DEEP_BACKFILL_OPS = 5000; // Maximum total operations to scan d
 export const BACKFILL_CHUNK_SIZE = 1000;   // Hive RPC hard limit per request
 
 export const GROUP_CUSTOM_JSON_ID = 'hive_messenger_group';
+
+// ============================================================================
+// GROUP INVITE MEMO SCHEMA
+// ============================================================================
+// Schema for encrypted memos containing transaction pointers to group manifests
+// This solves the scalability problem for groups older than 5000 operations
+
+export const GroupInviteMemoSchema = z.object({
+  type: z.literal('group_invite'),
+  groupId: z.string(),
+  manifest_trx_id: z.string().length(40), // SHA-256 transaction ID
+  manifest_block: z.number().int().positive(),
+  manifest_op_idx: z.number().int().nonnegative(),
+  version: z.number().int().positive().optional(),
+  action: z.enum(['create', 'update']).optional(),
+});
+
+export type GroupInviteMemo = z.infer<typeof GroupInviteMemoSchema>;
 
 export interface GroupCustomJson {
   action: 'create' | 'update' | 'leave';

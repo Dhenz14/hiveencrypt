@@ -370,6 +370,32 @@ class HiveBlockchainClient {
     }
   }
 
+  async getTransaction(transactionId: string): Promise<any> {
+    // Validate transaction ID format (40-character hex string)
+    if (!transactionId || typeof transactionId !== 'string') {
+      throw new Error('Transaction ID must be a non-empty string');
+    }
+
+    if (transactionId.length !== 40) {
+      throw new Error('Transaction ID must be exactly 40 characters (SHA-256 hash)');
+    }
+
+    if (!/^[0-9a-f]{40}$/i.test(transactionId)) {
+      throw new Error('Transaction ID must be a valid hexadecimal string');
+    }
+
+    try {
+      const transaction = await this.retryWithBackoff(async () => {
+        return await this.client.database.call('condenser_api.get_transaction', [transactionId]);
+      });
+
+      return transaction;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to fetch transaction: ${errorMessage}`);
+    }
+  }
+
   async getPublicMemoKey(username: string): Promise<string | null> {
     try {
       const account = await this.getAccount(username);
