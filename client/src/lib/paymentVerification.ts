@@ -255,3 +255,111 @@ export function updateExpiredPayments(memberPayments: MemberPayment[]): MemberPa
     return payment;
   });
 }
+
+/**
+ * Process a payment renewal for recurring payments
+ * Extends the member's access and updates next due date
+ * 
+ * @param memberPayment - Existing member payment record
+ * @param newTxId - New payment transaction ID
+ * @param paymentSettings - Group payment configuration
+ * @returns Updated member payment record
+ */
+export function processPaymentRenewal(
+  memberPayment: MemberPayment,
+  newTxId: string,
+  paymentSettings: PaymentSettings
+): MemberPayment {
+  if (paymentSettings.type !== 'recurring' || !paymentSettings.recurringInterval) {
+    throw new Error('Payment renewal only applies to recurring payments');
+  }
+
+  const renewalDate = new Date().toISOString();
+  const nextDueDate = calculateNextDueDate(renewalDate, paymentSettings.recurringInterval);
+
+  return {
+    ...memberPayment,
+    txId: newTxId, // Update to latest payment transaction
+    paidAt: renewalDate,
+    status: 'active',
+    nextDueDate,
+  };
+}
+
+/**
+ * Get members with expired payments that need to be blocked from group access
+ * 
+ * @param memberPayments - Array of member payment records
+ * @param currentMembers - Current group member list
+ * @returns Array of usernames that should lose access
+ */
+export function getMembersToBlock(
+  memberPayments: MemberPayment[] | undefined,
+  currentMembers: string[]
+): string[] {
+  if (!memberPayments || memberPayments.length === 0) {
+    return [];
+  }
+
+  const expiredUsernames = memberPayments
+    .filter(payment => payment.status === 'expired')
+    .map(payment => payment.username.toLowerCase());
+
+  // Only return members who are still in the group but have expired payments
+  return currentMembers.filter(member => 
+    expiredUsernames.includes(member.toLowerCase())
+  );
+}
+
+/**
+ * Calculate payment statistics for a paid group
+ * 
+ * @param memberPayments - Array of member payment records
+ * @param paymentSettings - Group payment configuration
+ * @returns Payment statistics summary
+ */
+export function getPaymentStats(
+  memberPayments: MemberPayment[] | undefined,
+  paymentSettings: PaymentSettings | undefined
+): {
+  totalPaid: number;
+  totalActive: number;
+  totalExpired: number;
+  upcomingRenewals: number;
+  revenue: string;
+} {
+  if (!memberPayments || !paymentSettings?.enabled) {
+    return {
+      totalPaid: 0,
+      totalActive: 0,
+      totalExpired: 0,
+      upcomingRenewals: 0,
+      revenue: '0.000 HBD',
+    };
+  }
+
+  const updated = updateExpiredPayments(memberPayments);
+  const totalActive = updated.filter(p => p.status === 'active').length;
+  const totalExpired = updated.filter(p => p.status === 'expired').length;
+
+  // Count renewals due in next 7 days
+  const now = new Date();
+  const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const upcomingRenewals = updated.filter(p => {
+    if (!p.nextDueDate || p.status !== 'active') return false;
+    const dueDate = new Date(p.nextDueDate);
+    return dueDate >= now && dueDate <= sevenDaysFromNow;
+  }).length;
+
+  // Calculate total revenue (multiply payment amount by number of payments)
+  const amount = parseFloat(paymentSettings.amount);
+  const revenue = (amount * memberPayments.length).toFixed(3);
+
+  return {
+    totalPaid: memberPayments.length,
+    totalActive,
+    totalExpired,
+    upcomingRenewals,
+    revenue: `${revenue} HBD`,
+  };
+}
