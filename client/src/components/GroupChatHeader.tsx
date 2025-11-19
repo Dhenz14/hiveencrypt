@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -17,10 +17,14 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { preloadFollowingList, doesUserFollowSync } from '@/lib/hiveFollowing';
+import { PaymentStatusBadge, PaymentRequiredIndicator } from './PaymentStatusBadge';
+import type { PaymentSettings, MemberPayment } from '@/lib/groupBlockchain';
 
 interface GroupChatHeaderProps {
   groupName: string;
   members: string[];
+  paymentSettings?: PaymentSettings;
+  memberPayments?: MemberPayment[];
   onManageMembers?: () => void;
   onDeleteLocalData?: () => void;
   onBackClick?: () => void;
@@ -31,6 +35,8 @@ interface GroupChatHeaderProps {
 export function GroupChatHeader({ 
   groupName,
   members,
+  paymentSettings,
+  memberPayments,
   onManageMembers,
   onDeleteLocalData,
   onBackClick,
@@ -97,7 +103,7 @@ export function GroupChatHeader({
               </Button>
             )}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Popover>
               <PopoverTrigger asChild>
                 <button 
@@ -143,6 +149,20 @@ export function GroupChatHeader({
                 </ScrollArea>
               </PopoverContent>
             </Popover>
+            
+            {/* Payment Status Indicators */}
+            {paymentSettings?.enabled && user?.username && (
+              <>
+                <span className="text-muted-foreground">•</span>
+                <PaymentStatusBadge
+                  paymentSettings={paymentSettings}
+                  memberPayments={memberPayments}
+                  username={user.username}
+                  showLabel={false}
+                  className="text-xs"
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

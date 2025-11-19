@@ -895,6 +895,8 @@ export default function Messages() {
             <GroupChatHeader
               groupName={selectedGroup.name}
               members={selectedGroup.members}
+              paymentSettings={selectedGroup.paymentSettings}
+              memberPayments={selectedGroup.memberPayments}
               onManageMembers={handleManageMembers}
               onDeleteLocalData={handleDeleteLocalData}
               onEditName={handleEditGroupName}
