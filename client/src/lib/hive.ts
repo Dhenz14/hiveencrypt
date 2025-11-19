@@ -8,7 +8,6 @@ export const hiveClient = new Client([
   'https://api.hive.blog',
   'https://anyx.io',
   'https://api.openhive.network',
-  'https://rpc.ecency.com',
 ]);
 
 /**

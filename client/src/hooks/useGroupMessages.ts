@@ -378,6 +378,155 @@ export function useGroupDiscovery() {
 
         logger.info('[GROUP DISCOVERY] Found', discoveredGroupIds.size, 'unique groups from cached messages');
 
+        // STEP 2.6: Scan blockchain transfers to discover groups user was invited to
+        // This runs when we have few or no blockchain-discovered groups, ensuring fresh discovery
+        const shouldScanBlockchain = blockchainGroups.length === 0 || cachedGroupMessages.length < 10;
+        
+        if (shouldScanBlockchain) {
+          logger.info('[GROUP DISCOVERY] Scanning blockchain for group invitations...');
+          logger.info('[GROUP DISCOVERY] Reason: blockchain groups =', blockchainGroups.length, ', cached messages =', cachedGroupMessages.length);
+          
+          try {
+            // Fetch recent transfer history
+            const transferHistory = await optimizedHiveClient.getAccountHistory(
+              user.username,
+              200, // Scan last 200 operations for group messages
+              'transfers', // Only transfer operations
+              -1 // Latest
+            );
+            
+            logger.info('[GROUP DISCOVERY] Scanning', transferHistory.length, 'blockchain transfers for group messages');
+            
+            const discoveredMessages: GroupMessageCache[] = [];
+            const tempGroupMetadata = new Map<string, { members: string[]; creator: string }>();
+            
+            // Process each transfer to find group messages
+            for (const operation of transferHistory) {
+              try {
+                const op = operation[1]?.op;
+                if (!op || op[0] !== 'transfer') continue;
+                
+                const transfer = op[1];
+                const memo = transfer.memo;
+                const txId = operation[1].trx_id;
+                
+                // Only process incoming encrypted transfers
+                if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
+                  continue;
+                }
+                
+                // Try to decrypt the memo
+                const decryptedMemo = await decryptMemo(
+                  user.username,
+                  memo,
+                  transfer.from,
+                  txId
+                );
+                
+                if (!decryptedMemo) continue;
+                
+                // Check if this is a group message
+                const parsed = parseGroupMessageMemo(decryptedMemo);
+                if (parsed && parsed.isGroupMessage && parsed.groupId) {
+                  const groupId = parsed.groupId;
+                  const sender = transfer.from;
+                  
+                  // Track this group
+                  if (!discoveredGroupIds.has(groupId)) {
+                    discoveredGroupIds.add(groupId);
+                    groupSendersMap.set(groupId, new Set([sender, user.username]));
+                    logger.info('[GROUP DISCOVERY] 🆕 Discovered new group from blockchain transfer:', groupId);
+                  } else {
+                    const senders = groupSendersMap.get(groupId);
+                    if (senders) {
+                      senders.add(sender);
+                      senders.add(user.username); // Always include current user
+                    }
+                  }
+                  
+                  // Store creator if available
+                  if (parsed.creator && !groupCreatorMap.has(groupId)) {
+                    groupCreatorMap.set(groupId, parsed.creator);
+                    logger.info('[GROUP DISCOVERY] Found creator from blockchain transfer:', parsed.creator, 'for group:', groupId);
+                  }
+                  
+                  // Build temporary metadata for this group
+                  if (!tempGroupMetadata.has(groupId)) {
+                    tempGroupMetadata.set(groupId, {
+                      members: [user.username, sender],
+                      creator: parsed.creator || sender
+                    });
+                  } else {
+                    const meta = tempGroupMetadata.get(groupId)!;
+                    if (!meta.members.includes(sender)) {
+                      meta.members.push(sender);
+                    }
+                    if (parsed.creator && !meta.creator) {
+                      meta.creator = parsed.creator;
+                    }
+                  }
+                  
+                  // Cache the discovered message with all known recipients
+                  const groupMeta = tempGroupMetadata.get(groupId)!;
+                  const messageCache: GroupMessageCache = {
+                    id: txId,
+                    groupId: parsed.groupId,
+                    sender: transfer.from,
+                    creator: parsed.creator,
+                    content: parsed.content || '',
+                    encryptedContent: memo,
+                    timestamp: operation[1].timestamp + 'Z', // Normalize to UTC
+                    recipients: groupMeta.members, // Include all known members
+                    txIds: [txId],
+                    confirmed: true,
+                    status: 'confirmed',
+                  };
+                  
+                  discoveredMessages.push(messageCache);
+                }
+              } catch (processError) {
+                // Skip failed operations silently
+                logger.debug('[GROUP DISCOVERY] Failed to process transfer:', processError);
+              }
+            }
+            
+            // Cache all discovered messages
+            if (discoveredMessages.length > 0) {
+              logger.info('[GROUP DISCOVERY] Caching', discoveredMessages.length, 'discovered group messages');
+              await cacheGroupMessages(discoveredMessages, user.username);
+              
+              // CRITICAL: Add minimal group entries to blockchainGroups immediately
+              // This ensures groups appear in UI even if metadata lookup fails
+              for (const [groupId, meta] of Array.from(tempGroupMetadata.entries())) {
+                // Skip if already in blockchainGroups
+                if (blockchainGroups.some(g => g.groupId === groupId)) {
+                  continue;
+                }
+                
+                const customName = getCustomGroupName(user.username, groupId);
+                const displayName = customName || `Group (${groupId.substring(0, 8)}...)`;
+                
+                const minimalGroup: Group = {
+                  groupId,
+                  name: displayName,
+                  members: meta.members,
+                  creator: meta.creator,
+                  createdAt: new Date().toISOString(),
+                  version: 1,
+                };
+                
+                logger.info('[GROUP DISCOVERY] ➕ Adding minimal group to blockchainGroups:', minimalGroup.name);
+                blockchainGroups.push(minimalGroup);
+              }
+            }
+            
+            logger.info('[GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups:', discoveredGroupIds.size);
+          } catch (scanError) {
+            logger.warn('[GROUP DISCOVERY] ⚠️ Failed to scan blockchain transfers:', scanError);
+            // Continue without blockchain scan
+          }
+        }
+
         // Look up metadata for discovered groups
         for (const groupId of Array.from(discoveredGroupIds)) {
           checkCancellation(signal, `Group discovery looking up metadata for ${groupId}`);

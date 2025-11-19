@@ -439,7 +439,6 @@ export const hiveClient = new HiveBlockchainClient([
   'https://api.hive.blog',
   'https://anyx.io',
   'https://api.openhive.network',
-  'https://rpc.ecency.com',
 ]);
 
 // Export the class for testing purposes
