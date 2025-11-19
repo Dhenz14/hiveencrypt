@@ -318,12 +318,15 @@ export function useGroupMessagePreSync() {
 export function useGroupDiscovery() {
   const { user } = useAuth();
   
-  // DEBUG: Log hook invocation
+  // DEBUG: Force console log that can't be stripped
+  console.warn('[useGroupDiscovery] 🔍 HOOK CALLED - user:', user?.username, 'enabled:', !!user?.username);
   logger.info('[useGroupDiscovery] 🔍 Hook called, user:', user?.username, 'enabled:', !!user?.username);
 
   return useQuery({
     queryKey: ['blockchain-group-conversations', user?.username],
     queryFn: async ({ signal }: QueryFunctionContext): Promise<GroupConversationCache[]> => {
+      console.warn('[GROUP DISCOVERY] 🚀 QUERY FUNCTION STARTED for user:', user?.username);
+      
       if (!user?.username) {
         logger.warn('[GROUP DISCOVERY] No username, skipping group discovery');
         return [];
