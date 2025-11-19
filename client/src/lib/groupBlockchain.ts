@@ -569,18 +569,75 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
       
       const batchScans = batch.map(async (sender) => {
         try {
-          logger.info('[GROUP BLOCKCHAIN] Checking', sender, 'for group creations');
+          logger.info('[GROUP BLOCKCHAIN] Checking', sender, 'for group creations with deep backfill');
           
-          const senderHistory = await optimizedHiveClient.getAccountHistory(
+          // DEEP BACKFILL: Fetch initial chunk (up to 1000 operations)
+          let senderHistory = await optimizedHiveClient.getAccountHistory(
             sender,
-            200,       // limit - check last 200 operations
-            'custom_json',  // filter only custom_json operations (10-100x faster than unfiltered)
-            -1         // start = -1 (latest)
+            BACKFILL_CHUNK_SIZE,  // 1000 operations per chunk
+            'custom_json',
+            -1  // start at latest
           );
+
+          let allSenderOps = [...senderHistory];
+          let oldestSeqNum = -1;
+
+          if (senderHistory.length > 0) {
+            oldestSeqNum = Math.min(...senderHistory.map(([idx]) => idx));
+            logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- initial fetch:', senderHistory.length, 'ops, oldest seq:', oldestSeqNum);
+          }
+
+          // Continue backfilling until we hit the limit or run out of history
+          const totalOpsTarget = MAX_DEEP_BACKFILL_OPS; // 5000 operations max
+          const chunksToFetch = Math.ceil((totalOpsTarget - allSenderOps.length) / BACKFILL_CHUNK_SIZE);
+
+          if (oldestSeqNum > 0 && chunksToFetch > 0 && allSenderOps.length < totalOpsTarget) {
+            logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- starting deep backfill, target:', totalOpsTarget, 'ops');
+
+            for (let chunkIdx = 0; chunkIdx < chunksToFetch; chunkIdx++) {
+              const nextStart = oldestSeqNum - 1;
+
+              if (nextStart < 0) {
+                logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- reached beginning of history');
+                break;
+              }
+
+              const olderHistory = await optimizedHiveClient.getAccountHistory(
+                sender,
+                BACKFILL_CHUNK_SIZE,
+                'custom_json',
+                nextStart
+              );
+
+              if (olderHistory.length === 0) {
+                logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- no more operations');
+                break;
+              }
+
+              const chunkOldest = Math.min(...olderHistory.map(([idx]) => idx));
+              if (!Number.isFinite(chunkOldest)) {
+                logger.error('[GROUP BLOCKCHAIN] Sender', sender, '- invalid sequence number, stopping');
+                break;
+              }
+
+              oldestSeqNum = chunkOldest;
+              allSenderOps = [...allSenderOps, ...olderHistory];
+
+              logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- chunk', chunkIdx + 1, ':', olderHistory.length, 'ops, total:', allSenderOps.length);
+
+              if (allSenderOps.length >= totalOpsTarget) {
+                logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- reached target of', totalOpsTarget, 'ops');
+                break;
+              }
+            }
+          }
+
+          logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- completed scan of', allSenderOps.length, 'operations');
 
           const foundGroups: Group[] = [];
 
-          for (const [, operation] of senderHistory) {
+          // Process all fetched operations
+          for (const [, operation] of allSenderOps) {
             try {
               if (!operation || !operation[1] || !operation[1].op) {
                 continue;
@@ -622,7 +679,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
               };
 
               foundGroups.push(group);
-              logger.info('[GROUP BLOCKCHAIN] Discovered group from', sender, ':', group.name);
+              logger.info('[GROUP BLOCKCHAIN] Discovered group from', sender, ':', group.name, 'v' + group.version, 'with', group.members.length, 'members');
 
             } catch (parseError) {
               logger.warn('[GROUP BLOCKCHAIN] Failed to parse group operation from', sender, ':', parseError);
@@ -630,6 +687,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
             }
           }
 
+          logger.info('[GROUP BLOCKCHAIN] Sender', sender, '- found', foundGroups.length, 'groups');
           return foundGroups;
         } catch (error) {
           logger.warn('[GROUP BLOCKCHAIN] Failed to scan', sender, 'history:', error);
