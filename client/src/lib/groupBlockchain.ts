@@ -724,6 +724,185 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
     logger.info('[GROUP BLOCKCHAIN] Scanned', potentialGroupSenders.size, 'senders, found', groupMap.size - initialGroupCount, 'new groups');
 
+    // STEP 4: Chain Discovery (BFS) - Recursively scan ALL group members
+    // This discovers membership updates from members who haven't sent messages yet
+    logger.info('[GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members');
+    
+    const CHAIN_BATCH_SIZE = 8; // Smaller batch size to reduce RPC load
+    const CHAIN_OPS_LIMIT = 2000; // 1K initial + 1K backfill per member
+    const MAX_CHAIN_ITERATIONS = 10; // Prevent infinite loops
+    
+    // BFS queue: Start with all current group members
+    const memberQueue: string[] = [];
+    const visitedMembers = new Set<string>([username]); // Skip current user
+    const alreadyScannedSenders = new Set(potentialGroupSenders); // Skip already scanned senders
+    
+    // Initialize queue with all members from initially discovered groups
+    for (const group of Array.from(groupMap.values())) {
+      for (const member of group.members) {
+        if (!visitedMembers.has(member) && !alreadyScannedSenders.has(member)) {
+          memberQueue.push(member);
+          visitedMembers.add(member);
+        }
+      }
+    }
+    
+    logger.info('[GROUP BLOCKCHAIN] Chain discovery: Initial queue size:', memberQueue.length, 'members');
+    
+    let chainIteration = 0;
+    let totalScanned = 0;
+    
+    // BFS loop: Process queue until empty or max iterations reached
+    while (memberQueue.length > 0 && chainIteration < MAX_CHAIN_ITERATIONS) {
+      chainIteration++;
+      const currentBatch = memberQueue.splice(0, CHAIN_BATCH_SIZE); // Take up to CHAIN_BATCH_SIZE members
+      
+      logger.info('[GROUP BLOCKCHAIN] Chain iteration', chainIteration, '- processing', currentBatch.length, 'members, queue remaining:', memberQueue.length);
+      
+      const batchScans = currentBatch.map(async (member) => {
+        try {
+          logger.info('[GROUP BLOCKCHAIN] Chain scanning:', member);
+          
+          // Fetch initial chunk (1000 ops)
+          let memberHistory = await optimizedHiveClient.getAccountHistory(
+            member,
+            BACKFILL_CHUNK_SIZE,
+            'custom_json',
+            -1
+          );
+          
+          let allMemberOps = [...memberHistory];
+          let oldestSeqNum = -1;
+          
+          if (memberHistory.length > 0) {
+            oldestSeqNum = Math.min(...memberHistory.map(([idx]) => idx));
+          }
+          
+          // Single backfill chunk if needed (to reach 2K ops)
+          if (oldestSeqNum > 0 && allMemberOps.length < CHAIN_OPS_LIMIT) {
+            const nextStart = oldestSeqNum - 1;
+            
+            if (nextStart >= 0) {
+              const olderHistory = await optimizedHiveClient.getAccountHistory(
+                member,
+                BACKFILL_CHUNK_SIZE,
+                'custom_json',
+                nextStart
+              );
+              
+              if (olderHistory.length > 0) {
+                allMemberOps = [...allMemberOps, ...olderHistory];
+              }
+            }
+          }
+          
+          logger.info('[GROUP BLOCKCHAIN] Chain member', member, '- scanned', allMemberOps.length, 'ops');
+          totalScanned++;
+          
+          const foundGroups: Group[] = [];
+          const newMembersFound = new Set<string>();
+          
+          // Process all operations
+          for (const [, operation] of allMemberOps) {
+            try {
+              if (!operation || !operation[1] || !operation[1].op) {
+                continue;
+              }
+              
+              const op = operation[1].op;
+              
+              if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
+                continue;
+              }
+              
+              const jsonData: GroupCustomJson = JSON.parse(op[1].json);
+              const { groupId, action } = jsonData;
+              
+              // Skip leave actions
+              if (action === 'leave') {
+                continue;
+              }
+              
+              // Only include groups where current user is a member
+              if (!jsonData.members?.includes(username)) {
+                continue;
+              }
+              
+              // Check if this is a newer version than what we have
+              const existing = groupMap.get(groupId);
+              const newVersion = jsonData.version || 1;
+              const existingVersion = existing?.version || 0;
+              
+              if (newVersion > existingVersion) {
+                // Create group entry
+                const group: Group = {
+                  groupId,
+                  name: jsonData.name || 'Unnamed Group',
+                  members: jsonData.members || [],
+                  creator: jsonData.creator || member,
+                  createdAt: normalizeHiveTimestamp(jsonData.timestamp),
+                  version: newVersion,
+                };
+                
+                foundGroups.push(group);
+                
+                // Track new members to add to queue
+                for (const m of group.members) {
+                  if (!visitedMembers.has(m) && m !== username) {
+                    newMembersFound.add(m);
+                  }
+                }
+                
+                logger.info('[GROUP BLOCKCHAIN] Chain found:', group.name, 'v' + group.version, 'with', group.members.length, 'members from', member);
+              }
+            } catch (parseError) {
+              continue;
+            }
+          }
+          
+          return { foundGroups, newMembersFound: Array.from(newMembersFound) };
+        } catch (error) {
+          logger.warn('[GROUP BLOCKCHAIN] Chain scan failed for', member, ':', error);
+          return { foundGroups: [], newMembersFound: [] };
+        }
+      });
+      
+      // Wait for batch to complete
+      const batchResults = await Promise.all(batchScans);
+      
+      // Merge results and enqueue newly discovered members
+      for (const { foundGroups, newMembersFound } of batchResults) {
+        // Update groupMap with newer versions
+        for (const group of foundGroups) {
+          // Skip groups the user has left
+          if (leftGroups.has(group.groupId)) {
+            continue;
+          }
+          
+          const existing = groupMap.get(group.groupId);
+          if (!existing || existing.version < group.version) {
+            groupMap.set(group.groupId, group);
+            logger.info('[GROUP BLOCKCHAIN] Chain: Updated', group.name, 'to v' + group.version);
+          }
+        }
+        
+        // Add new members to queue (BFS expansion)
+        for (const newMember of newMembersFound) {
+          if (!visitedMembers.has(newMember)) {
+            memberQueue.push(newMember);
+            visitedMembers.add(newMember);
+            logger.info('[GROUP BLOCKCHAIN] Chain: Enqueued new member:', newMember);
+          }
+        }
+      }
+    }
+    
+    if (chainIteration >= MAX_CHAIN_ITERATIONS) {
+      logger.warn('[GROUP BLOCKCHAIN] Chain discovery: Reached max iterations limit');
+    }
+    
+    logger.info('[GROUP BLOCKCHAIN] Chain discovery: Completed in', chainIteration, 'iterations, scanned', totalScanned, 'members, visited', visitedMembers.size, 'total');
+
     const discoveredGroups = Array.from(groupMap.values());
     logger.info('[GROUP BLOCKCHAIN] ✅ Discovered', discoveredGroups.length, 'groups');
 
