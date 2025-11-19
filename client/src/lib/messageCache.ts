@@ -83,6 +83,15 @@ interface GroupMessageCache {
   failedRecipients?: string[];     // Failed recipient usernames
 }
 
+interface GroupManifestPointer {
+  groupId: string;             // Primary key
+  manifest_trx_id: string;     // Transaction ID containing the custom_json
+  manifest_block: number;      // Block number
+  manifest_op_idx: number;     // Operation index
+  cachedAt: string;            // ISO timestamp when cached
+  sender: string;              // Who sent the invite memo
+}
+
 interface HiveMessengerDB extends DBSchema {
   messages: {
     key: string;
@@ -138,6 +147,11 @@ interface HiveMessengerDB extends DBSchema {
       'by-group': string;
       'by-timestamp': string;
     };
+  };
+  // GROUP MANIFEST POINTERS: Manifest pointer cache table
+  groupManifestPointers: {
+    key: string;
+    value: GroupManifestPointer;
   };
 }
 
@@ -206,6 +220,11 @@ async function getDB(username?: string): Promise<IDBPDatabase<HiveMessengerDB>> 
         const groupMsgStore = db.createObjectStore('groupMessages', { keyPath: 'id' });
         groupMsgStore.createIndex('by-group', 'groupId');
         groupMsgStore.createIndex('by-timestamp', 'timestamp');
+      }
+
+      // GROUP MANIFEST POINTERS: Add manifest pointer cache table
+      if (!db.objectStoreNames.contains('groupManifestPointers')) {
+        db.createObjectStore('groupManifestPointers', { keyPath: 'groupId' });
       }
     },
   });
@@ -1132,12 +1151,27 @@ export async function migrateGroupMessages(username: string): Promise<number> {
   return migratedCount;
 }
 
+// ============================================================================
+// GROUP MANIFEST POINTERS: CRUD Functions
+// ============================================================================
+
+export async function cacheGroupManifestPointer(pointer: GroupManifestPointer, username?: string): Promise<void> {
+  const db = await getDB(username);
+  await db.put('groupManifestPointers', pointer);
+}
+
+export async function getGroupManifestPointer(groupId: string, username?: string): Promise<GroupManifestPointer | undefined> {
+  const db = await getDB(username);
+  return await db.get('groupManifestPointers', groupId);
+}
+
 export type { 
   MessageCache, 
   ConversationCache, 
   DecryptedMemoCache, 
   CustomJsonMessage,
   GroupConversationCache,
-  GroupMessageCache
+  GroupMessageCache,
+  GroupManifestPointer
 };
 export { getConversationKey };

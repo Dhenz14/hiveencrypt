@@ -405,6 +405,94 @@ export function setGroupNegativeCache(groupId: string): void {
 }
 
 /**
+ * Sends encrypted invite memos to group members with manifest pointers
+ * This enables direct manifest lookup via get_transaction() without scanning history
+ * 
+ * @param groupId - UUID of the group
+ * @param members - Array of member usernames to send invites to
+ * @param manifestPointer - Transaction details of the group manifest custom_json
+ * @param currentUsername - Username sending the invites
+ * @param action - 'create' or 'update' to indicate the type of invite
+ * @returns Promise<{ successful: string[], failed: string[] }>
+ */
+export async function sendGroupInviteMemos(
+  groupId: string,
+  members: string[],
+  manifestPointer: {
+    trx_id: string;
+    block: number;
+    op_idx: number;
+  },
+  currentUsername: string,
+  action: 'create' | 'update' = 'create'
+): Promise<{ successful: string[], failed: string[] }> {
+  logger.info('[GROUP INVITE] Sending invite memos to', members.length, 'members');
+  
+  const successful: string[] = [];
+  const failed: string[] = [];
+  
+  // Import required utilities
+  const { requestEncode } = await import('./hive');
+  const { requestTransfer } = await import('./hive');
+  
+  for (const member of members) {
+    try {
+      // Skip sending to self
+      if (member === currentUsername) {
+        successful.push(member);
+        continue;
+      }
+      
+      // Create group invite memo payload
+      const inviteMemo: GroupInviteMemo = {
+        type: 'group_invite',
+        groupId,
+        manifest_trx_id: manifestPointer.trx_id,
+        manifest_block: manifestPointer.block,
+        manifest_op_idx: manifestPointer.op_idx,
+        action,
+      };
+      
+      const memoJson = JSON.stringify(inviteMemo);
+      
+      // Encrypt memo for recipient
+      const encodeResponse = await requestEncode(
+        currentUsername,
+        member,
+        `#${memoJson}` // Prefix with # for memo encryption
+      );
+      
+      // Extract encrypted memo from Keychain response
+      const encryptedMemo = encodeResponse.result as string;
+      
+      // Send 0.001 HBD transfer with encrypted memo
+      await requestTransfer(
+        currentUsername,
+        member,
+        '0.001',
+        encryptedMemo,
+        'HBD'
+      );
+      
+      successful.push(member);
+      logger.info('[GROUP INVITE] ✅ Sent invite to:', member);
+      
+    } catch (error) {
+      logger.error('[GROUP INVITE] ❌ Failed to send invite to:', member, error);
+      failed.push(member);
+    }
+  }
+  
+  logger.info('[GROUP INVITE] Complete:', {
+    total: members.length,
+    successful: successful.length,
+    failed: failed.length
+  });
+  
+  return { successful, failed };
+}
+
+/**
  * Discovers all groups where the user is a member by scanning account history
  * Now also discovers groups from incoming group messages
  * Returns the most recent version of each group
