@@ -53,6 +53,45 @@ const FETCH_LIMIT = 1000;                     // Max accounts per API call
 const MAX_FOLLOWING = 10000;                  // Safety limit for pagination
 
 // ============================================================================
+// In-Memory Shadow Cache (for synchronous access)
+// ============================================================================
+
+interface InMemoryCache {
+  following: Set<string>;
+  timestamp: number;
+}
+
+const inMemoryCache = new Map<string, InMemoryCache>();
+
+function setInMemoryCache(username: string, following: string[]): void {
+  inMemoryCache.set(username.toLowerCase(), {
+    following: new Set(following.map(f => f.toLowerCase())),
+    timestamp: Date.now(),
+  });
+}
+
+function getInMemoryCache(username: string): InMemoryCache | null {
+  const cached = inMemoryCache.get(username.toLowerCase());
+  if (!cached) return null;
+  
+  // Check if expired
+  if (Date.now() - cached.timestamp > CACHE_TTL_MS) {
+    inMemoryCache.delete(username.toLowerCase());
+    return null;
+  }
+  
+  return cached;
+}
+
+function clearInMemoryCache(username?: string): void {
+  if (username) {
+    inMemoryCache.delete(username.toLowerCase());
+  } else {
+    inMemoryCache.clear();
+  }
+}
+
+// ============================================================================
 // IndexedDB Setup
 // ============================================================================
 
@@ -88,9 +127,10 @@ async function getFollowingDB(): Promise<IDBPDatabase<HiveFollowingDB>> {
  */
 export async function fetchFollowingList(username: string): Promise<string[]> {
   try {
-    logger.info('[FOLLOWING] Fetching following list for:', username);
+    const normalizedUsername = username.toLowerCase();
+    logger.info('[FOLLOWING] Fetching following list for:', normalizedUsername);
 
-    const allFollowing: string[] = [];
+    const followingSet = new Set<string>(); // Use Set to prevent duplicates
     let startFollowing = '';
     let hasMore = true;
     let iterations = 0;
@@ -99,7 +139,7 @@ export async function fetchFollowingList(username: string): Promise<string[]> {
     while (hasMore && iterations < maxIterations) {
       // Call Hive Follow API using optimized client
       const result = await hiveClient.call('follow_api', 'get_following', [
-        username,
+        normalizedUsername,
         startFollowing,
         'blog',
         FETCH_LIMIT
@@ -112,9 +152,11 @@ export async function fetchFollowingList(username: string): Promise<string[]> {
         break;
       }
 
-      // Extract usernames from results
-      const usernames = result.map(record => record.following);
-      allFollowing.push(...usernames);
+      // Extract and normalize usernames, skip the duplicate start record on pagination
+      const startIndex = (iterations === 0 || startFollowing === '') ? 0 : 1;
+      for (let i = startIndex; i < result.length; i++) {
+        followingSet.add(result[i].following.toLowerCase());
+      }
 
       // Check if we need to paginate
       if (result.length < FETCH_LIMIT) {
@@ -127,6 +169,7 @@ export async function fetchFollowingList(username: string): Promise<string[]> {
       iterations++;
     }
 
+    const allFollowing = Array.from(followingSet);
     logger.info(`[FOLLOWING] ✅ Total following: ${allFollowing.length} accounts`);
     return allFollowing;
 
@@ -149,11 +192,22 @@ export async function getFollowingList(
   forceRefresh: boolean = false
 ): Promise<string[]> {
   try {
+    const normalizedUsername = username.toLowerCase();
+    
+    // Check in-memory cache first (fastest)
+    if (!forceRefresh) {
+      const memCache = getInMemoryCache(normalizedUsername);
+      if (memCache) {
+        logger.info(`[FOLLOWING] 💾 Using in-memory cache (${memCache.following.size} accounts)`);
+        return Array.from(memCache.following);
+      }
+    }
+    
     const db = await getFollowingDB();
 
-    // Check cache unless force refresh
+    // Check IndexedDB cache unless force refresh
     if (!forceRefresh) {
-      const cached = await db.get('following', username);
+      const cached = await db.get('following', normalizedUsername);
       
       if (cached) {
         const now = new Date();
@@ -161,7 +215,9 @@ export async function getFollowingList(
 
         // Return cached data if not expired
         if (now < expiresAt) {
-          logger.info(`[FOLLOWING] 📦 Using cached data (${cached.following.length} accounts)`);
+          logger.info(`[FOLLOWING] 📦 Using IndexedDB cache (${cached.following.length} accounts)`);
+          // Populate in-memory cache
+          setInMemoryCache(normalizedUsername, cached.following);
           return cached.following;
         }
 
@@ -170,18 +226,20 @@ export async function getFollowingList(
     }
 
     // Fetch fresh data from blockchain
-    const following = await fetchFollowingList(username);
+    const following = await fetchFollowingList(normalizedUsername);
 
-    // Cache the result
+    // Cache the result in both IndexedDB and memory
     const now = new Date();
     const expiresAt = new Date(now.getTime() + CACHE_TTL_MS);
 
     await db.put('following', {
-      username,
+      username: normalizedUsername,
       following,
       cachedAt: now.toISOString(),
       expiresAt: expiresAt.toISOString(),
     });
+    
+    setInMemoryCache(normalizedUsername, following);
 
     return following;
 
@@ -205,12 +263,43 @@ export async function doesUserFollow(
   following: string
 ): Promise<boolean> {
   try {
-    const followingList = await getFollowingList(follower);
-    return followingList.includes(following);
+    const normalizedFollower = follower.toLowerCase();
+    const normalizedFollowing = following.toLowerCase();
+    
+    // Try in-memory cache first (synchronous check)
+    const memCache = getInMemoryCache(normalizedFollower);
+    if (memCache) {
+      return memCache.following.has(normalizedFollowing);
+    }
+    
+    // Fall back to async fetch
+    const followingList = await getFollowingList(normalizedFollower);
+    return followingList.includes(normalizedFollowing);
   } catch (error) {
     logger.error('[FOLLOWING] ❌ Error checking follow status:', error);
     return false;
   }
+}
+
+/**
+ * Synchronous check if a user follows another user
+ * Only works if data is in in-memory cache
+ * 
+ * @param follower - Username who might be following
+ * @param following - Username to check if followed
+ * @returns boolean | null (null if not in cache)
+ */
+export function doesUserFollowSync(
+  follower: string,
+  following: string
+): boolean | null {
+  const normalizedFollower = follower.toLowerCase();
+  const normalizedFollowing = following.toLowerCase();
+  
+  const memCache = getInMemoryCache(normalizedFollower);
+  if (!memCache) return null;
+  
+  return memCache.following.has(normalizedFollowing);
 }
 
 /**
@@ -252,14 +341,37 @@ export async function checkMultipleFollows(
  * 
  * @param username - Username to clear cache for
  */
-export async function clearFollowingCache(username: string): Promise<void> {
+export async function clearFollowingCache(username?: string): Promise<void> {
   try {
-    const db = await getFollowingDB();
-    await db.delete('following', username);
-    logger.info('[FOLLOWING] 🗑️ Cache cleared for:', username);
+    if (username) {
+      const normalizedUsername = username.toLowerCase();
+      const db = await getFollowingDB();
+      await db.delete('following', normalizedUsername);
+      clearInMemoryCache(normalizedUsername);
+      logger.info('[FOLLOWING] 🗑️ Cache cleared for:', normalizedUsername);
+    } else {
+      // Clear all caches
+      const db = await getFollowingDB();
+      const tx = db.transaction('following', 'readwrite');
+      await tx.store.clear();
+      await tx.done;
+      clearInMemoryCache();
+      logger.info('[FOLLOWING] 🗑️ All caches cleared');
+    }
   } catch (error) {
     logger.error('[FOLLOWING] ❌ Error clearing cache:', error);
   }
+}
+
+/**
+ * Preload following list into cache (for React Query)
+ * This populates both IndexedDB and in-memory caches
+ * 
+ * @param username - Hive username to preload following list for
+ * @returns Promise<string[]> - Following list
+ */
+export async function preloadFollowingList(username: string): Promise<string[]> {
+  return await getFollowingList(username, false);
 }
 
 /**

@@ -818,3 +818,123 @@ export async function updateGroupInvitePrivacy(
     throw error;
   }
 }
+
+// ============================================================================
+// Privacy Helper Functions (convenience utilities for DRY code)
+// ============================================================================
+
+/**
+ * Check if a sender can message a recipient based on privacy settings
+ * 
+ * @param senderUsername - Username trying to send a message
+ * @param recipientUsername - Username receiving the message
+ * @param recipientPrivacy - Recipient's message privacy mode (optional, will fetch if not provided)
+ * @param isFollowing - Whether sender is in recipient's following list (optional, will check if not provided)
+ * @returns Promise<{allowed: boolean, reason?: string}>
+ */
+export async function canSendMessage(
+  senderUsername: string,
+  recipientUsername: string,
+  recipientPrivacy?: PrivacyMode,
+  isFollowing?: boolean
+): Promise<{ allowed: boolean; reason?: string }> {
+  try {
+    // Get recipient's message privacy setting
+    const privacy = recipientPrivacy || await getMessagePrivacy(recipientUsername);
+    
+    // If privacy is 'everyone', allow
+    if (privacy === 'everyone') {
+      return { allowed: true };
+    }
+    
+    // If privacy is 'disabled', deny
+    if (privacy === 'disabled') {
+      return { 
+        allowed: false, 
+        reason: `@${recipientUsername} has disabled direct messages` 
+      };
+    }
+    
+    // If privacy is 'following', check if recipient follows sender
+    if (privacy === 'following') {
+      // Check if recipient follows sender (need to import doesUserFollow)
+      const { doesUserFollow } = await import('./hiveFollowing');
+      const recipientFollowsSender = isFollowing !== undefined 
+        ? isFollowing 
+        : await doesUserFollow(recipientUsername, senderUsername);
+      
+      if (!recipientFollowsSender) {
+        return { 
+          allowed: false, 
+          reason: `@${recipientUsername} only accepts messages from people they follow` 
+        };
+      }
+      
+      return { allowed: true };
+    }
+    
+    return { allowed: true };
+  } catch (error) {
+    console.error('[METADATA] Error checking message permission:', error);
+    // Default to allowing on error to prevent blocking legitimate messages
+    return { allowed: true };
+  }
+}
+
+/**
+ * Check if an inviter can add an invitee to a group based on privacy settings
+ * 
+ * @param inviterUsername - Username trying to add someone to a group
+ * @param inviteeUsername - Username being added to the group
+ * @param inviteePrivacy - Invitee's group invite privacy mode (optional, will fetch if not provided)
+ * @param isFollowing - Whether inviter is in invitee's following list (optional, will check if not provided)
+ * @returns Promise<{allowed: boolean, reason?: string}>
+ */
+export async function canInviteToGroup(
+  inviterUsername: string,
+  inviteeUsername: string,
+  inviteePrivacy?: PrivacyMode,
+  isFollowing?: boolean
+): Promise<{ allowed: boolean; reason?: string }> {
+  try {
+    // Get invitee's group invite privacy setting
+    const privacy = inviteePrivacy || await getGroupInvitePrivacy(inviteeUsername);
+    
+    // If privacy is 'everyone', allow
+    if (privacy === 'everyone') {
+      return { allowed: true };
+    }
+    
+    // If privacy is 'disabled', deny
+    if (privacy === 'disabled') {
+      return { 
+        allowed: false, 
+        reason: `@${inviteeUsername} has disabled group invites` 
+      };
+    }
+    
+    // If privacy is 'following', check if invitee follows inviter
+    if (privacy === 'following') {
+      // Check if invitee follows inviter
+      const { doesUserFollow } = await import('./hiveFollowing');
+      const inviteeFollowsInviter = isFollowing !== undefined 
+        ? isFollowing 
+        : await doesUserFollow(inviteeUsername, inviterUsername);
+      
+      if (!inviteeFollowsInviter) {
+        return { 
+          allowed: false, 
+          reason: `@${inviteeUsername} only accepts group invites from people they follow` 
+        };
+      }
+      
+      return { allowed: true };
+    }
+    
+    return { allowed: true };
+  } catch (error) {
+    console.error('[METADATA] Error checking group invite permission:', error);
+    // Default to allowing on error to prevent blocking legitimate invites
+    return { allowed: true };
+  }
+}
