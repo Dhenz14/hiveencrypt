@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -22,6 +22,7 @@ interface GroupChatHeaderProps {
   onDeleteLocalData?: () => void;
   onBackClick?: () => void;
   onEditName?: () => void;
+  onLeaveGroup?: () => void;
 }
 
 export function GroupChatHeader({ 
@@ -30,7 +31,8 @@ export function GroupChatHeader({
   onManageMembers,
   onDeleteLocalData,
   onBackClick,
-  onEditName
+  onEditName,
+  onLeaveGroup
 }: GroupChatHeaderProps) {
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
@@ -139,11 +141,20 @@ export function GroupChatHeader({
                 Manage Members
               </DropdownMenuItem>
             )}
+            {onLeaveGroup && (
+              <DropdownMenuItem 
+                onClick={onLeaveGroup} 
+                data-testid="menu-leave-group"
+                className="text-destructive focus:text-destructive"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Leave Group
+              </DropdownMenuItem>
+            )}
             {onDeleteLocalData && (
               <DropdownMenuItem 
                 onClick={onDeleteLocalData} 
                 data-testid="menu-delete-local-data"
-                className="text-destructive focus:text-destructive"
               >
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete Local Data

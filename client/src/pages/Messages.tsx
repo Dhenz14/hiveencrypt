@@ -49,7 +49,7 @@ import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
-import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate } from '@/lib/groupBlockchain';
+import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate, broadcastLeaveGroup } from '@/lib/groupBlockchain';
 import { setCustomGroupName } from '@/lib/customGroupNames';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
@@ -107,6 +107,7 @@ export default function Messages() {
   const [isHiddenChatsOpen, setIsHiddenChatsOpen] = useState(false);
   const [isEditNameOpen, setIsEditNameOpen] = useState(false);
   const [editNameValue, setEditNameValue] = useState('');
+  const [isLeaveGroupDialogOpen, setIsLeaveGroupDialogOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
@@ -657,6 +658,56 @@ export default function Messages() {
     }
   };
 
+  const handleLeaveGroup = () => {
+    setIsLeaveGroupDialogOpen(true);
+  };
+
+  const handleConfirmLeaveGroup = async () => {
+    if (!user?.username || !selectedGroupId || !selectedGroup) return;
+    
+    try {
+      const groupName = selectedGroup.name;
+      
+      logger.info('[LEAVE GROUP] Leaving group:', selectedGroupId);
+      
+      // Broadcast leave group operation to blockchain (free - custom_json)
+      await broadcastLeaveGroup(user.username, selectedGroupId);
+      
+      // Delete local group data
+      await deleteGroupConversation(selectedGroupId, user.username);
+      
+      // Invalidate queries to refresh the UI
+      await queryClient.invalidateQueries({ queryKey: ['blockchain-group-messages', user.username, selectedGroupId] });
+      await queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user.username] });
+      
+      // Show success toast
+      toast({
+        title: 'Left Group',
+        description: `You have left "${groupName}". You will no longer receive messages from this group.`,
+      });
+      
+      // Close dialog
+      setIsLeaveGroupDialogOpen(false);
+      
+      // Clear selection and go back to conversation list
+      setSelectedGroupId('');
+      if (isMobile) {
+        setShowChat(false);
+      }
+      
+      logger.info('[LEAVE GROUP] ✅ Successfully left group:', selectedGroupId);
+    } catch (error) {
+      logger.error('[LEAVE GROUP] ❌ Failed to leave group:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to leave group';
+      
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        variant: 'destructive',
+      });
+    }
+  };
+
   const handleConfirmDelete = async () => {
     if (!user?.username) return;
     
@@ -833,6 +884,7 @@ export default function Messages() {
               onManageMembers={handleManageMembers}
               onDeleteLocalData={handleDeleteLocalData}
               onEditName={handleEditGroupName}
+              onLeaveGroup={handleLeaveGroup}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
           ) : (
@@ -1109,6 +1161,31 @@ export default function Messages() {
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               Delete Local Data
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={isLeaveGroupDialogOpen} onOpenChange={setIsLeaveGroupDialogOpen}>
+        <AlertDialogContent data-testid="dialog-leave-group">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Leave Group?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to leave "{selectedGroup?.name}"?
+              <br /><br />
+              You will no longer receive messages from this group, and the leave operation will be recorded on the blockchain.
+              <br /><br />
+              <strong>Note:</strong> The group creator can add you back if they choose to.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-cancel-leave">Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleConfirmLeaveGroup}
+              data-testid="button-confirm-leave"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Leave Group
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
