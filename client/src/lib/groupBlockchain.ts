@@ -42,6 +42,136 @@ export interface GroupCustomJson {
   timestamp: string;
 }
 
+// ============================================================================
+// OPTIMIZATION UTILITIES: Rate Limiting, Retry Logic, Memo Caching
+// ============================================================================
+
+/**
+ * Token Bucket Rate Limiter
+ * Ensures we respect Hive Keychain's 3-5 req/s limit
+ * Allows bursts when tokens available, smooths to target rate over time
+ */
+class TokenBucket {
+  private tokens: number;
+  private lastRefill: number;
+  private readonly capacity: number;
+  private readonly refillRate: number;
+
+  constructor(requestsPerSecond: number = 4) {
+    this.capacity = requestsPerSecond;
+    this.refillRate = requestsPerSecond;
+    this.tokens = requestsPerSecond;
+    this.lastRefill = Date.now();
+  }
+
+  async consume(): Promise<void> {
+    const now = Date.now();
+    const elapsed = (now - this.lastRefill) / 1000;
+    
+    this.tokens = Math.min(this.capacity, this.tokens + elapsed * this.refillRate);
+    this.lastRefill = now;
+
+    if (this.tokens < 1) {
+      const waitTime = ((1 - this.tokens) / this.refillRate) * 1000;
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+      
+      // Recalculate tokens after waiting to account for elapsed time during sleep
+      const afterWait = Date.now();
+      const waitElapsed = (afterWait - this.lastRefill) / 1000;
+      this.tokens = Math.min(this.capacity, this.tokens + waitElapsed * this.refillRate);
+      this.lastRefill = afterWait;
+      
+      this.tokens -= 1;
+    } else {
+      this.tokens -= 1;
+    }
+  }
+}
+
+/**
+ * LRU Memo Cache
+ * Eliminates duplicate memo decrypts by caching results
+ * Promise-based caching prevents concurrent duplicate requests
+ */
+class MemoCache {
+  private cache = new Map<string, Promise<string>>();
+  private readonly maxSize: number;
+
+  constructor(maxSize: number = 1000) {
+    this.maxSize = maxSize;
+  }
+
+  async getOrDecrypt(
+    memoKey: string,
+    decryptFn: () => Promise<string>
+  ): Promise<string> {
+    if (this.cache.has(memoKey)) {
+      return this.cache.get(memoKey)!;
+    }
+
+    const decryptPromise = decryptFn();
+    this.cache.set(memoKey, decryptPromise);
+
+    if (this.cache.size > this.maxSize) {
+      const firstKey = this.cache.keys().next().value;
+      if (firstKey !== undefined) {
+        this.cache.delete(firstKey);
+      }
+    }
+
+    try {
+      return await decryptPromise;
+    } catch (error) {
+      this.cache.delete(memoKey);
+      throw error;
+    }
+  }
+
+  clear(): void {
+    this.cache.clear();
+  }
+}
+
+/**
+ * Decrypt memo with bounded retry and exponential backoff
+ * Handles transient errors (network, throttling) but not permanent errors
+ */
+async function decryptMemoWithRetry(
+  decodeFn: (username: string, memo: string) => Promise<string>,
+  username: string,
+  memo: string,
+  maxAttempts: number = 3
+): Promise<string> {
+  let lastError: Error | undefined;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await decodeFn(username, memo);
+    } catch (error: any) {
+      lastError = error;
+
+      const errorMsg = error.message?.toLowerCase() || '';
+      const isPermanentError = 
+        errorMsg.includes('not encrypted for') ||
+        errorMsg.includes('invalid') ||
+        errorMsg.includes('decode') ||
+        errorMsg.includes('malformed');
+
+      if (isPermanentError) {
+        throw error;
+      }
+
+      if (attempt < maxAttempts) {
+        const delay = 100 * Math.pow(2, attempt - 1);
+        logger.debug(`[MEMO DECRYPT] Retry attempt ${attempt}/${maxAttempts} after ${delay}ms:`, errorMsg);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+
+  throw lastError || new Error('Memo decryption failed after retries');
+}
+
 /**
  * Generates a unique group ID using crypto.randomUUID()
  */
@@ -365,13 +495,19 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
     // TIER 5: Scan transfer operations for group invite memos with STREAMING PROCESSING
     logger.info('[GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos');
     
+    // Initialize optimization utilities (shared across all chunks)
+    const rateLimiter = new TokenBucket(4); // 4 req/s to stay within Keychain's 3-5 req/s limit
+    const memoCache = new MemoCache(1000); // Cache up to 1000 decrypted memos
+    
     // Helper function for processing transfer chunks
     const processTransferChunk = async (
       transfers: any[],
       targetGroupId: string,
       recipientUsername: string,
       decodeMemo: any,
-      cachePointer: any
+      cachePointer: any,
+      rateLimiter: TokenBucket,
+      memoCache: MemoCache
     ): Promise<Group | null> => {
       for (const [seqNum, operation] of transfers) {
         // Wrap EACH transfer in individual try-catch
@@ -386,11 +522,14 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
           
           if (!memo || !memo.startsWith('#')) continue; // Must be encrypted
           
-          // Add small delay to prevent Keychain throttling (20ms between decrypts)
-          await new Promise(resolve => setTimeout(resolve, 20));
+          // Rate limit BEFORE decrypt (prevents Keychain throttling)
+          await rateLimiter.consume();
           
-          // Decrypt memo (can throw on Keychain throttling or not-for-us memos)
-          const decryptedMemo = await decodeMemo(recipientUsername, memo);
+          // Decrypt memo with retry + caching (eliminates duplicates, handles transient errors)
+          const decryptedMemo = await memoCache.getOrDecrypt(
+            memo, // Use encrypted memo as cache key
+            () => decryptMemoWithRetry(decodeMemo, recipientUsername, memo, 3)
+          );
           
           // Try to parse as JSON
           const jsonStr = decryptedMemo.startsWith('#') ? decryptedMemo.substring(1) : decryptedMemo;
@@ -483,7 +622,9 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
       groupId,
       knownMember,
       requestDecodeMemo,
-      cacheGroupManifestPointer
+      cacheGroupManifestPointer,
+      rateLimiter,
+      memoCache
     );
     totalScanned += transferHistory.length;
     
@@ -552,7 +693,9 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
             groupId,
             knownMember,
             requestDecodeMemo,
-            cacheGroupManifestPointer
+            cacheGroupManifestPointer,
+            rateLimiter,
+            memoCache
           );
     
           if (chunkResult) {
