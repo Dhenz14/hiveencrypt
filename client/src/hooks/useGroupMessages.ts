@@ -746,7 +746,11 @@ export function useGroupDiscovery() {
     },
     enabled: !!user?.username,
     staleTime: 0, // Always fresh - run discovery on every mount
+    gcTime: 0, // Don't cache results - force fresh query every time
     refetchInterval: 30000, // Refetch every 30 seconds
+    refetchOnMount: 'always', // Always refetch when component mounts
+    retry: 3, // Retry failed requests 3 times
+    retryDelay: 1000, // 1 second between retries
   });
 }
 
