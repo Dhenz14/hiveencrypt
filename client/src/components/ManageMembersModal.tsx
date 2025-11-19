@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, Plus, X, AlertCircle, Crown, Loader2 } from 'lucide-react';
+import { Users, Plus, X, AlertCircle, Crown, Loader2, DollarSign } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,9 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getHiveMemoKey } from '@/lib/hive';
 import { canInviteToGroup } from '@/lib/accountMetadata';
 import { useToast } from '@/hooks/use-toast';
+import { PaymentStatusBadge, PaymentRequiredIndicator } from './PaymentStatusBadge';
+import type { PaymentSettings, MemberPayment } from '@/lib/groupBlockchain';
+import { getPaymentStats } from '@/lib/paymentVerification';
 
 interface ManageMembersModalProps {
   open: boolean;
@@ -26,6 +29,8 @@ interface ManageMembersModalProps {
   currentMembers: string[];
   creator: string;
   currentUsername?: string;
+  paymentSettings?: PaymentSettings;
+  memberPayments?: MemberPayment[];
   onUpdateMembers: (newMembers: string[]) => Promise<void>;
 }
 
@@ -36,6 +41,8 @@ export function ManageMembersModal({
   currentMembers,
   creator,
   currentUsername,
+  paymentSettings,
+  memberPayments,
   onUpdateMembers
 }: ManageMembersModalProps) {
   const { toast } = useToast();
@@ -44,6 +51,9 @@ export function ManageMembersModal({
   const [isUpdating, setIsUpdating] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Calculate payment stats if payments are enabled
+  const paymentStats = getPaymentStats(memberPayments, paymentSettings);
 
   // Reset members when modal opens with fresh data
   useEffect(() => {
@@ -210,8 +220,25 @@ export function ManageMembersModal({
             <Users className="w-5 h-5" />
             Manage Members
           </DialogTitle>
-          <DialogDescription>
-            Add or remove members from "{groupName}"
+          <DialogDescription className="space-y-2">
+            <div>Add or remove members from "{groupName}"</div>
+            {paymentSettings?.enabled && (
+              <div className="flex items-center gap-2 flex-wrap pt-1">
+                <PaymentRequiredIndicator paymentSettings={paymentSettings} />
+                <span className="text-muted-foreground">•</span>
+                <span className="text-caption">
+                  {paymentStats.totalActive} paid · {paymentStats.totalExpired} expired
+                </span>
+                {paymentStats.upcomingRenewals > 0 && (
+                  <>
+                    <span className="text-muted-foreground">•</span>
+                    <span className="text-caption text-orange-600">
+                      {paymentStats.upcomingRenewals} renewal{paymentStats.upcomingRenewals !== 1 ? 's' : ''} due
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
           </DialogDescription>
         </DialogHeader>
 
@@ -290,7 +317,7 @@ export function ManageMembersModal({
                       </Avatar>
                       
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <span className="text-body font-medium truncate">
                             @{member}
                           </span>
@@ -309,6 +336,15 @@ export function ManageMembersModal({
                             <Badge variant="default" className="bg-green-500 px-2 py-0.5 text-caption">
                               New
                             </Badge>
+                          )}
+                          {paymentSettings?.enabled && !added.includes(member) && (
+                            <PaymentStatusBadge
+                              paymentSettings={paymentSettings}
+                              memberPayments={memberPayments}
+                              username={member}
+                              showLabel={false}
+                              className="text-xs"
+                            />
                           )}
                         </div>
                       </div>

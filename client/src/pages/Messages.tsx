@@ -1090,6 +1090,8 @@ export default function Messages() {
           currentMembers={selectedGroup.members}
           creator={selectedGroup.creator}
           currentUsername={user?.username}
+          paymentSettings={selectedGroup.paymentSettings}
+          memberPayments={selectedGroup.memberPayments}
           onUpdateMembers={handleUpdateMembers}
         />
       )}
