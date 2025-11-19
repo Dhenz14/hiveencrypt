@@ -741,8 +741,8 @@ export function useGroupDiscovery() {
       }
     },
     enabled: !!user?.username,
-    staleTime: 30000, // 30 seconds
-    refetchInterval: 60000, // Refetch every minute
+    staleTime: 0, // Always fresh - run discovery on every mount
+    refetchInterval: 30000, // Refetch every 30 seconds
   });
 }
 
