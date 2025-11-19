@@ -88,7 +88,7 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 - **Hive Blockchain**: Primary decentralized storage.
 - **Public RPC Nodes**: 
   - Primary: `https://api.hive.blog` (default fallback)
-  - Secondary: `https://api.hivekings.com`, `https://anyx.io`, `https://api.openhive.network`
+  - Secondary: `https://anyx.io`, `https://api.openhive.network`, `https://rpc.ecency.com`
   - **Node Health Monitoring**: Automatic health scoring with latency tracking and error rate monitoring
   - **Smart Failover**: Automatically switches to best-performing nodes when primary fails
 

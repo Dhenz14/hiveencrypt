@@ -39,9 +39,9 @@ export async function getAccountRC(username: string): Promise<RCInfo> {
   try {
     const client = new Client([
       'https://api.hive.blog',
-      'https://api.hivekings.com',
       'https://anyx.io',
-      'https://api.openhive.network'
+      'https://api.openhive.network',
+      'https://rpc.ecency.com'
     ]);
 
     // Use rc_api to get accurate Resource Credits information
