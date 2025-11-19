@@ -70,6 +70,21 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
       - **Intelligent Error Detection**: Distinguishes permanent errors (not-for-us, malformed) from transient errors (network, throttling).
     - **Reliability**: 99.9%+ successful discovery rate, handles accounts with 10,000+ transfers gracefully.
   - **Known Limitations**: Image attachments disabled for groups (post-MVP), 200-operation history window.
+  - **Paid Groups**: Monetization feature allowing creators to charge for group access using HBD payments.
+    - **Payment Types**: One-time entry fee or recurring subscriptions (daily/weekly/monthly billing cycles).
+    - **Zero Fees**: Uses native Hive HBD transfers (no Stripe/PayPal/third-party fees).
+    - **Fast Settlement**: 3-second blockchain confirmation times.
+    - **Automatic Verification**: On-chain payment validation via blockchain history scanning.
+    - **Payment Gateway**: PaymentGatewayModal with Hive Keychain integration for seamless HBD transfers.
+    - **Payment Tracking**: MemberPayment records cached in IndexedDB with status (active/expired) and renewal dates.
+    - **Recurring Billing**: Automatic expiration tracking with grace periods and renewal prompts.
+    - **Payment Memo Format**: `group_payment:{groupId}|member:{username}` for verification.
+    - **UI Indicators**: Payment status badges in chat header and member management modal.
+    - **Statistics Dashboard**: Group creators see total revenue, active/expired payments, upcoming renewals.
+    - **Access Control**: Client-side enforcement blocks expired members from viewing/sending messages.
+    - **Minimum Payment**: 0.001 HBD (blockchain minimum transfer amount).
+    - **Payment Storage**: Settings stored in group manifest on blockchain, records cached locally.
+    - **Creator Exemption**: Group creators automatically have access without payment.
 - **Lightning Network Tips**: Users can send Bitcoin satoshis via the Lightning Network to users with Lightning Addresses.
   - **Bidirectional Tipping**: Users choose to receive tips as Lightning sats or HBD in their Hive wallet.
   - **Payment Methods**: V4V.app HBD bridge, manual Lightning wallet (copy/QR), or WebLN browser wallet.

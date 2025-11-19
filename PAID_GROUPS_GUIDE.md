@@ -342,7 +342,9 @@ group_payment:1732012345-abc123def456|member:johndoe
 ### Blockchain Queries
 - **Filtered Queries**: Only fetch transfer operations (10-100x faster)
 - **Batch Verification**: Verify multiple payments in parallel
-- **Pagination**: Scan last 100 operations (covers most use cases)
+- **Batched Scanning**: Scans up to 5000 operations in 100-operation batches
+- **Time-Based Cutoff**: Stops scanning when operations exceed maxAgeHours window
+- **Smart Pagination**: Handles active accounts with many transfers gracefully
 
 ## Error Handling
 

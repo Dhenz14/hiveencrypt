@@ -8,6 +8,7 @@ import type { MemberPayment, PaymentSettings } from './groupBlockchain';
 
 /**
  * Verify a payment transaction exists and matches expected criteria
+ * Uses batched scanning to handle active accounts with many transfers
  * 
  * @param username - Payer's username
  * @param recipient - Payment recipient (group creator)
@@ -26,55 +27,93 @@ export async function verifyPayment(
   try {
     logger.info('[PAYMENT VERIFY] Checking payment:', { username, recipient, expectedAmount, memo });
 
-    // Scan recent transfer history (last 100 operations)
-    const history = await optimizedHiveClient.getAccountHistory(
-      username,
-      100,
-      'transfers', // Only get transfer operations
-      -1 // Start from latest
-    );
-
-    if (!history || history.length === 0) {
-      return { verified: false, error: 'No transaction history found' };
-    }
-
     const cutoffTime = Date.now() - (maxAgeHours * 60 * 60 * 1000);
+    const batchSize = 100;
+    const maxBatches = 50; // Maximum 5000 operations to scan
+    let currentStart = -1;
+    let batchCount = 0;
+    let oldestTimestampSeen = Date.now();
 
-    // Search for matching payment
-    for (const [, operation] of history.reverse()) {
-      if (operation.op[0] === 'transfer') {
-        const transfer = operation.op[1];
-        const timestamp = new Date(operation.timestamp + 'Z').getTime();
+    // Scan history in batches until we find payment or exceed time window
+    while (batchCount < maxBatches) {
+      batchCount++;
+      
+      const history = await optimizedHiveClient.getAccountHistory(
+        username,
+        batchSize,
+        'transfers', // Only get transfer operations
+        currentStart
+      );
 
-        // Check if transfer is recent enough
-        if (timestamp < cutoffTime) {
-          continue;
-        }
+      if (!history || history.length === 0) {
+        logger.info('[PAYMENT VERIFY] No more history to scan');
+        break;
+      }
 
-        // Verify all payment criteria
-        const matches = 
-          transfer.from === username &&
-          transfer.to === recipient &&
-          transfer.amount === `${expectedAmount} HBD` &&
-          transfer.memo && transfer.memo.includes(memo);
+      logger.info('[PAYMENT VERIFY] Scanning batch', batchCount, ':', history.length, 'operations');
 
-        if (matches) {
-          logger.info('[PAYMENT VERIFY] ✅ Payment verified:', {
-            txId: operation.trx_id,
-            timestamp: operation.timestamp,
-          });
+      // Search for matching payment in this batch
+      for (const [opIndex, operation] of history) {
+        if (operation.op[0] === 'transfer') {
+          const transfer = operation.op[1];
+          const timestamp = new Date(operation.timestamp + 'Z').getTime();
+          
+          // Track oldest timestamp seen
+          if (timestamp < oldestTimestampSeen) {
+            oldestTimestampSeen = timestamp;
+          }
 
-          return {
-            verified: true,
-            txId: operation.trx_id,
-            timestamp: new Date(operation.timestamp + 'Z').toISOString(),
-          };
+          // Check if transfer is too old - stop scanning if we've exceeded time window
+          if (timestamp < cutoffTime) {
+            logger.info('[PAYMENT VERIFY] Reached operations older than', maxAgeHours, 'hours. Stopping scan.');
+            return { verified: false, error: 'Payment not found within time window' };
+          }
+
+          // Verify all payment criteria
+          const matches = 
+            transfer.from === username &&
+            transfer.to === recipient &&
+            transfer.amount === `${expectedAmount} HBD` &&
+            transfer.memo && transfer.memo.includes(memo);
+
+          if (matches) {
+            logger.info('[PAYMENT VERIFY] ✅ Payment verified in batch', batchCount, ':', {
+              txId: operation.trx_id,
+              timestamp: operation.timestamp,
+              opIndex,
+            });
+
+            return {
+              verified: true,
+              txId: operation.trx_id,
+              timestamp: new Date(operation.timestamp + 'Z').toISOString(),
+            };
+          }
         }
       }
+
+      // Calculate next starting point for pagination
+      // Get the oldest operation index from this batch
+      const oldestOpIndex = Math.min(...history.map(([idx]) => idx));
+      
+      // If we've seen this index before or it's 0, we've reached the beginning
+      if (oldestOpIndex === currentStart || oldestOpIndex <= 0) {
+        logger.info('[PAYMENT VERIFY] Reached beginning of account history');
+        break;
+      }
+      
+      // Move to next batch (older operations)
+      currentStart = oldestOpIndex - 1;
+      
+      logger.info('[PAYMENT VERIFY] Moving to next batch. New start:', currentStart);
     }
 
-    logger.warn('[PAYMENT VERIFY] ❌ No matching payment found');
-    return { verified: false, error: 'Payment not found in recent history' };
+    if (batchCount >= maxBatches) {
+      logger.warn('[PAYMENT VERIFY] Reached maximum batch limit (', maxBatches, ')');
+    }
+
+    logger.warn('[PAYMENT VERIFY] ❌ No matching payment found after scanning', batchCount, 'batches');
+    return { verified: false, error: 'Payment not found in account history' };
   } catch (error) {
     logger.error('[PAYMENT VERIFY] Error verifying payment:', error);
     return {
