@@ -395,46 +395,42 @@ export function useGroupDiscovery() {
           logger.info('[GROUP DISCOVERY] Scanning', transferHistory.length, 'blockchain transfers for group messages');
           
           const discoveredMessages: GroupMessageCache[] = [];
-          // Track metadata to be merged: groupId -> { members, creator, inviters }
-          const groupMetadataUpdates = new Map<string, { 
-            members: Set<string>; 
-            creator?: string;
-            inviters: Set<string>; // Track all users who sent messages (potential inviters)
-          }>();
-            
-            // Process each transfer to find group messages
-            for (const operation of transferHistory) {
-              try {
-                const op = operation[1]?.op;
-                if (!op || op[0] !== 'transfer') continue;
+          const groupIdsToLookup = new Set<string>();
+          const tempGroupMetadata = new Map<string, { members: string[]; creator: string }>();
+          
+          // Process each transfer to find group messages
+          for (const operation of transferHistory) {
+            try {
+              const op = operation[1]?.op;
+              if (!op || op[0] !== 'transfer') continue;
+              
+              const transfer = op[1];
+              const memo = transfer.memo;
+              const txId = operation[1].trx_id;
+              
+              // Only process incoming encrypted transfers
+              if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
+                continue;
+              }
+              
+              // Try to decrypt the memo
+              const decryptedMemo = await decryptMemo(
+                user.username,
+                memo,
+                transfer.from,
+                txId
+              );
+              
+              if (!decryptedMemo) continue;
+              
+              // Check if this is a group message
+              const parsed = parseGroupMessageMemo(decryptedMemo);
+              if (parsed && parsed.isGroupMessage && parsed.groupId) {
+                const groupId = parsed.groupId;
+                const sender = transfer.from;
                 
-                const transfer = op[1];
-                const memo = transfer.memo;
-                const txId = operation[1].trx_id;
-                
-                // Only process incoming encrypted transfers
-                if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
-                  continue;
-                }
-                
-                // Try to decrypt the memo
-                const decryptedMemo = await decryptMemo(
-                  user.username,
-                  memo,
-                  transfer.from,
-                  txId
-                );
-                
-                if (!decryptedMemo) continue;
-                
-                // Check if this is a group message
-                const parsed = parseGroupMessageMemo(decryptedMemo);
-                if (parsed && parsed.isGroupMessage && parsed.groupId) {
-                  const groupId = parsed.groupId;
-                  const sender = transfer.from;
-                  
-                  // Track this group for metadata lookup
-                  groupIdsToLookup.add(groupId);
+                // Track this group for metadata lookup
+                groupIdsToLookup.add(groupId);
                   
                   // Track senders
                   if (!discoveredGroupIds.has(groupId)) {
@@ -449,66 +445,66 @@ export function useGroupDiscovery() {
                     }
                   }
                   
-                  // Store creator if available
-                  if (parsed.creator && !groupCreatorMap.has(groupId)) {
-                    groupCreatorMap.set(groupId, parsed.creator);
-                  }
-                  
-                  // Build temporary metadata
-                  if (!tempGroupMetadata.has(groupId)) {
-                    tempGroupMetadata.set(groupId, {
-                      members: [user.username, sender],
-                      creator: parsed.creator || sender
-                    });
-                  } else {
-                    const meta = tempGroupMetadata.get(groupId)!;
-                    if (!meta.members.includes(sender)) {
-                      meta.members.push(sender);
-                    }
-                  }
-                  
-                  // Temporarily store message (will update recipients after metadata lookup)
-                  const messageCache: GroupMessageCache = {
-                    id: txId,
-                    groupId: parsed.groupId,
-                    sender: transfer.from,
-                    creator: parsed.creator,
-                    content: parsed.content || '',
-                    encryptedContent: memo,
-                    timestamp: operation[1].timestamp + 'Z',
-                    recipients: [user.username, sender], // Temporary - will update after metadata lookup
-                    txIds: [txId],
-                    confirmed: true,
-                    status: 'confirmed',
-                  };
-                  
-                  discoveredMessages.push(messageCache);
+                // Store creator if available
+                if (parsed.creator && !groupCreatorMap.has(groupId)) {
+                  groupCreatorMap.set(groupId, parsed.creator);
                 }
-              } catch (processError) {
-                logger.debug('[GROUP DISCOVERY] Failed to process transfer:', processError);
-              }
-            }
-            
-            // Look up full metadata for discovered groups
-            if (groupIdsToLookup.size > 0) {
-              logger.info('[GROUP DISCOVERY] Looking up metadata for', groupIdsToLookup.size, 'discovered groups');
-              
-              for (const groupId of groupIdsToLookup) {
-                try {
+                
+                // Build temporary metadata
+                if (!tempGroupMetadata.has(groupId)) {
+                  tempGroupMetadata.set(groupId, {
+                    members: [user.username, sender],
+                    creator: parsed.creator || sender
+                  });
+                } else {
                   const meta = tempGroupMetadata.get(groupId)!;
-                  const creator = meta.creator;
+                  if (!meta.members.includes(sender)) {
+                    meta.members.push(sender);
+                  }
+                }
                   
-                  // Look up group metadata from creator's history
-                  const groupMetadata = await lookupGroupMetadata(groupId, creator, signal);
+                // Temporarily store message (will update recipients after metadata lookup)
+                const messageCache: GroupMessageCache = {
+                  id: txId,
+                  groupId: parsed.groupId,
+                  sender: transfer.from,
+                  creator: parsed.creator,
+                  content: parsed.content || '',
+                  encryptedContent: memo,
+                  timestamp: operation[1].timestamp + 'Z',
+                  recipients: [user.username, sender], // Temporary
+                  txIds: [txId],
+                  confirmed: true,
+                  status: 'confirmed',
+                };
+                
+                discoveredMessages.push(messageCache);
+              }
+            } catch (processError) {
+              logger.debug('[GROUP DISCOVERY] Failed to process transfer:', processError);
+            }
+          }
+            
+          // Look up full metadata for discovered groups
+          if (groupIdsToLookup.size > 0) {
+            logger.info('[GROUP DISCOVERY] Looking up metadata for', groupIdsToLookup.size, 'discovered groups');
+            
+            for (const groupId of Array.from(groupIdsToLookup)) {
+              try {
+                const meta = tempGroupMetadata.get(groupId)!;
+                const creator = meta.creator;
+                
+                // Look up group metadata from creator's history
+                const groupMetadata = await lookupGroupMetadata(groupId, creator);
                   
-                  if (groupMetadata) {
-                    logger.info('[GROUP DISCOVERY] ✅ Found full metadata for group:', groupId, 'with', groupMetadata.members.length, 'members');
-                    
-                    // Update temp metadata with complete info
-                    tempGroupMetadata.set(groupId, {
-                      members: groupMetadata.members,
-                      creator: groupMetadata.creator
-                    });
+                if (groupMetadata) {
+                  logger.info('[GROUP DISCOVERY] ✅ Found full metadata for group:', groupId, 'with', groupMetadata.members.length, 'members');
+                  
+                  // Update temp metadata with complete info
+                  tempGroupMetadata.set(groupId, {
+                    members: groupMetadata.members,
+                    creator: groupMetadata.creator
+                  });
                     
                     // Update all messages for this group with complete recipient list
                     for (const msg of discoveredMessages) {
