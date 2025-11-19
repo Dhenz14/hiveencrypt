@@ -491,7 +491,12 @@ export function useGroupDiscovery() {
             
             for (const groupId of Array.from(groupIdsToLookup)) {
               try {
-                const meta = tempGroupMetadata.get(groupId)!;
+                const meta = tempGroupMetadata.get(groupId);
+                if (!meta) {
+                  logger.warn('[GROUP DISCOVERY] ⚠️ No temp metadata for group:', groupId, '- skipping');
+                  continue;
+                }
+                
                 const creator = meta.creator;
                 
                 // Look up group metadata from creator's history
