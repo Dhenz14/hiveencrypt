@@ -667,18 +667,36 @@ export default function Messages() {
     
     try {
       const groupName = selectedGroup.name;
+      const groupIdToLeave = selectedGroupId;
       
-      logger.info('[LEAVE GROUP] Leaving group:', selectedGroupId);
+      logger.info('[LEAVE GROUP] Leaving group:', groupIdToLeave);
+      
+      // Close dialog and clear selection immediately for better UX (optimistic UI)
+      setIsLeaveGroupDialogOpen(false);
+      setSelectedGroupId('');
+      if (isMobile) {
+        setShowChat(false);
+      }
+      
+      // Optimistically remove group from cache
+      queryClient.setQueryData(
+        ['blockchain-group-conversations', user.username],
+        (oldData: GroupConversationCache[] | undefined) => {
+          if (!oldData) return oldData;
+          return oldData.filter(g => g.groupId !== groupIdToLeave);
+        }
+      );
       
       // Broadcast leave group operation to blockchain (free - custom_json)
-      await broadcastLeaveGroup(user.username, selectedGroupId);
+      await broadcastLeaveGroup(user.username, groupIdToLeave);
       
       // Delete local group data
-      await deleteGroupConversation(selectedGroupId, user.username);
+      await deleteGroupConversation(groupIdToLeave, user.username);
       
-      // Invalidate queries to refresh the UI
-      await queryClient.invalidateQueries({ queryKey: ['blockchain-group-messages', user.username, selectedGroupId] });
+      // Comprehensive query invalidation to refresh all group-related data
+      await queryClient.invalidateQueries({ queryKey: ['blockchain-group-messages', user.username, groupIdToLeave] });
       await queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user.username] });
+      await queryClient.invalidateQueries({ queryKey: ['group-discovery', user.username] });
       
       // Show success toast
       toast({
@@ -686,19 +704,13 @@ export default function Messages() {
         description: `You have left "${groupName}". You will no longer receive messages from this group.`,
       });
       
-      // Close dialog
-      setIsLeaveGroupDialogOpen(false);
-      
-      // Clear selection and go back to conversation list
-      setSelectedGroupId('');
-      if (isMobile) {
-        setShowChat(false);
-      }
-      
-      logger.info('[LEAVE GROUP] ✅ Successfully left group:', selectedGroupId);
+      logger.info('[LEAVE GROUP] ✅ Successfully left group:', groupIdToLeave);
     } catch (error) {
       logger.error('[LEAVE GROUP] ❌ Failed to leave group:', error);
       const errorMessage = error instanceof Error ? error.message : 'Failed to leave group';
+      
+      // Revert optimistic update on error
+      await queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user.username] });
       
       toast({
         title: 'Error',
