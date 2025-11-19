@@ -262,7 +262,7 @@ export function GroupCreationModal({
 
           {/* Large Group Warning - Show when >5 members */}
           {members.length > 5 && (
-            <Alert variant="warning" data-testid="alert-large-group-warning">
+            <Alert data-testid="alert-large-group-warning">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription className="text-caption">
                 Creating groups with {members.length} members will require {members.length} separate Keychain approvals when sending messages. Consider keeping groups under 5 members for better experience.

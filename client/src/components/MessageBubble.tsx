@@ -154,7 +154,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp, isGr
               logger.info('[GROUP AUTO-DISCOVERY] Trying', sendersForGroup.size, 'fallback senders');
               
               // Try each sender until we find metadata
-              for (const sender of sendersForGroup) {
+              for (const sender of Array.from(sendersForGroup)) {
                 groupMetadata = await lookupGroupMetadata(parsed.groupId, sender);
                 if (groupMetadata) {
                   logger.info('[GROUP AUTO-DISCOVERY] ✅ Found metadata from fallback sender:', sender);

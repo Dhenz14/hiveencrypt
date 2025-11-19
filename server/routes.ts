@@ -79,7 +79,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         username,
         keychainProof.message,
         keychainProof.signature,
-        blockchainPostingKey  // Use blockchain key, not client-supplied
+        typeof blockchainPostingKey === 'string' ? blockchainPostingKey : blockchainPostingKey.toString()
       );
 
       if (!isValidSignature) {
