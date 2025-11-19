@@ -317,6 +317,9 @@ export function useGroupMessagePreSync() {
  */
 export function useGroupDiscovery() {
   const { user } = useAuth();
+  
+  // DEBUG: Log hook invocation
+  logger.info('[useGroupDiscovery] 🔍 Hook called, user:', user?.username, 'enabled:', !!user?.username);
 
   return useQuery({
     queryKey: ['blockchain-group-conversations', user?.username],
