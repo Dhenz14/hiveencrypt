@@ -84,13 +84,59 @@ export async function broadcastGroupCreation(
       JSON.stringify(customJson),
       'Create Group Chat',
       (response: any) => {
-        if (response.success) {
-          logger.info('[GROUP BLOCKCHAIN] ✅ Group created on blockchain:', response.result.id);
-          resolve(response.result.id);
-        } else {
-          logger.error('[GROUP BLOCKCHAIN] ❌ Failed to create group:', response.error);
-          reject(new Error(response.error || 'Failed to broadcast group creation'));
-        }
+        (async () => {
+          if (response.success) {
+            const txId = response.result.id;
+            logger.info('[GROUP BLOCKCHAIN] ✅ Group created on blockchain:', txId);
+            
+            try {
+              // Get full transaction details for manifest pointer
+              const transaction = await optimizedHiveClient.getTransaction(txId);
+              
+              if (transaction && transaction.block_num) {
+                // Find the operation index for our custom_json
+                let opIdx = 0;
+                if (transaction.operations) {
+                  for (let i = 0; i < transaction.operations.length; i++) {
+                    if (transaction.operations[i][0] === 'custom_json' && 
+                        transaction.operations[i][1]?.id === GROUP_CUSTOM_JSON_ID) {
+                      opIdx = i;
+                      break;
+                    }
+                  }
+                }
+                
+                // Send invite memos to all members
+                const manifestPointer = {
+                  trx_id: txId,
+                  block: transaction.block_num,
+                  op_idx: opIdx
+                };
+                
+                const inviteResults = await sendGroupInviteMemos(
+                  groupId,
+                  members,
+                  manifestPointer,
+                  username,
+                  'create'
+                );
+                
+                logger.info('[GROUP BLOCKCHAIN] Invite memos sent:', inviteResults);
+              }
+            } catch (inviteError) {
+              // Log but don't fail the group creation
+              logger.error('[GROUP BLOCKCHAIN] Failed to send invite memos:', inviteError);
+            }
+            
+            resolve(txId);
+          } else {
+            logger.error('[GROUP BLOCKCHAIN] ❌ Failed to create group:', response.error);
+            reject(new Error(response.error || 'Failed to broadcast group creation'));
+          }
+        })().catch(error => {
+          logger.error('[GROUP BLOCKCHAIN] Error in callback:', error);
+          reject(error);
+        });
       }
     );
   });
@@ -130,13 +176,59 @@ export async function broadcastGroupUpdate(
       JSON.stringify(customJson),
       'Update Group Chat',
       (response: any) => {
-        if (response.success) {
-          logger.info('[GROUP BLOCKCHAIN] ✅ Group updated on blockchain:', response.result.id);
-          resolve(response.result.id);
-        } else {
-          logger.error('[GROUP BLOCKCHAIN] ❌ Failed to update group:', response.error);
-          reject(new Error(response.error || 'Failed to broadcast group update'));
-        }
+        (async () => {
+          if (response.success) {
+            const txId = response.result.id;
+            logger.info('[GROUP BLOCKCHAIN] ✅ Group updated on blockchain:', txId);
+            
+            try {
+              // Get full transaction details for manifest pointer
+              const transaction = await optimizedHiveClient.getTransaction(txId);
+              
+              if (transaction && transaction.block_num) {
+                // Find the operation index for our custom_json
+                let opIdx = 0;
+                if (transaction.operations) {
+                  for (let i = 0; i < transaction.operations.length; i++) {
+                    if (transaction.operations[i][0] === 'custom_json' && 
+                        transaction.operations[i][1]?.id === GROUP_CUSTOM_JSON_ID) {
+                      opIdx = i;
+                      break;
+                    }
+                  }
+                }
+                
+                // Send invite memos to all members
+                const manifestPointer = {
+                  trx_id: txId,
+                  block: transaction.block_num,
+                  op_idx: opIdx
+                };
+                
+                const inviteResults = await sendGroupInviteMemos(
+                  groupId,
+                  members,
+                  manifestPointer,
+                  username,
+                  'update'
+                );
+                
+                logger.info('[GROUP BLOCKCHAIN] Invite memos sent:', inviteResults);
+              }
+            } catch (inviteError) {
+              // Log but don't fail the group update
+              logger.error('[GROUP BLOCKCHAIN] Failed to send invite memos:', inviteError);
+            }
+            
+            resolve(txId);
+          } else {
+            logger.error('[GROUP BLOCKCHAIN] ❌ Failed to update group:', response.error);
+            reject(new Error(response.error || 'Failed to broadcast group update'));
+          }
+        })().catch(error => {
+          logger.error('[GROUP BLOCKCHAIN] Error in callback:', error);
+          reject(error);
+        });
       }
     );
   });
