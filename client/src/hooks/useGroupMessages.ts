@@ -745,6 +745,15 @@ export function useGroupDiscovery() {
 
         return mergedGroups;
       } catch (error) {
+        // Handle query cancellation gracefully (not an error)
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          console.warn('[GROUP DISCOVERY] ⚠️ Query cancelled by React Query, returning cached data');
+          logger.info('[GROUP DISCOVERY] Query cancelled, returning cached groups');
+          const cachedGroups = await getGroupConversations(username);
+          return cachedGroups;
+        }
+        
+        // Real error - log it prominently
         console.error('[GROUP DISCOVERY] ❌❌❌ CRITICAL ERROR ❌❌❌');
         console.error('[GROUP DISCOVERY] Error object:', error);
         console.error('[GROUP DISCOVERY] Error message:', error instanceof Error ? error.message : String(error));
@@ -770,8 +779,8 @@ export function useGroupDiscovery() {
       }
     },
     enabled: !!user?.username,
-    staleTime: 0, // Always fresh - run discovery on every mount
-    gcTime: 0, // Don't cache results - force fresh query every time
+    staleTime: 0, // Always consider data stale - triggers refetch on mount
+    gcTime: 5 * 60 * 1000, // Keep in memory for 5 minutes to prevent aggressive cancellation
     refetchInterval: 30000, // Refetch every 30 seconds
     refetchOnMount: 'always', // Always refetch when component mounts
     retry: 3, // Retry failed requests 3 times
