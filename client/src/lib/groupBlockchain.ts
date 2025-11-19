@@ -362,57 +362,52 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
       }
     }
     
-    // TIER 5: Scan transfer operations for group invite memos
+    // TIER 5: Scan transfer operations for group invite memos with STREAMING PROCESSING
     logger.info('[GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos');
     
-    const transferHistory = await optimizedHiveClient.getAccountHistory(
-      knownMember,
-      1000,  // Transfers are much rarer than custom_json
-      'transfers',
-      -1
-    );
-    
-    // Import memo decryption utility
-    const { requestDecodeMemo } = await import('./hive');
-    
-    for (const [, operation] of transferHistory) {
-      try {
-        if (!operation || !operation[1] || !operation[1].op) continue;
-        const op = operation[1].op;
-        
-        if (op[0] !== 'transfer') continue;
-        
-        const transferData = op[1];
-        const { memo, from } = transferData;
-        
-        if (!memo || !memo.startsWith('#')) continue; // Must be encrypted
-        
-        // Decrypt memo
+    // Helper function for processing transfer chunks
+    async function processTransferChunk(
+      transfers: any[],
+      targetGroupId: string,
+      recipientUsername: string,
+      decodeMemo: any,
+      cachePointer: any
+    ): Promise<Group | null> {
+      for (const [seqNum, operation] of transfers) {
+        // Wrap EACH transfer in individual try-catch
         try {
-          const decryptedMemo = await requestDecodeMemo(knownMember, memo);
+          if (!operation || !operation[1] || !operation[1].op) continue;
+          const op = operation[1].op;
+          
+          if (op[0] !== 'transfer') continue;
+          
+          const transferData = op[1];
+          const { memo, from } = transferData;
+          
+          if (!memo || !memo.startsWith('#')) continue; // Must be encrypted
+          
+          // Add small delay to prevent Keychain throttling (20ms between decrypts)
+          await new Promise(resolve => setTimeout(resolve, 20));
+          
+          // Decrypt memo (can throw on Keychain throttling or not-for-us memos)
+          const decryptedMemo = await decodeMemo(recipientUsername, memo);
           
           // Try to parse as JSON
-          let memoData;
-          try {
-            const jsonStr = decryptedMemo.startsWith('#') ? decryptedMemo.substring(1) : decryptedMemo;
-            memoData = JSON.parse(jsonStr);
-          } catch {
-            continue; // Not JSON, skip
-          }
+          const jsonStr = decryptedMemo.startsWith('#') ? decryptedMemo.substring(1) : decryptedMemo;
+          const memoData = JSON.parse(jsonStr);
           
           // Validate against GroupInviteMemoSchema
           const parseResult = GroupInviteMemoSchema.safeParse(memoData);
           
-          if (!parseResult.success || parseResult.data.groupId !== groupId) {
+          if (!parseResult.success || parseResult.data.groupId !== targetGroupId) {
             continue; // Not a valid group invite for this group
           }
           
           const inviteMemo = parseResult.data;
-          logger.info('[GROUP BLOCKCHAIN] ✅ Found group invite memo for:', groupId);
+          logger.info('[GROUP BLOCKCHAIN] ✅ Found group invite memo for:', targetGroupId, 'from:', from, 'seq:', seqNum);
           
           // Cache the pointer in IndexedDB for future instant lookups
-          const { cacheGroupManifestPointer } = await import('./messageCache');
-          await cacheGroupManifestPointer({
+          await cachePointer({
             groupId: inviteMemo.groupId,
             manifest_trx_id: inviteMemo.manifest_trx_id,
             manifest_block: inviteMemo.manifest_block,
@@ -430,35 +425,179 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
             if (operation && operation[0] === 'custom_json' && operation[1].id === GROUP_CUSTOM_JSON_ID) {
               const jsonData: GroupCustomJson = JSON.parse(operation[1].json);
               
-              if (jsonData.groupId === groupId && jsonData.action !== 'leave') {
+              if (jsonData.groupId === targetGroupId && jsonData.action !== 'leave') {
                 const groupData: Group = {
-                  groupId,
+                  groupId: targetGroupId,
                   name: jsonData.name || 'Unnamed Group',
                   members: jsonData.members || [],
-                  creator: jsonData.creator || knownMember,
+                  creator: jsonData.creator || recipientUsername,
                   createdAt: normalizeHiveTimestamp(jsonData.timestamp),
                   version: jsonData.version || 1,
                 };
                 
-                // Cache in memory
-                groupPositiveCache.set(groupId, {
-                  group: groupData,
-                  timestamp: Date.now()
-                });
-                
-                logger.info('[GROUP BLOCKCHAIN] ✅ Resolved manifest via invite memo:', groupData.name);
-                return groupData;
+                logger.info('[GROUP BLOCKCHAIN] ✅ Resolved manifest from pointer:', groupData.name);
+                return groupData; // IMMEDIATE RETURN
               }
             }
           }
-        } catch (decryptError) {
-          // Memo decryption failed (not for us), skip
+        } catch (transferError: any) {
+          // Log and CONTINUE to next transfer (don't abort the chunk)
+          // This handles:
+          // - Memo decryption failures (not for us)
+          // - JSON parse errors (not a group invite)
+          // - Keychain throttling (transient)
+          // - Malformed payloads
+          const from = operation?.[1]?.op?.[1]?.from || 'unknown';
+          logger.debug('[GROUP BLOCKCHAIN] Skipping transfer from', from, 'seq', seqNum, ':', transferError.message || transferError);
+          continue; // Continue to next transfer in chunk
+        }
+      }
+      
+      return null; // No invite memo found in this chunk
+    }
+    
+    // Import utilities once before loop
+    const { requestDecodeMemo } = await import('./hive');
+    const { cacheGroupManifestPointer } = await import('./messageCache');
+    
+    // Initial fetch: 1000 transfer operations
+    let transferHistory = await optimizedHiveClient.getAccountHistory(
+      knownMember,
+      1000,
+      'transfers',
+      -1
+    );
+    
+    let oldestSeqNum = -1;
+    let chunkIdx = 0;
+    let totalScanned = 0;
+    
+    if (transferHistory.length > 0) {
+      oldestSeqNum = Math.min(...transferHistory.map(([idx]) => idx));
+      logger.info('[GROUP BLOCKCHAIN] Transfer scan - initial fetch:', transferHistory.length, 'ops, oldest seq:', oldestSeqNum);
+    }
+    
+    // Process initial chunk immediately (streaming)
+    const initialResult = await processTransferChunk(
+      transferHistory,
+      groupId,
+      knownMember,
+      requestDecodeMemo,
+      cacheGroupManifestPointer
+    );
+    totalScanned += transferHistory.length;
+    
+    if (initialResult) {
+      // Found and resolved - return immediately!
+      groupPositiveCache.set(groupId, {
+        group: initialResult,
+        timestamp: Date.now()
+      });
+      logger.info('[GROUP BLOCKCHAIN] ✅ Resolved manifest via invite memo (initial chunk):', initialResult.name);
+      return initialResult;
+    }
+    
+    // Deep backfill with streaming processing
+    const TRANSFER_CHUNK_SIZE = 1000;
+    const MAX_CONSECUTIVE_FAILURES = 3; // Bail out after 3 consecutive RPC failures
+    let consecutiveFailures = 0;
+    
+    if (oldestSeqNum > 0) {
+      logger.info('[GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)');
+    
+      while (oldestSeqNum > 0) {
+        try {
+          const nextStart = oldestSeqNum - 1;
+    
+          if (nextStart < 0) {
+            logger.info('[GROUP BLOCKCHAIN] Transfer scan - reached beginning of history');
+            break;
+          }
+    
+          const olderTransfers = await optimizedHiveClient.getAccountHistory(
+            knownMember,
+            TRANSFER_CHUNK_SIZE,
+            'transfers',
+            nextStart
+          );
+    
+          if (olderTransfers.length === 0) {
+            logger.info('[GROUP BLOCKCHAIN] Transfer scan - no more transfer operations');
+            break;
+          }
+    
+          const chunkOldest = Math.min(...olderTransfers.map(([idx]) => idx));
+          if (!Number.isFinite(chunkOldest)) {
+            logger.error('[GROUP BLOCKCHAIN] Transfer scan - invalid sequence number');
+            break;
+          }
+    
+          // Detect stuck pagination (RPC returning same data)
+          if (chunkOldest === oldestSeqNum) {
+            logger.error('[GROUP BLOCKCHAIN] Transfer scan - pagination stuck at seq', oldestSeqNum);
+            break;
+          }
+    
+          // SUCCESS: Update state BEFORE processing
+          oldestSeqNum = chunkOldest;
+          chunkIdx++;
+          totalScanned += olderTransfers.length;
+          consecutiveFailures = 0; // Reset failure counter on success
+    
+          logger.info('[GROUP BLOCKCHAIN] Transfer scan - chunk', chunkIdx, ':', olderTransfers.length, 'ops, total scanned:', totalScanned);
+    
+          // Process this chunk immediately (streaming)
+          const chunkResult = await processTransferChunk(
+            olderTransfers,
+            groupId,
+            knownMember,
+            requestDecodeMemo,
+            cacheGroupManifestPointer
+          );
+    
+          if (chunkResult) {
+            // Found and resolved - return immediately!
+            groupPositiveCache.set(groupId, {
+              group: chunkResult,
+              timestamp: Date.now()
+            });
+            logger.info('[GROUP BLOCKCHAIN] ✅ Resolved manifest via invite memo (chunk', chunkIdx, ', total scanned:', totalScanned, '):', chunkResult.name);
+            return chunkResult;
+          }
+        } catch (error: any) {
+          consecutiveFailures++;
+          
+          // Enhanced error logging with context
+          logger.error('[GROUP BLOCKCHAIN] Transfer scan - RPC error on chunk', chunkIdx, '(failure', consecutiveFailures, '/' + MAX_CONSECUTIVE_FAILURES + ')');
+          logger.error('[GROUP BLOCKCHAIN] Error details:', {
+            error: error.message || error,
+            oldestSeqNum,
+            totalScanned,
+            knownMember,
+            groupId
+          });
+          
+          // Bail out after consecutive failures to prevent infinite loops
+          if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+            logger.error('[GROUP BLOCKCHAIN] Transfer scan - BAILING OUT after', MAX_CONSECUTIVE_FAILURES, 'consecutive RPC failures');
+            logger.error('[GROUP BLOCKCHAIN] Bailout context:', {
+              groupId,
+              knownMember,
+              totalScanned,
+              chunksProcessed: chunkIdx,
+              lastOldestSeq: oldestSeqNum,
+              finalError: error.message || error
+            });
+            break;
+          }
+          
+          // Continue to retry (with same nextStart, since we didn't update oldestSeqNum)
           continue;
         }
-      } catch (error) {
-        continue; // Skip this operation
       }
     }
+    
+    logger.info('[GROUP BLOCKCHAIN] Transfer scan - completed:', totalScanned, 'transfer operations scanned, chunks processed:', chunkIdx);
     
     // TIER 6: LEGACY FALLBACK - Scan custom_json operations (existing 5k deep backfill logic)
     logger.info('[GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)');
