@@ -735,12 +735,12 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     // BFS queue: Start with all current group members
     const memberQueue: string[] = [];
     const visitedMembers = new Set<string>([username]); // Skip current user
-    const alreadyScannedSenders = new Set(potentialGroupSenders); // Skip already scanned senders
     
-    // Initialize queue with all members from initially discovered groups
+    // Initialize queue with ALL members from initially discovered groups
+    // CRITICAL: Don't skip already scanned senders - they might have newer updates
     for (const group of Array.from(groupMap.values())) {
       for (const member of group.members) {
-        if (!visitedMembers.has(member) && !alreadyScannedSenders.has(member)) {
+        if (!visitedMembers.has(member)) {
           memberQueue.push(member);
           visitedMembers.add(member);
         }
@@ -748,6 +748,16 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     }
     
     logger.info('[GROUP BLOCKCHAIN] Chain discovery: Initial queue size:', memberQueue.length, 'members');
+    logger.info('[GROUP BLOCKCHAIN] Chain discovery: Scanning members from', groupMap.size, 'initially discovered groups');
+    
+    // Diagnostic: Log if queue is empty
+    if (memberQueue.length === 0) {
+      logger.warn('[GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.');
+      logger.warn('[GROUP BLOCKCHAIN] Chain discovery: groupMap size:', groupMap.size);
+      for (const group of Array.from(groupMap.values())) {
+        logger.warn('[GROUP BLOCKCHAIN] Chain discovery: Group', group.name, 'has members:', group.members);
+      }
+    }
     
     let chainIteration = 0;
     let totalScanned = 0;
