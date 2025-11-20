@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Users, Loader2, DollarSign } from 'lucide-react';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import {
@@ -18,6 +18,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { PaymentSettings, MemberPayment } from '@shared/schema';
 import { GROUP_CUSTOM_JSON_ID } from '@/lib/groupBlockchain';
 import { logger } from '@/lib/logger';
+import { useUserPendingRequests } from '@/hooks/useJoinRequests';
 
 interface JoinGroupButtonProps {
   groupId: string;
@@ -45,17 +46,16 @@ export function JoinGroupButton({
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
   const [requestMessage, setRequestMessage] = useState('');
-  const [pendingRequestId, setPendingRequestId] = useState<string | null>(null);
 
-  // Check localStorage for pending requests
-  useEffect(() => {
-    if (!user?.username) return;
-    const pendingKey = `pending_join_${groupId}_${user.username}`;
-    const pending = localStorage.getItem(pendingKey);
-    if (pending) {
-      setPendingRequestId(pending);
-    }
-  }, [groupId, user?.username]);
+  // Check blockchain for pending requests (replaces localStorage)
+  const { data: pendingRequests = [], isLoading: isLoadingPendingRequests } = useUserPendingRequests(
+    groupId,
+    !!user?.username
+  );
+
+  // Determine if user has a pending request
+  const hasPendingRequest = pendingRequests.length > 0;
+  const pendingRequestId = pendingRequests[0]?.requestId || null;
 
   // Determine if this is auto-approve or manual approval
   const isAutoApprove = paymentSettings?.autoApprove !== false; // Default to true if undefined
@@ -123,10 +123,8 @@ export function JoinGroupButton({
       if (!user?.username) return; // Safety check
 
       if (variables.status === 'pending') {
-        // Store pending request in localStorage
-        const pendingKey = `pending_join_${groupId}_${user.username}`;
-        localStorage.setItem(pendingKey, result.requestId);
-        setPendingRequestId(result.requestId);
+        // Invalidate pending requests query to trigger blockchain re-scan
+        queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId, user.username] });
 
         toast({
           title: 'Join Request Sent',
@@ -288,7 +286,7 @@ export function JoinGroupButton({
 
   // Determine button text
   const getButtonText = () => {
-    if (pendingRequestId) {
+    if (hasPendingRequest) {
       return 'Request Pending...';
     }
 
@@ -304,7 +302,7 @@ export function JoinGroupButton({
 
   // Determine button click handler
   const handleClick = () => {
-    if (pendingRequestId) return; // Disabled
+    if (hasPendingRequest) return; // Disabled
 
     if (isAutoApprove) {
       if (requiresPayment) {
@@ -317,7 +315,7 @@ export function JoinGroupButton({
     }
   };
 
-  const isLoading = joinRequestMutation.isPending || joinApproveMutation.isPending;
+  const isLoading = joinRequestMutation.isPending || joinApproveMutation.isPending || isLoadingPendingRequests;
 
   return (
     <>
@@ -325,7 +323,7 @@ export function JoinGroupButton({
         variant={variant}
         className={className}
         onClick={handleClick}
-        disabled={isLoading || !!pendingRequestId}
+        disabled={isLoading || hasPendingRequest}
         data-testid="button-join-group"
       >
         {isLoading ? (
