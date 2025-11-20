@@ -65,6 +65,7 @@ export function ManageMembersModal({
   // Payment modal state
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [pendingApprovalRequest, setPendingApprovalRequest] = useState<JoinRequest | null>(null);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
   
   // Calculate payment stats if payments are enabled
   const paymentStats = getPaymentStats(memberPayments, paymentSettings);
@@ -163,6 +164,7 @@ export function ManageMembersModal({
     if (paymentSettings?.enabled) {
       // Open payment modal for paid groups
       setPendingApprovalRequest(request);
+      setPaymentCompleted(false); // Reset payment completed state
       setPaymentModalOpen(true);
     } else {
       // Immediately approve for free groups
@@ -171,28 +173,67 @@ export function ManageMembersModal({
   };
   
   // Handle payment verification callback
-  const handlePaymentVerified = (txId: string, amount: string) => {
+  const handlePaymentVerified = async (txId: string, amount: string) => {
     if (!pendingApprovalRequest) return;
     
-    // Create member payment record
-    const memberPayment: MemberPayment = {
-      username: pendingApprovalRequest.username,
-      txId,
-      amount,
-      paidAt: new Date().toISOString(),
-      status: 'active',
-      // Calculate next due date for recurring payments
-      nextDueDate: paymentSettings?.type === 'recurring' && paymentSettings.recurringInterval
-        ? new Date(Date.now() + paymentSettings.recurringInterval * 24 * 60 * 60 * 1000).toISOString()
-        : undefined,
-    };
-    
-    // Approve with payment record
-    approveRequestMutation.mutate({ request: pendingApprovalRequest, memberPayment });
-    
-    // Close payment modal
-    setPaymentModalOpen(false);
-    setPendingApprovalRequest(null);
+    try {
+      // Mark payment as completed FIRST
+      setPaymentCompleted(true);
+      
+      // Create member payment record with payment proof
+      const memberPayment: MemberPayment = {
+        username: pendingApprovalRequest.username,
+        txId,
+        amount,
+        paidAt: new Date().toISOString(),
+        status: 'active',
+        // Calculate next due date for recurring payments
+        nextDueDate: paymentSettings?.type === 'recurring' && paymentSettings.recurringInterval
+          ? new Date(Date.now() + paymentSettings.recurringInterval * 24 * 60 * 60 * 1000).toISOString()
+          : undefined,
+      };
+      
+      // Broadcast join_approve with payment record - use mutateAsync to handle errors
+      await approveRequestMutation.mutateAsync({ request: pendingApprovalRequest, memberPayment });
+      
+      // Success - close payment modal and reset state
+      setPaymentModalOpen(false);
+      setPendingApprovalRequest(null);
+      setPaymentCompleted(false);
+    } catch (error: any) {
+      // Error occurred during approval - show error toast
+      toast({
+        title: 'Failed to approve request',
+        description: error.message || 'An error occurred while approving the join request',
+        variant: 'destructive',
+      });
+      
+      // Reset payment state but keep modal open so user can see the error
+      setPaymentCompleted(false);
+    }
+  };
+  
+  // Handle payment modal close - detects cancellation without payment
+  const handlePaymentModalClose = (open: boolean) => {
+    if (!open) {
+      // Modal is closing - check if payment was completed
+      if (!paymentCompleted && pendingApprovalRequest) {
+        // Payment was NOT completed - user cancelled or closed modal
+        toast({
+          title: 'Payment Required',
+          description: 'Payment must be completed to approve this request',
+          variant: 'destructive',
+        });
+      }
+      
+      // Reset payment modal state
+      setPaymentModalOpen(false);
+      setPendingApprovalRequest(null);
+      setPaymentCompleted(false);
+    } else {
+      // Opening modal
+      setPaymentModalOpen(true);
+    }
   };
   
   // Handle reject button click
@@ -699,7 +740,7 @@ export function ManageMembersModal({
       {paymentSettings && pendingApprovalRequest && currentUsername && (
         <PaymentGatewayModal
           open={paymentModalOpen}
-          onOpenChange={setPaymentModalOpen}
+          onOpenChange={handlePaymentModalClose}
           groupId={groupId}
           groupName={groupName}
           creatorUsername={creator}
