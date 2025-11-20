@@ -413,18 +413,15 @@ export function GroupCreationModal({
                   </p>
                 </div>
 
-                {/* Auto-Approve Join Requests */}
+                {/* Auto-Approve After Payment */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="auto-approve" className="text-caption">
-                        Auto-Approve Join Requests
+                        Auto-approve after payment
                       </Label>
                       <p className="text-caption text-muted-foreground">
-                        {autoApprove 
-                          ? 'Anyone can pay and join instantly'
-                          : 'You must approve join requests manually'
-                        }
+                        When enabled, users join instantly after payment. When disabled, you must manually approve each join request before they can pay.
                       </p>
                     </div>
                     <Switch
