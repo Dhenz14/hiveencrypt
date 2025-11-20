@@ -61,12 +61,28 @@ export function JoinGroupButton({
   const isAutoApprove = paymentSettings?.autoApprove !== false; // Default to true if undefined
   const requiresPayment = paymentSettings?.enabled && parseFloat(paymentSettings.amount) > 0;
 
+  // Helper function to calculate next due date for recurring payments
+  const calculateNextDueDate = (settings: PaymentSettings): string | undefined => {
+    if (settings.type === 'recurring' && settings.recurringInterval) {
+      const nextDate = new Date();
+      nextDate.setDate(nextDate.getDate() + settings.recurringInterval);
+      return nextDate.toISOString();
+    }
+    return undefined;
+  };
+
   // Mutation for broadcasting join_request (both pending and approved status)
   const joinRequestMutation = useMutation({
-    mutationFn: async (payload: { status: 'pending' | 'approved'; message?: string }) => {
+    mutationFn: async (payload: { 
+      status: 'pending' | 'approved'; 
+      message?: string;
+      memberPayment?: MemberPayment;
+      paymentTxId?: string;
+    }) => {
       if (!user?.username) throw new Error('Not authenticated');
 
-      const requestId = crypto.randomUUID();
+      // Use payment txId as requestId if available, otherwise generate UUID
+      const requestId = payload.paymentTxId || crypto.randomUUID();
       const customJson = {
         action: 'join_request',
         groupId,
@@ -74,6 +90,7 @@ export function JoinGroupButton({
         requestId,
         status: payload.status,
         message: payload.message,
+        memberPayment: payload.memberPayment, // CRITICAL: Include payment proof for paid joins
         timestamp: Date.now(),
       };
 
@@ -92,7 +109,7 @@ export function JoinGroupButton({
           (response: any) => {
             if (response.success) {
               const txId = response.result.id;
-              logger.info('[JOIN GROUP] Join request broadcasted:', txId);
+              logger.info('[JOIN GROUP] Join request broadcasted:', txId, payload.memberPayment ? 'with payment proof' : 'free join');
               resolve(txId);
             } else {
               logger.error('[JOIN GROUP] Failed to broadcast join request:', response.error);
@@ -113,8 +130,13 @@ export function JoinGroupButton({
           title: 'Join Request Sent',
           description: 'Join request sent to group creator',
         });
+      } else if (variables.memberPayment) {
+        // Auto-approved PAID join - payment proof included
+        // Now broadcast join_approve to complete the process
+        logger.info('[JOIN GROUP] ✅ Join request with payment broadcasted, now broadcasting join_approve');
+        joinApproveMutation.mutate(variables.memberPayment);
       } else {
-        // Auto-approved free join
+        // Auto-approved FREE join
         queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
         queryClient.invalidateQueries({ queryKey: ['groupMessages', groupId] });
 
@@ -202,22 +224,42 @@ export function JoinGroupButton({
 
   // Handle paid auto-approve join
   const handlePaidJoin = () => {
+    // SECURITY: Payment modal MUST open BEFORE any blockchain broadcasts
     setPaymentModalOpen(true);
   };
 
-  // Handle payment verified
+  // Handle payment verified - CRITICAL SECURITY FIX
+  // Payment happens FIRST, then we broadcast join_request with payment proof
   const handlePaymentVerified = (txId: string, amount: string) => {
-    if (!user?.username) return;
+    if (!user?.username || !paymentSettings) return;
 
+    logger.info('[JOIN GROUP] 💰 Payment verified, creating memberPayment record');
+
+    // Create memberPayment record with all required fields
     const memberPayment: MemberPayment = {
       username: user.username,
-      txId,
-      amount,
+      txId, // Blockchain transaction ID of the payment
+      amount, // e.g., "5.000 HBD"
       paidAt: new Date().toISOString(),
       status: 'active',
+      nextDueDate: calculateNextDueDate(paymentSettings), // Only set for recurring payments
     };
 
-    joinApproveMutation.mutate(memberPayment);
+    logger.info('[JOIN GROUP] 📝 Broadcasting join_request with payment proof:', {
+      txId,
+      amount,
+      nextDueDate: memberPayment.nextDueDate,
+    });
+
+    // SECURITY FIX: Broadcast join_request with status='approved' AND memberPayment
+    // This ensures payment proof is recorded on the blockchain BEFORE user is added to group
+    joinRequestMutation.mutate({
+      status: 'approved',
+      memberPayment, // CRITICAL: Include payment proof
+      paymentTxId: txId, // Use payment txId as requestId
+    });
+
+    // Close payment modal
     setPaymentModalOpen(false);
   };
 
