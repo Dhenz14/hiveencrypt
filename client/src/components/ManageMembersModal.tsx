@@ -82,23 +82,54 @@ export function ManageMembersModal({
   
   // Approve join request mutation
   const approveRequestMutation = useMutation({
-    mutationFn: async ({ request, memberPayment }: { request: JoinRequest; memberPayment?: MemberPayment }) => {
+    mutationFn: async (request: JoinRequest) => {
       if (!currentUsername) {
         throw new Error('User not authenticated');
       }
       
-      // Broadcast join_approve custom_json
+      const requiresPayment = paymentSettings?.enabled;
+      
+      // AUTO-APPROVE PAID: Payment proof already exists
+      if (requiresPayment && request.memberPayment) {
+        // Payment already verified - approve immediately with existing payment proof
+        const txId = await broadcastJoinApprove(
+          currentUsername,
+          groupId,
+          request.requestId,
+          request.username,
+          request.memberPayment
+        );
+        
+        return { txId, request, memberPayment: request.memberPayment };
+      }
+      
+      // MANUAL APPROVAL PAID: Need to collect payment
+      if (requiresPayment && !request.memberPayment) {
+        // Open payment modal and wait for payment
+        setPendingApprovalRequest(request);
+        setPaymentCompleted(false);
+        setPaymentModalOpen(true);
+        return { request, memberPayment: undefined }; // handlePaymentVerified will complete approval
+      }
+      
+      // FREE: Approve immediately without payment
       const txId = await broadcastJoinApprove(
         currentUsername,
         groupId,
         request.requestId,
-        request.username,
-        memberPayment
+        request.username
       );
       
-      return { txId, request, memberPayment };
+      return { txId, request, memberPayment: undefined };
     },
     onSuccess: async ({ request, memberPayment }) => {
+      // Only update members and show toast if approval was completed
+      // (not if we're waiting for payment modal)
+      if (paymentSettings?.enabled && !memberPayment && !request.memberPayment) {
+        // Payment modal was opened - don't show success yet
+        return;
+      }
+      
       // Update group members array locally
       if (!members.includes(request.username)) {
         setMembers([...members, request.username]);
@@ -161,19 +192,6 @@ export function ManageMembersModal({
     },
   });
   
-  // Handle approve button click
-  const handleApprove = (request: JoinRequest) => {
-    if (paymentSettings?.enabled) {
-      // Open payment modal for paid groups
-      setPendingApprovalRequest(request);
-      setPaymentCompleted(false); // Reset payment completed state
-      setPaymentModalOpen(true);
-    } else {
-      // Immediately approve for free groups
-      approveRequestMutation.mutate({ request });
-    }
-  };
-  
   // Handle payment verification callback
   const handlePaymentVerified = async (txId: string, amount: string) => {
     if (!pendingApprovalRequest) return;
@@ -195,8 +213,14 @@ export function ManageMembersModal({
           : undefined,
       };
       
+      // Attach payment to request and re-approve with payment proof
+      const requestWithPayment: JoinRequest = {
+        ...pendingApprovalRequest,
+        memberPayment,
+      };
+      
       // Broadcast join_approve with payment record - use mutateAsync to handle errors
-      await approveRequestMutation.mutateAsync({ request: pendingApprovalRequest, memberPayment });
+      await approveRequestMutation.mutateAsync(requestWithPayment);
       
       // Success - close payment modal and reset state
       setPaymentModalOpen(false);
@@ -525,7 +549,7 @@ export function ManageMembersModal({
                               type="button"
                               variant="default"
                               size="sm"
-                              onClick={() => handleApprove(request)}
+                              onClick={() => approveRequestMutation.mutate(request)}
                               disabled={
                                 approveRequestMutation.isPending ||
                                 rejectRequestMutation.isPending
@@ -533,7 +557,7 @@ export function ManageMembersModal({
                               data-testid={`button-approve-${request.username}`}
                             >
                               {approveRequestMutation.isPending &&
-                              approveRequestMutation.variables?.request.requestId === request.requestId ? (
+                              approveRequestMutation.variables?.requestId === request.requestId ? (
                                 <>
                                   <Loader2 className="w-3 h-3 animate-spin mr-1" />
                                   Approving...

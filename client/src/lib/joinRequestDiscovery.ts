@@ -163,6 +163,9 @@ export async function scanGroupJoinRequests(
 ): Promise<JoinRequest[]> {
   logger.info('[JOIN REQUEST DISCOVERY] Scanning group join requests:', { groupId, creatorUsername });
 
+  // Define all pre-approval statuses that should be considered "pending"
+  const pendingStatuses = ['pending', 'pending_payment_verification', 'approved_free'];
+
   try {
     // Scan creator's custom_json operations for join_request/approve/reject actions
     // The creator's account will have all join_approve and join_reject operations
@@ -245,8 +248,9 @@ export async function scanGroupJoinRequests(
           continue;
         }
 
-        // Only include pending requests
-        if (jsonData.status !== 'pending') {
+        // Only include requests with pre-approval statuses (pending, pending_payment_verification, approved_free)
+        const status = jsonData.status as JoinRequest['status'];
+        if (!pendingStatuses.includes(status)) {
           continue;
         }
 
@@ -254,9 +258,10 @@ export async function scanGroupJoinRequests(
           requestId: jsonData.requestId,
           username: jsonData.username,
           requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation[1].timestamp),
-          status: 'pending',
+          status, // Use actual status from blockchain (not hardcoded 'pending')
           message: jsonData.message,
           txId: operation[1].trx_id,
+          memberPayment: jsonData.memberPayment, // Include payment proof for paid requests
         };
 
         // Deduplicate: keep newest request per requestId
