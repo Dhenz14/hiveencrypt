@@ -61,6 +61,7 @@ interface PaymentSettings {
   type: 'one_time' | 'recurring';
   recurringInterval?: number;
   description?: string;
+  autoApprove?: boolean;
 }
 
 interface MemberPayment {
@@ -70,6 +71,14 @@ interface MemberPayment {
   paidAt: string;
   nextDueDate?: string;
   status: 'active' | 'expired' | 'pending';
+}
+
+interface JoinRequest {
+  username: string;
+  requestedAt: string;
+  status: 'pending' | 'approved' | 'rejected';
+  message?: string;
+  txId?: string;
 }
 
 interface GroupConversationCache {
@@ -86,6 +95,8 @@ interface GroupConversationCache {
   // Paid groups extension
   paymentSettings?: PaymentSettings;
   memberPayments?: MemberPayment[];
+  // Join requests extension
+  joinRequests?: JoinRequest[];
 }
 
 interface GroupMessageCache {

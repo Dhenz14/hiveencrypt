@@ -42,6 +42,7 @@ export interface PaymentSettings {
   type: 'one_time' | 'recurring';      // Payment type
   recurringInterval?: number;          // Days between payments (for recurring)
   description?: string;                // Optional payment description
+  autoApprove?: boolean;               // Auto-approve join requests (true) or require manual approval (false)
 }
 
 export interface MemberPayment {
@@ -53,8 +54,16 @@ export interface MemberPayment {
   status: 'active' | 'expired' | 'pending'; // Payment status
 }
 
+export interface JoinRequest {
+  username: string;                    // Username requesting to join
+  requestedAt: string;                 // ISO timestamp of request
+  status: 'pending' | 'approved' | 'rejected'; // Request status
+  message?: string;                    // Optional message from requester
+  txId?: string;                       // Transaction ID of join request custom_json
+}
+
 export interface GroupCustomJson {
-  action: 'create' | 'update' | 'leave';
+  action: 'create' | 'update' | 'leave' | 'join_request' | 'join_approve' | 'join_reject';
   groupId: string;
   name?: string;
   members?: string[];
@@ -64,6 +73,8 @@ export interface GroupCustomJson {
   // Paid groups extension
   paymentSettings?: PaymentSettings;
   memberPayments?: MemberPayment[];
+  // Join requests extension
+  joinRequests?: JoinRequest[];
 }
 
 // ============================================================================
