@@ -261,7 +261,8 @@ export async function scanGroupJoinRequests(
           status, // Use actual status from blockchain (not hardcoded 'pending')
           message: jsonData.message,
           txId: operation[1].trx_id,
-          memberPayment: jsonData.memberPayment, // Include payment proof for paid requests
+          // Only include memberPayment if it exists in the blockchain data
+          ...(jsonData.memberPayment && { memberPayment: jsonData.memberPayment })
         };
 
         // Deduplicate: keep newest request per requestId
@@ -405,7 +406,8 @@ export async function scanAutoApprovalRequests(
           status: jsonData.status,
           message: jsonData.message,
           txId: operation[1].trx_id,
-          memberPayment: jsonData.memberPayment, // Include payment proof if present
+          // Only include memberPayment if it exists in the blockchain data
+          ...(jsonData.memberPayment && { memberPayment: jsonData.memberPayment })
         };
 
         autoApprovalRequests.push(joinRequest);

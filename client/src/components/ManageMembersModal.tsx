@@ -17,6 +17,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Checkbox } from '@/components/ui/checkbox';
 import { getHiveMemoKey } from '@/lib/hive';
 import { canInviteToGroup } from '@/lib/accountMetadata';
 import { useToast } from '@/hooks/use-toast';
@@ -67,6 +68,9 @@ export function ManageMembersModal({
   const [pendingApprovalRequest, setPendingApprovalRequest] = useState<JoinRequest | null>(null);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   
+  // Manual verification state for legacy requests
+  const [manuallyVerifiedRequests, setManuallyVerifiedRequests] = useState<Set<string>>(new Set());
+  
   // Calculate payment stats if payments are enabled
   const paymentStats = getPaymentStats(memberPayments, paymentSettings);
   
@@ -88,9 +92,11 @@ export function ManageMembersModal({
       }
       
       const requiresPayment = paymentSettings?.enabled;
+      const hasPaymentProof = !!request.memberPayment;
+      const isManuallyVerified = manuallyVerifiedRequests.has(request.requestId);
       
       // AUTO-APPROVE PAID: Payment proof already exists
-      if (requiresPayment && request.memberPayment) {
+      if (requiresPayment && hasPaymentProof) {
         // Payment already verified - approve immediately with existing payment proof
         const txId = await broadcastJoinApprove(
           currentUsername,
@@ -103,8 +109,22 @@ export function ManageMembersModal({
         return { txId, request, memberPayment: request.memberPayment };
       }
       
+      // LEGACY REQUEST: Manually verified by creator
+      if (requiresPayment && !hasPaymentProof && isManuallyVerified) {
+        // Creator verified payment manually off-chain - approve without payment proof
+        const txId = await broadcastJoinApprove(
+          currentUsername,
+          groupId,
+          request.requestId,
+          request.username
+          // No memberPayment - creator verified manually
+        );
+        
+        return { txId, request, memberPayment: undefined };
+      }
+      
       // MANUAL APPROVAL PAID: Need to collect payment
-      if (requiresPayment && !request.memberPayment) {
+      if (requiresPayment && !hasPaymentProof && !isManuallyVerified) {
         // Open payment modal and wait for payment
         setPendingApprovalRequest(request);
         setPaymentCompleted(false);
@@ -123,16 +143,35 @@ export function ManageMembersModal({
       return { txId, request, memberPayment: undefined };
     },
     onSuccess: async ({ request, memberPayment }) => {
-      // Only update members and show toast if approval was completed
-      // (not if we're waiting for payment modal)
-      if (paymentSettings?.enabled && !memberPayment && !request.memberPayment) {
-        // Payment modal was opened - don't show success yet
+      const requiresPayment = paymentSettings?.enabled;
+      const hasPaymentProof = !!memberPayment || !!request.memberPayment;
+      const isManuallyVerified = manuallyVerifiedRequests.has(request.requestId);
+      
+      // Only skip UI updates if we're waiting for payment modal
+      // Do NOT skip for manual verification approvals!
+      if (requiresPayment && !hasPaymentProof && !isManuallyVerified) {
+        // Waiting for payment modal - don't update UI yet
         return;
       }
+      
+      // Update UI for:
+      // 1. Auto-approve paid (has payment proof)
+      // 2. Manual verification (creator confirmed)
+      // 3. Free requests (no payment required)
+      // 4. Manual approval after payment modal completes
       
       // Update group members array locally
       if (!members.includes(request.username)) {
         setMembers([...members, request.username]);
+      }
+      
+      // Clear manual verification flag for this request
+      if (isManuallyVerified) {
+        setManuallyVerifiedRequests(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(request.requestId);
+          return newSet;
+        });
       }
       
       // Invalidate queries to refresh data
@@ -143,7 +182,7 @@ export function ManageMembersModal({
       
       toast({
         title: 'Join Request Approved',
-        description: `Approved @${request.username}${memberPayment ? ' (payment verified)' : ''}`,
+        description: `Approved @${request.username}${memberPayment || request.memberPayment ? ' (payment verified)' : ''}`,
       });
     },
     onError: (error: Error) => {
@@ -535,11 +574,49 @@ export function ManageMembersModal({
                             )}
                             
                             {paymentSettings?.enabled && (
-                              <div className="flex items-center gap-2">
-                                <DollarSign className="w-3 h-3 text-muted-foreground" />
-                                <span className="text-caption text-muted-foreground">
-                                  Payment required: {paymentSettings.amount} HBD
-                                </span>
+                              <div className="space-y-1.5">
+                                <div className="flex items-center gap-2">
+                                  <DollarSign className="w-3 h-3 text-muted-foreground" />
+                                  <span className="text-caption text-muted-foreground">
+                                    Payment required: {paymentSettings.amount} HBD
+                                  </span>
+                                </div>
+                                {request.memberPayment ? (
+                                  <Badge variant="default" className="text-caption gap-1">
+                                    <Check className="w-3 h-3" />
+                                    Payment proof verified
+                                  </Badge>
+                                ) : (
+                                  <div className="space-y-2">
+                                    <Badge variant="outline" className="text-caption gap-1 border-orange-500 text-orange-600">
+                                      <AlertCircle className="w-3 h-3" />
+                                      Payment proof missing
+                                    </Badge>
+                                    <div className="flex items-start gap-2 p-2 bg-muted rounded-md">
+                                      <Checkbox
+                                        id={`verify-${request.requestId}`}
+                                        checked={manuallyVerifiedRequests.has(request.requestId)}
+                                        onCheckedChange={(checked) => {
+                                          const newSet = new Set(manuallyVerifiedRequests);
+                                          if (checked) {
+                                            newSet.add(request.requestId);
+                                          } else {
+                                            newSet.delete(request.requestId);
+                                          }
+                                          setManuallyVerifiedRequests(newSet);
+                                        }}
+                                        data-testid={`checkbox-verify-${request.username}`}
+                                        className="mt-0.5"
+                                      />
+                                      <label
+                                        htmlFor={`verify-${request.requestId}`}
+                                        className="text-caption cursor-pointer leading-tight"
+                                      >
+                                        I have manually verified payment was received off-chain
+                                      </label>
+                                    </div>
+                                  </div>
+                                )}
                               </div>
                             )}
                           </div>
@@ -552,7 +629,8 @@ export function ManageMembersModal({
                               onClick={() => approveRequestMutation.mutate(request)}
                               disabled={
                                 approveRequestMutation.isPending ||
-                                rejectRequestMutation.isPending
+                                rejectRequestMutation.isPending ||
+                                (paymentSettings?.enabled && !request.memberPayment && !manuallyVerifiedRequests.has(request.requestId))
                               }
                               data-testid={`button-approve-${request.username}`}
                             >
