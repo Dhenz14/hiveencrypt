@@ -262,3 +262,124 @@ export const createGroupSchema = z.object({
 });
 
 export type CreateGroupInput = z.infer<typeof createGroupSchema>;
+
+// ============================================================================
+// PAID GROUPS & JOIN REQUESTS: Payment Configuration & Request Management
+// ============================================================================
+
+/**
+ * Payment configuration for a paid group
+ * Defines pricing, payment type (one-time or recurring), and approval settings
+ */
+export interface PaymentSettings {
+  /** Whether this group requires payment to join */
+  enabled: boolean;
+  /** HBD amount required to join (e.g., "5.000") */
+  amount: string;
+  /** Payment type - one-time or recurring subscription */
+  type: 'one_time' | 'recurring';
+  /** Days between recurring payments (only for recurring type) */
+  recurringInterval?: number;
+  /** Optional description explaining what the payment is for */
+  description?: string;
+  /** Auto-approve join requests (true) or require manual approval (false) */
+  autoApprove?: boolean;
+}
+
+/**
+ * Record of a member's payment for a paid group
+ * Tracks payment status, transaction details, and renewal dates
+ */
+export interface MemberPayment {
+  /** Username of the member who paid */
+  username: string;
+  /** Blockchain transaction ID of the payment */
+  txId: string;
+  /** Amount paid (e.g., "5.000 HBD") */
+  amount: string;
+  /** ISO timestamp when payment was made */
+  paidAt: string;
+  /** Next payment due date (for recurring payments) - ISO timestamp */
+  nextDueDate?: string;
+  /** Current payment status */
+  status: 'active' | 'expired' | 'pending';
+}
+
+/**
+ * Join request for a paid or manually-approved group
+ * Tracks pending, approved, and rejected membership requests
+ */
+export interface JoinRequest {
+  /** Unique request identifier - derived from txId or username+timestamp */
+  requestId: string;
+  /** Username requesting to join the group */
+  username: string;
+  /** ISO timestamp when request was submitted */
+  requestedAt: string;
+  /** Current status of the request */
+  status: 'pending' | 'approved' | 'rejected';
+  /** Optional message from the requester */
+  message?: string;
+  /** Transaction ID of the join request custom_json operation */
+  txId?: string;
+}
+
+/**
+ * Blockchain custom_json operation for group management
+ * Used for creating groups, updating membership, and managing join requests
+ */
+export interface GroupCustomJson {
+  /** Action type for this custom_json operation */
+  action: 'create' | 'update' | 'leave' | 'join_request' | 'join_approve' | 'join_reject';
+  /** Unique group identifier (UUID v4) */
+  groupId: string;
+  /** Group name (for create/update actions) */
+  name?: string;
+  /** Array of member usernames (for create/update actions) */
+  members?: string[];
+  /** Group creator username (for create action) */
+  creator?: string;
+  /** Group version - increments with membership changes */
+  version?: number;
+  /** ISO timestamp of this operation */
+  timestamp: string;
+  /** Payment configuration (for paid groups) */
+  paymentSettings?: PaymentSettings;
+  /** Payment records for group members */
+  memberPayments?: MemberPayment[];
+  /** Pending join requests (for manually-approved groups) */
+  joinRequests?: JoinRequest[];
+}
+
+/**
+ * IndexedDB cache entry for a group conversation
+ * Stores group metadata, messages, and payment/join request state
+ */
+export interface GroupConversationCache {
+  /** Unique group identifier (UUID v4) - primary key */
+  groupId: string;
+  /** User-defined group name */
+  name: string;
+  /** Array of member usernames */
+  members: string[];
+  /** Username of the group creator */
+  creator: string;
+  /** ISO timestamp when group was created */
+  createdAt: string;
+  /** Group version - increments with membership changes */
+  version: number;
+  /** Preview of the last message in the group */
+  lastMessage: string;
+  /** ISO timestamp of the last message */
+  lastTimestamp: string;
+  /** Number of unread messages in this group */
+  unreadCount: number;
+  /** ISO timestamp when user last viewed this group */
+  lastChecked: string;
+  /** Payment configuration (for paid groups) */
+  paymentSettings?: PaymentSettings;
+  /** Payment records for group members */
+  memberPayments?: MemberPayment[];
+  /** Pending join requests (for manually-approved groups) */
+  joinRequests?: JoinRequest[];
+}
