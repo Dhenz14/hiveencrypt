@@ -94,7 +94,7 @@ export function JoinGroupButton({
         timestamp: Date.now(),
       };
 
-      return new Promise<string>((resolve, reject) => {
+      return new Promise<{ txId: string; requestId: string }>((resolve, reject) => {
         if (!window.hive_keychain) {
           reject(new Error('Hive Keychain not installed'));
           return;
@@ -110,7 +110,7 @@ export function JoinGroupButton({
             if (response.success) {
               const txId = response.result.id;
               logger.info('[JOIN GROUP] Join request broadcasted:', txId, payload.memberPayment ? 'with payment proof' : 'free join');
-              resolve(txId);
+              resolve({ txId, requestId }); // Return both txId and requestId for correlation
             } else {
               logger.error('[JOIN GROUP] Failed to broadcast join request:', response.error);
               reject(new Error(response.error || 'Failed to broadcast join request'));
@@ -119,12 +119,14 @@ export function JoinGroupButton({
         );
       });
     },
-    onSuccess: (txId, variables) => {
+    onSuccess: (result, variables) => {
+      if (!user?.username) return; // Safety check
+
       if (variables.status === 'pending') {
         // Store pending request in localStorage
-        const pendingKey = `pending_join_${groupId}_${user?.username}`;
-        localStorage.setItem(pendingKey, txId);
-        setPendingRequestId(txId);
+        const pendingKey = `pending_join_${groupId}_${user.username}`;
+        localStorage.setItem(pendingKey, result.requestId);
+        setPendingRequestId(result.requestId);
 
         toast({
           title: 'Join Request Sent',
@@ -134,18 +136,18 @@ export function JoinGroupButton({
         // Auto-approved PAID join - payment proof included
         // Now broadcast join_approve to complete the process
         logger.info('[JOIN GROUP] ✅ Join request with payment broadcasted, now broadcasting join_approve');
-        joinApproveMutation.mutate(variables.memberPayment);
-      } else {
-        // Auto-approved FREE join
-        queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
-        queryClient.invalidateQueries({ queryKey: ['groupMessages', groupId] });
-
-        toast({
-          title: 'Success',
-          description: `Joined "${groupName}"!`,
+        joinApproveMutation.mutate({
+          requestId: result.requestId, // CRITICAL: Use the same requestId for correlation
+          memberPayment: variables.memberPayment,
+          approverUsername: user.username, // In auto-approve, user approves themselves
         });
-
-        onJoinSuccess?.();
+      } else {
+        // Auto-approved FREE join - also broadcast join_approve for consistency
+        logger.info('[JOIN GROUP] ✅ Free join request broadcasted, now broadcasting join_approve');
+        joinApproveMutation.mutate({
+          requestId: result.requestId, // CRITICAL: Use the same requestId for correlation
+          approverUsername: user.username, // In auto-approve, user approves themselves
+        });
       }
     },
     onError: (error: any) => {
@@ -157,19 +159,23 @@ export function JoinGroupButton({
     },
   });
 
-  // Mutation for broadcasting join_approve (after payment)
+  // Mutation for broadcasting join_approve (after payment or auto-approve)
   const joinApproveMutation = useMutation({
-    mutationFn: async (memberPayment?: MemberPayment) => {
+    mutationFn: async (params: {
+      requestId: string;
+      memberPayment?: MemberPayment;
+      approverUsername: string;
+    }) => {
       if (!user?.username) throw new Error('Not authenticated');
 
-      const requestId = crypto.randomUUID();
       const customJson = {
         action: 'join_approve',
-        groupId,
-        requestId,
-        username: user.username,
-        memberPayment,
-        timestamp: Date.now(),
+        groupId, // CRITICAL: Include groupId for group identification
+        requestId: params.requestId, // CRITICAL: Must match join_request requestId
+        username: user.username, // User being approved to join
+        approverUsername: params.approverUsername, // Who approved (creator/moderator or user in auto-approve)
+        memberPayment: params.memberPayment, // Payment proof (if payment was made)
+        timestamp: Date.now(), // Approval timestamp
       };
 
       return new Promise<string>((resolve, reject) => {
@@ -187,7 +193,7 @@ export function JoinGroupButton({
           (response: any) => {
             if (response.success) {
               const txId = response.result.id;
-              logger.info('[JOIN GROUP] Join approved:', txId);
+              logger.info('[JOIN GROUP] Join approved:', txId, 'with approverUsername:', params.approverUsername);
               resolve(txId);
             } else {
               logger.error('[JOIN GROUP] Failed to approve join:', response.error);
@@ -198,8 +204,10 @@ export function JoinGroupButton({
       });
     },
     onSuccess: () => {
+      // CRITICAL: Invalidate all three caches to ensure UI updates everywhere
       queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
       queryClient.invalidateQueries({ queryKey: ['groupMessages', groupId] });
+      queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] }); // FIX: Added missing invalidation
 
       toast({
         title: 'Success',
