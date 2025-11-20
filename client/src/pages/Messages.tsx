@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { useLocation } from 'wouter';
+import { useLocation, setLocation } from 'wouter';
 import { Settings, Moon, Sun, Info, Filter, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -306,6 +306,75 @@ export default function Messages() {
   useEffect(() => {
     scrollToBottom();
   }, [currentMessages]);
+
+  // Shareable group link system - handle ?groupId=xxx URL parameter
+  useEffect(() => {
+    // Early return if still loading groups
+    if (isLoadingGroups) {
+      return;
+    }
+
+    // Parse URL search params
+    const searchParams = new URLSearchParams(location.split('?')[1] || '');
+    const groupIdFromUrl = searchParams.get('groupId');
+
+    // Early return if no groupId in URL or it's empty/invalid
+    if (!groupIdFromUrl || !groupIdFromUrl.trim()) {
+      return;
+    }
+
+    // Early return if user already has a conversation selected (don't interrupt them)
+    if (selectedPartner || selectedGroupId) {
+      logger.info('[GROUP LINK] User already has a conversation selected, skipping auto-open');
+      return;
+    }
+
+    logger.info('[GROUP LINK] Processing group link:', groupIdFromUrl);
+
+    // Look for the group in groupCaches
+    const foundGroup = groupCaches.find(g => g.groupId === groupIdFromUrl);
+
+    // Clear the URL parameter
+    setLocation('/messages');
+
+    if (!foundGroup) {
+      // Group not found
+      logger.info('[GROUP LINK] Group not found:', groupIdFromUrl);
+      toast({
+        title: 'Group not found',
+        description: 'Group not found or you don\'t have access',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Check if user is a member (either in members array or is the creator)
+    const isMember = user?.username && (
+      foundGroup.members.includes(user.username) || 
+      foundGroup.creator === user.username
+    );
+
+    if (isMember) {
+      // User is a member - auto-select the group
+      logger.info('[GROUP LINK] User is member, auto-selecting group:', foundGroup.name);
+      setSelectedGroupId(groupIdFromUrl);
+      setSelectedPartner(''); // Clear direct message selection
+      if (isMobile) {
+        setShowChat(true);
+      }
+      toast({
+        title: 'Group opened',
+        description: `Opening ${foundGroup.name}`,
+      });
+    } else {
+      // User is NOT a member - show join flow toast (TBD in future task)
+      logger.info('[GROUP LINK] User is not member, showing join prompt:', foundGroup.name);
+      toast({
+        title: 'Join this group?',
+        description: `You are not a member of "${foundGroup.name}". Join flow coming soon.`,
+      });
+    }
+  }, [location, isLoadingGroups, groupCaches, selectedPartner, selectedGroupId, user?.username, isMobile, setShowChat, toast]);
 
   const handleStartChat = async (username: string) => {
     const existingConversation = conversations.find(
