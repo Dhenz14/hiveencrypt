@@ -28,11 +28,11 @@ export async function verifyPayment(
     logger.info('[PAYMENT VERIFY] Checking payment:', { username, recipient, expectedAmount, memo });
 
     const cutoffTime = Date.now() - (maxAgeHours * 60 * 60 * 1000);
-    const batchSize = 100;
-    const maxBatches = 50; // Maximum 5000 operations to scan
+    const batchSize = 500; // Larger batches for efficiency
+    const maxBatches = 10; // Maximum 5000 operations to scan
     let currentStart = -1;
     let batchCount = 0;
-    let oldestTimestampSeen = Date.now();
+    let lastUniqueAdded = 0; // Track unique operations to prevent infinite loops
 
     // Scan history in batches until we find payment or exceed time window
     while (batchCount < maxBatches) {
@@ -50,6 +50,17 @@ export async function verifyPayment(
         break;
       }
 
+      // Track how many unique operations we got in this batch
+      const uniqueOpsAdded = history.length;
+      
+      // If we didn't get any new unique operations, we've hit duplicates or end
+      if (uniqueOpsAdded === 0 || uniqueOpsAdded === lastUniqueAdded) {
+        logger.info('[PAYMENT VERIFY] No new unique operations. Stopping scan.');
+        break;
+      }
+      
+      lastUniqueAdded = uniqueOpsAdded;
+
       logger.info('[PAYMENT VERIFY] Scanning batch', batchCount, ':', history.length, 'operations');
 
       // Search for matching payment in this batch
@@ -57,11 +68,6 @@ export async function verifyPayment(
         if (operation.op[0] === 'transfer') {
           const transfer = operation.op[1];
           const timestamp = new Date(operation.timestamp + 'Z').getTime();
-          
-          // Track oldest timestamp seen
-          if (timestamp < oldestTimestampSeen) {
-            oldestTimestampSeen = timestamp;
-          }
 
           // Check if transfer is too old - stop scanning if we've exceeded time window
           if (timestamp < cutoffTime) {
@@ -96,8 +102,8 @@ export async function verifyPayment(
       // Get the oldest operation index from this batch
       const oldestOpIndex = Math.min(...history.map(([idx]) => idx));
       
-      // If we've seen this index before or it's 0, we've reached the beginning
-      if (oldestOpIndex === currentStart || oldestOpIndex <= 0) {
+      // If we've reached the beginning or can't go further back
+      if (oldestOpIndex <= 0) {
         logger.info('[PAYMENT VERIFY] Reached beginning of account history');
         break;
       }

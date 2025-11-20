@@ -342,9 +342,10 @@ group_payment:1732012345-abc123def456|member:johndoe
 ### Blockchain Queries
 - **Filtered Queries**: Only fetch transfer operations (10-100x faster)
 - **Batch Verification**: Verify multiple payments in parallel
-- **Batched Scanning**: Scans up to 5000 operations in 100-operation batches
-- **Time-Based Cutoff**: Stops scanning when operations exceed maxAgeHours window
+- **Batched Scanning**: Scans up to 5000 operations in 500-operation batches for efficiency
+- **Time-Based Cutoff**: Stops scanning when operations exceed maxAgeHours window (default: 24 hours)
 - **Smart Pagination**: Handles active accounts with many transfers gracefully
+- **Duplicate Detection**: Tracks unique operations to prevent infinite loops with duplicate records
 
 ## Error Handling
 
