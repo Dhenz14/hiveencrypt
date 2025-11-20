@@ -174,6 +174,7 @@ export function GroupCreationModal({
       setPaymentDescription('');
       setAutoApprove(true);
       setError(null);
+      setIsCreating(false); // Reset loading state when modal closes
     }
     onOpenChange(newOpen);
   };

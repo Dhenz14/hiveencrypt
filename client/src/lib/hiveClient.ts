@@ -344,7 +344,7 @@ class HiveBlockchainClient {
             operationFilterLow = OPERATION_FILTERS.TRANSFER_AND_CUSTOM_JSON;
             break;
           case 'all':
-            // No filtering, get all operations
+            // No filtering - unfiltered queries work fine with start=-1
             return await this.client.database.getAccountHistory(username, start, limit);
           default:
             // This should never happen due to TypeScript typing, but handle it anyway
@@ -353,10 +353,30 @@ class HiveBlockchainClient {
             break;
         }
 
-        // Use filtered query
+        // For filtered queries when start=-1, get latest operation index first
+        let actualStart = start;
+        if (start === -1) {
+          // Get a small batch using unfiltered API to find the latest operation index
+          const recentOps = await this.client.database.getAccountHistory(username, -1, Math.min(limit, 100));
+          if (recentOps && recentOps.length > 0) {
+            // Get the highest operation index from recent ops
+            const latestOpIndex = Math.max(...recentOps.map(([idx]) => idx));
+            actualStart = latestOpIndex;
+          } else {
+            // No operations found, return empty array
+            return [];
+          }
+        }
+
+        // Ensure start >= limit - 1 for filtered queries (API constraint)
+        if (actualStart < limit - 1) {
+          actualStart = limit - 1;
+        }
+
+        // Use filtered query with corrected start value
         return await this.client.call('condenser_api', 'get_account_history', [
           username,
-          start,
+          actualStart,
           limit,
           operationFilterLow,
           operationFilterHigh
