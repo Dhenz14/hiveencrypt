@@ -39,6 +39,7 @@ import { SettingsModal } from '@/components/SettingsModal';
 import { HiddenChatsModal } from '@/components/HiddenChatsModal';
 import { EmptyState, NoConversationSelected } from '@/components/EmptyState';
 import { BlockchainSyncIndicator } from '@/components/BlockchainSyncIndicator';
+import { JoinGroupButton } from '@/components/JoinGroupButton';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useHiddenConversations } from '@/contexts/HiddenConversationsContext';
@@ -50,7 +51,8 @@ import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
-import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate, broadcastLeaveGroup, type PaymentSettings } from '@/lib/groupBlockchain';
+import type { PaymentSettings } from '@shared/schema';
+import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate, broadcastLeaveGroup } from '@/lib/groupBlockchain';
 import { setCustomGroupName } from '@/lib/customGroupNames';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
@@ -110,6 +112,7 @@ export default function Messages() {
   const [isEditNameOpen, setIsEditNameOpen] = useState(false);
   const [editNameValue, setEditNameValue] = useState('');
   const [isLeaveGroupDialogOpen, setIsLeaveGroupDialogOpen] = useState(false);
+  const [joinDialogGroup, setJoinDialogGroup] = useState<GroupConversationCache | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
@@ -367,12 +370,9 @@ export default function Messages() {
         description: `Opening ${foundGroup.name}`,
       });
     } else {
-      // User is NOT a member - show join flow toast (TBD in future task)
-      logger.info('[GROUP LINK] User is not member, showing join prompt:', foundGroup.name);
-      toast({
-        title: 'Join this group?',
-        description: `You are not a member of "${foundGroup.name}". Join flow coming soon.`,
-      });
+      // User is NOT a member - show join dialog with JoinGroupButton
+      logger.info('[GROUP LINK] User is not member, showing join dialog:', foundGroup.name);
+      setJoinDialogGroup(foundGroup);
     }
   }, [location, isLoadingGroups, groupCaches, selectedPartner, selectedGroupId, user?.username, isMobile, setShowChat, toast]);
 
@@ -1279,6 +1279,53 @@ export default function Messages() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={!!joinDialogGroup} onOpenChange={(open) => !open && setJoinDialogGroup(null)}>
+        <DialogContent className="sm:max-w-md" data-testid="dialog-join-group">
+          <DialogHeader>
+            <DialogTitle>Join {joinDialogGroup?.name}</DialogTitle>
+            <DialogDescription>
+              {joinDialogGroup && (
+                <>
+                  This group has {joinDialogGroup.members.length} member{joinDialogGroup.members.length !== 1 ? 's' : ''}.
+                  {joinDialogGroup.paymentSettings?.enabled && parseFloat(joinDialogGroup.paymentSettings.amount) > 0 && (
+                    <>
+                      {' '}A payment of {joinDialogGroup.paymentSettings.amount} HBD is required to join.
+                    </>
+                  )}
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setJoinDialogGroup(null)}
+              data-testid="button-cancel-join"
+            >
+              Cancel
+            </Button>
+            {joinDialogGroup && (
+              <JoinGroupButton
+                groupId={joinDialogGroup.groupId}
+                groupName={joinDialogGroup.name}
+                creatorUsername={joinDialogGroup.creator}
+                paymentSettings={joinDialogGroup.paymentSettings}
+                onJoinSuccess={() => {
+                  setSelectedGroupId(joinDialogGroup.groupId);
+                  setSelectedPartner('');
+                  if (isMobile) {
+                    setShowChat(true);
+                  }
+                  setJoinDialogGroup(null);
+                }}
+              />
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

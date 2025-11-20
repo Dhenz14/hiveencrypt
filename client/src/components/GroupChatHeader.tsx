@@ -18,7 +18,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { preloadFollowingList, doesUserFollowSync } from '@/lib/hiveFollowing';
 import { PaymentStatusBadge, PaymentRequiredIndicator } from './PaymentStatusBadge';
-import type { PaymentSettings, MemberPayment } from '@/lib/groupBlockchain';
+import type { PaymentSettings, MemberPayment } from '@shared/schema';
 
 interface GroupChatHeaderProps {
   groupName: string;

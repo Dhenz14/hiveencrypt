@@ -1,7 +1,7 @@
 import { DollarSign, Check, AlertTriangle, XCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { PaymentSettings, MemberPayment } from '@/lib/groupBlockchain';
+import type { PaymentSettings, MemberPayment } from '@shared/schema';
 import { checkPaymentStatus } from '@/lib/paymentVerification';
 
 interface PaymentStatusBadgeProps {

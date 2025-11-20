@@ -1,6 +1,6 @@
 import { hiveClient as optimizedHiveClient } from './hiveClient';
 import { logger } from './logger';
-import type { MemberPayment, PaymentSettings } from './groupBlockchain';
+import type { MemberPayment, PaymentSettings } from '@shared/schema';
 
 // ============================================================================
 // PAYMENT VERIFICATION: HBD Payment Scanning & Validation

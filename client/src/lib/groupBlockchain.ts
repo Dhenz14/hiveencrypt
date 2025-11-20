@@ -1,7 +1,7 @@
 import { hiveClient as optimizedHiveClient } from './hiveClient';
 import { normalizeHiveTimestamp } from './hive';
 import { logger } from './logger';
-import type { Group } from '@/../../shared/schema';
+import type { Group, PaymentSettings, MemberPayment, JoinRequest, GroupCustomJson, GroupConversationCache } from '@shared/schema';
 import { z } from 'zod';
 
 // ============================================================================
@@ -31,51 +31,6 @@ export const GroupInviteMemoSchema = z.object({
 });
 
 export type GroupInviteMemo = z.infer<typeof GroupInviteMemoSchema>;
-
-// ============================================================================
-// PAID GROUPS: Payment Configuration Schema
-// ============================================================================
-
-export interface PaymentSettings {
-  enabled: boolean;                    // Whether this group requires payment
-  amount: string;                      // HBD amount (e.g., "5.000")
-  type: 'one_time' | 'recurring';      // Payment type
-  recurringInterval?: number;          // Days between payments (for recurring)
-  description?: string;                // Optional payment description
-  autoApprove?: boolean;               // Auto-approve join requests (true) or require manual approval (false)
-}
-
-export interface MemberPayment {
-  username: string;                    // Member who paid
-  txId: string;                        // Payment transaction ID
-  amount: string;                      // Amount paid (e.g., "5.000 HBD")
-  paidAt: string;                      // ISO timestamp of payment
-  nextDueDate?: string;                // For recurring payments (ISO timestamp)
-  status: 'active' | 'expired' | 'pending'; // Payment status
-}
-
-export interface JoinRequest {
-  username: string;                    // Username requesting to join
-  requestedAt: string;                 // ISO timestamp of request
-  status: 'pending' | 'approved' | 'rejected'; // Request status
-  message?: string;                    // Optional message from requester
-  txId?: string;                       // Transaction ID of join request custom_json
-}
-
-export interface GroupCustomJson {
-  action: 'create' | 'update' | 'leave' | 'join_request' | 'join_approve' | 'join_reject';
-  groupId: string;
-  name?: string;
-  members?: string[];
-  creator?: string;
-  version?: number;
-  timestamp: string;
-  // Paid groups extension
-  paymentSettings?: PaymentSettings;
-  memberPayments?: MemberPayment[];
-  // Join requests extension
-  joinRequests?: JoinRequest[];
-}
 
 // ============================================================================
 // OPTIMIZATION UTILITIES: Rate Limiting, Retry Logic, Memo Caching

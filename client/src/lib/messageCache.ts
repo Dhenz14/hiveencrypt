@@ -1,5 +1,6 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { normalizeHiveTimestamp } from './hive';
+import type { PaymentSettings, MemberPayment, JoinRequest, GroupConversationCache } from '@shared/schema';
 
 interface MessageCache {
   id: string;
@@ -54,50 +55,8 @@ interface CustomJsonMessage {
 // ============================================================================
 // GROUP CHAT: IndexedDB Cache Interfaces
 // ============================================================================
-
-interface PaymentSettings {
-  enabled: boolean;
-  amount: string;
-  type: 'one_time' | 'recurring';
-  recurringInterval?: number;
-  description?: string;
-  autoApprove?: boolean;
-}
-
-interface MemberPayment {
-  username: string;
-  txId: string;
-  amount: string;
-  paidAt: string;
-  nextDueDate?: string;
-  status: 'active' | 'expired' | 'pending';
-}
-
-interface JoinRequest {
-  username: string;
-  requestedAt: string;
-  status: 'pending' | 'approved' | 'rejected';
-  message?: string;
-  txId?: string;
-}
-
-interface GroupConversationCache {
-  groupId: string;                 // Primary key (UUID v4)
-  name: string;                    // Group name
-  members: string[];               // Array of usernames
-  creator: string;                 // Creator username
-  createdAt: string;               // ISO timestamp
-  version: number;                 // Membership version
-  lastMessage: string;             // Last message preview
-  lastTimestamp: string;           // Last message timestamp
-  unreadCount: number;             // Unread message count
-  lastChecked: string;             // Last time user viewed group
-  // Paid groups extension
-  paymentSettings?: PaymentSettings;
-  memberPayments?: MemberPayment[];
-  // Join requests extension
-  joinRequests?: JoinRequest[];
-}
+// Note: PaymentSettings, MemberPayment, JoinRequest, and GroupConversationCache
+// are now imported from @shared/schema to ensure type consistency
 
 interface GroupMessageCache {
   id: string;                      // Primary key (txId or tempId)

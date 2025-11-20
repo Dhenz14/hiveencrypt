@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import type { PaymentSettings } from '@/lib/groupBlockchain';
+import type { PaymentSettings } from '@shared/schema';
 import { generatePaymentMemo, verifyPayment } from '@/lib/paymentVerification';
 import { useToast } from '@/hooks/use-toast';
 import { logger } from '@/lib/logger';

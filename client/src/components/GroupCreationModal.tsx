@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
-import type { PaymentSettings } from '@/lib/groupBlockchain';
+import type { PaymentSettings } from '@shared/schema';
 
 interface GroupCreationModalProps {
   open: boolean;

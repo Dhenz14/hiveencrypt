@@ -19,7 +19,7 @@ import { getHiveMemoKey } from '@/lib/hive';
 import { canInviteToGroup } from '@/lib/accountMetadata';
 import { useToast } from '@/hooks/use-toast';
 import { PaymentStatusBadge, PaymentRequiredIndicator } from './PaymentStatusBadge';
-import type { PaymentSettings, MemberPayment } from '@/lib/groupBlockchain';
+import type { PaymentSettings, MemberPayment } from '@shared/schema';
 import { getPaymentStats } from '@/lib/paymentVerification';
 
 interface ManageMembersModalProps {
