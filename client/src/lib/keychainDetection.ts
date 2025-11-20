@@ -7,6 +7,8 @@
  * 3. Regular mobile browser (needs redirect to Keychain Mobile)
  */
 
+import { logger } from './logger';
+
 export type KeychainPlatform = 
   | 'desktop-extension'      // Desktop browser with Keychain extension
   | 'keychain-mobile-browser' // Keychain Mobile in-app browser
@@ -21,8 +23,8 @@ export function isMobileDevice(): boolean {
   const userAgent = navigator.userAgent.toLowerCase();
   const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
   
-  console.log('[Platform Detection] User Agent:', userAgent);
-  console.log('[Platform Detection] Is Mobile:', isMobile);
+  logger.debug('[Platform Detection] User Agent:', userAgent);
+  logger.debug('[Platform Detection] Is Mobile:', isMobile);
   
   return isMobile;
 }
@@ -36,13 +38,13 @@ async function waitForKeychainInjection(maxWaitMs: number = 500): Promise<boolea
   
   while (Date.now() - startTime < maxWaitMs) {
     if (window.hive_keychain) {
-      console.log('[Keychain Detection] window.hive_keychain found after', Date.now() - startTime, 'ms');
+      logger.debug('[Keychain Detection] window.hive_keychain found after', Date.now() - startTime, 'ms');
       return true;
     }
     await new Promise(resolve => setTimeout(resolve, 50));
   }
   
-  console.log('[Keychain Detection] window.hive_keychain not found after', maxWaitMs, 'ms');
+  logger.debug('[Keychain Detection] window.hive_keychain not found after', maxWaitMs, 'ms');
   return false;
 }
 
@@ -62,7 +64,7 @@ async function verifyKeychainHandshake(): Promise<boolean> {
       window.hive_keychain.requestHandshake(() => {
         if (!resolved) {
           resolved = true;
-          console.log('[Keychain Detection] Handshake successful');
+          logger.debug('[Keychain Detection] Handshake successful');
           resolve(true);
         }
       });
@@ -71,12 +73,12 @@ async function verifyKeychainHandshake(): Promise<boolean> {
       setTimeout(() => {
         if (!resolved) {
           resolved = true;
-          console.log('[Keychain Detection] Handshake timeout');
+          logger.warn('[Keychain Detection] Handshake timeout');
           resolve(false);
         }
       }, 3000);
     } catch (error) {
-      console.error('[Keychain Detection] Handshake error:', error);
+      logger.error('[Keychain Detection] Handshake error:', error);
       resolve(false);
     }
   });
@@ -97,7 +99,7 @@ async function verifyKeychainHandshake(): Promise<boolean> {
  *    - Desktop → throws error (needs extension)
  */
 export async function detectKeychainPlatform(): Promise<KeychainPlatform> {
-  console.log('[Platform Detection] Starting detection...');
+  logger.debug('[Platform Detection] Starting detection...');
   
   const isMobile = isMobileDevice();
   
@@ -110,18 +112,18 @@ export async function detectKeychainPlatform(): Promise<KeychainPlatform> {
     
     if (handshakeSuccess) {
       const platform = isMobile ? 'keychain-mobile-browser' : 'desktop-extension';
-      console.log('[Platform Detection] ✅ Detected:', platform);
+      logger.info('[Platform Detection] ✅ Detected:', platform);
       return platform;
     }
   }
   
   // No Keychain API available
   if (isMobile) {
-    console.log('[Platform Detection] ⚠️ Detected: mobile-redirect (needs Keychain Mobile browser)');
+    logger.warn('[Platform Detection] ⚠️ Detected: mobile-redirect (needs Keychain Mobile browser)');
     return 'mobile-redirect';
   }
   
-  console.log('[Platform Detection] ❌ Desktop without Keychain extension');
+  logger.warn('[Platform Detection] ❌ Desktop without Keychain extension');
   throw new Error('Please install Hive Keychain extension from https://hive-keychain.com');
 }
 

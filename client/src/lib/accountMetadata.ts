@@ -11,6 +11,7 @@
 
 import { Client } from '@hiveio/dhive';
 import { isKeychainInstalled } from './hive';
+import { logger } from './logger';
 
 // ============================================================================
 // Type Definitions
@@ -111,7 +112,7 @@ const metadataCache = new Map<string, CachedMetadata>();
  */
 export function clearMetadataCache(username: string): void {
   metadataCache.delete(username.toLowerCase());
-  console.log('[METADATA] Cleared cache for:', username);
+  logger.debug('[METADATA] Cleared cache for:', username);
 }
 
 /**
@@ -119,7 +120,7 @@ export function clearMetadataCache(username: string): void {
  */
 export function clearAllMetadataCache(): void {
   metadataCache.clear();
-  console.log('[METADATA] Cleared all cache');
+  logger.debug('[METADATA] Cleared all cache');
 }
 
 // ============================================================================
@@ -144,13 +145,13 @@ export async function getAccountMetadata(
   if (!forceRefresh) {
     const cached = metadataCache.get(normalizedUsername);
     if (cached && Date.now() - cached.timestamp < METADATA_CACHE_TTL) {
-      console.log('[METADATA] Cache hit for:', username);
+      logger.debug('[METADATA] Cache hit for:', username);
       return cached.data;
     }
   }
   
   try {
-    console.log('[METADATA] Fetching from blockchain:', username);
+    logger.debug('[METADATA] Fetching from blockchain:', username);
     
     // Initialize Hive client (use public RPC node)
     const client = new Client([
@@ -176,7 +177,7 @@ export async function getAccountMetadata(
       try {
         metadata = JSON.parse(account.posting_json_metadata);
       } catch (parseError) {
-        console.warn('[METADATA] Failed to parse posting_json_metadata:', parseError);
+        logger.warn('[METADATA] Failed to parse posting_json_metadata:', parseError);
         // Return empty metadata object on parse failure
         metadata = {};
       }
@@ -188,16 +189,16 @@ export async function getAccountMetadata(
       timestamp: Date.now(),
     });
     
-    console.log('[METADATA] Fetched and cached:', username, metadata.profile?.hive_messenger);
+    logger.debug('[METADATA] Fetched and cached:', username, metadata.profile?.hive_messenger);
     return metadata;
     
   } catch (error) {
-    console.error('[METADATA] Failed to fetch account metadata:', error);
+    logger.error('[METADATA] Failed to fetch account metadata:', error);
     
     // Return cached data if available (even if expired)
     const cached = metadataCache.get(normalizedUsername);
     if (cached) {
-      console.warn('[METADATA] Using stale cache for:', username);
+      logger.warn('[METADATA] Using stale cache for:', username);
       return cached.data;
     }
     
@@ -222,7 +223,7 @@ export function parseMinimumHBD(metadata: AccountMetadata | null | undefined): s
   
   // Validate format
   if (!isValidHBDAmount(minHBD)) {
-    console.warn('[METADATA] Invalid min_hbd format:', minHBD, '- using default');
+    logger.warn('[METADATA] Invalid min_hbd format:', minHBD, '- using default');
     return DEFAULT_MINIMUM_HBD;
   }
   
@@ -293,7 +294,7 @@ export async function updateMinimumHBD(
   }
   
   try {
-    console.log('[METADATA] Updating minimum HBD for:', username, 'to:', minHBD);
+    logger.debug('[METADATA] Updating minimum HBD for:', username, 'to:', minHBD);
     
     // Fetch current metadata
     const currentMetadata = await getAccountMetadata(username, true);
@@ -320,14 +321,14 @@ export async function updateMinimumHBD(
     if (success) {
       // Clear cache to force refresh
       clearMetadataCache(username);
-      console.log('[METADATA] Successfully updated minimum HBD');
+      logger.info('[METADATA] Successfully updated minimum HBD');
       return true;
     }
     
     return false;
     
   } catch (error) {
-    console.error('[METADATA] Failed to update minimum HBD:', error);
+    logger.error('[METADATA] Failed to update minimum HBD:', error);
     throw error;
   }
 }
@@ -370,10 +371,10 @@ async function broadcastAccountUpdate(
       'Posting',
       (response: any) => {
         if (response.success) {
-          console.log('[METADATA] Keychain broadcast success:', response.result);
+          logger.info('[METADATA] Keychain broadcast success:', response.result);
           resolve(true);
         } else {
-          console.error('[METADATA] Keychain broadcast failed:', response.message);
+          logger.error('[METADATA] Keychain broadcast failed:', response.message);
           reject(new Error(response.message || 'Broadcast failed'));
         }
       }
@@ -393,7 +394,7 @@ export async function getMinimumHBD(username: string): Promise<string> {
     const metadata = await getAccountMetadata(username);
     return parseMinimumHBD(metadata);
   } catch (error) {
-    console.error('[METADATA] Failed to get minimum HBD:', error);
+    logger.error('[METADATA] Failed to get minimum HBD:', error);
     return DEFAULT_MINIMUM_HBD;
   }
 }
@@ -436,7 +437,7 @@ export function parseLightningAddress(metadata: AccountMetadata | null | undefin
   
   // Validate format
   if (!isValidLightningAddress(address)) {
-    console.warn('[METADATA] Invalid lightning_address format:', address);
+    logger.warn('[METADATA] Invalid lightning_address format:', address);
     return null;
   }
   
@@ -471,7 +472,7 @@ export async function updateLightningAddress(
   }
   
   try {
-    console.log('[METADATA] Updating Lightning Address for:', username, 'to:', lightningAddress || '(removed)');
+    logger.debug('[METADATA] Updating Lightning Address for:', username, 'to:', lightningAddress || '(removed)');
     
     // Fetch current metadata
     const currentMetadata = await getAccountMetadata(username, true);
@@ -503,14 +504,14 @@ export async function updateLightningAddress(
     if (success) {
       // Clear cache to force refresh
       clearMetadataCache(username);
-      console.log('[METADATA] Successfully updated Lightning Address');
+      logger.info('[METADATA] Successfully updated Lightning Address');
       return true;
     }
     
     return false;
     
   } catch (error) {
-    console.error('[METADATA] Failed to update Lightning Address:', error);
+    logger.error('[METADATA] Failed to update Lightning Address:', error);
     throw error;
   }
 }
@@ -527,7 +528,7 @@ export async function getLightningAddress(username: string): Promise<string | nu
     const metadata = await getAccountMetadata(username);
     return parseLightningAddress(metadata);
   } catch (error) {
-    console.error('[METADATA] Failed to get Lightning Address:', error);
+    logger.error('[METADATA] Failed to get Lightning Address:', error);
     return null;
   }
 }
@@ -592,7 +593,7 @@ export async function updateTipReceivePreference(
   }
   
   try {
-    console.log('[METADATA] Updating tip receive preference for:', username, 'to:', preference);
+    logger.debug('[METADATA] Updating tip receive preference for:', username, 'to:', preference);
     
     // Fetch current metadata
     const currentMetadata = await getAccountMetadata(username, true);
@@ -624,14 +625,14 @@ export async function updateTipReceivePreference(
     if (success) {
       // Clear cache to force refresh
       clearMetadataCache(username);
-      console.log('[METADATA] Successfully updated tip receive preference');
+      logger.info('[METADATA] Successfully updated tip receive preference');
       return true;
     }
     
     return false;
     
   } catch (error) {
-    console.error('[METADATA] Failed to update tip receive preference:', error);
+    logger.error('[METADATA] Failed to update tip receive preference:', error);
     throw error;
   }
 }
@@ -648,7 +649,7 @@ export async function getTipReceivePreference(username: string): Promise<TipRece
     const metadata = await getAccountMetadata(username);
     return inferTipReceivePreference(metadata.profile?.hive_messenger);
   } catch (error) {
-    console.error('[METADATA] Failed to get tip receive preference:', error);
+    logger.error('[METADATA] Failed to get tip receive preference:', error);
     return 'hbd'; // Default fallback
   }
 }
@@ -668,7 +669,7 @@ export async function getMessagePrivacy(username: string): Promise<PrivacyMode> 
     const metadata = await getAccountMetadata(username);
     return metadata.profile?.hive_messenger?.message_privacy || 'everyone'; // Default to 'everyone' for backwards compatibility
   } catch (error) {
-    console.error('[METADATA] Failed to get message privacy:', error);
+    logger.error('[METADATA] Failed to get message privacy:', error);
     return 'everyone'; // Default fallback
   }
 }
@@ -684,7 +685,7 @@ export async function getGroupInvitePrivacy(username: string): Promise<PrivacyMo
     const metadata = await getAccountMetadata(username);
     return metadata.profile?.hive_messenger?.group_invite_privacy || 'everyone'; // Default to 'everyone' for backwards compatibility
   } catch (error) {
-    console.error('[METADATA] Failed to get group invite privacy:', error);
+    logger.error('[METADATA] Failed to get group invite privacy:', error);
     return 'everyone'; // Default fallback
   }
 }

@@ -1,6 +1,7 @@
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { normalizeHiveTimestamp } from './hive';
 import type { PaymentSettings, MemberPayment, JoinRequest, GroupConversationCache } from '@shared/schema';
+import { logger } from './logger';
 
 interface MessageCache {
   id: string;
@@ -330,11 +331,11 @@ export async function migrateTimestampsToUTC(username: string): Promise<{
   // Check if migration already ran
   const migrationFlag = await db.get('metadata', 'utc-timestamp-migration-v1');
   if (migrationFlag) {
-    console.log('[MIGRATION] UTC timestamp migration already completed');
+    logger.debug('[MIGRATION] UTC timestamp migration already completed');
     return { messages: 0, conversations: 0, customJsonMessages: 0 };
   }
   
-  console.log('[MIGRATION] Starting UTC timestamp migration...');
+  logger.debug('[MIGRATION] Starting UTC timestamp migration...');
   
   let messagesUpdated = 0;
   let conversationsUpdated = 0;
@@ -389,7 +390,7 @@ export async function migrateTimestampsToUTC(username: string): Promise<{
     
     await tx.done;
     
-    console.log('[MIGRATION] UTC timestamp migration complete:', {
+    logger.debug('[MIGRATION] UTC timestamp migration complete:', {
       messages: messagesUpdated,
       conversations: conversationsUpdated,
       customJsonMessages: customJsonUpdated
@@ -397,7 +398,7 @@ export async function migrateTimestampsToUTC(username: string): Promise<{
     
     return { messages: messagesUpdated, conversations: conversationsUpdated, customJsonMessages: customJsonUpdated };
   } catch (error) {
-    console.error('[MIGRATION] UTC timestamp migration failed:', error);
+    logger.error('[MIGRATION] UTC timestamp migration failed:', error);
     throw error;
   }
 }
@@ -414,7 +415,7 @@ export async function fixCorruptedMessages(currentUsername: string): Promise<num
     const needsFixing = msg.content === msg.encryptedContent && msg.encryptedContent;
     
     if (needsFixing) {
-      console.log('[CACHE FIX] Fixing corrupted message (content === encrypted):', msg.id.substring(0, 20));
+      logger.debug('[CACHE FIX] Fixing corrupted message (content === encrypted):', msg.id.substring(0, 20));
       
       // Use universal encrypted placeholder (both sent and received can be decrypted)
       msg.content = '[🔒 Encrypted - Click to decrypt]';
@@ -424,7 +425,7 @@ export async function fixCorruptedMessages(currentUsername: string): Promise<num
     }
   }
   
-  console.log(`[CACHE FIX] Fixed ${fixed} corrupted messages`);
+  logger.debug(`[CACHE FIX] Fixed ${fixed} corrupted messages`);
   return fixed;
 }
 
@@ -468,17 +469,17 @@ export async function addOptimisticMessage(
 }
 
 export async function confirmMessage(tempId: string, txId: string, encryptedContent?: string, username?: string): Promise<void> {
-  console.log('[confirmMessage] Starting confirmation:', { tempId, txId, hasEncrypted: !!encryptedContent, username });
+  logger.debug('[confirmMessage] Starting confirmation:', { tempId, txId, hasEncrypted: !!encryptedContent, username });
   
   const db = await getDB(username);
   const message = await db.get('messages', tempId);
   
   if (!message) {
-    console.warn('[confirmMessage] Message not found in cache:', tempId);
+    logger.warn('[confirmMessage] Message not found in cache:', tempId);
     return;
   }
   
-  console.log('[confirmMessage] Found message in cache:', {
+  logger.debug('[confirmMessage] Found message in cache:', {
     id: message.id,
     from: message.from,
     to: message.to,
@@ -498,23 +499,23 @@ export async function confirmMessage(tempId: string, txId: string, encryptedCont
     // This allows the user to see their sent message immediately
     if (encryptedContent) {
       message.encryptedContent = encryptedContent;
-      console.log('[confirmMessage] Stored encrypted content, length:', encryptedContent.length);
+      logger.debug('[confirmMessage] Stored encrypted content, length:', encryptedContent.length);
     }
     
-    console.log('[confirmMessage] Deleting temp message with id:', tempId);
+    logger.debug('[confirmMessage] Deleting temp message with id:', tempId);
     await db.delete('messages', tempId);
     
-    console.log('[confirmMessage] Storing confirmed message with id:', txId);
+    logger.debug('[confirmMessage] Storing confirmed message with id:', txId);
     await db.put('messages', message);
     
-    console.log('[confirmMessage] ✅ Successfully confirmed message:', {
+    logger.debug('[confirmMessage] ✅ Successfully confirmed message:', {
       tempId,
       txId,
       contentPreview: message.content?.substring(0, 30),
       hasEncryptedContent: !!message.encryptedContent
     });
   } catch (error: any) {
-    console.error('[confirmMessage] ❌ Error confirming message:', {
+    logger.error('[confirmMessage] ❌ Error confirming message:', {
       error: error?.message || error,
       stack: error?.stack,
       tempId,
@@ -530,10 +531,10 @@ export async function confirmMessage(tempId: string, txId: string, encryptedCont
         message.txId = '';
         message.confirmed = false;
         await db.put('messages', message);
-        console.log('[confirmMessage] Restored temp message after error');
+        logger.debug('[confirmMessage] Restored temp message after error');
       }
     } catch (restoreError) {
-      console.error('[confirmMessage] Failed to restore temp message:', restoreError);
+      logger.error('[confirmMessage] Failed to restore temp message:', restoreError);
     }
     
     throw error;
@@ -555,14 +556,14 @@ export async function deleteConversation(
   currentUser: string,
   partnerUsername: string
 ): Promise<void> {
-  console.log('[deleteConversation] Deleting conversation:', { currentUser, partnerUsername });
+  logger.debug('[deleteConversation] Deleting conversation:', { currentUser, partnerUsername });
   
   const db = await getDB(currentUser);
   const conversationKey = getConversationKey(currentUser, partnerUsername);
   
   // Delete all messages for this conversation
   const messages = await getMessagesByConversation(currentUser, partnerUsername);
-  console.log('[deleteConversation] Deleting', messages.length, 'messages');
+  logger.debug('[deleteConversation] Deleting', messages.length, 'messages');
   
   const tx = db.transaction('messages', 'readwrite');
   await Promise.all([
@@ -573,7 +574,7 @@ export async function deleteConversation(
   // Delete conversation metadata
   await db.delete('conversations', conversationKey);
   
-  console.log('[deleteConversation] ✅ Conversation deleted from local storage');
+  logger.debug('[deleteConversation] ✅ Conversation deleted from local storage');
 }
 
 // ============================================================================
@@ -585,11 +586,11 @@ export async function getCachedDecryptedMemo(txId: string, username?: string): P
   const cached = await db.get('decryptedMemos', txId);
   
   if (cached) {
-    console.log('[MEMO CACHE] HIT for txId:', txId.substring(0, 20), '- skipping decryption');
+    logger.debug('[MEMO CACHE] HIT for txId:', txId.substring(0, 20), '- skipping decryption');
     return cached.decryptedMemo;
   }
   
-  console.log('[MEMO CACHE] MISS for txId:', txId.substring(0, 20), '- will decrypt');
+  logger.debug('[MEMO CACHE] MISS for txId:', txId.substring(0, 20), '- will decrypt');
   return null;
 }
 
@@ -600,7 +601,7 @@ export async function cacheDecryptedMemo(txId: string, decryptedMemo: string, us
     decryptedMemo,
     cachedAt: new Date().toISOString(),
   });
-  console.log('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
+  logger.debug('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
 }
 
 // ============================================================================
@@ -613,18 +614,18 @@ export async function getLastSyncedOpId(conversationKey: string, username?: stri
   
   if (value) {
     const opId = parseInt(value, 10);
-    console.log('[INCREMENTAL] Last synced opId for', conversationKey, ':', opId);
+    logger.debug('[INCREMENTAL] Last synced opId for', conversationKey, ':', opId);
     return opId;
   }
   
-  console.log('[INCREMENTAL] No last synced opId for', conversationKey, '- first sync');
+  logger.debug('[INCREMENTAL] No last synced opId for', conversationKey, '- first sync');
   return null;
 }
 
 export async function setLastSyncedOpId(conversationKey: string, opId: number, username?: string): Promise<void> {
   const metadataKey = `lastSyncedOpId:${conversationKey}`;
   await setMetadata(metadataKey, opId.toString(), username);
-  console.log('[INCREMENTAL] Updated last synced opId for', conversationKey, ':', opId);
+  logger.debug('[INCREMENTAL] Updated last synced opId for', conversationKey, ':', opId);
 }
 
 // ============================================================================
@@ -634,7 +635,7 @@ export async function setLastSyncedOpId(conversationKey: string, opId: number, u
 export async function cacheCustomJsonMessage(message: CustomJsonMessage, username?: string): Promise<void> {
   const db = await getDB(username);
   await db.put('customJsonMessages', message);
-  console.log('[CUSTOM JSON] Cached message:', message.txId.substring(0, 20));
+  logger.debug('[CUSTOM JSON] Cached message:', message.txId.substring(0, 20));
 }
 
 export async function cacheCustomJsonMessages(messages: CustomJsonMessage[], username?: string): Promise<void> {
@@ -644,7 +645,7 @@ export async function cacheCustomJsonMessages(messages: CustomJsonMessage[], use
     ...messages.map((msg) => tx.store.put(msg)),
     tx.done,
   ]);
-  console.log('[CUSTOM JSON] Batch cached', messages.length, 'image messages');
+  logger.debug('[CUSTOM JSON] Batch cached', messages.length, 'image messages');
 }
 
 export async function getCustomJsonMessagesByConversation(
@@ -684,7 +685,7 @@ export async function updateCustomJsonMessage(
   if (message) {
     Object.assign(message, updates);
     await db.put('customJsonMessages', message);
-    console.log('[CUSTOM JSON] Updated message:', txId.substring(0, 20));
+    logger.debug('[CUSTOM JSON] Updated message:', txId.substring(0, 20));
   }
 }
 
@@ -692,14 +693,14 @@ export async function deleteCustomJsonConversation(
   currentUser: string,
   partnerUsername: string
 ): Promise<void> {
-  console.log('[CUSTOM JSON] Deleting image conversation:', { currentUser, partnerUsername });
+  logger.debug('[CUSTOM JSON] Deleting image conversation:', { currentUser, partnerUsername });
   
   const db = await getDB(currentUser);
   const conversationKey = getConversationKey(currentUser, partnerUsername);
   
   // Delete all custom JSON messages for this conversation
   const messages = await getCustomJsonMessagesByConversation(currentUser, partnerUsername);
-  console.log('[CUSTOM JSON] Deleting', messages.length, 'image messages');
+  logger.debug('[CUSTOM JSON] Deleting', messages.length, 'image messages');
   
   const tx = db.transaction('customJsonMessages', 'readwrite');
   await Promise.all([
@@ -707,7 +708,7 @@ export async function deleteCustomJsonConversation(
     tx.done,
   ]);
   
-  console.log('[CUSTOM JSON] ✅ Image conversation deleted from local storage');
+  logger.debug('[CUSTOM JSON] ✅ Image conversation deleted from local storage');
 }
 
 // ============================================================================
@@ -721,7 +722,7 @@ export async function cacheGroupConversation(group: GroupConversationCache, user
   const existing = await db.get('groupConversations', group.groupId);
   if (existing) {
     group.version = (existing.version || 1) + 1;
-    console.log('[GROUP CACHE] Incrementing group conversation version:', group.groupId, 'to', group.version);
+    logger.debug('[GROUP CACHE] Incrementing group conversation version:', group.groupId, 'to', group.version);
   } else {
     // First time caching this group, set version to 1
     if (!group.version) {
@@ -730,7 +731,7 @@ export async function cacheGroupConversation(group: GroupConversationCache, user
   }
   
   await db.put('groupConversations', group);
-  console.log('[GROUP CACHE] Cached group conversation:', group.groupId, 'version:', group.version);
+  logger.debug('[GROUP CACHE] Cached group conversation:', group.groupId, 'version:', group.version);
 }
 
 export async function getGroupConversations(username?: string): Promise<GroupConversationCache[]> {
@@ -749,7 +750,7 @@ export async function getGroupConversation(groupId: string, username?: string): 
 
 export async function cacheGroupMessage(message: GroupMessageCache, username?: string): Promise<void> {
   const db = await getDB(username);
-  console.log('[GROUP CACHE] Attempting to cache group message:', {
+  logger.debug('[GROUP CACHE] Attempting to cache group message:', {
     id: message.id,
     idType: typeof message.id,
     idLength: message.id?.length,
@@ -761,10 +762,10 @@ export async function cacheGroupMessage(message: GroupMessageCache, username?: s
   
   try {
     await db.put('groupMessages', message);
-    console.log('[GROUP CACHE] ✅ Cached group message:', message.id);
+    logger.debug('[GROUP CACHE] ✅ Cached group message:', message.id);
   } catch (error) {
-    console.error('[GROUP CACHE] ❌ Failed to cache group message:', error);
-    console.error('[GROUP CACHE] Message object:', JSON.stringify(message, null, 2));
+    logger.error('[GROUP CACHE] ❌ Failed to cache group message:', error);
+    logger.error('[GROUP CACHE] Message object:', JSON.stringify(message, null, 2));
     throw error;
   }
 }
@@ -776,7 +777,7 @@ export async function cacheGroupMessages(messages: GroupMessageCache[], username
     ...messages.map((msg) => tx.store.put(msg)),
     tx.done,
   ]);
-  console.log('[GROUP CACHE] Batch cached', messages.length, 'group messages');
+  logger.debug('[GROUP CACHE] Batch cached', messages.length, 'group messages');
 }
 
 export async function getGroupMessages(groupId: string, username?: string): Promise<GroupMessageCache[]> {
@@ -838,13 +839,13 @@ export async function confirmGroupMessage(
   failedRecipients: string[],
   username?: string
 ): Promise<void> {
-  console.log('[GROUP CACHE] Confirming group message:', { tempId, txIds, failedRecipients });
+  logger.debug('[GROUP CACHE] Confirming group message:', { tempId, txIds, failedRecipients });
   
   const db = await getDB(username);
   const message = await db.get('groupMessages', tempId);
   
   if (!message) {
-    console.warn('[GROUP CACHE] Group message not found:', tempId);
+    logger.warn('[GROUP CACHE] Group message not found:', tempId);
     return;
   }
 
@@ -873,35 +874,35 @@ export async function confirmGroupMessage(
   // Store confirmed message
   await db.put('groupMessages', message);
   
-  console.log('[GROUP CACHE] ✅ Group message confirmed:', finalTxId);
+  logger.debug('[GROUP CACHE] ✅ Group message confirmed:', finalTxId);
 }
 
 /**
  * Removes an optimistic group message from cache (used for rollback on complete failure)
  */
 export async function removeOptimisticGroupMessage(tempId: string, username?: string): Promise<void> {
-  console.log('[GROUP CACHE] Removing optimistic group message:', tempId);
+  logger.debug('[GROUP CACHE] Removing optimistic group message:', tempId);
   
   const db = await getDB(username);
   
   try {
     // Remove the message from cache
     await db.delete('groupMessages', tempId);
-    console.log('[GROUP CACHE] ✅ Optimistic message removed:', tempId);
+    logger.debug('[GROUP CACHE] ✅ Optimistic message removed:', tempId);
   } catch (error) {
-    console.error('[GROUP CACHE] ❌ Failed to remove optimistic message:', error);
+    logger.error('[GROUP CACHE] ❌ Failed to remove optimistic message:', error);
     throw error;
   }
 }
 
 export async function deleteGroupConversation(groupId: string, username?: string): Promise<void> {
-  console.log('[GROUP CACHE] Deleting group conversation:', groupId);
+  logger.debug('[GROUP CACHE] Deleting group conversation:', groupId);
   
   const db = await getDB(username);
   
   // Delete all messages for this group
   const messages = await getGroupMessages(groupId, username);
-  console.log('[GROUP CACHE] Deleting', messages.length, 'group messages');
+  logger.debug('[GROUP CACHE] Deleting', messages.length, 'group messages');
   
   const tx = db.transaction('groupMessages', 'readwrite');
   await Promise.all([
@@ -912,7 +913,7 @@ export async function deleteGroupConversation(groupId: string, username?: string
   // Delete group conversation
   await db.delete('groupConversations', groupId);
   
-  console.log('[GROUP CACHE] ✅ Group conversation deleted');
+  logger.debug('[GROUP CACHE] ✅ Group conversation deleted');
 }
 
 /**
@@ -923,7 +924,7 @@ export async function deleteGroupConversation(groupId: string, username?: string
  * - Messages without txIds → Truly orphaned, mark as 'failed'
  */
 export async function cleanupOrphanedMessages(username: string): Promise<number> {
-  console.log('[CLEANUP] Starting orphaned message cleanup for:', username);
+  logger.debug('[CLEANUP] Starting orphaned message cleanup for:', username);
   
   const db = await getDB(username);
   const tx = db.transaction(['groupMessages'], 'readwrite');
@@ -952,7 +953,7 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
           (msg as any).deliveryStatus = 'failed';
           msg.confirmed = false;
           
-          console.log('[CLEANUP] All recipients failed - marked as failed:', msg.id.substring(0, 20), 'failed:', failedCount, 'total:', totalRecipients);
+          logger.debug('[CLEANUP] All recipients failed - marked as failed:', msg.id.substring(0, 20), 'failed:', failedCount, 'total:', totalRecipients);
         } else {
           const successfulCount = totalRecipients - failedCount;
           
@@ -961,19 +962,19 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
             (msg as any).deliveryStatus = 'failed';
             msg.confirmed = false;
             
-            console.log('[CLEANUP] All recipients failed - marked as failed:', msg.id.substring(0, 20), 'failed:', failedCount, 'total:', totalRecipients);
+            logger.debug('[CLEANUP] All recipients failed - marked as failed:', msg.id.substring(0, 20), 'failed:', failedCount, 'total:', totalRecipients);
           } else if (successfulCount < totalRecipients) {
             msg.status = 'confirmed';
             (msg as any).deliveryStatus = 'partial';
             msg.confirmed = true;
             
-            console.log('[CLEANUP] Partial delivery - marked as confirmed/partial:', msg.id.substring(0, 20), 'succeeded:', successfulCount, 'failed:', failedCount, 'total:', totalRecipients);
+            logger.debug('[CLEANUP] Partial delivery - marked as confirmed/partial:', msg.id.substring(0, 20), 'succeeded:', successfulCount, 'failed:', failedCount, 'total:', totalRecipients);
           } else {
             msg.status = 'confirmed';
             (msg as any).deliveryStatus = 'success';
             msg.confirmed = true;
             
-            console.log('[CLEANUP] All recipients succeeded - marked as confirmed/success:', msg.id.substring(0, 20), 'total:', totalRecipients);
+            logger.debug('[CLEANUP] All recipients succeeded - marked as confirmed/success:', msg.id.substring(0, 20), 'total:', totalRecipients);
           }
         }
       } else {
@@ -982,7 +983,7 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
         (msg as any).deliveryStatus = 'failed';
         msg.confirmed = false;
         
-        console.log('[CLEANUP] No txIds - marked orphaned message as failed:', msg.id.substring(0, 20));
+        logger.debug('[CLEANUP] No txIds - marked orphaned message as failed:', msg.id.substring(0, 20));
       }
       
       await store.put(msg);
@@ -992,7 +993,7 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
   
   await tx.done;
   
-  console.log(`[CLEANUP] ✅ Cleaned up ${cleanedCount} orphaned messages`);
+  logger.debug(`[CLEANUP] ✅ Cleaned up ${cleanedCount} orphaned messages`);
   return cleanedCount;
 }
 
@@ -1001,7 +1002,7 @@ export async function cleanupOrphanedMessages(username: string): Promise<number>
  * This fixes the bug where group messages were initially cached as direct messages
  */
 export async function migrateGroupMessages(username: string): Promise<number> {
-  console.log('[MIGRATION] Starting group message migration for:', username);
+  logger.debug('[MIGRATION] Starting group message migration for:', username);
   
   const db = await getDB(username);
   const { parseGroupMessageMemo } = await import('./groupBlockchain');
@@ -1009,7 +1010,7 @@ export async function migrateGroupMessages(username: string): Promise<number> {
   
   // Get all messages from the messages table
   const allMessages = await db.getAll('messages');
-  console.log('[MIGRATION] Scanning', allMessages.length, 'messages for misplaced group messages');
+  logger.debug('[MIGRATION] Scanning', allMessages.length, 'messages for misplaced group messages');
   
   // Debug: Log all message content to see what we're dealing with
   allMessages.forEach((msg, idx) => {
@@ -1018,11 +1019,11 @@ export async function migrateGroupMessages(username: string): Promise<number> {
     const contentTrimmed = msg.content?.trim() || '';
     const encryptedTrimmed = msg.encryptedContent?.trim() || '';
     
-    console.log(`[MIGRATION DEBUG ${idx}] ID: ${msg.id.substring(0, 20)} FROM: ${msg.from}`);
-    console.log(`[MIGRATION DEBUG ${idx}] Content: "${contentPreview}"`);
-    console.log(`[MIGRATION DEBUG ${idx}] Encrypted: "${encryptedPreview}"`);
-    console.log(`[MIGRATION DEBUG ${idx}] Content starts with group?: ${contentTrimmed.startsWith('group:') || contentTrimmed.startsWith('#group:')}`);
-    console.log(`[MIGRATION DEBUG ${idx}] Encrypted starts with group?: ${encryptedTrimmed.startsWith('group:') || encryptedTrimmed.startsWith('#group:')}`);
+    logger.debug(`[MIGRATION DEBUG ${idx}] ID: ${msg.id.substring(0, 20)} FROM: ${msg.from}`);
+    logger.debug(`[MIGRATION DEBUG ${idx}] Content: "${contentPreview}"`);
+    logger.debug(`[MIGRATION DEBUG ${idx}] Encrypted: "${encryptedPreview}"`);
+    logger.debug(`[MIGRATION DEBUG ${idx}] Content starts with group?: ${contentTrimmed.startsWith('group:') || contentTrimmed.startsWith('#group:')}`);
+    logger.debug(`[MIGRATION DEBUG ${idx}] Encrypted starts with group?: ${encryptedTrimmed.startsWith('group:') || encryptedTrimmed.startsWith('#group:')}`);
   });
   
   let migratedCount = 0;
@@ -1039,7 +1040,7 @@ export async function migrateGroupMessages(username: string): Promise<number> {
     if (msg.content) {
       const normalizedContent = msg.content.trim();
       if (normalizedContent.startsWith('group:') || normalizedContent.startsWith('#group:')) {
-        console.log('[MIGRATION] Found potential group message in content:', msg.id.substring(0, 20), 'content preview:', normalizedContent.substring(0, 50));
+        logger.debug('[MIGRATION] Found potential group message in content:', msg.id.substring(0, 20), 'content preview:', normalizedContent.substring(0, 50));
         parsed = parseGroupMessageMemo(normalizedContent);
         isGroupMessage = parsed?.isGroupMessage ?? false;
       }
@@ -1049,14 +1050,14 @@ export async function migrateGroupMessages(username: string): Promise<number> {
     if (!isGroupMessage && msg.encryptedContent) {
       const normalizedEncrypted = msg.encryptedContent.trim();
       if (normalizedEncrypted.startsWith('group:') || normalizedEncrypted.startsWith('#group:')) {
-        console.log('[MIGRATION] Found potential group message in encryptedContent:', msg.id.substring(0, 20), 'encrypted preview:', normalizedEncrypted.substring(0, 50));
+        logger.debug('[MIGRATION] Found potential group message in encryptedContent:', msg.id.substring(0, 20), 'encrypted preview:', normalizedEncrypted.substring(0, 50));
         parsed = parseGroupMessageMemo(normalizedEncrypted);
         isGroupMessage = parsed?.isGroupMessage ?? false;
       }
     }
     
     if (isGroupMessage && parsed && parsed.groupId) {
-      console.log('[MIGRATION] Migrating group message:', {
+      logger.debug('[MIGRATION] Migrating group message:', {
         txId: msg.id.substring(0, 20),
         groupId: parsed.groupId,
         creator: parsed.creator,
@@ -1094,7 +1095,7 @@ export async function migrateGroupMessages(username: string): Promise<number> {
           });
         }
       } catch (error) {
-        console.warn('[MIGRATION] Failed to lookup group metadata for:', parsed.groupId);
+        logger.warn('[MIGRATION] Failed to lookup group metadata for:', parsed.groupId);
       }
       
       migratedCount++;
@@ -1103,7 +1104,7 @@ export async function migrateGroupMessages(username: string): Promise<number> {
   
   // Write all changes in a transaction
   if (groupMessagesToAdd.length > 0) {
-    console.log('[MIGRATION] Writing', groupMessagesToAdd.length, 'group messages to groupMessages table');
+    logger.debug('[MIGRATION] Writing', groupMessagesToAdd.length, 'group messages to groupMessages table');
     
     // Add group messages
     await cacheGroupMessages(groupMessagesToAdd, username);
@@ -1134,9 +1135,9 @@ export async function migrateGroupMessages(username: string): Promise<number> {
       await db.put('groupConversations', groupConv);
     }
     
-    console.log('[MIGRATION] ✅ Migrated', migratedCount, 'group messages');
+    logger.debug('[MIGRATION] ✅ Migrated', migratedCount, 'group messages');
   } else {
-    console.log('[MIGRATION] No misplaced group messages found');
+    logger.debug('[MIGRATION] No misplaced group messages found');
   }
   
   return migratedCount;

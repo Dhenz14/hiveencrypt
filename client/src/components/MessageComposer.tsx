@@ -744,6 +744,19 @@ export function MessageComposer({
         
         const errorMessage = encryptError?.message || String(encryptError);
         
+        // Check for extension context invalidation (Bug #3 fix)
+        if (errorMessage.includes('Extension context invalidated') || 
+            errorMessage.includes('context invalidated')) {
+          toast({
+            title: 'Keychain Extension Reloaded',
+            description: 'Please refresh the page and try again. (Keychain extension was updated/reloaded)',
+            variant: 'destructive',
+            duration: 10000, // Show longer for user to read
+          });
+          setIsSending(false);
+          return;
+        }
+        
         if (errorMessage.includes('cancel')) {
           toast({
             title: 'Encryption Cancelled',
@@ -871,20 +884,35 @@ export function MessageComposer({
         console.error('[SEND] ❌ Blockchain transfer failed:', transferError);
         logger.error('[MessageComposer] Transfer error caught:', transferError);
         
+        const errorMessage = transferError?.message || String(transferError);
+        
+        // Check for extension context invalidation (Bug #3 fix)
+        if (errorMessage.includes('Extension context invalidated') || 
+            errorMessage.includes('context invalidated')) {
+          toast({
+            title: 'Keychain Extension Reloaded',
+            description: 'Please refresh the page and try again. (Keychain extension was updated/reloaded)',
+            variant: 'destructive',
+            duration: 10000, // Show longer for user to read
+          });
+          setIsSending(false);
+          return;
+        }
+        
         // Handle specific error cases
-        if (transferError?.error?.includes('cancel') || transferError?.message?.includes('cancel')) {
+        if (transferError?.error?.includes('cancel') || errorMessage.includes('cancel')) {
           toast({
             title: 'Transfer Cancelled',
             description: 'You cancelled the blockchain transfer',
             variant: 'destructive',
           });
-        } else if (transferError?.message?.includes('RC') || transferError?.message?.includes('resource')) {
+        } else if (errorMessage.includes('RC') || errorMessage.includes('resource')) {
           toast({
             title: 'Insufficient RC',
             description: 'You do not have enough Resource Credits. Please wait and try again later.',
             variant: 'destructive',
           });
-        } else if (transferError?.message?.includes('balance') || transferError?.message?.includes('funds')) {
+        } else if (errorMessage.includes('balance') || errorMessage.includes('funds')) {
           toast({
             title: 'Insufficient Balance',
             description: 'You need at least 0.001 HBD to send a message',
@@ -893,7 +921,7 @@ export function MessageComposer({
         } else {
           toast({
             title: 'Transfer Failed',
-            description: transferError?.message || 'Failed to broadcast message to blockchain',
+            description: errorMessage || 'Failed to broadcast message to blockchain',
             variant: 'destructive',
           });
         }

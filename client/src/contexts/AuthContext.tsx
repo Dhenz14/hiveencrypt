@@ -11,6 +11,7 @@ import {
   type KeychainPlatform 
 } from '@/lib/keychainDetection';
 import { cleanupOrphanedMessages } from '@/lib/messageCache';
+import { logger } from '@/lib/logger';
 
 interface AuthContextType {
   user: UserSession | null;
@@ -36,14 +37,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Detect platform first
         const detectedPlatform = await detectKeychainPlatform();
         setPlatform(detectedPlatform);
-        console.log('[Auth] Platform detected:', detectedPlatform);
+        logger.info('[Auth] Platform detected:', detectedPlatform);
         
         // Only restore session if we have Keychain available
         if (detectedPlatform !== 'mobile-redirect') {
           await restoreSession();
         }
       } catch (error) {
-        console.error('[Auth] Platform detection error:', error);
+        logger.error('[Auth] Platform detection error:', error);
         // On desktop without extension, we'll show error in login UI
       }
       
@@ -61,34 +62,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const session = JSON.parse(sessionData);
         
         // Verify account still exists on blockchain
-        const account = await getAccount(session.username);
-        if (account) {
-          setUser(session);
-          console.log('[Auth] Session restored for:', session.username);
-          
-          // EDGE CASE FIX #2: Cleanup orphaned messages after session restore
-          try {
-            const cleanedCount = await cleanupOrphanedMessages(session.username);
-            if (cleanedCount > 0) {
-              console.log('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
+        // CRITICAL FIX: Don't remove session on network errors, only on account not found
+        try {
+          const account = await getAccount(session.username);
+          if (account) {
+            setUser(session);
+            logger.info('[Auth] Session restored for:', session.username);
+            
+            // EDGE CASE FIX #2: Cleanup orphaned messages after session restore
+            try {
+              const cleanedCount = await cleanupOrphanedMessages(session.username);
+              if (cleanedCount > 0) {
+                logger.info('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
+              }
+            } catch (cleanupError) {
+              logger.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
+              // Don't block login if cleanup fails
             }
-          } catch (cleanupError) {
-            console.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
-            // Don't block login if cleanup fails
+          } else {
+            // Account truly doesn't exist (got null/undefined response from RPC)
+            logger.warn('[Auth] Account no longer exists on blockchain, clearing session...');
+            localStorage.removeItem(SESSION_KEY);
           }
-        } else {
-          console.log('[Auth] Account no longer exists on blockchain, clearing session...');
-          localStorage.removeItem(SESSION_KEY);
+        } catch (accountError: any) {
+          // Network error or RPC timeout - keep session and restore it anyway
+          // User can retry operations when network recovers
+          logger.warn('[Auth] Failed to verify account (network error), restoring session anyway:', accountError.message);
+          setUser(session);
         }
       }
     } catch (error) {
-      console.error('[Auth] Error restoring session:', error);
-      localStorage.removeItem(SESSION_KEY);
+      // Only remove session if there's a JSON parse error (corrupted session data)
+      logger.error('[Auth] Error restoring session:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('JSON')) {
+        logger.warn('[Auth] Corrupted session data, clearing session');
+        localStorage.removeItem(SESSION_KEY);
+      } else {
+        logger.warn('[Auth] Temporary error, keeping session');
+      }
     }
   };
 
   const login = async (username: string) => {
-    console.log('[Auth] Starting login for:', username, 'platform:', platform);
+    logger.info('[Auth] Starting login for:', username, 'platform:', platform);
     
     // Ensure Keychain is available
     if (!isKeychainAvailable()) {
@@ -111,7 +128,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await requestHandshake();
       await requestLogin(username);
-      console.log('[Auth] Keychain authentication successful');
+      logger.info('[Auth] Keychain authentication successful');
     } catch (keychainError: any) {
       if (keychainError?.message?.includes('cancel') || keychainError?.error?.includes('cancel')) {
         throw new Error('Authentication cancelled. Please try again and approve the Keychain request.');
@@ -133,31 +150,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
     } catch (storageError) {
-      console.warn('[Auth] Failed to save session to localStorage:', storageError);
+      logger.warn('[Auth] Failed to save session to localStorage:', storageError);
       // Continue anyway - session is in memory
     }
     
-    console.log('[Auth] ✅ Login complete! Session stored locally.');
+    logger.info('[Auth] ✅ Login complete! Session stored locally.');
     
     // EDGE CASE FIX #2: Cleanup orphaned messages after login
     try {
       const cleanedCount = await cleanupOrphanedMessages(username);
       if (cleanedCount > 0) {
-        console.log('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
+        logger.info('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
       }
     } catch (cleanupError) {
-      console.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
+      logger.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
       // Don't block login if cleanup fails
     }
   };
 
   const logout = async () => {
-    console.log('[Auth] Logging out...');
+    logger.info('[Auth] Logging out...');
     
     setUser(null);
     localStorage.removeItem(SESSION_KEY);
     
-    console.log('[Auth] ✅ Logout complete');
+    logger.info('[Auth] ✅ Logout complete');
   };
 
   const needsKeychainRedirect = platform === 'mobile-redirect';
