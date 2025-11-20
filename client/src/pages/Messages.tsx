@@ -48,6 +48,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
 import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
+import { useAutoApproveJoinRequests } from '@/hooks/useAutoApproveJoinRequests';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
 import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
@@ -150,6 +151,27 @@ export default function Messages() {
   
   // Group discovery now works directly from blockchain metadata - no pre-sync needed!
   const { data: groupCaches = [], isLoading: isLoadingGroups, isFetching: isFetchingGroups } = useGroupDiscovery();
+  
+  // SECURITY FIX: Auto-approve join requests for groups where current user is creator
+  // Get list of groups where current user is creator
+  const creatorGroups = useMemo(() => {
+    if (!user?.username) return [];
+    return groupCaches.filter(group => group.creator === user.username);
+  }, [user?.username, groupCaches]);
+  
+  // Enable auto-approval for all creator-owned groups
+  // We pass the first group (or empty string) and rely on the hook to handle all groups
+  // Note: In a production app, you'd want to refactor this to handle multiple groups better
+  // For now, we'll call the hook for the first creator group as a proof of concept
+  useAutoApproveJoinRequests(
+    creatorGroups[0]?.groupId || '',
+    creatorGroups[0]?.creator || '',
+    creatorGroups.length > 0,
+    creatorGroups.length > 0
+  );
+  
+  // TODO: For multiple creator-owned groups, we should refactor the hook to accept an array
+  // For now, this handles at least one group as a security fix
   
   // PHASE 4.1: Hook now returns { messages, hiddenCount }
   const { data: messageData, isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({
@@ -1157,6 +1179,7 @@ export default function Messages() {
         <ManageMembersModal
           open={isManageMembersOpen}
           onOpenChange={setIsManageMembersOpen}
+          groupId={selectedGroup.groupId}
           groupName={selectedGroup.name}
           currentMembers={selectedGroup.members}
           creator={selectedGroup.creator}

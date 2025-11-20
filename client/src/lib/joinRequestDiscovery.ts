@@ -301,3 +301,131 @@ export async function hasPendingJoinRequest(
   const requests = await scanPendingJoinRequests(groupId, username);
   return requests.length > 0;
 }
+
+/**
+ * SECURITY FIX: Scans for join_requests that need auto-approval by the creator
+ * This is used by the creator's background process to automatically approve
+ * requests with status 'approved_free' or 'pending_payment_verification'
+ * 
+ * @param groupId - Group identifier
+ * @param creatorUsername - Username of the group creator (for security - only creator can auto-approve)
+ * @returns Array of join requests needing auto-approval
+ */
+export async function scanAutoApprovalRequests(
+  groupId: string,
+  creatorUsername: string
+): Promise<JoinRequest[]> {
+  logger.info('[AUTO APPROVAL] Scanning for auto-approval requests:', { groupId, creatorUsername });
+
+  try {
+    // Scan creator's custom_json operations for join_request actions
+    // We only scan the creator's history to ensure security - only creator can see these
+    const history = await optimizedHiveClient.getAccountHistory(
+      creatorUsername,
+      1000, // Scan up to 1000 operations
+      'custom_json', // Filter only custom_json operations for efficiency
+      -1 // Start from latest
+    );
+
+    logger.info('[AUTO APPROVAL] Scanned', history.length, 'custom_json operations');
+
+    const autoApprovalRequests: JoinRequest[] = [];
+    const approvedRequestIds = new Set<string>(); // Track already approved requests
+
+    // First pass: Find all join_approve operations to avoid duplicate approvals
+    for (const [, operation] of history) {
+      try {
+        if (!operation || !operation[1] || !operation[1].op) {
+          continue;
+        }
+
+        const op = operation[1].op;
+
+        if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
+          continue;
+        }
+
+        const jsonData = JSON.parse(op[1].json);
+
+        // Track approved requests
+        if (jsonData.action === 'join_approve' && jsonData.groupId === groupId) {
+          approvedRequestIds.add(jsonData.requestId);
+        }
+      } catch (parseError) {
+        continue;
+      }
+    }
+
+    logger.info('[AUTO APPROVAL] Found', approvedRequestIds.size, 'already approved requests');
+
+    // Second pass: Find join_request operations with auto-approval statuses
+    for (const [, operation] of history) {
+      try {
+        if (!operation || !operation[1] || !operation[1].op) {
+          continue;
+        }
+
+        const op = operation[1].op;
+
+        if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
+          continue;
+        }
+
+        const jsonData = JSON.parse(op[1].json);
+
+        // Only process join_request actions for this group
+        if (jsonData.action !== 'join_request' || jsonData.groupId !== groupId) {
+          continue;
+        }
+
+        // Skip if this request was already approved
+        if (approvedRequestIds.has(jsonData.requestId)) {
+          continue;
+        }
+
+        // Only include requests with auto-approval statuses
+        if (jsonData.status !== 'approved_free' && 
+            jsonData.status !== 'pending_payment_verification') {
+          continue;
+        }
+
+        const joinRequest: JoinRequest = {
+          requestId: jsonData.requestId,
+          username: jsonData.username,
+          requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation[1].timestamp),
+          status: jsonData.status,
+          message: jsonData.message,
+          txId: operation[1].trx_id,
+          memberPayment: jsonData.memberPayment, // Include payment proof if present
+        };
+
+        autoApprovalRequests.push(joinRequest);
+      } catch (parseError) {
+        logger.warn('[AUTO APPROVAL] Failed to parse operation:', parseError);
+        continue;
+      }
+    }
+
+    // Deduplicate by requestId (keep newest)
+    const deduped = new Map<string, JoinRequest>();
+    for (const request of autoApprovalRequests) {
+      const existing = deduped.get(request.requestId);
+      if (!existing || new Date(request.requestedAt) > new Date(existing.requestedAt)) {
+        deduped.set(request.requestId, request);
+      }
+    }
+
+    // Sort by timestamp (oldest first - FIFO for fairness)
+    const result = Array.from(deduped.values()).sort(
+      (a, b) => new Date(a.requestedAt).getTime() - new Date(b.requestedAt).getTime()
+    );
+
+    logger.info('[AUTO APPROVAL] Found', result.length, 'requests needing auto-approval');
+    return result;
+  } catch (error) {
+    logger.error('[AUTO APPROVAL] Error scanning for auto-approval requests:', error);
+    
+    // Gracefully handle blockchain errors by returning empty array
+    return [];
+  }
+}

@@ -431,6 +431,119 @@ export async function broadcastLeaveGroup(
   });
 }
 
+/**
+ * Broadcasts a "join approve" custom_json operation
+ * Approves a join request, optionally recording payment information
+ */
+export async function broadcastJoinApprove(
+  approverUsername: string,
+  groupId: string,
+  requestId: string,
+  requestUsername: string,
+  memberPayment?: MemberPayment
+): Promise<string> {
+  logger.info('[GROUP BLOCKCHAIN] Broadcasting join approve:', {
+    groupId,
+    requestId,
+    requestUsername,
+    hasMemberPayment: !!memberPayment
+  });
+
+  const customJson: GroupCustomJson = {
+    action: 'join_approve',
+    groupId,
+    timestamp: new Date().toISOString(),
+    // Store approval details in custom fields
+    memberPayments: memberPayment ? [memberPayment] : undefined,
+  };
+
+  // Add request metadata to custom json
+  (customJson as any).requestId = requestId;
+  (customJson as any).requestUsername = requestUsername;
+  (customJson as any).approverUsername = approverUsername;
+
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain not installed'));
+      return;
+    }
+
+    window.hive_keychain.requestCustomJson(
+      approverUsername,
+      GROUP_CUSTOM_JSON_ID,
+      'Posting',
+      JSON.stringify(customJson),
+      'Approve Join Request',
+      (response: any) => {
+        if (response.success) {
+          logger.info('[GROUP BLOCKCHAIN] ✅ Join request approved on blockchain:', response.result.id);
+          resolve(response.result.id);
+        } else {
+          logger.error('[GROUP BLOCKCHAIN] ❌ Failed to approve join request:', response.error);
+          reject(new Error(response.error || 'Failed to broadcast join approve'));
+        }
+      }
+    );
+  });
+}
+
+/**
+ * Broadcasts a "join reject" custom_json operation
+ * Rejects a join request with optional reason
+ */
+export async function broadcastJoinReject(
+  rejectorUsername: string,
+  groupId: string,
+  requestId: string,
+  requestUsername: string,
+  reason?: string
+): Promise<string> {
+  logger.info('[GROUP BLOCKCHAIN] Broadcasting join reject:', {
+    groupId,
+    requestId,
+    requestUsername,
+    hasReason: !!reason
+  });
+
+  const customJson: GroupCustomJson = {
+    action: 'join_reject',
+    groupId,
+    timestamp: new Date().toISOString(),
+  };
+
+  // Add rejection details to custom fields
+  (customJson as any).requestId = requestId;
+  (customJson as any).requestUsername = requestUsername;
+  (customJson as any).rejectorUsername = rejectorUsername;
+  if (reason) {
+    (customJson as any).reason = reason;
+  }
+
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain not installed'));
+      return;
+    }
+
+    window.hive_keychain.requestCustomJson(
+      rejectorUsername,
+      GROUP_CUSTOM_JSON_ID,
+      'Posting',
+      JSON.stringify(customJson),
+      'Reject Join Request',
+      (response: any) => {
+        if (response.success) {
+          logger.info('[GROUP BLOCKCHAIN] ✅ Join request rejected on blockchain:', response.result.id);
+          resolve(response.result.id);
+        } else {
+          logger.error('[GROUP BLOCKCHAIN] ❌ Failed to reject join request:', response.error);
+          reject(new Error(response.error || 'Failed to broadcast join reject'));
+        }
+      }
+    );
+  });
+}
+
 // In-memory caches for group metadata lookups to prevent repeated expensive RPC calls
 // Sender-level cache: `${groupId}:${knownMember}` → group metadata
 const metadataCache = new Map<string, { group: Group | null; timestamp: number }>();

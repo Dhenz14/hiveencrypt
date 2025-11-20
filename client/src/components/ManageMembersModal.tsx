@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, Plus, X, AlertCircle, Crown, Loader2, DollarSign } from 'lucide-react';
+import { Users, Plus, X, AlertCircle, Crown, Loader2, DollarSign, Check, XCircle, ExternalLink, Clock } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -15,16 +15,25 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { getHiveMemoKey } from '@/lib/hive';
 import { canInviteToGroup } from '@/lib/accountMetadata';
 import { useToast } from '@/hooks/use-toast';
 import { PaymentStatusBadge, PaymentRequiredIndicator } from './PaymentStatusBadge';
-import type { PaymentSettings, MemberPayment } from '@shared/schema';
+import { PaymentGatewayModal } from './PaymentGatewayModal';
+import type { PaymentSettings, MemberPayment, JoinRequest } from '@shared/schema';
 import { getPaymentStats } from '@/lib/paymentVerification';
+import { useJoinRequests } from '@/hooks/useJoinRequests';
+import { useMutation } from '@tanstack/react-query';
+import { queryClient } from '@/lib/queryClient';
+import { broadcastJoinApprove, broadcastJoinReject } from '@/lib/groupBlockchain';
+import { formatDistanceToNow } from 'date-fns';
 
 interface ManageMembersModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  groupId: string;
   groupName: string;
   currentMembers: string[];
   creator: string;
@@ -37,6 +46,7 @@ interface ManageMembersModalProps {
 export function ManageMembersModal({ 
   open, 
   onOpenChange, 
+  groupId,
   groupName,
   currentMembers,
   creator,
@@ -52,8 +62,143 @@ export function ManageMembersModal({
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
+  // Payment modal state
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [pendingApprovalRequest, setPendingApprovalRequest] = useState<JoinRequest | null>(null);
+  
   // Calculate payment stats if payments are enabled
   const paymentStats = getPaymentStats(memberPayments, paymentSettings);
+  
+  // Check if current user is the group creator
+  const isCreator = currentUsername === creator;
+  
+  // Fetch pending join requests (only if user is creator)
+  const { data: pendingRequests = [], isLoading: isLoadingRequests } = useJoinRequests(
+    groupId,
+    creator,
+    isCreator && open // Only enable if user is creator and modal is open
+  );
+  
+  // Approve join request mutation
+  const approveRequestMutation = useMutation({
+    mutationFn: async ({ request, memberPayment }: { request: JoinRequest; memberPayment?: MemberPayment }) => {
+      if (!currentUsername) {
+        throw new Error('User not authenticated');
+      }
+      
+      // Broadcast join_approve custom_json
+      const txId = await broadcastJoinApprove(
+        currentUsername,
+        groupId,
+        request.requestId,
+        request.username,
+        memberPayment
+      );
+      
+      return { txId, request, memberPayment };
+    },
+    onSuccess: async ({ request, memberPayment }) => {
+      // Update group members array locally
+      if (!members.includes(request.username)) {
+        setMembers([...members, request.username]);
+      }
+      
+      // Invalidate queries to refresh data
+      await queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
+      await queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] });
+      await queryClient.invalidateQueries({ queryKey: ['groupMessages', groupId] });
+      
+      toast({
+        title: 'Join Request Approved',
+        description: `Approved @${request.username}${memberPayment ? ' (payment verified)' : ''}`,
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: 'Approval Failed',
+        description: error.message || 'Failed to approve join request',
+        variant: 'destructive',
+      });
+    },
+  });
+  
+  // Reject join request mutation
+  const rejectRequestMutation = useMutation({
+    mutationFn: async ({ request, reason }: { request: JoinRequest; reason?: string }) => {
+      if (!currentUsername) {
+        throw new Error('User not authenticated');
+      }
+      
+      // Broadcast join_reject custom_json
+      const txId = await broadcastJoinReject(
+        currentUsername,
+        groupId,
+        request.requestId,
+        request.username,
+        reason
+      );
+      
+      return { txId, request };
+    },
+    onSuccess: async ({ request }) => {
+      // Invalidate queries to refresh data
+      await queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] });
+      
+      toast({
+        title: 'Join Request Rejected',
+        description: `Rejected @${request.username}'s request`,
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: 'Rejection Failed',
+        description: error.message || 'Failed to reject join request',
+        variant: 'destructive',
+      });
+    },
+  });
+  
+  // Handle approve button click
+  const handleApprove = (request: JoinRequest) => {
+    if (paymentSettings?.enabled) {
+      // Open payment modal for paid groups
+      setPendingApprovalRequest(request);
+      setPaymentModalOpen(true);
+    } else {
+      // Immediately approve for free groups
+      approveRequestMutation.mutate({ request });
+    }
+  };
+  
+  // Handle payment verification callback
+  const handlePaymentVerified = (txId: string, amount: string) => {
+    if (!pendingApprovalRequest) return;
+    
+    // Create member payment record
+    const memberPayment: MemberPayment = {
+      username: pendingApprovalRequest.username,
+      txId,
+      amount,
+      paidAt: new Date().toISOString(),
+      status: 'active',
+      // Calculate next due date for recurring payments
+      nextDueDate: paymentSettings?.type === 'recurring' && paymentSettings.recurringInterval
+        ? new Date(Date.now() + paymentSettings.recurringInterval * 24 * 60 * 60 * 1000).toISOString()
+        : undefined,
+    };
+    
+    // Approve with payment record
+    approveRequestMutation.mutate({ request: pendingApprovalRequest, memberPayment });
+    
+    // Close payment modal
+    setPaymentModalOpen(false);
+    setPendingApprovalRequest(null);
+  };
+  
+  // Handle reject button click
+  const handleReject = (request: JoinRequest) => {
+    rejectRequestMutation.mutate({ request });
+  };
 
   // Reset members when modal opens with fresh data
   useEffect(() => {
@@ -250,6 +395,147 @@ export function ManageMembersModal({
             </Alert>
           )}
 
+          {/* Pending Join Requests Section - Only shown to group creator */}
+          {isCreator && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Label className="text-caption">Pending Join Requests</Label>
+                {pendingRequests.length > 0 && (
+                  <Badge variant="secondary" className="text-caption">
+                    {pendingRequests.length}
+                  </Badge>
+                )}
+              </div>
+              
+              {isLoadingRequests ? (
+                <div className="space-y-3 p-3 border rounded-md">
+                  {[1, 2].map((i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <Skeleton className="w-10 h-10 rounded-full" />
+                      <div className="flex-1 space-y-2">
+                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-3 w-24" />
+                      </div>
+                      <Skeleton className="h-9 w-20" />
+                      <Skeleton className="h-9 w-20" />
+                    </div>
+                  ))}
+                </div>
+              ) : pendingRequests.length === 0 ? (
+                <div className="p-4 border rounded-md text-center">
+                  <p className="text-caption text-muted-foreground">
+                    No pending requests
+                  </p>
+                </div>
+              ) : (
+                <ScrollArea className="h-[200px] rounded-md border p-3">
+                  <div className="space-y-3">
+                    {pendingRequests.map((request) => (
+                      <Card
+                        key={request.requestId}
+                        className="p-3"
+                        data-testid={`card-join-request-${request.username}`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <Avatar className="w-10 h-10 flex-shrink-0">
+                            <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
+                              {getInitials(request.username)}
+                            </AvatarFallback>
+                          </Avatar>
+                          
+                          <div className="flex-1 min-w-0 space-y-1.5">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <a
+                                href={`https://peakd.com/@${request.username}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-body font-medium hover:underline flex items-center gap-1"
+                                data-testid={`link-profile-${request.username}`}
+                              >
+                                @{request.username}
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                              <span className="text-caption text-muted-foreground flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {formatDistanceToNow(new Date(request.requestedAt), { addSuffix: true })}
+                              </span>
+                            </div>
+                            
+                            {request.message && (
+                              <p className="text-caption text-muted-foreground line-clamp-2">
+                                {request.message}
+                              </p>
+                            )}
+                            
+                            {paymentSettings?.enabled && (
+                              <div className="flex items-center gap-2">
+                                <DollarSign className="w-3 h-3 text-muted-foreground" />
+                                <span className="text-caption text-muted-foreground">
+                                  Payment required: {paymentSettings.amount} HBD
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="flex gap-2 flex-shrink-0">
+                            <Button
+                              type="button"
+                              variant="default"
+                              size="sm"
+                              onClick={() => handleApprove(request)}
+                              disabled={
+                                approveRequestMutation.isPending ||
+                                rejectRequestMutation.isPending
+                              }
+                              data-testid={`button-approve-${request.username}`}
+                            >
+                              {approveRequestMutation.isPending &&
+                              approveRequestMutation.variables?.request.requestId === request.requestId ? (
+                                <>
+                                  <Loader2 className="w-3 h-3 animate-spin mr-1" />
+                                  Approving...
+                                </>
+                              ) : (
+                                <>
+                                  <Check className="w-3 h-3 mr-1" />
+                                  Approve
+                                </>
+                              )}
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => handleReject(request)}
+                              disabled={
+                                approveRequestMutation.isPending ||
+                                rejectRequestMutation.isPending
+                              }
+                              data-testid={`button-reject-${request.username}`}
+                            >
+                              {rejectRequestMutation.isPending &&
+                              rejectRequestMutation.variables?.request.requestId === request.requestId ? (
+                                <>
+                                  <Loader2 className="w-3 h-3 animate-spin mr-1" />
+                                  Rejecting...
+                                </>
+                              ) : (
+                                <>
+                                  <XCircle className="w-3 h-3 mr-1" />
+                                  Reject
+                                </>
+                              )}
+                            </Button>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
+          )}
+
           {/* Add New Member */}
           <div className="space-y-2">
             <Label htmlFor="add-member" className="text-caption">
@@ -408,6 +694,20 @@ export function ManageMembersModal({
           </DialogFooter>
         </form>
       </DialogContent>
+      
+      {/* Payment Gateway Modal for Join Request Approval */}
+      {paymentSettings && pendingApprovalRequest && currentUsername && (
+        <PaymentGatewayModal
+          open={paymentModalOpen}
+          onOpenChange={setPaymentModalOpen}
+          groupId={groupId}
+          groupName={groupName}
+          creatorUsername={creator}
+          paymentSettings={paymentSettings}
+          currentUsername={pendingApprovalRequest.username}
+          onPaymentVerified={handlePaymentVerified}
+        />
+      )}
     </Dialog>
   );
 }

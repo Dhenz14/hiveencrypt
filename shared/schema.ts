@@ -308,6 +308,13 @@ export interface MemberPayment {
 /**
  * Join request for a paid or manually-approved group
  * Tracks pending, approved, and rejected membership requests
+ * 
+ * SECURITY FIX: Added new statuses for auto-approval flows
+ * - 'pending': Manual approval required
+ * - 'approved_free': Auto-approve for free groups (creator must still broadcast join_approve)
+ * - 'pending_payment_verification': Auto-approve for paid groups after payment verification
+ * - 'approved': Request has been approved by creator
+ * - 'rejected': Request has been rejected by creator
  */
 export interface JoinRequest {
   /** Unique request identifier - derived from txId or username+timestamp */
@@ -317,11 +324,13 @@ export interface JoinRequest {
   /** ISO timestamp when request was submitted */
   requestedAt: string;
   /** Current status of the request */
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'pending' | 'approved_free' | 'pending_payment_verification' | 'approved' | 'rejected';
   /** Optional message from the requester */
   message?: string;
   /** Transaction ID of the join request custom_json operation */
   txId?: string;
+  /** Payment proof for paid groups (only present if payment was made) */
+  memberPayment?: MemberPayment;
 }
 
 /**

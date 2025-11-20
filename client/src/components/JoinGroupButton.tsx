@@ -71,10 +71,11 @@ export function JoinGroupButton({
     return undefined;
   };
 
-  // Mutation for broadcasting join_request (both pending and approved status)
+  // SECURITY FIX: Requesters can ONLY broadcast join_request, NEVER join_approve
+  // The creator will approve via background auto-approval or manual approval
   const joinRequestMutation = useMutation({
     mutationFn: async (payload: { 
-      status: 'pending' | 'approved'; 
+      status: 'pending' | 'pending_payment_verification' | 'approved_free'; 
       message?: string;
       memberPayment?: MemberPayment;
       paymentTxId?: string;
@@ -109,8 +110,8 @@ export function JoinGroupButton({
           (response: any) => {
             if (response.success) {
               const txId = response.result.id;
-              logger.info('[JOIN GROUP] Join request broadcasted:', txId, payload.memberPayment ? 'with payment proof' : 'free join');
-              resolve({ txId, requestId }); // Return both txId and requestId for correlation
+              logger.info('[JOIN GROUP] Join request broadcasted:', txId, 'status:', payload.status);
+              resolve({ txId, requestId });
             } else {
               logger.error('[JOIN GROUP] Failed to broadcast join request:', response.error);
               reject(new Error(response.error || 'Failed to broadcast join request'));
@@ -120,33 +121,31 @@ export function JoinGroupButton({
       });
     },
     onSuccess: (result, variables) => {
-      if (!user?.username) return; // Safety check
+      if (!user?.username) return;
 
+      // Invalidate pending requests query to trigger blockchain re-scan
+      queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId, user.username] });
+
+      // Show appropriate success message based on status
       if (variables.status === 'pending') {
-        // Invalidate pending requests query to trigger blockchain re-scan
-        queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId, user.username] });
-
         toast({
           title: 'Join Request Sent',
-          description: 'Join request sent to group creator',
+          description: 'Your request has been sent to the group creator for approval.',
         });
-      } else if (variables.memberPayment) {
-        // Auto-approved PAID join - payment proof included
-        // Now broadcast join_approve to complete the process
-        logger.info('[JOIN GROUP] ✅ Join request with payment broadcasted, now broadcasting join_approve');
-        joinApproveMutation.mutate({
-          requestId: result.requestId, // CRITICAL: Use the same requestId for correlation
-          memberPayment: variables.memberPayment,
-          approverUsername: user.username, // In auto-approve, user approves themselves
+      } else if (variables.status === 'pending_payment_verification') {
+        toast({
+          title: 'Payment Sent!',
+          description: 'Creator will approve your join request after verifying payment.',
         });
-      } else {
-        // Auto-approved FREE join - also broadcast join_approve for consistency
-        logger.info('[JOIN GROUP] ✅ Free join request broadcasted, now broadcasting join_approve');
-        joinApproveMutation.mutate({
-          requestId: result.requestId, // CRITICAL: Use the same requestId for correlation
-          approverUsername: user.username, // In auto-approve, user approves themselves
+      } else if (variables.status === 'approved_free') {
+        toast({
+          title: 'Join Request Sent',
+          description: 'Creator will approve your join request shortly.',
         });
       }
+
+      // Close the component - creator's background process will handle approval
+      onJoinSuccess?.();
     },
     onError: (error: any) => {
       toast({
@@ -157,75 +156,10 @@ export function JoinGroupButton({
     },
   });
 
-  // Mutation for broadcasting join_approve (after payment or auto-approve)
-  const joinApproveMutation = useMutation({
-    mutationFn: async (params: {
-      requestId: string;
-      memberPayment?: MemberPayment;
-      approverUsername: string;
-    }) => {
-      if (!user?.username) throw new Error('Not authenticated');
-
-      const customJson = {
-        action: 'join_approve',
-        groupId, // CRITICAL: Include groupId for group identification
-        requestId: params.requestId, // CRITICAL: Must match join_request requestId
-        username: user.username, // User being approved to join
-        approverUsername: params.approverUsername, // Who approved (creator/moderator or user in auto-approve)
-        memberPayment: params.memberPayment, // Payment proof (if payment was made)
-        timestamp: Date.now(), // Approval timestamp
-      };
-
-      return new Promise<string>((resolve, reject) => {
-        if (!window.hive_keychain) {
-          reject(new Error('Hive Keychain not installed'));
-          return;
-        }
-
-        window.hive_keychain.requestCustomJson(
-          user.username,
-          GROUP_CUSTOM_JSON_ID,
-          'Posting',
-          JSON.stringify(customJson),
-          'Approve Group Join',
-          (response: any) => {
-            if (response.success) {
-              const txId = response.result.id;
-              logger.info('[JOIN GROUP] Join approved:', txId, 'with approverUsername:', params.approverUsername);
-              resolve(txId);
-            } else {
-              logger.error('[JOIN GROUP] Failed to approve join:', response.error);
-              reject(new Error(response.error || 'Failed to approve join'));
-            }
-          }
-        );
-      });
-    },
-    onSuccess: () => {
-      // CRITICAL: Invalidate all three caches to ensure UI updates everywhere
-      queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
-      queryClient.invalidateQueries({ queryKey: ['groupMessages', groupId] });
-      queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] }); // FIX: Added missing invalidation
-
-      toast({
-        title: 'Success',
-        description: `Joined "${groupName}"!`,
-      });
-
-      onJoinSuccess?.();
-    },
-    onError: (error: any) => {
-      toast({
-        title: 'Error',
-        description: error.message || 'Failed to complete join',
-        variant: 'destructive',
-      });
-    },
-  });
-
-  // Handle free auto-approve join
+  // Handle free auto-approve join - broadcasts join_request with 'approved_free' status
+  // Creator's background process will detect this and broadcast join_approve
   const handleFreeJoin = () => {
-    joinRequestMutation.mutate({ status: 'approved' });
+    joinRequestMutation.mutate({ status: 'approved_free' });
   };
 
   // Handle paid auto-approve join
@@ -236,6 +170,7 @@ export function JoinGroupButton({
 
   // Handle payment verified - CRITICAL SECURITY FIX
   // Payment happens FIRST, then we broadcast join_request with payment proof
+  // Creator's background process will verify payment and broadcast join_approve
   const handlePaymentVerified = (txId: string, amount: string) => {
     if (!user?.username || !paymentSettings) return;
 
@@ -257,10 +192,10 @@ export function JoinGroupButton({
       nextDueDate: memberPayment.nextDueDate,
     });
 
-    // SECURITY FIX: Broadcast join_request with status='approved' AND memberPayment
-    // This ensures payment proof is recorded on the blockchain BEFORE user is added to group
+    // SECURITY FIX: Broadcast join_request with status='pending_payment_verification' AND memberPayment
+    // Creator's client will verify payment on blockchain and broadcast join_approve
     joinRequestMutation.mutate({
-      status: 'approved',
+      status: 'pending_payment_verification',
       memberPayment, // CRITICAL: Include payment proof
       paymentTxId: txId, // Use payment txId as requestId
     });
@@ -315,7 +250,7 @@ export function JoinGroupButton({
     }
   };
 
-  const isLoading = joinRequestMutation.isPending || joinApproveMutation.isPending || isLoadingPendingRequests;
+  const isLoading = joinRequestMutation.isPending || isLoadingPendingRequests;
 
   return (
     <>
