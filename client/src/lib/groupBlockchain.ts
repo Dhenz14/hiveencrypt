@@ -459,7 +459,7 @@ export async function broadcastJoinApprove(
 
   // Add request metadata to custom json
   (customJson as any).requestId = requestId;
-  (customJson as any).requestUsername = requestUsername;
+  (customJson as any).username = requestUsername;
   (customJson as any).approverUsername = approverUsername;
 
   return new Promise((resolve, reject) => {
@@ -513,7 +513,7 @@ export async function broadcastJoinReject(
 
   // Add rejection details to custom fields
   (customJson as any).requestId = requestId;
-  (customJson as any).requestUsername = requestUsername;
+  (customJson as any).username = requestUsername;
   (customJson as any).rejectorUsername = rejectorUsername;
   if (reason) {
     (customJson as any).reason = reason;

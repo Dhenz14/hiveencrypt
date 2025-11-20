@@ -107,6 +107,7 @@ export function ManageMembersModal({
       // Invalidate queries to refresh data
       await queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
       await queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] });
+      await queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId] });
       await queryClient.invalidateQueries({ queryKey: ['groupMessages', groupId] });
       
       toast({
@@ -144,6 +145,7 @@ export function ManageMembersModal({
     onSuccess: async ({ request }) => {
       // Invalidate queries to refresh data
       await queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] });
+      await queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId] });
       
       toast({
         title: 'Join Request Rejected',

@@ -84,6 +84,7 @@ export function useAutoApproveJoinRequests(
       queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
       queryClient.invalidateQueries({ queryKey: ['groupMessages', groupId] });
       queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] });
+      queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId] });
 
       logger.info('[AUTO APPROVE] ✅ Auto-approved join request:', request.requestId);
 
