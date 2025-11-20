@@ -43,6 +43,7 @@ export function GroupCreationModal({
   const [paymentType, setPaymentType] = useState<'one_time' | 'recurring'>('one_time');
   const [recurringInterval, setRecurringInterval] = useState('30');
   const [paymentDescription, setPaymentDescription] = useState('');
+  const [autoApprove, setAutoApprove] = useState(true);
 
   const validateUsername = (username: string): string | null => {
     const clean = username.toLowerCase().trim().replace('@', '');
@@ -138,6 +139,7 @@ export function GroupCreationModal({
         type: paymentType,
         recurringInterval: paymentType === 'recurring' ? parseInt(recurringInterval) : undefined,
         description: paymentDescription.trim() || undefined,
+        autoApprove: autoApprove,
       } : undefined;
 
       await onCreateGroup(groupName.trim(), members, paymentSettings);
@@ -151,6 +153,7 @@ export function GroupCreationModal({
       setPaymentType('one_time');
       setRecurringInterval('30');
       setPaymentDescription('');
+      setAutoApprove(true);
       onOpenChange(false);
     } catch (err: any) {
       setError(err.message || 'Failed to create group');
@@ -169,6 +172,7 @@ export function GroupCreationModal({
       setPaymentType('one_time');
       setRecurringInterval('30');
       setPaymentDescription('');
+      setAutoApprove(true);
       setError(null);
     }
     onOpenChange(newOpen);
@@ -407,6 +411,30 @@ export function GroupCreationModal({
                   <p className="text-caption text-muted-foreground">
                     {paymentDescription.length}/200 characters
                   </p>
+                </div>
+
+                {/* Auto-Approve Join Requests */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                      <Label htmlFor="auto-approve" className="text-caption">
+                        Auto-Approve Join Requests
+                      </Label>
+                      <p className="text-caption text-muted-foreground">
+                        {autoApprove 
+                          ? 'Anyone can pay and join instantly'
+                          : 'You must approve join requests manually'
+                        }
+                      </p>
+                    </div>
+                    <Switch
+                      id="auto-approve"
+                      checked={autoApprove}
+                      onCheckedChange={setAutoApprove}
+                      disabled={isCreating}
+                      data-testid="switch-auto-approve"
+                    />
+                  </div>
                 </div>
 
                 {/* Payment Preview Alert */}
