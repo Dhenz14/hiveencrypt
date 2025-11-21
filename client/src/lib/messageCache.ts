@@ -1012,20 +1012,6 @@ export async function migrateGroupMessages(username: string): Promise<number> {
   const allMessages = await db.getAll('messages');
   logger.debug('[MIGRATION] Scanning', allMessages.length, 'messages for misplaced group messages');
   
-  // Debug: Log all message content to see what we're dealing with
-  allMessages.forEach((msg, idx) => {
-    const contentPreview = msg.content?.substring(0, 80) || 'null';
-    const encryptedPreview = msg.encryptedContent?.substring(0, 80) || 'null';
-    const contentTrimmed = msg.content?.trim() || '';
-    const encryptedTrimmed = msg.encryptedContent?.trim() || '';
-    
-    logger.debug(`[MIGRATION DEBUG ${idx}] ID: ${msg.id.substring(0, 20)} FROM: ${msg.from}`);
-    logger.debug(`[MIGRATION DEBUG ${idx}] Content: "${contentPreview}"`);
-    logger.debug(`[MIGRATION DEBUG ${idx}] Encrypted: "${encryptedPreview}"`);
-    logger.debug(`[MIGRATION DEBUG ${idx}] Content starts with group?: ${contentTrimmed.startsWith('group:') || contentTrimmed.startsWith('#group:')}`);
-    logger.debug(`[MIGRATION DEBUG ${idx}] Encrypted starts with group?: ${encryptedTrimmed.startsWith('group:') || encryptedTrimmed.startsWith('#group:')}`);
-  });
-  
   let migratedCount = 0;
   const groupMessagesToAdd: GroupMessageCache[] = [];
   const messageIdsToDelete: string[] = [];
