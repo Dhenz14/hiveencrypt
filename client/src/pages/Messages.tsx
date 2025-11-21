@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { useLocation, setLocation } from 'wouter';
+import { useLocation } from 'wouter';
 import { Settings, Moon, Sun, Info, Filter, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -98,7 +98,7 @@ export default function Messages() {
   const queryClient = useQueryClient();
   const { isMobile, showChat, setShowChat } = useMobileLayout();
   const { isHidden, hideConversation, hiddenConversations } = useHiddenConversations();
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   
   const [selectedPartner, setSelectedPartner] = useState<string>('');
   const [selectedGroupId, setSelectedGroupId] = useState<string>('');
