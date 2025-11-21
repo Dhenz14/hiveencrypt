@@ -126,16 +126,21 @@ export function useMinimumHBD(): UseMinimumHBDResult {
       console.error('[useMinimumHBD] Update failed:', error);
     },
     onSuccess: (newMinimum) => {
-      // Invalidate cache to refetch fresh data
-      queryClient.invalidateQueries({ queryKey: ['minimumHBD', user?.username] });
-      
-      // Show success toast
+      // Show success toast immediately
       toast({
         title: 'Preference Saved',
         description: `Minimum HBD updated to ${newMinimum}`,
       });
       
       console.log('[useMinimumHBD] Successfully updated to:', newMinimum);
+      
+      // BLOCKCHAIN FIX: Add 2-second delay before invalidating cache
+      // This allows the Hive blockchain to propagate the account_update2 operation
+      // Without this delay, the refetch happens too quickly and gets stale data
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['minimumHBD', user?.username] });
+        console.log('[useMinimumHBD] Cache invalidated after blockchain propagation delay');
+      }, 2000);
     },
   });
   

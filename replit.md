@@ -4,6 +4,18 @@
 Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform without centralized servers or databases. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, and bidirectional Lightning Network Bitcoin tips via the v4v.app bridge.
 
 ## Recent Changes (November 21, 2025)
+
+### Lightning Address & Minimum HBD Persistence Fix
+- **Issue**: Lightning Address and Minimum HBD settings not persisting after save - reopening Settings modal showed old values
+- **Root Cause**: Blockchain propagation delay - React Query cache was invalidated and refetched immediately after broadcast, but blockchain hadn't propagated the `account_update2` operation yet, causing refetch to return stale data
+- **Solution**: Added 2-second delay before cache invalidation in both hooks:
+  - `useLightningAddress`: Delays `invalidateQueries` by 2 seconds after successful save
+  - `useMinimumHBD`: Delays `invalidateQueries` by 2 seconds after successful save
+  - User sees optimistic update immediately (instant feedback)
+  - Blockchain gets time to propagate before refetch
+  - Cache refetches correct data after delay
+- **Impact**: Lightning Address and Minimum HBD now persist correctly across modal reopens and page refreshes
+
 ### Race Condition Fix: Synchronous Double-Click Protection
 - **Issue**: First message send attempt failed with "User ignored this transaction" error, worked on second attempt
 - **Root Cause**: React state updates are **asynchronous**, creating a timing window where rapid double-clicks could bypass the `isSending` flag before it updated

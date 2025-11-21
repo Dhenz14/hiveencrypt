@@ -128,16 +128,21 @@ export function useLightningAddress(): UseLightningAddressResult {
       console.error('[useLightningAddress] Update failed:', error);
     },
     onSuccess: (newAddress) => {
-      // Invalidate cache to refetch fresh data
-      queryClient.invalidateQueries({ queryKey: ['lightningAddress', user?.username] });
-      
-      // Show success toast
+      // Show success toast immediately
       toast({
         title: newAddress ? 'Lightning Address Saved' : 'Lightning Address Removed',
         description: newAddress ? `Lightning tips enabled: ${newAddress}` : 'Lightning tips disabled',
       });
       
       console.log('[useLightningAddress] Successfully updated to:', newAddress || '(removed)');
+      
+      // BLOCKCHAIN FIX: Add 2-second delay before invalidating cache
+      // This allows the Hive blockchain to propagate the account_update2 operation
+      // Without this delay, the refetch happens too quickly and gets stale data
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['lightningAddress', user?.username] });
+        console.log('[useLightningAddress] Cache invalidated after blockchain propagation delay');
+      }, 2000);
     },
   });
   
