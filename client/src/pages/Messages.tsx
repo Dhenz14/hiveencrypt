@@ -213,15 +213,6 @@ export default function Messages() {
     [directConversations, groupConversations]
   );
   
-  // Debug logging (dev only, contains sensitive usernames)
-  if (conversations.length > 0) {
-    logger.sensitive('[MESSAGES PAGE] Mapped conversations:', conversations.map(c => ({
-      id: c.id,
-      contactUsername: c.contactUsername,
-      lastMessage: c.lastMessage?.substring(0, 30) || ''
-    })));
-  }
-  
   const selectedConversationId = selectedPartner ? getConversationKey(user?.username || '', selectedPartner) : null;
   const selectedConversation = selectedPartner 
     ? conversations.find(c => c.id === selectedConversationId)

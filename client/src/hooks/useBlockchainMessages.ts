@@ -422,15 +422,6 @@ export function useBlockchainMessages({
       const hiddenCount = allMessages.length - visibleMessages.length;
 
       logger.info('[QUERY] Total messages:', allMessages.length, 'Visible:', visibleMessages.length, 'Hidden:', hiddenCount);
-      visibleMessages.forEach((msg, idx) => {
-        logger.sensitive(`[QUERY] Visible msg ${idx}:`, { 
-          id: msg.id.substring(0, 15) + '...', 
-          from: msg.from, 
-          contentPreview: msg.content.substring(0, 50) + '...',
-          contentLength: msg.content.length,
-          amount: msg.amount 
-        });
-      });
 
       if (visibleMessages.length > 0) {
         const lastMessage = visibleMessages[visibleMessages.length - 1];

@@ -1,0 +1,1032 @@
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c2fea85ec892687c7d7a - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 174
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 34
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo yo ho ho is this still mobile?...
+ [SENSITIVE] [decryptMemo] Final result: #yo yo ho ho is this still mobile?...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 926b089610559d817485 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 12
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testy testy...
+ [SENSITIVE] [decryptMemo] Final result: #testy testy...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7db32ca47aeb2da338e2 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 5
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo23...
+ [SENSITIVE] [decryptMemo] Final result: #Yo23...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: bb991acfdcb313b049f4 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 11
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooooooooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooooooooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7345781f254adafd0227 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 152
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 23
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Messaging u with a tip...
+ [SENSITIVE] [decryptMemo] Final result: #Messaging u with a tip...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c1e1c1ce4c95d11ea299 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 196
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 50
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo, messaging u with less than the amount to test...
+ [SENSITIVE] [decryptMemo] Final result: #Yo, messaging u with less than the amount to test...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: a8ff7f4d1092d8acd5f5 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [PHASE4] Re-evaluating 14 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 9 messages with changed hidden state
+ [QUERY] Total messages: 14 Visible: 14 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 5
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yoyo...
+ [SENSITIVE] [decryptMemo] Final result: #yoyo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: d325270b206cea07ba6c - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 8
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a30607f581a7aeac16c - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 3
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 52b477a89d33e10b3f1c - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 196
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 60
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 89be3c468cdbc70d31f3 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 196
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 58
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [SENSITIVE] [decryptMemo] Final result: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: curatorhulk
+ [GROUP DISCOVERY] Looking up metadata for 2 discovered groups
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 90 ops, oldest seq: 2
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 90 transfer operations scanned, chunks processed: 0
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 65 ops, oldest seq: 8
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+ [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+ [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 65 operations for: dandandan123
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (009ef04a...)
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [RPC] Selected best node: https://api.openhive.network Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [QUERY] Starting blockchain messages query for: Object
+ [DEBUG] [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010 Message privacy: everyone
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [QUERY] Retrieved cached messages: 14
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [SENSITIVE] [QUERY] Cached msg 4: Object
+ [SENSITIVE] [QUERY] Cached msg 5: Object
+ [SENSITIVE] [QUERY] Cached msg 6: Object
+ [SENSITIVE] [QUERY] Cached msg 7: Object
+ [SENSITIVE] [QUERY] Cached msg 8: Object
+ [SENSITIVE] [QUERY] Cached msg 9: Object
+ [SENSITIVE] [QUERY] Cached msg 10: Object
+ [SENSITIVE] [QUERY] Cached msg 11: Object
+ [SENSITIVE] [QUERY] Cached msg 12: Object
+ [SENSITIVE] [QUERY] Cached msg 13: Object
+ [DEBUG] [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 693
+ [RPC] Selected best node: https://api.openhive.network Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SEND] Broadcasting encrypted transfer to blockchain... Object
+ [MessageComposer] Single-step send (# prefix auto-encrypts): Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 1000 ops, oldest seq: 89805
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [RPC] Selected best node: https://anyx.io Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://anyx.io Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [PHASE4] Re-evaluating 14 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 9 messages with changed hidden state
+ [QUERY] Total messages: 14 Visible: 14 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [PROGRESSIVE] Phase 1 discovered 4 partners in 488 ms
+ [PROGRESSIVE] Phase 1 - Cached: 4 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 4 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [GROUP BLOCKCHAIN] Transfer scan - chunk 1 : 40 ops, total scanned: 1040
+ [RPC] Selected best node: https://api.openhive.network Object
+ [PROGRESSIVE] Phase 2 discovered 7 total partners in 1514 ms
+ [PROGRESSIVE] Phase 2: Found 3 additional partners
+ [PROGRESSIVE] Phase 2 complete: Found 3 additional conversations
+ [PROGRESSIVE] Phase 2: Adding 3 new conversations to cache
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [GROUP BLOCKCHAIN] Transfer scan - chunk 2 : 761 ops, total scanned: 1801
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 73 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 1801 transfer operations scanned, chunks processed: 2
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 192 ops, oldest seq: 35121
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: curatorhulk target: 5000 ops
+ [RPC] Selected best node: https://anyx.io Object
+ [SEND] Transfer response received: Object
+ [MessageComposer] Transfer response: Object
+ [SEND] ✅ Message sent successfully! TxID: 09c9dbfc9893fb457c02017e2be0377cdbec703d
+ [QUERY] Starting blockchain messages query for: Object
+ [DEBUG] [METADATA] Cache hit for: dandandan123
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://anyx.io Object
+ [SEND] ✅ Optimistically cached sent message: 09c9dbfc9893fb45
+ [QUERY] Starting blockchain messages query for: Object
+ [DEBUG] [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010 Message privacy: everyone
+ [FILTER] User minimum HBD: 0.010 Message privacy: everyone
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [QUERY] Retrieved cached messages: 15
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [SENSITIVE] [QUERY] Cached msg 4: Object
+ [SENSITIVE] [QUERY] Cached msg 5: Object
+ [SENSITIVE] [QUERY] Cached msg 6: Object
+ [SENSITIVE] [QUERY] Cached msg 7: Object
+ [SENSITIVE] [QUERY] Cached msg 8: Object
+ [SENSITIVE] [QUERY] Cached msg 9: Object
+ [SENSITIVE] [QUERY] Cached msg 10: Object
+ [SENSITIVE] [QUERY] Cached msg 11: Object
+ [SENSITIVE] [QUERY] Cached msg 12: Object
+ [SENSITIVE] [QUERY] Cached msg 13: Object
+ [SENSITIVE] [QUERY] Cached msg 14: Object
+ [QUERY] Retrieved cached messages: 15
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [SENSITIVE] [QUERY] Cached msg 1: Object
+ [SENSITIVE] [QUERY] Cached msg 2: Object
+ [SENSITIVE] [QUERY] Cached msg 3: Object
+ [SENSITIVE] [QUERY] Cached msg 4: Object
+ [SENSITIVE] [QUERY] Cached msg 5: Object
+ [SENSITIVE] [QUERY] Cached msg 6: Object
+ [SENSITIVE] [QUERY] Cached msg 7: Object
+ [SENSITIVE] [QUERY] Cached msg 8: Object
+ [SENSITIVE] [QUERY] Cached msg 9: Object
+ [SENSITIVE] [QUERY] Cached msg 10: Object
+ [SENSITIVE] [QUERY] Cached msg 11: Object
+ [SENSITIVE] [QUERY] Cached msg 12: Object
+ [SENSITIVE] [QUERY] Cached msg 13: Object
+ [SENSITIVE] [QUERY] Cached msg 14: Object
+ [DEBUG] [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 693
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 693
+ [RPC] Selected best node: https://anyx.io Object
+ [PROGRESSIVE] Phase 1 discovered 4 partners in 399 ms
+ [PROGRESSIVE] Phase 1 - Cached: 4 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 4 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 14 Hidden: 0
+ [PHASE4] Re-evaluating 15 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 10 messages with changed hidden state
+ [QUERY] Total messages: 15 Visible: 15 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [QUERY] Visible msg 14: Object
+ [PHASE4] Re-evaluating 15 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 10 messages with changed hidden state
+ [QUERY] Total messages: 15 Visible: 15 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [SENSITIVE] [QUERY] Visible msg 1: Object
+ [SENSITIVE] [QUERY] Visible msg 2: Object
+ [SENSITIVE] [QUERY] Visible msg 3: Object
+ [SENSITIVE] [QUERY] Visible msg 4: Object
+ [SENSITIVE] [QUERY] Visible msg 5: Object
+ [SENSITIVE] [QUERY] Visible msg 6: Object
+ [SENSITIVE] [QUERY] Visible msg 7: Object
+ [SENSITIVE] [QUERY] Visible msg 8: Object
+ [SENSITIVE] [QUERY] Visible msg 9: Object
+ [SENSITIVE] [QUERY] Visible msg 10: Object
+ [SENSITIVE] [QUERY] Visible msg 11: Object
+ [SENSITIVE] [QUERY] Visible msg 12: Object
+ [SENSITIVE] [QUERY] Visible msg 13: Object
+ [SENSITIVE] [QUERY] Visible msg 14: Object
+ [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(4)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [PROGRESSIVE] Phase 2 discovered 7 total partners in 1327 ms
+ [PROGRESSIVE] Phase 2: Found 3 additional partners
+ [PROGRESSIVE] Phase 2 complete: Found 3 additional conversations
+ [PROGRESSIVE] Phase 2: Adding 3 new conversations to cache
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [PROGRESSIVE] Phase 1 discovered 7 partners in 1130 ms
+ [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+ [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+ [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+ [MESSAGES PAGE] Text messages: 15 Hidden: 0
+ [SENSITIVE] [MessageBubble] ========== DECRYPT BUTTON CLICKED ==========
+ [SENSITIVE] [MessageBubble] Message details: Object
+ [MessageBubble] Calling decryptMemo with Keychain...
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 89be3c468cdbc70d31f3 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 89be3c468cdbc70d31f3
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+logger.ts:38 [SENSITIVE] [MessageBubble] decryptMemo returned: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed new format group message with creator: curatorhulk
+logger.ts:18 [DECRYPT] Updating cache with content (prefix stripped if group), length: 2
+logger.ts:18 [DECRYPT] Cache updated successfully
+logger.ts:18 [GROUP AUTO-DISCOVERY] Detected group message for groupId: afe96d92-f0a5-46aa-813f-16fa58beb57a
+logger.ts:18 [GROUP AUTO-DISCOVERY] Trying creator from memo: curatorhulk
+logger.ts:18 [GROUP BLOCKCHAIN] Looking up group metadata: Object
+logger.ts:18 [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [PROGRESSIVE] Phase 2 discovered 7 total partners in 1545 ms
+logger.ts:18 [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [RPC] Retry 1/3 with node: https://api.openhive.network
+logger.ts:18 [QUERY] Starting blockchain messages query for: Object
+logger.ts:11 [DEBUG] [METADATA] Cache hit for: dandandan123
+logger.ts:18 [FILTER] User minimum HBD: 0.010 Message privacy: everyone
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(7)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [QUERY] Retrieved cached messages: 15
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 0: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 1: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 2: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 3: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 4: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 5: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 6: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 7: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 8: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 9: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 10: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 11: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 12: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 13: Object
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 14: Object
+logger.ts:11 [DEBUG] [INCREMENTAL] Last synced opId for curatorhulk-dandandan123 : 693
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - no more operations for: curatorhulk
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 192 operations for: curatorhulk
+logger.ts:25 [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: afe96d92-f0a5-46aa-813f-16fa58beb57a from sender: curatorhulk
+warn @ logger.ts:25
+logger.ts:25 [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: afe96d92-f0a5-46aa-813f-16fa58beb57a - using minimal data
+warn @ logger.ts:25
+logger.ts:18 [GROUP DISCOVERY] ➕ Added minimal group: Group (afe96d92...)
+logger.ts:18 [GROUP DISCOVERY] Caching 2 discovered group messages
+logger.ts:11 [DEBUG] [GROUP CACHE] Batch cached 2 group messages
+logger.ts:18 [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+logger.ts:18 [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 2
+logger.ts:11 [DEBUG] [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 14
+logger.ts:11 [DEBUG] [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 14
+logger.ts:11 [DEBUG] [GROUP CACHE] Incrementing group conversation version: afe96d92-f0a5-46aa-813f-16fa58beb57a to 11
+logger.ts:11 [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 11
+logger.ts:18 [GROUP DISCOVERY] ✅ Total groups: 2
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [AUTO APPROVAL] Scanning for auto-approval requests: Object
+hiveClient.ts:149 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:149
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 1000 ops, oldest seq: 89806
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [AUTO APPROVAL] Scanned 55 custom_json operations
+logger.ts:18 [AUTO APPROVAL] Found 0 already approved requests
+logger.ts:18 [AUTO APPROVAL] Found 0 requests needing auto-approval
+logger.ts:18 [PHASE4] Re-evaluating 15 messages against current minimum: 0.010
+logger.ts:18 [PHASE4] Re-evaluated 10 messages with changed hidden state
+logger.ts:18 [QUERY] Total messages: 15 Visible: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 0: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 1: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 2: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 3: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 4: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 5: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 6: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 7: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 8: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 9: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 10: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 11: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 12: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 13: Object
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 14: Object
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - chunk 1 : 40 ops, total scanned: 1040
+hiveClient.ts:149 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:149
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+logger.ts:18 [MESSAGES PAGE] Text messages: 15 Hidden: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - chunk 2 : 761 ops, total scanned: 1801
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 73 < chunk size: 1000 )
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - completed: 1801 transfer operations scanned, chunks processed: 2
+logger.ts:18 [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+logger.ts:18 [RPC] Selected best node: https://anyx.io {avgLatency: 1342, successRate: '100.0%'}
