@@ -190,7 +190,8 @@ export function MessageComposer({
 
   // Handle sending image message
   const handleImageSend = async () => {
-    if (!selectedImage || !user || !recipientUsername) return;
+    // CRITICAL: Check isSending FIRST to prevent double-click
+    if (isSending || !selectedImage || !user || !recipientUsername) return;
 
     setIsSending(true);
 
@@ -297,6 +298,11 @@ export function MessageComposer({
 
   // Handle sending to group chat (batch send to all members)
   const handleGroupSend = async () => {
+    // CRITICAL: Check isSending FIRST to prevent double-click
+    if (isSending) {
+      return;
+    }
+    
     if (!user || !groupId || !groupMembers || groupMembers.length === 0) {
       toast({
         title: 'Invalid Group',
@@ -308,6 +314,9 @@ export function MessageComposer({
 
     const messageText = content.trim();
     if (!messageText) return;
+
+    // Set sending state NOW to block any further submissions
+    setIsSending(true);
 
     // RC Validation: Check if user has sufficient RC for batch sending
     try {
@@ -335,6 +344,7 @@ export function MessageComposer({
             description: `Your RC is critically low (${percentage.toFixed(1)}%). Group sending may fail. Please wait for RC to regenerate.`,
             variant: 'destructive',
           });
+          setIsSending(false);
           return;
         } else if (warningLevel === 'low') {
           toast({
@@ -347,8 +357,6 @@ export function MessageComposer({
       logger.warn('[GROUP SEND] Could not check RC:', rcError);
       // Don't block sending if RC check fails
     }
-
-    setIsSending(true);
     setBatchProgress({ current: 0, total: groupMembers.length });
 
     // Clear input immediately for instant feedback
@@ -592,13 +600,19 @@ export function MessageComposer({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // CRITICAL: Set isSending FIRST to prevent double-click race condition
+    // Must happen before ANY async validation to block duplicate Keychain popups
+    if (isSending) {
+      return;
+    }
+    
     // If image is selected AND not in a group, send as image message
     // (images are not supported in groups, so ignore residual image state)
     if (selectedImage && !groupId) {
       return handleImageSend();
     }
     
-    if (!content.trim() || disabled || isSending) {
+    if (!content.trim() || disabled) {
       return;
     }
 
@@ -631,6 +645,7 @@ export function MessageComposer({
 
     const messageText = content.trim();
     
+    // Set sending state NOW to block any further submissions
     setIsSending(true);
 
     // v2.0.0: Step 1: Block sends until recipient minimum is verified (prevent race condition + network bypass)
