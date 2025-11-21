@@ -245,34 +245,23 @@ export default function Messages() {
 
   // Run timestamp migration and fix corrupted cached messages on mount
   useEffect(() => {
-    logger.info('[INIT] ⚡ Migration useEffect triggered, user:', user?.username);
-    
     if (!user?.username) {
-      logger.info('[INIT] ⚠️ No username, skipping migration');
       return;
     }
     
-    logger.info('[INIT] ✅ Username verified, starting migration checks for:', user.username);
-    
     // Run UTC timestamp migration first
     import('@/lib/messageCache').then(async ({ migrateTimestampsToUTC, clearAllCache, fixCorruptedMessages, migrateGroupMessages }) => {
-      logger.info('[INIT] 📦 messageCache module loaded successfully');
-      
       try {
         // Run migration
-        logger.info('[INIT] 🔄 Running UTC timestamp migration...');
         const counts = await migrateTimestampsToUTC(user.username);
         if (counts.messages > 0 || counts.conversations > 0 || counts.customJsonMessages > 0) {
           logger.info('[INIT] ✅ Migrated timestamps to UTC:', counts);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
           queryClient.invalidateQueries({ queryKey: ['blockchain-conversations', user.username] });
-        } else {
-          logger.info('[INIT] ℹ️ No timestamps needed migration (already completed or no messages)');
         }
         
         // Check cache version for other fixes
         const cacheVersion = localStorage.getItem('hive_cache_version');
-        logger.info('[INIT] 🔍 Checking cache version:', cacheVersion, 'vs expected: 7.0');
         if (cacheVersion !== '7.0') {
           logger.info('[INIT] 🗑️ Cache version outdated, clearing cache...');
           await clearAllCache(user.username);
@@ -283,28 +272,20 @@ export default function Messages() {
         }
         
         // Regular corruption fix (for content === encryptedContent cases)
-        logger.info('[INIT] 🔍 Checking for corrupted messages...');
         const fixCount = await fixCorruptedMessages(user.username);
         if (fixCount > 0) {
           logger.info(`[INIT] ✅ Fixed ${fixCount} corrupted messages, refreshing...`);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
-        } else {
-          logger.info('[INIT] ℹ️ No corrupted messages found');
         }
         
         // Migrate misplaced group messages from messages table to groupMessages table
-        logger.info('[INIT] 🔍 Checking for misplaced group messages...');
         const migratedCount = await migrateGroupMessages(user.username);
         if (migratedCount > 0) {
           logger.info(`[INIT] ✅ Migrated ${migratedCount} group messages, refreshing...`);
           queryClient.invalidateQueries({ queryKey: ['blockchain-messages'] });
           queryClient.invalidateQueries({ queryKey: ['blockchain-group-messages'] });
           queryClient.invalidateQueries({ queryKey: ['group-discovery', user.username] });
-        } else {
-          logger.info('[INIT] ℹ️ No misplaced group messages found');
         }
-        
-        logger.info('[INIT] ✅ ALL MIGRATION CHECKS COMPLETE');
       } catch (error) {
         logger.error('[INIT] ❌ Migration failed, clearing cache as fallback:', error);
         await clearAllCache(user.username);

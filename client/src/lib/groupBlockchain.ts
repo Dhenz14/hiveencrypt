@@ -1190,7 +1190,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
       -1         // start = -1 (latest)
     );
 
-    logger.info('[GROUP BLOCKCHAIN] Initial scan:', customJsonHistory.length, 'operations');
+    logger.debug('[GROUP BLOCKCHAIN] Initial scan:', customJsonHistory.length, 'operations');
 
     // NEW: Paged backfill for older operations
     let allCustomJsonOps = [...customJsonHistory];
@@ -1199,7 +1199,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     let oldestSeqNum = -1;
     if (customJsonHistory.length > 0) {
       oldestSeqNum = Math.min(...customJsonHistory.map(([idx]) => idx));
-      logger.info('[GROUP BLOCKCHAIN] Oldest sequence from initial scan:', oldestSeqNum);
+      logger.debug('[GROUP BLOCKCHAIN] Oldest sequence from initial scan:', oldestSeqNum);
     }
 
     // Calculate how many more chunks we need
@@ -1209,18 +1209,18 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     const chunksToFetch = Math.ceil(remainingOps / BACKFILL_CHUNK_SIZE);
 
     if (oldestSeqNum > 0 && chunksToFetch > 0) {
-      logger.info('[GROUP BLOCKCHAIN] Starting deep backfill, will scan up to', totalOpsTarget, 'total operations');
+      logger.debug('[GROUP BLOCKCHAIN] Starting deep backfill, will scan up to', totalOpsTarget, 'total operations');
       
       for (let i = 0; i < chunksToFetch; i++) {
         // Use the oldestSeqNum as the starting point for the next chunk
         const nextStart = oldestSeqNum - 1;
         
         if (nextStart < 0) {
-          logger.info('[GROUP BLOCKCHAIN] Reached beginning of account history, stopping backfill');
+          logger.debug('[GROUP BLOCKCHAIN] Reached beginning of account history, stopping backfill');
           break;
         }
         
-        logger.info('[GROUP BLOCKCHAIN] Backfill chunk', i + 1, '/', chunksToFetch, 'starting at sequence:', nextStart);
+        logger.debug('[GROUP BLOCKCHAIN] Backfill chunk', i + 1, '/', chunksToFetch, 'starting at sequence:', nextStart);
         
         const olderHistory = await optimizedHiveClient.getAccountHistory(
           username,
@@ -1230,7 +1230,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
         );
         
         if (olderHistory.length === 0) {
-          logger.info('[GROUP BLOCKCHAIN] No more operations, stopping backfill');
+          logger.debug('[GROUP BLOCKCHAIN] No more operations, stopping backfill');
           break;
         }
         
@@ -1244,17 +1244,17 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
         oldestSeqNum = chunkOldest;
         
         allCustomJsonOps = [...allCustomJsonOps, ...olderHistory];
-        logger.info('[GROUP BLOCKCHAIN] Total scanned:', allCustomJsonOps.length, 'operations, oldest sequence:', oldestSeqNum);
+        logger.debug('[GROUP BLOCKCHAIN] Total scanned:', allCustomJsonOps.length, 'operations, oldest sequence:', oldestSeqNum);
         
         // Stop if we've fetched enough
         if (allCustomJsonOps.length >= totalOpsTarget) {
-          logger.info('[GROUP BLOCKCHAIN] Reached target of', totalOpsTarget, 'operations, stopping backfill');
+          logger.debug('[GROUP BLOCKCHAIN] Reached target of', totalOpsTarget, 'operations, stopping backfill');
           break;
         }
       }
     }
 
-    logger.info('[GROUP BLOCKCHAIN] ✅ Completed scanning', allCustomJsonOps.length, 'custom_json operations');
+    logger.debug('[GROUP BLOCKCHAIN] Completed scanning', allCustomJsonOps.length, 'custom_json operations');
 
     for (const [, operation] of allCustomJsonOps) {
       try {
