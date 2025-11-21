@@ -243,8 +243,6 @@ export default function Messages() {
     [selectedGroupId, groupMessageCaches, messageCaches, selectedConversationId]
   );
 
-  logger.info('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Hidden:', hiddenCount);
-
   // Run timestamp migration and fix corrupted cached messages on mount
   useEffect(() => {
     logger.info('[INIT] ⚡ Migration useEffect triggered, user:', user?.username);
