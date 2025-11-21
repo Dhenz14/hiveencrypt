@@ -1,0 +1,183 @@
+client:495 [vite] connecting...
+client:618 [vite] connected.
+chunk-XQLYTHWV.js?v=cd048d7b:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+lnurl-pay.js?v=cd048d7b:2839 Module "util" has been externalized for browser compatibility. Cannot access "util.debuglog" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=cd048d7b:2839
+node_modules/readable-stream/lib/_stream_readable.js @ lnurl-pay.js?v=cd048d7b:3869
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/readable-stream/readable-browser.js @ lnurl-pay.js?v=cd048d7b:4650
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/hash-base/index.js @ lnurl-pay.js?v=cd048d7b:4666
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/md5.js/index.js @ lnurl-pay.js?v=cd048d7b:4756
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/create-hash/browser.js @ lnurl-pay.js?v=cd048d7b:6285
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/bolt11/payreq.js @ lnurl-pay.js?v=cd048d7b:26567
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+(anonymous) @ lnurl-pay.js?v=cd048d7b:30002
+lnurl-pay.js?v=cd048d7b:2839 Module "util" has been externalized for browser compatibility. Cannot access "util.inspect" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=cd048d7b:2839
+node_modules/readable-stream/lib/internal/streams/BufferList.js @ lnurl-pay.js?v=cd048d7b:2915
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/readable-stream/lib/_stream_readable.js @ lnurl-pay.js?v=cd048d7b:3875
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/readable-stream/readable-browser.js @ lnurl-pay.js?v=cd048d7b:4650
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/hash-base/index.js @ lnurl-pay.js?v=cd048d7b:4666
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/md5.js/index.js @ lnurl-pay.js?v=cd048d7b:4756
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/create-hash/browser.js @ lnurl-pay.js?v=cd048d7b:6285
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/bolt11/payreq.js @ lnurl-pay.js?v=cd048d7b:26567
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+(anonymous) @ lnurl-pay.js?v=cd048d7b:30002
+lnurl-pay.js?v=cd048d7b:6178 Module "stream" has been externalized for browser compatibility. Cannot access "stream.Transform" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=cd048d7b:6178
+node_modules/cipher-base/index.js @ lnurl-pay.js?v=cd048d7b:6190
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/create-hash/browser.js @ lnurl-pay.js?v=cd048d7b:6288
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+node_modules/bolt11/payreq.js @ lnurl-pay.js?v=cd048d7b:26567
+__require2 @ chunk-SNAQBZPT.js?v=cd048d7b:18
+(anonymous) @ lnurl-pay.js?v=cd048d7b:30002
+logger.ts:11 [DEBUG] [Platform Detection] Starting detection...
+logger.ts:11 [DEBUG] [Platform Detection] User Agent: mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/142.0.0.0 safari/537.36
+logger.ts:11 [DEBUG] [Platform Detection] Is Mobile: false
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: (5) ['blake2b', 'blake2bInit', 'blake2bUpdate', 'blake2bFinal', 'blake2bHex']
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+(index):171 [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+logger.ts:11 [DEBUG] [Keychain Detection] window.hive_keychain found after 121 ms
+logger.ts:11 [DEBUG] [Keychain Detection] Handshake successful
+logger.ts:18 [Platform Detection] ✅ Detected: desktop-extension
+logger.ts:18 [Auth] Platform detected: desktop-extension
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+logger.ts:18 [Auth] Session restored for: dandandan123
+logger.ts:11 [DEBUG] [CLEANUP] Starting orphaned message cleanup for: dandandan123
+HiddenConversationsContext.tsx:78 [HiddenConversationsContext] Loaded hidden conversations: []
+HiddenConversationsContext.tsx:100 [HiddenConversationsContext] Saved hidden conversations: []
+ExceptionsContext.tsx:77 [ExceptionsContext] Loaded exceptions: ['pro-content']
+ExceptionsContext.tsx:99 [ExceptionsContext] Saved exceptions: []
+HiddenConversationsContext.tsx:100 [HiddenConversationsContext] Saved hidden conversations: []
+ExceptionsContext.tsx:99 [ExceptionsContext] Saved exceptions: ['pro-content']
+logger.ts:11 [DEBUG] [CLEANUP] ✅ Cleaned up 0 orphaned messages
+logger.ts:11 [DEBUG] [METADATA] Fetching from blockchain: dandandan123
+logger.ts:11 [DEBUG] [METADATA] Fetching from blockchain: dandandan123
+logger.ts:11 [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog {avgLatency: 0, successRate: '100.0%'}
+logger.ts:18 [GROUP DISCOVERY] Discovering groups for: dandandan123
+logger.ts:18 [GROUP DISCOVERY] Loaded 2 groups from cache
+logger.ts:18 [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+logger.ts:18 [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+logger.ts:18 [RPC] Selected best node: https://api.hive.blog {avgLatency: 0, successRate: '100.0%'}
+logger.ts:11 [DEBUG] [CONV DISCOVERY] Loaded 7 cached conversations immediately
+logger.ts:11 [DEBUG] [MIGRATION] UTC timestamp migration already completed
+logger.ts:11 [DEBUG] [CACHE FIX] Fixed 0 corrupted messages
+logger.ts:11 [DEBUG] [MIGRATION] Starting group message migration for: dandandan123
+logger.ts:11 [DEBUG] [MIGRATION] Scanning 29 messages for misplaced group messages
+logger.ts:11 [DEBUG] [MIGRATION] No misplaced group messages found
+logger.ts:11 [DEBUG] [METADATA] Fetched and cached: dandandan123 {min_hbd: '0.010', version: '1.0'}
+logger.ts:11 [DEBUG] [METADATA] Fetched and cached: dandandan123 {min_hbd: '0.010', version: '1.0'}
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 1392 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:18 [RPC] Selected best node: https://anyx.io {avgLatency: 0, successRate: '100.0%'}
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Initial scan: 65 operations
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 8
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 7
+logger.ts:18 [RPC] Selected best node: https://anyx.io {avgLatency: 0, successRate: '100.0%'}
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2 discovered 5 total partners in 1235 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 120 operations, oldest sequence: 8
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 2 / 5 starting at sequence: 7
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network {avgLatency: 0, successRate: '100.0%'}
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 185 operations, oldest sequence: 8
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 3 / 5 starting at sequence: 7
+hiveClient.ts:149 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:149
+retryWithBackoff @ hiveClient.ts:184
+getAccountHistory @ hiveClient.ts:329
+discoverUserGroups @ groupBlockchain.ts:1225
+await in discoverUserGroups
+queryFn @ useGroupMessages.ts:342
+await in queryFn
+fetchFn @ @tanstack_react-query.js?v=cd048d7b:840
+run @ @tanstack_react-query.js?v=cd048d7b:494
+start @ @tanstack_react-query.js?v=cd048d7b:536
+fetch @ @tanstack_react-query.js?v=cd048d7b:926
+executeFetch_fn @ @tanstack_react-query.js?v=cd048d7b:2211
+onSubscribe @ @tanstack_react-query.js?v=cd048d7b:1898
+subscribe @ @tanstack_react-query.js?v=cd048d7b:24
+(anonymous) @ @tanstack_react-query.js?v=cd048d7b:3022
+subscribeToStore @ chunk-XQLYTHWV.js?v=cd048d7b:11984
+commitHookEffectListMount @ chunk-XQLYTHWV.js?v=cd048d7b:16915
+commitPassiveMountOnFiber @ chunk-XQLYTHWV.js?v=cd048d7b:18156
+commitPassiveMountEffects_complete @ chunk-XQLYTHWV.js?v=cd048d7b:18129
+commitPassiveMountEffects_begin @ chunk-XQLYTHWV.js?v=cd048d7b:18119
+commitPassiveMountEffects @ chunk-XQLYTHWV.js?v=cd048d7b:18109
+flushPassiveEffectsImpl @ chunk-XQLYTHWV.js?v=cd048d7b:19490
+flushPassiveEffects @ chunk-XQLYTHWV.js?v=cd048d7b:19447
+performSyncWorkOnRoot @ chunk-XQLYTHWV.js?v=cd048d7b:18868
+flushSyncCallbacks @ chunk-XQLYTHWV.js?v=cd048d7b:9119
+commitRootImpl @ chunk-XQLYTHWV.js?v=cd048d7b:19432
+commitRoot @ chunk-XQLYTHWV.js?v=cd048d7b:19277
+finishConcurrentRender @ chunk-XQLYTHWV.js?v=cd048d7b:18805
+performConcurrentWorkOnRoot @ chunk-XQLYTHWV.js?v=cd048d7b:18718
+workLoop @ chunk-XQLYTHWV.js?v=cd048d7b:197
+flushWork @ chunk-XQLYTHWV.js?v=cd048d7b:176
+performWorkUntilDeadline @ chunk-XQLYTHWV.js?v=cd048d7b:384
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 250 operations, oldest sequence: 8
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 4 / 5 starting at sequence: 7
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network {avgLatency: 979, successRate: '100.0%'}
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 315 operations, oldest sequence: 8
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 5 / 5 starting at sequence: 7
+logger.ts:18 [RPC] Selected best node: https://anyx.io {avgLatency: 1168, successRate: '100.0%'}
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 370 operations, oldest sequence: 8
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Completed scanning 370 custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+hiveClient.ts:149 [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:149
+retryWithBackoff @ hiveClient.ts:184
+getAccountHistory @ hiveClient.ts:329
+discoverUserGroups @ groupBlockchain.ts:1325
+await in discoverUserGroups
+queryFn @ useGroupMessages.ts:342
+await in queryFn
+fetchFn @ @tanstack_react-query.js?v=cd048d7b:840
+run @ @tanstack_react-query.js?v=cd048d7b:494
+start @ @tanstack_react-query.js?v=cd048d7b:536
+fetch @ @tanstack_react-query.js?v=cd048d7b:926
+executeFetch_fn @ @tanstack_react-query.js?v=cd048d7b:2211
+onSubscribe @ @tanstack_react-query.js?v=cd048d7b:1898
+subscribe @ @tanstack_react-query.js?v=cd048d7b:24
+(anonymous) @ @tanstack_react-query.js?v=cd048d7b:3022
+subscribeToStore @ chunk-XQLYTHWV.js?v=cd048d7b:11984
+commitHookEffectListMount @ chunk-XQLYTHWV.js?v=cd048d7b:16915
+commitPassiveMountOnFiber @ chunk-XQLYTHWV.js?v=cd048d7b:18156
+commitPassiveMountEffects_complete @ chunk-XQLYTHWV.js?v=cd048d7b:18129
+commitPassiveMountEffects_begin @ chunk-XQLYTHWV.js?v=cd048d7b:18119
+commitPassiveMountEffects @ chunk-XQLYTHWV.js?v=cd048d7b:18109
+flushPassiveEffectsImpl @ chunk-XQLYTHWV.js?v=cd048d7b:19490
+flushPassiveEffects @ chunk-XQLYTHWV.js?v=cd048d7b:19447
+performSyncWorkOnRoot @ chunk-XQLYTHWV.js?v=cd048d7b:18868
+flushSyncCallbacks @ chunk-XQLYTHWV.js?v=cd048d7b:9119
+commitRootImpl @ chunk-XQLYTHWV.js?v=cd048d7b:19432
+commitRoot @ chunk-XQLYTHWV.js?v=cd048d7b:19277
+finishConcurrentRender @ chunk-XQLYTHWV.js?v=cd048d7b:18805
+performConcurrentWorkOnRoot @ chunk-XQLYTHWV.js?v=cd048d7b:18718
+workLoop @ chunk-XQLYTHWV.js?v=cd048d7b:197
+flushWork @ chunk-XQLYTHWV.js?v=cd048d7b:176
+performWorkUntilDeadline @ chunk-XQLYTHWV.js?v=cd048d7b:384
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [RPC] Selected best node: https://api.openhive.network {avgLatency: 580, successRate: '100.0%'}

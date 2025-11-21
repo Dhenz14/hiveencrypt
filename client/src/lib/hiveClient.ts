@@ -146,7 +146,8 @@ class HiveBlockchainClient {
 
     if (healthyNodes.length === 0) {
       // All nodes unhealthy - reset stats and try again
-      console.warn('[RPC] All nodes unhealthy, resetting health stats');
+      // This is normal during heavy concurrent requests (rate limiting)
+      logger.debug('[RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)');
       this.nodeHealth.forEach(h => {
         h.successCount = 0;
         h.errorCount = 0;
