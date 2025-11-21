@@ -34,6 +34,20 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
   const { toast } = useToast();
   const [isReauthenticating, setIsReauthenticating] = useState(false);
   
+  // Helper function to detect Keychain cancellation errors
+  const isKeychainCancelled = (error: any): boolean => {
+    const errorMsg = error?.message?.toLowerCase() || '';
+    return errorMsg.includes('ignored') || errorMsg.includes('cancel');
+  };
+  
+  // Helper function to get user-friendly error message
+  const getKeychainErrorMessage = (error: any, defaultMsg: string): string => {
+    if (isKeychainCancelled(error)) {
+      return 'You need to approve the Hive Keychain popup to save this setting. Please try again and click "Approve" when Keychain prompts you.';
+    }
+    return error?.message || defaultMsg;
+  };
+  
   // Auto-decrypt setting (localStorage-based, default: off)
   const [autoDecrypt, setAutoDecrypt] = useState(() => {
     if (!user?.username) return false;
@@ -217,16 +231,9 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       });
     } catch (error: any) {
       console.error('[SETTINGS] Failed to update tip preference:', error);
-      
-      // Provide helpful error message for Keychain cancellation
-      const isKeychainCancelled = error?.message?.toLowerCase()?.includes('ignored') || 
-                                   error?.message?.toLowerCase()?.includes('cancel');
-      
       toast({
         title: 'Update Failed',
-        description: isKeychainCancelled 
-          ? 'You need to approve the Hive Keychain popup to save this setting. Please try again and click "Approve" when Keychain prompts you.'
-          : error?.message || 'Failed to update tip receive preference',
+        description: getKeychainErrorMessage(error, 'Failed to update tip receive preference'),
         variant: 'destructive',
       });
     } finally {
@@ -258,7 +265,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       console.error('[SETTINGS] Failed to update message privacy:', error);
       toast({
         title: 'Update Failed',
-        description: error?.message || 'Failed to update message privacy',
+        description: getKeychainErrorMessage(error, 'Failed to update message privacy'),
         variant: 'destructive',
       });
     } finally {
@@ -290,7 +297,7 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       console.error('[SETTINGS] Failed to update group privacy:', error);
       toast({
         title: 'Update Failed',
-        description: error?.message || 'Failed to update group invite privacy',
+        description: getKeychainErrorMessage(error, 'Failed to update group invite privacy'),
         variant: 'destructive',
       });
     } finally {
@@ -523,6 +530,14 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       Updating on blockchain...
                     </p>
                   )}
+                  {!isLoadingPrivacy && (
+                    <div className="flex items-start gap-2 text-caption text-muted-foreground bg-muted/30 p-3 rounded-md border border-border/40">
+                      <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                      <p>
+                        Changing this setting will trigger a Hive Keychain popup. Please approve the popup to save your preference.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <Separator />
@@ -570,6 +585,14 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
                       Updating on blockchain...
                     </p>
+                  )}
+                  {!isLoadingPrivacy && (
+                    <div className="flex items-start gap-2 text-caption text-muted-foreground bg-muted/30 p-3 rounded-md border border-border/40">
+                      <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                      <p>
+                        Changing this setting will trigger a Hive Keychain popup. Please approve the popup to save your preference.
+                      </p>
+                    </div>
                   )}
                 </div>
 

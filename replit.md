@@ -5,6 +5,17 @@ Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive We
 
 ## Recent Changes (November 21, 2025)
 
+### Intuitive Keychain Error Messages for All Settings
+- **Issue**: When users cancelled Keychain popups while changing settings (message privacy, group privacy, tip preference), they received generic "Update Failed" messages with no guidance
+- **Root Cause**: Only tip preference handler had helpful error messaging; message privacy and group privacy handlers showed raw error messages
+- **Solution**: Created shared helper utilities and applied consistent UX patterns across all settings:
+  - Added `isKeychainCancelled()` helper to detect cancelled Keychain transactions
+  - Added `getKeychainErrorMessage()` helper to provide user-friendly error messages
+  - Updated all three settings handlers (tip preference, message privacy, group privacy) to use helpers
+  - Added info boxes above all privacy settings warning: "Changing this setting will trigger a Hive Keychain popup. Please approve the popup to save your preference."
+  - Consistent error message: "You need to approve the Hive Keychain popup to save this setting. Please try again and click 'Approve' when Keychain prompts you."
+- **Impact**: Users now get clear, helpful guidance when they cancel Keychain popups, explaining exactly what went wrong and how to fix it
+
 ### Lightning Address & Minimum HBD Persistence Fix
 - **Issue**: Lightning Address and Minimum HBD settings not persisting after save - reopening Settings modal showed old values
 - **Root Cause**: Blockchain propagation delay - React Query cache was invalidated and refetched immediately after broadcast, but blockchain hadn't propagated the `account_update2` operation yet, causing refetch to return stale data
