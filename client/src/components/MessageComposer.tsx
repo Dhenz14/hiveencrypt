@@ -79,6 +79,8 @@ export function MessageComposer({
   const [batchProgress, setBatchProgress] = useState({ current: 0, total: 0 });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // CRITICAL: Use ref for synchronous double-click protection (state updates are async!)
+  const isSendingRef = useRef(false);
   const { user } = useAuth();
   const { toast } = useToast();
   
@@ -190,9 +192,9 @@ export function MessageComposer({
 
   // Handle sending image message
   const handleImageSend = async () => {
-    // CRITICAL: Check isSending FIRST to prevent double-click
-    if (isSending || !selectedImage || !user || !recipientUsername) return;
-
+    // CRITICAL: Use ref for synchronous double-click protection (state is async!)
+    if (isSendingRef.current || !selectedImage || !user || !recipientUsername) return;
+    isSendingRef.current = true;
     setIsSending(true);
 
     try {
@@ -292,14 +294,15 @@ export function MessageComposer({
         variant: 'destructive',
       });
     } finally {
+      isSendingRef.current = false;
       setIsSending(false);
     }
   };
 
   // Handle sending to group chat (batch send to all members)
   const handleGroupSend = async () => {
-    // CRITICAL: Check isSending FIRST to prevent double-click
-    if (isSending) {
+    // CRITICAL: Use ref for synchronous double-click protection (state is async!)
+    if (isSendingRef.current) {
       return;
     }
     
@@ -315,7 +318,8 @@ export function MessageComposer({
     const messageText = content.trim();
     if (!messageText) return;
 
-    // Set sending state NOW to block any further submissions
+    // Set sending state NOW to block any further submissions (both ref and state)
+    isSendingRef.current = true;
     setIsSending(true);
 
     // RC Validation: Check if user has sufficient RC for batch sending
@@ -344,6 +348,7 @@ export function MessageComposer({
             description: `Your RC is critically low (${percentage.toFixed(1)}%). Group sending may fail. Please wait for RC to regenerate.`,
             variant: 'destructive',
           });
+          isSendingRef.current = false;
           setIsSending(false);
           return;
         } else if (warningLevel === 'low') {
@@ -487,6 +492,7 @@ export function MessageComposer({
               variant: 'default'
             });
             
+            isSendingRef.current = false;
             setIsSending(false);
             setBatchProgress({ current: 0, total: 0 });
             return; // Exit immediately, don't confirm anything
@@ -592,6 +598,7 @@ export function MessageComposer({
         variant: 'destructive',
       });
     } finally {
+      isSendingRef.current = false;
       setIsSending(false);
       setBatchProgress({ current: 0, total: 0 });
     }
@@ -600,9 +607,8 @@ export function MessageComposer({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // CRITICAL: Set isSending FIRST to prevent double-click race condition
-    // Must happen before ANY async validation to block duplicate Keychain popups
-    if (isSending) {
+    // CRITICAL: Use ref for synchronous double-click protection (state is async!)
+    if (isSendingRef.current) {
       return;
     }
     
@@ -645,7 +651,8 @@ export function MessageComposer({
 
     const messageText = content.trim();
     
-    // Set sending state NOW to block any further submissions
+    // Set sending state NOW to block any further submissions (both ref and state)
+    isSendingRef.current = true;
     setIsSending(true);
 
     // v2.0.0: Step 1: Block sends until recipient minimum is verified (prevent race condition + network bypass)
@@ -654,6 +661,7 @@ export function MessageComposer({
         title: 'Loading Recipient Preferences',
         description: 'Please wait while we check the recipient\'s minimum requirement...',
       });
+      isSendingRef.current = false;
       setIsSending(false);
       return;
     }
@@ -664,6 +672,7 @@ export function MessageComposer({
         description: 'Failed to fetch recipient\'s minimum requirement. Please check your connection and try again.',
         variant: 'destructive',
       });
+      isSendingRef.current = false;
       setIsSending(false);
       return;
     }
@@ -680,6 +689,7 @@ export function MessageComposer({
         description: 'Send amount must be at least 0.001 HBD',
         variant: 'destructive',
       });
+      isSendingRef.current = false;
       setIsSending(false);
       return;
     }
@@ -692,6 +702,7 @@ export function MessageComposer({
         description: 'Could not determine recipient minimum. Please try again.',
         variant: 'destructive',
       });
+      isSendingRef.current = false;
       setIsSending(false);
       return;
     }
@@ -710,6 +721,7 @@ export function MessageComposer({
         description: `@${recipientUsername} requires at least ${effectiveRecipientMinimum} HBD. Your amount: ${sendAmount} HBD`,
         variant: 'destructive',
       });
+      isSendingRef.current = false;
       setIsSending(false);
       return;
     }
@@ -844,6 +856,7 @@ export function MessageComposer({
             variant: 'destructive',
             duration: 10000, // Show longer for user to read
           });
+          isSendingRef.current = false;
           setIsSending(false);
           return;
         }
@@ -874,6 +887,7 @@ export function MessageComposer({
             variant: 'destructive',
           });
         }
+        isSendingRef.current = false;
         setIsSending(false);
         return;
       }
@@ -899,6 +913,7 @@ export function MessageComposer({
         variant: 'destructive',
       });
     } finally {
+      isSendingRef.current = false;
       setIsSending(false);
     }
   };

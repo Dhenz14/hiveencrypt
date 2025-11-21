@@ -4,14 +4,17 @@
 Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform without centralized servers or databases. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, and bidirectional Lightning Network Bitcoin tips via the v4v.app bridge.
 
 ## Recent Changes (November 21, 2025)
-### Race Condition Fix: Double-Click Protection
+### Race Condition Fix: Synchronous Double-Click Protection
 - **Issue**: First message send attempt failed with "User ignored this transaction" error, worked on second attempt
-- **Root Cause**: `isSending` state was set too late (after validation checks), allowing double-clicks to trigger duplicate Keychain popups
-- **Solution**: Added `isSending` guard check at the **very beginning** of all three send handlers before any async validation:
-  - `handleSubmit()` - Direct messages
-  - `handleGroupSend()` - Group messages  
-  - `handleImageSend()` - Image messages
-- **Impact**: Prevents duplicate Keychain popups and "User ignored" errors from double-clicks
+- **Root Cause**: React state updates are **asynchronous**, creating a timing window where rapid double-clicks could bypass the `isSending` flag before it updated
+- **Solution**: Implemented **synchronous ref-based guard** (`isSendingRef.current`) alongside state:
+  - Added `useRef<boolean>` for instant, synchronous blocking
+  - Check `isSendingRef.current` at the **very beginning** of all three send handlers
+  - Set ref immediately before any async validation (refs update synchronously, state does not)
+  - Reset ref in all error paths and finally blocks
+  - Applied to: `handleSubmit()`, `handleGroupSend()`, `handleImageSend()`
+- **Technical Detail**: State (`setIsSending`) is kept for UI reactivity, ref is used for race-free blocking
+- **Impact**: **Zero-tolerance** double-click protection - physically impossible for duplicate Keychain popups
 
 ## User Preferences
 I prefer simple language. I want iterative development. Ask before making major changes. I prefer detailed explanations.
