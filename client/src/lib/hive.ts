@@ -143,7 +143,7 @@ export const requestTransfer = async (
           reject(response);
         }
       },
-      false // Don't re-encrypt - memo is already encrypted by requestEncode
+      true // Enable auto-encryption - Keychain will encrypt memos starting with #
     );
   });
 };
