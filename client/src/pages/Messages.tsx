@@ -186,23 +186,32 @@ export default function Messages() {
   const messageCaches = messageData?.messages || [];
   const hiddenCount = messageData?.hiddenCount || 0;
 
-  // Merge 1:1 conversations and group conversations
-  const directConversations: Conversation[] = conversationCaches
-    .filter((conv): conv is ConversationCache => conv !== null && conv !== undefined)
-    .filter(conv => !isHidden(conv.partnerUsername))
-    .map(mapConversationCacheToConversation);
+  // Merge 1:1 conversations and group conversations (memoized to prevent infinite renders)
+  const directConversations = useMemo<Conversation[]>(() => 
+    conversationCaches
+      .filter((conv): conv is ConversationCache => conv !== null && conv !== undefined)
+      .filter(conv => !isHidden(conv.partnerUsername))
+      .map(mapConversationCacheToConversation),
+    [conversationCaches, isHidden]
+  );
   
-  const groupConversations: Conversation[] = groupCaches
-    .filter((group): group is GroupConversationCache => group !== null && group !== undefined)
-    .map(mapGroupCacheToConversation);
+  const groupConversations = useMemo<Conversation[]>(() =>
+    groupCaches
+      .filter((group): group is GroupConversationCache => group !== null && group !== undefined)
+      .map(mapGroupCacheToConversation),
+    [groupCaches]
+  );
   
-  // Combine and sort by last message time
-  const conversations: Conversation[] = [...directConversations, ...groupConversations]
-    .sort((a, b) => {
-      const aTime = a.lastMessageTime ? new Date(a.lastMessageTime).getTime() : 0;
-      const bTime = b.lastMessageTime ? new Date(b.lastMessageTime).getTime() : 0;
-      return bTime - aTime;
-    });
+  // Combine and sort by last message time (memoized to prevent infinite renders)
+  const conversations = useMemo<Conversation[]>(() =>
+    [...directConversations, ...groupConversations]
+      .sort((a, b) => {
+        const aTime = a.lastMessageTime ? new Date(a.lastMessageTime).getTime() : 0;
+        const bTime = b.lastMessageTime ? new Date(b.lastMessageTime).getTime() : 0;
+        return bTime - aTime;
+      }),
+    [directConversations, groupConversations]
+  );
   
   // Debug logging (dev only, contains sensitive usernames)
   if (conversations.length > 0) {
@@ -222,23 +231,26 @@ export default function Messages() {
   
   const selectedGroup = selectedGroupId ? groupCaches.find(g => g.groupId === selectedGroupId) : undefined;
   
-  // Map messages based on type (group or direct)
-  const currentMessages: Message[] = selectedGroupId
-    ? groupMessageCaches.map(msg => ({
-        id: msg.id,
-        conversationId: msg.groupId,
-        sender: msg.sender,
-        recipient: '', // Groups don't have a single recipient
-        content: msg.content,
-        encryptedMemo: msg.encryptedContent,
-        decryptedContent: msg.content,
-        timestamp: msg.timestamp,
-        status: msg.confirmed ? 'confirmed' : 'sending',
-        isEncrypted: true,
-      }))
-    : messageCaches.map(msg => 
-        mapMessageCacheToMessage(msg, selectedConversationId || '')
-      );
+  // Map messages based on type (group or direct) - memoized to prevent infinite renders
+  const currentMessages = useMemo<Message[]>(() => 
+    selectedGroupId
+      ? groupMessageCaches.map(msg => ({
+          id: msg.id,
+          conversationId: msg.groupId,
+          sender: msg.sender,
+          recipient: '', // Groups don't have a single recipient
+          content: msg.content,
+          encryptedMemo: msg.encryptedContent,
+          decryptedContent: msg.content,
+          timestamp: msg.timestamp,
+          status: msg.confirmed ? 'confirmed' : 'sending',
+          isEncrypted: true,
+        }))
+      : messageCaches.map(msg => 
+          mapMessageCacheToMessage(msg, selectedConversationId || '')
+        ),
+    [selectedGroupId, groupMessageCaches, messageCaches, selectedConversationId]
+  );
 
   logger.info('[MESSAGES PAGE] Text messages:', currentMessages.length, 'Hidden:', hiddenCount);
 

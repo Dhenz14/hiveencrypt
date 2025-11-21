@@ -1,0 +1,1277 @@
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [GROUP BLOCKCHAIN] Total scanned: 130 operations, oldest sequence: 8
+ [GROUP BLOCKCHAIN] Backfill chunk 2 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [GROUP BLOCKCHAIN] Total scanned: 195 operations, oldest sequence: 8
+ [GROUP BLOCKCHAIN] Backfill chunk 3 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [GROUP BLOCKCHAIN] Total scanned: 250 operations, oldest sequence: 8
+ [GROUP BLOCKCHAIN] Backfill chunk 4 / 5 starting at sequence: 7
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [GROUP BLOCKCHAIN] Total scanned: 315 operations, oldest sequence: 8
+ [GROUP BLOCKCHAIN] Backfill chunk 5 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [QUERY] Starting blockchain messages query for: Object
+ [DEBUG] [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010 Message privacy: everyone
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [QUERY] Retrieved cached messages: 1
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [DEBUG] [INCREMENTAL] Last synced opId for dandandan123-mcfarhat : 727
+ [RPC] Selected best node: https://api.openhive.network Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [GROUP BLOCKCHAIN] Total scanned: 380 operations, oldest sequence: 8
+ [GROUP BLOCKCHAIN] ✅ Completed scanning 380 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [RPC] Selected best node: https://anyx.io Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+ [PHASE4] Re-evaluating 1 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 1 messages with changed hidden state
+ [QUERY] Total messages: 1 Visible: 1 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 728 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+ [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+ [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+ [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 2 cached group messages
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: curatorhulk
+ [GROUP DISCOVERY] Found creator from cached message: curatorhulk for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Found cached group message for groupId: afe96d92-f0a5-46aa-813f-16fa58beb57a from: curatorhulk
+ [GROUP DISCOVERY] Found 2 unique groups from cached messages
+ [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP DISCOVERY] Scanning 90 blockchain transfers for group messages
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: ff76b2783111e40f94fd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: ff76b2783111e40f94fd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo yo yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo yo yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 1a6e0daa5d9187add33e - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 1a6e0daa5d9187add33e
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohohoho...
+ [SENSITIVE] [decryptMemo] Final result: #hohohoho...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3cae3543d04abee44ccd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3cae3543d04abee44ccd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohoho1...
+ [SENSITIVE] [decryptMemo] Final result: #hohoho1...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 2b1dcdef6ad62b6be9f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 2b1dcdef6ad62b6be9f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 316ec3d9118361516376 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 316ec3d9118361516376
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a5c07ac90ebb2c1b77b - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a5c07ac90ebb2c1b77b
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c2fea85ec892687c7d7a - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c2fea85ec892687c7d7a
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo yo ho ho is this still mobile?...
+ [SENSITIVE] [decryptMemo] Final result: #yo yo ho ho is this still mobile?...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 926b089610559d817485 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 926b089610559d817485
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testy testy...
+ [SENSITIVE] [decryptMemo] Final result: #testy testy...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7db32ca47aeb2da338e2 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7db32ca47aeb2da338e2
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo23...
+ [SENSITIVE] [decryptMemo] Final result: #Yo23...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: bb991acfdcb313b049f4 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: bb991acfdcb313b049f4
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooooooooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooooooooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7345781f254adafd0227 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7345781f254adafd0227
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Messaging u with a tip...
+ [SENSITIVE] [decryptMemo] Final result: #Messaging u with a tip...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c1e1c1ce4c95d11ea299 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c1e1c1ce4c95d11ea299
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo, messaging u with less than the amount to test...
+ [SENSITIVE] [decryptMemo] Final result: #Yo, messaging u with less than the amount to test...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: a8ff7f4d1092d8acd5f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: a8ff7f4d1092d8acd5f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yoyo...
+ [SENSITIVE] [decryptMemo] Final result: #yoyo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: d325270b206cea07ba6c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: d325270b206cea07ba6c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a30607f581a7aeac16c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a30607f581a7aeac16c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 52b477a89d33e10b3f1c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 52b477a89d33e10b3f1c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [GROUP DISCOVERY] Looking up metadata for 1 discovered groups
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [RPC] All nodes unhealthy, resetting health stats
+selectBestNode @ hiveClient.ts:96
+ [QUERY] Starting blockchain messages query for: Object
+ [DEBUG] [METADATA] Cache hit for: dandandan123
+ [FILTER] User minimum HBD: 0.010 Message privacy: everyone
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [QUERY] Retrieved cached messages: 1
+ [SENSITIVE] [QUERY] Cached msg 0: Object
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 96 ops, oldest seq: 2
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 96 transfer operations scanned, chunks processed: 0
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [INCREMENTAL] Last synced opId for dandandan123-mcfarhat : 727
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 65 ops, oldest seq: 8
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+ [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+ [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 65 operations for: dandandan123
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (009ef04a...)
+ [GROUP DISCOVERY] Caching 1 discovered group messages
+ [DEBUG] [GROUP CACHE] Batch cached 1 group messages
+ [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+ [GROUP DISCOVERY] Trying cached creator for group: afe96d92-f0a5-46aa-813f-16fa58beb57a creator: curatorhulk
+ [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Trying 1 fallback senders for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] ⚠️ Could not resolve metadata for group: afe96d92-f0a5-46aa-813f-16fa58beb57a tried: creator: curatorhulk, 1 senders
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ✅ Created fallback group entry: Group (afe96d92...) (generated) with 2 members
+ [GROUP BLOCKCHAIN] Set negative cache for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 2
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 11
+ [DEBUG] [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 11
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: afe96d92-f0a5-46aa-813f-16fa58beb57a to 8
+ [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 8
+ [GROUP DISCOVERY] ✅ Total groups: 2
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [PHASE4] Re-evaluating 1 messages against current minimum: 0.010
+ [PHASE4] Re-evaluated 1 messages with changed hidden state
+ [QUERY] Total messages: 1 Visible: 1 Hidden: 0
+ [SENSITIVE] [QUERY] Visible msg 0: Object
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+ [MESSAGES PAGE] Text messages: 1 Hidden: 0
+ [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:124
+ [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+ [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:18 [QUERY] Starting blockchain messages query for: Object
+logger.ts:11 [DEBUG] [METADATA] Cache hit for: dandandan123
+logger.ts:18 [FILTER] User minimum HBD: 0.010 Message privacy: everyone
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:18 [QUERY] Retrieved cached messages: 1
+logger.ts:38 [SENSITIVE] [QUERY] Cached msg 0: Object
+logger.ts:11 [DEBUG] [INCREMENTAL] Last synced opId for dandandan123-mcfarhat : 727
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: Array(9)
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+Messages @ Messages.tsx:153
+renderWithHooks @ chunk-XQLYTHWV.js?v=aa5ab080:11548
+updateFunctionComponent @ chunk-XQLYTHWV.js?v=aa5ab080:14582
+beginWork @ chunk-XQLYTHWV.js?v=aa5ab080:15924
+beginWork$1 @ chunk-XQLYTHWV.js?v=aa5ab080:19753
+performUnitOfWork @ chunk-XQLYTHWV.js?v=aa5ab080:19198
+workLoopSync @ chunk-XQLYTHWV.js?v=aa5ab080:19137
+renderRootSync @ chunk-XQLYTHWV.js?v=aa5ab080:19116
+performConcurrentWorkOnRoot @ chunk-XQLYTHWV.js?v=aa5ab080:18678
+workLoop @ chunk-XQLYTHWV.js?v=aa5ab080:197
+flushWork @ chunk-XQLYTHWV.js?v=aa5ab080:176
+performWorkUntilDeadline @ chunk-XQLYTHWV.js?v=aa5ab080:384
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+logger.ts:18 [PHASE4] Re-evaluating 1 messages against current minimum: 0.010
+logger.ts:18 [PHASE4] Re-evaluated 1 messages with changed hidden state
+logger.ts:18 [QUERY] Total messages: 1 Visible: 1 Hidden: 0
+logger.ts:38 [SENSITIVE] [QUERY] Visible msg 0: {id: 'fb7eb9571d269b6...', from: 'dandandan123', contentPreview: 'yo...', contentLength: 2, amount: '0.001 HBD'}
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+Messages @ Messages.tsx:153
+renderWithHooks @ chunk-XQLYTHWV.js?v=aa5ab080:11548
+updateFunctionComponent @ chunk-XQLYTHWV.js?v=aa5ab080:14582
+beginWork @ chunk-XQLYTHWV.js?v=aa5ab080:15924
+beginWork$1 @ chunk-XQLYTHWV.js?v=aa5ab080:19753
+performUnitOfWork @ chunk-XQLYTHWV.js?v=aa5ab080:19198
+workLoopSync @ chunk-XQLYTHWV.js?v=aa5ab080:19137
+renderRootSync @ chunk-XQLYTHWV.js?v=aa5ab080:19116
+performSyncWorkOnRoot @ chunk-XQLYTHWV.js?v=aa5ab080:18874
+flushSyncCallbacks @ chunk-XQLYTHWV.js?v=aa5ab080:9119
+(anonymous) @ chunk-XQLYTHWV.js?v=aa5ab080:18627
+setTimeout
+scheduleFn @ @tanstack_react-query.js?v=aa5ab080:555
+flush @ @tanstack_react-query.js?v=aa5ab080:569
+batch @ @tanstack_react-query.js?v=aa5ab080:587
+dispatch_fn @ @tanstack_react-query.js?v=aa5ab080:996
+setData @ @tanstack_react-query.js?v=aa5ab080:696
+onSuccess @ @tanstack_react-query.js?v=aa5ab080:897
+resolve @ @tanstack_react-query.js?v=aa5ab080:456
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0
+useGroupMessages.ts:322 [useGroupDiscovery] 🔍 HOOK CALLED - user: dandandan123 enabled: true
+useGroupDiscovery @ useGroupMessages.ts:322
+Messages @ Messages.tsx:153
+renderWithHooks @ chunk-XQLYTHWV.js?v=aa5ab080:11548
+updateFunctionComponent @ chunk-XQLYTHWV.js?v=aa5ab080:14582
+beginWork @ chunk-XQLYTHWV.js?v=aa5ab080:15924
+beginWork$1 @ chunk-XQLYTHWV.js?v=aa5ab080:19753
+performUnitOfWork @ chunk-XQLYTHWV.js?v=aa5ab080:19198
+workLoopSync @ chunk-XQLYTHWV.js?v=aa5ab080:19137
+renderRootSync @ chunk-XQLYTHWV.js?v=aa5ab080:19116
+performConcurrentWorkOnRoot @ chunk-XQLYTHWV.js?v=aa5ab080:18678
+workLoop @ chunk-XQLYTHWV.js?v=aa5ab080:197
+flushWork @ chunk-XQLYTHWV.js?v=aa5ab080:176
+performWorkUntilDeadline @ chunk-XQLYTHWV.js?v=aa5ab080:384
+logger.ts:18 [useGroupDiscovery] 🔍 Hook called, user: dandandan123 enabled: true
+logger.ts:38 [SENSITIVE] [MESSAGES PAGE] Mapped conversations: (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+logger.ts:18 [MESSAGES PAGE] Text messages: 1 Hidden: 0

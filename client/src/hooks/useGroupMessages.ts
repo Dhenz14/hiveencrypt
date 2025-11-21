@@ -317,32 +317,22 @@ export function useGroupMessagePreSync() {
  */
 export function useGroupDiscovery() {
   const { user } = useAuth();
-  
-  // DEBUG: Force console log that can't be stripped
-  console.warn('[useGroupDiscovery] 🔍 HOOK CALLED - user:', user?.username, 'enabled:', !!user?.username);
-  logger.info('[useGroupDiscovery] 🔍 Hook called, user:', user?.username, 'enabled:', !!user?.username);
 
   return useQuery({
     queryKey: ['blockchain-group-conversations', user?.username],
     queryFn: async ({ signal }: QueryFunctionContext): Promise<GroupConversationCache[]> => {
-      const username = user?.username; // Capture immediately to prevent closure issues
-      console.warn('[GROUP DISCOVERY] 🚀 QUERY FUNCTION STARTED for user:', username);
+      const username = user?.username;
       
       try {
-        console.warn('[GROUP DISCOVERY] 🔍 Step 1: Checking username...');
         if (!username) {
-          console.warn('[GROUP DISCOVERY] ❌ No username, returning empty array');
           logger.warn('[GROUP DISCOVERY] No username, skipping group discovery');
           return [];
         }
 
-        console.warn('[GROUP DISCOVERY] ✅ Username confirmed:', username);
         logger.info('[GROUP DISCOVERY] Discovering groups for:', username);
 
-        console.warn('[GROUP DISCOVERY] 🔍 Step 2: Fetching from cache...');
         // STEP 1: Fetch from local cache first (instant load)
         const cachedGroups = await getGroupConversations(username);
-        console.warn('[GROUP DISCOVERY] ✅ Loaded', cachedGroups.length, 'groups from cache');
         logger.info('[GROUP DISCOVERY] Loaded', cachedGroups.length, 'groups from cache');
 
         // Check if query was cancelled after cache read
