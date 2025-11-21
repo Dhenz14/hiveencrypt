@@ -261,7 +261,12 @@ const isEncryptedMemo = (text: string): boolean => {
   return base58Regex.test(content);
 };
 
+// MOBILE UX FIX: Deduplication map to prevent popup spam in requestDecodeMemo
+// Tracks in-progress decryption requests to avoid multiple Keychain popups for the same memo
+const pendingDecodeMemos = new Map<string, Promise<string>>();
+
 // TIER 2 OPTIMIZATION: Added txId parameter for memo caching
+// MOBILE UX FIX: Added deduplication to prevent popup spam
 export const requestDecodeMemo = async (
   username: string,
   encryptedMemo: string,
@@ -295,6 +300,15 @@ export const requestDecodeMemo = async (
     }
   }
 
+  // MOBILE UX FIX: Check if this decrypt is already in progress (only at depth 0 to avoid issues with double-encryption)
+  if (recursionDepth === 0) {
+    const cacheKey = txId || encryptedMemo;
+    if (pendingDecodeMemos.has(cacheKey)) {
+      logger.info('[requestDecodeMemo] Deduplication - reusing pending decrypt for:', cacheKey.substring(0, 20));
+      return pendingDecodeMemos.get(cacheKey)!;
+    }
+  }
+
   logger.info('[requestDecodeMemo] Starting decryption with Memo key (depth:', recursionDepth, ')');
   logger.sensitive('[requestDecodeMemo] Parameters:', {
     username,
@@ -307,72 +321,92 @@ export const requestDecodeMemo = async (
     platform: navigator.platform
   });
 
-  let result: string;
-
-  // Use Keychain for decryption (works on desktop AND Keychain Mobile browser!)
-  if (window.hive_keychain) {
-    logger.info('[requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption');
-    
-    result = await new Promise<string>((resolve, reject) => {
-      window.hive_keychain.requestVerifyKey(
-        username,
-        encryptedMemo,
-        'Memo',
-        (response: any) => {
-          logger.sensitive('[requestDecodeMemo] Keychain response:', {
-            success: response.success,
-            hasResult: !!response.result,
-            resultPreview: response.result ? response.result.substring(0, 50) + '...' : null,
-            resultLength: response.result?.length
-          });
-
-          if (response.success && response.result) {
-            resolve(response.result);
-          } else {
-            const errorMsg = response.message || response.error || 'Decryption failed';
-            if (errorMsg.toLowerCase().includes('cancel')) {
-              reject(new Error('User cancelled decryption'));
-            } else {
-              reject(new Error(errorMsg));
-            }
-          }
-        }
-      );
-    });
-  } else {
-    // Keychain not available
-    throw new Error('Hive Keychain is not available. Please install Hive Keychain extension or use Keychain Mobile browser.');
-  }
-  
-  logger.info('[requestDecodeMemo] Decryption successful, result length:', result.length);
-  
-  // Check for double-encryption: if result LOOKS like encrypted data, decrypt again
-  if (isEncryptedMemo(result) && recursionDepth < 1) {
-    logger.info('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
-    
-    const secondDecryption = await requestDecodeMemo(username, result, senderUsername, txId, recursionDepth + 1);
-    logger.info('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
-    return secondDecryption;
-  }
-  
-  // If still encrypted at max depth, that's an error
-  if (isEncryptedMemo(result) && recursionDepth >= 1) {
-    throw new Error('Message may be triple-encrypted or corrupted');
-  }
-  
-  // TIER 2: Cache the decrypted memo if we have a txId
-  if (txId && recursionDepth === 0) {
+  // MOBILE UX FIX: Create decrypt promise with deduplication tracking
+  const cacheKey = txId || encryptedMemo;
+  const decryptPromise = new Promise<string>(async (resolve, reject) => {
     try {
-      const { cacheDecryptedMemo } = await import('@/lib/messageCache');
-      await cacheDecryptedMemo(txId, result, username);
-      logger.info('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
-    } catch (cacheError) {
-      logger.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
+      let result: string;
+
+      // Use Keychain for decryption (works on desktop AND Keychain Mobile browser!)
+      if (window.hive_keychain) {
+        logger.info('[requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption');
+        
+        result = await new Promise<string>((resolveInner, rejectInner) => {
+          window.hive_keychain.requestVerifyKey(
+            username,
+            encryptedMemo,
+            'Memo',
+            (response: any) => {
+              logger.sensitive('[requestDecodeMemo] Keychain response:', {
+                success: response.success,
+                hasResult: !!response.result,
+                resultPreview: response.result ? response.result.substring(0, 50) + '...' : null,
+                resultLength: response.result?.length
+              });
+
+              if (response.success && response.result) {
+                resolveInner(response.result);
+              } else {
+                const errorMsg = response.message || response.error || 'Decryption failed';
+                if (errorMsg.toLowerCase().includes('cancel')) {
+                  rejectInner(new Error('User cancelled decryption'));
+                } else {
+                  rejectInner(new Error(errorMsg));
+                }
+              }
+            }
+          );
+        });
+      } else {
+        // Keychain not available
+        throw new Error('Hive Keychain is not available. Please install Hive Keychain extension or use Keychain Mobile browser.');
+      }
+      
+      logger.info('[requestDecodeMemo] Decryption successful, result length:', result.length);
+      
+      // Check for double-encryption: if result LOOKS like encrypted data, decrypt again
+      if (isEncryptedMemo(result) && recursionDepth < 1) {
+        logger.info('[requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...');
+        
+        const secondDecryption = await requestDecodeMemo(username, result, senderUsername, txId, recursionDepth + 1);
+        logger.info('[requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.');
+        resolve(secondDecryption);
+        return;
+      }
+      
+      // If still encrypted at max depth, that's an error
+      if (isEncryptedMemo(result) && recursionDepth >= 1) {
+        throw new Error('Message may be triple-encrypted or corrupted');
+      }
+      
+      // TIER 2: Cache the decrypted memo if we have a txId
+      if (txId && recursionDepth === 0) {
+        try {
+          const { cacheDecryptedMemo } = await import('@/lib/messageCache');
+          await cacheDecryptedMemo(txId, result, username);
+          logger.info('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
+        } catch (cacheError) {
+          logger.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
+        }
+      }
+      
+      logger.info('[requestDecodeMemo] ✅ Decryption complete!');
+      resolve(result);
+    } catch (error) {
+      // MOBILE UX FIX: Clear from pending map on error
+      if (recursionDepth === 0) {
+        pendingDecodeMemos.delete(cacheKey);
+      }
+      reject(error);
     }
+  });
+
+  // MOBILE UX FIX: Store in pending map before returning (only at depth 0)
+  if (recursionDepth === 0) {
+    pendingDecodeMemos.set(cacheKey, decryptPromise);
   }
-  
-  logger.info('[requestDecodeMemo] ✅ Decryption complete!');
-  return result;
+
+  return decryptPromise;
 };
 
 // TIER 2 OPTIMIZATION: Added support for incremental pagination

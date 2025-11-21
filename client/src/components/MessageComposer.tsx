@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo, memo } from 'react';
-import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info, CheckCircle } from 'lucide-react';
+import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info, CheckCircle, Lock as LockIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { requestTransfer, extractTransactionId } from '@/lib/hive';
-import { requestKeychainEncryption } from '@/lib/encryption';
 import { cacheCustomJsonMessage, cacheMessage, updateConversation, getConversationKey, addOptimisticGroupMessage, confirmGroupMessage, getGroupConversation, cacheGroupConversation, removeOptimisticGroupMessage } from '@/lib/messageCache';
 import { processImageForBlockchain } from '@/lib/imageUtils';
 import { encryptImagePayload, type ImagePayload } from '@/lib/customJsonEncryption';
@@ -433,21 +432,17 @@ export function MessageComposer({
         attemptedRecipients.push(member);
 
         try {
-          // Encrypt the formatted message for this member
-          logger.info('[GROUP SEND] Encrypting for member:', member);
-          const encryptedMemo = await requestKeychainEncryption(
-            formattedMessage,
-            user.username,
-            member
-          );
-
-          // Send the encrypted message
-          logger.info('[GROUP SEND] Sending to member:', member);
+          // OPTIMIZED: Single Keychain popup - prepare memo with # prefix for auto-encryption
+          const memoToEncrypt = `#${formattedMessage}`;
+          
+          logger.info('[GROUP SEND] Sending to member (auto-encrypt):', member);
+          
+          // Single Keychain call - Keychain auto-encrypts memos starting with #
           const transfer = await requestTransfer(
             user.username,
             member,
             DEFAULT_MINIMUM_HBD,
-            encryptedMemo,
+            memoToEncrypt, // Keychain will encrypt this automatically
             'HBD'
           );
 
@@ -711,92 +706,30 @@ export function MessageComposer({
     }
 
     try {
-      // Step 2: Encrypt message using Hive Keychain
-      let encryptedMemo: string;
-      try {
-        console.log('[SEND] Step 2: Starting encryption...', {
-          from: user.username,
-          to: recipientUsername
-        });
-        
-        // Use the recommended requestKeychainEncryption from encryption.ts
-        // Works on desktop Keychain extension AND Keychain Mobile browser
-        encryptedMemo = await requestKeychainEncryption(
-          messageText,
-          user.username,
-          recipientUsername
-        );
-        
-        console.log('[SEND] ✅ Encryption successful:', {
-          hasPrefix: encryptedMemo.startsWith('#'),
-          length: encryptedMemo.length,
-          preview: encryptedMemo.substring(0, 30) + '...'
-        });
-        
-        logger.sensitive('[MessageComposer] ✅ Successfully encrypted memo:', {
-          hasPrefix: encryptedMemo.startsWith('#'),
-          length: encryptedMemo.length,
-          preview: encryptedMemo.substring(0, 30) + '...'
-        });
-      } catch (encryptError: any) {
-        console.error('[SEND] ❌ Encryption failed:', encryptError);
-        logger.error('[MessageComposer] ❌ Encryption error:', encryptError);
-        
-        const errorMessage = encryptError?.message || String(encryptError);
-        
-        // Check for extension context invalidation (Bug #3 fix)
-        if (errorMessage.includes('Extension context invalidated') || 
-            errorMessage.includes('context invalidated')) {
-          toast({
-            title: 'Keychain Extension Reloaded',
-            description: 'Please refresh the page and try again. (Keychain extension was updated/reloaded)',
-            variant: 'destructive',
-            duration: 10000, // Show longer for user to read
-          });
-          setIsSending(false);
-          return;
-        }
-        
-        if (errorMessage.includes('cancel')) {
-          toast({
-            title: 'Encryption Cancelled',
-            description: 'Message encryption was cancelled',
-            variant: 'destructive',
-          });
-        } else {
-          toast({
-            title: 'Failed to Encrypt',
-            description: errorMessage || 'Could not encrypt the message. Please try again.',
-            variant: 'destructive',
-          });
-        }
-        setIsSending(false);
-        return;
-      }
-
-      // Step 3: Create HBD transfer with encrypted memo
-      // NOTE: Keychain may show "private key" warning - this is a FALSE POSITIVE
-      // The memo contains encrypted data which triggers Keychain's pattern detection
-      // We are NOT sending any private keys - only the encrypted message
+      // OPTIMIZED: Single Keychain popup - encryption + transfer combined
+      // Prepare memo with # prefix for auto-encryption by Keychain
+      const memoToEncrypt = `#${messageText}`;
+      
+      console.log('[SEND] Broadcasting encrypted transfer to blockchain...', {
+        from: user.username,
+        to: recipientUsername,
+        amount: sendAmount + ' HBD'
+      });
+      
+      logger.info('[MessageComposer] Single-step send (# prefix auto-encrypts):', {
+        from: user.username,
+        to: recipientUsername,
+        amount: sendAmount
+      });
+      
+      // Single Keychain call - Keychain auto-encrypts memos starting with #
       let txId: string | undefined;
       try {
-        console.log('[SEND] Step 3: Broadcasting to blockchain...', {
-          from: user.username,
-          to: recipientUsername,
-          amount: sendAmount + ' HBD',
-          memoPreview: encryptedMemo.substring(0, 30) + '...'
-        });
-        
-        logger.sensitive('[MessageComposer] Calling requestTransfer with memo:', {
-          hasPrefix: encryptedMemo.startsWith('#'),
-          memoPreview: encryptedMemo.substring(0, 30) + '...'
-        });
-        
         const transfer = await requestTransfer(
           user.username,
           recipientUsername,
           sendAmount, // v2.0.0: Use custom amount instead of hardcoded 0.001
-          encryptedMemo,
+          memoToEncrypt, // Keychain will encrypt this automatically
           'HBD'
         );
         
@@ -816,7 +749,7 @@ export function MessageComposer({
         }
         
         txId = extractTransactionId(transfer.result);
-        console.log('[SEND] ✅ Blockchain broadcast successful, txId:', txId);
+        console.log('[SEND] ✅ Message sent successfully! TxID:', txId);
         
         // OPTIMISTIC UPDATE: Cache sent message locally for instant display
         if (txId) {
@@ -825,13 +758,14 @@ export function MessageComposer({
             const timestamp = new Date().toISOString();
             
             // Create optimistic message cache
+            // Note: Keychain encrypted the memo automatically (# prefix), so we store the # prefix
             await cacheMessage({
               id: txId,
               conversationKey,
               from: user.username,
               to: recipientUsername,
               content: messageText, // Store decrypted text for immediate display
-              encryptedContent: encryptedMemo,
+              encryptedContent: memoToEncrypt, // Store with # prefix (Keychain auto-encrypted)
               timestamp,
               txId,
               confirmed: false, // Not yet confirmed on blockchain

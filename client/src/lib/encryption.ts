@@ -180,11 +180,16 @@ export const decryptMemo = async (
 // Hive Keychain Integration (Production-Ready)
 // ============================================================================
 
+// MOBILE UX FIX: Deduplication map to prevent popup spam
+// Tracks in-progress decryption requests to avoid multiple Keychain popups for the same memo
+const pendingDecryptions = new Map<string, Promise<string>>();
+
 /**
  * Request memo decryption via Hive Keychain browser extension
  * This is the RECOMMENDED approach for production as it never exposes private keys
  * 
  * TIER 2 OPTIMIZATION: Checks memo cache before decrypting to avoid redundant work
+ * MOBILE UX FIX: Deduplication prevents multiple simultaneous decrypt requests
  * 
  * @param encryptedMemo - Encrypted memo to decrypt
  * @param username - Hive username (to identify which key to use)
@@ -204,11 +209,11 @@ export const requestKeychainDecryption = async (
   // TIER 2: Check memo cache first to avoid redundant decryption
   if (txId) {
     try {
-      const { getCachedDecryptedMemo, cacheDecryptedMemo } = await import('@/lib/messageCache');
+      const { getCachedDecryptedMemo } = await import('@/lib/messageCache');
       const cachedMemo = await getCachedDecryptedMemo(txId, username);
       
       if (cachedMemo) {
-        // Cache hit - return immediately without Keychain call
+        logger.debug('[DECRYPT] Cache hit for txId:', txId.substring(0, 8));
         return cachedMemo;
       }
     } catch (cacheError) {
@@ -216,13 +221,23 @@ export const requestKeychainDecryption = async (
     }
   }
 
-  // Cache miss or no txId - decrypt with Keychain
-  return new Promise((resolve, reject) => {
+  // MOBILE UX FIX: Check if this decrypt is already in progress
+  // Use txId if available (most specific), otherwise use encryptedMemo as key
+  const cacheKey = txId || encryptedMemo;
+  if (pendingDecryptions.has(cacheKey)) {
+    logger.debug('[DECRYPT] Deduplication - reusing pending decrypt for:', cacheKey.substring(0, 8));
+    return pendingDecryptions.get(cacheKey)!;
+  }
+
+  // Create new decrypt promise
+  const decryptPromise = new Promise<string>((resolve, reject) => {
     // Check if Keychain is installed
     if (typeof window === 'undefined' || !window.hive_keychain) {
       reject(new Error('Hive Keychain extension is not installed. Please install it from https://hive-keychain.com'));
       return;
     }
+
+    logger.info('[DECRYPT] Requesting Keychain decryption for:', txId?.substring(0, 8) || 'no-txId');
 
     // Use requestVerifyKey - the actual working API that PeakD uses
     // Source: https://peakd.com/@steempeak/decrypt-memos-on-steempeak-com-using-keychain
@@ -231,6 +246,9 @@ export const requestKeychainDecryption = async (
       encryptedMemo,
       'Memo',
       async (response: any) => {
+        // MOBILE UX FIX: Clear from pending map regardless of success/failure
+        pendingDecryptions.delete(cacheKey);
+
         if (response.success) {
           const decryptedMemo = response.result;
           
@@ -239,6 +257,7 @@ export const requestKeychainDecryption = async (
             try {
               const { cacheDecryptedMemo } = await import('@/lib/messageCache');
               await cacheDecryptedMemo(txId, decryptedMemo, username);
+              logger.debug('[DECRYPT] Cached result for:', txId.substring(0, 8));
             } catch (cacheError) {
               logger.warn('[MEMO CACHE] Failed to cache decrypted memo:', cacheError);
             }
@@ -251,6 +270,11 @@ export const requestKeychainDecryption = async (
       }
     );
   });
+
+  // MOBILE UX FIX: Store in pending map before returning
+  pendingDecryptions.set(cacheKey, decryptPromise);
+
+  return decryptPromise;
 };
 
 /**
