@@ -1,0 +1,335 @@
+ [vite] connecting...
+ [vite] connected.
+ Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ Module "util" has been externalized for browser compatibility. Cannot access "util.debuglog" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=cd048d7b:2839
+ Module "util" has been externalized for browser compatibility. Cannot access "util.inspect" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=cd048d7b:2839
+ Module "stream" has been externalized for browser compatibility. Cannot access "stream.Transform" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+get @ lnurl-pay.js?v=cd048d7b:6178
+ [DEBUG] [Platform Detection] Starting detection...
+ [DEBUG] [Platform Detection] User Agent: mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/142.0.0.0 safari/537.36
+ [DEBUG] [Platform Detection] Is Mobile: false
+ ✅ blakejs loaded successfully (self-contained version)
+   Available functions: Array(5)
+ 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+ 🏛️ ArcHive Content Script Loaded
+ 🏛️ ArcHive Content Script Ready - 100% Decentralized
+ [PWA] Service Worker registered: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/
+ [DEBUG] [Keychain Detection] window.hive_keychain found after 60 ms
+ [DEBUG] [Keychain Detection] Handshake successful
+ [Platform Detection] ✅ Detected: desktop-extension
+ [Auth] Platform detected: desktop-extension
+ [Auth] Session restored for: curatorhulk
+ [DEBUG] [CLEANUP] Starting orphaned message cleanup for: curatorhulk
+ [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Loaded exceptions: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ [ExceptionsContext] Saved exceptions: Array(0)
+ [DEBUG] [CLEANUP] ✅ Cleaned up 0 orphaned messages
+ [DEBUG] [METADATA] Fetching from blockchain: curatorhulk
+ [DEBUG] [METADATA] Fetching from blockchain: curatorhulk
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: curatorhulk
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [GROUP DISCOVERY] Discovering groups for: curatorhulk
+ [GROUP DISCOVERY] Loaded 2 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: curatorhulk
+ [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+ [RPC] Selected best node: https://api.hive.blog Object
+ [DEBUG] [CONV DISCOVERY] Loaded 2 cached conversations immediately
+ [DEBUG] [MIGRATION] UTC timestamp migration already completed
+ [DEBUG] [CACHE FIX] Fixed 0 corrupted messages
+ [DEBUG] [MIGRATION] Starting group message migration for: curatorhulk
+ [DEBUG] [MIGRATION] Scanning 17 messages for misplaced group messages
+ [DEBUG] [MIGRATION] No misplaced group messages found
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [DEBUG] [METADATA] Fetched and cached: curatorhulk Object
+ [DEBUG] [METADATA] Fetched and cached: curatorhulk Object
+ [DEBUG] [METADATA] Cache hit for: curatorhulk
+ [DEBUG] [METADATA] Cache hit for: curatorhulk
+ [DEBUG] [METADATA] Cache hit for: curatorhulk
+ [DEBUG] [GROUP BLOCKCHAIN] Initial scan: 192 operations
+ [DEBUG] [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 35121
+ [DEBUG] [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 35120
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 2 partners in 791 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 2 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 2 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 1 total partners in 696 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [RPC] Selected best node: https://api.openhive.network Object
+ [RPC] Retry 1/3 with node: https://api.openhive.network
+ [DEBUG] [GROUP BLOCKCHAIN] No more operations, stopping backfill
+ [DEBUG] [GROUP BLOCKCHAIN] Completed scanning 192 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 1000 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+ [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+ [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+ [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 4 cached group messages
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: dandandan123
+ [GROUP DISCOVERY] Found cached group message for groupId: afe96d92-f0a5-46aa-813f-16fa58beb57a from: curatorhulk
+ [GROUP DISCOVERY] Found 2 unique groups from cached messages
+ [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP DISCOVERY] Scanning 200 blockchain transfers for group messages
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] HIT for txId: a00c5511bb72c1863a2f - skipping decryption
+ [MEMO CACHE HIT] Using cached decryption for txId: a00c5511bb72c1863a2f
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 95552926b94046c5a932 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 3
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 76b11dc9734693c2e233 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [DEBUG] [METADATA] Updating tip receive preference for: curatorhulk to: hbd
+ [DEBUG] [METADATA] Fetching from blockchain: curatorhulk
+ [DEBUG] [METADATA] Fetched and cached: curatorhulk Object
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [decryptMemo] ❌ ERROR: User ignored this transaction
+error @ logger.ts:23
+ [decryptMemo] Error for memo: #HqymTJ7CxXAT7M9qfFANWzzxPr5eNV95dhmj7J5... otherParty: dandandan123
+error @ logger.ts:23
+ [DEBUG] [GROUP DISCOVERY] Failed to process transfer: 
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: ce7fab1c75f7f841c669 - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [METADATA] Keychain broadcast failed: User ignored this transaction
+error @ logger.ts:23
+ [METADATA] Failed to update tip receive preference: 
+error @ logger.ts:23
+ [SETTINGS] Failed to update tip preference: 
+handleUpdateTipPreference @ SettingsModal.tsx:184
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 130
+ [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+ [requestDecodeMemo] Decryption successful, result length: 8
+ [requestDecodeMemo] ✅ Decryption complete!
+ [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: f299c7be96fade3f9b6a - will decrypt
+ [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+ [SENSITIVE] [requestDecodeMemo] Parameters: Object
+ [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+ [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 130
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 5
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #test...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #test...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: d151580efada4d28d5f0 - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 130
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 3
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #Yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: f16a9382279cfb0c244d - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 174
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 46
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed legacy format group message (no creator)
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: 6cda45b609c6e1c4beda - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 196
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 61
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: 5d29792fa8f4239aa453 - will decrypt
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 0 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 218
+logger.ts:18 [requestDecodeMemo] ⚠️ Result still encrypted - attempting second decryption for double-encrypted message...
+logger.ts:18 [requestDecodeMemo] Starting decryption with Memo key (depth: 1 )
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Parameters: Object
+logger.ts:18 [requestDecodeMemo] Keychain detected, using requestVerifyKey for decryption
+logger.ts:38 [SENSITIVE] [requestDecodeMemo] Keychain response: Object
+logger.ts:18 [requestDecodeMemo] Decryption successful, result length: 64
+logger.ts:18 [requestDecodeMemo] ✅ Decryption complete!
+logger.ts:18 [requestDecodeMemo] ✅ Second decryption successful! Message was double-encrypted.
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] HIT for txId: 09c9dbfc9893fb457c02 - skipping decryption
+logger.ts:18 [MEMO CACHE HIT] Using cached decryption for txId: 09c9dbfc9893fb457c02
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] HIT for txId: 1217643504dbfe0a8a5a - skipping decryption
+logger.ts:18 [MEMO CACHE HIT] Using cached decryption for txId: 1217643504dbfe0a8a5a
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP DISCOVERY] Looking up metadata for 1 discovered groups
+logger.ts:18 [GROUP BLOCKCHAIN] Looking up group metadata: Object
+logger.ts:18 [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 90 ops, oldest seq: 2
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - completed: 90 transfer operations scanned, chunks processed: 0
+logger.ts:18 [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 65 ops, oldest seq: 8
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 65 operations for: dandandan123
+logger.ts:25 [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:25
+logger.ts:25 [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:25
+logger.ts:18 [GROUP DISCOVERY] ➕ Added minimal group: test
+logger.ts:18 [GROUP DISCOVERY] Caching 3 discovered group messages
+logger.ts:11 [DEBUG] [GROUP CACHE] Batch cached 3 group messages
+logger.ts:18 [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+logger.ts:18 [GROUP DISCOVERY] Trying 1 fallback senders for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+logger.ts:18 [GROUP BLOCKCHAIN] Looking up group metadata: Object
+logger.ts:18 [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 1000 ops, oldest seq: 89812
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+logger.ts:18 [RPC] Selected best node: https://anyx.io {avgLatency: 1705, successRate: '100.0%'}
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - chunk 1 : 41 ops, total scanned: 1041
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)

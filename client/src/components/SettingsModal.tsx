@@ -217,9 +217,16 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
       });
     } catch (error: any) {
       console.error('[SETTINGS] Failed to update tip preference:', error);
+      
+      // Provide helpful error message for Keychain cancellation
+      const isKeychainCancelled = error?.message?.toLowerCase()?.includes('ignored') || 
+                                   error?.message?.toLowerCase()?.includes('cancel');
+      
       toast({
         title: 'Update Failed',
-        description: error?.message || 'Failed to update tip receive preference',
+        description: isKeychainCancelled 
+          ? 'You need to approve the Hive Keychain popup to save this setting. Please try again and click "Approve" when Keychain prompts you.'
+          : error?.message || 'Failed to update tip receive preference',
         variant: 'destructive',
       });
     } finally {
@@ -935,6 +942,12 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       </div>
                     </div>
                   </RadioGroup>
+                  <div className="flex items-start gap-2 text-caption text-muted-foreground bg-muted/30 p-3 rounded-md border border-border/40">
+                    <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <p>
+                      Changing this setting will trigger a Hive Keychain popup. Please approve the popup to save your preference.
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-start gap-2 text-caption text-muted-foreground">
                   <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5" />
