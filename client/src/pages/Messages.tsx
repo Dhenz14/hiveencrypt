@@ -936,7 +936,8 @@ export default function Messages() {
       </div>
 
       <ConversationsList
-        conversations={conversations}
+        groups={groupConversations}
+        chats={directConversations}
         selectedConversationId={selectedConversationId || selectedGroupId || undefined}
         onSelectConversation={(id) => {
           // Check if it's a group conversation

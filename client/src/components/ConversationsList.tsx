@@ -1,4 +1,4 @@
-import { Search, Plus, ShieldCheck, Users, Compass } from 'lucide-react';
+import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -15,7 +15,8 @@ import {
 } from '@/components/ui/tooltip';
 
 interface ConversationsListProps {
-  conversations: Conversation[];
+  groups: Conversation[];
+  chats: Conversation[];
   selectedConversationId?: string;
   onSelectConversation: (id: string) => void;
   onNewMessage: () => void;
@@ -26,7 +27,8 @@ interface ConversationsListProps {
 }
 
 export function ConversationsList({
-  conversations,
+  groups,
+  chats,
   selectedConversationId,
   onSelectConversation,
   onNewMessage,
@@ -37,7 +39,11 @@ export function ConversationsList({
 }: ConversationsListProps) {
   const { isException } = useExceptionsList();
   
-  const filteredConversations = conversations.filter(conv =>
+  const filteredGroups = groups.filter(conv =>
+    conv.contactUsername.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredChats = chats.filter(conv =>
     conv.contactUsername.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -74,37 +80,121 @@ export function ConversationsList({
     return firstLine.substring(0, maxLength).trim() + '...';
   };
 
+  const renderConversationItem = (conversation: Conversation, isGroup: boolean) => (
+    <button
+      key={conversation.id}
+      onClick={() => onSelectConversation(conversation.id)}
+      className={cn(
+        'w-full px-4 py-3 flex items-start gap-3 hover-elevate transition-colors min-h-[56px]',
+        selectedConversationId === conversation.id && 'bg-accent/50'
+      )}
+      data-testid={`conversation-${conversation.contactUsername}`}
+    >
+      <div className="relative flex-shrink-0">
+        <Avatar className="w-10 h-10">
+          <AvatarFallback className={cn(
+            "font-medium text-sm",
+            isGroup ? "bg-primary/20 text-primary" : "bg-primary/10 text-primary"
+          )}>
+            {isGroup ? <Users className="w-4 h-4" /> : getInitials(conversation.contactUsername)}
+          </AvatarFallback>
+        </Avatar>
+        {conversation.unreadCount > 0 && (
+          <Badge
+            variant="destructive"
+            className="absolute -top-1 -right-1 h-4 min-w-4 flex items-center justify-center px-1 text-[10px] rounded-full"
+            data-testid={`badge-unread-${conversation.contactUsername}`}
+          >
+            {conversation.unreadCount > 99 ? '99+' : conversation.unreadCount}
+          </Badge>
+        )}
+      </div>
+
+      <div className="flex-1 min-w-0 text-left">
+        <div className="flex items-center justify-between gap-2 mb-0.5">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span className={cn(
+              'text-sm font-medium truncate',
+              conversation.unreadCount > 0 && 'font-semibold'
+            )}>
+              {isGroup ? conversation.contactUsername : `@${conversation.contactUsername}`}
+            </span>
+            {!isGroup && isException(conversation.contactUsername) && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <ShieldCheck 
+                    className="w-3 h-3 text-primary flex-shrink-0" 
+                    data-testid={`icon-exception-${conversation.contactUsername}`}
+                    aria-label="On exceptions list"
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">On exceptions list</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
+          </div>
+          {conversation.lastMessageTime && (
+            <span className="text-[10px] text-muted-foreground/70 flex-shrink-0 font-normal">
+              {formatTimestamp(conversation.lastMessageTime)}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-1.5 min-w-0">
+          {conversation.isEncrypted && (
+            <Lock className="w-3 h-3 text-primary flex-shrink-0" />
+          )}
+          <p 
+            className={cn(
+              'text-xs flex-1 min-w-0 truncate',
+              conversation.unreadCount > 0 
+                ? 'text-foreground font-medium' 
+                : 'text-muted-foreground'
+            )}
+            title={conversation.lastMessage || 'No messages yet'}
+          >
+            {truncatePreview(conversation.lastMessage || 'No messages yet')}
+          </p>
+        </div>
+      </div>
+    </button>
+  );
+
+  const hasNoResults = filteredGroups.length === 0 && filteredChats.length === 0;
+
   return (
     <div className="flex flex-col h-full">
-      <div className="p-4 space-y-4 border-b">
+      <div className="p-4 space-y-3 border-b">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
           <Input
-            placeholder="Search conversations..."
+            placeholder="Search..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-9 h-11"
+            className="pl-9 h-10"
             data-testid="input-search-conversations"
           />
         </div>
         <div className="flex gap-2">
           <Button
             onClick={onNewMessage}
-            className="flex-1 h-11"
+            className="flex-1 h-9"
+            size="sm"
             data-testid="button-new-message"
           >
-            <Plus className="w-4 h-4 mr-2" />
-            New Chat
+            <Plus className="w-4 h-4 mr-1" />
+            Chat
           </Button>
           {onNewGroup && (
             <Button
               onClick={onNewGroup}
               variant="outline"
-              className="flex-1 h-11"
+              className="flex-1 h-9"
+              size="sm"
               data-testid="button-new-group"
             >
-              <Users className="w-4 h-4 mr-2" />
-              New Group
+              <Users className="w-4 h-4 mr-1" />
+              Group
             </Button>
           )}
         </div>
@@ -112,7 +202,8 @@ export function ConversationsList({
           <Button
             onClick={onDiscoverGroups}
             variant="ghost"
-            className="w-full h-10"
+            className="w-full h-8"
+            size="sm"
             data-testid="button-discover-groups"
           >
             <Compass className="w-4 h-4 mr-2" />
@@ -122,95 +213,48 @@ export function ConversationsList({
       </div>
 
       <ScrollArea className="flex-1">
-        {filteredConversations.length === 0 ? (
+        {hasNoResults ? (
           <div className="p-8 text-center space-y-2">
-            <p className="text-body text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               {searchQuery ? 'No conversations found' : 'No conversations yet'}
             </p>
             {!searchQuery && (
-              <p className="text-caption text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Start a conversation to begin messaging
               </p>
             )}
           </div>
         ) : (
-          <div className="py-2">
-            {filteredConversations.map((conversation) => (
-              <button
-                key={conversation.id}
-                onClick={() => onSelectConversation(conversation.id)}
-                className={cn(
-                  'w-full px-4 py-4 flex items-start gap-4 hover-elevate transition-colors min-h-[64px]',
-                  selectedConversationId === conversation.id && 'bg-accent/50'
-                )}
-                data-testid={`conversation-${conversation.contactUsername}`}
-              >
-                <div className="relative flex-shrink-0">
-                  <Avatar className="w-12 h-12">
-                    <AvatarFallback className="bg-primary/10 text-primary font-medium text-body">
-                      {getInitials(conversation.contactUsername)}
-                    </AvatarFallback>
-                  </Avatar>
-                  {conversation.unreadCount > 0 && (
-                    <Badge
-                      variant="destructive"
-                      className="absolute -top-1 -right-1 h-5 min-w-5 flex items-center justify-center px-1 text-caption rounded-full"
-                      data-testid={`badge-unread-${conversation.contactUsername}`}
-                    >
-                      {conversation.unreadCount > 99 ? '99+' : conversation.unreadCount}
-                    </Badge>
-                  )}
+          <div className="py-1">
+            {filteredGroups.length > 0 && (
+              <div className="mb-2">
+                <div className="px-4 py-2 flex items-center gap-2">
+                  <Users className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    Groups
+                  </span>
+                  <Badge variant="secondary" className="ml-auto h-5 px-1.5 text-[10px]">
+                    {filteredGroups.length}
+                  </Badge>
                 </div>
+                {filteredGroups.map((conv) => renderConversationItem(conv, true))}
+              </div>
+            )}
 
-                <div className="flex-1 min-w-0 text-left">
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <div className="flex items-center gap-1.5 min-w-0">
-                      <span className={cn(
-                        'text-body font-medium truncate',
-                        conversation.unreadCount > 0 && 'font-semibold'
-                      )}>
-                        @{conversation.contactUsername}
-                      </span>
-                      {isException(conversation.contactUsername) && (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <ShieldCheck 
-                              className="w-3.5 h-3.5 text-primary flex-shrink-0" 
-                              data-testid={`icon-exception-${conversation.contactUsername}`}
-                              aria-label="On exceptions list"
-                            />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="text-caption">On exceptions list</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      )}
-                    </div>
-                    {conversation.lastMessageTime && (
-                      <span className="text-[11px] text-muted-foreground/70 flex-shrink-0 font-normal">
-                        {formatTimestamp(conversation.lastMessageTime)}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 min-w-0">
-                    {conversation.isEncrypted && (
-                      <Lock className="w-3 h-3 text-primary flex-shrink-0" />
-                    )}
-                    <p 
-                      className={cn(
-                        'text-caption flex-1 min-w-0',
-                        conversation.unreadCount > 0 
-                          ? 'text-foreground font-medium' 
-                          : 'text-muted-foreground'
-                      )}
-                      title={conversation.lastMessage || 'No messages yet'}
-                    >
-                      {truncatePreview(conversation.lastMessage || 'No messages yet')}
-                    </p>
-                  </div>
+            {filteredChats.length > 0 && (
+              <div>
+                <div className="px-4 py-2 flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    Chats
+                  </span>
+                  <Badge variant="secondary" className="ml-auto h-5 px-1.5 text-[10px]">
+                    {filteredChats.length}
+                  </Badge>
                 </div>
-              </button>
-            ))}
+                {filteredChats.map((conv) => renderConversationItem(conv, false))}
+              </div>
+            )}
           </div>
         )}
       </ScrollArea>
