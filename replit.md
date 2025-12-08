@@ -70,13 +70,82 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
   - **Memo-Pointer Protocol**: Scalable solution for discovering groups older than 5000 operations, using transaction ID pointers for efficient lookup.
   - **Paid Groups**: Monetization feature allowing creators to charge for group access using HBD payments, with automatic verification and access control.
   - **Self-Service Join System**: Hybrid auto-approve and manual approval workflow for group access, supporting shareable links and blockchain-based join requests.
+
+## Group Chat System - Technical Deep Dive
+
+### Architecture Overview
+The group chat system is 100% decentralized with no backend servers. All group operations are stored on the Hive blockchain as `custom_json` operations with the ID `hive_messenger_group`.
+
+### Key Files
+- `client/src/lib/groupBlockchain.ts` - Core blockchain operations
+- `client/src/hooks/useGroupMessages.ts` - Group message fetching and caching
+- `client/src/hooks/useJoinRequests.ts` - Join request query hooks
+- `client/src/hooks/useAutoApproveJoinRequests.ts` - Background auto-approval hook
+- `client/src/components/JoinGroupButton.tsx` - Join group UI with 4 approval paths
+- `client/src/components/ManageMembersModal.tsx` - Member management for creators
+- `client/src/components/PaymentGatewayModal.tsx` - HBD payment flow
+- `client/src/lib/paymentVerification.ts` - Payment verification utilities
+- `client/src/lib/joinRequestDiscovery.ts` - Blockchain scanning for join requests
+
+### Blockchain Operations
+1. **Group Creation** (`action: 'create'`): Creates immutable group record with members, creator, and optional payment settings
+2. **Group Update** (`action: 'update'`): Membership changes with version tracking
+3. **Leave Group** (`action: 'leave'`): User voluntarily leaves a group
+4. **Join Request** (`action: 'join_request'`): User requests to join with status field
+5. **Join Approve** (`action: 'join_approve'`): Creator approves a join request
+6. **Join Reject** (`action: 'join_reject'`): Creator rejects a join request
+
+### Self-Service Join System - 4 Approval Paths
+1. **Free Auto-Approve**: Status `approved_free` → Creator's background process auto-approves
+2. **Paid Auto-Approve**: Status `pending_payment_verification` + `memberPayment` → Creator verifies payment and auto-approves
+3. **Manual Free**: Status `pending` → Creator manually approves in ManageMembersModal
+4. **Manual Paid**: Status `pending` → Creator collects payment, then approves
+
+### Security Measures
+- **Requesters can ONLY broadcast `join_request`, NEVER `join_approve`** - Critical security fix
+- Payment verification is done by creator's client on the blockchain before approval
+- All messages are end-to-end encrypted via Hive memo encryption
+- Private keys never leave Hive Keychain
+
+### Payment Verification
+- **Batched scanning**: 500 operations per batch, max 10 batches (5000 ops total)
+- **Memo matching**: Payment memo must contain groupId
+- **Time window**: 24 hours default for payment validity
+- **Automatic verification**: Creator's client verifies payment existence on blockchain
+
+### Performance Optimizations
+- **Token Bucket Rate Limiter**: 4 requests/second to respect Keychain limits
+- **LRU Memo Cache**: 1000 entries to eliminate duplicate decrypt requests
+- **Decryption with Retry**: Exponential backoff (100ms → 200ms → 400ms) for transient errors
+- **Query Cancellation**: AbortSignal support to prevent stale state
+- **Optimistic Updates**: Messages appear instantly, confirmed after blockchain broadcast
+
+### Race Condition Prevention
+- **Synchronous Ref Guards**: `isSendingRef.current` provides instant blocking
+- **Async State for UI**: `isSending` state handles button disabled state
+- **Both are reset**: In all error paths and finally blocks
+
+### Group Message Format
+Messages use the format: `[GROUP:${groupId}:${creator}]${content}`
+- `groupId`: UUID for the group
+- `creator`: Username of group creator (for metadata discovery)
+- `content`: Actual message content
+
+### Auto-Approval Background Process
+- Runs in `useAutoApproveJoinRequests` hook for group creators
+- Polls every 30 seconds for requests with status `approved_free` or `pending_payment_verification`
+- For paid requests, verifies payment on blockchain before approving
+- Broadcasts `join_approve` from creator's account
+- Uses `processedRequestIds` ref to prevent duplicate approvals
+
+### Other Key Features
 - **Lightning Network Tips**: Send Bitcoin satoshis via the Lightning Network to users with Lightning Addresses, supporting bidirectional tipping and encrypted notifications.
 - **Privacy Controls**: Hive Following-based privacy settings for messages and group invites, stored on the Hive blockchain.
-- Real-time message synchronization and offline browsing of cached data.
-- PWA installable on mobile and desktop.
-- No private keys are ever transmitted or stored by the application.
+- **Real-time Sync**: Message synchronization and offline browsing of cached data.
+- **PWA**: Installable on mobile and desktop.
+- **Security**: No private keys are ever transmitted or stored by the application.
 
-### System Design Choices
+## System Design Choices
 - **Decentralized Storage**: Hive blockchain.
 - **Client-Side Logic**: No backend servers or databases.
 - **Security**: Memo encryption and secure authentication; private keys never leave Keychain.
