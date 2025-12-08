@@ -182,6 +182,13 @@ export async function publishGroupToDiscovery(
     },
   };
   
+  logger.info('[GROUP DISCOVERY] About to call Keychain requestPost with:', {
+    username,
+    title,
+    permlink,
+    parent_permlink: PRIMARY_TAG,
+  });
+
   return new Promise((resolve) => {
     // Use requestPost for creating a Hive post
     // This is the proper Keychain method for posting

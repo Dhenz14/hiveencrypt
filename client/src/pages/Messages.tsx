@@ -115,6 +115,7 @@ export default function Messages() {
   const [editNameValue, setEditNameValue] = useState('');
   const [isLeaveGroupDialogOpen, setIsLeaveGroupDialogOpen] = useState(false);
   const [isPublishGroupOpen, setIsPublishGroupOpen] = useState(false);
+  const [promptPublishGroupId, setPromptPublishGroupId] = useState<string | null>(null);
   const [joinDialogGroup, setJoinDialogGroup] = useState<GroupConversationCache | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
@@ -516,6 +517,11 @@ export default function Messages() {
         title: 'Group Created',
         description: `Created group "${groupName}" with ${members.length} members`,
       });
+
+      // Prompt user to publish the group after a short delay (let the group be selected first)
+      setTimeout(() => {
+        setPromptPublishGroupId(groupId);
+      }, 500);
 
       logger.info('[GROUP CREATION] ✅ Group created successfully:', groupId);
     } catch (error) {
@@ -1300,6 +1306,34 @@ export default function Messages() {
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               Leave Group
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog 
+        open={!!promptPublishGroupId && selectedGroup?.groupId === promptPublishGroupId} 
+        onOpenChange={(open) => !open && setPromptPublishGroupId(null)}
+      >
+        <AlertDialogContent data-testid="dialog-prompt-publish">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Make Group Public?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Would you like to publish this group so others can discover and join it?
+              <br /><br />
+              This will create a post on Hive announcing your group. Other users will be able to find it and request to join.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel data-testid="button-skip-publish">Not Now</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={() => {
+                setPromptPublishGroupId(null);
+                setIsPublishGroupOpen(true);
+              }}
+              data-testid="button-yes-publish"
+            >
+              Yes, Make Public
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

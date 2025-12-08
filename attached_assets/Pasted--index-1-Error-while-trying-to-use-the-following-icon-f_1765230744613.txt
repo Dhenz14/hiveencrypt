@@ -1,0 +1,1115 @@
+(index):1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: bb991acfdcb313b049f4 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: bb991acfdcb313b049f4
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooooooooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooooooooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7345781f254adafd0227 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7345781f254adafd0227
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Messaging u with a tip...
+ [SENSITIVE] [decryptMemo] Final result: #Messaging u with a tip...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c1e1c1ce4c95d11ea299 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c1e1c1ce4c95d11ea299
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo, messaging u with less than the amount to test...
+ [SENSITIVE] [decryptMemo] Final result: #Yo, messaging u with less than the amount to test...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: a8ff7f4d1092d8acd5f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: a8ff7f4d1092d8acd5f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yoyo...
+ [SENSITIVE] [decryptMemo] Final result: #yoyo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: d325270b206cea07ba6c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: d325270b206cea07ba6c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a30607f581a7aeac16c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a30607f581a7aeac16c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 52b477a89d33e10b3f1c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 52b477a89d33e10b3f1c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 89be3c468cdbc70d31f3 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 89be3c468cdbc70d31f3
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [SENSITIVE] [decryptMemo] Final result: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: curatorhulk
+ [GROUP DISCOVERY] Looking up metadata for 2 discovered groups
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 106 ops, oldest seq: 2
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 106 transfer operations scanned, chunks processed: 0
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 72 ops, oldest seq: 8
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+ [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+ [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 72 operations for: dandandan123
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (009ef04a...)
+ [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: afe96d92-f0a5-46aa-813f-16fa58beb57a - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (afe96d92...)
+ [GROUP DISCOVERY] Caching 2 discovered group messages
+ [DEBUG] [GROUP CACHE] Batch cached 2 group messages
+ [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+ [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 2
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 37
+ [DEBUG] [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 37
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: afe96d92-f0a5-46aa-813f-16fa58beb57a to 34
+ [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 34
+ [GROUP DISCOVERY] ✅ Total groups: 4
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 4 partners in 558 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 4 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 4 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 7 total partners in 1626 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: Found 3 additional partners
+ [DEBUG] [PROGRESSIVE] Phase 2 complete: Found 3 additional conversations
+ [DEBUG] [PROGRESSIVE] Phase 2: Adding 3 new conversations to cache
+ [AUTO APPROVAL] Scanning for auto-approval requests: Object
+ [RPC] Selected best node: https://api.openhive.network Object
+ [AUTO APPROVAL] Scanned 72 custom_json operations
+ [AUTO APPROVAL] Found 0 already approved requests
+ [AUTO APPROVAL] Found 0 requests needing auto-approval
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 4 partners in 561 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 4 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 4 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 7 total partners in 908 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: Found 3 additional partners
+ [DEBUG] [PROGRESSIVE] Phase 2 complete: Found 3 additional conversations
+ [DEBUG] [PROGRESSIVE] Phase 2: Adding 3 new conversations to cache
+ [GROUP DISCOVERY] Discovering groups for: dandandan123
+ [GROUP DISCOVERY] Loaded 4 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+ [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP BLOCKCHAIN] Initial scan: 55 operations
+ [DEBUG] [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 127 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 2 / 5 starting at sequence: 7
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 199 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 3 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 254 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 4 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 326 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 5 / 5 starting at sequence: 7
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 398 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Completed scanning 398 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 693 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+ [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+ [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+ [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 2 cached group messages
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: curatorhulk
+ [GROUP DISCOVERY] Found creator from cached message: curatorhulk for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Found cached group message for groupId: afe96d92-f0a5-46aa-813f-16fa58beb57a from: curatorhulk
+ [GROUP DISCOVERY] Found 2 unique groups from cached messages
+ [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP DISCOVERY] Scanning 106 blockchain transfers for group messages
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: ff76b2783111e40f94fd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: ff76b2783111e40f94fd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo yo yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo yo yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 1a6e0daa5d9187add33e - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 1a6e0daa5d9187add33e
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohohoho...
+ [SENSITIVE] [decryptMemo] Final result: #hohohoho...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3cae3543d04abee44ccd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3cae3543d04abee44ccd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohoho1...
+ [SENSITIVE] [decryptMemo] Final result: #hohoho1...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 2b1dcdef6ad62b6be9f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 2b1dcdef6ad62b6be9f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 316ec3d9118361516376 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 316ec3d9118361516376
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a5c07ac90ebb2c1b77b - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a5c07ac90ebb2c1b77b
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c2fea85ec892687c7d7a - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c2fea85ec892687c7d7a
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo yo ho ho is this still mobile?...
+ [SENSITIVE] [decryptMemo] Final result: #yo yo ho ho is this still mobile?...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 926b089610559d817485 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 926b089610559d817485
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testy testy...
+ [SENSITIVE] [decryptMemo] Final result: #testy testy...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7db32ca47aeb2da338e2 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7db32ca47aeb2da338e2
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo23...
+ [SENSITIVE] [decryptMemo] Final result: #Yo23...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: bb991acfdcb313b049f4 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: bb991acfdcb313b049f4
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooooooooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooooooooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7345781f254adafd0227 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7345781f254adafd0227
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Messaging u with a tip...
+ [SENSITIVE] [decryptMemo] Final result: #Messaging u with a tip...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c1e1c1ce4c95d11ea299 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c1e1c1ce4c95d11ea299
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo, messaging u with less than the amount to test...
+ [SENSITIVE] [decryptMemo] Final result: #Yo, messaging u with less than the amount to test...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: a8ff7f4d1092d8acd5f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: a8ff7f4d1092d8acd5f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yoyo...
+ [SENSITIVE] [decryptMemo] Final result: #yoyo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: d325270b206cea07ba6c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: d325270b206cea07ba6c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a30607f581a7aeac16c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a30607f581a7aeac16c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 52b477a89d33e10b3f1c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 52b477a89d33e10b3f1c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 89be3c468cdbc70d31f3 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 89be3c468cdbc70d31f3
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [SENSITIVE] [decryptMemo] Final result: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: curatorhulk
+ [GROUP DISCOVERY] Looking up metadata for 2 discovered groups
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 106 ops, oldest seq: 2
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 106 transfer operations scanned, chunks processed: 0
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 55 ops, oldest seq: 8
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+ [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+ [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 55 operations for: dandandan123
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (009ef04a...)
+ [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: afe96d92-f0a5-46aa-813f-16fa58beb57a - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (afe96d92...)
+ [GROUP DISCOVERY] Caching 2 discovered group messages
+ [DEBUG] [GROUP CACHE] Batch cached 2 group messages
+ [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+ [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 2
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 38
+ [DEBUG] [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 38
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: afe96d92-f0a5-46aa-813f-16fa58beb57a to 35
+ [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 35
+ [GROUP DISCOVERY] ✅ Total groups: 4
+ [AUTO APPROVAL] Scanning for auto-approval requests: Object
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [AUTO APPROVAL] Scanned 72 custom_json operations
+ [AUTO APPROVAL] Found 0 already approved requests
+ [AUTO APPROVAL] Found 0 requests needing auto-approval
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 680 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 5 total partners in 974 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [GROUP DISCOVERY] Discovering groups for: dandandan123
+ [GROUP DISCOVERY] Loaded 4 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+ [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [AUTO APPROVAL] Scanning for auto-approval requests: Object
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [GROUP BLOCKCHAIN] Initial scan: 72 operations
+ [DEBUG] [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [AUTO APPROVAL] Scanned 72 custom_json operations
+ [AUTO APPROVAL] Found 0 already approved requests
+ [AUTO APPROVAL] Found 0 requests needing auto-approval
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 144 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 2 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 199 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 3 / 5 starting at sequence: 7
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 376 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.hive.blog Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 271 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 4 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 326 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 5 / 5 starting at sequence: 7
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 398 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Completed scanning 398 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 5 total partners in 675 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 693 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+ [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+ [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+ [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 2 cached group messages
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: curatorhulk
+ [GROUP DISCOVERY] Found creator from cached message: curatorhulk for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Found cached group message for groupId: afe96d92-f0a5-46aa-813f-16fa58beb57a from: curatorhulk
+ [GROUP DISCOVERY] Found 2 unique groups from cached messages
+ [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP DISCOVERY] Scanning 106 blockchain transfers for group messages
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: ff76b2783111e40f94fd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: ff76b2783111e40f94fd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo yo yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo yo yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 1a6e0daa5d9187add33e - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 1a6e0daa5d9187add33e
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohohoho...
+ [SENSITIVE] [decryptMemo] Final result: #hohohoho...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3cae3543d04abee44ccd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3cae3543d04abee44ccd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohoho1...
+ [SENSITIVE] [decryptMemo] Final result: #hohoho1...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 2b1dcdef6ad62b6be9f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 2b1dcdef6ad62b6be9f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 316ec3d9118361516376 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 316ec3d9118361516376
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a5c07ac90ebb2c1b77b - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a5c07ac90ebb2c1b77b
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c2fea85ec892687c7d7a - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c2fea85ec892687c7d7a
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo yo ho ho is this still mobile?...
+ [SENSITIVE] [decryptMemo] Final result: #yo yo ho ho is this still mobile?...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 926b089610559d817485 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 926b089610559d817485
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testy testy...
+ [SENSITIVE] [decryptMemo] Final result: #testy testy...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7db32ca47aeb2da338e2 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7db32ca47aeb2da338e2
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo23...
+ [SENSITIVE] [decryptMemo] Final result: #Yo23...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: bb991acfdcb313b049f4 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: bb991acfdcb313b049f4
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooooooooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooooooooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7345781f254adafd0227 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7345781f254adafd0227
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Messaging u with a tip...
+ [SENSITIVE] [decryptMemo] Final result: #Messaging u with a tip...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c1e1c1ce4c95d11ea299 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c1e1c1ce4c95d11ea299
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo, messaging u with less than the amount to test...
+ [SENSITIVE] [decryptMemo] Final result: #Yo, messaging u with less than the amount to test...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: a8ff7f4d1092d8acd5f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: a8ff7f4d1092d8acd5f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yoyo...
+ [SENSITIVE] [decryptMemo] Final result: #yoyo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: d325270b206cea07ba6c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: d325270b206cea07ba6c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a30607f581a7aeac16c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a30607f581a7aeac16c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 52b477a89d33e10b3f1c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 52b477a89d33e10b3f1c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 89be3c468cdbc70d31f3 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 89be3c468cdbc70d31f3
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [SENSITIVE] [decryptMemo] Final result: #group:afe96d92-f0a5-46aa-813f-16fa58beb57a:curato...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: curatorhulk
+ [GROUP DISCOVERY] Looking up metadata for 2 discovered groups
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 106 ops, oldest seq: 2
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 106 transfer operations scanned, chunks processed: 0
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 55 ops, oldest seq: 8
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+ [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+ [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 55 operations for: dandandan123
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (009ef04a...)
+ [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: afe96d92-f0a5-46aa-813f-16fa58beb57a - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (afe96d92...)
+ [GROUP DISCOVERY] Caching 2 discovered group messages
+ [DEBUG] [GROUP CACHE] Batch cached 2 group messages
+ [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+ [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 2
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 39
+ [DEBUG] [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 39
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: afe96d92-f0a5-46aa-813f-16fa58beb57a to 36
+ [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 36
+ [GROUP DISCOVERY] ✅ Total groups: 4
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 765 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 7 total partners in 838 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [AUTO APPROVAL] Scanning for auto-approval requests: Object
+ [RPC] Selected best node: https://anyx.io Object
+ [AUTO APPROVAL] Scanned 55 custom_json operations
+ [AUTO APPROVAL] Found 0 already approved requests
+ [AUTO APPROVAL] Found 0 requests needing auto-approval
+ [GROUP DISCOVERY] Discovering groups for: dandandan123
+ [GROUP DISCOVERY] Loaded 4 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+ [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [GROUP BLOCKCHAIN] Initial scan: 72 operations
+ [DEBUG] [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 144 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 2 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 199 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 3 / 5 starting at sequence: 7
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 271 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 4 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 326 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 5 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 398 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Completed scanning 398 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 524 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 863 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+ [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+ [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+ [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 2 cached group messages
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: curatorhulk
+ [GROUP DISCOVERY] Found creator from cached message: curatorhulk for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Found cached group message for groupId: afe96d92-f0a5-46aa-813f-16fa58beb57a from: curatorhulk
+ [GROUP DISCOVERY] Found 2 unique groups from cached messages
+ [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 5 total partners in 810 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [GROUP DISCOVERY] Scanning 90 blockchain transfers for group messages
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: ff76b2783111e40f94fd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: ff76b2783111e40f94fd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo yo yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo yo yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 1a6e0daa5d9187add33e - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 1a6e0daa5d9187add33e
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohohoho...
+ [SENSITIVE] [decryptMemo] Final result: #hohohoho...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3cae3543d04abee44ccd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3cae3543d04abee44ccd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohoho1...
+ [SENSITIVE] [decryptMemo] Final result: #hohoho1...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 2b1dcdef6ad62b6be9f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 2b1dcdef6ad62b6be9f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 316ec3d9118361516376 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 316ec3d9118361516376
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a5c07ac90ebb2c1b77b - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a5c07ac90ebb2c1b77b
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c2fea85ec892687c7d7a - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c2fea85ec892687c7d7a
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo yo ho ho is this still mobile?...
+ [SENSITIVE] [decryptMemo] Final result: #yo yo ho ho is this still mobile?...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 926b089610559d817485 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 926b089610559d817485
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testy testy...
+ [SENSITIVE] [decryptMemo] Final result: #testy testy...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7db32ca47aeb2da338e2 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7db32ca47aeb2da338e2
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo23...
+ [SENSITIVE] [decryptMemo] Final result: #Yo23...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: bb991acfdcb313b049f4 - will decrypt
+logger.ts:18 [requestDecodeMemo] Deduplication - reusing pending decrypt for: bb991acfdcb313b049f4
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooooooooo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #yooooooooo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: 7345781f254adafd0227 - will decrypt
+logger.ts:18 [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7345781f254adafd0227
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Messaging u with a tip...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #Messaging u with a tip...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: c1e1c1ce4c95d11ea299 - will decrypt
+logger.ts:18 [requestDecodeMemo] Deduplication - reusing pending decrypt for: c1e1c1ce4c95d11ea299
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo, messaging u with less than the amount to test...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #Yo, messaging u with less than the amount to test...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: a8ff7f4d1092d8acd5f5 - will decrypt
+logger.ts:18 [requestDecodeMemo] Deduplication - reusing pending decrypt for: a8ff7f4d1092d8acd5f5
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yoyo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #yoyo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: d325270b206cea07ba6c - will decrypt
+logger.ts:18 [requestDecodeMemo] Deduplication - reusing pending decrypt for: d325270b206cea07ba6c
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #testing...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: 3a30607f581a7aeac16c - will decrypt
+logger.ts:18 [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a30607f581a7aeac16c
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #yo...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [decryptMemo] ========== DECRYPT MEMO START ==========
+logger.ts:38 [SENSITIVE] [decryptMemo] Input params: Object
+logger.ts:18 [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+logger.ts:11 [DEBUG] [MEMO CACHE] MISS for txId: 52b477a89d33e10b3f1c - will decrypt
+logger.ts:18 [requestDecodeMemo] Deduplication - reusing pending decrypt for: 52b477a89d33e10b3f1c
+logger.ts:38 [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:38 [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+logger.ts:25 [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+logger.ts:18 [GROUP DISCOVERY] Looking up metadata for 1 discovered groups
+logger.ts:18 [GROUP BLOCKCHAIN] Looking up group metadata: Object
+logger.ts:18 [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 106 ops, oldest seq: 2
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+logger.ts:18 [GROUP BLOCKCHAIN] Transfer scan - completed: 106 transfer operations scanned, chunks processed: 0
+logger.ts:18 [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 55 ops, oldest seq: 8
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 55 operations for: dandandan123
+logger.ts:25 [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:25
+logger.ts:25 [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:25
+logger.ts:18 [GROUP DISCOVERY] ➕ Added minimal group: Group (009ef04a...)
+logger.ts:18 [GROUP DISCOVERY] Caching 1 discovered group messages
+logger.ts:11 [DEBUG] [GROUP CACHE] Batch cached 1 group messages
+logger.ts:18 [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+logger.ts:18 [GROUP DISCOVERY] Trying cached creator for group: afe96d92-f0a5-46aa-813f-16fa58beb57a creator: curatorhulk
+logger.ts:18 [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+logger.ts:18 [GROUP DISCOVERY] Trying 1 fallback senders for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+logger.ts:18 [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+logger.ts:25 [GROUP DISCOVERY] ⚠️ Could not resolve metadata for group: afe96d92-f0a5-46aa-813f-16fa58beb57a tried: creator: curatorhulk, 1 senders
+warn @ logger.ts:25
+logger.ts:18 [GROUP DISCOVERY] ✅ Created fallback group entry: Group (afe96d92...) (generated) with 2 members
+logger.ts:18 [GROUP BLOCKCHAIN] Set negative cache for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+logger.ts:18 [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 2
+logger.ts:11 [DEBUG] [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 40
+logger.ts:11 [DEBUG] [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 40
+logger.ts:11 [DEBUG] [GROUP CACHE] Incrementing group conversation version: afe96d92-f0a5-46aa-813f-16fa58beb57a to 37
+logger.ts:11 [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 37
+logger.ts:18 [GROUP DISCOVERY] ✅ Total groups: 4
+logger.ts:18 [AUTO APPROVAL] Scanning for auto-approval requests: Object
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [AUTO APPROVAL] Scanned 72 custom_json operations
+logger.ts:18 [AUTO APPROVAL] Found 0 already approved requests
+logger.ts:18 [AUTO APPROVAL] Found 0 requests needing auto-approval
+logger.ts:11 [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 804 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2 discovered 5 total partners in 954 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+logger.ts:18 [GROUP CREATION] Creating group: Object
+logger.ts:18 [GROUP BLOCKCHAIN] Broadcasting group creation: Object
+(index):1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+logger.ts:18 [GROUP BLOCKCHAIN] ✅ Group created on blockchain: c304b56b4d3f9cbb0b2faa2fe56b8cb3bca5e2a3
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:11 [DEBUG] [GROUP CACHE] Cached group conversation: db9e9018-9aa1-44e2-83ec-7ca5e1062b2a version: 1
+logger.ts:18 [GROUP CREATION] ✅ Group created successfully: db9e9018-9aa1-44e2-83ec-7ca5e1062b2a
+logger.ts:18 [AUTO APPROVAL] Scanning for auto-approval requests: Object
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [GROUP MESSAGES] Syncing messages for group: db9e9018-9aa1-44e2-83ec-7ca5e1062b2a
+logger.ts:18 [GROUP MESSAGES] Loaded 0 cached messages
+logger.ts:18 [GROUP MESSAGES] Last synced operation: 783
+logger.ts:18 [GROUP MESSAGES] Fetching 200 operations (incremental sync)
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [FOLLOWING] Fetching following list for: dandandan123
+logger.ts:31 [FOLLOWING] ❌ Failed to fetch following list: VError
+error @ logger.ts:31
+logger.ts:31 [FOLLOWING] ❌ Error getting following list: Error: Failed to fetch following list: Could not find API follow_api
+    at fetchFollowingList (hiveFollowing.ts:196:11)
+    at async getFollowingList (hiveFollowing.ts:247:23)
+    at async preloadFollowingList (hiveFollowing.ts:392:10)
+    at async queryFn (GroupChatHeader.tsx:57:14)
+error @ logger.ts:31
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:18 [GROUP MESSAGES] Fetched 106 latest operations
+logger.ts:18 [GROUP MESSAGES] Highest operation index: 783
+logger.ts:18 [GROUP MESSAGES] Processing initial 106 operations
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:18 [GROUP MESSAGES] 📊 Initial scan stats: Object
+logger.ts:18 [GROUP MESSAGES] Operation gap since last sync: 0
+logger.ts:18 [GROUP MESSAGES] 📊 Final summary: Object
+logger.ts:18 [AUTO APPROVAL] Scanned 72 custom_json operations
+logger.ts:18 [AUTO APPROVAL] Found 0 already approved requests
+logger.ts:18 [AUTO APPROVAL] Found 0 requests needing auto-approval
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:31 [GROUP BLOCKCHAIN] Failed to send invite memos: Error: Invite memo send timeout after 15s
+    at groupBlockchain.ts:221:43
+error @ logger.ts:31
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:18 [AUTO APPROVAL] Scanning for auto-approval requests: Object
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:18 [AUTO APPROVAL] Scanned 73 custom_json operations
+logger.ts:18 [AUTO APPROVAL] Found 0 already approved requests
+logger.ts:18 [AUTO APPROVAL] Found 0 requests needing auto-approval
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+(index):1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+@hiveio_dhive.js?v=cd048d7b:6667  POST https://api.openhive.network/ net::ERR_FAILED 404 (Not Found)
+(anonymous) @ @hiveio_dhive.js?v=cd048d7b:6667
+fetch @ @hiveio_dhive.js?v=cd048d7b:6639
+(anonymous) @ @hiveio_dhive.js?v=cd048d7b:13759
+fulfilled @ @hiveio_dhive.js?v=cd048d7b:13679
