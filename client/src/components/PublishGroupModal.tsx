@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Globe, Loader2, ExternalLink, CheckCircle, AlertCircle } from 'lucide-react';
+import { Globe, Loader2, ExternalLink, CheckCircle, AlertCircle, PartyPopper } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -39,6 +39,7 @@ export function PublishGroupModal({
   paymentSettings,
 }: PublishGroupModalProps) {
   const [description, setDescription] = useState('');
+  const [justPublished, setJustPublished] = useState<{ permlink: string } | null>(null);
   const { toast } = useToast();
   const isPublishingRef = useRef(false);
 
@@ -46,7 +47,7 @@ export function PublishGroupModal({
   const { data: publishStatus, isLoading: isCheckingStatus } = useQuery({
     queryKey: ['group-publish-status', creator, groupId],
     queryFn: () => isGroupPublished(creator, groupId),
-    enabled: open,
+    enabled: open && !justPublished,
     staleTime: 30 * 1000,
   });
 
@@ -70,14 +71,10 @@ export function PublishGroupModal({
       }
     },
     onSuccess: (result) => {
-      if (result.success) {
-        toast({
-          title: 'Group Published!',
-          description: 'Your group is now discoverable by other users.',
-        });
+      if (result.success && result.permlink) {
+        setJustPublished({ permlink: result.permlink });
         queryClient.invalidateQueries({ queryKey: ['group-publish-status', creator, groupId] });
         queryClient.invalidateQueries({ queryKey: ['discoverable-groups'] });
-        onOpenChange(false);
       } else {
         toast({
           title: 'Publish Failed',
@@ -100,26 +97,79 @@ export function PublishGroupModal({
     publishMutation.mutate();
   };
 
-  const viewOnPeakD = () => {
-    if (publishStatus?.permlink) {
-      window.open(`https://peakd.com/@${creator}/${publishStatus.permlink}`, '_blank');
-    }
+  const handleClose = () => {
+    setJustPublished(null);
+    setDescription('');
+    onOpenChange(false);
   };
 
+  const getEcencyUrl = (permlink: string) => {
+    return `https://ecency.com/@${creator}/${permlink}`;
+  };
+
+  const viewOnEcency = (permlink: string) => {
+    window.open(getEcencyUrl(permlink), '_blank');
+  };
+
+  // Determine which permlink to use for viewing
+  const currentPermlink = justPublished?.permlink || publishStatus?.permlink;
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Globe className="w-5 h-5 text-primary" />
-            Make Group Public
+            {justPublished ? (
+              <>
+                <PartyPopper className="w-5 h-5 text-green-500" />
+                Group Published!
+              </>
+            ) : (
+              <>
+                <Globe className="w-5 h-5 text-primary" />
+                Make Group Public
+              </>
+            )}
           </DialogTitle>
-          <DialogDescription>
-            Publish your group to the Hive blockchain so others can discover and join it.
-          </DialogDescription>
+          {!justPublished && (
+            <DialogDescription>
+              Publish your group to the Hive blockchain so others can discover and join it.
+            </DialogDescription>
+          )}
         </DialogHeader>
 
-        {isCheckingStatus ? (
+        {justPublished ? (
+          <div className="space-y-4">
+            <Alert className="border-green-500 bg-green-500/10">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              <AlertDescription className="text-green-700 dark:text-green-300">
+                Your group has been published to the Hive blockchain! It's now discoverable by other users.
+              </AlertDescription>
+            </Alert>
+
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                View your post on Ecency to see how it looks and share it with others:
+              </p>
+              
+              <Button 
+                onClick={() => viewOnEcency(justPublished.permlink)} 
+                className="w-full gap-2"
+                data-testid="button-view-on-ecency"
+              >
+                <ExternalLink className="w-4 h-4" />
+                View on Ecency
+              </Button>
+
+              <div className="p-3 bg-muted rounded-lg">
+                <p className="text-xs text-muted-foreground mb-1">Post URL:</p>
+                <p className="text-sm font-mono break-all text-primary">
+                  {getEcencyUrl(justPublished.permlink)}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : isCheckingStatus ? (
           <div className="flex items-center justify-center py-8">
             <Loader2 className="w-6 h-6 animate-spin text-primary" />
           </div>
@@ -133,13 +183,13 @@ export function PublishGroupModal({
             </Alert>
             
             <Button 
-              onClick={viewOnPeakD} 
+              onClick={() => currentPermlink && viewOnEcency(currentPermlink)} 
               variant="outline" 
               className="w-full gap-2"
-              data-testid="button-view-on-peakd"
+              data-testid="button-view-on-ecency"
             >
               <ExternalLink className="w-4 h-4" />
-              View on PeakD
+              View on Ecency
             </Button>
           </div>
         ) : (
@@ -201,13 +251,13 @@ export function PublishGroupModal({
         <DialogFooter className="gap-2 sm:gap-0">
           <Button
             variant="outline"
-            onClick={() => onOpenChange(false)}
+            onClick={handleClose}
             data-testid="button-cancel"
           >
-            {publishStatus?.published ? 'Close' : 'Cancel'}
+            {justPublished || publishStatus?.published ? 'Close' : 'Cancel'}
           </Button>
           
-          {!publishStatus?.published && (
+          {!justPublished && !publishStatus?.published && (
             <Button
               onClick={handlePublish}
               disabled={publishMutation.isPending || isCheckingStatus}
