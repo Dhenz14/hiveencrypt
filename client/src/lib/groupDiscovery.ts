@@ -65,8 +65,11 @@ function generatePermlink(groupId: string): string {
   return `hive-messenger-group-${shortId}-${timestamp}`;
 }
 
+// App URL for sharing
+const APP_URL = 'https://hive-encrypt-theycallmethank.replit.app';
+
 /**
- * Format the post body with group information
+ * Format the post body with group information - written as a natural social post
  */
 function formatPostBody(
   groupName: string,
@@ -76,52 +79,59 @@ function formatPostBody(
   paymentSettings?: PaymentSettings,
   memberCount: number = 1
 ): string {
-  const joinLink = `${window.location.origin}/join/${groupId}`;
+  const joinLink = `${APP_URL}/join/${groupId}`;
   
-  let body = `# Join "${groupName}" on Hive Messenger\n\n`;
+  // Start with a friendly, natural announcement
+  let body = `Hey everyone! I just created a group called **"${groupName}"** on Hive Messenger and I'd love for you to join!\n\n`;
   
+  // Add the description if provided
   if (description) {
     body += `${description}\n\n`;
   }
   
-  body += `---\n\n`;
-  body += `## Group Details\n\n`;
-  body += `- **Created by:** @${creator}\n`;
-  body += `- **Members:** ${memberCount}\n`;
-  
+  // Entry fee info in a natural way
   if (paymentSettings?.enabled) {
-    body += `- **Entry Fee:** ${paymentSettings.amount} HBD`;
+    body += `The entry fee is **${paymentSettings.amount} HBD**`;
     if (paymentSettings.type === 'recurring' && paymentSettings.recurringInterval) {
-      body += ` (every ${paymentSettings.recurringInterval} days)`;
-    } else {
-      body += ` (one-time)`;
+      body += ` (renewed every ${paymentSettings.recurringInterval} days)`;
     }
-    body += `\n`;
-    body += `- **Auto-Approve:** ${paymentSettings.autoApprove ? 'Yes - pay and join instantly' : 'No - manual approval required'}\n`;
-  } else {
-    body += `- **Entry Fee:** Free\n`;
-  }
-  
-  body += `\n---\n\n`;
-  body += `## How to Join\n\n`;
-  body += `1. Open Hive Messenger: [${joinLink}](${joinLink})\n`;
-  body += `2. Login with Hive Keychain\n`;
-  
-  if (paymentSettings?.enabled) {
-    body += `3. Pay the entry fee of ${paymentSettings.amount} HBD\n`;
+    body += `. `;
     if (paymentSettings.autoApprove) {
-      body += `4. You'll be added automatically!\n`;
+      body += `Once you pay, you'll be added automatically - no waiting!\n\n`;
     } else {
-      body += `4. Wait for the group creator to approve your request\n`;
+      body += `After payment, I'll approve your request to join.\n\n`;
     }
   } else {
-    body += `3. Click "Join Group"\n`;
-    body += `4. You'll be added automatically!\n`;
+    body += `It's completely **free** to join!\n\n`;
   }
   
-  body += `\n---\n\n`;
-  body += `*This group is hosted on Hive Messenger - a decentralized, encrypted messaging app built on the Hive blockchain.*\n\n`;
-  body += `**Group ID:** \`${groupId}\`\n`;
+  // How to join
+  body += `### How to Join\n\n`;
+  body += `Search for **"${groupName}"** in the app, or use this direct link:\n`;
+  body += `**[Join ${groupName}](${joinLink})**\n\n`;
+  
+  // About Hive Messenger
+  body += `---\n\n`;
+  body += `### What is Hive Messenger?\n\n`;
+  body += `[Hive Messenger](${APP_URL}) is a **decentralized, end-to-end encrypted** messaging app built on the Hive blockchain. `;
+  body += `Your messages are private and secure - no central servers, no data mining, just direct blockchain-powered communication.\n\n`;
+  
+  body += `**Key Features:**\n`;
+  body += `- End-to-end encrypted messages using your Hive memo keys\n`;
+  body += `- Login securely with Hive Keychain\n`;
+  body += `- Group chats with friends and communities\n`;
+  body += `- Send Bitcoin tips via Lightning Network\n`;
+  body += `- Works on mobile and desktop as a PWA\n`;
+  body += `- 100% decentralized - no central server or database\n\n`;
+  
+  body += `**Get the app:** [${APP_URL}](${APP_URL})\n\n`;
+  
+  // Group details footer
+  body += `---\n\n`;
+  body += `**Group Details:**\n`;
+  body += `- Created by: @${creator}\n`;
+  body += `- Current members: ${memberCount}\n`;
+  body += `- Group ID: \`${groupId}\`\n`;
   
   return body;
 }
@@ -144,7 +154,7 @@ export async function publishGroupToDiscovery(
   }
   
   const permlink = generatePermlink(groupId);
-  const title = `Join "${groupName}" - Hive Messenger Group`;
+  const title = `Come join "${groupName}" on Hive Messenger!`;
   const body = formatPostBody(groupName, description, groupId, username, paymentSettings, memberCount);
   
   // Build json_metadata with group info
