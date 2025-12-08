@@ -96,10 +96,12 @@ The group chat system is 100% decentralized with no backend servers. All group o
 6. **Join Reject** (`action: 'join_reject'`): Creator rejects a join request
 
 ### Self-Service Join System - 4 Approval Paths
-1. **Free Auto-Approve**: Status `approved_free` → Creator's background process auto-approves
-2. **Paid Auto-Approve**: Status `pending_payment_verification` + `memberPayment` → Creator verifies payment and auto-approves
-3. **Manual Free**: Status `pending` → Creator manually approves in ManageMembersModal
-4. **Manual Paid**: Status `pending` → Creator collects payment, then approves
+**Important**: In all paths, only the creator's client can broadcast `join_approve`. Users broadcast `join_request` with a status field, but actual membership requires creator approval.
+
+1. **Free Auto-Approve**: User broadcasts `join_request` with status `approved_free` → Creator's background process detects and broadcasts `join_approve`
+2. **Paid Auto-Approve**: User broadcasts `join_request` with status `pending_payment_verification` + `memberPayment` → Creator's client verifies payment on blockchain, then broadcasts `join_approve`
+3. **Manual Free**: User broadcasts `join_request` with status `pending` → Creator manually approves in ManageMembersModal
+4. **Manual Paid**: User broadcasts `join_request` with status `pending` → Creator collects payment in modal, then approves
 
 ### Security Measures
 - **Requesters can ONLY broadcast `join_request`, NEVER `join_approve`** - Critical security fix
@@ -132,11 +134,12 @@ Messages use the format: `[GROUP:${groupId}:${creator}]${content}`
 - `content`: Actual message content
 
 ### Auto-Approval Background Process
-- Runs in `useAutoApproveJoinRequests` hook for group creators
+- Runs in `useAutoApproveJoinRequests` hook **only when user is group creator** (`isCreator` guard)
 - Polls every 30 seconds for requests with status `approved_free` or `pending_payment_verification`
 - For paid requests, verifies payment on blockchain before approving
 - Broadcasts `join_approve` from creator's account
 - Uses `processedRequestIds` ref to prevent duplicate approvals
+- **Throttling**: 1-second delay between approval broadcasts to prevent rate limiting
 
 ### Other Key Features
 - **Lightning Network Tips**: Send Bitcoin satoshis via the Lightning Network to users with Lightning Addresses, supporting bidirectional tipping and encrypted notifications.
