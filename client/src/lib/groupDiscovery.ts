@@ -183,26 +183,17 @@ export async function publishGroupToDiscovery(
   };
   
   return new Promise((resolve) => {
-    // Build the comment operation for a root post
-    const operations = [
-      [
-        'comment',
-        {
-          parent_author: '', // Empty for root posts
-          parent_permlink: PRIMARY_TAG, // First tag becomes category
-          author: username,
-          permlink,
-          title,
-          body,
-          json_metadata: JSON.stringify(metadata),
-        },
-      ],
-    ];
-    
-    window.hive_keychain.requestBroadcast(
-      username,
-      operations,
-      'Posting',
+    // Use requestPost for creating a Hive post
+    // This is the proper Keychain method for posting
+    window.hive_keychain.requestPost(
+      username,           // account name
+      title,              // post title
+      body,               // post body (markdown)
+      PRIMARY_TAG,        // parent_permlink (category/first tag)
+      null,               // parent_author (null for root posts)
+      JSON.stringify(metadata), // json_metadata as string
+      permlink,           // unique permlink
+      null,               // comment_options (optional)
       (response: any) => {
         if (response.success) {
           logger.info('[GROUP DISCOVERY] ✅ Group published successfully:', response.result);
