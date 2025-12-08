@@ -479,6 +479,27 @@ class HiveBlockchainClient {
       );
     });
   }
+
+  /**
+   * Generic RPC call to Hive API
+   * Useful for condenser_api calls like get_discussions_by_*
+   */
+  async call(api: string, method: string, params: any[]): Promise<any> {
+    return this.retryWithBackoff(async () => {
+      const startTime = Date.now();
+      const nodeUrl = this.selectBestNode();
+      
+      try {
+        const result = await this.client.call(api, method, params);
+        this.recordLatency(nodeUrl, Date.now() - startTime);
+        this.recordSuccess(nodeUrl);
+        return result;
+      } catch (error) {
+        this.recordError(nodeUrl);
+        throw error;
+      }
+    });
+  }
 }
 
 // Export singleton instance

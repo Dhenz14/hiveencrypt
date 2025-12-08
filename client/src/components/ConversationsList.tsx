@@ -1,4 +1,4 @@
-import { Search, Plus, ShieldCheck, Users } from 'lucide-react';
+import { Search, Plus, ShieldCheck, Users, Compass } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -20,6 +20,7 @@ interface ConversationsListProps {
   onSelectConversation: (id: string) => void;
   onNewMessage: () => void;
   onNewGroup?: () => void;
+  onDiscoverGroups?: () => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
 }
@@ -30,6 +31,7 @@ export function ConversationsList({
   onSelectConversation,
   onNewMessage,
   onNewGroup,
+  onDiscoverGroups,
   searchQuery,
   onSearchChange,
 }: ConversationsListProps) {
@@ -106,6 +108,17 @@ export function ConversationsList({
             </Button>
           )}
         </div>
+        {onDiscoverGroups && (
+          <Button
+            onClick={onDiscoverGroups}
+            variant="ghost"
+            className="w-full h-10"
+            data-testid="button-discover-groups"
+          >
+            <Compass className="w-4 h-4 mr-2" />
+            Discover Groups
+          </Button>
+        )}
       </div>
 
       <ScrollArea className="flex-1">

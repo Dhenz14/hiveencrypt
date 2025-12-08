@@ -3,7 +3,24 @@
 ## Overview
 Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive Web App (PWA) built on the Hive blockchain. It provides a censorship-resistant communication platform without centralized servers or databases. The project aims to deliver a free, private, and reliable messaging solution that is globally accessible and resilient against central points of failure. Key capabilities include end-to-end encryption via Hive memo keys, Hive Keychain authentication, messages sent via memo transfers, and bidirectional Lightning Network Bitcoin tips via the v4v.app bridge.
 
-## Recent Changes (November 21, 2025)
+## Recent Changes (December 8, 2025)
+
+### Group Discovery Feature Integration
+- **Feature**: Added "Make Public" and "Discover Groups" functionality to the main Messages UI
+- **Implementation**:
+  - Added `PublishGroupModal` to Messages.tsx for creators to publish their groups publicly
+  - Added `isPublishGroupOpen` state and `handleMakePublic` handler
+  - Updated `GroupChatHeader` to show "Make Public" option for group creators
+  - Added "Discover Groups" button to ConversationsList with navigation to `/discover` page
+  - Uses wouter's `setLocation` for client-side routing
+- **Discovery System**: Uses Hive posts tagged "hive-messenger" + "group-discovery" to leverage existing Hivemind indexing. Posts contain group metadata, payment settings, and shareable join links.
+- **Key Files**:
+  - `client/src/lib/groupDiscovery.ts` - Discovery API using Hivemind
+  - `client/src/pages/GroupDiscovery.tsx` - Browse/search public groups
+  - `client/src/components/PublishGroupModal.tsx` - Publish group UI
+  - `client/src/pages/JoinGroup.tsx` - Join flow for discovered groups
+
+## Previous Changes (November 21, 2025)
 
 ### Intuitive Keychain Error Messages for All Settings
 - **Issue**: When users cancelled Keychain popups while changing settings (message privacy, group privacy, tip preference), they received generic "Update Failed" messages with no guidance

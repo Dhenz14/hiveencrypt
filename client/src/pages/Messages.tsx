@@ -34,6 +34,7 @@ import { MessageComposer } from '@/components/MessageComposer';
 import { NewMessageModal } from '@/components/NewMessageModal';
 import { GroupCreationModal } from '@/components/GroupCreationModal';
 import { ManageMembersModal } from '@/components/ManageMembersModal';
+import { PublishGroupModal } from '@/components/PublishGroupModal';
 import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { HiddenChatsModal } from '@/components/HiddenChatsModal';
@@ -113,6 +114,7 @@ export default function Messages() {
   const [isEditNameOpen, setIsEditNameOpen] = useState(false);
   const [editNameValue, setEditNameValue] = useState('');
   const [isLeaveGroupDialogOpen, setIsLeaveGroupDialogOpen] = useState(false);
+  const [isPublishGroupOpen, setIsPublishGroupOpen] = useState(false);
   const [joinDialogGroup, setJoinDialogGroup] = useState<GroupConversationCache | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
@@ -534,6 +536,10 @@ export default function Messages() {
     setIsManageMembersOpen(true);
   };
 
+  const handleMakePublic = () => {
+    setIsPublishGroupOpen(true);
+  };
+
   const handleUpdateMembers = async (newMembers: string[]) => {
     try {
       if (!user?.username || !selectedGroup) {
@@ -949,6 +955,7 @@ export default function Messages() {
         }}
         onNewMessage={() => setIsNewMessageOpen(true)}
         onNewGroup={() => setIsGroupCreationOpen(true)}
+        onDiscoverGroups={() => setLocation('/discover')}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
@@ -976,6 +983,8 @@ export default function Messages() {
               onDeleteLocalData={handleDeleteLocalData}
               onEditName={handleEditGroupName}
               onLeaveGroup={handleLeaveGroup}
+              onMakePublic={handleMakePublic}
+              isCreator={selectedGroup.creator === user?.username}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
           ) : (
@@ -1158,18 +1167,29 @@ export default function Messages() {
       />
 
       {selectedGroup && (
-        <ManageMembersModal
-          open={isManageMembersOpen}
-          onOpenChange={setIsManageMembersOpen}
-          groupId={selectedGroup.groupId}
-          groupName={selectedGroup.name}
-          currentMembers={selectedGroup.members}
-          creator={selectedGroup.creator}
-          currentUsername={user?.username}
-          paymentSettings={selectedGroup.paymentSettings}
-          memberPayments={selectedGroup.memberPayments}
-          onUpdateMembers={handleUpdateMembers}
-        />
+        <>
+          <ManageMembersModal
+            open={isManageMembersOpen}
+            onOpenChange={setIsManageMembersOpen}
+            groupId={selectedGroup.groupId}
+            groupName={selectedGroup.name}
+            currentMembers={selectedGroup.members}
+            creator={selectedGroup.creator}
+            currentUsername={user?.username}
+            paymentSettings={selectedGroup.paymentSettings}
+            memberPayments={selectedGroup.memberPayments}
+            onUpdateMembers={handleUpdateMembers}
+          />
+          <PublishGroupModal
+            open={isPublishGroupOpen}
+            onOpenChange={setIsPublishGroupOpen}
+            groupId={selectedGroup.groupId}
+            groupName={selectedGroup.name}
+            creator={selectedGroup.creator}
+            memberCount={selectedGroup.members.length}
+            paymentSettings={selectedGroup.paymentSettings}
+          />
+        </>
       )}
 
       <ProfileDrawer

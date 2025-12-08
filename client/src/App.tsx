@@ -10,6 +10,7 @@ import { HiddenConversationsProvider } from "@/contexts/HiddenConversationsConte
 import { KeychainRedirect } from "@/components/KeychainRedirect";
 import Login from "@/pages/Login";
 import Messages from "@/pages/Messages";
+import GroupDiscovery from "@/pages/GroupDiscovery";
 import NotFound from "@/pages/not-found";
 
 function ProtectedRoute({ component: Component }: { component: () => JSX.Element }) {
@@ -61,6 +62,8 @@ function Router() {
     <Switch>
       <Route path="/" component={() => <ProtectedRoute component={Messages} />} />
       <Route path="/login" component={() => <PublicRoute component={Login} />} />
+      <Route path="/discover" component={() => <ProtectedRoute component={GroupDiscovery} />} />
+      <Route path="/join/:groupId" component={() => <ProtectedRoute component={Messages} />} />
       <Route component={NotFound} />
     </Switch>
   );

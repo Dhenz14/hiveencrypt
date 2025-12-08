@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck, DollarSign } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck, DollarSign, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -30,6 +30,8 @@ interface GroupChatHeaderProps {
   onBackClick?: () => void;
   onEditName?: () => void;
   onLeaveGroup?: () => void;
+  onMakePublic?: () => void;
+  isCreator?: boolean;
 }
 
 export function GroupChatHeader({ 
@@ -41,7 +43,9 @@ export function GroupChatHeader({
   onDeleteLocalData,
   onBackClick,
   onEditName,
-  onLeaveGroup
+  onLeaveGroup,
+  onMakePublic,
+  isCreator
 }: GroupChatHeaderProps) {
   const { user } = useAuth();
   
@@ -192,6 +196,15 @@ export function GroupChatHeader({
               >
                 <UserCog className="w-4 h-4 mr-2" />
                 Manage Members
+              </DropdownMenuItem>
+            )}
+            {isCreator && onMakePublic && (
+              <DropdownMenuItem 
+                onClick={onMakePublic} 
+                data-testid="menu-make-public"
+              >
+                <Globe className="w-4 h-4 mr-2" />
+                Make Public
               </DropdownMenuItem>
             )}
             {onLeaveGroup && (
