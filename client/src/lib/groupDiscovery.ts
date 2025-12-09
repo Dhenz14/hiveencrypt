@@ -235,6 +235,8 @@ export async function fetchDiscoverableGroups(
     const method = methodMap[sortBy] || 'get_discussions_by_created';
     
     // Query Hivemind for posts with our tag
+    logger.info('[GROUP DISCOVERY] Querying Hivemind:', { method, tag: PRIMARY_TAG, limit });
+    
     const discussions = await hiveClient.call('condenser_api', method, [
       {
         tag: PRIMARY_TAG,
@@ -242,9 +244,16 @@ export async function fetchDiscoverableGroups(
       },
     ]);
     
+    logger.info('[GROUP DISCOVERY] Hivemind returned:', discussions?.length || 0, 'posts');
+    
     if (!discussions || !Array.isArray(discussions)) {
-      logger.warn('[GROUP DISCOVERY] No discussions returned');
+      logger.warn('[GROUP DISCOVERY] No discussions returned from Hivemind');
       return [];
+    }
+    
+    // Log the first few posts for debugging
+    if (discussions.length > 0) {
+      logger.info('[GROUP DISCOVERY] First post author:', discussions[0]?.author, 'permlink:', discussions[0]?.permlink);
     }
     
     // Filter and parse group posts

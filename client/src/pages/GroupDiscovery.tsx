@@ -155,6 +155,9 @@ export default function GroupDiscovery() {
                     : 'No public groups have been published yet. Be the first to share your group!'
                   }
                 </p>
+                <p className="text-xs text-muted-foreground mt-4">
+                  Note: Newly published groups may take 1-2 minutes to appear as the blockchain indexes the post.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -224,7 +227,7 @@ export default function GroupDiscovery() {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => window.open(`https://peakd.com/@${group.author}/${group.permlink}`, '_blank')}
+                    onClick={() => window.open(`https://ecency.com/@${group.author}/${group.permlink}`, '_blank')}
                     data-testid={`button-view-post-${group.groupId}`}
                   >
                     <ExternalLink className="w-4 h-4" />
