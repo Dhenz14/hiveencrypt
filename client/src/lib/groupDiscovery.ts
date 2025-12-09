@@ -192,15 +192,16 @@ export async function publishGroupToDiscovery(
   return new Promise((resolve) => {
     // Use requestPost for creating a Hive post
     // This is the proper Keychain method for posting
+    // For root posts (not comments), parent_author must be empty string ""
     window.hive_keychain.requestPost(
       username,           // account name
       title,              // post title
       body,               // post body (markdown)
       PRIMARY_TAG,        // parent_permlink (category/first tag)
-      null,               // parent_author (null for root posts)
+      '',                 // parent_author (empty string for root posts, NOT null)
       JSON.stringify(metadata), // json_metadata as string
       permlink,           // unique permlink
-      null,               // comment_options (optional)
+      '',                 // comment_options (empty string, not null)
       (response: any) => {
         if (response.success) {
           logger.info('[GROUP DISCOVERY] ✅ Group published successfully:', response.result);
