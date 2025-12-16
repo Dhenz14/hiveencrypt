@@ -216,7 +216,7 @@ export async function publishGroupToDiscovery(
 }
 
 /**
- * Fetch discoverable groups from Hivemind
+ * Fetch discoverable groups from Hivemind with retry logic
  */
 export async function fetchDiscoverableGroups(
   limit: number = 20,
@@ -224,87 +224,122 @@ export async function fetchDiscoverableGroups(
 ): Promise<DiscoverableGroup[]> {
   logger.info('[GROUP DISCOVERY] Fetching discoverable groups:', { limit, sortBy });
   
-  try {
-    // Map sort type to Hivemind API method
-    const methodMap: Record<string, string> = {
-      created: 'get_discussions_by_created',
-      trending: 'get_discussions_by_trending',
-      hot: 'get_discussions_by_hot',
-    };
-    
-    const method = methodMap[sortBy] || 'get_discussions_by_created';
-    
-    // Query Hivemind for posts with our tag
-    logger.info('[GROUP DISCOVERY] Querying Hivemind:', { method, tag: PRIMARY_TAG, limit });
-    
-    const discussions = await hiveClient.call('condenser_api', method, [
-      {
-        tag: PRIMARY_TAG,
-        limit,
-      },
-    ]);
-    
-    logger.info('[GROUP DISCOVERY] Hivemind returned:', discussions?.length || 0, 'posts');
-    
-    if (!discussions || !Array.isArray(discussions)) {
-      logger.warn('[GROUP DISCOVERY] No discussions returned from Hivemind');
-      return [];
-    }
-    
-    // Log the first few posts for debugging
-    if (discussions.length > 0) {
-      logger.info('[GROUP DISCOVERY] First post author:', discussions[0]?.author, 'permlink:', discussions[0]?.permlink);
-    }
-    
-    // Filter and parse group posts
-    const groups: DiscoverableGroup[] = [];
-    
-    for (const post of discussions) {
-      try {
-        // Parse json_metadata
-        const metadata = typeof post.json_metadata === 'string' 
-          ? JSON.parse(post.json_metadata) 
-          : post.json_metadata;
-        
-        // Check if this is a Hive Messenger group post
-        if (!metadata?.hive_messenger?.groupId) {
-          continue;
-        }
-        
-        const groupData = metadata.hive_messenger as PublishedGroupMetadata;
-        
-        groups.push({
-          groupId: groupData.groupId,
-          creator: groupData.creator,
-          groupName: groupData.groupName,
-          description: groupData.description || '',
-          paymentRequired: groupData.paymentRequired,
-          paymentAmount: groupData.paymentAmount,
-          paymentType: groupData.paymentType,
-          recurringInterval: groupData.recurringInterval,
-          autoApprove: groupData.autoApprove,
-          memberCount: groupData.memberCount,
-          publishedAt: groupData.publishedAt,
-          // Post metadata
-          author: post.author,
-          permlink: post.permlink,
-          votes: post.net_votes || 0,
-          comments: post.children || 0,
-          payout: post.pending_payout_value || '0.000 HBD',
-          created: post.created,
-        });
-      } catch (parseError) {
-        // Skip posts that don't have valid group metadata
+  // Map sort type to Hivemind API method
+  const methodMap: Record<string, string> = {
+    created: 'get_discussions_by_created',
+    trending: 'get_discussions_by_trending',
+    hot: 'get_discussions_by_hot',
+  };
+  
+  const method = methodMap[sortBy] || 'get_discussions_by_created';
+  
+  // Try multiple RPC nodes directly with retries
+  const rpcNodes = [
+    'https://api.hive.blog',
+    'https://api.openhive.network',
+    'https://anyx.io',
+    'https://rpc.ecency.com',
+  ];
+  
+  let discussions: any[] | null = null;
+  let lastError: Error | null = null;
+  
+  for (const node of rpcNodes) {
+    try {
+      logger.info('[GROUP DISCOVERY] Trying node:', node);
+      
+      const response = await fetch(node, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          method: `condenser_api.${method}`,
+          params: [{ tag: PRIMARY_TAG, limit }],
+          id: 1,
+        }),
+      });
+      
+      if (!response.ok) {
+        logger.warn('[GROUP DISCOVERY] Node returned error status:', response.status);
         continue;
       }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        logger.warn('[GROUP DISCOVERY] RPC error from node:', data.error);
+        continue;
+      }
+      
+      if (data.result && Array.isArray(data.result)) {
+        discussions = data.result as any[];
+        logger.info('[GROUP DISCOVERY] Success from node:', node, 'posts:', discussions!.length);
+        break;
+      }
+    } catch (error) {
+      lastError = error as Error;
+      logger.warn('[GROUP DISCOVERY] Node failed:', node, error);
+      continue;
     }
-    
-    logger.info('[GROUP DISCOVERY] Found', groups.length, 'discoverable groups');
-    return groups;
-  } catch (error) {
-    logger.error('[GROUP DISCOVERY] Failed to fetch groups:', error);
+  }
+  
+  if (!discussions) {
+    logger.error('[GROUP DISCOVERY] All nodes failed:', lastError?.message);
     return [];
   }
+  
+  logger.info('[GROUP DISCOVERY] Hivemind returned:', discussions.length, 'posts');
+  
+  // Log the first few posts for debugging
+  if (discussions.length > 0) {
+    logger.info('[GROUP DISCOVERY] First post author:', discussions[0]?.author, 'permlink:', discussions[0]?.permlink);
+  }
+  
+  // Filter and parse group posts
+  const groups: DiscoverableGroup[] = [];
+  
+  for (const post of discussions) {
+    try {
+      // Parse json_metadata
+      const metadata = typeof post.json_metadata === 'string' 
+        ? JSON.parse(post.json_metadata) 
+        : post.json_metadata;
+      
+      // Check if this is a Hive Messenger group post
+      if (!metadata?.hive_messenger?.groupId) {
+        continue;
+      }
+      
+      const groupData = metadata.hive_messenger as PublishedGroupMetadata;
+      
+      groups.push({
+        groupId: groupData.groupId,
+        creator: groupData.creator,
+        groupName: groupData.groupName,
+        description: groupData.description || '',
+        paymentRequired: groupData.paymentRequired,
+        paymentAmount: groupData.paymentAmount,
+        paymentType: groupData.paymentType,
+        recurringInterval: groupData.recurringInterval,
+        autoApprove: groupData.autoApprove,
+        memberCount: groupData.memberCount,
+        publishedAt: groupData.publishedAt,
+        // Post metadata
+        author: post.author,
+        permlink: post.permlink,
+        votes: post.net_votes || 0,
+        comments: post.children || 0,
+        payout: post.pending_payout_value || '0.000 HBD',
+        created: post.created,
+      });
+    } catch (parseError) {
+      // Skip posts that don't have valid group metadata
+      continue;
+    }
+  }
+  
+  logger.info('[GROUP DISCOVERY] Found', groups.length, 'discoverable groups');
+  return groups;
 }
 
 /**
