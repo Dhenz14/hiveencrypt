@@ -192,29 +192,72 @@ export async function publishGroupToDiscovery(
     parent_permlink: PRIMARY_TAG,
   });
 
+  // Timeout for Keychain response (60 seconds to allow user to approve)
+  const KEYCHAIN_TIMEOUT = 60000;
+  
   return new Promise((resolve) => {
-    // Use requestPost for creating a Hive post
-    // This is the proper Keychain method for posting
-    // For root posts (not comments), parent_author must be empty string ""
-    window.hive_keychain.requestPost(
-      username,           // account name
-      title,              // post title
-      body,               // post body (markdown)
-      PRIMARY_TAG,        // parent_permlink (category/first tag)
-      '',                 // parent_author (empty string for root posts, NOT null)
-      JSON.stringify(metadata), // json_metadata as string
-      permlink,           // unique permlink
-      '',                 // comment_options (empty string, not null)
-      (response: any) => {
-        if (response.success) {
-          logger.info('[GROUP DISCOVERY] ✅ Group published successfully:', response.result);
-          resolve({ success: true, permlink });
-        } else {
-          logger.error('[GROUP DISCOVERY] ❌ Failed to publish group:', response.message);
-          resolve({ success: false, error: response.message || 'Failed to publish group' });
-        }
+    let resolved = false;
+    
+    // Set timeout to catch cases where Keychain popup closes without responding
+    const timeoutId = setTimeout(() => {
+      if (!resolved) {
+        resolved = true;
+        logger.error('[GROUP DISCOVERY] ❌ Keychain request timed out - popup may have closed');
+        resolve({ 
+          success: false, 
+          error: 'Keychain request timed out. The popup may have closed unexpectedly. Please try again and approve the popup when it appears.' 
+        });
       }
-    );
+    }, KEYCHAIN_TIMEOUT);
+    
+    try {
+      // Use requestPost for creating a Hive post
+      // This is the proper Keychain method for posting
+      // For root posts (not comments), parent_author must be empty string ""
+      window.hive_keychain.requestPost(
+        username,           // account name
+        title,              // post title
+        body,               // post body (markdown)
+        PRIMARY_TAG,        // parent_permlink (category/first tag)
+        '',                 // parent_author (empty string for root posts, NOT null)
+        JSON.stringify(metadata), // json_metadata as string
+        permlink,           // unique permlink
+        '',                 // comment_options (empty string, not null)
+        (response: any) => {
+          if (resolved) return; // Already timed out
+          resolved = true;
+          clearTimeout(timeoutId);
+          
+          if (response.success) {
+            logger.info('[GROUP DISCOVERY] ✅ Group published successfully:', response.result);
+            resolve({ success: true, permlink });
+          } else {
+            const errorMsg = response.message || 'Failed to publish group';
+            logger.error('[GROUP DISCOVERY] ❌ Failed to publish group:', errorMsg);
+            
+            // Check for user cancellation
+            if (errorMsg.toLowerCase().includes('cancel') || 
+                errorMsg.toLowerCase().includes('rejected') ||
+                errorMsg.toLowerCase().includes('denied')) {
+              resolve({ 
+                success: false, 
+                error: 'You need to approve the Keychain popup to publish the group. Please try again and click "Approve" when prompted.' 
+              });
+            } else {
+              resolve({ success: false, error: errorMsg });
+            }
+          }
+        }
+      );
+    } catch (error) {
+      if (!resolved) {
+        resolved = true;
+        clearTimeout(timeoutId);
+        const errorMsg = error instanceof Error ? error.message : 'Unknown error occurred';
+        logger.error('[GROUP DISCOVERY] ❌ Exception calling Keychain:', errorMsg);
+        resolve({ success: false, error: `Keychain error: ${errorMsg}` });
+      }
+    }
   });
 }
 
@@ -375,41 +418,68 @@ export async function searchDiscoverableGroups(
 
 /**
  * Check if a group has already been published
+ * Uses multiple RPC nodes for resilience
  */
 export async function isGroupPublished(
   creator: string,
   groupId: string
 ): Promise<{ published: boolean; permlink?: string }> {
-  try {
-    // Search for posts by this creator with our tag
-    const posts = await hiveClient.call('condenser_api', 'get_discussions_by_blog', [
-      {
-        tag: creator,
-        limit: 100,
-      },
-    ]);
-    
-    if (!posts || !Array.isArray(posts)) {
-      return { published: false };
-    }
-    
-    for (const post of posts) {
-      try {
-        const metadata = typeof post.json_metadata === 'string' 
-          ? JSON.parse(post.json_metadata) 
-          : post.json_metadata;
-        
-        if (metadata?.hive_messenger?.groupId === groupId) {
-          return { published: true, permlink: post.permlink };
+  logger.debug('[GROUP DISCOVERY] Checking if group is published:', { creator, groupId });
+  
+  // Try multiple RPC nodes
+  const rpcNodes = [
+    'https://api.hive.blog',
+    'https://rpc.ecency.com',
+    'https://api.openhive.network',
+    'https://anyx.io',
+  ];
+  
+  for (const node of rpcNodes) {
+    try {
+      const response = await fetch(node, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          method: 'condenser_api.get_discussions_by_blog',
+          params: [{ tag: creator, limit: 100 }],
+          id: 1,
+        }),
+        signal: AbortSignal.timeout(10000), // 10 second timeout
+      });
+      
+      if (!response.ok) continue;
+      
+      const data = await response.json();
+      const posts = data?.result;
+      
+      if (!posts || !Array.isArray(posts)) continue;
+      
+      for (const post of posts) {
+        try {
+          const metadata = typeof post.json_metadata === 'string' 
+            ? JSON.parse(post.json_metadata) 
+            : post.json_metadata;
+          
+          if (metadata?.hive_messenger?.groupId === groupId) {
+            logger.info('[GROUP DISCOVERY] Found existing published group:', post.permlink);
+            return { published: true, permlink: post.permlink };
+          }
+        } catch {
+          continue;
         }
-      } catch {
-        continue;
       }
+      
+      // Successfully checked with this node - group not found
+      logger.debug('[GROUP DISCOVERY] Group not yet published');
+      return { published: false };
+    } catch (error) {
+      logger.warn('[GROUP DISCOVERY] Node failed for publish check:', node, error);
+      continue;
     }
-    
-    return { published: false };
-  } catch (error) {
-    logger.error('[GROUP DISCOVERY] Failed to check if group is published:', error);
-    return { published: false };
   }
+  
+  // All nodes failed - assume not published to allow user to try publishing
+  logger.error('[GROUP DISCOVERY] All RPC nodes failed for publish check - assuming not published');
+  return { published: false };
 }
