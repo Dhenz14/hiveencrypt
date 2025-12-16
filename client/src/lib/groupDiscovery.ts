@@ -10,8 +10,11 @@ import { logger } from './logger';
 import type { PaymentSettings } from '@shared/schema';
 
 // Discovery tags
-const PRIMARY_TAG = 'hive-messenger';
-const DISCOVERY_TAG = 'group-discovery';
+// Note: Tags starting with "hive-" are treated as community tags and don't work well with get_discussions_by_created
+// We use 'group-discovery' for querying and 'hive-messenger' as the parent_permlink for community
+const PRIMARY_TAG = 'hive-messenger';  // Used as parent_permlink (community)
+const DISCOVERY_TAG = 'group-discovery';  // Used for querying (regular tag)
+const QUERY_TAG = 'group-discovery';  // Tag used for Hivemind queries
 const APP_NAME = 'hive-messenger';
 const APP_VERSION = '1.0.0';
 
@@ -233,6 +236,8 @@ export async function fetchDiscoverableGroups(
   
   const method = methodMap[sortBy] || 'get_discussions_by_created';
   
+  logger.info('[GROUP DISCOVERY] Querying with tag:', QUERY_TAG, 'method:', method);
+  
   // Try multiple RPC nodes directly with retries
   const rpcNodes = [
     'https://api.hive.blog',
@@ -254,7 +259,7 @@ export async function fetchDiscoverableGroups(
         body: JSON.stringify({
           jsonrpc: '2.0',
           method: `condenser_api.${method}`,
-          params: [{ tag: PRIMARY_TAG, limit }],
+          params: [{ tag: QUERY_TAG, limit }],
           id: 1,
         }),
       });
