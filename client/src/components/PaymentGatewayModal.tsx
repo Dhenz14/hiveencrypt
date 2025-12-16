@@ -66,47 +66,85 @@ export function PaymentGatewayModal({
         to: creatorUsername,
         amount: paymentSettings.amount,
         memo,
+        currentUsername,
       });
 
-      // Request HBD transfer via Hive Keychain
-      await new Promise((resolve, reject) => {
+      // Request HBD transfer via Hive Keychain with timeout
+      logger.info('[PAYMENT GATEWAY] Calling Keychain requestTransfer...');
+      
+      const KEYCHAIN_TIMEOUT = 120000; // 2 minutes for user to approve
+      
+      const keychainTransfer = new Promise<{ txId?: string }>((resolve, reject) => {
         if (!window.hive_keychain) {
+          logger.error('[PAYMENT GATEWAY] Keychain not found on window');
           reject(new Error('Hive Keychain not installed'));
           return;
         }
 
-        window.hive_keychain.requestTransfer(
-          currentUsername,
-          creatorUsername,
-          paymentSettings.amount,
-          memo,
-          'HBD',
-          (response: any) => {
-            if (response.success) {
-              logger.info('[PAYMENT GATEWAY] Payment sent:', response.result);
-              resolve(response.result);
-            } else {
-              logger.error('[PAYMENT GATEWAY] Payment failed:', response.message);
-              reject(new Error(response.message || 'Payment cancelled'));
+        logger.info('[PAYMENT GATEWAY] Keychain found, making requestTransfer call...');
+        
+        try {
+          window.hive_keychain.requestTransfer(
+            currentUsername,
+            creatorUsername,
+            paymentSettings.amount,
+            memo,
+            'HBD',
+            (response: any) => {
+              logger.info('[PAYMENT GATEWAY] Keychain callback received:', {
+                success: response?.success,
+                message: response?.message,
+                hasResult: !!response?.result,
+              });
+              
+              if (response.success) {
+                logger.info('[PAYMENT GATEWAY] ✅ Payment broadcast successful:', {
+                  txId: response.result?.tx_id || response.result?.id,
+                  result: response.result,
+                });
+                resolve({ txId: response.result?.tx_id || response.result?.id });
+              } else {
+                logger.error('[PAYMENT GATEWAY] ❌ Payment failed:', response.message);
+                reject(new Error(response.message || 'Payment cancelled'));
+              }
             }
-          }
-        );
+          );
+          logger.info('[PAYMENT GATEWAY] requestTransfer call made, waiting for popup response...');
+        } catch (err) {
+          logger.error('[PAYMENT GATEWAY] Error calling requestTransfer:', err);
+          reject(err);
+        }
       });
+      
+      const timeout = new Promise<never>((_, reject) => {
+        setTimeout(() => {
+          reject(new Error('Keychain popup closed or timed out. Please try again.'));
+        }, KEYCHAIN_TIMEOUT);
+      });
+      
+      const transferResult = await Promise.race([keychainTransfer, timeout]);
+      logger.info('[PAYMENT GATEWAY] Transfer completed:', transferResult);
 
       // Start verification process
       setVerificationStatus('verifying');
       setVerificationProgress(10);
 
-      // Wait for blockchain confirmation (5 seconds for Hive)
-      logger.info('[PAYMENT GATEWAY] Waiting for blockchain propagation...');
-      await new Promise(resolve => setTimeout(resolve, 5000));
-      setVerificationProgress(30);
+      // Wait for blockchain confirmation - Hive blocks are 3 seconds
+      // Wait 6 seconds initially to ensure at least 2 blocks have passed
+      logger.info('[PAYMENT GATEWAY] Waiting 6s for blockchain propagation...');
+      await new Promise(resolve => setTimeout(resolve, 6000));
+      setVerificationProgress(25);
 
       // Verify payment on blockchain with retry logic
-      // Blockchain propagation can sometimes take 10-15 seconds
-      logger.info('[PAYMENT GATEWAY] Verifying payment on blockchain...');
+      // Blockchain propagation can sometimes take 10-20 seconds for history APIs
+      logger.info('[PAYMENT GATEWAY] Verifying payment on blockchain...', {
+        payer: currentUsername,
+        recipient: creatorUsername,
+        amount: paymentSettings.amount,
+        groupId,
+      });
       
-      const maxRetries = 3;
+      const maxRetries = 5; // More retries - total wait ~30 seconds
       let verification: { verified: boolean; txId?: string; timestamp?: string; error?: string } = { 
         verified: false, 
         error: 'Not verified'
@@ -123,15 +161,19 @@ export function PaymentGatewayModal({
           1 // Maximum 1 hour old (should be seconds old)
         );
 
+        logger.info(`[PAYMENT GATEWAY] Attempt ${attempt} result:`, verification);
+
         if (verification.verified && verification.txId) {
+          logger.info('[PAYMENT GATEWAY] ✅ Payment found on attempt', attempt);
           break;
         }
         
         // If not found and we have retries left, wait and try again
         if (attempt < maxRetries) {
-          logger.info('[PAYMENT GATEWAY] Payment not found yet, waiting before retry...');
-          setVerificationProgress(30 + (attempt * 15));
-          await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5 seconds between retries
+          const waitTime = 4000 + (attempt * 1000); // Increasing wait: 5s, 6s, 7s, 8s
+          logger.info(`[PAYMENT GATEWAY] Payment not found yet, waiting ${waitTime}ms before retry...`);
+          setVerificationProgress(25 + (attempt * 12));
+          await new Promise(resolve => setTimeout(resolve, waitTime));
         }
       }
       

@@ -43,12 +43,14 @@ export async function verifyPayment(
     const normalizedAmount = normalizeAmount(expectedAmount);
     const expectedAmountWithUnit = `${normalizedAmount} HBD`;
     
+    logger.info('[PAYMENT VERIFY] ========== STARTING PAYMENT VERIFICATION ==========');
     logger.info('[PAYMENT VERIFY] Checking payment:', { 
       username, 
       recipient, 
       expectedAmount: normalizedAmount,
       expectedAmountWithUnit,
-      memoSearch: memo 
+      memoSearch: memo,
+      maxAgeHours
     });
 
     const cutoffTime = Date.now() - (maxAgeHours * 60 * 60 * 1000);
@@ -101,13 +103,14 @@ export async function verifyPayment(
             return { verified: false, error: 'Payment not found within time window' };
           }
 
-          // Log transfers for debugging (only first 5)
-          if (transfersScanned <= 5) {
-            logger.debug('[PAYMENT VERIFY] Transfer found:', {
+          // Log all transfers for debugging (up to 10)
+          if (transfersScanned <= 10) {
+            logger.info('[PAYMENT VERIFY] Transfer #' + transfersScanned + ':', {
               from: transfer.from,
               to: transfer.to,
               amount: transfer.amount,
-              memo: transfer.memo?.substring(0, 50),
+              memo: transfer.memo?.substring(0, 100),
+              timestamp: operation.timestamp,
             });
           }
 
@@ -116,6 +119,18 @@ export async function verifyPayment(
           const toMatches = transfer.to === recipient;
           const amountMatches = transfer.amount === expectedAmountWithUnit;
           const memoMatches = transfer.memo && transfer.memo.includes(memo);
+          
+          // Log comparison for matching from/to
+          if (fromMatches && toMatches) {
+            logger.info('[PAYMENT VERIFY] 🔍 Found transfer from/to match:', {
+              transferAmount: transfer.amount,
+              expectedAmount: expectedAmountWithUnit,
+              amountMatches,
+              transferMemo: transfer.memo,
+              searchMemo: memo,
+              memoMatches,
+            });
+          }
 
           if (fromMatches && toMatches && amountMatches && memoMatches) {
             logger.info('[PAYMENT VERIFY] ✅ Payment verified in batch', batchCount, ':', {
