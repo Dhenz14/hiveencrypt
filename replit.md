@@ -63,3 +63,20 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 - **V4V.app**: Bidirectional bridge service for Bitcoin tips (HBD ↔ Lightning).
 - **LNURL Protocol**: Decentralized Lightning Address infrastructure.
 - **CoinGecko API**: Real-time Bitcoin price data for exchange rate calculations.
+
+## Known Technical Behaviors (Intentional)
+
+### Console Warnings (Expected)
+- **Module externalization warnings** from `lnurl-pay.js`: Warnings about `util.debuglog`, `util.inspect`, and `stream.Transform` are expected. The `lnurl-pay` library uses Node.js built-in modules that don't exist in browsers. Vite externalizes these modules for browser compatibility. **These warnings do not affect functionality** - the Lightning tip feature works correctly despite them.
+
+### Double-Encryption Handling
+- **Intentional design**: Some older messages or messages from certain systems may be double-encrypted (encrypted memo wrapped in another encrypted memo). The decryption logic in `client/src/lib/hive.ts` automatically detects this and performs up to 2 decryption passes. This is handled gracefully with a recursion limit to prevent infinite loops.
+
+### RPC Rate Limiting Recovery
+- **Automatic recovery**: When all Hive RPC nodes are temporarily marked unhealthy (due to rate limiting), the system automatically resets health stats and retries. The log message `All nodes marked unhealthy, resetting health stats` indicates this recovery mechanism is working.
+
+### Query Cancellation
+- **React Query behavior**: The `[QUERY CANCELLED]` log messages indicate React Query is properly canceling stale queries when components unmount or when queries are invalidated. This is expected behavior and the system gracefully returns cached data.
+
+## Blockchain Explorers
+- **Hivescan.info**: Used for transaction verification links (built by the Hive Messenger team).
