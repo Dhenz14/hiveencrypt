@@ -146,19 +146,19 @@ export function PaymentGatewayModal({
 
       logger.info('[PAYMENT GATEWAY] ✅ Payment verified:', verification.txId);
 
-      // Notify parent component
-      onPaymentVerified(verification.txId, `${paymentSettings.amount} HBD`);
-
       // Show success message
       toast({
-        title: 'Payment Successful',
-        description: `Paid ${paymentSettings.amount} HBD to join "${groupName}"`,
+        title: 'Payment Successful!',
+        description: `You're joining "${groupName}"`,
       });
 
-      // Close modal after short delay
+      // Wait for user to see the verified status, then notify parent and close
+      const verifiedTxId = verification.txId!; // Already verified above
       setTimeout(() => {
+        // Notify parent component - this triggers the join request and navigation
+        onPaymentVerified(verifiedTxId, `${paymentSettings.amount} HBD`);
         onOpenChange(false);
-      }, 1500);
+      }, 2000);
     } catch (err: any) {
       logger.error('[PAYMENT GATEWAY] Payment error:', err);
       setVerificationStatus('failed');

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Users, Loader2, DollarSign } from 'lucide-react';
+import { Users, Loader2, DollarSign, CheckCircle } from 'lucide-react';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import {
   Dialog,
@@ -46,6 +46,8 @@ export function JoinGroupButton({
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
   const [requestMessage, setRequestMessage] = useState('');
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const [successDetails, setSuccessDetails] = useState<{ isPaid: boolean; amount?: string } | null>(null);
 
   // Check blockchain for pending requests (replaces localStorage)
   const { data: pendingRequests = [], isLoading: isLoadingPendingRequests } = useUserPendingRequests(
@@ -126,26 +128,24 @@ export function JoinGroupButton({
       // Invalidate pending requests query to trigger blockchain re-scan
       queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId, user.username] });
 
-      // Show appropriate success message based on status
+      // Show appropriate success based on status
       if (variables.status === 'pending') {
         toast({
           title: 'Join Request Sent',
           description: 'Your request has been sent to the group creator for approval.',
         });
       } else if (variables.status === 'pending_payment_verification') {
-        toast({
-          title: 'Payment Sent!',
-          description: 'Creator will approve your join request after verifying payment.',
+        // Show success dialog for paid joins
+        setSuccessDetails({ 
+          isPaid: true, 
+          amount: variables.memberPayment?.amount 
         });
+        setSuccessDialogOpen(true);
       } else if (variables.status === 'approved_free') {
-        toast({
-          title: 'Join Request Sent',
-          description: 'Creator will approve your join request shortly.',
-        });
+        // Show success dialog for free auto-approve joins
+        setSuccessDetails({ isPaid: false });
+        setSuccessDialogOpen(true);
       }
-
-      // Close the component - creator's background process will handle approval
-      onJoinSuccess?.();
     },
     onError: (error: any) => {
       toast({
@@ -340,6 +340,65 @@ export function JoinGroupButton({
               ) : (
                 'Send Request'
               )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Success Confirmation Dialog */}
+      <Dialog 
+        open={successDialogOpen} 
+        onOpenChange={(open) => {
+          if (!open) {
+            setSuccessDialogOpen(false);
+            setSuccessDetails(null);
+            onJoinSuccess?.();
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-md" data-testid="dialog-join-success">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-green-600">
+              <CheckCircle className="w-6 h-6" />
+              Welcome to {groupName}!
+            </DialogTitle>
+            <DialogDescription>
+              {successDetails?.isPaid ? (
+                <>
+                  Your payment of {successDetails.amount} has been verified. 
+                  You're now a member of this group!
+                </>
+              ) : (
+                <>
+                  Your join request has been processed. 
+                  You're now a member of this group!
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex flex-col items-center gap-4 py-4">
+            <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+              <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
+            </div>
+            <p className="text-center text-muted-foreground">
+              Click below to open the group chat and start messaging!
+            </p>
+          </div>
+
+          <DialogFooter>
+            <Button
+              type="button"
+              onClick={() => {
+                setSuccessDialogOpen(false);
+                setSuccessDetails(null);
+                onJoinSuccess?.();
+              }}
+              className="w-full"
+              data-testid="button-open-group"
+            >
+              <Users className="w-4 h-4 mr-2" />
+              Open Group Chat
             </Button>
           </DialogFooter>
         </DialogContent>
