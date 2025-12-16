@@ -22,6 +22,7 @@ import { JoinGroupButton } from '@/components/JoinGroupButton';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLocation } from 'wouter';
 import { formatDistanceToNow } from 'date-fns';
+import { useGroupDiscovery } from '@/hooks/useGroupMessages';
 
 export default function GroupDiscovery() {
   const { user } = useAuth();
@@ -30,6 +31,10 @@ export default function GroupDiscovery() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'created' | 'trending' | 'hot'>('created');
   const [successGroup, setSuccessGroup] = useState<DiscoverableGroup | null>(null);
+
+  // Fetch user's group memberships to show "Joined" status
+  const { data: userGroups = [] } = useGroupDiscovery();
+  const userGroupIds = new Set(userGroups.map(g => g.groupId));
 
   // Fetch groups based on active tab
   const { data: groups, isLoading, error } = useQuery({
@@ -266,6 +271,7 @@ export default function GroupDiscovery() {
                     } : undefined}
                     onJoinSuccess={() => handleJoinSuccess(group)}
                     className="flex-1"
+                    isMember={userGroupIds.has(group.groupId)}
                   />
                   <Button
                     variant="outline"

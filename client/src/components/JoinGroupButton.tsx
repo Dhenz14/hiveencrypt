@@ -28,6 +28,7 @@ interface JoinGroupButtonProps {
   onJoinSuccess?: () => void;
   variant?: ButtonProps['variant'];
   className?: string;
+  isMember?: boolean; // If true, show "Joined" instead of join button
 }
 
 export function JoinGroupButton({
@@ -38,6 +39,7 @@ export function JoinGroupButton({
   onJoinSuccess,
   variant = 'default',
   className,
+  isMember = false,
 }: JoinGroupButtonProps) {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -280,6 +282,21 @@ export function JoinGroupButton({
   };
 
   const isLoading = joinRequestMutation.isPending || isLoadingPendingRequests;
+
+  // If already a member, show "Joined" status instead of join button
+  if (isMember) {
+    return (
+      <Button
+        variant="outline"
+        className={className}
+        disabled
+        data-testid="button-already-joined"
+      >
+        <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+        Joined
+      </Button>
+    );
+  }
 
   return (
     <>
