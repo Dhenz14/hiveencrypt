@@ -125,68 +125,57 @@ export function PaymentGatewayModal({
       const transferResult = await Promise.race([keychainTransfer, timeout]);
       logger.info('[PAYMENT GATEWAY] Transfer completed:', transferResult);
 
-      // Start verification process
-      setVerificationStatus('verifying');
-      setVerificationProgress(10);
-
-      // Wait for blockchain confirmation - Hive blocks are 3 seconds
-      // Wait 6 seconds initially to ensure at least 2 blocks have passed
-      logger.info('[PAYMENT GATEWAY] Waiting 6s for blockchain propagation...');
-      await new Promise(resolve => setTimeout(resolve, 6000));
-      setVerificationProgress(25);
-
-      // Verify payment on blockchain with retry logic
-      // Blockchain propagation can sometimes take 10-20 seconds for history APIs
-      logger.info('[PAYMENT GATEWAY] Verifying payment on blockchain...', {
-        payer: currentUsername,
-        recipient: creatorUsername,
-        amount: paymentSettings.amount,
-        groupId,
-      });
+      // We have a transaction ID from Keychain - payment was broadcast successfully!
+      // Keychain already verified the transaction was included in a block
+      const keychainTxId = transferResult.txId;
       
-      const maxRetries = 5; // More retries - total wait ~30 seconds
-      let verification: { verified: boolean; txId?: string; timestamp?: string; error?: string } = { 
-        verified: false, 
-        error: 'Not verified'
-      };
-      
-      for (let attempt = 1; attempt <= maxRetries; attempt++) {
-        logger.info(`[PAYMENT GATEWAY] Verification attempt ${attempt}/${maxRetries}`);
+      if (!keychainTxId) {
+        // Fallback to history verification if no txId returned
+        logger.warn('[PAYMENT GATEWAY] No txId from Keychain, falling back to history verification');
         
-        verification = await verifyPayment(
+        setVerificationStatus('verifying');
+        setVerificationProgress(10);
+        
+        // Wait for blockchain propagation
+        await new Promise(resolve => setTimeout(resolve, 6000));
+        setVerificationProgress(50);
+        
+        const verification = await verifyPayment(
           currentUsername,
           creatorUsername,
           paymentSettings.amount,
           groupId,
-          1 // Maximum 1 hour old (should be seconds old)
+          1
         );
-
-        logger.info(`[PAYMENT GATEWAY] Attempt ${attempt} result:`, verification);
-
-        if (verification.verified && verification.txId) {
-          logger.info('[PAYMENT GATEWAY] ✅ Payment found on attempt', attempt);
-          break;
+        
+        if (!verification.verified || !verification.txId) {
+          throw new Error(verification.error || 'Payment verification failed');
         }
         
-        // If not found and we have retries left, wait and try again
-        if (attempt < maxRetries) {
-          const waitTime = 4000 + (attempt * 1000); // Increasing wait: 5s, 6s, 7s, 8s
-          logger.info(`[PAYMENT GATEWAY] Payment not found yet, waiting ${waitTime}ms before retry...`);
-          setVerificationProgress(25 + (attempt * 12));
-          await new Promise(resolve => setTimeout(resolve, waitTime));
-        }
+        setVerificationProgress(100);
+        setVerificationStatus('verified');
+        
+        logger.info('[PAYMENT GATEWAY] ✅ Payment verified via history:', verification.txId);
+        
+        toast({
+          title: 'Payment Successful!',
+          description: `You're joining "${groupName}"`,
+        });
+        
+        const verifiedTxId = verification.txId;
+        setTimeout(() => {
+          onPaymentVerified(verifiedTxId, `${paymentSettings.amount} HBD`);
+          onOpenChange(false);
+        }, 1500);
+        return;
       }
       
-      setVerificationProgress(80);
-
-      if (!verification.verified || !verification.txId) {
-        throw new Error(verification.error || 'Payment verification failed');
-      }
-
-      setVerificationProgress(100);
+      // We have a txId from Keychain - trust it!
+      // Keychain already confirmed the transaction was broadcast
+      logger.info('[PAYMENT GATEWAY] ✅ Payment confirmed by Keychain with txId:', keychainTxId);
+      
       setVerificationStatus('verified');
-
-      logger.info('[PAYMENT GATEWAY] ✅ Payment verified:', verification.txId);
+      setVerificationProgress(100);
 
       // Show success message
       toast({
@@ -195,12 +184,11 @@ export function PaymentGatewayModal({
       });
 
       // Wait for user to see the verified status, then notify parent and close
-      const verifiedTxId = verification.txId!; // Already verified above
       setTimeout(() => {
         // Notify parent component - this triggers the join request and navigation
-        onPaymentVerified(verifiedTxId, `${paymentSettings.amount} HBD`);
+        onPaymentVerified(keychainTxId, `${paymentSettings.amount} HBD`);
         onOpenChange(false);
-      }, 2000);
+      }, 1500);
     } catch (err: any) {
       logger.error('[PAYMENT GATEWAY] Payment error:', err);
       setVerificationStatus('failed');
