@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hive Messenger</title>
+  <script>
+    // Single Page App redirect for GitHub Pages
+    // Redirects all 404s to index.html with the original path preserved
+    const path = window.location.pathname;
+    const repo = '/hiveencrypt';
+    if (path.startsWith(repo)) {
+      const relativePath = path.substring(repo.length) || '/';
+      sessionStorage.setItem('redirectPath', relativePath);
+    }
+    window.location.replace(window.location.origin + '/hiveencrypt/');
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>

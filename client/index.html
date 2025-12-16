@@ -23,6 +23,18 @@
   <body>
     <div id="root"></div>
     <script>
+      // GitHub Pages SPA redirect handler
+      (function() {
+        var redirectPath = sessionStorage.getItem('redirectPath');
+        if (redirectPath) {
+          sessionStorage.removeItem('redirectPath');
+          if (redirectPath !== '/' && redirectPath !== window.location.pathname) {
+            window.history.replaceState(null, '', redirectPath);
+          }
+        }
+      })();
+    </script>
+    <script>
       // Polyfill process for browser compatibility with Keychain SDK
       window.process = {
         env: { NODE_ENV: 'production' },
