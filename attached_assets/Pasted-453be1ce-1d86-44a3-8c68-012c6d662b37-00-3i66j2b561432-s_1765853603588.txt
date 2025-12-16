@@ -1,0 +1,1097 @@
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Error while trying to use the following icon from the Manifest: https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/favicon.png (Resource size is not correct - typo in the Manifest?)
+ [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 52
+ [GROUP DISCOVERY] ✅ Total groups: 8
+ [AUTO APPROVAL] Scanning for auto-approval requests: Object
+ [RPC] Selected best node: https://api.openhive.network Object
+ [AUTO APPROVAL] Scanned 76 custom_json operations
+ [AUTO APPROVAL] Found 0 already approved requests
+ [AUTO APPROVAL] Found 0 requests needing auto-approval
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 740 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 5 total partners in 776 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+ [GROUP MESSAGES] Syncing messages for group: ae7f6eab-c88b-45ca-a123-780343afb427
+ [GROUP MESSAGES] Loaded 0 cached messages
+ [GROUP MESSAGES] Last synced operation: 783
+ [GROUP MESSAGES] Fetching 200 operations (incremental sync)
+ [RPC] Selected best node: https://api.openhive.network Object
+ [FOLLOWING] Fetching following list for: dandandan123
+ [FOLLOWING] ❌ Failed to fetch following list: VError
+error @ logger.ts:23
+ [FOLLOWING] ❌ Error getting following list: 
+error @ logger.ts:23
+ [GROUP MESSAGES] Fetched 106 latest operations
+ [GROUP MESSAGES] Highest operation index: 783
+ [GROUP MESSAGES] Processing initial 106 operations
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [GROUP MESSAGES] 📊 Initial scan stats: Object
+ [GROUP MESSAGES] Operation gap since last sync: 0
+ [GROUP MESSAGES] 📊 Final summary: Object
+ [GROUP DISCOVERY] Discovering groups for: dandandan123
+ [GROUP DISCOVERY] Loaded 8 groups from cache
+ [GROUP BLOCKCHAIN] Discovering groups for user: dandandan123
+ [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [AUTO APPROVAL] Scanning for auto-approval requests: Object
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 4 partners in 477 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 4 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 4 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [AUTO APPROVAL] Scanned 55 custom_json operations
+ [AUTO APPROVAL] Found 0 already approved requests
+ [AUTO APPROVAL] Found 0 requests needing auto-approval
+ [DEBUG] [GROUP BLOCKCHAIN] Initial scan: 55 operations
+ [DEBUG] [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP MESSAGES] Syncing messages for group: ae7f6eab-c88b-45ca-a123-780343afb427
+ [GROUP MESSAGES] Loaded 0 cached messages
+ [GROUP MESSAGES] Last synced operation: 783
+ [GROUP MESSAGES] Fetching 200 operations (incremental sync)
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 131 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 2 / 5 starting at sequence: 7
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 7 total partners in 1137 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: Found 3 additional partners
+ [DEBUG] [PROGRESSIVE] Phase 2 complete: Found 3 additional conversations
+ [DEBUG] [PROGRESSIVE] Phase 2: Adding 3 new conversations to cache
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 207 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 3 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP MESSAGES] Fetched 106 latest operations
+ [GROUP MESSAGES] Highest operation index: 783
+ [GROUP MESSAGES] Processing initial 106 operations
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [GROUP MESSAGES] 📊 Initial scan stats: Object
+ [GROUP MESSAGES] Operation gap since last sync: 0
+ [GROUP MESSAGES] 📊 Final summary: Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 262 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 4 / 5 starting at sequence: 7
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 338 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 5 / 5 starting at sequence: 7
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP BLOCKCHAIN] Total scanned: 393 operations, oldest sequence: 8
+ [DEBUG] [GROUP BLOCKCHAIN] Completed scanning 393 custom_json operations
+ [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+ [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+ [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+ [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP BLOCKCHAIN] Stage 2: Scanned 871 operations
+ [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+ [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+ [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+ [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+ [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+ [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+ [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+ [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+ [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+ [GROUP DISCOVERY] Discovered 0 groups from blockchain
+ [GROUP DISCOVERY] Scanning cached group messages for new groups...
+ [GROUP DISCOVERY] Found 2 cached group messages
+ [GROUP DISCOVERY] Found creator from cached message: dandandan123 for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc
+ [GROUP DISCOVERY] Found cached group message for groupId: 009ef04a-9163-4aa7-ad19-576a739fe6bc from: curatorhulk
+ [GROUP DISCOVERY] Found creator from cached message: curatorhulk for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Found cached group message for groupId: afe96d92-f0a5-46aa-813f-16fa58beb57a from: curatorhulk
+ [GROUP DISCOVERY] Found 2 unique groups from cached messages
+ [GROUP DISCOVERY] Scanning blockchain transfers for group invitations...
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP DISCOVERY] Scanning 90 blockchain transfers for group messages
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: ff76b2783111e40f94fd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: ff76b2783111e40f94fd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo yo yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo yo yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 1a6e0daa5d9187add33e - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 1a6e0daa5d9187add33e
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohohoho...
+ [SENSITIVE] [decryptMemo] Final result: #hohohoho...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3cae3543d04abee44ccd - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3cae3543d04abee44ccd
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #hohoho1...
+ [SENSITIVE] [decryptMemo] Final result: #hohoho1...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 2b1dcdef6ad62b6be9f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 2b1dcdef6ad62b6be9f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 316ec3d9118361516376 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 316ec3d9118361516376
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #not encrypted...
+ [SENSITIVE] [decryptMemo] Final result: #not encrypted...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a5c07ac90ebb2c1b77b - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a5c07ac90ebb2c1b77b
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo...
+ [SENSITIVE] [decryptMemo] Final result: #Yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c2fea85ec892687c7d7a - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c2fea85ec892687c7d7a
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo yo ho ho is this still mobile?...
+ [SENSITIVE] [decryptMemo] Final result: #yo yo ho ho is this still mobile?...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 926b089610559d817485 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 926b089610559d817485
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testy testy...
+ [SENSITIVE] [decryptMemo] Final result: #testy testy...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7db32ca47aeb2da338e2 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7db32ca47aeb2da338e2
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo23...
+ [SENSITIVE] [decryptMemo] Final result: #Yo23...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: bb991acfdcb313b049f4 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: bb991acfdcb313b049f4
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yooooooooo...
+ [SENSITIVE] [decryptMemo] Final result: #yooooooooo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 7345781f254adafd0227 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 7345781f254adafd0227
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Messaging u with a tip...
+ [SENSITIVE] [decryptMemo] Final result: #Messaging u with a tip...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: c1e1c1ce4c95d11ea299 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: c1e1c1ce4c95d11ea299
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #Yo, messaging u with less than the amount to test...
+ [SENSITIVE] [decryptMemo] Final result: #Yo, messaging u with less than the amount to test...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: a8ff7f4d1092d8acd5f5 - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: a8ff7f4d1092d8acd5f5
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yoyo...
+ [SENSITIVE] [decryptMemo] Final result: #yoyo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: d325270b206cea07ba6c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: d325270b206cea07ba6c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #testing...
+ [SENSITIVE] [decryptMemo] Final result: #testing...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 3a30607f581a7aeac16c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 3a30607f581a7aeac16c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #yo...
+ [SENSITIVE] [decryptMemo] Final result: #yo...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [decryptMemo] ========== DECRYPT MEMO START ==========
+ [SENSITIVE] [decryptMemo] Input params: Object
+ [decryptMemo] Calling requestDecodeMemo (will use Hive Keychain)...
+ [DEBUG] [MEMO CACHE] MISS for txId: 52b477a89d33e10b3f1c - will decrypt
+ [requestDecodeMemo] Deduplication - reusing pending decrypt for: 52b477a89d33e10b3f1c
+ [SENSITIVE] [decryptMemo] requestDecodeMemo returned: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [SENSITIVE] [decryptMemo] Final result: #group:009ef04a-9163-4aa7-ad19-576a739fe6bc:dandan...
+ [GROUP BLOCKCHAIN] Stripped # prefix from decrypted memo (Keychain bug)
+warn @ logger.ts:18
+ [GROUP BLOCKCHAIN] Parsed new format group message with creator: dandandan123
+ [GROUP DISCOVERY] Looking up metadata for 1 discovered groups
+ [GROUP BLOCKCHAIN] Looking up group metadata: Object
+ [GROUP BLOCKCHAIN] Scanning transfer operations for group invite memos
+ [RPC] Selected best node: https://api.openhive.network Object
+ [GROUP BLOCKCHAIN] Transfer scan - initial fetch: 106 ops, oldest seq: 2
+ [GROUP BLOCKCHAIN] Transfer scan - starting unlimited streaming backfill (will scan until pointer found or history exhausted)
+ [GROUP BLOCKCHAIN] Transfer scan - near beginning of history (seq: 1 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Transfer scan - scanned all available transfers
+ [GROUP BLOCKCHAIN] Transfer scan - completed: 106 transfer operations scanned, chunks processed: 0
+ [GROUP BLOCKCHAIN] No manifest pointer found, falling back to custom_json scan (legacy)
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP BLOCKCHAIN] Metadata lookup - initial fetch: 76 ops, oldest seq: 8
+ [GROUP BLOCKCHAIN] Metadata lookup - starting deep backfill for: dandandan123 target: 5000 ops
+ [GROUP BLOCKCHAIN] Metadata lookup - near beginning of history (seq: 7 < chunk size: 1000 )
+ [GROUP BLOCKCHAIN] Metadata lookup - scanned all available custom_json operations
+ [GROUP BLOCKCHAIN] Metadata lookup - completed scan of 76 operations for: dandandan123
+ [GROUP BLOCKCHAIN] ⚠️ No metadata found for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc from sender: dandandan123
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ⚠️ Metadata lookup failed for group: 009ef04a-9163-4aa7-ad19-576a739fe6bc - using minimal data
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ➕ Added minimal group: Group (009ef04a...)
+ [GROUP DISCOVERY] Caching 1 discovered group messages
+ [DEBUG] [GROUP CACHE] Batch cached 1 group messages
+ [GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups: 2
+ [GROUP DISCOVERY] Trying cached creator for group: afe96d92-f0a5-46aa-813f-16fa58beb57a creator: curatorhulk
+ [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Trying 1 fallback senders for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP BLOCKCHAIN] ⚠️ Using group-level negative cache for: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] ⚠️ Could not resolve metadata for group: afe96d92-f0a5-46aa-813f-16fa58beb57a tried: creator: curatorhulk, 1 senders
+warn @ logger.ts:18
+ [GROUP DISCOVERY] ✅ Created fallback group entry: Group (afe96d92...) (generated) with 2 members
+ [GROUP BLOCKCHAIN] Set negative cache for group: afe96d92-f0a5-46aa-813f-16fa58beb57a
+ [GROUP DISCOVERY] Total discovered groups (custom_json + transfers): 2
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: 009ef04a-9163-4aa7-ad19-576a739fe6bc to 56
+ [DEBUG] [GROUP CACHE] Cached group conversation: 009ef04a-9163-4aa7-ad19-576a739fe6bc version: 56
+ [DEBUG] [GROUP CACHE] Incrementing group conversation version: afe96d92-f0a5-46aa-813f-16fa58beb57a to 53
+ [DEBUG] [GROUP CACHE] Cached group conversation: afe96d92-f0a5-46aa-813f-16fa58beb57a version: 53
+ [GROUP DISCOVERY] ✅ Total groups: 8
+ [GROUP MESSAGES] Syncing messages for group: ae7f6eab-c88b-45ca-a123-780343afb427
+ [GROUP MESSAGES] Loaded 0 cached messages
+ [GROUP MESSAGES] Last synced operation: 783
+ [GROUP MESSAGES] Fetching 200 operations (incremental sync)
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP MESSAGES] Fetched 90 latest operations
+ [GROUP MESSAGES] Highest operation index: 692
+ [GROUP MESSAGES] Processing initial 90 operations
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [GROUP MESSAGES] 📊 Initial scan stats: Object
+ [GROUP MESSAGES] Operation gap since last sync: -91
+ [GROUP MESSAGES] 📊 Final summary: Object
+ [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+ [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+ [RPC] Selected best node: https://api.openhive.network Object
+ [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 664 ms
+ [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+ [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+ [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+ [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+ [GROUP CREATION] Creating group: Object
+ [GROUP BLOCKCHAIN] Broadcasting group creation: Object
+ [DEBUG] [PROGRESSIVE] Phase 2 discovered 7 total partners in 874 ms
+ [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) 
+ [GROUP BLOCKCHAIN] ✅ Group created on blockchain: 25f1f5ba22cab87ac295d8c676b005be96f5fbbd
+ [RPC] Selected best node: https://anyx.io Object
+ [DEBUG] [GROUP CACHE] Cached group conversation: 136d3896-cf28-4b35-809d-62104dab9870 version: 1
+ [GROUP CREATION] ✅ Group created successfully: 136d3896-cf28-4b35-809d-62104dab9870
+ [AUTO APPROVAL] Scanning for auto-approval requests: Object
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP MESSAGES] Syncing messages for group: 136d3896-cf28-4b35-809d-62104dab9870
+ [GROUP MESSAGES] Loaded 0 cached messages
+ [GROUP MESSAGES] Last synced operation: 783
+ [GROUP MESSAGES] Fetching 200 operations (incremental sync)
+ [RPC] Selected best node: https://anyx.io Object
+ [GROUP MESSAGES] Fetched 90 latest operations
+ [GROUP MESSAGES] Highest operation index: 692
+ [GROUP MESSAGES] Processing initial 90 operations
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+ [GROUP MESSAGES] 📊 Initial scan stats: Object
+ [GROUP MESSAGES] Operation gap since last sync: -91
+ [GROUP MESSAGES] 📊 Final summary: Object
+ [AUTO APPROVAL] Scanned 55 custom_json operations
+ [AUTO APPROVAL] Found 0 already approved requests
+ [AUTO APPROVAL] Found 0 requests needing auto-approval
+ [RPC] Selected best node: https://api.openhive.network Object
+ [RPC] Retry 1/3 with node: https://api.openhive.network
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [DEBUG] [GROUP DISCOVERY] Checking if group is published: Object
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+ [GROUP DISCOVERY] Node failed for publish check: https://rpc.ecency.com 
+warn @ logger.ts:18
+(index):1  Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+ [GROUP DISCOVERY] All RPC nodes failed for publish check - assuming not published
+error @ logger.ts:23
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+ [GROUP BLOCKCHAIN] Failed to send invite memos: 
+error @ logger.ts:23
+ [GROUP MESSAGES] Syncing messages for group: 136d3896-cf28-4b35-809d-62104dab9870
+ [GROUP MESSAGES] Loaded 0 cached messages
+ [GROUP MESSAGES] Last synced operation: 783
+logger.ts:18 [GROUP MESSAGES] Fetching 200 operations (incremental sync)
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [GROUP MESSAGES] Fetched 106 latest operations
+logger.ts:18 [GROUP MESSAGES] Highest operation index: 783
+logger.ts:18 [GROUP MESSAGES] Processing initial 106 operations
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:11 [DEBUG] [GROUP MESSAGES] ⚠️ Invalid operation structure, skipping
+logger.ts:18 [GROUP MESSAGES] 📊 Initial scan stats: Object
+logger.ts:18 [GROUP MESSAGES] Operation gap since last sync: 0
+logger.ts:18 [GROUP MESSAGES] 📊 Final summary: Object
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+(index):1  Failed to load resource: net::ERR_FAILED
+logger.ts:11 [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: dandandan123
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 discovered 7 partners in 771 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 7 Uncached: 0
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 complete: 7 conversations ready to display
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2 discovered 5 total partners in 857 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: No additional partners found beyond Phase 1
+logger.ts:18 [GROUP DISCOVERY] Publishing group: Object
+logger.ts:18 [GROUP DISCOVERY] About to call Keychain requestPost with: Object
+453be1ce-1d86-44a3-8…spock.replit.dev/:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+logger.ts:18 [GROUP DISCOVERY] ✅ Group published successfully: Object
+logger.ts:11 [DEBUG] [GROUP DISCOVERY] Checking if group is published: Object
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+logger.ts:25 [GROUP DISCOVERY] Node failed for publish check: https://rpc.ecency.com TypeError: Failed to fetch
+    at isGroupPublished (groupDiscovery.ts:439:30)
+warn @ logger.ts:25
+anyx.io/:1  Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+logger.ts:31 [GROUP DISCOVERY] All RPC nodes failed for publish check - assuming not published
+error @ logger.ts:31
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:18 [AUTO APPROVAL] Scanning for auto-approval requests: Object
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [AUTO APPROVAL] Scanned 77 custom_json operations
+logger.ts:18 [AUTO APPROVAL] Found 0 already approved requests
+logger.ts:18 [AUTO APPROVAL] Found 0 requests needing auto-approval
+453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:11 [DEBUG] [METADATA] Fetching from blockchain: dandandan123
+logger.ts:11 [DEBUG] [METADATA] Fetching from blockchain: dandandan123
+logger.ts:11 [DEBUG] [METADATA] Fetching from blockchain: dandandan123
+logger.ts:11 [DEBUG] [METADATA] Fetched and cached: dandandan123 Object
+logger.ts:11 [DEBUG] [METADATA] Fetched and cached: dandandan123 Object
+logger.ts:11 [DEBUG] [METADATA] Fetched and cached: dandandan123 Object
+logger.ts:18 [Auth] Logging out...
+logger.ts:18 [Auth] ✅ Logout complete
+logger.ts:18 [Auth] Starting login for: curatorhulk platform: desktop-extension
+login:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:18 [Auth] Keychain authentication successful
+logger.ts:18 [Auth] ✅ Login complete! Session stored locally.
+logger.ts:11 [DEBUG] [CLEANUP] Starting orphaned message cleanup for: curatorhulk
+HiddenConversationsContext.tsx:78 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+HiddenConversationsContext.tsx:100 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ExceptionsContext.tsx:77 [ExceptionsContext] Loaded exceptions: Array(0)
+ExceptionsContext.tsx:99 [ExceptionsContext] Saved exceptions: Array(0)
+logger.ts:11 [DEBUG] [METADATA] Fetching from blockchain: curatorhulk
+logger.ts:11 [DEBUG] [METADATA] Fetching from blockchain: curatorhulk
+logger.ts:11 [DEBUG] [CONV DISCOVERY] Starting progressive discovery for user: curatorhulk
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1: Fetching recent 50 operations (quick scan)...
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:18 [GROUP DISCOVERY] Discovering groups for: curatorhulk
+HiddenConversationsContext.tsx:100 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+ExceptionsContext.tsx:99 [ExceptionsContext] Saved exceptions: Array(0)
+useBlockchainMessages.ts:41 [useBlockchainMessages] Exceptions changed, invalidating query for re-evaluation
+logger.ts:18 [GROUP DISCOVERY] Loaded 2 groups from cache
+logger.ts:18 [GROUP BLOCKCHAIN] Discovering groups for user: curatorhulk
+logger.ts:18 [GROUP BLOCKCHAIN] STEP 1: Scanning user's custom_json for group metadata
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:11 [DEBUG] [CONV DISCOVERY] Loaded 2 cached conversations immediately
+logger.ts:11 [DEBUG] [MIGRATION] UTC timestamp migration already completed
+logger.ts:11 [DEBUG] [CLEANUP] ✅ Cleaned up 0 orphaned messages
+logger.ts:11 [DEBUG] [CACHE FIX] Fixed 0 corrupted messages
+logger.ts:11 [DEBUG] [MIGRATION] Starting group message migration for: curatorhulk
+logger.ts:11 [DEBUG] [MIGRATION] Scanning 19 messages for misplaced group messages
+logger.ts:11 [DEBUG] [MIGRATION] No misplaced group messages found
+logger.ts:11 [DEBUG] [METADATA] Fetched and cached: curatorhulk Object
+logger.ts:11 [DEBUG] [METADATA] Fetched and cached: curatorhulk Object
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 discovered 1 partners in 635 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 - Cached: 1 Uncached: 0
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 1 complete: 1 conversations ready to display
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: Starting background scan of 200 operations...
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [RPC] Retry 1/3 with node: https://api.openhive.network
+logger.ts:18 [GROUP DISCOVERY] Fetching discoverable groups: Object
+logger.ts:18 [GROUP DISCOVERY] Querying with tag: group-discovery method: get_discussions_by_created
+logger.ts:18 [GROUP DISCOVERY] Trying node: https://api.hive.blog
+logger.ts:18 [GROUP DISCOVERY] Success from node: https://api.hive.blog posts: 2
+logger.ts:18 [GROUP DISCOVERY] Hivemind returned: 2 posts
+logger.ts:18 [GROUP DISCOVERY] First post author: dandandan123 permlink: hive-messenger-group-136d3896-1765853529479
+logger.ts:18 [GROUP DISCOVERY] Found 2 discoverable groups
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanning for pending requests: Object
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanning for pending requests: Object
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2 discovered 2 total partners in 1485 ms
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: Found 1 additional partners
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2 complete: Found 1 additional conversations
+logger.ts:11 [DEBUG] [PROGRESSIVE] Phase 2: Adding 1 new conversations to cache
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanned 202 custom_json operations
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 approved and 0 rejected requests
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 pending requests
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Initial scan: 202 operations
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Oldest sequence from initial scan: 35121
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Starting deep backfill, will scan up to 5000 total operations
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Backfill chunk 1 / 5 starting at sequence: 35120
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] No more operations, stopping backfill
+logger.ts:11 [DEBUG] [GROUP BLOCKCHAIN] Completed scanning 202 custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Found 0 groups from custom_json operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Scanning last 500 operations (unfiltered)...
+logger.ts:18 [RPC] Selected best node: https://anyx.io Object
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Scanned 500 operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Total transfers: 0 Incoming: 0 Encrypted: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 1: Found 0 potential senders
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: No senders in recent history, expanding to 1000 operations (unfiltered)...
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network Object
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanned 202 custom_json operations
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 approved and 0 rejected requests
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 pending requests
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: Scanned 1000 operations
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: Total transfers: 0 Incoming: 0 Encrypted: 0
+logger.ts:18 [GROUP BLOCKCHAIN] Stage 2: Found 0 total potential senders
+logger.ts:18 [GROUP BLOCKCHAIN] ✅ Discovery complete: 0 potential group senders to scan
+logger.ts:18 [GROUP BLOCKCHAIN] Scanned 0 senders, found 0 new groups
+logger.ts:18 [GROUP BLOCKCHAIN] STEP 4: Starting BFS chain discovery for group members
+logger.ts:18 [GROUP BLOCKCHAIN] Chain discovery: Initial queue size: 0 members
+logger.ts:18 [GROUP BLOCKCHAIN] Chain discovery: Scanning members from 0 initially discovered groups
+logger.ts:25 [GROUP BLOCKCHAIN] Chain discovery: Queue is empty! No members to scan.
+warn @ logger.ts:25
+logger.ts:25 [GROUP BLOCKCHAIN] Chain discovery: groupMap size: 0
+warn @ logger.ts:25
+logger.ts:18 [GROUP BLOCKCHAIN] Chain discovery: Completed in 0 iterations, scanned 0 members, visited 1 total
+logger.ts:18 [GROUP BLOCKCHAIN] ✅ Discovered 0 groups
+logger.ts:18 [GROUP DISCOVERY] Discovered 0 groups from blockchain
+logger.ts:18 [QUERY CANCELLED] Group discovery after blockchain fetch
+useGroupMessages.ts:740 [GROUP DISCOVERY] ⚠️ Query cancelled by React Query, returning cached data
+queryFn @ useGroupMessages.ts:740
+logger.ts:18 [GROUP DISCOVERY] Query cancelled, returning cached groups
+logger.ts:18 [PAYMENT GATEWAY] Initiating payment: Object
+discover:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+discover:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+discover:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+logger.ts:18 [PAYMENT GATEWAY] Payment sent: Object
+logger.ts:18 [PAYMENT GATEWAY] Verifying payment on blockchain...
+logger.ts:18 [PAYMENT VERIFY] Checking payment: Object
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:18 [PAYMENT VERIFY] Scanning batch 1 : 500 operations
+logger.ts:18 [PAYMENT VERIFY] Reached operations older than 1 hours. Stopping scan.
+logger.ts:31 [PAYMENT GATEWAY] Payment error: Error: Payment not found within time window
+    at handlePayment (PaymentGatewayModal.tsx:117:15)
+error @ logger.ts:31
+discover:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+discover:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+@hiveio_dhive.js?v=cd048d7b:6667  POST https://api.openhive.network/ net::ERR_FAILED 404 (Not Found)
+(anonymous) @ @hiveio_dhive.js?v=cd048d7b:6667
+fetch @ @hiveio_dhive.js?v=cd048d7b:6639
+(anonymous) @ @hiveio_dhive.js?v=cd048d7b:13759
+fulfilled @ @hiveio_dhive.js?v=cd048d7b:13679
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanning for pending requests: {groupId: '136d3896-cf28-4b35-809d-62104dab9870', username: 'curatorhulk'}
+logger.ts:18 [RPC] Selected best node: https://anyx.io {avgLatency: 557, successRate: '100.0%'}
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanning for pending requests: {groupId: '46e595bb-ca24-4e89-8ef4-5370944a1ac4', username: 'curatorhulk'}
+logger.ts:18 [RPC] Selected best node: https://api.openhive.network {avgLatency: 965, successRate: '100.0%'}
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanned 202 custom_json operations
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 approved and 0 rejected requests
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 pending requests
+logger.ts:11 [DEBUG] [RPC] All nodes marked unhealthy, resetting health stats (likely rate limiting)
+logger.ts:18 [RPC] Retry 1/3 with node: https://api.hive.blog
+logger.ts:18 [JOIN REQUEST DISCOVERY] Scanned 202 custom_json operations
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 approved and 0 rejected requests
+logger.ts:18 [JOIN REQUEST DISCOVERY] Found 0 pending requests
+discover:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://453be1ce-1d86-44a3-8c68-012c6d662b37-00-3i66j2b561432.spock.replit.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+@hiveio_dhive.js?v=cd048d7b:6667  POST https://api.openhive.network/ net::ERR_FAILED 404 (Not Found)
+(anonymous) @ @hiveio_dhive.js?v=cd048d7b:6667
+fetch @ @hiveio_dhive.js?v=cd048d7b:6639
+(anonymous) @ @hiveio_dhive.js?v=cd048d7b:13759
+fulfilled @ @hiveio_dhive.js?v=cd048d7b:13679
+Promise.then
+step @ @hiveio_dhive.js?v=cd048d7b:13695
+rejected @ @hiveio_dhive.js?v=cd048d7b:13686
+Promise.then
+step @ @hiveio_dhive.js?v=cd048d7b:13695
+fulfilled @ @hiveio_dhive.js?v=cd048d7b:13679

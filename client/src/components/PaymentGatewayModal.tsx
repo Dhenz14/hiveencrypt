@@ -97,20 +97,44 @@ export function PaymentGatewayModal({
       setVerificationStatus('verifying');
       setVerificationProgress(10);
 
-      // Wait for blockchain confirmation (3 seconds for Hive)
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      setVerificationProgress(40);
+      // Wait for blockchain confirmation (5 seconds for Hive)
+      logger.info('[PAYMENT GATEWAY] Waiting for blockchain propagation...');
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      setVerificationProgress(30);
 
-      // Verify payment on blockchain
+      // Verify payment on blockchain with retry logic
+      // Blockchain propagation can sometimes take 10-15 seconds
       logger.info('[PAYMENT GATEWAY] Verifying payment on blockchain...');
-      const verification = await verifyPayment(
-        currentUsername,
-        creatorUsername,
-        paymentSettings.amount,
-        groupId,
-        1 // Maximum 1 hour old (should be seconds old)
-      );
+      
+      const maxRetries = 3;
+      let verification: { verified: boolean; txId?: string; timestamp?: string; error?: string } = { 
+        verified: false, 
+        error: 'Not verified'
+      };
+      
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        logger.info(`[PAYMENT GATEWAY] Verification attempt ${attempt}/${maxRetries}`);
+        
+        verification = await verifyPayment(
+          currentUsername,
+          creatorUsername,
+          paymentSettings.amount,
+          groupId,
+          1 // Maximum 1 hour old (should be seconds old)
+        );
 
+        if (verification.verified && verification.txId) {
+          break;
+        }
+        
+        // If not found and we have retries left, wait and try again
+        if (attempt < maxRetries) {
+          logger.info('[PAYMENT GATEWAY] Payment not found yet, waiting before retry...');
+          setVerificationProgress(30 + (attempt * 15));
+          await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5 seconds between retries
+        }
+      }
+      
       setVerificationProgress(80);
 
       if (!verification.verified || !verification.txId) {

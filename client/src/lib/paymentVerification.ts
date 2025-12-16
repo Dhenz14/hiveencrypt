@@ -17,6 +17,20 @@ import type { MemberPayment, PaymentSettings } from '@shared/schema';
  * @param maxAgeHours - Maximum age of payment in hours (default: 24)
  * @returns Payment verification result with transaction details
  */
+/**
+ * Normalize amount to 3 decimal places (Hive format)
+ * @param amount - Amount string like "0.1" or "0.100"
+ * @returns Normalized amount like "0.100"
+ */
+function normalizeAmount(amount: string): string {
+  // Parse the amount as a float and format to 3 decimal places
+  const numericAmount = parseFloat(amount);
+  if (isNaN(numericAmount)) {
+    return amount; // Return as-is if not a valid number
+  }
+  return numericAmount.toFixed(3);
+}
+
 export async function verifyPayment(
   username: string,
   recipient: string,
@@ -25,7 +39,17 @@ export async function verifyPayment(
   maxAgeHours: number = 24
 ): Promise<{ verified: boolean; txId?: string; timestamp?: string; error?: string }> {
   try {
-    logger.info('[PAYMENT VERIFY] Checking payment:', { username, recipient, expectedAmount, memo });
+    // Normalize amount to match Hive's 3 decimal place format
+    const normalizedAmount = normalizeAmount(expectedAmount);
+    const expectedAmountWithUnit = `${normalizedAmount} HBD`;
+    
+    logger.info('[PAYMENT VERIFY] Checking payment:', { 
+      username, 
+      recipient, 
+      expectedAmount: normalizedAmount,
+      expectedAmountWithUnit,
+      memoSearch: memo 
+    });
 
     const cutoffTime = Date.now() - (maxAgeHours * 60 * 60 * 1000);
     const batchSize = 500; // Larger batches for efficiency
@@ -33,6 +57,7 @@ export async function verifyPayment(
     let currentStart = -1;
     let batchCount = 0;
     let lastUniqueAdded = 0; // Track unique operations to prevent infinite loops
+    let transfersScanned = 0;
 
     // Scan history in batches until we find payment or exceed time window
     while (batchCount < maxBatches) {
@@ -68,6 +93,7 @@ export async function verifyPayment(
         if (operation.op[0] === 'transfer') {
           const transfer = operation.op[1];
           const timestamp = new Date(operation.timestamp + 'Z').getTime();
+          transfersScanned++;
 
           // Check if transfer is too old - stop scanning if we've exceeded time window
           if (timestamp < cutoffTime) {
@@ -75,14 +101,23 @@ export async function verifyPayment(
             return { verified: false, error: 'Payment not found within time window' };
           }
 
-          // Verify all payment criteria
-          const matches = 
-            transfer.from === username &&
-            transfer.to === recipient &&
-            transfer.amount === `${expectedAmount} HBD` &&
-            transfer.memo && transfer.memo.includes(memo);
+          // Log transfers for debugging (only first 5)
+          if (transfersScanned <= 5) {
+            logger.debug('[PAYMENT VERIFY] Transfer found:', {
+              from: transfer.from,
+              to: transfer.to,
+              amount: transfer.amount,
+              memo: transfer.memo?.substring(0, 50),
+            });
+          }
 
-          if (matches) {
+          // Verify all payment criteria
+          const fromMatches = transfer.from === username;
+          const toMatches = transfer.to === recipient;
+          const amountMatches = transfer.amount === expectedAmountWithUnit;
+          const memoMatches = transfer.memo && transfer.memo.includes(memo);
+
+          if (fromMatches && toMatches && amountMatches && memoMatches) {
             logger.info('[PAYMENT VERIFY] ✅ Payment verified in batch', batchCount, ':', {
               txId: operation.trx_id,
               timestamp: operation.timestamp,
@@ -94,6 +129,15 @@ export async function verifyPayment(
               txId: operation.trx_id,
               timestamp: new Date(operation.timestamp + 'Z').toISOString(),
             };
+          }
+          
+          // Log near misses for debugging
+          if (fromMatches && toMatches && (amountMatches || memoMatches)) {
+            logger.warn('[PAYMENT VERIFY] Near miss found:', {
+              transfer,
+              expected: { amount: expectedAmountWithUnit, memo },
+              matches: { from: fromMatches, to: toMatches, amount: amountMatches, memo: memoMatches }
+            });
           }
         }
       }
@@ -118,7 +162,7 @@ export async function verifyPayment(
       logger.warn('[PAYMENT VERIFY] Reached maximum batch limit (', maxBatches, ')');
     }
 
-    logger.warn('[PAYMENT VERIFY] ❌ No matching payment found after scanning', batchCount, 'batches');
+    logger.warn('[PAYMENT VERIFY] ❌ No matching payment found after scanning', batchCount, 'batches,', transfersScanned, 'transfers');
     return { verified: false, error: 'Payment not found in account history' };
   } catch (error) {
     logger.error('[PAYMENT VERIFY] Error verifying payment:', error);
