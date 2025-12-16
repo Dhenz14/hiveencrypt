@@ -610,7 +610,7 @@ export function LightningTipDialog({
         console.log('[LIGHTNING TIP] Sending notification message to', recipientUsername);
         
         // Format tip notification message
-        const notificationMessage = `Lightning Tip Received: ${formatNumber(invoiceAmountSats)} sats\n\nTransaction: https://hiveblocks.com/tx/${txId}`;
+        const notificationMessage = `Lightning Tip Received: ${formatNumber(invoiceAmountSats)} sats\n\nTransaction: https://hivescan.info/tx/${txId}`;
         
         // Encrypt message using Keychain
         const encryptResponse = await requestEncode(

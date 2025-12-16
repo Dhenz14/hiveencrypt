@@ -363,7 +363,7 @@ export function MessageBubble({ message, isSent, showAvatar, showTimestamp, isGr
             </p>
             {tipNotification.txId && (
               <a
-                href={`https://hiveblocks.com/tx/${tipNotification.txId}`}
+                href={`https://hivescan.info/tx/${tipNotification.txId}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-caption hover-elevate transition-colors underline"
