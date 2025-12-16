@@ -24,8 +24,8 @@ function parseTipNotification(content: string): TipNotification | null {
     // Extract sats amount (e.g., "1,000 sats")
     const satsMatch = content.match(/Lightning Tip Received:\s*([0-9,]+)\s*sats/);
     
-    // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
-    const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
+    // Extract transaction ID from URL - supports both hivescan.info (new) and hiveblocks.com (legacy)
+    const txMatch = content.match(/https:\/\/(?:hivescan\.info|hiveblocks\.com)\/tx\/([a-fA-F0-9]+)/);
     
     if (satsMatch) {
       return {
@@ -41,8 +41,8 @@ function parseTipNotification(content: string): TipNotification | null {
     // Extract HBD amount (e.g., "0.958 HBD")
     const hbdMatch = content.match(/Tip Received:\s*([0-9.]+)\s*HBD/);
     
-    // Extract transaction ID from URL (case-insensitive to handle mixed-case tx IDs)
-    const txMatch = content.match(/https:\/\/hiveblocks\.com\/tx\/([a-fA-F0-9]+)/);
+    // Extract transaction ID from URL - supports both hivescan.info (new) and hiveblocks.com (legacy)
+    const txMatch = content.match(/https:\/\/(?:hivescan\.info|hiveblocks\.com)\/tx\/([a-fA-F0-9]+)/);
     
     if (hbdMatch) {
       return {
