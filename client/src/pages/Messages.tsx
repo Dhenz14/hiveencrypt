@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useLocation } from 'wouter';
-import { Settings, Moon, Sun, Info, Filter, EyeOff } from 'lucide-react';
+import { Settings, Moon, Sun, Info, Filter, EyeOff, Clock, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -50,9 +50,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
 import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
 import { useAutoApproveJoinRequests } from '@/hooks/useAutoApproveJoinRequests';
-import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation } from '@/lib/messageCache';
+import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation, getPendingGroups, removePendingGroup } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
-import type { MessageCache, ConversationCache, GroupConversationCache } from '@/lib/messageCache';
+import type { MessageCache, ConversationCache, GroupConversationCache, PendingGroup } from '@/lib/messageCache';
 import type { PaymentSettings } from '@shared/schema';
 import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate, broadcastLeaveGroup } from '@/lib/groupBlockchain';
 import { setCustomGroupName } from '@/lib/customGroupNames';
@@ -118,6 +118,7 @@ export default function Messages() {
   const [promptPublishGroupId, setPromptPublishGroupId] = useState<string | null>(null);
   const [joinDialogGroup, setJoinDialogGroup] = useState<GroupConversationCache | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [selectedPendingGroup, setSelectedPendingGroup] = useState<PendingGroup | null>(null);
   const [syncStatus, setSyncStatus] = useState<BlockchainSyncStatus>({
     status: 'synced',
   });
@@ -204,6 +205,67 @@ export default function Messages() {
       .map(mapGroupCacheToConversation),
     [groupCaches]
   );
+
+  // Pending groups state with proper reactivity
+  const [pendingGroupsRaw, setPendingGroupsRaw] = useState<PendingGroup[]>([]);
+
+  // Load pending groups on mount and when user changes
+  useEffect(() => {
+    if (user?.username) {
+      setPendingGroupsRaw(getPendingGroups(user.username));
+    } else {
+      setPendingGroupsRaw([]);
+    }
+  }, [user?.username]);
+
+  // Listen for pending groups changes (same-tab reactivity via custom event)
+  useEffect(() => {
+    const handlePendingGroupsChanged = () => {
+      if (user?.username) {
+        setPendingGroupsRaw(getPendingGroups(user.username));
+      }
+    };
+    
+    window.addEventListener('pendingGroupsChanged', handlePendingGroupsChanged);
+    return () => window.removeEventListener('pendingGroupsChanged', handlePendingGroupsChanged);
+  }, [user?.username]);
+
+  // Compute displayed pending groups (filtering out approved)
+  const pendingGroups = useMemo<PendingGroup[]>(() => {
+    return pendingGroupsRaw.filter(pending => 
+      !groupCaches.some(g => g.groupId === pending.groupId)
+    );
+  }, [pendingGroupsRaw, groupCaches]);
+
+  // Cleanup approved pending groups from localStorage (side effect)
+  useEffect(() => {
+    if (!user?.username) return;
+    
+    let needsRefresh = false;
+    pendingGroupsRaw.forEach(pending => {
+      if (groupCaches.some(g => g.groupId === pending.groupId)) {
+        removePendingGroup(pending.groupId, user.username);
+        needsRefresh = true;
+      }
+    });
+    
+    // Refresh state after cleanup
+    if (needsRefresh) {
+      setPendingGroupsRaw(getPendingGroups(user.username));
+    }
+  }, [pendingGroupsRaw, groupCaches, user?.username]);
+
+  // Auto-select the real group when a pending group gets approved
+  useEffect(() => {
+    if (selectedPendingGroup) {
+      const isNowApproved = groupCaches.some(g => g.groupId === selectedPendingGroup.groupId);
+      if (isNowApproved) {
+        logger.info('[PENDING] Pending group approved, auto-selecting real group:', selectedPendingGroup.groupId);
+        setSelectedGroupId(selectedPendingGroup.groupId);
+        setSelectedPendingGroup(null);
+      }
+    }
+  }, [selectedPendingGroup, groupCaches]);
   
   // Combine and sort by last message time (memoized to prevent infinite renders)
   const conversations = useMemo<Conversation[]>(() =>
@@ -938,8 +1000,27 @@ export default function Messages() {
       <ConversationsList
         groups={groupConversations}
         chats={directConversations}
+        pendingGroups={pendingGroups}
         selectedConversationId={selectedConversationId || selectedGroupId || undefined}
         onSelectConversation={(id) => {
+          // Check if it's a pending group
+          if (id.startsWith('pending_')) {
+            const pendingGroupId = id.replace('pending_', '');
+            const pendingGroup = pendingGroups.find(g => g.groupId === pendingGroupId);
+            if (pendingGroup) {
+              setSelectedPendingGroup(pendingGroup);
+              setSelectedGroupId(''); // Clear actual group selection
+              setSelectedPartner(''); // Clear direct message selection
+              if (isMobile) {
+                setShowChat(true);
+              }
+              return;
+            }
+          }
+          
+          // Clear pending selection when selecting something else
+          setSelectedPendingGroup(null);
+          
           // Check if it's a group conversation
           const groupConv = groupCaches.find(g => g.groupId === id);
           if (groupConv) {
@@ -972,7 +1053,46 @@ export default function Messages() {
   // Chat content component (reused in mobile and desktop layouts)
   const chatContent = (
     <>
-      {!selectedConversation ? (
+      {selectedPendingGroup ? (
+        <div className="flex flex-col h-full">
+          <div className="border-b px-4 py-3 flex items-center gap-3">
+            {isMobile && (
+              <Button variant="ghost" size="icon" onClick={() => { setShowChat(false); setSelectedPendingGroup(null); }} data-testid="button-back-pending">
+                <ArrowLeft className="w-5 h-5" />
+              </Button>
+            )}
+            <Avatar className="w-10 h-10">
+              <AvatarFallback className="bg-amber-500/20">
+                <Clock className="w-5 h-5 text-amber-500" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <h2 className="font-semibold">{selectedPendingGroup.groupName}</h2>
+              <p className="text-xs text-muted-foreground">by @{selectedPendingGroup.creator}</p>
+            </div>
+          </div>
+          
+          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+            <div className="w-20 h-20 rounded-full bg-amber-500/20 flex items-center justify-center mb-6">
+              <Clock className="w-10 h-10 text-amber-500" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Join Request Pending</h3>
+            <p className="text-muted-foreground max-w-sm mb-6">
+              Your request to join "{selectedPendingGroup.groupName}" is being processed. 
+              {selectedPendingGroup.paymentAmount && (
+                <span className="block mt-2">
+                  Payment: <strong>{selectedPendingGroup.paymentAmount} HBD</strong>
+                </span>
+              )}
+            </p>
+            <div className="bg-muted/50 rounded-lg p-4 max-w-sm">
+              <p className="text-sm text-muted-foreground">
+                The group creator will approve your request automatically. This usually takes a few minutes when they're online.
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : !selectedConversation ? (
         conversations.length === 0 ? (
           <EmptyState onNewMessage={() => setIsNewMessageOpen(true)} />
         ) : (

@@ -1143,6 +1143,58 @@ export async function getGroupManifestPointer(groupId: string, username?: string
   return await db.get('groupManifestPointers', groupId);
 }
 
+// ============================================================================
+// PENDING GROUPS: localStorage-based pending group tracking
+// ============================================================================
+
+export interface PendingGroup {
+  groupId: string;
+  groupName: string;
+  creator: string;
+  paymentAmount?: string;
+  requestedAt: string;
+}
+
+const PENDING_GROUPS_KEY = (username: string) => `pending_groups_${username}`;
+
+export function savePendingGroup(group: PendingGroup, username: string): void {
+  try {
+    const existing = getPendingGroups(username);
+    const filtered = existing.filter(g => g.groupId !== group.groupId);
+    filtered.push(group);
+    localStorage.setItem(PENDING_GROUPS_KEY(username), JSON.stringify(filtered));
+    // Dispatch custom event for same-tab reactivity
+    window.dispatchEvent(new CustomEvent('pendingGroupsChanged'));
+    logger.debug('[PENDING GROUPS] Saved pending group:', group.groupId);
+  } catch (error) {
+    logger.error('[PENDING GROUPS] Failed to save pending group:', error);
+  }
+}
+
+export function getPendingGroups(username: string): PendingGroup[] {
+  try {
+    const stored = localStorage.getItem(PENDING_GROUPS_KEY(username));
+    if (!stored) return [];
+    return JSON.parse(stored) as PendingGroup[];
+  } catch (error) {
+    logger.error('[PENDING GROUPS] Failed to get pending groups:', error);
+    return [];
+  }
+}
+
+export function removePendingGroup(groupId: string, username: string): void {
+  try {
+    const existing = getPendingGroups(username);
+    const filtered = existing.filter(g => g.groupId !== groupId);
+    localStorage.setItem(PENDING_GROUPS_KEY(username), JSON.stringify(filtered));
+    // Dispatch custom event for same-tab reactivity
+    window.dispatchEvent(new CustomEvent('pendingGroupsChanged'));
+    logger.debug('[PENDING GROUPS] Removed pending group:', groupId);
+  } catch (error) {
+    logger.error('[PENDING GROUPS] Failed to remove pending group:', error);
+  }
+}
+
 export type { 
   MessageCache, 
   ConversationCache, 

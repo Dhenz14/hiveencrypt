@@ -17,6 +17,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { fetchDiscoverableGroups, searchDiscoverableGroups, type DiscoverableGroup } from '@/lib/groupDiscovery';
+import { savePendingGroup } from '@/lib/messageCache';
 import { JoinGroupButton } from '@/components/JoinGroupButton';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLocation } from 'wouter';
@@ -52,8 +53,17 @@ export default function GroupDiscovery() {
   };
 
   const handleJoinSuccess = (group: DiscoverableGroup) => {
-    // Invalidate correct group query keys to refresh the groups list in sidebar
+    // Save pending group to localStorage so it appears in the Groups tab immediately
     if (user?.username) {
+      savePendingGroup({
+        groupId: group.groupId,
+        groupName: group.groupName,
+        creator: group.creator,
+        paymentAmount: group.paymentRequired ? group.paymentAmount : undefined,
+        requestedAt: new Date().toISOString(),
+      }, user.username);
+      
+      // Invalidate correct group query keys to refresh the groups list in sidebar
       queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user.username] });
       queryClient.invalidateQueries({ queryKey: ['userPendingRequests', group.groupId, user.username] });
     }

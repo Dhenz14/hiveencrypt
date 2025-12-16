@@ -1,10 +1,11 @@
-import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle } from 'lucide-react';
+import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle, Clock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { Conversation } from '@shared/schema';
+import type { PendingGroup } from '@/lib/messageCache';
 import { Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useExceptionsList } from '@/hooks/useExceptionsList';
@@ -17,6 +18,7 @@ import {
 interface ConversationsListProps {
   groups: Conversation[];
   chats: Conversation[];
+  pendingGroups?: PendingGroup[];
   selectedConversationId?: string;
   onSelectConversation: (id: string) => void;
   onNewMessage: () => void;
@@ -29,6 +31,7 @@ interface ConversationsListProps {
 export function ConversationsList({
   groups,
   chats,
+  pendingGroups = [],
   selectedConversationId,
   onSelectConversation,
   onNewMessage,
@@ -45,6 +48,10 @@ export function ConversationsList({
 
   const filteredChats = chats.filter(conv =>
     conv.contactUsername.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredPendingGroups = pendingGroups.filter(pg =>
+    pg.groupName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const getInitials = (username: string) => {
@@ -160,7 +167,49 @@ export function ConversationsList({
     </button>
   );
 
-  const hasNoResults = filteredGroups.length === 0 && filteredChats.length === 0;
+  const renderPendingGroupItem = (pg: PendingGroup) => (
+    <button
+      key={`pending-${pg.groupId}`}
+      onClick={() => onSelectConversation(`pending_${pg.groupId}`)}
+      className={cn(
+        'w-full px-4 py-3 flex items-start gap-3 hover-elevate transition-colors min-h-[56px] opacity-80',
+        selectedConversationId === `pending_${pg.groupId}` && 'bg-accent/50'
+      )}
+      data-testid={`conversation-pending-${pg.groupId}`}
+    >
+      <div className="relative flex-shrink-0">
+        <Avatar className="w-10 h-10">
+          <AvatarFallback className="bg-amber-500/20 text-amber-600 dark:text-amber-400 font-medium text-sm">
+            <Clock className="w-4 h-4" />
+          </AvatarFallback>
+        </Avatar>
+      </div>
+
+      <div className="flex-1 min-w-0 text-left">
+        <div className="flex items-center justify-between gap-2 mb-0.5">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span className="text-sm font-medium truncate">
+              {pg.groupName}
+            </span>
+            <Badge 
+              variant="outline" 
+              className="h-5 px-1.5 text-[10px] border-amber-500/50 text-amber-600 dark:text-amber-400 bg-amber-500/10"
+              data-testid={`badge-pending-${pg.groupId}`}
+            >
+              In Review
+            </Badge>
+          </div>
+        </div>
+        <div className="flex items-center gap-1.5 min-w-0">
+          <p className="text-xs text-muted-foreground truncate">
+            Waiting for approval...
+          </p>
+        </div>
+      </div>
+    </button>
+  );
+
+  const hasNoResults = filteredGroups.length === 0 && filteredChats.length === 0 && filteredPendingGroups.length === 0;
 
   return (
     <div className="flex flex-col h-full">
@@ -226,7 +275,7 @@ export function ConversationsList({
           </div>
         ) : (
           <div className="py-1">
-            {filteredGroups.length > 0 && (
+            {(filteredGroups.length > 0 || filteredPendingGroups.length > 0) && (
               <div className="mb-2">
                 <div className="px-4 py-2 flex items-center gap-2">
                   <Users className="w-4 h-4 text-muted-foreground" />
@@ -234,9 +283,10 @@ export function ConversationsList({
                     Groups
                   </span>
                   <Badge variant="secondary" className="ml-auto h-5 px-1.5 text-[10px]">
-                    {filteredGroups.length}
+                    {filteredGroups.length + filteredPendingGroups.length}
                   </Badge>
                 </div>
+                {filteredPendingGroups.map((pg) => renderPendingGroupItem(pg))}
                 {filteredGroups.map((conv) => renderConversationItem(conv, true))}
               </div>
             )}
