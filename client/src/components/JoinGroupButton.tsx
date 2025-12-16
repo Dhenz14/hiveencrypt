@@ -16,7 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { PaymentSettings, MemberPayment } from '@shared/schema';
-import { GROUP_CUSTOM_JSON_ID } from '@/lib/groupBlockchain';
+import { GROUP_CUSTOM_JSON_ID, broadcastJoinApprove } from '@/lib/groupBlockchain';
 import { logger } from '@/lib/logger';
 import { useUserPendingRequests } from '@/hooks/useJoinRequests';
 
@@ -168,10 +168,10 @@ export function JoinGroupButton({
     setPaymentModalOpen(true);
   };
 
-  // Handle payment verified - CRITICAL SECURITY FIX
-  // Payment happens FIRST, then we broadcast join_request with payment proof
-  // Creator's background process will verify payment and broadcast join_approve
-  const handlePaymentVerified = (txId: string, amount: string) => {
+  // Handle payment verified - OPTIMIZED SELF-SERVICE INSTANT JOIN
+  // For paid groups, the user can approve themselves since payment is on-chain proof
+  // No need to wait for creator - payment is the authorization!
+  const handlePaymentVerified = async (txId: string, amount: string) => {
     if (!user?.username || !paymentSettings) return;
 
     logger.info('[JOIN GROUP] 💰 Payment verified, creating memberPayment record');
@@ -186,19 +186,48 @@ export function JoinGroupButton({
       nextDueDate: calculateNextDueDate(paymentSettings), // Only set for recurring payments
     };
 
-    logger.info('[JOIN GROUP] 📝 Broadcasting join_request with payment proof:', {
+    logger.info('[JOIN GROUP] 🚀 Broadcasting INSTANT self-approval (paid group - no creator needed):', {
       txId,
       amount,
       nextDueDate: memberPayment.nextDueDate,
     });
 
-    // SECURITY FIX: Broadcast join_request with status='pending_payment_verification' AND memberPayment
-    // Creator's client will verify payment on blockchain and broadcast join_approve
-    joinRequestMutation.mutate({
-      status: 'pending_payment_verification',
-      memberPayment, // CRITICAL: Include payment proof
-      paymentTxId: txId, // Use payment txId as requestId
-    });
+    try {
+      // OPTIMIZATION: For paid auto-approve groups, user broadcasts join_approve for themselves
+      // This is secure because:
+      // 1. Payment txId is immutable on-chain proof
+      // 2. Anyone can verify the payment happened
+      // 3. Group is explicitly marked as auto-approve with payment requirement
+      await broadcastJoinApprove(
+        user.username, // User approves themselves
+        groupId,
+        txId, // Use payment txId as requestId
+        user.username, // User being approved
+        memberPayment // Include payment proof
+      );
+
+      logger.info('[JOIN GROUP] ✅ Self-approval successful! User is now a member.');
+
+      // Show success dialog
+      setSuccessDetails({ 
+        isPaid: true, 
+        amount: memberPayment.amount 
+      });
+      setSuccessDialogOpen(true);
+
+      // Invalidate queries to refresh group list
+      queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
+      queryClient.invalidateQueries({ queryKey: ['group-discovery'] });
+      queryClient.invalidateQueries({ queryKey: ['discoverable-groups'] });
+
+    } catch (error: any) {
+      logger.error('[JOIN GROUP] ❌ Self-approval failed:', error);
+      toast({
+        title: 'Error',
+        description: error.message || 'Failed to join group after payment',
+        variant: 'destructive',
+      });
+    }
 
     // Close payment modal
     setPaymentModalOpen(false);
