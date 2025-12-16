@@ -1,4 +1,4 @@
-import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle, Clock } from 'lucide-react';
+import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle, Clock, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -26,6 +26,7 @@ interface ConversationsListProps {
   onDiscoverGroups?: () => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  isLoadingGroups?: boolean;
 }
 
 export function ConversationsList({
@@ -39,6 +40,7 @@ export function ConversationsList({
   onDiscoverGroups,
   searchQuery,
   onSearchChange,
+  isLoadingGroups = false,
 }: ConversationsListProps) {
   const { isException } = useExceptionsList();
   
@@ -209,7 +211,10 @@ export function ConversationsList({
     </button>
   );
 
-  const hasNoResults = filteredGroups.length === 0 && filteredChats.length === 0 && filteredPendingGroups.length === 0;
+  const hasNoResults = filteredGroups.length === 0 && filteredChats.length === 0 && filteredPendingGroups.length === 0 && !isLoadingGroups;
+  
+  // Always show groups section if loading or if there are groups/pending groups
+  const showGroupsSection = isLoadingGroups || filteredGroups.length > 0 || filteredPendingGroups.length > 0;
 
   return (
     <div className="flex flex-col h-full">
@@ -275,19 +280,29 @@ export function ConversationsList({
           </div>
         ) : (
           <div className="py-1">
-            {(filteredGroups.length > 0 || filteredPendingGroups.length > 0) && (
+            {showGroupsSection && (
               <div className="mb-2">
                 <div className="px-4 py-2 flex items-center gap-2">
                   <Users className="w-4 h-4 text-muted-foreground" />
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Groups
                   </span>
-                  <Badge variant="secondary" className="ml-auto h-5 px-1.5 text-[10px]">
-                    {filteredGroups.length + filteredPendingGroups.length}
-                  </Badge>
+                  {isLoadingGroups ? (
+                    <Loader2 className="ml-auto w-4 h-4 animate-spin text-muted-foreground" />
+                  ) : (
+                    <Badge variant="secondary" className="ml-auto h-5 px-1.5 text-[10px]">
+                      {filteredGroups.length + filteredPendingGroups.length}
+                    </Badge>
+                  )}
                 </div>
                 {filteredPendingGroups.map((pg) => renderPendingGroupItem(pg))}
                 {filteredGroups.map((conv) => renderConversationItem(conv, true))}
+                {isLoadingGroups && filteredGroups.length === 0 && filteredPendingGroups.length === 0 && (
+                  <div className="px-4 py-3 flex items-center gap-3 text-muted-foreground">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span className="text-sm">Loading groups...</span>
+                  </div>
+                )}
               </div>
             )}
 

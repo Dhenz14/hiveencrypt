@@ -1001,6 +1001,7 @@ export default function Messages() {
         groups={groupConversations}
         chats={directConversations}
         pendingGroups={pendingGroups}
+        isLoadingGroups={isLoadingGroups}
         selectedConversationId={selectedConversationId || selectedGroupId || undefined}
         onSelectConversation={(id) => {
           // Check if it's a pending group
