@@ -7,15 +7,16 @@
     <meta name="description" content="Send end-to-end encrypted messages on the Hive blockchain. Secure, decentralized, and censorship-resistant direct messaging powered by blockchain technology." />
     
     <!-- PWA Configuration -->
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#e31337" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Hive Messenger" />
     
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -57,8 +58,11 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
+          // Detect base path for GitHub Pages or other subdirectory deployments
+          const basePath = document.querySelector('base')?.href || window.location.pathname.replace(/\/[^\/]*$/, '/') || '/';
+          const swPath = new URL('sw.js', basePath).pathname;
           navigator.serviceWorker
-            .register('/sw.js')
+            .register(swPath)
             .then((registration) => {
               console.log('[PWA] Service Worker registered:', registration.scope);
             })
