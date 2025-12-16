@@ -1,13 +1,23 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Search, Users, DollarSign, Clock, TrendingUp, Sparkles, ArrowLeft, Loader2, ExternalLink } from 'lucide-react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Search, Users, DollarSign, Clock, TrendingUp, Sparkles, ArrowLeft, Loader2, ExternalLink, CheckCircle, PartyPopper } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { fetchDiscoverableGroups, searchDiscoverableGroups, type DiscoverableGroup } from '@/lib/groupDiscovery';
+import { JoinGroupButton } from '@/components/JoinGroupButton';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLocation } from 'wouter';
 import { formatDistanceToNow } from 'date-fns';
@@ -15,14 +25,16 @@ import { formatDistanceToNow } from 'date-fns';
 export default function GroupDiscovery() {
   const { user } = useAuth();
   const [, setLocation] = useLocation();
+  const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'created' | 'trending' | 'hot'>('created');
+  const [successGroup, setSuccessGroup] = useState<DiscoverableGroup | null>(null);
 
   // Fetch groups based on active tab
   const { data: groups, isLoading, error } = useQuery({
     queryKey: ['discoverable-groups', activeTab],
     queryFn: () => fetchDiscoverableGroups(20, activeTab),
-    staleTime: 60 * 1000, // 1 minute cache
+    staleTime: 60 * 1000,
   });
 
   // Search query
@@ -39,9 +51,21 @@ export default function GroupDiscovery() {
     return name.slice(0, 2).toUpperCase();
   };
 
-  const handleJoinGroup = (group: DiscoverableGroup) => {
-    // Navigate to the group join page
-    setLocation(`/join/${group.groupId}`);
+  const handleJoinSuccess = (group: DiscoverableGroup) => {
+    // Invalidate group queries to refresh the groups list
+    queryClient.invalidateQueries({ queryKey: ['groups'] });
+    queryClient.invalidateQueries({ queryKey: ['group-conversations'] });
+    
+    // Show success dialog
+    setSuccessGroup(group);
+  };
+
+  const handleGoToGroup = () => {
+    if (successGroup) {
+      // Navigate to messages page - the group should appear after creator approves
+      setLocation('/');
+    }
+    setSuccessGroup(null);
   };
 
   const handleBack = () => {
@@ -217,13 +241,20 @@ export default function GroupDiscovery() {
                   </div>
                 </CardContent>
                 <CardFooter className="pt-0 gap-2 flex-wrap">
-                  <Button 
-                    onClick={() => handleJoinGroup(group)}
+                  <JoinGroupButton
+                    groupId={group.groupId}
+                    groupName={group.groupName}
+                    creatorUsername={group.creator}
+                    paymentSettings={group.paymentRequired ? {
+                      enabled: true,
+                      amount: group.paymentAmount || '0',
+                      type: group.paymentType || 'one_time',
+                      recurringInterval: group.recurringInterval,
+                      autoApprove: group.autoApprove,
+                    } : undefined}
+                    onJoinSuccess={() => handleJoinSuccess(group)}
                     className="flex-1"
-                    data-testid={`button-join-${group.groupId}`}
-                  >
-                    Join Group
-                  </Button>
+                  />
                   <Button
                     variant="outline"
                     size="icon"
@@ -242,6 +273,45 @@ export default function GroupDiscovery() {
           </div>
         )}
       </div>
+
+      {/* Success Dialog */}
+      <AlertDialog open={!!successGroup} onOpenChange={(open) => !open && setSuccessGroup(null)}>
+        <AlertDialogContent data-testid="dialog-join-success">
+          <AlertDialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                <PartyPopper className="w-6 h-6 text-green-500" />
+              </div>
+              <AlertDialogTitle className="text-xl">Request Sent!</AlertDialogTitle>
+            </div>
+            <AlertDialogDescription className="space-y-3">
+              <p>
+                Your join request for <strong>"{successGroup?.groupName}"</strong> has been submitted!
+              </p>
+              {successGroup?.autoApprove ? (
+                <div className="flex items-start gap-2 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-green-700 dark:text-green-400">Auto-Approve Enabled</p>
+                    <p className="text-sm text-muted-foreground">
+                      The group creator's app will automatically approve your request. The group will appear in your Groups tab once approved (usually within a few minutes).
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  The group creator will review your request. You'll see the group in your Groups tab once approved.
+                </p>
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={handleGoToGroup} data-testid="button-go-to-messages">
+              Go to Messages
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
