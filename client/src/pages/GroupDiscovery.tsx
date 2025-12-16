@@ -52,9 +52,11 @@ export default function GroupDiscovery() {
   };
 
   const handleJoinSuccess = (group: DiscoverableGroup) => {
-    // Invalidate group queries to refresh the groups list
-    queryClient.invalidateQueries({ queryKey: ['groups'] });
-    queryClient.invalidateQueries({ queryKey: ['group-conversations'] });
+    // Invalidate correct group query keys to refresh the groups list in sidebar
+    if (user?.username) {
+      queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', user.username] });
+      queryClient.invalidateQueries({ queryKey: ['userPendingRequests', group.groupId, user.username] });
+    }
     
     // Show success dialog
     setSuccessGroup(group);
