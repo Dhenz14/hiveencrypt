@@ -142,7 +142,11 @@ export function GroupCreationModal({
         autoApprove: autoApprove,
       } : undefined;
 
-      await onCreateGroup(groupName.trim(), members, paymentSettings);
+      // CRITICAL: Include the creator in the members array so they can see their own group
+      const allMembers = currentUsername 
+        ? [currentUsername, ...members.filter(m => m !== currentUsername)] 
+        : members;
+      await onCreateGroup(groupName.trim(), allMembers, paymentSettings);
       
       // Reset form
       setGroupName('');
