@@ -14,7 +14,6 @@ import {
 import { 
   discoverUserGroups, 
   parseGroupMessageMemo, 
-  lookupGroupMetadata, 
   setGroupNegativeCache,
   MAX_DEEP_BACKFILL_OPS,
   BACKFILL_CHUNK_SIZE 
@@ -394,273 +393,42 @@ export function useGroupDiscovery() {
 
         logger.info('[GROUP DISCOVERY] Found', discoveredGroupIds.size, 'unique groups from cached messages');
 
-        // STEP 2.6: ALWAYS scan blockchain transfers to discover groups user was invited to
-        // This ensures invite-only groups are never missed, regardless of cache state
-        // TODO: Optimize with watermark-based incremental scanning in future update
-        logger.info('[GROUP DISCOVERY] Scanning blockchain transfers for group invitations...');
-        
-        try {
-          // Fetch recent transfer history
-          const transferHistory = await optimizedHiveClient.getAccountHistory(
-            user.username,
-            200, // Scan last 200 operations for group messages
-            'transfers', // Only transfer operations
-            -1 // Latest
-          );
-          
-          logger.info('[GROUP DISCOVERY] Scanning', transferHistory.length, 'blockchain transfers for group messages');
-          
-          const discoveredMessages: GroupMessageCache[] = [];
-          const groupIdsToLookup = new Set<string>();
-          const tempGroupMetadata = new Map<string, { members: string[]; creator: string }>();
-          
-          // Process each transfer to find group messages
-          for (const operation of transferHistory) {
-            try {
-              const op = operation[1]?.op;
-              if (!op || op[0] !== 'transfer') continue;
-              
-              const transfer = op[1];
-              const memo = transfer.memo;
-              const txId = operation[1].trx_id;
-              
-              // Only process incoming encrypted transfers
-              if (transfer.to !== user.username || !memo || !memo.startsWith('#')) {
-                continue;
-              }
-              
-              // Try to decrypt the memo
-              const decryptedMemo = await decryptMemo(
-                user.username,
-                memo,
-                transfer.from,
-                txId
-              );
-              
-              if (!decryptedMemo) continue;
-              
-              // Check if this is a group message
-              const parsed = parseGroupMessageMemo(decryptedMemo);
-              if (parsed && parsed.isGroupMessage && parsed.groupId) {
-                const groupId = parsed.groupId;
-                const sender = transfer.from;
-                
-                // Track this group for metadata lookup
-                groupIdsToLookup.add(groupId);
-                  
-                  // Track senders
-                  if (!discoveredGroupIds.has(groupId)) {
-                    discoveredGroupIds.add(groupId);
-                    groupSendersMap.set(groupId, new Set([sender, user.username]));
-                    logger.info('[GROUP DISCOVERY] 🆕 Discovered new group from blockchain transfer:', groupId);
-                  } else {
-                    const senders = groupSendersMap.get(groupId);
-                    if (senders) {
-                      senders.add(sender);
-                      senders.add(user.username);
-                    }
-                  }
-                  
-                // Store creator if available
-                if (parsed.creator && !groupCreatorMap.has(groupId)) {
-                  groupCreatorMap.set(groupId, parsed.creator);
-                }
-                
-                // Build temporary metadata
-                if (!tempGroupMetadata.has(groupId)) {
-                  tempGroupMetadata.set(groupId, {
-                    members: [user.username, sender],
-                    creator: parsed.creator || sender
-                  });
-                } else {
-                  const meta = tempGroupMetadata.get(groupId)!;
-                  if (!meta.members.includes(sender)) {
-                    meta.members.push(sender);
-                  }
-                }
-                  
-                // Temporarily store message (will update recipients after metadata lookup)
-                const messageCache: GroupMessageCache = {
-                  id: txId,
-                  groupId: parsed.groupId,
-                  sender: transfer.from,
-                  creator: parsed.creator,
-                  content: parsed.content || '',
-                  encryptedContent: memo,
-                  timestamp: operation[1].timestamp + 'Z',
-                  recipients: [user.username, sender], // Temporary
-                  txIds: [txId],
-                  confirmed: true,
-                  status: 'confirmed',
-                };
-                
-                discoveredMessages.push(messageCache);
-              }
-            } catch (processError) {
-              logger.debug('[GROUP DISCOVERY] Failed to process transfer:', processError);
-            }
-          }
-            
-          // Look up full metadata for discovered groups
-          if (groupIdsToLookup.size > 0) {
-            logger.info('[GROUP DISCOVERY] Looking up metadata for', groupIdsToLookup.size, 'discovered groups');
-            
-            for (const groupId of Array.from(groupIdsToLookup)) {
-              try {
-                const meta = tempGroupMetadata.get(groupId);
-                if (!meta) {
-                  logger.warn('[GROUP DISCOVERY] ⚠️ No temp metadata for group:', groupId, '- skipping');
-                  continue;
-                }
-                
-                const creator = meta.creator;
-                
-                // Look up group metadata from creator's history
-                const groupMetadata = await lookupGroupMetadata(groupId, creator);
-                  
-                if (groupMetadata) {
-                  logger.info('[GROUP DISCOVERY] ✅ Found full metadata for group:', groupId, 'with', groupMetadata.members.length, 'members');
-                  
-                  // Update temp metadata with complete info
-                  tempGroupMetadata.set(groupId, {
-                    members: groupMetadata.members,
-                    creator: groupMetadata.creator
-                  });
-                    
-                    // Update all messages for this group with complete recipient list
-                    for (const msg of discoveredMessages) {
-                      if (msg.groupId === groupId) {
-                        msg.recipients = groupMetadata.members;
-                        msg.creator = groupMetadata.creator;
-                      }
-                    }
-                    
-                    // Add to blockchainGroups
-                    if (!blockchainGroups.some(g => g.groupId === groupId)) {
-                      const customName = getCustomGroupName(user.username, groupId);
-                      blockchainGroups.push({
-                        ...groupMetadata,
-                        name: customName || groupMetadata.name
-                      });
-                      logger.info('[GROUP DISCOVERY] ➕ Added group with complete metadata:', groupMetadata.name);
-                    }
-                  } else {
-                    logger.warn('[GROUP DISCOVERY] ⚠️ Metadata lookup failed for group:', groupId, '- using minimal data');
-                    
-                    // Add minimal group entry as fallback
-                    const customName = getCustomGroupName(user.username, groupId);
-                    const displayName = customName || `Group (${groupId.substring(0, 8)}...)`;
-                    
-                    const minimalGroup: Group = {
-                      groupId,
-                      name: displayName,
-                      members: meta.members,
-                      creator: meta.creator,
-                      createdAt: new Date().toISOString(),
-                      version: 1,
-                    };
-                    
-                    blockchainGroups.push(minimalGroup);
-                    logger.info('[GROUP DISCOVERY] ➕ Added minimal group:', minimalGroup.name);
-                  }
-                } catch (lookupError) {
-                  logger.warn('[GROUP DISCOVERY] Failed metadata lookup for group:', groupId, lookupError);
-                }
-              }
-            }
-            
-            // Cache all discovered messages (now with complete recipient lists where available)
-            if (discoveredMessages.length > 0) {
-              logger.info('[GROUP DISCOVERY] Caching', discoveredMessages.length, 'discovered group messages');
-              await cacheGroupMessages(discoveredMessages, user.username);
-            }
-            
-          logger.info('[GROUP DISCOVERY] ✅ Blockchain scan complete. Total unique groups:', discoveredGroupIds.size);
-        } catch (scanError) {
-          logger.warn('[GROUP DISCOVERY] ⚠️ Failed to scan blockchain transfers:', scanError);
-          // Continue without blockchain scan
-        }
+        // NOTE: Automatic blockchain transfer scanning removed to prevent Keychain popup spam
+        // Groups are discovered from: 1) Cache, 2) Custom_json operations, 3) Cached messages
+        // New group messages will be decrypted when user opens a specific group chat
+        logger.info('[GROUP DISCOVERY] Skipping automatic blockchain transfer scan (popup spam prevention)');
 
-        // Look up metadata for discovered groups
+        // Create group entries for groups discovered from cached messages
+        // NOTE: No lookupGroupMetadata calls here to prevent Keychain popup spam
+        // Full metadata will be fetched when user opens a specific group
         for (const groupId of Array.from(discoveredGroupIds)) {
-          checkCancellation(signal, `Group discovery looking up metadata for ${groupId}`);
+          checkCancellation(signal, `Group discovery processing ${groupId}`);
 
-          // Skip if we already have this group from blockchain discovery
+          // Skip if we already have this group from blockchain discovery (custom_json)
           if (blockchainGroups.some(g => g.groupId === groupId)) {
+            logger.info('[GROUP DISCOVERY] Group already in blockchainGroups:', groupId);
             continue;
           }
 
-          let groupMetadata = null;
-          
-          // PRIORITY 1: Try creator from cached messages FIRST (most reliable)
+          // Use cached data to build group entry - NO decryption calls
+          const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
           const cachedCreator = groupCreatorMap.get(groupId);
-          if (cachedCreator) {
-            logger.info('[GROUP DISCOVERY] Trying cached creator for group:', groupId, 'creator:', cachedCreator);
-            try {
-              groupMetadata = await lookupGroupMetadata(groupId, cachedCreator);
-              if (groupMetadata) {
-                logger.info('[GROUP DISCOVERY] ✅ Resolved group metadata from cached creator:', cachedCreator, 'group:', groupMetadata.name);
-              }
-            } catch (lookupError) {
-              logger.warn('[GROUP DISCOVERY] Failed to lookup from cached creator:', cachedCreator, lookupError);
-            }
-          }
           
-          // PRIORITY 2: Fallback to trying all known senders
-          if (!groupMetadata) {
-            const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
-            if (knownSenders.length === 0) continue;
-
-            logger.info('[GROUP DISCOVERY] Trying', knownSenders.length, 'fallback senders for group:', groupId);
-
-            for (const sender of knownSenders) {
-              try {
-                groupMetadata = await lookupGroupMetadata(groupId, sender);
-                
-                if (groupMetadata) {
-                  logger.info('[GROUP DISCOVERY] ✅ Resolved group metadata from fallback sender:', sender, 'group:', groupMetadata.name);
-                  break; // Found it!
-                }
-              } catch (lookupError) {
-                logger.warn('[GROUP DISCOVERY] Failed to lookup from fallback sender:', sender, lookupError);
-                // Try next sender
-              }
-            }
-          }
-
-          if (groupMetadata) {
-            blockchainGroups.push(groupMetadata);
-          } else {
-            const attemptedMethods = [];
-            if (cachedCreator) attemptedMethods.push(`creator: ${cachedCreator}`);
-            const senderCount = groupSendersMap.get(groupId)?.size || 0;
-            if (senderCount > 0) attemptedMethods.push(`${senderCount} senders`);
-            
-            logger.warn('[GROUP DISCOVERY] ⚠️ Could not resolve metadata for group:', groupId, 'tried:', attemptedMethods.join(', '));
-            
-            // FALLBACK: Create a minimal group entry even without full metadata
-            // This ensures the group is still visible and usable, just without the full member list
-            const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
-            
-            // Check if user has set a custom name for this group
-            const customName = getCustomGroupName(user.username, groupId);
-            const displayName = customName || `Group (${groupId.substring(0, 8)}...)`;
-            
-            const fallbackGroup: Group = {
-              groupId,
-              name: displayName, // Use custom name if set, otherwise fallback to groupId prefix
-              members: [user.username, ...knownSenders], // Include user and all known senders
-              creator: cachedCreator || knownSenders[0] || user.username,
-              createdAt: new Date().toISOString(), // Use current time as fallback
-              version: 1,
-            };
-            
-            logger.info('[GROUP DISCOVERY] ✅ Created fallback group entry:', fallbackGroup.name, customName ? '(custom name)' : '(generated)', 'with', fallbackGroup.members.length, 'members');
-            blockchainGroups.push(fallbackGroup);
-            
-            // Set negative cache to prevent repeated blockchain lookups
-            setGroupNegativeCache(groupId);
-          }
+          // Check if user has set a custom name for this group
+          const customName = getCustomGroupName(user.username, groupId);
+          const displayName = customName || `Group (${groupId.substring(0, 8)}...)`;
+          
+          const fallbackGroup: Group = {
+            groupId,
+            name: displayName,
+            members: [user.username, ...knownSenders],
+            creator: cachedCreator || knownSenders[0] || user.username,
+            createdAt: new Date().toISOString(),
+            version: 1,
+          };
+          
+          logger.info('[GROUP DISCOVERY] ✅ Created group from cached messages:', fallbackGroup.name, 'with', fallbackGroup.members.length, 'known members');
+          blockchainGroups.push(fallbackGroup);
         }
 
         logger.info('[GROUP DISCOVERY] Total discovered groups (custom_json + transfers):', blockchainGroups.length);
@@ -777,12 +545,13 @@ export function useGroupDiscovery() {
       }
     },
     enabled: !!user?.username,
-    staleTime: 0, // Always consider data stale - triggers refetch on mount
-    gcTime: 5 * 60 * 1000, // Keep in memory for 5 minutes to prevent aggressive cancellation
-    refetchInterval: 30000, // Refetch every 30 seconds
-    refetchOnMount: 'always', // Always refetch when component mounts
-    retry: 3, // Retry failed requests 3 times
-    retryDelay: 1000, // 1 second between retries
+    staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes (prevents re-discovery spam)
+    gcTime: 10 * 60 * 1000, // Keep in memory for 10 minutes
+    refetchInterval: false, // Disable automatic refetching (user can manually refresh)
+    refetchOnMount: false, // Don't refetch on mount (use cached data)
+    refetchOnWindowFocus: false, // Don't refetch on window focus
+    refetchOnReconnect: false, // Don't refetch on reconnect
+    retry: false, // Don't retry failed requests (prevents popup spam on cancel)
   });
 }
 
