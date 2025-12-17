@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "wouter";
+import { Switch, Route, Redirect, Router as WouterRouter } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -57,7 +57,7 @@ function PublicRoute({ component: Component }: { component: () => JSX.Element })
   return <Component />;
 }
 
-function Router() {
+function AppRoutes() {
   return (
     <Switch>
       <Route path="/" component={() => <ProtectedRoute component={Messages} />} />
@@ -66,6 +66,19 @@ function Router() {
       <Route path="/join/:groupId" component={() => <ProtectedRoute component={Messages} />} />
       <Route component={NotFound} />
     </Switch>
+  );
+}
+
+function Router() {
+  // Get base path from Vite - will be "/" in dev or "/hiveencrypt/" on GitHub Pages
+  const base = import.meta.env.BASE_URL || "/";
+  // Remove trailing slash for wouter (it expects "/hiveencrypt" not "/hiveencrypt/")
+  const basePath = base.endsWith("/") && base.length > 1 ? base.slice(0, -1) : base === "/" ? "" : base;
+  
+  return (
+    <WouterRouter base={basePath}>
+      <AppRoutes />
+    </WouterRouter>
   );
 }
 
