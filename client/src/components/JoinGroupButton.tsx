@@ -15,8 +15,9 @@ import { PaymentGatewayModal } from '@/components/PaymentGatewayModal';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { PaymentSettings, MemberPayment } from '@shared/schema';
-import { GROUP_CUSTOM_JSON_ID, broadcastJoinApprove } from '@/lib/groupBlockchain';
+import type { PaymentSettings, MemberPayment, GroupConversationCache } from '@shared/schema';
+import { GROUP_CUSTOM_JSON_ID } from '@/lib/groupBlockchain';
+import { cacheGroupConversation } from '@/lib/messageCache';
 import { logger } from '@/lib/logger';
 import { useUserPendingRequests } from '@/hooks/useJoinRequests';
 
@@ -170,13 +171,13 @@ export function JoinGroupButton({
     setPaymentModalOpen(true);
   };
 
-  // Handle payment verified - OPTIMIZED SELF-SERVICE INSTANT JOIN
-  // For paid groups, the user can approve themselves since payment is on-chain proof
-  // No need to wait for creator - payment is the authorization!
+  // Handle payment verified - TRUSTLESS SELF-SERVICE INSTANT JOIN
+  // Payment = instant membership, no second Keychain popup required!
+  // The payment txId is immutable on-chain proof of membership
   const handlePaymentVerified = async (txId: string, amount: string) => {
     if (!user?.username || !paymentSettings) return;
 
-    logger.info('[JOIN GROUP] 💰 Payment verified, creating memberPayment record');
+    logger.info('[JOIN GROUP] 💰 Payment verified - INSTANT membership granted (no second popup needed)');
 
     // Create memberPayment record with all required fields
     const memberPayment: MemberPayment = {
@@ -188,48 +189,46 @@ export function JoinGroupButton({
       nextDueDate: calculateNextDueDate(paymentSettings), // Only set for recurring payments
     };
 
-    logger.info('[JOIN GROUP] 🚀 Broadcasting INSTANT self-approval (paid group - no creator needed):', {
-      txId,
-      amount,
-      nextDueDate: memberPayment.nextDueDate,
-    });
-
+    // STEP 1: Immediately cache the group locally - user gets instant access
+    // This is the key optimization: payment = membership, no waiting
     try {
-      // OPTIMIZATION: For paid auto-approve groups, user broadcasts join_approve for themselves
-      // This is secure because:
-      // 1. Payment txId is immutable on-chain proof
-      // 2. Anyone can verify the payment happened
-      // 3. Group is explicitly marked as auto-approve with payment requirement
-      await broadcastJoinApprove(
-        user.username, // User approves themselves
+      const groupCache: GroupConversationCache = {
         groupId,
-        txId, // Use payment txId as requestId
-        user.username, // User being approved
-        memberPayment // Include payment proof
-      );
+        name: groupName,
+        members: [creatorUsername, user.username], // User is now a member
+        creator: creatorUsername,
+        version: 1,
+        lastMessage: '',
+        lastSender: '',
+        lastTimestamp: new Date().toISOString(),
+        unreadCount: 0,
+        paymentSettings,
+        memberPayments: [memberPayment],
+      };
 
-      logger.info('[JOIN GROUP] ✅ Self-approval successful! User is now a member.');
-
-      // Show success dialog
-      setSuccessDetails({ 
-        isPaid: true, 
-        amount: memberPayment.amount 
-      });
-      setSuccessDialogOpen(true);
-
-      // Invalidate queries to refresh group list
-      queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
-      queryClient.invalidateQueries({ queryKey: ['group-discovery'] });
-      queryClient.invalidateQueries({ queryKey: ['discoverable-groups'] });
-
-    } catch (error: any) {
-      logger.error('[JOIN GROUP] ❌ Self-approval failed:', error);
-      toast({
-        title: 'Error',
-        description: error.message || 'Failed to join group after payment',
-        variant: 'destructive',
-      });
+      await cacheGroupConversation(groupCache, user.username);
+      logger.info('[JOIN GROUP] ✅ Group cached locally - user has instant access');
+    } catch (cacheError) {
+      logger.warn('[JOIN GROUP] Cache failed, but continuing:', cacheError);
     }
+
+    // STEP 2: Show success immediately - no waiting for blockchain
+    setSuccessDetails({ 
+      isPaid: true, 
+      amount: memberPayment.amount 
+    });
+    setSuccessDialogOpen(true);
+
+    // Invalidate queries to refresh group list
+    queryClient.invalidateQueries({ queryKey: ['/api/groups'] });
+    queryClient.invalidateQueries({ queryKey: ['group-discovery'] });
+    queryClient.invalidateQueries({ queryKey: ['discoverable-groups'] });
+
+    // NOTE: No second Keychain popup needed!
+    // The payment transaction IS the on-chain proof of membership.
+    // Creator's auto-approve background process will detect the payment and
+    // broadcast join_approve to add the user to the members list permanently.
+    // Meanwhile, the user has immediate local access via the cached membership.
 
     // Close payment modal
     setPaymentModalOpen(false);
