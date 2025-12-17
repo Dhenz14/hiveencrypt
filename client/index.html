@@ -58,9 +58,11 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          // Detect base path for GitHub Pages or other subdirectory deployments
-          const basePath = document.querySelector('base')?.href || window.location.pathname.replace(/\/[^\/]*$/, '/') || '/';
-          const swPath = new URL('sw.js', basePath).pathname;
+          // Get the directory path from current URL for GitHub Pages subdirectory support
+          const pathParts = window.location.pathname.split('/');
+          pathParts.pop(); // Remove the file/empty part
+          const basePath = pathParts.join('/') + '/';
+          const swPath = basePath + 'sw.js';
           navigator.serviceWorker
             .register(swPath)
             .then((registration) => {
