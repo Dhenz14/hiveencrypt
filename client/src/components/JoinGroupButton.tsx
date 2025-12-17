@@ -17,7 +17,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { PaymentSettings, MemberPayment, GroupConversationCache } from '@shared/schema';
 import { GROUP_CUSTOM_JSON_ID } from '@/lib/groupBlockchain';
-import { cacheGroupConversation } from '@/lib/messageCache';
+import { cacheGroupConversation, getGroupConversation, removePendingGroup } from '@/lib/messageCache';
 import { logger } from '@/lib/logger';
 import { useUserPendingRequests } from '@/hooks/useJoinRequests';
 
@@ -192,22 +192,47 @@ export function JoinGroupButton({
     // STEP 1: Immediately cache the group locally - user gets instant access
     // This is the key optimization: payment = membership, no waiting
     try {
-      const groupCache: GroupConversationCache = {
-        groupId,
-        name: groupName,
-        members: [creatorUsername, user.username], // User is now a member
-        creator: creatorUsername,
-        version: 1,
-        lastMessage: '',
-        lastSender: '',
-        lastTimestamp: new Date().toISOString(),
-        unreadCount: 0,
-        paymentSettings,
-        memberPayments: [memberPayment],
-      };
+      // Check if group already exists in cache (from discovery) and merge data
+      const existingCache = await getGroupConversation(groupId, user.username);
+      
+      // Deduplicate member payments by txId to avoid duplicates when creator auto-approves later
+      const existingPayments = existingCache?.memberPayments || [];
+      const hasDuplicatePayment = existingPayments.some(p => p.txId === memberPayment.txId);
+      const mergedPayments = hasDuplicatePayment 
+        ? existingPayments 
+        : [...existingPayments, memberPayment];
+      
+      const groupCache: GroupConversationCache = existingCache 
+        ? {
+            ...existingCache,
+            // Add user to members if not already present
+            members: existingCache.members?.includes(user.username) 
+              ? existingCache.members 
+              : [...(existingCache.members || []), user.username],
+            // Merge payment records (deduplicated by txId)
+            memberPayments: mergedPayments,
+          }
+        : {
+            // New cache entry if group wasn't cached
+            groupId,
+            name: groupName,
+            members: [creatorUsername, user.username],
+            creator: creatorUsername,
+            version: 1,
+            lastMessage: '',
+            lastSender: '',
+            lastTimestamp: new Date().toISOString(),
+            unreadCount: 0,
+            paymentSettings,
+            memberPayments: [memberPayment],
+          };
 
       await cacheGroupConversation(groupCache, user.username);
       logger.info('[JOIN GROUP] ✅ Group cached locally - user has instant access');
+      
+      // Remove from pending groups (no more "pending" UI)
+      removePendingGroup(groupId, user.username);
+      logger.info('[JOIN GROUP] 🧹 Removed from pending groups');
     } catch (cacheError) {
       logger.warn('[JOIN GROUP] Cache failed, but continuing:', cacheError);
     }
