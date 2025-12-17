@@ -125,6 +125,7 @@ class MemoCache {
 /**
  * Decrypt memo with bounded retry and exponential backoff
  * Handles transient errors (network, throttling) but not permanent errors
+ * UPDATED: Respects cancelled memo cache to prevent popup spam
  */
 async function decryptMemoWithRetry(
   decodeFn: (username: string, memo: string) => Promise<string>,
@@ -132,6 +133,15 @@ async function decryptMemoWithRetry(
   memo: string,
   maxAttempts: number = 3
 ): Promise<string> {
+  // Import cancelled memo helpers from hive.ts
+  const { wasDecryptionCancelled, markDecryptionCancelled } = await import('./hive');
+  
+  // CHECK: Skip if user recently cancelled this memo's decryption
+  if (wasDecryptionCancelled(undefined, memo)) {
+    logger.info('[MEMO DECRYPT] Skipping - user cancelled this memo recently');
+    throw new Error('User cancelled decryption');
+  }
+  
   let lastError: Error | undefined;
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -141,6 +151,13 @@ async function decryptMemoWithRetry(
       lastError = error;
 
       const errorMsg = error.message?.toLowerCase() || '';
+      
+      // USER CANCELLATION: Mark memo as cancelled and stop retrying
+      if (errorMsg.includes('cancel')) {
+        markDecryptionCancelled(undefined, memo);
+        throw error; // Propagate immediately, no retry
+      }
+      
       const isPermanentError = 
         errorMsg.includes('not encrypted for') ||
         errorMsg.includes('invalid') ||
@@ -720,7 +737,16 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
             }
           }
         } catch (transferError: any) {
-          // Log and CONTINUE to next transfer (don't abort the chunk)
+          const errorMsg = transferError.message?.toLowerCase() || '';
+          
+          // USER CANCELLED: Stop ALL decryption attempts immediately
+          // User doesn't want to see any more popups during this discovery session
+          if (errorMsg.includes('cancel')) {
+            logger.info('[GROUP BLOCKCHAIN] User cancelled decryption - stopping transfer scan');
+            return null; // Stop processing this chunk entirely
+          }
+          
+          // Log and CONTINUE to next transfer for non-cancel errors
           // This handles:
           // - Memo decryption failures (not for us)
           // - JSON parse errors (not a group invite)

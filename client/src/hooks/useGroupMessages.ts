@@ -135,7 +135,15 @@ async function processTransferOperation(
     };
 
     return messageCache;
-  } catch (parseError) {
+  } catch (parseError: any) {
+    const errorMsg = parseError?.message?.toLowerCase() || '';
+    
+    // USER CANCELLED: Propagate this error so calling loop can stop
+    if (errorMsg.includes('cancel')) {
+      logger.info('[GROUP MESSAGES] User cancelled decryption - propagating to stop loop');
+      throw parseError; // Let the caller handle this
+    }
+    
     logger.error('[GROUP MESSAGES] ❌ Error processing transfer:', parseError instanceof Error ? parseError.message : String(parseError));
     return null;
   }
@@ -840,6 +848,7 @@ export function useGroupMessages(groupId?: string) {
         const newMessages: GroupMessageCache[] = [];
         const seenTxIds = new Set(cachedMessages.map(m => m.txIds).flat());
 
+        let userCancelledDecryption = false;
         for (let i = 0; i < latestHistory.length; i++) {
           // Check cancellation periodically (every 10 messages)
           if (i % 10 === 0) {
@@ -848,18 +857,35 @@ export function useGroupMessages(groupId?: string) {
 
           const [index, operation] = latestHistory[i];
           
-          const messageCache = await processTransferOperation(
-            operation,
-            index,
-            groupId,
-            user.username,
-            seenTxIds
-          );
-          
-          if (messageCache) {
-            newMessages.push(messageCache);
-            seenTxIds.add(messageCache.id);
+          try {
+            const messageCache = await processTransferOperation(
+              operation,
+              index,
+              groupId,
+              user.username,
+              seenTxIds
+            );
+            
+            if (messageCache) {
+              newMessages.push(messageCache);
+              seenTxIds.add(messageCache.id);
+            }
+          } catch (opError: any) {
+            // User cancelled decryption - stop processing ALL remaining transfers
+            if (opError?.message?.toLowerCase().includes('cancel')) {
+              logger.info('[GROUP MESSAGES] User cancelled - stopping transfer processing');
+              userCancelledDecryption = true;
+              break;
+            }
+            // Other errors: log and continue
+            logger.warn('[GROUP MESSAGES] Error processing transfer:', opError?.message);
           }
+        }
+        
+        // If user cancelled, skip backfill and return cached messages only
+        if (userCancelledDecryption) {
+          logger.info('[GROUP MESSAGES] Returning cached messages only (user cancelled decryption)');
+          return cachedMessages;
         }
 
         // Log statistics after initial scan
@@ -964,6 +990,7 @@ export function useGroupMessages(groupId?: string) {
               logger.info('[GROUP MESSAGES] Processing chunk', i + 1, '(', olderHistory.length, 'operations), oldest sequence:', oldestSeqNum);
               
               // Process these operations using the helper function
+              let backfillCancelled = false;
               for (let j = 0; j < olderHistory.length; j++) {
                 // Check cancellation periodically (every 10 messages)
                 if (j % 10 === 0) {
@@ -971,19 +998,30 @@ export function useGroupMessages(groupId?: string) {
                 }
                 
                 const [index, operation] = olderHistory[j];
-                const message = await processTransferOperation(
-                  operation,
-                  index,
-                  groupId,
-                  user.username,
-                  seenTxIds
-                );
-                
-                if (message) {
-                  newMessages.push(message);
-                  seenTxIds.add(message.id);
+                try {
+                  const message = await processTransferOperation(
+                    operation,
+                    index,
+                    groupId,
+                    user.username,
+                    seenTxIds
+                  );
+                  
+                  if (message) {
+                    newMessages.push(message);
+                    seenTxIds.add(message.id);
+                  }
+                } catch (opError: any) {
+                  if (opError?.message?.toLowerCase().includes('cancel')) {
+                    logger.info('[GROUP MESSAGES] User cancelled - stopping backfill chunk');
+                    backfillCancelled = true;
+                    break;
+                  }
                 }
               }
+              
+              // Stop entire backfill if user cancelled
+              if (backfillCancelled) break;
               
               logger.info('[GROUP MESSAGES] Chunk', i + 1, 'complete, total new messages so far:', newMessages.length);
               
@@ -1170,17 +1208,24 @@ export function useGroupMessages(groupId?: string) {
                 checkCancellation(signal, `Group messages processing backfill (${i}/${allOperations.length})`);
               }
 
-              const messageCache = await processTransferOperation(
-                allOperations[i][1],
-                index,
-                groupId,
-                user.username,
-                seenTxIds
-              );
-              
-              if (messageCache) {
-                newMessages.push(messageCache);
-                seenTxIds.add(messageCache.id);
+              try {
+                const messageCache = await processTransferOperation(
+                  allOperations[i][1],
+                  index,
+                  groupId,
+                  user.username,
+                  seenTxIds
+                );
+                
+                if (messageCache) {
+                  newMessages.push(messageCache);
+                  seenTxIds.add(messageCache.id);
+                }
+              } catch (opError: any) {
+                if (opError?.message?.toLowerCase().includes('cancel')) {
+                  logger.info('[GROUP MESSAGES] User cancelled - stopping incremental backfill');
+                  break;
+                }
               }
             }
             
