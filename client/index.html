@@ -54,25 +54,81 @@
       window.Buffer = Buffer;
     </script>
     
-    <!-- Service Worker Registration for PWA -->
+    <!-- Service Worker Registration with Auto-Update for PWA -->
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          // Get the directory path from current URL for GitHub Pages subdirectory support
-          const pathParts = window.location.pathname.split('/');
-          pathParts.pop(); // Remove the file/empty part
-          const basePath = pathParts.join('/') + '/';
-          const swPath = basePath + 'sw.js';
+      (function() {
+        if (!('serviceWorker' in navigator)) return;
+        
+        // Get the directory path from current URL for GitHub Pages subdirectory support
+        var pathParts = window.location.pathname.split('/');
+        pathParts.pop();
+        var basePath = pathParts.join('/') + '/';
+        var swPath = basePath + 'sw.js';
+        
+        // Listen for service worker update messages
+        navigator.serviceWorker.addEventListener('message', function(event) {
+          if (event.data && event.data.type === 'SW_UPDATED') {
+            console.log('[PWA] New version available:', event.data.version);
+            // Clear all caches and reload to get fresh content
+            if (caches) {
+              caches.keys().then(function(names) {
+                names.forEach(function(name) {
+                  caches.delete(name);
+                });
+              }).then(function() {
+                console.log('[PWA] Caches cleared, reloading...');
+                window.location.reload(true);
+              });
+            } else {
+              window.location.reload(true);
+            }
+          }
+        });
+        
+        // Auto-reload when service worker takes control
+        var refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function() {
+          if (refreshing) return;
+          refreshing = true;
+          console.log('[PWA] Controller changed, reloading for new version...');
+          window.location.reload(true);
+        });
+        
+        window.addEventListener('load', function() {
           navigator.serviceWorker
-            .register(swPath)
-            .then((registration) => {
+            .register(swPath, { updateViaCache: 'none' })
+            .then(function(registration) {
               console.log('[PWA] Service Worker registered:', registration.scope);
+              
+              // Check for updates immediately and every 60 seconds
+              registration.update();
+              setInterval(function() {
+                registration.update();
+              }, 60000);
+              
+              // Handle waiting service worker
+              if (registration.waiting) {
+                console.log('[PWA] New version waiting, activating...');
+                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+              }
+              
+              registration.addEventListener('updatefound', function() {
+                var newWorker = registration.installing;
+                console.log('[PWA] Update found, installing new version...');
+                
+                newWorker.addEventListener('statechange', function() {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('[PWA] New version installed, activating...');
+                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                  }
+                });
+              });
             })
-            .catch((error) => {
+            .catch(function(error) {
               console.error('[PWA] Service Worker registration failed:', error);
             });
         });
-      }
+      })();
     </script>
     
     <script type="module" src="/src/main.tsx"></script>

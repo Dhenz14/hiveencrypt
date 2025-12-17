@@ -265,6 +265,50 @@ const isEncryptedMemo = (text: string): boolean => {
 // Tracks in-progress decryption requests to avoid multiple Keychain popups for the same memo
 const pendingDecodeMemos = new Map<string, Promise<string>>();
 
+// SESSION CACHE: Remember cancelled/failed decryption attempts to prevent retry spam
+// Key: txId or memo hash, Value: timestamp when it was cancelled
+const cancelledMemos = new Map<string, number>();
+const CANCELLED_MEMO_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes before allowing retry
+
+/**
+ * Check if a memo decryption was recently cancelled by user
+ * Returns true if we should skip this decryption attempt
+ */
+export const wasDecryptionCancelled = (txId?: string, encryptedMemo?: string): boolean => {
+  const key = txId || encryptedMemo;
+  if (!key) return false;
+  
+  const cancelledAt = cancelledMemos.get(key);
+  if (!cancelledAt) return false;
+  
+  // Check if cooldown has passed
+  if (Date.now() - cancelledAt > CANCELLED_MEMO_COOLDOWN_MS) {
+    cancelledMemos.delete(key);
+    return false;
+  }
+  
+  return true;
+};
+
+/**
+ * Mark a memo as cancelled (user rejected decryption)
+ */
+export const markDecryptionCancelled = (txId?: string, encryptedMemo?: string): void => {
+  const key = txId || encryptedMemo;
+  if (key) {
+    cancelledMemos.set(key, Date.now());
+    logger.info('[DECRYPT CANCEL] Marked as cancelled (5 min cooldown):', key.substring(0, 20));
+  }
+};
+
+/**
+ * Clear cancelled memo cache (useful for manual retry)
+ */
+export const clearCancelledMemos = (): void => {
+  cancelledMemos.clear();
+  logger.info('[DECRYPT CANCEL] Cleared all cancelled memos');
+};
+
 // TIER 2 OPTIMIZATION: Added txId parameter for memo caching
 // MOBILE UX FIX: Added deduplication to prevent popup spam
 export const requestDecodeMemo = async (
@@ -274,6 +318,11 @@ export const requestDecodeMemo = async (
   txId?: string,
   recursionDepth: number = 0
 ): Promise<string> => {
+  // CHECK: Skip if user recently cancelled this decryption
+  if (recursionDepth === 0 && wasDecryptionCancelled(txId, encryptedMemo)) {
+    logger.info('[requestDecodeMemo] Skipping - user cancelled this memo recently');
+    throw new Error('User cancelled decryption');
+  }
   // Prevent infinite recursion (max 2 decryption attempts for double-encrypted messages)
   if (recursionDepth > 1) {
     throw new Error('Maximum decryption depth reached - message may be corrupted');
@@ -349,6 +398,8 @@ export const requestDecodeMemo = async (
               } else {
                 const errorMsg = response.message || response.error || 'Decryption failed';
                 if (errorMsg.toLowerCase().includes('cancel')) {
+                  // Mark this memo as cancelled to prevent retry spam
+                  markDecryptionCancelled(txId, encryptedMemo);
                   rejectInner(new Error('User cancelled decryption'));
                 } else {
                   rejectInner(new Error(errorMsg));
