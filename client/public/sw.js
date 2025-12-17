@@ -3,30 +3,14 @@
  * Provides offline support and caching for 100% decentralized operation
  */
 
-const CACHE_NAME = 'hive-messenger-v11';
-const RUNTIME_CACHE = 'hive-messenger-runtime-v11';
+const CACHE_NAME = 'hive-messenger-v12';
+const RUNTIME_CACHE = 'hive-messenger-runtime-v12';
 
-// Assets to cache immediately on install
-const PRECACHE_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/favicon.png',
-];
-
-// Install event - cache critical assets
+// Skip precaching on install - let runtime caching handle assets
+// This avoids path issues on subdirectory deployments like GitHub Pages
 self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Installing...');
-  
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[ServiceWorker] Pre-caching assets');
-      return cache.addAll(PRECACHE_ASSETS);
-    }).then(() => {
-      console.log('[ServiceWorker] Skip waiting');
-      return self.skipWaiting();
-    })
-  );
+  event.waitUntil(self.skipWaiting());
 });
 
 // Activate event - clean up old caches
@@ -57,7 +41,6 @@ self.addEventListener('fetch', (event) => {
 
   // Skip cross-origin requests and Hive blockchain API calls
   if (url.origin !== location.origin) {
-    // Let blockchain API calls go through normally
     return;
   }
 
@@ -65,7 +48,8 @@ self.addEventListener('fetch', (event) => {
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request).catch(() => {
-        return caches.match('/index.html');
+        // Return cached index.html for offline support
+        return caches.match(request).then(r => r || caches.match('./index.html'));
       })
     );
     return;
@@ -75,21 +59,15 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Return cached version
         return cachedResponse;
       }
 
-      // Not in cache - fetch from network and cache it
       return fetch(request).then((response) => {
-        // Don't cache non-successful responses
         if (!response || response.status !== 200 || response.type === 'error') {
           return response;
         }
 
-        // Clone the response
         const responseToCache = response.clone();
-
-        // Cache the fetched resource
         caches.open(RUNTIME_CACHE).then((cache) => {
           cache.put(request, responseToCache);
         });
@@ -103,19 +81,9 @@ self.addEventListener('fetch', (event) => {
 // Background sync for offline message queue (future feature)
 self.addEventListener('sync', (event) => {
   console.log('[ServiceWorker] Background sync:', event.tag);
-  
-  if (event.tag === 'sync-messages') {
-    event.waitUntil(syncMessages());
-  }
 });
 
-async function syncMessages() {
-  console.log('[ServiceWorker] Syncing offline messages...');
-  // This would sync messages queued while offline
-  // For now, IndexedDB handles this client-side
-}
-
-// Push notifications (future feature for new messages)
+// Push notifications (future feature)
 self.addEventListener('push', (event) => {
   console.log('[ServiceWorker] Push notification received');
   
@@ -123,9 +91,9 @@ self.addEventListener('push', (event) => {
   const title = data.title || 'New Message';
   const options = {
     body: data.body || 'You have a new message',
-    icon: '/favicon.png',
-    badge: '/favicon.png',
-    data: { url: data.url || '/' },
+    icon: './favicon.png',
+    badge: './favicon.png',
+    data: { url: data.url || './' },
   };
 
   event.waitUntil(
@@ -136,11 +104,9 @@ self.addEventListener('push', (event) => {
 // Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
   console.log('[ServiceWorker] Notification clicked');
-  
   event.notification.close();
-  
   event.waitUntil(
-    clients.openWindow(event.notification.data.url || '/')
+    clients.openWindow(event.notification.data.url || './')
   );
 });
 

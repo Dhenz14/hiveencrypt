@@ -1,0 +1,49 @@
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:61 Uncaught TypeError: Failed to construct 'URL': Invalid base URL
+    at hiveencrypt/:61:26
+hiveencrypt/:1 Error while trying to use the following icon from the Manifest: https://dhenz14.github.io/hiveencrypt/favicon.png (Resource size is not correct - typo in the Manifest?)
+index-81iQDOpN.js:769 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-81iQDOpN.js:769 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-81iQDOpN.js:769 [ExceptionsContext] Loaded exceptions: Array(0)
+index-81iQDOpN.js:769 [ExceptionsContext] Saved exceptions: Array(0)
+index-81iQDOpN.js:769 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-81iQDOpN.js:769 [ExceptionsContext] Saved exceptions: Array(0)
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+sw.js:147 [ServiceWorker] Loaded and ready!
+sw.js:19 [ServiceWorker] Installing...
+sw.js:23 [ServiceWorker] Pre-caching assets
+sw.js:1 Uncaught (in promise) TypeError: Failed to execute 'addAll' on 'Cache': Request failed
+Promise.then
+(anonymous) @ sw.js:24
+Promise.then
+(anonymous) @ sw.js:22
+sw.js:147 [ServiceWorker] Loaded and ready!
+sw.js:19 [ServiceWorker] Installing...
+sw.js:23 [ServiceWorker] Pre-caching assets
+sw.js:1 Uncaught (in promise) TypeError: Failed to execute 'addAll' on 'Cache': Request failed
+Promise.then
+(anonymous) @ sw.js:24
+Promise.then
+(anonymous) @ sw.js:22
+index-81iQDOpN.js:769 [decryptMemo] ❌ ERROR: User cancelled decryption
+error @ index-81iQDOpN.js:769
+decryptMemo @ index-81iQDOpN.js:769
+postMessage
+K @ web_interfaceBundle.js:2
+(anonymous) @ web_interfaceBundle.js:2
+index-81iQDOpN.js:769 [decryptMemo] Error for memo: #LDT34GkyqaY7iGnNvkLy13H95oPddgQwd8fPPhj... otherParty: pro-content
+error @ index-81iQDOpN.js:769
+decryptMemo @ index-81iQDOpN.js:769
+postMessage
+K @ web_interfaceBundle.js:2
+(anonymous) @ web_interfaceBundle.js:2
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
