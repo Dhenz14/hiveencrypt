@@ -35,6 +35,7 @@ import { NewMessageModal } from '@/components/NewMessageModal';
 import { GroupCreationModal } from '@/components/GroupCreationModal';
 import { ManageMembersModal } from '@/components/ManageMembersModal';
 import { PublishGroupModal } from '@/components/PublishGroupModal';
+import { EarningsModal } from '@/components/EarningsModal';
 import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { HiddenChatsModal } from '@/components/HiddenChatsModal';
@@ -115,6 +116,7 @@ export default function Messages() {
   const [editNameValue, setEditNameValue] = useState('');
   const [isLeaveGroupDialogOpen, setIsLeaveGroupDialogOpen] = useState(false);
   const [isPublishGroupOpen, setIsPublishGroupOpen] = useState(false);
+  const [isEarningsOpen, setIsEarningsOpen] = useState(false);
   const [promptPublishGroupId, setPromptPublishGroupId] = useState<string | null>(null);
   const [joinDialogGroup, setJoinDialogGroup] = useState<GroupConversationCache | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -606,6 +608,10 @@ export default function Messages() {
 
   const handleMakePublic = () => {
     setIsPublishGroupOpen(true);
+  };
+
+  const handleViewEarnings = () => {
+    setIsEarningsOpen(true);
   };
 
   const handleUpdateMembers = async (newMembers: string[]) => {
@@ -1112,6 +1118,7 @@ export default function Messages() {
               onEditName={handleEditGroupName}
               onLeaveGroup={handleLeaveGroup}
               onMakePublic={handleMakePublic}
+              onViewEarnings={handleViewEarnings}
               isCreator={selectedGroup.creator === user?.username}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
@@ -1315,6 +1322,13 @@ export default function Messages() {
             groupName={selectedGroup.name}
             creator={selectedGroup.creator}
             memberCount={selectedGroup.members.length}
+            paymentSettings={selectedGroup.paymentSettings}
+          />
+          <EarningsModal
+            open={isEarningsOpen}
+            onOpenChange={setIsEarningsOpen}
+            groupName={selectedGroup.name}
+            memberPayments={selectedGroup.memberPayments}
             paymentSettings={selectedGroup.paymentSettings}
           />
         </>
