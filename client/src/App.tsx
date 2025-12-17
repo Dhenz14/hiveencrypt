@@ -1,4 +1,5 @@
 import { Switch, Route, Redirect, Router as WouterRouter } from "wouter";
+import { useSyncExternalStore, useCallback } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -69,14 +70,30 @@ function AppRoutes() {
   );
 }
 
+// Custom hash location hook for static hosting (GitHub Pages)
+const hashSubscribe = (callback: () => void) => {
+  window.addEventListener("hashchange", callback);
+  return () => window.removeEventListener("hashchange", callback);
+};
+
+const getHashLocation = () => {
+  const hash = window.location.hash;
+  return hash.replace(/^#/, "") || "/";
+};
+
+function useHashLocation(): [string, (to: string) => void] {
+  const location = useSyncExternalStore(hashSubscribe, getHashLocation);
+  const navigate = useCallback((to: string) => {
+    window.location.hash = to;
+  }, []);
+  return [location, navigate];
+}
+
 function Router() {
-  // Get base path from Vite - will be "/" in dev or "/hiveencrypt/" on GitHub Pages
-  const base = import.meta.env.BASE_URL || "/";
-  // Remove trailing slash for wouter (it expects "/hiveencrypt" not "/hiveencrypt/")
-  const basePath = base.endsWith("/") && base.length > 1 ? base.slice(0, -1) : base === "/" ? "" : base;
-  
+  // Use hash-based routing for GitHub Pages and other static hosting
+  // This makes URLs like /#/login instead of /login, which works without server configuration
   return (
-    <WouterRouter base={basePath}>
+    <WouterRouter hook={useHashLocation}>
       <AppRoutes />
     </WouterRouter>
   );

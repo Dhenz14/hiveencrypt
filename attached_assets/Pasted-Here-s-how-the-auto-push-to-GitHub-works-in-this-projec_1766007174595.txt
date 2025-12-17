@@ -1,0 +1,121 @@
+Here's how the auto-push to GitHub works in this project. You can copy this setup for your other Replit projects:
+
+GitHub Auto-Deploy Setup Guide
+Step 1: Connect GitHub to Replit
+Your Replit project needs the GitHub integration connected. This gives the project permission to push to your GitHub repos.
+
+In your Replit project, the GitHub integration should already be connected (you did this for ArcHive)
+This provides a REPLIT_GITHUB_TOKEN that the scripts use automatically
+Step 2: Install the Required Package
+npm install @octokit/rest
+
+Step 3: Create the Push Script
+Create a file called scripts/push-to-github.js:
+
+const { Octokit } = require('@octokit/rest');
+const fs = require('fs');
+const path = require('path');
+// GitHub repo details - CHANGE THESE for your project
+const GITHUB_OWNER = 'YourUsername';  // Your GitHub username
+const GITHUB_REPO = 'your-repo-name'; // Your repo name
+const GITHUB_BRANCH = 'main';
+const SOURCE_DIR = 'docs';  // Folder containing files to push
+async function pushToGitHub() {
+    // Get token from Replit's GitHub integration
+    const token = process.env.REPLIT_GITHUB_TOKEN || process.env.GITHUB_TOKEN;
+    
+    if (!token) {
+        console.error('No GitHub token found. Connect GitHub integration in Replit.');
+        process.exit(1);
+    }
+    const octokit = new Octokit({ auth: token });
+    console.log('Pushing updates to GitHub...\n');
+    console.log(`Target: https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}\n`);
+    // Get all files from source directory
+    const files = getAllFiles(SOURCE_DIR);
+    console.log(`Syncing ${files.length} files:\n`);
+    let updated = 0;
+    let unchanged = 0;
+    for (const filePath of files) {
+        const relativePath = path.relative(SOURCE_DIR, filePath);
+        const content = fs.readFileSync(filePath);
+        const contentBase64 = content.toString('base64');
+        try {
+            // Check if file exists on GitHub
+            let existingSha = null;
+            try {
+                const { data } = await octokit.repos.getContent({
+                    owner: GITHUB_OWNER,
+                    repo: GITHUB_REPO,
+                    path: relativePath,
+                    ref: GITHUB_BRANCH
+                });
+                existingSha = data.sha;
+                
+                // Check if content is the same
+                if (data.content && data.content.replace(/\n/g, '') === contentBase64) {
+                    console.log(`  ⏭️  ${relativePath} (unchanged)`);
+                    unchanged++;
+                    continue;
+                }
+            } catch (e) {
+                // File doesn't exist yet, will create it
+            }
+            // Create or update file
+            await octokit.repos.createOrUpdateFileContents({
+                owner: GITHUB_OWNER,
+                repo: GITHUB_REPO,
+                path: relativePath,
+                message: `Update ${relativePath}`,
+                content: contentBase64,
+                branch: GITHUB_BRANCH,
+                sha: existingSha
+            });
+            console.log(`  ✅ ${relativePath}`);
+            updated++;
+        } catch (error) {
+            console.error(`  ❌ ${relativePath}: ${error.message}`);
+        }
+    }
+    console.log(`\n✨ Done! ${updated} files updated, ${unchanged} unchanged.`);
+    console.log(`\n🌐 Live at: https://${GITHUB_OWNER}.github.io/${GITHUB_REPO}/`);
+}
+function getAllFiles(dir, files = []) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            getAllFiles(fullPath, files);
+        } else {
+            files.push(fullPath);
+        }
+    }
+    return files;
+}
+pushToGitHub().catch(console.error);
+
+Step 4: Add NPM Scripts
+In your package.json, add:
+
+{
+  "scripts": {
+    "push": "node scripts/push-to-github.js"
+  }
+}
+
+Step 5: Usage
+npm run push
+
+This will push all files from your docs/ folder to GitHub.
+
+How It Works
+Replit's GitHub integration provides an auth token automatically
+Octokit (GitHub's official API) handles the REST calls
+The script reads local files, compares with GitHub, and only updates changed files
+GitHub Pages automatically deploys from the docs/ folder
+For Your Other Project
+Copy the scripts/push-to-github.js file
+Change GITHUB_OWNER and GITHUB_REPO to match your other repo
+Change SOURCE_DIR to whichever folder has your deployable files
+Make sure GitHub integration is connected in that Replit project
+Run npm run push
