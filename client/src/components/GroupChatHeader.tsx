@@ -23,6 +23,7 @@ import type { PaymentSettings, MemberPayment } from '@shared/schema';
 interface GroupChatHeaderProps {
   groupName: string;
   members: string[];
+  creator?: string;
   paymentSettings?: PaymentSettings;
   memberPayments?: MemberPayment[];
   onManageMembers?: () => void;
@@ -38,6 +39,7 @@ interface GroupChatHeaderProps {
 export function GroupChatHeader({ 
   groupName,
   members,
+  creator,
   paymentSettings,
   memberPayments,
   onManageMembers,
@@ -130,6 +132,8 @@ export function GroupChatHeader({
                   <div className="p-2 space-y-1">
                     {members.map((member) => {
                       const isFollowing = isFollowingMember(member);
+                      const isMemberCreator = creator && member.toLowerCase() === creator.toLowerCase();
+                      const isCurrentUser = user?.username && member.toLowerCase() === user.username.toLowerCase();
                       return (
                         <div
                           key={member}
@@ -142,12 +146,28 @@ export function GroupChatHeader({
                             </AvatarFallback>
                           </Avatar>
                           <span className="text-body font-medium truncate flex-1">@{member}</span>
-                          {isFollowing && (
-                            <Badge variant="secondary" className="gap-1 px-2 h-6 flex-shrink-0" data-testid={`badge-following-${member}`}>
-                              <UserCheck className="w-3 h-3" />
-                              <span className="text-xs">Following</span>
-                            </Badge>
-                          )}
+                          <div className="flex items-center gap-1 flex-shrink-0">
+                            {isMemberCreator && (
+                              <Badge variant="default" className="px-2 h-5 text-xs" data-testid={`badge-creator-${member}`}>
+                                Creator
+                              </Badge>
+                            )}
+                            {isCurrentUser && !isMemberCreator && (
+                              <Badge variant="outline" className="px-2 h-5 text-xs" data-testid={`badge-you-${member}`}>
+                                You
+                              </Badge>
+                            )}
+                            {isCurrentUser && isMemberCreator && (
+                              <Badge variant="outline" className="px-2 h-5 text-xs" data-testid={`badge-you-${member}`}>
+                                You
+                              </Badge>
+                            )}
+                            {isFollowing && (
+                              <Badge variant="secondary" className="gap-1 px-2 h-5 flex-shrink-0" data-testid={`badge-following-${member}`}>
+                                <UserCheck className="w-3 h-3" />
+                              </Badge>
+                            )}
+                          </div>
                         </div>
                       );
                     })}

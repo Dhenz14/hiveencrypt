@@ -1112,6 +1112,7 @@ export default function Messages() {
             <GroupChatHeader
               groupName={selectedGroup.name}
               members={selectedGroup.members}
+              creator={selectedGroup.creator}
               paymentSettings={selectedGroup.paymentSettings}
               memberPayments={selectedGroup.memberPayments}
               onManageMembers={handleManageMembers}
