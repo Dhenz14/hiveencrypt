@@ -1,0 +1,258 @@
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:99 [PWA] Service Worker registered: https://dhenz14.github.io/hiveencrypt/
+hiveencrypt/#/:1 Error while trying to use the following icon from the Manifest: https://dhenz14.github.io/hiveencrypt/favicon.png (Resource size is not correct - typo in the Manifest?)
+index-YFkRE6Mn.js:774 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-YFkRE6Mn.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-YFkRE6Mn.js:774 [ExceptionsContext] Loaded exceptions: Array(0)
+index-YFkRE6Mn.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+index-YFkRE6Mn.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-YFkRE6Mn.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Failed to fetch following list: tt
+error @ index-YFkRE6Mn.js:774
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Error getting following list: Error: Failed to fetch following list: Could not find API follow_api
+    at fetchFollowingList (index-YFkRE6Mn.js:849:22996)
+    at async getFollowingList (index-YFkRE6Mn.js:849:23652)
+    at async preloadFollowingList (index-YFkRE6Mn.js:849:24241)
+    at async queryFn (index-YFkRE6Mn.js:849:42324)
+error @ index-YFkRE6Mn.js:774
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Failed to fetch following list: tt {name: 'RPCError', jse_shortmsg: 'Could not find API follow_api', jse_info: {…}, message: 'Could not find API follow_api', stack: 'RPCError: Could not find API follow_api\n    at ct.…io/hiveencrypt/assets/index-YFkRE6Mn.js:543:2837)'}
+error @ index-YFkRE6Mn.js:774
+fetchFollowingList @ index-YFkRE6Mn.js:849
+await in fetchFollowingList
+getFollowingList @ index-YFkRE6Mn.js:849
+await in getFollowingList
+queryFn @ index-YFkRE6Mn.js:854
+await in queryFn
+b @ index-YFkRE6Mn.js:53
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+setOptions @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+Qj @ index-YFkRE6Mn.js:45
+Hk @ index-YFkRE6Mn.js:45
+Wk @ index-YFkRE6Mn.js:45
+Pk @ index-YFkRE6Mn.js:45
+Ek @ index-YFkRE6Mn.js:45
+jg @ index-YFkRE6Mn.js:43
+(anonymous) @ index-YFkRE6Mn.js:45
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Error getting following list: Error: Failed to fetch following list: Could not find API follow_api
+    at fetchFollowingList (index-YFkRE6Mn.js:849:22996)
+    at async getFollowingList (index-YFkRE6Mn.js:849:23652)
+    at async queryFn (index-YFkRE6Mn.js:854:68554)
+error @ index-YFkRE6Mn.js:774
+getFollowingList @ index-YFkRE6Mn.js:849
+await in getFollowingList
+queryFn @ index-YFkRE6Mn.js:854
+await in queryFn
+b @ index-YFkRE6Mn.js:53
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+setOptions @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+Qj @ index-YFkRE6Mn.js:45
+Hk @ index-YFkRE6Mn.js:45
+Wk @ index-YFkRE6Mn.js:45
+Pk @ index-YFkRE6Mn.js:45
+Ek @ index-YFkRE6Mn.js:45
+jg @ index-YFkRE6Mn.js:43
+(anonymous) @ index-YFkRE6Mn.js:45
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Failed to fetch following list: tt {name: 'RPCError', jse_shortmsg: 'Could not find API follow_api', jse_info: {…}, message: 'Could not find API follow_api', stack: 'RPCError: Could not find API follow_api\n    at ct.…io/hiveencrypt/assets/index-YFkRE6Mn.js:543:2837)'}
+error @ index-YFkRE6Mn.js:774
+fetchFollowingList @ index-YFkRE6Mn.js:849
+await in fetchFollowingList
+getFollowingList @ index-YFkRE6Mn.js:849
+await in getFollowingList
+queryFn @ index-YFkRE6Mn.js:854
+await in queryFn
+b @ index-YFkRE6Mn.js:53
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+setInterval
+ps @ index-YFkRE6Mn.js:53
+ms @ index-YFkRE6Mn.js:53
+onQueryUpdate @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+batch @ index-YFkRE6Mn.js:53
+wn @ index-YFkRE6Mn.js:53
+setData @ index-YFkRE6Mn.js:53
+onSuccess @ index-YFkRE6Mn.js:53
+$ @ index-YFkRE6Mn.js:53
+Promise.then
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+setOptions @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+Qj @ index-YFkRE6Mn.js:45
+Hk @ index-YFkRE6Mn.js:45
+Wk @ index-YFkRE6Mn.js:45
+Pk @ index-YFkRE6Mn.js:45
+Ek @ index-YFkRE6Mn.js:45
+jg @ index-YFkRE6Mn.js:43
+(anonymous) @ index-YFkRE6Mn.js:45
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Error getting following list: Error: Failed to fetch following list: Could not find API follow_api
+    at fetchFollowingList (index-YFkRE6Mn.js:849:22996)
+    at async getFollowingList (index-YFkRE6Mn.js:849:23652)
+    at async queryFn (index-YFkRE6Mn.js:854:68554)
+error @ index-YFkRE6Mn.js:774
+getFollowingList @ index-YFkRE6Mn.js:849
+await in getFollowingList
+queryFn @ index-YFkRE6Mn.js:854
+await in queryFn
+b @ index-YFkRE6Mn.js:53
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+setInterval
+ps @ index-YFkRE6Mn.js:53
+ms @ index-YFkRE6Mn.js:53
+onQueryUpdate @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+batch @ index-YFkRE6Mn.js:53
+wn @ index-YFkRE6Mn.js:53
+setData @ index-YFkRE6Mn.js:53
+onSuccess @ index-YFkRE6Mn.js:53
+$ @ index-YFkRE6Mn.js:53
+Promise.then
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+setOptions @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+Qj @ index-YFkRE6Mn.js:45
+Hk @ index-YFkRE6Mn.js:45
+Wk @ index-YFkRE6Mn.js:45
+Pk @ index-YFkRE6Mn.js:45
+Ek @ index-YFkRE6Mn.js:45
+jg @ index-YFkRE6Mn.js:43
+(anonymous) @ index-YFkRE6Mn.js:45
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Failed to fetch following list: tt {name: 'RPCError', jse_shortmsg: 'Could not find API follow_api', jse_info: {…}, message: 'Could not find API follow_api', stack: 'RPCError: Could not find API follow_api\n    at ct.…io/hiveencrypt/assets/index-YFkRE6Mn.js:543:2837)'}
+error @ index-YFkRE6Mn.js:774
+fetchFollowingList @ index-YFkRE6Mn.js:849
+await in fetchFollowingList
+getFollowingList @ index-YFkRE6Mn.js:849
+await in getFollowingList
+queryFn @ index-YFkRE6Mn.js:854
+await in queryFn
+b @ index-YFkRE6Mn.js:53
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+setInterval
+ps @ index-YFkRE6Mn.js:53
+ms @ index-YFkRE6Mn.js:53
+onQueryUpdate @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+batch @ index-YFkRE6Mn.js:53
+wn @ index-YFkRE6Mn.js:53
+setData @ index-YFkRE6Mn.js:53
+onSuccess @ index-YFkRE6Mn.js:53
+$ @ index-YFkRE6Mn.js:53
+Promise.then
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+setInterval
+ps @ index-YFkRE6Mn.js:53
+ms @ index-YFkRE6Mn.js:53
+onQueryUpdate @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+batch @ index-YFkRE6Mn.js:53
+wn @ index-YFkRE6Mn.js:53
+setData @ index-YFkRE6Mn.js:53
+onSuccess @ index-YFkRE6Mn.js:53
+$ @ index-YFkRE6Mn.js:53
+Promise.then
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+setOptions @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+Qj @ index-YFkRE6Mn.js:45
+Hk @ index-YFkRE6Mn.js:45
+Wk @ index-YFkRE6Mn.js:45
+Pk @ index-YFkRE6Mn.js:45
+Ek @ index-YFkRE6Mn.js:45
+jg @ index-YFkRE6Mn.js:43
+(anonymous) @ index-YFkRE6Mn.js:45
+index-YFkRE6Mn.js:774 [FOLLOWING] ❌ Error getting following list: Error: Failed to fetch following list: Could not find API follow_api
+    at fetchFollowingList (index-YFkRE6Mn.js:849:22996)
+    at async getFollowingList (index-YFkRE6Mn.js:849:23652)
+    at async queryFn (index-YFkRE6Mn.js:854:68554)
+error @ index-YFkRE6Mn.js:774
+getFollowingList @ index-YFkRE6Mn.js:849
+await in getFollowingList
+queryFn @ index-YFkRE6Mn.js:854
+await in queryFn
+b @ index-YFkRE6Mn.js:53
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+setInterval
+ps @ index-YFkRE6Mn.js:53
+ms @ index-YFkRE6Mn.js:53
+onQueryUpdate @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+batch @ index-YFkRE6Mn.js:53
+wn @ index-YFkRE6Mn.js:53
+setData @ index-YFkRE6Mn.js:53
+onSuccess @ index-YFkRE6Mn.js:53
+$ @ index-YFkRE6Mn.js:53
+Promise.then
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+setInterval
+ps @ index-YFkRE6Mn.js:53
+ms @ index-YFkRE6Mn.js:53
+onQueryUpdate @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+batch @ index-YFkRE6Mn.js:53
+wn @ index-YFkRE6Mn.js:53
+setData @ index-YFkRE6Mn.js:53
+onSuccess @ index-YFkRE6Mn.js:53
+$ @ index-YFkRE6Mn.js:53
+Promise.then
+st @ index-YFkRE6Mn.js:53
+start @ index-YFkRE6Mn.js:53
+fetch @ index-YFkRE6Mn.js:53
+rs @ index-YFkRE6Mn.js:53
+setOptions @ index-YFkRE6Mn.js:53
+(anonymous) @ index-YFkRE6Mn.js:53
+Qj @ index-YFkRE6Mn.js:45
+Hk @ index-YFkRE6Mn.js:45
+Wk @ index-YFkRE6Mn.js:45
+Pk @ index-YFkRE6Mn.js:45
+Ek @ index-YFkRE6Mn.js:45
+jg @ index-YFkRE6Mn.js:43
+(anonymous) @ index-YFkRE6Mn.js:45

@@ -13,12 +13,38 @@ import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { Client } from '@hiveio/dhive';
 import { logger } from './logger';
 
-// Use direct dhive client for follow API (not supported by HiveBlockchainClient)
-const hiveClient = new Client([
+// Nodes known to support follow_api (verified working)
+// Order by reliability - api.hive.blog is most reliable for follow_api
+const FOLLOW_API_NODES = [
   'https://api.hive.blog',
-  'https://anyx.io',
+  'https://api.deathwing.me',
+  'https://hive-api.arcange.eu',
   'https://api.openhive.network',
-]);
+  'https://anyx.io',
+];
+
+// Track unhealthy nodes for this session (nodes that don't have follow_api)
+const unhealthyNodes = new Set<string>();
+
+// Get a client with healthy nodes only
+function getFollowApiClient(): Client {
+  const healthyNodes = FOLLOW_API_NODES.filter(n => !unhealthyNodes.has(n));
+  
+  // If all nodes marked unhealthy, reset and try again
+  if (healthyNodes.length === 0) {
+    logger.warn('[FOLLOWING] All nodes marked unhealthy, resetting');
+    unhealthyNodes.clear();
+    return new Client(FOLLOW_API_NODES);
+  }
+  
+  return new Client(healthyNodes);
+}
+
+// Mark a node as unhealthy (doesn't support follow_api)
+function markNodeUnhealthy(nodeUrl: string): void {
+  unhealthyNodes.add(nodeUrl);
+  logger.warn('[FOLLOWING] Marked node as unhealthy for follow_api:', nodeUrl);
+}
 
 // ============================================================================
 // Type Definitions
@@ -119,8 +145,48 @@ async function getFollowingDB(): Promise<IDBPDatabase<HiveFollowingDB>> {
 // ============================================================================
 
 /**
+ * Call follow_api with automatic node failover
+ * Tries each node until one works, marks failed nodes as unhealthy
+ */
+async function callFollowApiWithFailover(
+  method: string,
+  params: any[]
+): Promise<any> {
+  const maxAttempts = FOLLOW_API_NODES.length;
+  let lastError: Error | null = null;
+  
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const client = getFollowApiClient();
+    const currentNode = FOLLOW_API_NODES.find(n => !unhealthyNodes.has(n)) || FOLLOW_API_NODES[0];
+    
+    try {
+      const result = await client.call('follow_api', method, params);
+      return result;
+    } catch (error: any) {
+      lastError = error;
+      const errorMsg = error?.message?.toLowerCase() || '';
+      
+      // If node doesn't support follow_api, mark it unhealthy
+      if (errorMsg.includes('could not find api') || 
+          errorMsg.includes('follow_api') ||
+          errorMsg.includes('not found')) {
+        markNodeUnhealthy(currentNode);
+        logger.warn(`[FOLLOWING] Node ${currentNode} doesn't support follow_api, trying next`);
+        continue;
+      }
+      
+      // For other errors, throw immediately
+      throw error;
+    }
+  }
+  
+  throw lastError || new Error('All nodes failed for follow_api');
+}
+
+/**
  * Fetch the complete list of accounts a user follows from Hive blockchain
  * Uses pagination to handle large following lists
+ * Now with automatic node failover for nodes missing follow_api
  * 
  * @param username - Hive username to fetch following list for
  * @returns Array of usernames the user follows
@@ -137,8 +203,8 @@ export async function fetchFollowingList(username: string): Promise<string[]> {
     const maxIterations = Math.ceil(MAX_FOLLOWING / FETCH_LIMIT);
 
     while (hasMore && iterations < maxIterations) {
-      // Call Hive Follow API using optimized client
-      const result = await hiveClient.call('follow_api', 'get_following', [
+      // Call Hive Follow API with automatic node failover
+      const result = await callFollowApiWithFailover('get_following', [
         normalizedUsername,
         startFollowing,
         'blog',
