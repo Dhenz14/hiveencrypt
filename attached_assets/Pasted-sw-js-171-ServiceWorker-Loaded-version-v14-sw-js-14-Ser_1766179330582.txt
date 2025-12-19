@@ -1,0 +1,37 @@
+sw.js:171 [ServiceWorker] Loaded version: v14
+sw.js:14 [ServiceWorker] Installing version: v14
+sw.js:21 [ServiceWorker] Activating version: v14
+sw.js:30 [ServiceWorker] Deleting old cache: hive-messenger-v13
+sw.js:30 [ServiceWorker] Deleting old cache: hive-messenger-runtime-v13
+sw.js:48 [ServiceWorker] Activation complete, notified clients
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:99 [PWA] Service Worker registered: https://dhenz14.github.io/hiveencrypt/
+hiveencrypt/:1 Error while trying to use the following icon from the Manifest: https://dhenz14.github.io/hiveencrypt/favicon.png (Resource size is not correct - typo in the Manifest?)
+index-CWLvjQ7l.js:774 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-CWLvjQ7l.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-CWLvjQ7l.js:774 [ExceptionsContext] Loaded exceptions: Array(0)
+index-CWLvjQ7l.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+index-CWLvjQ7l.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-CWLvjQ7l.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+index-CWLvjQ7l.js:774 [FOLLOWING] ❌ Failed to fetch following list: tt
+error @ index-CWLvjQ7l.js:774
+index-CWLvjQ7l.js:774 [FOLLOWING] ❌ Error getting following list: Error: Failed to fetch following list: Could not find API follow_api
+    at fetchFollowingList (index-CWLvjQ7l.js:849:22996)
+    at async getFollowingList (index-CWLvjQ7l.js:849:23652)
+    at async preloadFollowingList (index-CWLvjQ7l.js:849:24241)
+    at async queryFn (index-CWLvjQ7l.js:849:42324)
+error @ index-CWLvjQ7l.js:774
+hiveencrypt/#/login:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+index-CWLvjQ7l.js:774 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-CWLvjQ7l.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-CWLvjQ7l.js:774 [ExceptionsContext] Loaded exceptions: Array(0)
+index-CWLvjQ7l.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+index-CWLvjQ7l.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-CWLvjQ7l.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+hiveencrypt/#/discover:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+index-CWLvjQ7l.js:891 [GROUP DISCOVERY] ⚠️ Query cancelled by React Query, returning cached data
+queryFn @ index-CWLvjQ7l.js:891

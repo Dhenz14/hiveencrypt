@@ -51,6 +51,7 @@ export function JoinGroupButton({
   const [requestMessage, setRequestMessage] = useState('');
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [successDetails, setSuccessDetails] = useState<{ isPaid: boolean; amount?: string } | null>(null);
+  const [locallyJoined, setLocallyJoined] = useState(false);  // Track instant membership after payment
 
   // Check blockchain for pending requests (replaces localStorage)
   const { data: pendingRequests = [], isLoading: isLoadingPendingRequests } = useUserPendingRequests(
@@ -218,11 +219,12 @@ export function JoinGroupButton({
             name: groupName,
             members: [creatorUsername, user.username],
             creator: creatorUsername,
+            createdAt: new Date().toISOString(),
             version: 1,
             lastMessage: '',
-            lastSender: '',
             lastTimestamp: new Date().toISOString(),
             unreadCount: 0,
+            lastChecked: new Date().toISOString(),
             paymentSettings,
             memberPayments: [memberPayment],
           };
@@ -233,6 +235,10 @@ export function JoinGroupButton({
       // Remove from pending groups (no more "pending" UI)
       removePendingGroup(groupId, user.username);
       logger.info('[JOIN GROUP] 🧹 Removed from pending groups');
+      
+      // Mark as locally joined - this overrides the blockchain pending status
+      setLocallyJoined(true);
+      logger.info('[JOIN GROUP] ✅ Marked as locally joined - UI will show "Joined"');
     } catch (cacheError) {
       logger.warn('[JOIN GROUP] Cache failed, but continuing:', cacheError);
     }
@@ -307,8 +313,8 @@ export function JoinGroupButton({
 
   const isLoading = joinRequestMutation.isPending || isLoadingPendingRequests;
 
-  // If already a member, show "Joined" status instead of join button
-  if (isMember) {
+  // If already a member OR locally joined after payment, show "Joined" status
+  if (isMember || locallyJoined) {
     return (
       <Button
         variant="outline"
