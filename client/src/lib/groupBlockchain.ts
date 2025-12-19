@@ -1111,6 +1111,9 @@ export function setGroupNegativeCache(groupId: string): void {
  * Sends encrypted invite memos to group members with manifest pointers
  * This enables direct manifest lookup via get_transaction() without scanning history
  * 
+ * OPTIMIZATION: Batches all transfers into ONE Keychain prompt using requestBroadcast
+ * This reduces prompts from 2N to N+1 (N encode prompts + 1 batch transfer)
+ * 
  * @param groupId - UUID of the group
  * @param members - Array of member usernames to send invites to
  * @param manifestPointer - Transaction details of the group manifest custom_json
@@ -1129,23 +1132,35 @@ export async function sendGroupInviteMemos(
   currentUsername: string,
   action: 'create' | 'update' = 'create'
 ): Promise<{ successful: string[], failed: string[] }> {
-  logger.info('[GROUP INVITE] Sending invite memos to', members.length, 'members');
+  logger.info('[GROUP INVITE] Sending invite memos to', members.length, 'members (batched)');
   
   const successful: string[] = [];
   const failed: string[] = [];
+  const transferOperations: [string, { from: string; to: string; amount: string; memo: string }][] = [];
   
   // Import required utilities
   const { requestEncode } = await import('./hive');
-  const { requestTransfer } = await import('./hive');
   
-  for (const member of members) {
+  // Filter out self
+  const recipientMembers = members.filter(m => m !== currentUsername);
+  
+  // Add self to successful immediately
+  if (members.includes(currentUsername)) {
+    successful.push(currentUsername);
+  }
+  
+  if (recipientMembers.length === 0) {
+    logger.info('[GROUP INVITE] No recipients to send invites to');
+    return { successful, failed };
+  }
+  
+  // PHASE 1: Encrypt all memos (N encode prompts - can't avoid these)
+  logger.info('[GROUP INVITE] Phase 1: Encrypting memos for', recipientMembers.length, 'recipients');
+  
+  const encryptedMemos: { member: string; memo: string }[] = [];
+  
+  for (const member of recipientMembers) {
     try {
-      // Skip sending to self
-      if (member === currentUsername) {
-        successful.push(member);
-        continue;
-      }
-      
       // Create group invite memo payload
       const inviteMemo: GroupInviteMemo = {
         type: 'group_invite',
@@ -1162,37 +1177,74 @@ export async function sendGroupInviteMemos(
       const encodeResponse = await requestEncode(
         currentUsername,
         member,
-        `#${memoJson}` // Prefix with # for memo encryption
+        `#${memoJson}`
       );
       
-      // Extract encrypted memo from Keychain response
       const encryptedMemo = encodeResponse.result as string;
+      encryptedMemos.push({ member, memo: encryptedMemo });
       
-      // Send 0.001 HBD transfer with encrypted memo
-      await requestTransfer(
-        currentUsername,
-        member,
-        '0.001',
-        encryptedMemo,
-        'HBD'
-      );
-      
-      successful.push(member);
-      logger.info('[GROUP INVITE] ✅ Sent invite to:', member);
+      logger.debug('[GROUP INVITE] Encrypted memo for:', member);
       
     } catch (error) {
-      logger.error('[GROUP INVITE] ❌ Failed to send invite to:', member, error);
+      logger.error('[GROUP INVITE] Failed to encrypt memo for:', member, error);
       failed.push(member);
     }
   }
   
-  logger.info('[GROUP INVITE] Complete:', {
-    total: members.length,
-    successful: successful.length,
-    failed: failed.length
-  });
+  if (encryptedMemos.length === 0) {
+    logger.warn('[GROUP INVITE] No memos encrypted successfully');
+    return { successful, failed };
+  }
   
-  return { successful, failed };
+  // PHASE 2: Batch all transfers into ONE broadcast (1 prompt instead of N!)
+  logger.info('[GROUP INVITE] Phase 2: Batching', encryptedMemos.length, 'transfers into single broadcast');
+  
+  // Build transfer operations array
+  for (const { member, memo } of encryptedMemos) {
+    transferOperations.push([
+      'transfer',
+      {
+        from: currentUsername,
+        to: member,
+        amount: '0.001 HBD',
+        memo: memo
+      }
+    ]);
+  }
+  
+  // Broadcast all transfers in ONE transaction
+  return new Promise((resolve) => {
+    if (!window.hive_keychain) {
+      logger.error('[GROUP INVITE] Hive Keychain not available');
+      failed.push(...encryptedMemos.map(e => e.member));
+      resolve({ successful, failed });
+      return;
+    }
+    
+    window.hive_keychain.requestBroadcast(
+      currentUsername,
+      transferOperations,
+      'Active', // Transfer requires Active key
+      (response: any) => {
+        if (response.success) {
+          logger.info('[GROUP INVITE] ✅ Batched broadcast successful:', response.result?.id);
+          successful.push(...encryptedMemos.map(e => e.member));
+        } else {
+          logger.error('[GROUP INVITE] ❌ Batched broadcast failed:', response.message);
+          failed.push(...encryptedMemos.map(e => e.member));
+        }
+        
+        logger.info('[GROUP INVITE] Complete:', {
+          total: members.length,
+          successful: successful.length,
+          failed: failed.length,
+          batchedTransfers: encryptedMemos.length
+        });
+        
+        resolve({ successful, failed });
+      }
+    );
+  });
 }
 
 /**

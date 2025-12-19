@@ -25,7 +25,7 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 - **Economic Anti-Spam**: Configurable minimum HBD requirements for incoming messages.
 - **Hive Following Integration**: Native integration with Hive's follow system for privacy controls.
 - **Group Chat System**: Decentralized group messaging with operations stored on the Hive blockchain as `custom_json`. Includes group creation, membership management, memo-pointer protocol for discovery, paid groups, and a self-service join system with multiple approval paths. Security measures include creator-only approval for join requests and client-side payment verification.
-- **Performance Optimizations**: Token Bucket Rate Limiter, LRU Memo Cache with TTL (2000 entries, 10min TTL), Decryption with Retry, Query Cancellation, Optimistic Updates, synchronous ref-based guards for race condition prevention, Block Streaming for real-time updates (<3s latency), Batch RPC Calls for parallel account history fetching, and Bitwise Operation Filtering to reduce data transfer by ~40%.
+- **Performance Optimizations**: Token Bucket Rate Limiter, LRU Memo Cache with TTL (2000 entries, 10min TTL), Decryption with Retry, Query Cancellation, Optimistic Updates, synchronous ref-based guards for race condition prevention, Block Streaming for real-time updates (<3s latency), Batch RPC Calls for parallel account history fetching, Bitwise Operation Filtering to reduce data transfer by ~40%, and Batched Keychain Operations for group invites (reduces prompts by ~50%).
 
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted messages via memo transfers.
@@ -80,3 +80,16 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 
 ## Blockchain Explorers
 - **Hivescan.info**: Used for transaction verification links (built by the Hive Messenger team).
+
+## Future Optimization Considerations (P2)
+
+### HAF Query Service
+HAF (Hive Application Framework) provides 2x-70x faster queries than direct RPC for indexed blockchain data. When scaling becomes necessary:
+- **Public HAF Servers**: Multiple community-operated HAF nodes available for queries
+- **Use Cases**: Group chat discovery, message history retrieval, transaction lookups
+- **Architecture Consideration**: Current approach uses group creation posts as metadata anchors. HAF could accelerate discovery via SQL queries on indexed custom_json operations.
+- **Trade-off**: Adds external dependency vs. current fully decentralized client-side approach
+
+### Additional Optimizations Evaluated
+- **@splinterlands/hive-interface**: Evaluated but current `hiveClient.ts` already implements equivalent browser-optimized multi-node failover with health scoring
+- **Background Sync Worker**: Keychain decryption requires main thread access; current LRU caching and deduplication provide similar benefits
