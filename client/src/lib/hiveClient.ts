@@ -233,6 +233,10 @@ class HiveBlockchainClient {
     return new Map(this.nodeHealth);
   }
 
+  getBestNodeUrl(): string {
+    return this.selectBestNode();
+  }
+
   resetNodeHealth(): void {
     this.nodeHealth.forEach(h => {
       h.latencies = [];
@@ -499,6 +503,103 @@ class HiveBlockchainClient {
         throw error;
       }
     });
+  }
+
+  /**
+   * BATCH OPTIMIZATION: Fetch account history for multiple users in parallel
+   * Reduces total network latency by running requests concurrently
+   */
+  async getBatchAccountHistory(
+    usernames: string[],
+    limit: number = 100,
+    filter: OperationFilter = 'transfers'
+  ): Promise<Map<string, any[]>> {
+    const results = new Map<string, any[]>();
+    
+    if (usernames.length === 0) return results;
+
+    logger.info('[BATCH RPC] Fetching account history for', usernames.length, 'users');
+    const startTime = performance.now();
+
+    const promises = usernames.map(async (username) => {
+      try {
+        const history = await this.getAccountHistory(username, limit, filter);
+        return { username, history, success: true };
+      } catch (error) {
+        logger.warn('[BATCH RPC] Failed to fetch history for:', username, error);
+        return { username, history: [], success: false };
+      }
+    });
+
+    const settled = await Promise.all(promises);
+    
+    for (const result of settled) {
+      results.set(result.username, result.history);
+    }
+
+    const elapsed = Math.round(performance.now() - startTime);
+    logger.info('[BATCH RPC] Batch complete in', elapsed, 'ms for', usernames.length, 'users');
+
+    return results;
+  }
+
+  /**
+   * BATCH OPTIMIZATION: Fetch multiple accounts in a single RPC call
+   * Much more efficient than getAccount() for multiple users
+   */
+  async getAccounts(usernames: string[]): Promise<Map<string, ExtendedAccount | null>> {
+    const results = new Map<string, ExtendedAccount | null>();
+    
+    if (usernames.length === 0) return results;
+
+    const validUsernames = usernames.filter(u => this.validateUsername(u));
+    
+    if (validUsernames.length === 0) {
+      usernames.forEach(u => results.set(u, null));
+      return results;
+    }
+
+    logger.info('[BATCH RPC] Fetching', validUsernames.length, 'accounts in single call');
+    const startTime = performance.now();
+
+    try {
+      const accounts = await this.retryWithBackoff(async () => {
+        return await this.client.database.getAccounts(validUsernames);
+      });
+
+      const accountMap = new Map<string, ExtendedAccount>();
+      for (const account of accounts) {
+        accountMap.set(account.name, account as ExtendedAccount);
+      }
+
+      for (const username of usernames) {
+        results.set(username, accountMap.get(username) || null);
+      }
+
+      const elapsed = Math.round(performance.now() - startTime);
+      logger.info('[BATCH RPC] Batch accounts fetched in', elapsed, 'ms');
+
+    } catch (error) {
+      logger.error('[BATCH RPC] Failed to fetch batch accounts:', error);
+      usernames.forEach(u => results.set(u, null));
+    }
+
+    return results;
+  }
+
+  /**
+   * Get the current head block number for sync state tracking
+   */
+  async getHeadBlockNumber(): Promise<number> {
+    try {
+      const props = await this.retryWithBackoff(async () => {
+        return await this.client.database.getDynamicGlobalProperties();
+      });
+      return props.head_block_number;
+    } catch (error) {
+      logger.error('[RPC] Failed to get head block:', error);
+      throw error;
+    }
   }
 }
 

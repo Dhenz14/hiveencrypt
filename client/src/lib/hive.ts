@@ -334,18 +334,18 @@ export const requestDecodeMemo = async (
     return encryptedMemo;
   }
 
-  // TIER 2: Check memo cache first
+  // TIER 2: Check LRU memo cache first (fast in-memory lookup)
   if (txId && recursionDepth === 0) {
     try {
-      const { getCachedDecryptedMemo } = await import('@/lib/messageCache');
-      const cachedMemo = await getCachedDecryptedMemo(txId, username);
+      const { getCachedDecryptedMemo } = await import('@/lib/memoCache');
+      const cachedMemo = getCachedDecryptedMemo(encryptedMemo, txId);
       
       if (cachedMemo) {
-        logger.info('[MEMO CACHE HIT] Using cached decryption for txId:', txId.substring(0, 20));
+        logger.info('[MEMO CACHE HIT] Using LRU cached decryption for txId:', txId.substring(0, 20));
         return cachedMemo;
       }
     } catch (cacheError) {
-      logger.warn('[requestDecodeMemo] Failed to check memo cache:', cacheError);
+      logger.warn('[requestDecodeMemo] Failed to check LRU memo cache:', cacheError);
     }
   }
 
@@ -430,14 +430,14 @@ export const requestDecodeMemo = async (
         throw new Error('Message may be triple-encrypted or corrupted');
       }
       
-      // TIER 2: Cache the decrypted memo if we have a txId
+      // TIER 2: Cache the decrypted memo in LRU cache
       if (txId && recursionDepth === 0) {
         try {
-          const { cacheDecryptedMemo } = await import('@/lib/messageCache');
-          await cacheDecryptedMemo(txId, result, username);
-          logger.info('[MEMO CACHE] Cached decrypted memo for txId:', txId.substring(0, 20));
+          const { cacheDecryptedMemo } = await import('@/lib/memoCache');
+          cacheDecryptedMemo(encryptedMemo, txId, result);
+          logger.info('[MEMO CACHE] LRU cached decrypted memo for txId:', txId.substring(0, 20));
         } catch (cacheError) {
-          logger.warn('[requestDecodeMemo] Failed to cache decrypted memo:', cacheError);
+          logger.warn('[requestDecodeMemo] Failed to LRU cache decrypted memo:', cacheError);
         }
       }
       
