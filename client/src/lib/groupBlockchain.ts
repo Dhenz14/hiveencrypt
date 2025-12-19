@@ -1306,8 +1306,11 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
           continue;
         }
 
-        // Only include groups where user is a member
-        if (!jsonData.members?.includes(username)) {
+        // Only include groups where user is a member OR the creator
+        // CRITICAL: Also check creator because old groups may not have creator in members array
+        const isMember = jsonData.members?.includes(username);
+        const isCreator = jsonData.creator === username;
+        if (!isMember && !isCreator) {
           continue;
         }
 

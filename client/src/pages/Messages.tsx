@@ -86,11 +86,12 @@ const mapConversationCacheToConversation = (conv: ConversationCache): Conversati
 
 const mapGroupCacheToConversation = (group: GroupConversationCache): Conversation => ({
   id: group.groupId,
-  contactUsername: `👥 ${group.name}`,  // Just show group name cleanly
+  contactUsername: group.name,  // Just show group name cleanly (no emoji - handled in ConversationsList)
   lastMessage: group.lastMessage,
   lastMessageTime: group.lastTimestamp,
   unreadCount: group.unreadCount,
   isEncrypted: true,
+  isPaid: !!(group.paymentSettings && group.paymentSettings.amount && parseFloat(group.paymentSettings.amount) > 0),
 });
 
 export default function Messages() {

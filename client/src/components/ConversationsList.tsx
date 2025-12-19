@@ -1,4 +1,4 @@
-import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle, Clock, Loader2 } from 'lucide-react';
+import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle, Clock, Loader2, DollarSign } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -128,6 +128,20 @@ export function ConversationsList({
             )}>
               {isGroup ? conversation.contactUsername : `@${conversation.contactUsername}`}
             </span>
+            {isGroup && conversation.isPaid && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <DollarSign 
+                    className="w-3 h-3 text-green-500 flex-shrink-0" 
+                    data-testid={`icon-paid-${conversation.id}`}
+                    aria-label="Paid group"
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">Paid group</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
             {!isGroup && isException(conversation.contactUsername) && (
               <Tooltip>
                 <TooltipTrigger asChild>

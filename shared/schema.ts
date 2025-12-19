@@ -153,6 +153,7 @@ export interface Conversation {
   unreadCount: number;
   isEncrypted: boolean;
   publicKey?: string;
+  isPaid?: boolean;  // For paid groups - shows $ indicator
 }
 
 export interface Contact {
