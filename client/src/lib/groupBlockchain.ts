@@ -1333,6 +1333,7 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
           creator: jsonData.creator || username,
           createdAt: normalizeHiveTimestamp(jsonData.timestamp),
           version: jsonData.version || 1,
+          paymentSettings: jsonData.paymentSettings,  // Preserve payment settings for paid groups
         };
 
         groupMap.set(groupId, group);

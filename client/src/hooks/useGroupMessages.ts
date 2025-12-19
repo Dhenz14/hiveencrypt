@@ -470,6 +470,7 @@ export function useGroupDiscovery() {
             lastTimestamp: existing?.lastTimestamp || blockchainGroup.createdAt,
             unreadCount: existing?.unreadCount || 0,
             lastChecked: existing?.lastChecked || new Date().toISOString(),
+            paymentSettings: blockchainGroup.paymentSettings || existing?.paymentSettings,  // Preserve payment settings
           };
 
           groupMap.set(blockchainGroup.groupId, groupCache);

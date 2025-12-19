@@ -225,6 +225,7 @@ export interface Group {
   version: number;                    // Increments on membership changes
   lastMessage?: string;               // Preview of last group message
   lastMessageTime?: string;           // Timestamp of last message
+  paymentSettings?: PaymentSettings;  // Payment configuration for paid groups
 }
 
 export interface GroupMessage {
