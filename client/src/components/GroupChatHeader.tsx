@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck, DollarSign, Globe, TrendingUp } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck, DollarSign, Globe, TrendingUp, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -34,6 +34,8 @@ interface GroupChatHeaderProps {
   onMakePublic?: () => void;
   onViewEarnings?: () => void;
   isCreator?: boolean;
+  isPublished?: boolean;
+  publishedPermlink?: string;
 }
 
 export function GroupChatHeader({ 
@@ -49,7 +51,9 @@ export function GroupChatHeader({
   onLeaveGroup,
   onMakePublic,
   onViewEarnings,
-  isCreator
+  isCreator,
+  isPublished,
+  publishedPermlink
 }: GroupChatHeaderProps) {
   const { user } = useAuth();
   
@@ -220,13 +224,22 @@ export function GroupChatHeader({
                 Manage Members
               </DropdownMenuItem>
             )}
-            {isCreator && onMakePublic && (
+            {isCreator && !isPublished && onMakePublic && (
               <DropdownMenuItem 
                 onClick={onMakePublic} 
                 data-testid="menu-make-public"
               >
                 <Globe className="w-4 h-4 mr-2" />
                 Make Public
+              </DropdownMenuItem>
+            )}
+            {isCreator && isPublished && publishedPermlink && creator && (
+              <DropdownMenuItem 
+                onClick={() => window.open(`https://ecency.com/@${creator}/${publishedPermlink}`, '_blank')}
+                data-testid="menu-view-public-post"
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View Public Post
               </DropdownMenuItem>
             )}
             {isCreator && paymentSettings?.enabled && onViewEarnings && (

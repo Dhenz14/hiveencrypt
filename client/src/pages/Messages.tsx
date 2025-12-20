@@ -47,7 +47,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useHiddenConversations } from '@/contexts/HiddenConversationsContext';
 import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shared/schema';
 import { useToast } from '@/hooks/use-toast';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient, useQuery } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
 import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
 import { useAutoApproveJoinRequests } from '@/hooks/useAutoApproveJoinRequests';
@@ -57,6 +57,7 @@ import type { MessageCache, ConversationCache, GroupConversationCache, PendingGr
 import type { PaymentSettings } from '@shared/schema';
 import { generateGroupId, broadcastGroupCreation, broadcastGroupUpdate, broadcastLeaveGroup } from '@/lib/groupBlockchain';
 import { setCustomGroupName } from '@/lib/customGroupNames';
+import { isGroupPublished } from '@/lib/groupDiscovery';
 import { useMobileLayout } from '@/hooks/useMobileLayout';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/logger';
@@ -289,6 +290,19 @@ export default function Messages() {
       : undefined;
   
   const selectedGroup = selectedGroupId ? groupCaches.find(g => g.groupId === selectedGroupId) : undefined;
+  
+  // Check if the selected group is published (for showing "View Public Post" vs "Make Public")
+  const { data: publishStatus } = useQuery({
+    queryKey: ['group-publish-status', selectedGroupId, selectedGroup?.creator],
+    queryFn: async () => {
+      if (!selectedGroupId || !selectedGroup?.creator) {
+        return { published: false, permlink: undefined };
+      }
+      return await isGroupPublished(selectedGroup.creator, selectedGroupId);
+    },
+    enabled: !!selectedGroupId && !!selectedGroup?.creator,
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+  });
   
   // Map messages based on type (group or direct) - memoized to prevent infinite renders
   const currentMessages = useMemo<Message[]>(() => 
@@ -1122,6 +1136,8 @@ export default function Messages() {
               onMakePublic={handleMakePublic}
               onViewEarnings={handleViewEarnings}
               isCreator={selectedGroup.creator === user?.username}
+              isPublished={publishStatus?.published}
+              publishedPermlink={publishStatus?.permlink}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
           ) : (
