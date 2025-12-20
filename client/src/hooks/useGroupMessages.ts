@@ -54,19 +54,19 @@ async function processTransferOperation(
 ): Promise<GroupMessageCache | null> {
   try {
     // Validate operation structure before accessing properties
-    if (!operation || !operation[1] || !operation[1].op) {
+    if (!operation || !operation.op) {
       logger.debug('[GROUP MESSAGES] ⚠️ Invalid operation structure, skipping');
       return null;
     }
     
-    const op = operation[1].op;
+    const op = operation.op;
     
     // Only process incoming transfers
     if (op[0] !== 'transfer') return null;
     
     const transfer = op[1];
     const memo = transfer.memo;
-    const txId = operation[1].trx_id;
+    const txId = operation.trx_id;
     
     // Skip if already cached
     if (seenTxIds.has(txId)) {
@@ -127,7 +127,7 @@ async function processTransferOperation(
       creator: parsed.creator, // Store creator for group discovery
       content: parsed.content || '',
       encryptedContent: memo,
-      timestamp: operation[1].timestamp + 'Z', // Normalize to UTC
+      timestamp: operation.timestamp + 'Z', // Normalize to UTC
       recipients: [username], // This user received it
       txIds: [txId],
       confirmed: true,
@@ -231,12 +231,12 @@ export function useGroupMessagePreSync() {
               continue;
             }
             
-            const op = operation[1].op;
+            const op = operation.op;
             if (!op || op[0] !== 'transfer') continue;
             
             transfer = op[1];
             memo = transfer.memo;
-            txId = operation[1].trx_id;
+            txId = operation.trx_id;
             
             // Skip if already processed
             if (seenTxIds.has(txId)) continue;
@@ -272,7 +272,7 @@ export function useGroupMessagePreSync() {
               creator: parsed.creator,
               content: parsed.content || '',
               encryptedContent: memo,
-              timestamp: operation[1].timestamp + 'Z',
+              timestamp: operation.timestamp + 'Z',
               recipients: [user.username],
               txIds: [txId],
               confirmed: true,

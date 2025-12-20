@@ -585,9 +585,9 @@ export async function discoverGroupMemberPayments(
     
     for (const [, operation] of customJsonHistory) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) continue;
+        if (!operation || !operation.op) continue;
         
-        const op = operation[1].op;
+        const op = operation.op;
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) continue;
         
         const jsonData = JSON.parse(op[1].json);
@@ -735,8 +735,8 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
       for (const [seqNum, operation] of transfers) {
         // Wrap EACH transfer in individual try-catch
         try {
-          if (!operation || !operation[1] || !operation[1].op) continue;
-          const op = operation[1].op;
+          if (!operation || !operation.op) continue;
+          const op = operation.op;
           
           if (op[0] !== 'transfer') continue;
           
@@ -1052,8 +1052,8 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
         let foundInChunk = false;
         for (const [, operation] of olderHistory) {
           try {
-            if (!operation || !operation[1] || !operation[1].op) continue;
-            const op = operation[1].op;
+            if (!operation || !operation.op) continue;
+            const op = operation.op;
             if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) continue;
             const jsonData: GroupCustomJson = JSON.parse(op[1].json);
             if (jsonData.groupId === groupId && jsonData.action !== 'leave') {
@@ -1084,11 +1084,11 @@ export async function lookupGroupMetadata(groupId: string, knownMember: string):
 
     for (const [, operation] of allOps) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation || !operation.op) {
           continue;
         }
         
-        const op = operation[1].op;
+        const op = operation.op;
         
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
           continue;
@@ -1403,11 +1403,11 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     for (const [, operation] of allCustomJsonOps) {
       try {
         // Safely access operation data with null check
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation || !operation.op) {
           continue;
         }
         
-        const op = operation[1].op;
+        const op = operation.op;
         
         // Ensure it's a custom_json operation with our ID
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
@@ -1487,8 +1487,8 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
     // Collect senders from Stage 1
     for (const [, operation] of transferHistory) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) continue;
-        const op = operation[1].op;
+        if (!operation || !operation.op) continue;
+        const op = operation.op;
         if (op[0] !== 'transfer') continue;
         
         totalTransfers++;
@@ -1532,8 +1532,8 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
 
         for (const [, operation] of transferHistory) {
           try {
-            if (!operation || !operation[1] || !operation[1].op) continue;
-            const op = operation[1].op;
+            if (!operation || !operation.op) continue;
+            const op = operation.op;
             if (op[0] !== 'transfer') continue;
             
             stage2TotalTransfers++;
@@ -1649,11 +1649,11 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
           // Process all fetched operations
           for (const [, operation] of allSenderOps) {
             try {
-              if (!operation || !operation[1] || !operation[1].op) {
+              if (!operation || !operation.op) {
                 continue;
               }
               
-              const op = operation[1].op;
+              const op = operation.op;
               
               if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
                 continue;
@@ -1825,11 +1825,11 @@ export async function discoverUserGroups(username: string): Promise<Group[]> {
           // Process all operations
           for (const [, operation] of allMemberOps) {
             try {
-              if (!operation || !operation[1] || !operation[1].op) {
+              if (!operation || !operation.op) {
                 continue;
               }
               
-              const op = operation[1].op;
+              const op = operation.op;
               
               if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
                 continue;

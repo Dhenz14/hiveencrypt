@@ -39,12 +39,12 @@ export async function debugCuratorhulk() {
     const encryptedMemos = [];
     
     for (const [, operation] of history) {
-      const op = operation[1].op;
+      const op = operation.op;
       if (op[0] !== 'transfer') continue;
       
       const transfer = op[1];
       const memo = transfer.memo;
-      const txId = operation[1].trx_id;
+      const txId = operation.trx_id;
       
       // Check if incoming
       if (transfer.to === username) {

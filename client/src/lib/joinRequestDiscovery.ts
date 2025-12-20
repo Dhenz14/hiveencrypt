@@ -39,11 +39,11 @@ export async function scanPendingJoinRequests(
     // First pass: Find all approved/rejected requests for this group
     for (const [, operation] of history) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation || !operation.op) {
           continue;
         }
 
-        const op = operation[1].op;
+        const op = operation.op;
 
         // Ensure it's a custom_json operation with our ID
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
@@ -75,11 +75,11 @@ export async function scanPendingJoinRequests(
     // Second pass: Find pending join_request operations for this group
     for (const [, operation] of history) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation.op) {
           continue;
         }
 
-        const op = operation[1].op;
+        const op = operation.op;
 
         // Ensure it's a custom_json operation with our ID
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
@@ -111,10 +111,10 @@ export async function scanPendingJoinRequests(
         const joinRequest: JoinRequest = {
           requestId: jsonData.requestId,
           username: jsonData.username,
-          requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation[1].timestamp),
+          requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation.timestamp),
           status, // Use actual status from blockchain (not hardcoded 'pending')
           message: jsonData.message,
-          txId: operation[1].trx_id,
+          txId: operation.trx_id,
         };
 
         pendingRequests.push(joinRequest);
@@ -186,11 +186,11 @@ export async function scanGroupJoinRequests(
     // First pass: Find all join_approve and join_reject operations for this group
     for (const [, operation] of history) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation.op) {
           continue;
         }
 
-        const op = operation[1].op;
+        const op = operation.op;
 
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
           continue;
@@ -220,11 +220,11 @@ export async function scanGroupJoinRequests(
     // In a production system, you'd want to maintain an index of pending requests
     for (const [, operation] of history) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation.op) {
           continue;
         }
 
-        const op = operation[1].op;
+        const op = operation.op;
 
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
           continue;
@@ -257,10 +257,10 @@ export async function scanGroupJoinRequests(
         const joinRequest: JoinRequest = {
           requestId: jsonData.requestId,
           username: jsonData.username,
-          requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation[1].timestamp),
+          requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation.timestamp),
           status, // Use actual status from blockchain (not hardcoded 'pending')
           message: jsonData.message,
-          txId: operation[1].trx_id,
+          txId: operation.trx_id,
           // Only include memberPayment if it exists in the blockchain data
           ...(jsonData.memberPayment && { memberPayment: jsonData.memberPayment })
         };
@@ -345,11 +345,11 @@ export async function scanAutoApprovalRequests(
     // First pass: Find all join_approve operations to avoid duplicate approvals
     for (const [, operation] of history) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation.op) {
           continue;
         }
 
-        const op = operation[1].op;
+        const op = operation.op;
 
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
           continue;
@@ -371,11 +371,11 @@ export async function scanAutoApprovalRequests(
     // Second pass: Find join_request operations with auto-approval statuses
     for (const [, operation] of history) {
       try {
-        if (!operation || !operation[1] || !operation[1].op) {
+        if (!operation.op) {
           continue;
         }
 
-        const op = operation[1].op;
+        const op = operation.op;
 
         if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) {
           continue;
@@ -402,10 +402,10 @@ export async function scanAutoApprovalRequests(
         const joinRequest: JoinRequest = {
           requestId: jsonData.requestId,
           username: jsonData.username,
-          requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation[1].timestamp),
+          requestedAt: normalizeHiveTimestamp(jsonData.timestamp || operation.timestamp),
           status: jsonData.status,
           message: jsonData.message,
-          txId: operation[1].trx_id,
+          txId: operation.trx_id,
           // Only include memberPayment if it exists in the blockchain data
           ...(jsonData.memberPayment && { memberPayment: jsonData.memberPayment })
         };
