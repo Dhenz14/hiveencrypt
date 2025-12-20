@@ -15,6 +15,7 @@ import {
   discoverUserGroups, 
   parseGroupMessageMemo, 
   setGroupNegativeCache,
+  discoverGroupMemberPayments,
   MAX_DEEP_BACKFILL_OPS,
   BACKFILL_CHUNK_SIZE 
 } from '@/lib/groupBlockchain';
@@ -459,6 +460,27 @@ export function useGroupDiscovery() {
           
           // ALWAYS overwrite with blockchain/fallback data (with custom names)
           // This ensures custom name updates replace stale cached entries
+          
+          // Discover member payments if user is creator and payments are enabled
+          let memberPayments = existing?.memberPayments || [];
+          const isCreator = blockchainGroup.creator === user.username;
+          const hasPaymentSettings = blockchainGroup.paymentSettings?.enabled;
+          
+          if (isCreator && hasPaymentSettings) {
+            try {
+              const discoveredPayments = await discoverGroupMemberPayments(
+                user.username,
+                blockchainGroup.groupId
+              );
+              if (discoveredPayments.length > 0) {
+                memberPayments = discoveredPayments;
+                logger.info('[GROUP DISCOVERY] 💰 Found', discoveredPayments.length, 'member payments for group:', displayName);
+              }
+            } catch (paymentError) {
+              logger.warn('[GROUP DISCOVERY] Failed to discover member payments:', paymentError);
+            }
+          }
+          
           const groupCache: GroupConversationCache = {
             groupId: blockchainGroup.groupId,
             name: displayName,  // Use custom name if set, otherwise use blockchain name
@@ -471,6 +493,7 @@ export function useGroupDiscovery() {
             unreadCount: existing?.unreadCount || 0,
             lastChecked: existing?.lastChecked || new Date().toISOString(),
             paymentSettings: blockchainGroup.paymentSettings || existing?.paymentSettings,  // Preserve payment settings
+            memberPayments,  // Include discovered member payments
           };
 
           groupMap.set(blockchainGroup.groupId, groupCache);

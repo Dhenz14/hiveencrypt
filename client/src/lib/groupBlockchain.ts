@@ -561,6 +561,72 @@ export async function broadcastJoinReject(
   });
 }
 
+/**
+ * Discovers memberPayments for a group by scanning join_approve operations
+ * This is called when loading group data for the creator to populate earnings
+ */
+export async function discoverGroupMemberPayments(
+  creatorUsername: string,
+  groupId: string
+): Promise<MemberPayment[]> {
+  logger.info('[GROUP BLOCKCHAIN] Discovering member payments for group:', groupId);
+  
+  const payments: MemberPayment[] = [];
+  const seenPayments = new Set<string>(); // Prevent duplicates by txId
+  
+  try {
+    // Scan creator's custom_json history for join_approve operations
+    const customJsonHistory = await optimizedHiveClient.getAccountHistory(
+      creatorUsername,
+      1000, // Scan last 1000 operations
+      'custom_json',
+      -1
+    );
+    
+    for (const [, operation] of customJsonHistory) {
+      try {
+        if (!operation || !operation[1] || !operation[1].op) continue;
+        
+        const op = operation[1].op;
+        if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) continue;
+        
+        const jsonData = JSON.parse(op[1].json);
+        
+        // Only process join_approve operations for this specific group
+        if (jsonData.action !== 'join_approve' || jsonData.groupId !== groupId) continue;
+        
+        // Extract memberPayments from the operation
+        if (jsonData.memberPayments && Array.isArray(jsonData.memberPayments)) {
+          for (const payment of jsonData.memberPayments) {
+            // Validate payment structure
+            if (payment.username && payment.txId && payment.amount && !seenPayments.has(payment.txId)) {
+              seenPayments.add(payment.txId);
+              payments.push({
+                username: payment.username,
+                txId: payment.txId,
+                amount: payment.amount,
+                paidAt: payment.paidAt || jsonData.timestamp || new Date().toISOString(),
+                nextDueDate: payment.nextDueDate,
+                status: payment.status || 'active',
+              });
+            }
+          }
+        }
+      } catch (parseError) {
+        // Skip malformed operations
+        continue;
+      }
+    }
+    
+    logger.info('[GROUP BLOCKCHAIN] Discovered', payments.length, 'member payments for group:', groupId);
+    return payments;
+    
+  } catch (error) {
+    logger.error('[GROUP BLOCKCHAIN] Failed to discover member payments:', error);
+    return [];
+  }
+}
+
 // In-memory caches for group metadata lookups to prevent repeated expensive RPC calls
 // Sender-level cache: `${groupId}:${knownMember}` → group metadata
 const metadataCache = new Map<string, { group: Group | null; timestamp: number }>();
