@@ -1,0 +1,53 @@
+sw.js:171 [ServiceWorker] Loaded version: v14
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:99 [PWA] Service Worker registered: https://dhenz14.github.io/hiveencrypt/
+hiveencrypt/#/:1 Error while trying to use the following icon from the Manifest: https://dhenz14.github.io/hiveencrypt/favicon.png (Resource size is not correct - typo in the Manifest?)
+index-BVON7Ue2.js:774 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-BVON7Ue2.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-BVON7Ue2.js:774 [ExceptionsContext] Loaded exceptions: Array(0)
+index-BVON7Ue2.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+index-BVON7Ue2.js:774 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-BVON7Ue2.js:774 [ExceptionsContext] Saved exceptions: Array(0)
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+anyx.io/:1  Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+index-BVON7Ue2.js:774 [GROUP DISCOVERY] All RPC nodes failed for publish check - assuming not published
+error @ index-BVON7Ue2.js:774
+hiveencrypt/#/:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+hiveencrypt/#/:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+hiveencrypt/#/:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+index-BVON7Ue2.js:774 [decryptMemo] ❌ ERROR: User cancelled decryption
+error @ index-BVON7Ue2.js:774
+index-BVON7Ue2.js:774 [decryptMemo] Error for memo: #XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa... otherParty: dandandan123
+error @ index-BVON7Ue2.js:774
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+hive-api.arcange.eu/:1  Failed to load resource: net::ERR_CONNECTION_TIMED_OUT
+index-BVON7Ue2.js:774 [decryptMemo] ❌ ERROR: User cancelled decryption
+error @ index-BVON7Ue2.js:774
+decryptMemo @ index-BVON7Ue2.js:774
+await in decryptMemo
+processTransferOperation @ index-BVON7Ue2.js:891
+queryFn @ index-BVON7Ue2.js:891
+await in queryFn
+b @ index-BVON7Ue2.js:53
+st @ index-BVON7Ue2.js:53
+start @ index-BVON7Ue2.js:53
+fetch @ index-BVON7Ue2.js:53
+rs @ index-BVON7Ue2.js:53
+(anonymous) @ index-BVON7Ue2.js:53
+index-BVON7Ue2.js:774 [decryptMemo] Error for memo: #XuWZkKTWPqnRAGoJnLa8idrtZNc24g4eMd6PRHa... otherParty: dandandan123
+error @ index-BVON7Ue2.js:774
+decryptMemo @ index-BVON7Ue2.js:774
+await in decryptMemo
+processTransferOperation @ index-BVON7Ue2.js:891
+queryFn @ index-BVON7Ue2.js:891
+await in queryFn
+b @ index-BVON7Ue2.js:53
+st @ index-BVON7Ue2.js:53
+start @ index-BVON7Ue2.js:53
+fetch @ index-BVON7Ue2.js:53
+rs @ index-BVON7Ue2.js:53
+(anonymous) @ index-BVON7Ue2.js:53

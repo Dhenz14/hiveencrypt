@@ -44,13 +44,18 @@ function checkCancellation(signal: AbortSignal, context: string) {
 /**
  * Helper function to process a single transfer operation
  * Returns GroupMessageCache if valid group message, null otherwise
+ * 
+ * @param groupMembers - Optional list of known group members. If provided,
+ *                       only decrypt memos from these members to avoid
+ *                       triggering Keychain prompts for non-group messages.
  */
 async function processTransferOperation(
   operation: any,
   index: number,
   groupId: string,
   username: string,
-  seenTxIds: Set<string>
+  seenTxIds: Set<string>,
+  groupMembers?: string[]
 ): Promise<GroupMessageCache | null> {
   try {
     // Validate operation structure before accessing properties
@@ -78,6 +83,17 @@ async function processTransferOperation(
     if (transfer.to !== username || !memo || !memo.startsWith('#')) {
       logger.debug('[GROUP MESSAGES] Skipping non-encrypted transfer from:', transfer.from);
       return null;
+    }
+
+    // OPTIMIZATION: If group members are known, only decrypt memos from group members
+    // This prevents triggering Keychain prompts for regular 1:1 messages
+    if (groupMembers && groupMembers.length > 0) {
+      const senderLower = transfer.from.toLowerCase();
+      const isMember = groupMembers.some(m => m.toLowerCase() === senderLower);
+      if (!isMember) {
+        logger.debug('[GROUP MESSAGES] Skipping - sender not in group members:', transfer.from);
+        return null;
+      }
     }
 
     logger.info('[GROUP MESSAGES] 🔐 Attempting to decrypt memo from:', transfer.from, 'txId:', txId.substring(0, 8));
@@ -584,8 +600,13 @@ export function useGroupDiscovery() {
  * Scans blockchain for incoming transfers with group: prefix
  * Now supports pagination to prevent message loss for active users
  * Supports query cancellation via signal to prevent stale state
+ * 
+ * @param groupId - Group identifier
+ * @param groupMembers - Optional list of group members. If provided, only memos from
+ *                       these members will be decrypted, preventing Keychain spam
+ *                       from unrelated 1:1 messages.
  */
-export function useGroupMessages(groupId?: string) {
+export function useGroupMessages(groupId?: string, groupMembers?: string[]) {
   const { user } = useAuth();
   const { toast } = useToast();
 
@@ -656,7 +677,8 @@ export function useGroupMessages(groupId?: string) {
               index,
               groupId,
               user.username,
-              seenTxIds
+              seenTxIds,
+              groupMembers
             );
             
             if (messageCache) {
@@ -797,7 +819,8 @@ export function useGroupMessages(groupId?: string) {
                     index,
                     groupId,
                     user.username,
-                    seenTxIds
+                    seenTxIds,
+                    groupMembers
                   );
                   
                   if (message) {
@@ -1007,7 +1030,8 @@ export function useGroupMessages(groupId?: string) {
                   index,
                   groupId,
                   user.username,
-                  seenTxIds
+                  seenTxIds,
+                  groupMembers
                 );
                 
                 if (messageCache) {

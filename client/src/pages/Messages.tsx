@@ -188,7 +188,14 @@ export default function Messages() {
   });
   
   // Group messages (when a group is selected)
-  const { data: groupMessageCaches = [], isLoading: isLoadingGroupMessages, isFetching: isFetchingGroupMessages } = useGroupMessages(selectedGroupId);
+  // Get group members from cache early to filter which memos to decrypt (prevents Keychain spam)
+  const selectedGroupMembers = useMemo(() => {
+    if (!selectedGroupId) return undefined;
+    const group = groupCaches.find(g => g.groupId === selectedGroupId);
+    return group?.members;
+  }, [selectedGroupId, groupCaches]);
+  
+  const { data: groupMessageCaches = [], isLoading: isLoadingGroupMessages, isFetching: isFetchingGroupMessages } = useGroupMessages(selectedGroupId, selectedGroupMembers);
   
   // Extract messages and hiddenCount from new shape
   const messageCaches = messageData?.messages || [];
