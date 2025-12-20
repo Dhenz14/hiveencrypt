@@ -160,26 +160,17 @@ export default function Messages() {
   // Group discovery now works directly from blockchain metadata - no pre-sync needed!
   const { data: groupCaches = [], isLoading: isLoadingGroups, isFetching: isFetchingGroups } = useGroupDiscovery();
   
-  // SECURITY FIX: Auto-approve join requests for groups where current user is creator
-  // Get list of groups where current user is creator
-  const creatorGroups = useMemo(() => {
+  // SECURITY FIX: Auto-approve join requests for ALL groups where current user is creator
+  // Build array of { groupId, creator } for all creator-owned groups
+  const creatorGroupsInfo = useMemo(() => {
     if (!user?.username) return [];
-    return groupCaches.filter(group => group.creator === user.username);
+    return groupCaches
+      .filter(group => group.creator === user.username)
+      .map(group => ({ groupId: group.groupId, creator: group.creator }));
   }, [user?.username, groupCaches]);
   
-  // Enable auto-approval for all creator-owned groups
-  // We pass the first group (or empty string) and rely on the hook to handle all groups
-  // Note: In a production app, you'd want to refactor this to handle multiple groups better
-  // For now, we'll call the hook for the first creator group as a proof of concept
-  useAutoApproveJoinRequests(
-    creatorGroups[0]?.groupId || '',
-    creatorGroups[0]?.creator || '',
-    creatorGroups.length > 0,
-    creatorGroups.length > 0
-  );
-  
-  // TODO: For multiple creator-owned groups, we should refactor the hook to accept an array
-  // For now, this handles at least one group as a security fix
+  // OPTIMIZED: Now handles ALL creator-owned groups with optimistic member updates
+  useAutoApproveJoinRequests(creatorGroupsInfo, creatorGroupsInfo.length > 0);
   
   // PHASE 4.1: Hook now returns { messages, hiddenCount }
   const { data: messageData, isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({

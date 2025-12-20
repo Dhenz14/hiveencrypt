@@ -1,12 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { scanAutoApprovalRequests } from '@/lib/joinRequestDiscovery';
 import { broadcastJoinApprove } from '@/lib/groupBlockchain';
+import { cacheGroupConversation, getGroupConversations, type GroupConversationCache } from '@/lib/messageCache';
 import { verifyPayment } from '@/lib/paymentVerification';
 import { useToast } from '@/hooks/use-toast';
 import { logger } from '@/lib/logger';
-import type { JoinRequest } from '@shared/schema';
+import type { JoinRequest, MemberPayment } from '@shared/schema';
+
+interface GroupInfo {
+  groupId: string;
+  creator: string;
+}
 
 /**
  * SECURITY FIX: Background hook for group creators to auto-approve join requests
@@ -14,17 +20,15 @@ import type { JoinRequest } from '@shared/schema';
  * - status='approved_free' (free auto-approve groups)
  * - status='pending_payment_verification' (paid auto-approve groups, after payment verification)
  * 
+ * OPTIMIZED: Now handles ALL creator-owned groups in a single hook instance
+ * 
  * This ensures requesters can NEVER approve themselves - only creators can approve.
  * 
- * @param groupId - Group identifier
- * @param creatorUsername - Username of the group creator
- * @param isCreator - Whether current user is the creator (hook only runs if true)
+ * @param groups - Array of groups owned by the current user
  * @param enabled - Whether to enable auto-approval (default: true)
  */
 export function useAutoApproveJoinRequests(
-  groupId: string,
-  creatorUsername: string,
-  isCreator: boolean,
+  groups: GroupInfo[],
   enabled: boolean = true
 ) {
   const { user } = useAuth();
@@ -33,14 +37,65 @@ export function useAutoApproveJoinRequests(
   const processedRequestIds = useRef(new Set<string>());
   const isProcessing = useRef(false);
 
+  // Add new member to local cache after successful approval
+  const addMemberToCache = useCallback(async (
+    groupId: string,
+    newMemberUsername: string,
+    memberPayment?: MemberPayment
+  ) => {
+    if (!user?.username) return;
+
+    try {
+      // Get current cached groups
+      const cachedGroups = await getGroupConversations(user.username);
+      const group = cachedGroups.find((g: GroupConversationCache) => g.groupId === groupId);
+      
+      if (group) {
+        // Add new member to the members array if not already present
+        const memberLower = newMemberUsername.toLowerCase();
+        const alreadyMember = group.members.some((m: string) => m.toLowerCase() === memberLower);
+        
+        const updatedMembers = alreadyMember 
+          ? group.members 
+          : [...group.members, newMemberUsername];
+        
+        // Add payment to memberPayments if present (dedupe by txId to prevent duplicates)
+        let updatedPayments = group.memberPayments || [];
+        if (memberPayment && memberPayment.txId) {
+          const alreadyHasPayment = updatedPayments.some(p => p.txId === memberPayment.txId);
+          if (!alreadyHasPayment) {
+            updatedPayments = [...updatedPayments, memberPayment];
+          }
+        }
+        
+        // Update cache with new member
+        await cacheGroupConversation({
+          ...group,
+          members: updatedMembers,
+          memberPayments: updatedPayments,
+        }, user.username);
+        
+        if (!alreadyMember) {
+          logger.info('[AUTO APPROVE] ✅ Added member to cache:', newMemberUsername);
+        }
+      }
+    } catch (error) {
+      logger.warn('[AUTO APPROVE] Failed to add member to cache:', error);
+    }
+  }, [user?.username]);
+
   // Mutation for auto-approving join requests
   const autoApproveMutation = useMutation({
-    mutationFn: async (request: JoinRequest) => {
-      if (!user?.username || !isCreator) {
-        throw new Error('Only group creator can approve join requests');
+    mutationFn: async ({ request, groupId, creatorUsername }: { 
+      request: JoinRequest; 
+      groupId: string; 
+      creatorUsername: string;
+    }) => {
+      if (!user?.username) {
+        throw new Error('User not authenticated');
       }
 
-      logger.info('[AUTO APPROVE] Processing request:', request.requestId, 'status:', request.status);
+      logger.info('[AUTO APPROVE] Processing request:', request.requestId, 'status:', request.status, 'for group:', groupId);
 
       // For pending_payment_verification, verify payment on blockchain first
       if (request.status === 'pending_payment_verification' && request.memberPayment) {
@@ -74,11 +129,15 @@ export function useAutoApproveJoinRequests(
         request.memberPayment // Include payment proof if present
       );
 
-      return { txId, request };
+      return { txId, request, groupId };
     },
-    onSuccess: ({ request }) => {
+    onSuccess: async ({ request, groupId }) => {
       // Mark request as processed to avoid duplicate approvals
       processedRequestIds.current.add(request.requestId);
+
+      // Add member to local cache immediately after successful approval
+      // This prevents the "new member message not visible" issue
+      await addMemberToCache(groupId, request.username, request.memberPayment);
 
       // Invalidate queries to refresh UI
       queryClient.invalidateQueries({ queryKey: ['groupDiscovery'] });
@@ -86,7 +145,7 @@ export function useAutoApproveJoinRequests(
       queryClient.invalidateQueries({ queryKey: ['joinRequests', groupId] });
       queryClient.invalidateQueries({ queryKey: ['userPendingRequests', groupId] });
 
-      logger.info('[AUTO APPROVE] ✅ Auto-approved join request:', request.requestId);
+      logger.info('[AUTO APPROVE] ✅ Auto-approved join request:', request.requestId, 'for group:', groupId);
 
       // Show success toast
       toast({
@@ -94,7 +153,7 @@ export function useAutoApproveJoinRequests(
         description: `@${request.username} has been added to the group${request.memberPayment ? ' (payment verified)' : ''}`,
       });
     },
-    onError: (error: Error, request) => {
+    onError: (error: Error, { request }) => {
       logger.error('[AUTO APPROVE] ❌ Failed to auto-approve request:', error);
 
       // Don't show toast for verification failures (silent fail to avoid spam)
@@ -109,9 +168,9 @@ export function useAutoApproveJoinRequests(
     },
   });
 
-  // Background polling effect - runs every 30 seconds
+  // Background polling effect - runs every 30 seconds for ALL creator groups
   useEffect(() => {
-    if (!enabled || !isCreator || !user?.username || !groupId) {
+    if (!enabled || !user?.username || groups.length === 0) {
       return;
     }
 
@@ -124,24 +183,52 @@ export function useAutoApproveJoinRequests(
       isProcessing.current = true;
 
       try {
-        // Scan for requests needing auto-approval
-        const requests = await scanAutoApprovalRequests(groupId, creatorUsername);
+        // Collect all requests from all groups first
+        const allPendingRequests: Array<{ request: JoinRequest; groupId: string; creatorUsername: string }> = [];
+        
+        // Scan ALL creator-owned groups for pending auto-approval requests
+        for (const { groupId, creator } of groups) {
+          // Verify current user is the creator (security check)
+          if (creator !== user.username) {
+            continue;
+          }
 
-        // Filter out already processed requests
-        const unprocessedRequests = requests.filter(
-          req => !processedRequestIds.current.has(req.requestId)
-        );
+          try {
+            // Scan for requests needing auto-approval for this group
+            const requests = await scanAutoApprovalRequests(groupId, creator);
 
-        if (unprocessedRequests.length > 0) {
-          logger.info('[AUTO APPROVE] Found', unprocessedRequests.length, 'unprocessed auto-approval requests');
+            // Filter out already processed requests
+            const unprocessedRequests = requests.filter(
+              req => !processedRequestIds.current.has(req.requestId)
+            );
 
-          // Process requests one at a time (FIFO order, already sorted)
-          for (const request of unprocessedRequests) {
-            // Only auto-approve if not already processing this request
-            if (!autoApproveMutation.isPending) {
-              autoApproveMutation.mutate(request);
-              // Wait a bit between approvals to avoid rate limiting
-              await new Promise(resolve => setTimeout(resolve, 1000));
+            // Add to collection
+            for (const request of unprocessedRequests) {
+              allPendingRequests.push({ request, groupId, creatorUsername: creator });
+            }
+          } catch (groupError) {
+            logger.error('[AUTO APPROVE] Error scanning group:', groupId, groupError);
+          }
+        }
+        
+        // Process all collected requests sequentially
+        if (allPendingRequests.length > 0) {
+          logger.info('[AUTO APPROVE] Processing', allPendingRequests.length, 'total requests across all groups');
+          
+          for (const { request, groupId, creatorUsername } of allPendingRequests) {
+            // Skip if already processed (double-check)
+            if (processedRequestIds.current.has(request.requestId)) {
+              continue;
+            }
+            
+            try {
+              // Use mutateAsync to properly await each approval
+              await autoApproveMutation.mutateAsync({ request, groupId, creatorUsername });
+              // Wait between approvals to avoid rate limiting
+              await new Promise(resolve => setTimeout(resolve, 1500));
+            } catch (approvalError) {
+              // Log error but continue processing other requests
+              logger.error('[AUTO APPROVE] Error processing request:', request.requestId, approvalError);
             }
           }
         }
@@ -161,9 +248,20 @@ export function useAutoApproveJoinRequests(
     return () => {
       clearInterval(intervalId);
     };
-  }, [enabled, isCreator, user?.username, groupId, creatorUsername]);
+  }, [enabled, user?.username, groups, autoApproveMutation]);
 
   return {
     isProcessing: autoApproveMutation.isPending,
   };
+}
+
+// Legacy single-group version for backward compatibility (deprecated)
+export function useAutoApproveJoinRequestsSingle(
+  groupId: string,
+  creatorUsername: string,
+  isCreator: boolean,
+  enabled: boolean = true
+) {
+  const groups = isCreator && groupId ? [{ groupId, creator: creatorUsername }] : [];
+  return useAutoApproveJoinRequests(groups, enabled);
 }

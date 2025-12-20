@@ -29,7 +29,9 @@ import { useJoinRequests } from '@/hooks/useJoinRequests';
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { broadcastJoinApprove, broadcastJoinReject } from '@/lib/groupBlockchain';
+import { cacheGroupConversation, getGroupConversations, type GroupConversationCache } from '@/lib/messageCache';
 import { formatDistanceToNow } from 'date-fns';
+import { logger } from '@/lib/logger';
 
 interface ManageMembersModalProps {
   open: boolean;
@@ -144,7 +146,8 @@ export function ManageMembersModal({
     },
     onSuccess: async ({ request, memberPayment }) => {
       const requiresPayment = paymentSettings?.enabled;
-      const hasPaymentProof = !!memberPayment || !!request.memberPayment;
+      const paymentProof = memberPayment || request.memberPayment;
+      const hasPaymentProof = !!paymentProof;
       const isManuallyVerified = manuallyVerifiedRequests.has(request.requestId);
       
       // Only skip UI updates if we're waiting for payment modal
@@ -154,11 +157,44 @@ export function ManageMembersModal({
         return;
       }
       
-      // Update UI for:
-      // 1. Auto-approve paid (has payment proof)
-      // 2. Manual verification (creator confirmed)
-      // 3. Free requests (no payment required)
-      // 4. Manual approval after payment modal completes
+      // Update the cache with new member and payment after successful approval
+      // This prevents the "new member message not visible" issue
+      if (currentUsername) {
+        try {
+          const cachedGroups = await getGroupConversations(currentUsername);
+          const group = cachedGroups.find((g: GroupConversationCache) => g.groupId === groupId);
+          
+          if (group) {
+            const memberLower = request.username.toLowerCase();
+            const alreadyMember = group.members.some((m: string) => m.toLowerCase() === memberLower);
+            
+            const updatedMembers = alreadyMember 
+              ? group.members 
+              : [...group.members, request.username];
+            
+            // Add payment to memberPayments if present (dedupe by txId to prevent duplicates)
+            let updatedPayments = group.memberPayments || [];
+            if (paymentProof && paymentProof.txId) {
+              const alreadyHasPayment = updatedPayments.some(p => p.txId === paymentProof.txId);
+              if (!alreadyHasPayment) {
+                updatedPayments = [...updatedPayments, paymentProof];
+              }
+            }
+            
+            await cacheGroupConversation({
+              ...group,
+              members: updatedMembers,
+              memberPayments: updatedPayments,
+            }, currentUsername);
+            
+            if (!alreadyMember) {
+              logger.info('[MANAGE MEMBERS] ✅ Added member to cache:', request.username);
+            }
+          }
+        } catch (cacheError) {
+          logger.warn('[MANAGE MEMBERS] Failed to add member to cache:', cacheError);
+        }
+      }
       
       // Update group members array locally
       if (!members.includes(request.username)) {
@@ -182,7 +218,7 @@ export function ManageMembersModal({
       
       toast({
         title: 'Join Request Approved',
-        description: `Approved @${request.username}${memberPayment || request.memberPayment ? ' (payment verified)' : ''}`,
+        description: `Approved @${request.username}${paymentProof ? ' (payment verified)' : ''}`,
       });
     },
     onError: (error: Error) => {
