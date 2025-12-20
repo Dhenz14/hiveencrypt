@@ -562,7 +562,10 @@ export async function broadcastJoinReject(
 }
 
 /**
- * Discovers memberPayments for a group by scanning join_approve operations
+ * Discovers memberPayments for a group by scanning:
+ * 1. join_approve custom_json operations (for payments recorded in approval)
+ * 2. Incoming HBD transfers with structured memo format (fallback for historical payments)
+ * 
  * This is called when loading group data for the creator to populate earnings
  */
 export async function discoverGroupMemberPayments(
@@ -575,50 +578,121 @@ export async function discoverGroupMemberPayments(
   const seenPayments = new Set<string>(); // Prevent duplicates by txId
   
   try {
-    // Scan creator's custom_json history for join_approve operations
-    const customJsonHistory = await optimizedHiveClient.getAccountHistory(
-      creatorUsername,
-      1000, // Scan last 1000 operations
-      'custom_json',
-      -1
-    );
-    
-    for (const [, operation] of customJsonHistory) {
-      try {
-        if (!operation || !operation.op) continue;
-        
-        const op = operation.op;
-        if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) continue;
-        
-        const jsonData = JSON.parse(op[1].json);
-        
-        // Only process join_approve operations for this specific group
-        if (jsonData.action !== 'join_approve' || jsonData.groupId !== groupId) continue;
-        
-        // Extract memberPayments from the operation
-        if (jsonData.memberPayments && Array.isArray(jsonData.memberPayments)) {
-          for (const payment of jsonData.memberPayments) {
-            // Validate payment structure
-            if (payment.username && payment.txId && payment.amount && !seenPayments.has(payment.txId)) {
-              seenPayments.add(payment.txId);
-              payments.push({
-                username: payment.username,
-                txId: payment.txId,
-                amount: payment.amount,
-                paidAt: payment.paidAt || jsonData.timestamp || new Date().toISOString(),
-                nextDueDate: payment.nextDueDate,
-                status: payment.status || 'active',
-              });
+    // STRATEGY 1: Scan creator's custom_json history for join_approve operations
+    try {
+      const customJsonHistory = await optimizedHiveClient.getAccountHistory(
+        creatorUsername,
+        1000, // Scan last 1000 operations
+        'custom_json',
+        -1
+      );
+      
+      logger.info('[GROUP BLOCKCHAIN] Scanning', customJsonHistory.length, 'custom_json operations for join_approve');
+      
+      for (const [, operation] of customJsonHistory) {
+        try {
+          if (!operation || !operation.op) continue;
+          
+          const op = operation.op;
+          if (op[0] !== 'custom_json' || op[1].id !== GROUP_CUSTOM_JSON_ID) continue;
+          
+          const jsonData = JSON.parse(op[1].json);
+          
+          // Only process join_approve operations for this specific group
+          if (jsonData.action !== 'join_approve' || jsonData.groupId !== groupId) continue;
+          
+          // Extract memberPayments from the operation
+          if (jsonData.memberPayments && Array.isArray(jsonData.memberPayments)) {
+            for (const payment of jsonData.memberPayments) {
+              // Validate payment structure
+              if (payment.username && payment.txId && payment.amount && !seenPayments.has(payment.txId)) {
+                seenPayments.add(payment.txId);
+                payments.push({
+                  username: payment.username,
+                  txId: payment.txId,
+                  amount: payment.amount,
+                  paidAt: payment.paidAt || jsonData.timestamp || new Date().toISOString(),
+                  nextDueDate: payment.nextDueDate,
+                  status: payment.status || 'active',
+                });
+              }
             }
           }
+        } catch (parseError) {
+          // Skip malformed operations
+          continue;
         }
-      } catch (parseError) {
-        // Skip malformed operations
-        continue;
       }
+    } catch (customJsonError) {
+      logger.warn('[GROUP BLOCKCHAIN] Failed to scan custom_json history:', customJsonError);
     }
     
-    logger.info('[GROUP BLOCKCHAIN] Discovered', payments.length, 'member payments for group:', groupId);
+    // STRATEGY 2: Scan incoming HBD transfers with structured payment memo format
+    // Memo format: group_payment:<groupId>|member:<username>
+    try {
+      const transferHistory = await optimizedHiveClient.getAccountHistory(
+        creatorUsername,
+        1000, // Scan last 1000 transfer operations
+        'transfers',
+        -1
+      );
+      
+      const memoPrefix = `group_payment:${groupId}`;
+      logger.info('[GROUP BLOCKCHAIN] Scanning', transferHistory.length, 'transfers for memo prefix:', memoPrefix);
+      
+      for (const [, operation] of transferHistory) {
+        try {
+          if (!operation || !operation.op) continue;
+          
+          const op = operation.op;
+          if (op[0] !== 'transfer') continue;
+          
+          const transfer = op[1];
+          const memo = transfer.memo || '';
+          const txId = operation.trx_id;
+          const timestamp = operation.timestamp;
+          
+          // Check if transfer is TO the creator (incoming payment)
+          if (transfer.to !== creatorUsername) continue;
+          
+          // Check if memo matches our structured format for this group
+          if (!memo.startsWith(memoPrefix)) continue;
+          
+          // Check if it's HBD (required for paid groups)
+          const amount = transfer.amount;
+          if (!amount.includes('HBD')) continue;
+          
+          // Extract username from memo: group_payment:<groupId>|member:<username>
+          const memberMatch = memo.match(/\|member:([a-z0-9.-]+)/);
+          const payerUsername = memberMatch ? memberMatch[1] : transfer.from;
+          
+          // Avoid duplicates
+          if (seenPayments.has(txId)) continue;
+          seenPayments.add(txId);
+          
+          payments.push({
+            username: payerUsername,
+            txId: txId,
+            amount: amount,
+            paidAt: timestamp ? timestamp + 'Z' : new Date().toISOString(),
+            status: 'active',
+          });
+          
+          logger.info('[GROUP BLOCKCHAIN] 💰 Found payment transfer:', {
+            from: transfer.from,
+            amount,
+            payer: payerUsername,
+            txId: txId.substring(0, 8),
+          });
+        } catch (parseError) {
+          continue;
+        }
+      }
+    } catch (transferError) {
+      logger.warn('[GROUP BLOCKCHAIN] Failed to scan transfer history:', transferError);
+    }
+    
+    logger.info('[GROUP BLOCKCHAIN] Discovered', payments.length, 'total member payments for group:', groupId);
     return payments;
     
   } catch (error) {
