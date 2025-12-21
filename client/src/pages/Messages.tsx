@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useLocation } from 'wouter';
-import { Settings, Moon, Sun, Info, Filter, EyeOff, Clock, ArrowLeft, TrendingUp } from 'lucide-react';
+import { Settings, Moon, Sun, Info, Filter, EyeOff, Clock, ArrowLeft, TrendingUp, BarChart3, Megaphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -37,6 +37,8 @@ import { ManageMembersModal } from '@/components/ManageMembersModal';
 import { PublishGroupModal } from '@/components/PublishGroupModal';
 import { EarningsModal } from '@/components/EarningsModal';
 import { EarningsDashboard } from '@/components/EarningsDashboard';
+import { CreatorAnalytics } from '@/components/CreatorAnalytics';
+import { PromotionTools } from '@/components/PromotionTools';
 import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { HiddenChatsModal } from '@/components/HiddenChatsModal';
@@ -121,6 +123,8 @@ export default function Messages() {
   const [isPublishGroupOpen, setIsPublishGroupOpen] = useState(false);
   const [isEarningsOpen, setIsEarningsOpen] = useState(false);
   const [isEarningsDashboardOpen, setIsEarningsDashboardOpen] = useState(false);
+  const [isCreatorAnalyticsOpen, setIsCreatorAnalyticsOpen] = useState(false);
+  const [isPromotionToolsOpen, setIsPromotionToolsOpen] = useState(false);
   const [promptPublishGroupId, setPromptPublishGroupId] = useState<string | null>(null);
   const [joinDialogGroup, setJoinDialogGroup] = useState<GroupConversationCache | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -1016,15 +1020,38 @@ export default function Messages() {
             <Settings className="w-5 h-5" />
           </Button>
           {groupCaches.some(g => g.creator === user?.username && g.paymentSettings?.enabled) && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsEarningsDashboardOpen(true)}
-              data-testid="button-earnings-dashboard"
-              className="min-h-11 min-w-11"
-            >
-              <TrendingUp className="w-5 h-5" />
-            </Button>
+            <>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsEarningsDashboardOpen(true)}
+                data-testid="button-earnings-dashboard"
+                className="min-h-11 min-w-11"
+                title="Earnings Dashboard"
+              >
+                <TrendingUp className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsCreatorAnalyticsOpen(true)}
+                data-testid="button-creator-analytics"
+                className="min-h-11 min-w-11"
+                title="Analytics"
+              >
+                <BarChart3 className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsPromotionToolsOpen(true)}
+                data-testid="button-promotion-tools"
+                className="min-h-11 min-w-11"
+                title="Promotion Tools"
+              >
+                <Megaphone className="w-5 h-5" />
+              </Button>
+            </>
           )}
         </div>
       </div>
@@ -1377,6 +1404,20 @@ export default function Messages() {
       <EarningsDashboard
         open={isEarningsDashboardOpen}
         onOpenChange={setIsEarningsDashboardOpen}
+        groups={groupCaches}
+        currentUsername={user?.username}
+      />
+
+      <CreatorAnalytics
+        open={isCreatorAnalyticsOpen}
+        onOpenChange={setIsCreatorAnalyticsOpen}
+        groups={groupCaches}
+        currentUsername={user?.username}
+      />
+
+      <PromotionTools
+        open={isPromotionToolsOpen}
+        onOpenChange={setIsPromotionToolsOpen}
         groups={groupCaches}
         currentUsername={user?.username}
       />

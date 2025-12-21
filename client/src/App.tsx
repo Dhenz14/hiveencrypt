@@ -12,6 +12,7 @@ import { KeychainRedirect } from "@/components/KeychainRedirect";
 import Login from "@/pages/Login";
 import Messages from "@/pages/Messages";
 import GroupDiscovery from "@/pages/GroupDiscovery";
+import GroupPreview from "@/pages/GroupPreview";
 import NotFound from "@/pages/not-found";
 
 function ProtectedRoute({ component: Component }: { component: () => JSX.Element }) {
@@ -58,13 +59,31 @@ function PublicRoute({ component: Component }: { component: () => JSX.Element })
   return <Component />;
 }
 
+function SemiPublicRoute({ component: Component }: { component: () => JSX.Element }) {
+  const { isLoading, needsKeychainRedirect } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (needsKeychainRedirect) {
+    return <KeychainRedirect />;
+  }
+
+  return <Component />;
+}
+
 function AppRoutes() {
   return (
     <Switch>
       <Route path="/" component={() => <ProtectedRoute component={Messages} />} />
       <Route path="/login" component={() => <PublicRoute component={Login} />} />
       <Route path="/discover" component={() => <ProtectedRoute component={GroupDiscovery} />} />
-      <Route path="/join/:groupId" component={() => <ProtectedRoute component={Messages} />} />
+      <Route path="/join/:groupId" component={() => <SemiPublicRoute component={GroupPreview} />} />
       <Route component={NotFound} />
     </Switch>
   );
