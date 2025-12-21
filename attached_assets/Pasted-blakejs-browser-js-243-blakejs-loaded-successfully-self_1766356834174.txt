@@ -1,0 +1,113 @@
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:99 [PWA] Service Worker registered: https://dhenz14.github.io/hiveencrypt/
+index-CBmc0bQE.js:854 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-CBmc0bQE.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-CBmc0bQE.js:854 [ExceptionsContext] Loaded exceptions: Array(0)
+index-CBmc0bQE.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+index-CBmc0bQE.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-CBmc0bQE.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+anyx.io/:1  Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+index-CBmc0bQE.js:467  POST https://anyx.io/ 502 (Bad Gateway)
+(anonymous) @ index-CBmc0bQE.js:467
+pt @ index-CBmc0bQE.js:467
+(anonymous) @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+index-CBmc0bQE.js:467  POST https://anyx.io/ 502 (Bad Gateway)
+(anonymous) @ index-CBmc0bQE.js:467
+pt @ index-CBmc0bQE.js:467
+(anonymous) @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+index-CBmc0bQE.js:467  POST https://anyx.io/ 502 (Bad Gateway)
+(anonymous) @ index-CBmc0bQE.js:467
+pt @ index-CBmc0bQE.js:467
+(anonymous) @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+index-CBmc0bQE.js:467  POST https://anyx.io/ 502 (Bad Gateway)
+(anonymous) @ index-CBmc0bQE.js:467
+pt @ index-CBmc0bQE.js:467
+(anonymous) @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+index-CBmc0bQE.js:467  POST https://anyx.io/ 502 (Bad Gateway)
+(anonymous) @ index-CBmc0bQE.js:467
+pt @ index-CBmc0bQE.js:467
+(anonymous) @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
+Promise.then
+$t @ index-CBmc0bQE.js:854
+St @ index-CBmc0bQE.js:854
