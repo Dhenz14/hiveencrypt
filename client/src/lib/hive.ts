@@ -4,13 +4,16 @@ import { hiveClient as optimizedHiveClient } from './hiveClient';
 import { logger } from '@/lib/logger';
 
 // Initialize Hive client with public node (for direct access)
-// All nodes with anyx.io at the end (lower priority due to intermittent issues)
+// Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
 export const hiveClient = new Client([
-  'https://api.hive.blog',
-  'https://api.openhive.network',
-  'https://rpc.ecency.com',
-  'https://hive-api.arcange.eu',
-  'https://anyx.io',
+  'https://api.hive.blog',         // Official - 100% score
+  'https://api.deathwing.me',      // 100% score
+  'https://api.openhive.network',  // 100% score
+  'https://techcoderx.com',        // 100% score
+  'https://hiveapi.actifit.io',    // 100% score
+  'https://rpc.mahdiyari.info',    // 100% score
+  'https://api.syncad.com',        // 100% score
+  'https://anyx.io',               // 88% score - fallback only
 ]);
 
 /**

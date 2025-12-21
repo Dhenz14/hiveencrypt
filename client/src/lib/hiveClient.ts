@@ -605,12 +605,17 @@ class HiveBlockchainClient {
 
 // All available Hive RPC nodes - ordered by typical reliability
 // The health tracking system will automatically deprioritize failing nodes
+// Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
+// All nodes below have 100% score except anyx.io (88%) which is kept as fallback
 const ALL_HIVE_NODES = [
-  'https://api.hive.blog',
-  'https://api.openhive.network',
-  'https://rpc.ecency.com',
-  'https://hive-api.arcange.eu',
-  'https://anyx.io',  // Known to have intermittent issues, but kept for when it's healthy
+  'https://api.hive.blog',         // Official - 100% score
+  'https://api.deathwing.me',      // 100% score
+  'https://api.openhive.network',  // 100% score
+  'https://techcoderx.com',        // 100% score
+  'https://hiveapi.actifit.io',    // 100% score
+  'https://rpc.mahdiyari.info',    // 100% score
+  'https://api.syncad.com',        // 100% score
+  'https://anyx.io',               // 88% score - fallback only
 ];
 
 // Export singleton instance with all nodes

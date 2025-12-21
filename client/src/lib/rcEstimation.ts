@@ -37,13 +37,16 @@ export const RC_COSTS = {
  */
 export async function getAccountRC(username: string): Promise<RCInfo> {
   try {
-    // All nodes - anyx.io at end due to intermittent issues
+    // Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
     const client = new Client([
-      'https://api.hive.blog',
-      'https://api.openhive.network',
-      'https://rpc.ecency.com',
-      'https://hive-api.arcange.eu',
-      'https://anyx.io',
+      'https://api.hive.blog',         // Official - 100% score
+      'https://api.deathwing.me',      // 100% score
+      'https://api.openhive.network',  // 100% score
+      'https://techcoderx.com',        // 100% score
+      'https://hiveapi.actifit.io',    // 100% score
+      'https://rpc.mahdiyari.info',    // 100% score
+      'https://api.syncad.com',        // 100% score
+      'https://anyx.io',               // 88% score - fallback only
     ]);
 
     // Use rc_api to get accurate Resource Credits information

@@ -1,0 +1,260 @@
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:99 [PWA] Service Worker registered: https://dhenz14.github.io/hiveencrypt/
+index-DG1BnMIi.js:854 [HiddenConversationsContext] Loaded hidden conversations: Array(0)
+index-DG1BnMIi.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-DG1BnMIi.js:854 [ExceptionsContext] Loaded exceptions: Array(0)
+index-DG1BnMIi.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+index-DG1BnMIi.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-DG1BnMIi.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+rpc.ecency.com/:1  Failed to load resource: net::ERR_NAME_NOT_RESOLVED
+index-DG1BnMIi.js:467  POST https://rpc.ecency.com/ net::ERR_NAME_NOT_RESOLVED
+(anonymous) @ index-DG1BnMIi.js:467
+pt @ index-DG1BnMIi.js:467
+(anonymous) @ index-DG1BnMIi.js:854
+(anonymous) @ index-DG1BnMIi.js:854
+$ @ index-DG1BnMIi.js:854
+j.retryingFetch @ index-DG1BnMIi.js:854
+jt @ index-DG1BnMIi.js:623
+(anonymous) @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:755
+getAccountHistory @ index-DG1BnMIi.js:755
+(anonymous) @ index-DG1BnMIi.js:854
+retryWithBackoff @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+discoverConversations @ index-DG1BnMIi.js:854
+queryFn @ index-DG1BnMIi.js:934
+et @ index-DG1BnMIi.js:53
+lt @ index-DG1BnMIi.js:53
+start @ index-DG1BnMIi.js:53
+fetch @ index-DG1BnMIi.js:53
+vs @ index-DG1BnMIi.js:53
+(anonymous) @ index-DG1BnMIi.js:53
+index-DG1BnMIi.js:467  POST https://rpc.ecency.com/ net::ERR_NAME_NOT_RESOLVED
+(anonymous) @ index-DG1BnMIi.js:467
+pt @ index-DG1BnMIi.js:467
+(anonymous) @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+(anonymous) @ index-DG1BnMIi.js:854
+$ @ index-DG1BnMIi.js:854
+j.retryingFetch @ index-DG1BnMIi.js:854
+jt @ index-DG1BnMIi.js:623
+(anonymous) @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:755
+getAccountHistory @ index-DG1BnMIi.js:755
+(anonymous) @ index-DG1BnMIi.js:854
+retryWithBackoff @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+discoverConversations @ index-DG1BnMIi.js:854
+queryFn @ index-DG1BnMIi.js:934
+et @ index-DG1BnMIi.js:53
+lt @ index-DG1BnMIi.js:53
+start @ index-DG1BnMIi.js:53
+fetch @ index-DG1BnMIi.js:53
+vs @ index-DG1BnMIi.js:53
+(anonymous) @ index-DG1BnMIi.js:53
+index-DG1BnMIi.js:467  POST https://rpc.ecency.com/ net::ERR_NAME_NOT_RESOLVED
+(anonymous) @ index-DG1BnMIi.js:467
+pt @ index-DG1BnMIi.js:467
+(anonymous) @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+(anonymous) @ index-DG1BnMIi.js:854
+$ @ index-DG1BnMIi.js:854
+j.retryingFetch @ index-DG1BnMIi.js:854
+jt @ index-DG1BnMIi.js:623
+(anonymous) @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:755
+getAccountHistory @ index-DG1BnMIi.js:755
+(anonymous) @ index-DG1BnMIi.js:854
+retryWithBackoff @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+discoverConversations @ index-DG1BnMIi.js:854
+queryFn @ index-DG1BnMIi.js:934
+et @ index-DG1BnMIi.js:53
+lt @ index-DG1BnMIi.js:53
+start @ index-DG1BnMIi.js:53
+fetch @ index-DG1BnMIi.js:53
+vs @ index-DG1BnMIi.js:53
+(anonymous) @ index-DG1BnMIi.js:53
+index-DG1BnMIi.js:467  POST https://rpc.ecency.com/ net::ERR_NAME_NOT_RESOLVED
+(anonymous) @ index-DG1BnMIi.js:467
+pt @ index-DG1BnMIi.js:467
+(anonymous) @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+(anonymous) @ index-DG1BnMIi.js:854
+$ @ index-DG1BnMIi.js:854
+j.retryingFetch @ index-DG1BnMIi.js:854
+jt @ index-DG1BnMIi.js:623
+(anonymous) @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:755
+getAccountHistory @ index-DG1BnMIi.js:755
+(anonymous) @ index-DG1BnMIi.js:854
+retryWithBackoff @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+discoverConversations @ index-DG1BnMIi.js:854
+queryFn @ index-DG1BnMIi.js:934
+et @ index-DG1BnMIi.js:53
+lt @ index-DG1BnMIi.js:53
+start @ index-DG1BnMIi.js:53
+fetch @ index-DG1BnMIi.js:53
+vs @ index-DG1BnMIi.js:53
+(anonymous) @ index-DG1BnMIi.js:53
+index-DG1BnMIi.js:467  POST https://rpc.ecency.com/ net::ERR_NAME_NOT_RESOLVED
+(anonymous) @ index-DG1BnMIi.js:467
+pt @ index-DG1BnMIi.js:467
+(anonymous) @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+(anonymous) @ index-DG1BnMIi.js:854
+$ @ index-DG1BnMIi.js:854
+j.retryingFetch @ index-DG1BnMIi.js:854
+jt @ index-DG1BnMIi.js:623
+(anonymous) @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:755
+getAccountHistory @ index-DG1BnMIi.js:755
+(anonymous) @ index-DG1BnMIi.js:854
+retryWithBackoff @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+discoverConversations @ index-DG1BnMIi.js:854
+queryFn @ index-DG1BnMIi.js:934
+et @ index-DG1BnMIi.js:53
+lt @ index-DG1BnMIi.js:53
+start @ index-DG1BnMIi.js:53
+fetch @ index-DG1BnMIi.js:53
+vs @ index-DG1BnMIi.js:53
+(anonymous) @ index-DG1BnMIi.js:53
+index-DG1BnMIi.js:467  POST https://rpc.ecency.com/ net::ERR_NAME_NOT_RESOLVED
+(anonymous) @ index-DG1BnMIi.js:467
+pt @ index-DG1BnMIi.js:467
+(anonymous) @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+index-DG1BnMIi.js:467  POST https://rpc.ecency.com/ net::ERR_NAME_NOT_RESOLVED
+(anonymous) @ index-DG1BnMIi.js:467
+pt @ index-DG1BnMIi.js:467
+(anonymous) @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+St @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+Et @ index-DG1BnMIi.js:854
+Promise.then
+$t @ index-DG1BnMIi.js:854
+(anonymous) @ index-DG1BnMIi.js:854
+$ @ index-DG1BnMIi.js:854
+j.retryingFetch @ index-DG1BnMIi.js:854
+jt @ index-DG1BnMIi.js:623
+(anonymous) @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:623
+call @ index-DG1BnMIi.js:755
+getAccountHistory @ index-DG1BnMIi.js:755
+(anonymous) @ index-DG1BnMIi.js:854
+retryWithBackoff @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+getAccountHistory @ index-DG1BnMIi.js:854
+discoverConversations @ index-DG1BnMIi.js:854
+queryFn @ index-DG1BnMIi.js:934
+et @ index-DG1BnMIi.js:53
+lt @ index-DG1BnMIi.js:53
+start @ index-DG1BnMIi.js:53
+fetch @ index-DG1BnMIi.js:53
+vs @ index-DG1BnMIi.js:53
+(anonymous) @ index-DG1BnMIi.js:53

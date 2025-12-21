@@ -282,13 +282,16 @@ export async function fetchDiscoverableGroups(
   logger.info('[GROUP DISCOVERY] Querying with tag:', QUERY_TAG, 'method:', method);
   
   // Try multiple RPC nodes directly with retries
-  // All nodes - anyx.io at end due to intermittent issues
+  // Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
   const rpcNodes = [
-    'https://api.hive.blog',
-    'https://api.openhive.network',
-    'https://rpc.ecency.com',
-    'https://hive-api.arcange.eu',
-    'https://anyx.io',
+    'https://api.hive.blog',         // Official - 100% score
+    'https://api.deathwing.me',      // 100% score
+    'https://api.openhive.network',  // 100% score
+    'https://techcoderx.com',        // 100% score
+    'https://hiveapi.actifit.io',    // 100% score
+    'https://rpc.mahdiyari.info',    // 100% score
+    'https://api.syncad.com',        // 100% score
+    'https://anyx.io',               // 88% score - fallback only
   ];
   
   let discussions: any[] | null = null;
@@ -437,13 +440,16 @@ export async function isGroupPublished(
   logger.debug('[GROUP DISCOVERY] Checking if group is published:', { creator, groupId });
   
   // Try multiple RPC nodes
-  // All nodes - anyx.io at end due to intermittent issues
+  // Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
   const rpcNodes = [
-    'https://api.hive.blog',
-    'https://rpc.ecency.com',
-    'https://api.openhive.network',
-    'https://hive-api.arcange.eu',
-    'https://anyx.io',
+    'https://api.hive.blog',         // Official - 100% score
+    'https://api.deathwing.me',      // 100% score
+    'https://api.openhive.network',  // 100% score
+    'https://techcoderx.com',        // 100% score
+    'https://hiveapi.actifit.io',    // 100% score
+    'https://rpc.mahdiyari.info',    // 100% score
+    'https://api.syncad.com',        // 100% score
+    'https://anyx.io',               // 88% score - fallback only
   ];
   
   for (const node of rpcNodes) {

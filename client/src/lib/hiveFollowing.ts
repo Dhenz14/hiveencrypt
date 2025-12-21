@@ -15,14 +15,16 @@ import { logger } from './logger';
 
 // Nodes known to support follow_api (verified working)
 // Order by reliability - api.hive.blog is most reliable for follow_api
-// All nodes - anyx.io at end due to intermittent issues
+// Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
 const FOLLOW_API_NODES = [
-  'https://api.hive.blog',
-  'https://api.deathwing.me',
-  'https://hive-api.arcange.eu',
-  'https://api.openhive.network',
-  'https://rpc.ecency.com',
-  'https://anyx.io',
+  'https://api.hive.blog',         // Official - 100% score
+  'https://api.deathwing.me',      // 100% score
+  'https://api.openhive.network',  // 100% score
+  'https://techcoderx.com',        // 100% score
+  'https://hiveapi.actifit.io',    // 100% score
+  'https://rpc.mahdiyari.info',    // 100% score
+  'https://api.syncad.com',        // 100% score
+  'https://anyx.io',               // 88% score - fallback only
 ];
 
 // Track unhealthy nodes for this session (nodes that don't have follow_api)
