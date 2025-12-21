@@ -628,59 +628,98 @@ export { ALL_HIVE_NODES };
 export { HiveBlockchainClient };
 
 /**
- * Make a direct RPC call with fast timeout and automatic node failover
- * Use this instead of creating new Client instances directly
+ * Make a single RPC call to a specific node with timeout
+ */
+async function rpcCallToNode<T>(
+  node: string,
+  fullMethod: string,
+  params: any[],
+  timeout: number
+): Promise<{ success: true; result: T; node: string } | { success: false; error: string; node: string }> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    
+    const response = await fetch(node, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        method: fullMethod,
+        params,
+        id: 1,
+      }),
+      signal: controller.signal,
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      return { success: false, error: `HTTP ${response.status}`, node };
+    }
+    
+    const data = await response.json();
+    
+    if (data.error) {
+      return { success: false, error: data.error.message || 'RPC error', node };
+    }
+    
+    return { success: true, result: data.result as T, node };
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    return { success: false, error: errorMsg, node };
+  }
+}
+
+/**
+ * Make a direct RPC call with HEDGED parallel requests for speed
+ * Fires requests to top 3 nodes simultaneously, uses first success
+ * Falls back to remaining nodes sequentially if all parallel requests fail
  */
 export async function rpcCallWithFailover<T>(
   method: string,
   params: any[],
-  options: { timeout?: number; api?: string } = {}
+  options: { timeout?: number; api?: string; parallelNodes?: number } = {}
 ): Promise<T> {
-  const { timeout = 5000, api = 'condenser_api' } = options;
+  const { timeout = 2000, api = 'condenser_api', parallelNodes = 3 } = options;
   const fullMethod = api === 'condenser_api' ? `condenser_api.${method}` : `${api}.${method}`;
   
-  let lastError: Error | null = null;
+  // Phase 1: Hedged parallel requests to top N nodes
+  const topNodes = ALL_HIVE_NODES.slice(0, parallelNodes);
+  logger.debug('[RPC HEDGED] Firing parallel requests to:', topNodes.join(', '));
   
-  for (const node of ALL_HIVE_NODES) {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), timeout);
-      
-      const response = await fetch(node, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          method: fullMethod,
-          params,
-          id: 1,
-        }),
-        signal: controller.signal,
-      });
-      
-      clearTimeout(timeoutId);
-      
-      if (!response.ok) {
-        logger.warn('[RPC FAILOVER] Node returned error status:', node, response.status);
-        continue;
-      }
-      
-      const data = await response.json();
-      
-      if (data.error) {
-        logger.warn('[RPC FAILOVER] RPC error from node:', node, data.error);
-        continue;
-      }
-      
-      logger.debug('[RPC FAILOVER] Success from node:', node);
-      return data.result as T;
-    } catch (error) {
-      lastError = error as Error;
-      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-      logger.warn('[RPC FAILOVER] Node failed:', node, errorMsg);
-      continue;
+  const parallelPromises = topNodes.map(node => rpcCallToNode<T>(node, fullMethod, params, timeout));
+  
+  // Race for first success using Promise.any pattern
+  const results = await Promise.allSettled(parallelPromises);
+  
+  // Check for any successful result
+  for (const result of results) {
+    if (result.status === 'fulfilled' && result.value.success) {
+      logger.debug('[RPC HEDGED] Success from node:', result.value.node);
+      return result.value.result;
     }
   }
   
-  throw lastError || new Error(`All nodes failed for ${fullMethod}`);
+  // Log failed attempts
+  for (const result of results) {
+    if (result.status === 'fulfilled' && !result.value.success) {
+      logger.warn('[RPC HEDGED] Node failed:', result.value.node, result.value.error);
+    }
+  }
+  
+  // Phase 2: Sequential fallback to remaining nodes with longer timeout
+  const remainingNodes = ALL_HIVE_NODES.slice(parallelNodes);
+  logger.debug('[RPC HEDGED] Falling back to sequential nodes:', remainingNodes.join(', '));
+  
+  for (const node of remainingNodes) {
+    const result = await rpcCallToNode<T>(node, fullMethod, params, 5000); // 5s for fallback
+    if (result.success) {
+      logger.debug('[RPC SEQUENTIAL] Success from node:', result.node);
+      return result.result;
+    }
+    logger.warn('[RPC SEQUENTIAL] Node failed:', result.node, result.error);
+  }
+  
+  throw new Error(`All nodes failed for ${fullMethod}`);
 }

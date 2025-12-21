@@ -81,6 +81,7 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
   7. `https://api.syncad.com` - 100% score
   8. `https://anyx.io` - 88% score (fallback only)
 - **RPC Failover System**: All fetch calls use 5-second AbortController timeouts. If a node times out or returns an error, the system automatically tries the next node in the list. Node health is monitored at https://beacon.peakd.com/
+- **Hedged Parallel Requests**: For speed-critical operations (group discovery, publish checks), the system fires requests to the top 3 nodes simultaneously with 2-second timeouts, using whichever responds first. Falls back to sequential requests to remaining nodes if all parallel requests fail.
 
 ### Authentication Services
 - **Hive Keychain**: Universal authentication solution.

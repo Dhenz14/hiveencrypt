@@ -261,8 +261,69 @@ export async function publishGroupToDiscovery(
   });
 }
 
+// Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
+const DISCOVERY_NODES = [
+  'https://api.hive.blog',         // Official - 100% score
+  'https://api.deathwing.me',      // 100% score
+  'https://api.openhive.network',  // 100% score
+  'https://techcoderx.com',        // 100% score
+  'https://hiveapi.actifit.io',    // 100% score
+  'https://rpc.mahdiyari.info',    // 100% score
+  'https://api.syncad.com',        // 100% score
+  'https://anyx.io',               // 88% score - fallback only
+];
+
 /**
- * Fetch discoverable groups from Hivemind with retry logic
+ * Make a single hedged RPC call to a node
+ */
+async function hedgedCall<T>(
+  node: string,
+  method: string,
+  params: any,
+  timeout: number
+): Promise<{ success: true; result: T; node: string } | { success: false; error: string; node: string }> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+    
+    const response = await fetch(node, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        method: `condenser_api.${method}`,
+        params: [params],
+        id: 1,
+      }),
+      signal: controller.signal,
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      return { success: false, error: `HTTP ${response.status}`, node };
+    }
+    
+    const data = await response.json();
+    
+    if (data.error) {
+      return { success: false, error: data.error.message || 'RPC error', node };
+    }
+    
+    if (data.result && Array.isArray(data.result)) {
+      return { success: true, result: data.result as T, node };
+    }
+    
+    return { success: false, error: 'Invalid response', node };
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    return { success: false, error: errorMsg, node };
+  }
+}
+
+/**
+ * Fetch discoverable groups from Hivemind with HEDGED parallel requests
+ * Fires requests to top 3 nodes simultaneously for speed
  */
 export async function fetchDiscoverableGroups(
   limit: number = 20,
@@ -278,85 +339,49 @@ export async function fetchDiscoverableGroups(
   };
   
   const method = methodMap[sortBy] || 'get_discussions_by_created';
+  const params = { tag: QUERY_TAG, limit };
   
   logger.info('[GROUP DISCOVERY] Querying with tag:', QUERY_TAG, 'method:', method);
   
-  // Try multiple RPC nodes directly with retries
-  // Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
-  const rpcNodes = [
-    'https://api.hive.blog',         // Official - 100% score
-    'https://api.deathwing.me',      // 100% score
-    'https://api.openhive.network',  // 100% score
-    'https://techcoderx.com',        // 100% score
-    'https://hiveapi.actifit.io',    // 100% score
-    'https://rpc.mahdiyari.info',    // 100% score
-    'https://api.syncad.com',        // 100% score
-    'https://anyx.io',               // 88% score - fallback only
-  ];
+  // Phase 1: Hedged parallel requests to top 3 nodes (2s timeout)
+  const topNodes = DISCOVERY_NODES.slice(0, 3);
+  logger.info('[GROUP DISCOVERY] Hedged parallel requests to:', topNodes.join(', '));
   
+  const parallelPromises = topNodes.map(node => hedgedCall<any[]>(node, method, params, 2000));
+  const results = await Promise.allSettled(parallelPromises);
+  
+  // Use first successful result
   let discussions: any[] | null = null;
-  let lastError: Error | null = null;
+  for (const result of results) {
+    if (result.status === 'fulfilled' && result.value.success) {
+      discussions = result.value.result;
+      logger.info('[GROUP DISCOVERY] Hedged success from:', result.value.node, 'posts:', discussions.length);
+      break;
+    }
+  }
   
-  for (const node of rpcNodes) {
-    try {
-      logger.info('[GROUP DISCOVERY] Trying node:', node);
-      
-      // Add 5-second timeout to prevent hanging on failing nodes
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
-      const response = await fetch(node, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          method: `condenser_api.${method}`,
-          params: [{ tag: QUERY_TAG, limit }],
-          id: 1,
-        }),
-        signal: controller.signal,
-      });
-      
-      clearTimeout(timeoutId);
-      
-      if (!response.ok) {
-        logger.warn('[GROUP DISCOVERY] Node returned error status:', response.status);
-        continue;
-      }
-      
-      const data = await response.json();
-      
-      if (data.error) {
-        logger.warn('[GROUP DISCOVERY] RPC error from node:', data.error);
-        continue;
-      }
-      
-      if (data.result && Array.isArray(data.result)) {
-        discussions = data.result as any[];
-        logger.info('[GROUP DISCOVERY] Success from node:', node, 'posts:', discussions!.length);
+  // Phase 2: Sequential fallback if all parallel requests failed
+  if (!discussions) {
+    logger.warn('[GROUP DISCOVERY] Hedged requests failed, trying sequential fallback');
+    const remainingNodes = DISCOVERY_NODES.slice(3);
+    
+    for (const node of remainingNodes) {
+      const result = await hedgedCall<any[]>(node, method, params, 5000);
+      if (result.success) {
+        discussions = result.result;
+        logger.info('[GROUP DISCOVERY] Sequential success from:', result.node, 'posts:', discussions.length);
         break;
       }
-    } catch (error) {
-      lastError = error as Error;
-      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-      logger.warn('[GROUP DISCOVERY] Node failed:', node, errorMsg);
-      continue;
+      logger.warn('[GROUP DISCOVERY] Sequential failed:', result.node, result.error);
     }
   }
   
   if (!discussions) {
-    logger.error('[GROUP DISCOVERY] All nodes failed:', lastError?.message);
+    logger.error('[GROUP DISCOVERY] All nodes failed');
     return [];
   }
   
-  logger.info('[GROUP DISCOVERY] Hivemind returned:', discussions.length, 'posts');
-  
-  // Log the first few posts for debugging
-  if (discussions.length > 0) {
-    logger.info('[GROUP DISCOVERY] First post author:', discussions[0]?.author, 'permlink:', discussions[0]?.permlink);
-  }
-  
-  // Filter and parse group posts
+  // Filter and parse group posts (metadata already in response, no extra calls needed)
   const groups: DiscoverableGroup[] = [];
   
   for (const post of discussions) {
@@ -439,40 +464,17 @@ export async function isGroupPublished(
 ): Promise<{ published: boolean; permlink?: string }> {
   logger.debug('[GROUP DISCOVERY] Checking if group is published:', { creator, groupId });
   
-  // Try multiple RPC nodes
-  // Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
-  const rpcNodes = [
-    'https://api.hive.blog',         // Official - 100% score
-    'https://api.deathwing.me',      // 100% score
-    'https://api.openhive.network',  // 100% score
-    'https://techcoderx.com',        // 100% score
-    'https://hiveapi.actifit.io',    // 100% score
-    'https://rpc.mahdiyari.info',    // 100% score
-    'https://api.syncad.com',        // 100% score
-    'https://anyx.io',               // 88% score - fallback only
-  ];
+  // Hedged parallel request to top 3 nodes for speed
+  const topNodes = DISCOVERY_NODES.slice(0, 3);
+  const params = { tag: creator, limit: 100 };
   
-  for (const node of rpcNodes) {
-    try {
-      const response = await fetch(node, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          method: 'condenser_api.get_discussions_by_blog',
-          params: [{ tag: creator, limit: 100 }],
-          id: 1,
-        }),
-        signal: AbortSignal.timeout(5000), // 5 second timeout - skip to next node if too slow
-      });
-      
-      if (!response.ok) continue;
-      
-      const data = await response.json();
-      const posts = data?.result;
-      
-      if (!posts || !Array.isArray(posts)) continue;
-      
+  const parallelPromises = topNodes.map(node => hedgedCall<any[]>(node, 'get_discussions_by_blog', params, 2000));
+  const results = await Promise.allSettled(parallelPromises);
+  
+  // Check parallel results first
+  for (const result of results) {
+    if (result.status === 'fulfilled' && result.value.success) {
+      const posts = result.value.result;
       for (const post of posts) {
         try {
           const metadata = typeof post.json_metadata === 'string' 
@@ -487,13 +489,32 @@ export async function isGroupPublished(
           continue;
         }
       }
-      
-      // Successfully checked with this node - group not found
+      // Successfully checked - group not found
       logger.debug('[GROUP DISCOVERY] Group not yet published');
       return { published: false };
-    } catch (error) {
-      logger.warn('[GROUP DISCOVERY] Node failed for publish check:', node, error);
-      continue;
+    }
+  }
+  
+  // Sequential fallback to remaining nodes
+  const remainingNodes = DISCOVERY_NODES.slice(3);
+  for (const node of remainingNodes) {
+    const result = await hedgedCall<any[]>(node, 'get_discussions_by_blog', params, 5000);
+    if (result.success) {
+      for (const post of result.result) {
+        try {
+          const metadata = typeof post.json_metadata === 'string' 
+            ? JSON.parse(post.json_metadata) 
+            : post.json_metadata;
+          
+          if (metadata?.hive_messenger?.groupId === groupId) {
+            logger.info('[GROUP DISCOVERY] Found existing published group:', post.permlink);
+            return { published: true, permlink: post.permlink };
+          }
+        } catch {
+          continue;
+        }
+      }
+      return { published: false };
     }
   }
   
