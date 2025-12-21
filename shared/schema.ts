@@ -289,6 +289,21 @@ export interface PaymentSettings {
 }
 
 /**
+ * Pinned message in a group chat
+ * Allows creators to pin important announcements for visibility
+ */
+export interface PinnedMessage {
+  /** ID of the pinned message (transaction ID) */
+  messageId: string;
+  /** Message content for quick display */
+  content: string;
+  /** Username who pinned it */
+  pinnedBy: string;
+  /** ISO timestamp when pinned */
+  pinnedAt: string;
+}
+
+/**
  * Record of a member's payment for a paid group
  * Tracks payment status, transaction details, and renewal dates
  */
@@ -393,4 +408,6 @@ export interface GroupConversationCache {
   memberPayments?: MemberPayment[];
   /** Pending join requests (for manually-approved groups) */
   joinRequests?: JoinRequest[];
+  /** Pinned messages for announcements */
+  pinnedMessages?: PinnedMessage[];
 }

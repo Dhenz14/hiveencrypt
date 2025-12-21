@@ -562,6 +562,103 @@ export async function broadcastJoinReject(
 }
 
 /**
+ * Broadcasts a "pin_message" custom_json operation
+ * Pins a message in a group chat (only creator can do this)
+ */
+export async function broadcastPinMessage(
+  username: string,
+  groupId: string,
+  messageId: string,
+  messageContent: string
+): Promise<string> {
+  logger.info('[GROUP BLOCKCHAIN] Broadcasting pin message:', {
+    groupId,
+    messageId,
+    contentPreview: messageContent.substring(0, 50)
+  });
+
+  const customJson = {
+    action: 'pin_message',
+    groupId,
+    messageId,
+    content: messageContent,
+    pinnedBy: username,
+    timestamp: new Date().toISOString(),
+  };
+
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain not installed'));
+      return;
+    }
+
+    window.hive_keychain.requestCustomJson(
+      username,
+      GROUP_CUSTOM_JSON_ID,
+      'Posting',
+      JSON.stringify(customJson),
+      'Pin Message',
+      (response: any) => {
+        if (response.success) {
+          logger.info('[GROUP BLOCKCHAIN] ✅ Message pinned on blockchain:', response.result.id);
+          resolve(response.result.id);
+        } else {
+          logger.error('[GROUP BLOCKCHAIN] ❌ Failed to pin message:', response.error);
+          reject(new Error(response.error || 'Failed to broadcast pin message'));
+        }
+      }
+    );
+  });
+}
+
+/**
+ * Broadcasts an "unpin_message" custom_json operation
+ * Removes a pinned message from a group chat (only creator can do this)
+ */
+export async function broadcastUnpinMessage(
+  username: string,
+  groupId: string,
+  messageId: string
+): Promise<string> {
+  logger.info('[GROUP BLOCKCHAIN] Broadcasting unpin message:', {
+    groupId,
+    messageId
+  });
+
+  const customJson = {
+    action: 'unpin_message',
+    groupId,
+    messageId,
+    unpinnedBy: username,
+    timestamp: new Date().toISOString(),
+  };
+
+  return new Promise((resolve, reject) => {
+    if (!window.hive_keychain) {
+      reject(new Error('Hive Keychain not installed'));
+      return;
+    }
+
+    window.hive_keychain.requestCustomJson(
+      username,
+      GROUP_CUSTOM_JSON_ID,
+      'Posting',
+      JSON.stringify(customJson),
+      'Unpin Message',
+      (response: any) => {
+        if (response.success) {
+          logger.info('[GROUP BLOCKCHAIN] ✅ Message unpinned on blockchain:', response.result.id);
+          resolve(response.result.id);
+        } else {
+          logger.error('[GROUP BLOCKCHAIN] ❌ Failed to unpin message:', response.error);
+          reject(new Error(response.error || 'Failed to broadcast unpin message'));
+        }
+      }
+    );
+  });
+}
+
+/**
  * Discovers memberPayments for a group by scanning:
  * 1. join_approve custom_json operations (for payments recorded in approval)
  * 2. Incoming HBD transfers with structured memo format (fallback for historical payments)

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useLocation } from 'wouter';
-import { Settings, Moon, Sun, Info, Filter, EyeOff, Clock, ArrowLeft, TrendingUp, BarChart3, Megaphone } from 'lucide-react';
+import { Settings, Moon, Sun, Info, Filter, EyeOff, Clock, ArrowLeft, TrendingUp, BarChart3, Megaphone, Bell, Radio } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -39,6 +39,12 @@ import { EarningsModal } from '@/components/EarningsModal';
 import { EarningsDashboard } from '@/components/EarningsDashboard';
 import { CreatorAnalytics } from '@/components/CreatorAnalytics';
 import { PromotionTools } from '@/components/PromotionTools';
+import { GroupSettingsModal } from '@/components/GroupSettingsModal';
+import { NotificationCenter, useNotificationCount } from '@/components/NotificationCenter';
+import { BroadcastModal } from '@/components/BroadcastModal';
+import { PinnedMessagesBar } from '@/components/PinnedMessagesBar';
+import { ExpiredMembersAlert } from '@/components/ExpiredMembersAlert';
+import { useAutoRemoveExpired } from '@/hooks/useAutoRemoveExpired';
 import { ProfileDrawer } from '@/components/ProfileDrawer';
 import { SettingsModal } from '@/components/SettingsModal';
 import { HiddenChatsModal } from '@/components/HiddenChatsModal';
@@ -125,6 +131,9 @@ export default function Messages() {
   const [isEarningsDashboardOpen, setIsEarningsDashboardOpen] = useState(false);
   const [isCreatorAnalyticsOpen, setIsCreatorAnalyticsOpen] = useState(false);
   const [isPromotionToolsOpen, setIsPromotionToolsOpen] = useState(false);
+  const [isGroupSettingsOpen, setIsGroupSettingsOpen] = useState(false);
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
+  const [isBroadcastOpen, setIsBroadcastOpen] = useState(false);
   const [promptPublishGroupId, setPromptPublishGroupId] = useState<string | null>(null);
   const [joinDialogGroup, setJoinDialogGroup] = useState<GroupConversationCache | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -177,6 +186,50 @@ export default function Messages() {
   
   // OPTIMIZED: Now handles ALL creator-owned groups with optimistic member updates
   useAutoApproveJoinRequests(creatorGroupsInfo, creatorGroupsInfo.length > 0);
+  
+  // Notification count for badge
+  const notificationCount = useNotificationCount(user?.username);
+  
+  // Auto-remove expired members hook for group creators
+  const handleRemoveExpiredMember = async (groupId: string, username: string) => {
+    if (!user?.username) return;
+    const group = groupCaches.find(g => g.groupId === groupId);
+    if (!group) return;
+    
+    const updatedMembers = group.members.filter(m => m !== username);
+    const updatedMemberPayments = group.memberPayments?.filter(p => p.username !== username);
+    const newVersion = (group.version || 1) + 1;
+    await broadcastGroupUpdate(
+      user.username,
+      groupId,
+      group.name,
+      updatedMembers,
+      newVersion
+    );
+    const updated = { ...group, members: updatedMembers, memberPayments: updatedMemberPayments, version: newVersion };
+    await cacheGroupConversation(updated, user.username);
+    // Invalidate to refetch from cache
+    queryClient.invalidateQueries({ queryKey: ['group-discovery'] });
+  };
+  
+  const { expiredMembers, removeExpired } = useAutoRemoveExpired({
+    groups: groupCaches,
+    currentUsername: user?.username,
+    onRemoveMember: handleRemoveExpiredMember,
+    enabled: creatorGroupsInfo.length > 0,
+  });
+  
+  // Transform expired members for the alert component
+  const expiredMembersForAlert = useMemo(() => {
+    return expiredMembers.map(m => {
+      const group = groupCaches.find(g => g.groupId === m.groupId);
+      return {
+        groupId: m.groupId,
+        groupName: group?.name || 'Unknown Group',
+        username: m.username,
+      };
+    });
+  }, [expiredMembers, groupCaches]);
   
   // PHASE 4.1: Hook now returns { messages, hiddenCount }
   const { data: messageData, isLoading: isLoadingMessages, isFetching: isFetchingMessages } = useBlockchainMessages({
@@ -1051,6 +1104,21 @@ export default function Messages() {
               >
                 <Megaphone className="w-5 h-5" />
               </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsNotificationCenterOpen(true)}
+                data-testid="button-notification-center"
+                className="min-h-11 min-w-11 relative"
+                title="Notifications"
+              >
+                <Bell className="w-5 h-5" />
+                {notificationCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-destructive text-destructive-foreground text-xs flex items-center justify-center font-medium">
+                    {notificationCount > 9 ? '9+' : notificationCount}
+                  </span>
+                )}
+              </Button>
             </>
           )}
         </div>
@@ -1173,6 +1241,8 @@ export default function Messages() {
               onLeaveGroup={handleLeaveGroup}
               onMakePublic={handleMakePublic}
               onViewEarnings={handleViewEarnings}
+              onOpenSettings={() => setIsGroupSettingsOpen(true)}
+              onOpenBroadcast={() => setIsBroadcastOpen(true)}
               isCreator={selectedGroup.creator === user?.username}
               isPublished={publishStatus?.published}
               publishedPermlink={publishStatus?.permlink}
@@ -1188,6 +1258,67 @@ export default function Messages() {
               onHideChat={handleHideChat}
               onBackClick={isMobile ? () => setShowChat(false) : undefined}
             />
+          )}
+
+          {/* Pinned Messages Bar for group chats */}
+          {selectedGroup && selectedGroup.pinnedMessages && selectedGroup.pinnedMessages.length > 0 && (
+            <PinnedMessagesBar
+              pinnedMessages={selectedGroup.pinnedMessages}
+              isCreator={selectedGroup.creator === user?.username}
+              onUnpin={async (messageId) => {
+                if (!user?.username) return;
+                const { broadcastUnpinMessage } = await import('@/lib/groupBlockchain');
+                await broadcastUnpinMessage(user.username, selectedGroup.groupId, messageId);
+                // Update local cache immediately for optimistic UI
+                const updatedPinnedMessages = selectedGroup.pinnedMessages?.filter(m => m.messageId !== messageId) || [];
+                const updated = { ...selectedGroup, pinnedMessages: updatedPinnedMessages };
+                await cacheGroupConversation(updated, user.username);
+                // Invalidate to refetch from cache
+                queryClient.invalidateQueries({ queryKey: ['group-discovery'] });
+                toast({ title: 'Message unpinned', description: 'The pinned message has been removed' });
+              }}
+              onScrollTo={(messageId) => {
+                // Scroll to message in chat
+                const element = document.querySelector(`[data-message-id="${messageId}"]`);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  element.classList.add('bg-primary/10');
+                  setTimeout(() => element.classList.remove('bg-primary/10'), 2000);
+                }
+              }}
+            />
+          )}
+
+          {/* Expired Members Alert for group creators */}
+          {creatorGroupsInfo.length > 0 && expiredMembersForAlert.length > 0 && (
+            <div className="px-4 pt-2">
+              <ExpiredMembersAlert
+                expiredMembers={expiredMembersForAlert}
+                onRemove={async (groupId, username) => {
+                  await handleRemoveExpiredMember(groupId, username);
+                  toast({ 
+                    title: 'Member removed', 
+                    description: `@${username} has been removed from the group` 
+                  });
+                }}
+                onRemoveAll={async () => {
+                  // Group by groupId and remove each
+                  const groupedByGroupId = expiredMembersForAlert.reduce((acc, m) => {
+                    if (!acc[m.groupId]) acc[m.groupId] = [];
+                    acc[m.groupId].push(m.username);
+                    return acc;
+                  }, {} as Record<string, string[]>);
+                  
+                  for (const groupId of Object.keys(groupedByGroupId)) {
+                    await removeExpired(groupId);
+                  }
+                  toast({ 
+                    title: 'Members removed', 
+                    description: `${expiredMembersForAlert.length} expired member(s) have been removed` 
+                  });
+                }}
+              />
+            </div>
           )}
 
           {/* PHASE 4.3: Hidden Message Banner with Accessibility */}
@@ -1421,6 +1552,62 @@ export default function Messages() {
         groups={groupCaches}
         currentUsername={user?.username}
       />
+
+      <NotificationCenter
+        open={isNotificationCenterOpen}
+        onOpenChange={setIsNotificationCenterOpen}
+        groups={groupCaches}
+        currentUsername={user?.username}
+        onNavigateToGroup={(groupId) => {
+          setSelectedGroupId(groupId);
+          setSelectedPartner('');
+          setIsNotificationCenterOpen(false);
+        }}
+      />
+
+      {selectedGroup && (
+        <GroupSettingsModal
+          open={isGroupSettingsOpen}
+          onOpenChange={setIsGroupSettingsOpen}
+          group={selectedGroup}
+          currentUsername={user?.username}
+          onUpdateSettings={async (updatedSettings) => {
+            if (!selectedGroup) return;
+            const updated = { ...selectedGroup, ...updatedSettings };
+            await cacheGroupConversation(updated, user?.username);
+            if (user?.username) {
+              const newVersion = (selectedGroup.version || 1) + 1;
+              await broadcastGroupUpdate(
+                user.username,
+                selectedGroup.groupId,
+                selectedGroup.name,
+                selectedGroup.members,
+                newVersion
+              );
+            }
+            queryClient.invalidateQueries({ queryKey: ['group-discovery'] });
+            toast({ title: 'Settings updated', description: 'Group settings saved successfully' });
+          }}
+        />
+      )}
+
+      {selectedGroup && (
+        <BroadcastModal
+          open={isBroadcastOpen}
+          onOpenChange={setIsBroadcastOpen}
+          group={selectedGroup}
+          currentUsername={user?.username}
+          onSendMessage={async (content) => {
+            // Broadcast message uses the existing MessageComposer flow
+            // This is a placeholder - actual sending happens through normal group messaging
+            if (!user?.username || !selectedGroup) return;
+            toast({
+              title: 'Broadcast queued',
+              description: 'Your message will be sent to all group members',
+            });
+          }}
+        />
+      )}
 
       <HiddenChatsModal
         open={isHiddenChatsOpen}

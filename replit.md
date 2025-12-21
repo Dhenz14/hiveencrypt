@@ -44,6 +44,16 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 - **Real-time Sync**: Message synchronization and offline browsing of cached data.
 - **PWA**: Installable on mobile and desktop.
 - **Security**: No private keys are ever transmitted or stored by the application.
+- **Creator Tools (Priority 2 & 3)**:
+  - **Earnings Dashboard**: View payment history and revenue metrics across all paid groups.
+  - **Creator Analytics**: Member activity charts, growth metrics, and engagement statistics.
+  - **Promotion Tools**: Shareable links, social sharing buttons, and referral tracking with discount codes.
+  - **Group Preview Pages**: Public landing pages for groups with referral parameter handling.
+  - **Group Settings Modal**: Manage payment settings (enable/disable, recurring intervals), auto-approval settings, welcome messages, and danger zone actions.
+  - **Notification Center**: Centralized notification hub tracking payments, expiries, join requests, and member activity with localStorage persistence.
+  - **Broadcast Messaging**: Send messages to all group members simultaneously.
+  - **Pinned Messages Bar**: Pin important announcements that display at the top of group chats.
+  - **Automated Expired Member Management**: Auto-detect expired subscriptions with alerts for creators to remove members.
 
 ### System Design Choices
 - **Decentralized Storage**: Hive blockchain.

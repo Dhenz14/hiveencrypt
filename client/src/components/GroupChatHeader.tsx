@@ -1,4 +1,4 @@
-import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck, DollarSign, Globe, TrendingUp, ExternalLink } from 'lucide-react';
+import { Users, ArrowLeft, MoreVertical, Trash2, UserCog, Pencil, LogOut, UserCheck, DollarSign, Globe, TrendingUp, ExternalLink, Settings, Radio } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -33,6 +33,8 @@ interface GroupChatHeaderProps {
   onLeaveGroup?: () => void;
   onMakePublic?: () => void;
   onViewEarnings?: () => void;
+  onOpenSettings?: () => void;
+  onOpenBroadcast?: () => void;
   isCreator?: boolean;
   isPublished?: boolean;
   publishedPermlink?: string;
@@ -51,6 +53,8 @@ export function GroupChatHeader({
   onLeaveGroup,
   onMakePublic,
   onViewEarnings,
+  onOpenSettings,
+  onOpenBroadcast,
   isCreator,
   isPublished,
   publishedPermlink
@@ -249,6 +253,24 @@ export function GroupChatHeader({
               >
                 <TrendingUp className="w-4 h-4 mr-2" />
                 Earnings
+              </DropdownMenuItem>
+            )}
+            {isCreator && onOpenSettings && (
+              <DropdownMenuItem 
+                onClick={onOpenSettings} 
+                data-testid="menu-group-settings"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Group Settings
+              </DropdownMenuItem>
+            )}
+            {isCreator && onOpenBroadcast && (
+              <DropdownMenuItem 
+                onClick={onOpenBroadcast} 
+                data-testid="menu-broadcast-message"
+              >
+                <Radio className="w-4 h-4 mr-2" />
+                Broadcast Message
               </DropdownMenuItem>
             )}
             {onLeaveGroup && (
