@@ -22,8 +22,9 @@ interface StreamState {
 
 const API_NODES = [
   'https://api.hive.blog',
-  'https://anyx.io',
   'https://api.openhive.network',
+  'https://rpc.ecency.com',
+  'https://hive-api.arcange.eu',
 ];
 
 function parseBlockNumber(blockId: string): number {

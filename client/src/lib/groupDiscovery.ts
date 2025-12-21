@@ -285,8 +285,8 @@ export async function fetchDiscoverableGroups(
   const rpcNodes = [
     'https://api.hive.blog',
     'https://api.openhive.network',
-    'https://anyx.io',
     'https://rpc.ecency.com',
+    'https://hive-api.arcange.eu',
   ];
   
   let discussions: any[] | null = null;
@@ -431,7 +431,7 @@ export async function isGroupPublished(
     'https://api.hive.blog',
     'https://rpc.ecency.com',
     'https://api.openhive.network',
-    'https://anyx.io',
+    'https://hive-api.arcange.eu',
   ];
   
   for (const node of rpcNodes) {

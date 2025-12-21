@@ -20,7 +20,7 @@ const FOLLOW_API_NODES = [
   'https://api.deathwing.me',
   'https://hive-api.arcange.eu',
   'https://api.openhive.network',
-  'https://anyx.io',
+  'https://rpc.ecency.com',
 ];
 
 // Track unhealthy nodes for this session (nodes that don't have follow_api)

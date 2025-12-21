@@ -156,9 +156,9 @@ export async function getAccountMetadata(
     // Initialize Hive client (use public RPC node)
     const client = new Client([
       'https://api.hive.blog',
-      'https://api.hivekings.com',
-      'https://anyx.io',
       'https://api.openhive.network',
+      'https://rpc.ecency.com',
+      'https://hive-api.arcange.eu',
     ]);
     
     // Fetch account data from blockchain
