@@ -4,11 +4,13 @@ import { hiveClient as optimizedHiveClient } from './hiveClient';
 import { logger } from '@/lib/logger';
 
 // Initialize Hive client with public node (for direct access)
+// All nodes with anyx.io at the end (lower priority due to intermittent issues)
 export const hiveClient = new Client([
   'https://api.hive.blog',
   'https://api.openhive.network',
   'https://rpc.ecency.com',
   'https://hive-api.arcange.eu',
+  'https://anyx.io',
 ]);
 
 /**

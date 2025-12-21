@@ -603,13 +603,79 @@ class HiveBlockchainClient {
   }
 }
 
-// Export singleton instance
-export const hiveClient = new HiveBlockchainClient([
+// All available Hive RPC nodes - ordered by typical reliability
+// The health tracking system will automatically deprioritize failing nodes
+const ALL_HIVE_NODES = [
   'https://api.hive.blog',
   'https://api.openhive.network',
   'https://rpc.ecency.com',
   'https://hive-api.arcange.eu',
-]);
+  'https://anyx.io',  // Known to have intermittent issues, but kept for when it's healthy
+];
+
+// Export singleton instance with all nodes
+export const hiveClient = new HiveBlockchainClient(ALL_HIVE_NODES);
+
+// Export the node list for other modules to use
+export { ALL_HIVE_NODES };
 
 // Export the class for testing purposes
 export { HiveBlockchainClient };
+
+/**
+ * Make a direct RPC call with fast timeout and automatic node failover
+ * Use this instead of creating new Client instances directly
+ */
+export async function rpcCallWithFailover<T>(
+  method: string,
+  params: any[],
+  options: { timeout?: number; api?: string } = {}
+): Promise<T> {
+  const { timeout = 5000, api = 'condenser_api' } = options;
+  const fullMethod = api === 'condenser_api' ? `condenser_api.${method}` : `${api}.${method}`;
+  
+  let lastError: Error | null = null;
+  
+  for (const node of ALL_HIVE_NODES) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      
+      const response = await fetch(node, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          method: fullMethod,
+          params,
+          id: 1,
+        }),
+        signal: controller.signal,
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        logger.warn('[RPC FAILOVER] Node returned error status:', node, response.status);
+        continue;
+      }
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        logger.warn('[RPC FAILOVER] RPC error from node:', node, data.error);
+        continue;
+      }
+      
+      logger.debug('[RPC FAILOVER] Success from node:', node);
+      return data.result as T;
+    } catch (error) {
+      lastError = error as Error;
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      logger.warn('[RPC FAILOVER] Node failed:', node, errorMsg);
+      continue;
+    }
+  }
+  
+  throw lastError || new Error(`All nodes failed for ${fullMethod}`);
+}

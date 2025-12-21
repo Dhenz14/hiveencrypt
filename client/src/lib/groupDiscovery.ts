@@ -282,11 +282,13 @@ export async function fetchDiscoverableGroups(
   logger.info('[GROUP DISCOVERY] Querying with tag:', QUERY_TAG, 'method:', method);
   
   // Try multiple RPC nodes directly with retries
+  // All nodes - anyx.io at end due to intermittent issues
   const rpcNodes = [
     'https://api.hive.blog',
     'https://api.openhive.network',
     'https://rpc.ecency.com',
     'https://hive-api.arcange.eu',
+    'https://anyx.io',
   ];
   
   let discussions: any[] | null = null;
@@ -295,6 +297,10 @@ export async function fetchDiscoverableGroups(
   for (const node of rpcNodes) {
     try {
       logger.info('[GROUP DISCOVERY] Trying node:', node);
+      
+      // Add 5-second timeout to prevent hanging on failing nodes
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
       
       const response = await fetch(node, {
         method: 'POST',
@@ -305,7 +311,10 @@ export async function fetchDiscoverableGroups(
           params: [{ tag: QUERY_TAG, limit }],
           id: 1,
         }),
+        signal: controller.signal,
       });
+      
+      clearTimeout(timeoutId);
       
       if (!response.ok) {
         logger.warn('[GROUP DISCOVERY] Node returned error status:', response.status);
@@ -326,7 +335,8 @@ export async function fetchDiscoverableGroups(
       }
     } catch (error) {
       lastError = error as Error;
-      logger.warn('[GROUP DISCOVERY] Node failed:', node, error);
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      logger.warn('[GROUP DISCOVERY] Node failed:', node, errorMsg);
       continue;
     }
   }
@@ -427,11 +437,13 @@ export async function isGroupPublished(
   logger.debug('[GROUP DISCOVERY] Checking if group is published:', { creator, groupId });
   
   // Try multiple RPC nodes
+  // All nodes - anyx.io at end due to intermittent issues
   const rpcNodes = [
     'https://api.hive.blog',
     'https://rpc.ecency.com',
     'https://api.openhive.network',
     'https://hive-api.arcange.eu',
+    'https://anyx.io',
   ];
   
   for (const node of rpcNodes) {
@@ -445,7 +457,7 @@ export async function isGroupPublished(
           params: [{ tag: creator, limit: 100 }],
           id: 1,
         }),
-        signal: AbortSignal.timeout(10000), // 10 second timeout
+        signal: AbortSignal.timeout(5000), // 5 second timeout - skip to next node if too slow
       });
       
       if (!response.ok) continue;

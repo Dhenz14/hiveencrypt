@@ -20,11 +20,13 @@ interface StreamState {
   opsProcessed: number;
 }
 
+// All nodes - anyx.io at end due to intermittent issues
 const API_NODES = [
   'https://api.hive.blog',
   'https://api.openhive.network',
   'https://rpc.ecency.com',
   'https://hive-api.arcange.eu',
+  'https://anyx.io',
 ];
 
 function parseBlockNumber(blockId: string): number {

@@ -15,12 +15,14 @@ import { logger } from './logger';
 
 // Nodes known to support follow_api (verified working)
 // Order by reliability - api.hive.blog is most reliable for follow_api
+// All nodes - anyx.io at end due to intermittent issues
 const FOLLOW_API_NODES = [
   'https://api.hive.blog',
   'https://api.deathwing.me',
   'https://hive-api.arcange.eu',
   'https://api.openhive.network',
   'https://rpc.ecency.com',
+  'https://anyx.io',
 ];
 
 // Track unhealthy nodes for this session (nodes that don't have follow_api)

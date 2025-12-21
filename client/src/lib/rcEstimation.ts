@@ -37,11 +37,13 @@ export const RC_COSTS = {
  */
 export async function getAccountRC(username: string): Promise<RCInfo> {
   try {
+    // All nodes - anyx.io at end due to intermittent issues
     const client = new Client([
       'https://api.hive.blog',
       'https://api.openhive.network',
       'https://rpc.ecency.com',
       'https://hive-api.arcange.eu',
+      'https://anyx.io',
     ]);
 
     // Use rc_api to get accurate Resource Credits information

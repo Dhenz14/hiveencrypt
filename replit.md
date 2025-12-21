@@ -71,7 +71,8 @@ Hive Messenger features a 100% decentralized architecture, operating as a React 
 
 ### Blockchain Infrastructure
 - **Hive Blockchain**: Primary decentralized storage.
-- **Public RPC Nodes**: `https://api.hive.blog`, `https://anyx.io`, `https://api.openhive.network` with automatic health scoring and smart failover.
+- **Public RPC Nodes**: `https://api.hive.blog`, `https://api.openhive.network`, `https://rpc.ecency.com`, `https://hive-api.arcange.eu`, `https://anyx.io` with automatic health scoring and smart failover.
+- **RPC Failover System**: All fetch calls use 5-second AbortController timeouts. If a node times out or returns an error, the system automatically tries the next node in the list. Nodes with known issues (like anyx.io) are placed at the end of the list for lower priority but kept available for when they recover.
 
 ### Authentication Services
 - **Hive Keychain**: Universal authentication solution.
