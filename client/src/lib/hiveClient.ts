@@ -608,10 +608,10 @@ class HiveBlockchainClient {
 // Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
 // All nodes below have 100% score except anyx.io (88%) which is kept as fallback
 const ALL_HIVE_NODES = [
-  'https://api.hive.blog',         // Official - 100% score
-  'https://api.deathwing.me',      // 100% score
-  'https://api.openhive.network',  // 100% score
-  'https://techcoderx.com',        // 100% score
+  'https://api.hive.blog',         // Official - 100% score - PRIORITY 1
+  'https://api.deathwing.me',      // 100% score - PRIORITY 2
+  'https://api.openhive.network',  // 100% score - PRIORITY 3
+  'https://techcoderx.com',        // 100% score - PRIORITY 4
   'https://hiveapi.actifit.io',    // 100% score
   'https://rpc.mahdiyari.info',    // 100% score
   'https://api.syncad.com',        // 100% score
@@ -620,6 +620,11 @@ const ALL_HIVE_NODES = [
 
 // Export singleton instance with all nodes
 export const hiveClient = new HiveBlockchainClient(ALL_HIVE_NODES);
+
+// Log RPC configuration on load - helps verify correct deployment
+if (typeof window !== 'undefined') {
+  console.log('[RPC] Node configuration loaded, primary node:', ALL_HIVE_NODES[0]);
+}
 
 // Export the node list for other modules to use
 export { ALL_HIVE_NODES };

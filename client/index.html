@@ -63,7 +63,7 @@
         var pathParts = window.location.pathname.split('/');
         pathParts.pop();
         var basePath = pathParts.join('/') + '/';
-        var swPath = basePath + 'sw.js';
+        var swPath = basePath + 'sw.js?v=' + Date.now();
         
         // Listen for service worker update messages
         navigator.serviceWorker.addEventListener('message', function(event) {
