@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Users, Plus, X, AlertCircle, Crown, Loader2, DollarSign, Check, XCircle, ExternalLink, Clock } from 'lucide-react';
+import { MemberManagementTable } from './MemberManagementTable';
 import {
   Dialog,
   DialogContent,
@@ -759,81 +760,25 @@ export function ManageMembersModal({
             </p>
           </div>
 
-          {/* Current Members List */}
+          {/* Enhanced Member Management Table */}
           <div className="space-y-2">
             <Label className="text-caption">
               Current Members ({members.length})
             </Label>
-            <ScrollArea className="h-[280px] rounded-md border p-3">
-              <div className="space-y-2">
-                {members.map((member) => {
-                  const isCreator = member === creator;
-                  const isCurrentUser = member === currentUsername;
-                  const canRemove = !isCreator && !isCurrentUser;
-                  
-                  return (
-                    <div
-                      key={member}
-                      className="flex items-center gap-3 p-2 rounded-md hover-elevate"
-                      data-testid={`member-item-${member}`}
-                    >
-                      <Avatar className="w-8 h-8 flex-shrink-0">
-                        <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
-                          {getInitials(member)}
-                        </AvatarFallback>
-                      </Avatar>
-                      
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-body font-medium truncate">
-                            @{member}
-                          </span>
-                          {isCreator && (
-                            <Badge variant="secondary" className="gap-1 px-2 py-0.5 text-caption">
-                              <Crown className="w-3 h-3" />
-                              Creator
-                            </Badge>
-                          )}
-                          {isCurrentUser && (
-                            <Badge variant="outline" className="px-2 py-0.5 text-caption">
-                              You
-                            </Badge>
-                          )}
-                          {added.includes(member) && (
-                            <Badge variant="default" className="bg-green-500 px-2 py-0.5 text-caption">
-                              New
-                            </Badge>
-                          )}
-                          {paymentSettings?.enabled && !added.includes(member) && (
-                            <PaymentStatusBadge
-                              paymentSettings={paymentSettings}
-                              memberPayments={memberPayments}
-                              username={member}
-                              showLabel={false}
-                              className="text-xs"
-                            />
-                          )}
-                        </div>
-                      </div>
-
-                      {canRemove && (
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleRemoveMember(member)}
-                          disabled={isUpdating}
-                          className="h-8 w-8 flex-shrink-0"
-                          data-testid={`button-remove-member-${member}`}
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </ScrollArea>
+            <MemberManagementTable
+              members={members}
+              creator={creator}
+              currentUsername={currentUsername}
+              paymentSettings={paymentSettings}
+              memberPayments={memberPayments}
+              onRemoveMember={handleRemoveMember}
+              onBatchRemove={(usernames) => {
+                const newMembers = members.filter(m => !usernames.includes(m));
+                setMembers(newMembers);
+              }}
+              isUpdating={isUpdating}
+              addedMembers={added}
+            />
           </div>
 
           {/* Changes Preview */}
