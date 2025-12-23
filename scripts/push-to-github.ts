@@ -1,16 +1,9 @@
-// GitHub Push Script - Uses Replit's GitHub integration via Contents API
-import { Octokit } from '@octokit/rest';
-import { execSync } from 'child_process';
-import * as fs from 'fs';
-import * as path from 'path';
+// GitHub Push Script - Uses Replit's GitHub connection token
+// Usage: npx tsx scripts/push-to-github.ts "Your commit message"
 
-let connectionSettings: any;
+import { execSync } from 'child_process';
 
 async function getAccessToken(): Promise<string> {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
-  }
-  
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
   const xReplitToken = process.env.REPL_IDENTITY 
     ? 'repl ' + process.env.REPL_IDENTITY 
@@ -18,37 +11,28 @@ async function getAccessToken(): Promise<string> {
     ? 'depl ' + process.env.WEB_REPL_RENEWAL 
     : null;
 
-  if (!xReplitToken) {
-    throw new Error('X_REPLIT_TOKEN not found for repl/depl');
+  if (!xReplitToken || !hostname) {
+    throw new Error('Replit connection environment not available');
   }
 
-  connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=github',
+  const response = await fetch(
+    `https://${hostname}/api/v2/connection?include_secrets=true&connector_names=github`,
     {
       headers: {
         'Accept': 'application/json',
         'X_REPLIT_TOKEN': xReplitToken
       }
     }
-  ).then(res => res.json()).then(data => data.items?.[0]);
+  );
+  
+  const data = await response.json();
+  const settings = data.items?.[0]?.settings;
+  const token = settings?.access_token || settings?.oauth?.credentials?.access_token;
 
-  const accessToken = connectionSettings?.settings?.access_token || connectionSettings.settings?.oauth?.credentials?.access_token;
-
-  if (!connectionSettings || !accessToken) {
-    throw new Error('GitHub not connected');
+  if (!token) {
+    throw new Error('GitHub not connected - please connect GitHub in Replit');
   }
-  return accessToken;
-}
-
-// Get all files to push (respecting .gitignore)
-function getFilesToPush(): string[] {
-  try {
-    const output = execSync('git ls-files', { encoding: 'utf-8' });
-    return output.trim().split('\n').filter(f => f.length > 0);
-  } catch (error) {
-    console.error('Error getting files:', error);
-    return [];
-  }
+  return token;
 }
 
 async function pushToGitHub() {
@@ -56,37 +40,38 @@ async function pushToGitHub() {
   const repo = 'hiveencrypt';
   const commitMessage = process.argv[2] || 'Update from Replit';
   
-  console.log('Getting GitHub access token...');
-  const accessToken = await getAccessToken();
-  console.log('Token obtained successfully');
+  console.log('🔑 Getting GitHub access token...');
+  const token = await getAccessToken();
   
-  const authUrl = `https://x-access-token:${accessToken}@github.com/${owner}/${repo}.git`;
+  const authUrl = `https://x-access-token:${token}@github.com/${owner}/${repo}.git`;
   
   try {
     // Stage all changes
-    console.log('Staging changes...');
+    console.log('📦 Staging changes...');
     execSync('git add -A', { stdio: 'inherit' });
     
-    // Commit with message
-    console.log(`Committing: "${commitMessage}"`);
+    // Commit
+    console.log(`📝 Committing: "${commitMessage}"`);
     try {
       execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
-    } catch (e) {
-      console.log('Nothing to commit or already committed');
+    } catch {
+      console.log('ℹ️  Nothing new to commit');
     }
     
-    // Push to GitHub
-    console.log('Pushing to GitHub...');
-    execSync(`git push ${authUrl} main --force`, { stdio: 'pipe' });
+    // Push
+    console.log('🚀 Pushing to GitHub...');
+    execSync(`git push ${authUrl} main`, { stdio: 'pipe' });
+    
     console.log('✅ Successfully pushed to GitHub!');
-    console.log(`View at: https://github.com/${owner}/${repo}`);
+    console.log(`🔗 https://github.com/${owner}/${repo}`);
   } catch (error: any) {
-    console.error('Push failed:', error.message);
+    // Don't show token in error
+    console.error('❌ Push failed:', error.message?.replace(token, '***'));
     process.exit(1);
   }
 }
 
 pushToGitHub().catch(error => {
-  console.error('Failed:', error.message);
+  console.error('❌ Failed:', error.message);
   process.exit(1);
 });

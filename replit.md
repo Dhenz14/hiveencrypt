@@ -24,6 +24,20 @@ I prefer simple language. I want iterative development. Ask before making major 
 If you see "index.lock: File exists", run in Shell: `rm -f .git/index.lock`
 Then retry the push command.
 
+### Alternative Direct Push (if script fails)
+```bash
+TOKEN=$(npx tsx -e "
+const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
+const xReplitToken = process.env.REPL_IDENTITY ? 'repl ' + process.env.REPL_IDENTITY : process.env.WEB_REPL_RENEWAL ? 'depl ' + process.env.WEB_REPL_RENEWAL : null;
+fetch('https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=github', {
+  headers: { 'Accept': 'application/json', 'X_REPLIT_TOKEN': xReplitToken }
+}).then(r => r.json()).then(d => {
+  const s = d.items?.[0]?.settings;
+  console.log(s?.access_token || s?.oauth?.credentials?.access_token);
+});
+" 2>/dev/null) && git push https://x-access-token:${TOKEN}@github.com/Dhenz14/hiveencrypt.git main
+```
+
 ## System Architecture
 Hive Messenger features a 100% decentralized architecture, operating as a React PWA hosted statically. It leverages the Hive blockchain as the single source of truth and IndexedDB for client-side message caching. Authentication is exclusively via Hive Keychain, and the application interacts directly with public Hive blockchain RPC nodes. Messages are end-to-end encrypted client-side using Hive memo encryption. The PWA supports offline functionality, installability, and cross-platform compatibility.
 
