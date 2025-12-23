@@ -103,8 +103,8 @@ export function GroupCreationModal({
       return;
     }
 
-    if (members.length < 2) {
-      setError('Groups must have at least 2 members (excluding yourself)');
+    if (members.length < 1) {
+      setError('Please add at least 1 member to the group');
       return;
     }
 
