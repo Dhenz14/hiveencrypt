@@ -7,11 +7,11 @@ Hive Messenger is a decentralized, end-to-end encrypted messaging Progressive We
 I prefer simple language. I want iterative development. Ask before making major changes. I prefer detailed explanations.
 
 ## Deployment Requirements (MANDATORY)
-- **All changes MUST be pushed to GitHub** after every update
+- **CRITICAL: Agent MUST push to GitHub automatically after every code change - NEVER ask user to push manually**
 - **Production URL**: https://dhenz14.github.io/hiveencrypt/
 - **Deployment Method**: GitHub Pages (static hosting from `gh-pages` branch)
 - **Build Command**: `npm run build` generates static files in `dist/` folder
-- **Push Workflow**: After any code changes, the user must sync/push to GitHub to deploy updates
+- **Auto-Push Command**: Use GitHub connection token to push via `git push https://x-access-token:{TOKEN}@github.com/Dhenz14/hiveencrypt.git main:main`
 
 ## System Architecture
 Hive Messenger features a 100% decentralized architecture, operating as a React PWA hosted statically. It leverages the Hive blockchain as the single source of truth and IndexedDB for client-side message caching. Authentication is exclusively via Hive Keychain, and the application interacts directly with public Hive blockchain RPC nodes. Messages are end-to-end encrypted client-side using Hive memo encryption. The PWA supports offline functionality, installability, and cross-platform compatibility.
