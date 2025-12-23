@@ -54,20 +54,36 @@ function getFilesToPush(): string[] {
 async function pushToGitHub() {
   const owner = 'Dhenz14';
   const repo = 'hiveencrypt';
+  const commitMessage = process.argv[2] || 'Update from Replit';
   
   console.log('Getting GitHub access token...');
   const accessToken = await getAccessToken();
   console.log('Token obtained successfully');
   
-  // Output the authenticated URL for the user to use
   const authUrl = `https://x-access-token:${accessToken}@github.com/${owner}/${repo}.git`;
   
-  console.log('\n📋 To push to GitHub, run this command in the Shell:');
-  console.log('─'.repeat(60));
-  console.log(`git push ${authUrl} main --force`);
-  console.log('─'.repeat(60));
-  console.log('\nThis command uses your authenticated GitHub connection.');
-  console.log(`\nAfter pushing, view your repo at: https://github.com/${owner}/${repo}`);
+  try {
+    // Stage all changes
+    console.log('Staging changes...');
+    execSync('git add -A', { stdio: 'inherit' });
+    
+    // Commit with message
+    console.log(`Committing: "${commitMessage}"`);
+    try {
+      execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+    } catch (e) {
+      console.log('Nothing to commit or already committed');
+    }
+    
+    // Push to GitHub
+    console.log('Pushing to GitHub...');
+    execSync(`git push ${authUrl} main --force`, { stdio: 'pipe' });
+    console.log('✅ Successfully pushed to GitHub!');
+    console.log(`View at: https://github.com/${owner}/${repo}`);
+  } catch (error: any) {
+    console.error('Push failed:', error.message);
+    process.exit(1);
+  }
 }
 
 pushToGitHub().catch(error => {

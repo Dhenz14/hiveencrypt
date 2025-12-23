@@ -11,7 +11,18 @@ I prefer simple language. I want iterative development. Ask before making major 
 - **Production URL**: https://dhenz14.github.io/hiveencrypt/
 - **Deployment Method**: GitHub Pages (static hosting from `gh-pages` branch)
 - **Build Command**: `npm run build` generates static files in `dist/` folder
-- **Auto-Push Command**: Use GitHub connection token to push via `git push https://x-access-token:{TOKEN}@github.com/Dhenz14/hiveencrypt.git main:main`
+
+### How Agent Pushes to GitHub
+1. Run: `npx tsx scripts/push-to-github.ts "Your commit message"`
+2. This script automatically:
+   - Gets the GitHub access token from Replit's GitHub connection
+   - Stages all changes with `git add -A`
+   - Commits with the provided message
+   - Force pushes to origin main
+
+### If Git Lock Error Occurs
+If you see "index.lock: File exists", run in Shell: `rm -f .git/index.lock`
+Then retry the push command.
 
 ## System Architecture
 Hive Messenger features a 100% decentralized architecture, operating as a React PWA hosted statically. It leverages the Hive blockchain as the single source of truth and IndexedDB for client-side message caching. Authentication is exclusively via Hive Keychain, and the application interacts directly with public Hive blockchain RPC nodes. Messages are end-to-end encrypted client-side using Hive memo encryption. The PWA supports offline functionality, installability, and cross-platform compatibility.
