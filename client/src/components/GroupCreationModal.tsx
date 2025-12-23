@@ -192,7 +192,7 @@ export function GroupCreationModal({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-headline flex items-center gap-2">
             <Users className="w-5 h-5" />
