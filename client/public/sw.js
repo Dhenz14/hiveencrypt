@@ -5,15 +5,17 @@
  * VERSION: This must be incremented on each deployment to trigger cache refresh
  */
 
-const CACHE_VERSION = 'v17';
+const CACHE_VERSION = 'v18';
 const CACHE_NAME = `hive-messenger-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `hive-messenger-runtime-${CACHE_VERSION}`;
 
-// Install event - immediately take control
+// Track if we've already notified clients this activation
+let hasNotifiedClients = false;
+
+// Install event - wait for SKIP_WAITING message instead of auto-skip
 self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Installing version:', CACHE_VERSION);
-  // Skip waiting to immediately activate the new service worker
-  event.waitUntil(self.skipWaiting());
+  // Don't auto-skip - wait for explicit SKIP_WAITING message from page
 });
 
 // Activate event - clean up old caches and take control of all clients
@@ -36,16 +38,19 @@ self.addEventListener('activate', (event) => {
       // Take control of all clients immediately
       self.clients.claim()
     ]).then(() => {
-      // Notify all clients that a new version is available
-      self.clients.matchAll().then((clients) => {
-        clients.forEach((client) => {
-          client.postMessage({
-            type: 'SW_UPDATED',
-            version: CACHE_VERSION
+      // Only notify clients once per activation to prevent loops
+      if (!hasNotifiedClients) {
+        hasNotifiedClients = true;
+        self.clients.matchAll().then((clients) => {
+          clients.forEach((client) => {
+            client.postMessage({
+              type: 'SW_UPDATED',
+              version: CACHE_VERSION
+            });
           });
         });
-      });
-      console.log('[ServiceWorker] Activation complete, notified clients');
+        console.log('[ServiceWorker] Activation complete, notified clients');
+      }
     })
   );
 });

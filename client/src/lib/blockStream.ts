@@ -29,7 +29,6 @@ const API_NODES = [
   'https://hiveapi.actifit.io',    // 100% score
   'https://rpc.mahdiyari.info',    // 100% score
   'https://api.syncad.com',        // 100% score
-  'https://anyx.io',               // 88% score - fallback only
 ];
 
 function parseBlockNumber(blockId: string): number {

@@ -46,7 +46,6 @@ export async function getAccountRC(username: string): Promise<RCInfo> {
       'https://hiveapi.actifit.io',    // 100% score
       'https://rpc.mahdiyari.info',    // 100% score
       'https://api.syncad.com',        // 100% score
-      'https://anyx.io',               // 88% score - fallback only
     ]);
 
     // Use rc_api to get accurate Resource Credits information

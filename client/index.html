@@ -63,48 +63,60 @@
         var pathParts = window.location.pathname.split('/');
         pathParts.pop();
         var basePath = pathParts.join('/') + '/';
-        var swPath = basePath + 'sw.js?v=' + Date.now();
+        // Use fixed path - SW version is controlled by CACHE_VERSION inside sw.js
+        var swPath = basePath + 'sw.js';
+        
+        // Track if we've already reloaded this session to prevent loops
+        var hasReloaded = sessionStorage.getItem('sw_reloaded');
         
         // Listen for service worker update messages
         navigator.serviceWorker.addEventListener('message', function(event) {
           if (event.data && event.data.type === 'SW_UPDATED') {
             console.log('[PWA] New version available:', event.data.version);
-            // Clear all caches and reload to get fresh content
-            if (caches) {
-              caches.keys().then(function(names) {
-                names.forEach(function(name) {
-                  caches.delete(name);
+            // Only reload once per session to prevent loops
+            if (!hasReloaded) {
+              sessionStorage.setItem('sw_reloaded', 'true');
+              if (caches) {
+                caches.keys().then(function(names) {
+                  return Promise.all(names.map(function(name) {
+                    return caches.delete(name);
+                  }));
+                }).then(function() {
+                  console.log('[PWA] Caches cleared, reloading...');
+                  window.location.reload(true);
                 });
-              }).then(function() {
-                console.log('[PWA] Caches cleared, reloading...');
+              } else {
                 window.location.reload(true);
-              });
-            } else {
-              window.location.reload(true);
+              }
             }
           }
         });
         
-        // Auto-reload when service worker takes control
+        // Auto-reload when service worker takes control (only once)
         var refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', function() {
-          if (refreshing) return;
+          if (refreshing || hasReloaded) return;
           refreshing = true;
+          sessionStorage.setItem('sw_reloaded', 'true');
           console.log('[PWA] Controller changed, reloading for new version...');
           window.location.reload(true);
         });
         
         window.addEventListener('load', function() {
+          // Clear the reload flag after successful load
+          setTimeout(function() {
+            sessionStorage.removeItem('sw_reloaded');
+          }, 5000);
+          
           navigator.serviceWorker
             .register(swPath, { updateViaCache: 'none' })
             .then(function(registration) {
               console.log('[PWA] Service Worker registered:', registration.scope);
               
-              // Check for updates immediately and every 60 seconds
-              registration.update();
+              // Check for updates every 5 minutes (not constantly)
               setInterval(function() {
                 registration.update();
-              }, 60000);
+              }, 300000);
               
               // Handle waiting service worker
               if (registration.waiting) {

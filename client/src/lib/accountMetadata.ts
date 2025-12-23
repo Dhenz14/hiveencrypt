@@ -163,7 +163,6 @@ export async function getAccountMetadata(
       'https://hiveapi.actifit.io',    // 100% score
       'https://rpc.mahdiyari.info',    // 100% score
       'https://api.syncad.com',        // 100% score
-      'https://anyx.io',               // 88% score - fallback only
     ]);
     
     // Fetch account data from blockchain

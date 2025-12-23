@@ -24,7 +24,6 @@ const FOLLOW_API_NODES = [
   'https://hiveapi.actifit.io',    // 100% score
   'https://rpc.mahdiyari.info',    // 100% score
   'https://api.syncad.com',        // 100% score
-  'https://anyx.io',               // 88% score - fallback only
 ];
 
 // Track unhealthy nodes for this session (nodes that don't have follow_api)
