@@ -5,54 +5,37 @@
  * VERSION: This must be incremented on each deployment to trigger cache refresh
  */
 
-const CACHE_VERSION = 'v18';
+// Increment version to trigger cache refresh on deploy
+const CACHE_VERSION = 'v19';
 const CACHE_NAME = `hive-messenger-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `hive-messenger-runtime-${CACHE_VERSION}`;
 
-// Track if we've already notified clients this activation
-let hasNotifiedClients = false;
-
-// Install event - wait for SKIP_WAITING message instead of auto-skip
+// Install event - skip waiting to activate immediately
 self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Installing version:', CACHE_VERSION);
-  // Don't auto-skip - wait for explicit SKIP_WAITING message from page
+  self.skipWaiting();
 });
 
-// Activate event - clean up old caches and take control of all clients
+// Activate event - clean up old caches only, no forced page refresh
 self.addEventListener('activate', (event) => {
   console.log('[ServiceWorker] Activating version:', CACHE_VERSION);
   
   event.waitUntil(
-    Promise.all([
-      // Delete ALL old caches from previous versions
-      caches.keys().then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (!cacheName.includes(CACHE_VERSION)) {
-              console.log('[ServiceWorker] Deleting old cache:', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      }),
-      // Take control of all clients immediately
-      self.clients.claim()
-    ]).then(() => {
-      // Only notify clients once per activation to prevent loops
-      if (!hasNotifiedClients) {
-        hasNotifiedClients = true;
-        self.clients.matchAll().then((clients) => {
-          clients.forEach((client) => {
-            client.postMessage({
-              type: 'SW_UPDATED',
-              version: CACHE_VERSION
-            });
-          });
-        });
-        console.log('[ServiceWorker] Activation complete, notified clients');
-      }
+    // Delete ALL old caches from previous versions
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (!cacheName.includes(CACHE_VERSION)) {
+            console.log('[ServiceWorker] Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(() => {
+      console.log('[ServiceWorker] Activation complete');
     })
   );
+  // Note: NOT calling clients.claim() to avoid triggering page refresh
 });
 
 // Fetch event - network first for HTML, cache first for assets

@@ -54,7 +54,7 @@
       window.Buffer = Buffer;
     </script>
     
-    <!-- Service Worker Registration with Auto-Update for PWA -->
+    <!-- Service Worker Registration for PWA - Non-disruptive updates -->
     <script>
       (function() {
         if (!('serviceWorker' in navigator)) return;
@@ -63,78 +63,19 @@
         var pathParts = window.location.pathname.split('/');
         pathParts.pop();
         var basePath = pathParts.join('/') + '/';
-        // Use fixed path - SW version is controlled by CACHE_VERSION inside sw.js
         var swPath = basePath + 'sw.js';
         
-        // Track if we've already reloaded this session to prevent loops
-        var hasReloaded = sessionStorage.getItem('sw_reloaded');
-        
-        // Listen for service worker update messages
-        navigator.serviceWorker.addEventListener('message', function(event) {
-          if (event.data && event.data.type === 'SW_UPDATED') {
-            console.log('[PWA] New version available:', event.data.version);
-            // Only reload once per session to prevent loops
-            if (!hasReloaded) {
-              sessionStorage.setItem('sw_reloaded', 'true');
-              if (caches) {
-                caches.keys().then(function(names) {
-                  return Promise.all(names.map(function(name) {
-                    return caches.delete(name);
-                  }));
-                }).then(function() {
-                  console.log('[PWA] Caches cleared, reloading...');
-                  window.location.reload(true);
-                });
-              } else {
-                window.location.reload(true);
-              }
-            }
-          }
-        });
-        
-        // Auto-reload when service worker takes control (only once)
-        var refreshing = false;
-        navigator.serviceWorker.addEventListener('controllerchange', function() {
-          if (refreshing || hasReloaded) return;
-          refreshing = true;
-          sessionStorage.setItem('sw_reloaded', 'true');
-          console.log('[PWA] Controller changed, reloading for new version...');
-          window.location.reload(true);
-        });
-        
+        // Simple registration - no auto-reload, let SW update naturally on next visit
         window.addEventListener('load', function() {
-          // Clear the reload flag after successful load
-          setTimeout(function() {
-            sessionStorage.removeItem('sw_reloaded');
-          }, 5000);
-          
           navigator.serviceWorker
             .register(swPath, { updateViaCache: 'none' })
             .then(function(registration) {
               console.log('[PWA] Service Worker registered:', registration.scope);
               
-              // Check for updates every 5 minutes (not constantly)
+              // Check for updates periodically (every 10 minutes)
               setInterval(function() {
-                registration.update();
-              }, 300000);
-              
-              // Handle waiting service worker
-              if (registration.waiting) {
-                console.log('[PWA] New version waiting, activating...');
-                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-              }
-              
-              registration.addEventListener('updatefound', function() {
-                var newWorker = registration.installing;
-                console.log('[PWA] Update found, installing new version...');
-                
-                newWorker.addEventListener('statechange', function() {
-                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                    console.log('[PWA] New version installed, activating...');
-                    newWorker.postMessage({ type: 'SKIP_WAITING' });
-                  }
-                });
-              });
+                registration.update().catch(function() {});
+              }, 600000);
             })
             .catch(function(error) {
               console.error('[PWA] Service Worker registration failed:', error);
