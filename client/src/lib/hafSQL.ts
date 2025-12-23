@@ -1,12 +1,13 @@
 /**
- * HafSQL Client - Direct PostgreSQL queries to HAF public database
+ * HafSQL Client - Optimized queries using HAF-enabled Hive nodes
  * 
- * HafSQL provides 2-70x faster queries than RPC for indexed blockchain data.
- * Public endpoint: hafsql-sql.mahdiyari.info:5432
+ * HAF (Hive Application Framework) nodes provide 2-70x faster queries 
+ * for indexed blockchain data compared to standard RPC nodes.
  * 
- * Note: Browser can't connect directly to PostgreSQL, so we use a REST proxy approach
- * via PostgREST or custom edge functions. For now, we implement a hybrid approach
- * that queries the HAF-enabled nodes which have faster indexed queries.
+ * Key optimizations:
+ * - account_history_api with operation_filter_low/high for bitwise filtering
+ * - Hedged parallel requests to multiple nodes for fastest response
+ * - Proper handling of API response structures
  */
 
 import { logger } from './logger';
@@ -44,6 +45,7 @@ interface TransferOperation {
   block_num: number;
   transaction_id: string;
   timestamp: string;
+  opIndex: number;
 }
 
 /**
@@ -62,7 +64,6 @@ export async function queryCustomJsonOperations(
   const startTime = performance.now();
   
   try {
-    // Use hedged parallel requests to HAF nodes for speed
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     
@@ -88,26 +89,35 @@ export async function queryCustomJsonOperations(
         
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const json = await response.json();
-        return { node, result: json.result || json.error };
+        
+        // account_history_api returns { history: [...] } not a direct array
+        if (json.result && json.result.history) {
+          return { node, result: json.result.history };
+        }
+        if (json.error) {
+          throw new Error(json.error.message || 'RPC error');
+        }
+        return { node, error: new Error('Invalid response format') };
       } catch (e) {
         return { node, error: e };
       }
     });
     
-    // Race for fastest response
     const results = await Promise.all(requests);
     clearTimeout(timeout);
     
     const successResult = results.find(r => r.result && !r.error);
     
     if (!successResult || !Array.isArray(successResult.result)) {
-      throw new Error('All HAF nodes failed');
+      const errors = results.filter(r => r.error).map(r => r.error);
+      throw new Error(`All HAF nodes failed: ${errors.map(e => e?.message || e).join(', ')}`);
     }
     
     // Filter for specific custom_json id
     const operations: CustomJsonOperation[] = [];
     
-    for (const [, op] of successResult.result) {
+    for (const [opIndex, op] of successResult.result) {
+      if (!op || !op.op) continue;
       if (op.op[0] !== 'custom_json') continue;
       
       const customJson = op.op[1];
@@ -133,7 +143,7 @@ export async function queryCustomJsonOperations(
       queryTime
     };
   } catch (error) {
-    logger.error('[HAFSQL] Query failed:', error);
+    logger.error('[HAFSQL] Custom JSON query failed:', error);
     return {
       success: false,
       data: [],
@@ -158,53 +168,25 @@ export async function queryTransferOperations(
   const startTime = performance.now();
   
   try {
-    // Use hedged parallel requests for speed
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     
     const requests = HAF_NODES.slice(0, 3).map(async (node) => {
       try {
-        // For filtered queries, we need the actual start position
-        let actualStart = startOpId;
-        
-        if (startOpId === -1) {
-          // Get latest operation index first
-          const latestResponse = await fetch(node, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              jsonrpc: '2.0',
-              method: 'condenser_api.get_account_history',
-              params: [account, -1, 1],
-              id: 1
-            }),
-            signal: controller.signal
-          });
-          
-          const latestJson = await latestResponse.json();
-          if (latestJson.result && latestJson.result.length > 0) {
-            actualStart = latestJson.result[0][0];
-          }
-        }
-        
-        // Ensure start >= limit - 1 for API constraint
-        if (actualStart < limit - 1) {
-          actualStart = limit - 1;
-        }
-        
+        // Use account_history_api with proper object params for bitwise filtering
         const response = await fetch(node, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             jsonrpc: '2.0',
-            method: 'condenser_api.get_account_history',
-            params: [
+            method: 'account_history_api.get_account_history',
+            params: {
               account,
-              actualStart,
+              start: startOpId,
               limit,
-              4,  // 2^2 = transfer only (bitwise filter)
-              0   // No virtual ops
-            ],
+              operation_filter_low: 4,  // 2^2 = transfer only
+              operation_filter_high: 0
+            },
             id: 1
           }),
           signal: controller.signal
@@ -212,7 +194,15 @@ export async function queryTransferOperations(
         
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const json = await response.json();
-        return { node, result: json.result || json.error };
+        
+        // account_history_api returns { history: [...] }
+        if (json.result && json.result.history) {
+          return { node, result: json.result.history };
+        }
+        if (json.error) {
+          throw new Error(json.error.message || 'RPC error');
+        }
+        return { node, error: new Error('Invalid response format') };
       } catch (e) {
         return { node, error: e };
       }
@@ -224,13 +214,15 @@ export async function queryTransferOperations(
     const successResult = results.find(r => r.result && !r.error);
     
     if (!successResult || !Array.isArray(successResult.result)) {
-      throw new Error('All HAF nodes failed');
+      const errors = results.filter(r => r.error).map(r => r.error);
+      throw new Error(`All HAF nodes failed: ${errors.map(e => e?.message || e).join(', ')}`);
     }
     
     // Parse transfer operations
     const operations: TransferOperation[] = [];
     
-    for (const [, op] of successResult.result) {
+    for (const [opIndex, op] of successResult.result) {
+      if (!op || !op.op) continue;
       if (op.op[0] !== 'transfer') continue;
       
       const transfer = op.op[1];
@@ -242,7 +234,8 @@ export async function queryTransferOperations(
         memo: transfer.memo,
         block_num: op.block,
         transaction_id: op.trx_id,
-        timestamp: op.timestamp
+        timestamp: op.timestamp,
+        opIndex
       });
     }
     
@@ -255,7 +248,7 @@ export async function queryTransferOperations(
       queryTime
     };
   } catch (error) {
-    logger.error('[HAFSQL] Query failed:', error);
+    logger.error('[HAFSQL] Transfer query failed:', error);
     return {
       success: false,
       data: [],
@@ -310,7 +303,6 @@ export async function queryDiscoverableGroups(
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
     
-    // Use hedged parallel requests
     const requests = HAF_NODES.slice(0, 3).map(async (node) => {
       try {
         const response = await fetch(node, {
