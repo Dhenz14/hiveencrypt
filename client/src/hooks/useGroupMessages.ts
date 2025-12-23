@@ -1,4 +1,4 @@
-import { useQuery, QueryFunctionContext } from '@tanstack/react-query';
+import { useQuery, useQueryClient, QueryFunctionContext } from '@tanstack/react-query';
 import { useAuth } from '@/contexts/AuthContext';
 import { logger } from '@/lib/logger';
 import {
@@ -358,153 +358,104 @@ export function useGroupDiscovery() {
           return [];
         }
 
-        logger.info('[GROUP DISCOVERY] Discovering groups for:', username);
+        logger.info('[GROUP DISCOVERY] Loading cached groups for:', username);
 
-        // STEP 1: Fetch from local cache first (instant load)
+        // STEP 1: Fetch from local cache ONLY for instant display
         const cachedGroups = await getGroupConversations(username);
-        logger.info('[GROUP DISCOVERY] Loaded', cachedGroups.length, 'groups from cache');
+        logger.info('[GROUP DISCOVERY] ✅ Instant load:', cachedGroups.length, 'groups from cache');
 
-        // Check if query was cancelled after cache read
-        checkCancellation(signal, 'Group discovery after cache read');
+        // Apply custom names to cached groups
+        const groupsWithCustomNames = cachedGroups.map(group => {
+          const customName = getCustomGroupName(username, group.groupId);
+          return customName ? { ...group, name: customName } : group;
+        });
+
+        // Return cached data immediately - blockchain sync happens in background
+        // Background sync is triggered separately via useGroupBackgroundSync
+        return groupsWithCustomNames;
+      } catch (error) {
+        logger.error('[GROUP DISCOVERY] ❌ Failed to load cached groups:', error);
+        return [];
+      }
+    },
+    enabled: !!user?.username,
+    staleTime: 60 * 1000, // Data fresh for 1 minute
+    gcTime: 10 * 60 * 1000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+}
+
+/**
+ * Background sync hook - discovers new groups from blockchain and updates cache
+ * This runs AFTER the UI has rendered with cached data
+ */
+export function useGroupBackgroundSync() {
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+  
+  return useQuery({
+    queryKey: ['group-background-sync', user?.username],
+    queryFn: async ({ signal }: QueryFunctionContext): Promise<boolean> => {
+      const username = user?.username;
+      
+      if (!username) return false;
+
+      logger.info('[GROUP SYNC] Starting background blockchain sync...');
+
+      try {
+        // Get existing cached groups for merging
+        const cachedGroups = await getGroupConversations(username);
+        const groupMap = new Map<string, GroupConversationCache>();
+        cachedGroups.forEach(g => groupMap.set(g.groupId, g));
+
+        // Check if query was cancelled
+        checkCancellation(signal, 'Group sync after cache read');
 
         // STEP 2: Discover groups from blockchain custom_json operations
-        const blockchainGroups = await discoverUserGroups(user.username);
-        logger.info('[GROUP DISCOVERY] Discovered', blockchainGroups.length, 'groups from blockchain');
+        const blockchainGroups = await discoverUserGroups(username);
+        logger.info('[GROUP SYNC] Discovered', blockchainGroups.length, 'groups from blockchain');
 
         // Check if query was cancelled after blockchain fetch
         checkCancellation(signal, 'Group discovery after blockchain fetch');
 
-        // STEP 2.5: Discover groups from already-cached group messages
-        // This is critical for discovering groups created by others!
-        // We use cached messages to avoid triggering Keychain popups
-        logger.info('[GROUP DISCOVERY] Scanning cached group messages for new groups...');
+        // STEP 3: Process blockchain groups and merge with cache
+        let hasNewGroups = false;
         
-        const cachedGroupMessages = await getAllGroupMessages(user.username);
-        logger.info('[GROUP DISCOVERY] Found', cachedGroupMessages.length, 'cached group messages');
-
-        checkCancellation(signal, 'Group discovery after cached message scan');
-
-        const discoveredGroupIds = new Set<string>();
-        const groupSendersMap = new Map<string, Set<string>>(); // groupId -> Set of all senders
-        const groupCreatorMap = new Map<string, string>(); // groupId -> creator (from cached messages)
-
-        // Extract unique groupIds and collect ALL senders + creators per group
-        for (const message of cachedGroupMessages) {
-          const groupId = message.groupId;
-          const sender = message.sender;
-          
-          if (!discoveredGroupIds.has(groupId)) {
-            discoveredGroupIds.add(groupId);
-            groupSendersMap.set(groupId, new Set([sender]));
-          } else {
-            // Add this sender to the list of known senders for this group
-            const senders = groupSendersMap.get(groupId);
-            if (senders) {
-              senders.add(sender);
-            }
-          }
-          
-          // CRITICAL: Store creator if available (for direct metadata lookup)
-          if (message.creator && !groupCreatorMap.has(groupId)) {
-            groupCreatorMap.set(groupId, message.creator);
-            logger.info('[GROUP DISCOVERY] Found creator from cached message:', message.creator, 'for group:', groupId);
-          }
-          
-          logger.info('[GROUP DISCOVERY] Found cached group message for groupId:', groupId, 'from:', sender);
-        }
-
-        logger.info('[GROUP DISCOVERY] Found', discoveredGroupIds.size, 'unique groups from cached messages');
-
-        // NOTE: Automatic blockchain transfer scanning removed to prevent Keychain popup spam
-        // Groups are discovered from: 1) Cache, 2) Custom_json operations, 3) Cached messages
-        // New group messages will be decrypted when user opens a specific group chat
-        logger.info('[GROUP DISCOVERY] Skipping automatic blockchain transfer scan (popup spam prevention)');
-
-        // Create group entries for groups discovered from cached messages
-        // NOTE: No lookupGroupMetadata calls here to prevent Keychain popup spam
-        // Full metadata will be fetched when user opens a specific group
-        for (const groupId of Array.from(discoveredGroupIds)) {
-          checkCancellation(signal, `Group discovery processing ${groupId}`);
-
-          // Skip if we already have this group from blockchain discovery (custom_json)
-          if (blockchainGroups.some(g => g.groupId === groupId)) {
-            logger.info('[GROUP DISCOVERY] Group already in blockchainGroups:', groupId);
-            continue;
-          }
-
-          // Use cached data to build group entry - NO decryption calls
-          const knownSenders = Array.from(groupSendersMap.get(groupId) || []);
-          const cachedCreator = groupCreatorMap.get(groupId);
-          
-          // Check if user has set a custom name for this group
-          const customName = getCustomGroupName(user.username, groupId);
-          const displayName = customName || `Group (${groupId.substring(0, 8)}...)`;
-          
-          const fallbackGroup: Group = {
-            groupId,
-            name: displayName,
-            members: [user.username, ...knownSenders],
-            creator: cachedCreator || knownSenders[0] || user.username,
-            createdAt: new Date().toISOString(),
-            version: 1,
-          };
-          
-          logger.info('[GROUP DISCOVERY] ✅ Created group from cached messages:', fallbackGroup.name, 'with', fallbackGroup.members.length, 'known members');
-          blockchainGroups.push(fallbackGroup);
-        }
-
-        logger.info('[GROUP DISCOVERY] Total discovered groups (custom_json + transfers):', blockchainGroups.length);
-
-        // STEP 3: Merge and update cache
-        const groupMap = new Map<string, GroupConversationCache>();
-
-        // Add cached groups first (with custom names applied)
-        cachedGroups.forEach(group => {
-          // Apply custom name to cached groups too (not just blockchain-discovered groups)
-          const customName = getCustomGroupName(user.username, group.groupId);
-          const updatedGroup = customName 
-            ? { ...group, name: customName }
-            : group;
-          groupMap.set(group.groupId, updatedGroup);
-        });
-
-        // Update with blockchain data (ALWAYS overwrite to ensure custom names are applied)
         for (const blockchainGroup of blockchainGroups) {
-          // Check cancellation periodically in loop
-          checkCancellation(signal, 'Group discovery during merge loop');
+          checkCancellation(signal, 'Group sync during merge loop');
 
           const existing = groupMap.get(blockchainGroup.groupId);
-          
-          // Check for custom name for this group (applies to ALL groups, not just fallbacks)
-          const customName = getCustomGroupName(user.username, blockchainGroup.groupId);
+          const customName = getCustomGroupName(username, blockchainGroup.groupId);
           const displayName = customName || blockchainGroup.name;
           
-          // ALWAYS overwrite with blockchain/fallback data (with custom names)
-          // This ensures custom name updates replace stale cached entries
+          // Check if this is a new group
+          if (!existing) {
+            hasNewGroups = true;
+          }
           
           // Discover member payments if user is creator and payments are enabled
           let memberPayments = existing?.memberPayments || [];
-          const isCreator = blockchainGroup.creator === user.username;
+          const isCreator = blockchainGroup.creator === username;
           const hasPaymentSettings = blockchainGroup.paymentSettings?.enabled;
           
           if (isCreator && hasPaymentSettings) {
             try {
-              const discoveredPayments = await discoverGroupMemberPayments(
-                user.username,
-                blockchainGroup.groupId
-              );
+              const discoveredPayments = await discoverGroupMemberPayments(username, blockchainGroup.groupId);
               if (discoveredPayments.length > 0) {
                 memberPayments = discoveredPayments;
-                logger.info('[GROUP DISCOVERY] 💰 Found', discoveredPayments.length, 'member payments for group:', displayName);
+                logger.info('[GROUP SYNC] 💰 Found', discoveredPayments.length, 'member payments for:', displayName);
               }
             } catch (paymentError) {
-              logger.warn('[GROUP DISCOVERY] Failed to discover member payments:', paymentError);
+              logger.warn('[GROUP SYNC] Failed to discover member payments:', paymentError);
             }
           }
           
           const groupCache: GroupConversationCache = {
             groupId: blockchainGroup.groupId,
-            name: displayName,  // Use custom name if set, otherwise use blockchain name
+            name: displayName,
             members: blockchainGroup.members,
             creator: blockchainGroup.creator,
             createdAt: blockchainGroup.createdAt,
@@ -513,90 +464,44 @@ export function useGroupDiscovery() {
             lastTimestamp: existing?.lastTimestamp || blockchainGroup.createdAt,
             unreadCount: existing?.unreadCount || 0,
             lastChecked: existing?.lastChecked || new Date().toISOString(),
-            paymentSettings: blockchainGroup.paymentSettings || existing?.paymentSettings,  // Preserve payment settings
-            memberPayments,  // Include discovered member payments
+            paymentSettings: blockchainGroup.paymentSettings || existing?.paymentSettings,
+            memberPayments,
           };
 
           groupMap.set(blockchainGroup.groupId, groupCache);
           
-          // Update cache (skip if cancelled)
+          // Update cache
           if (!signal.aborted) {
-            await cacheGroupConversation(groupCache, user.username);
+            await cacheGroupConversation(groupCache, username);
           }
         }
 
-        // Final cancellation check before returning
-        checkCancellation(signal, 'Group discovery before return');
+        logger.info('[GROUP SYNC] ✅ Background sync complete. New groups found:', hasNewGroups);
 
-        const mergedGroups = Array.from(groupMap.values());
-        
-        // STEP 4: Update group previews from cached messages (if not already set)
-        for (const group of mergedGroups) {
-          if (!group.lastMessage || group.lastMessage === '') {
-            // Check if we have cached messages for this group
-            const cachedMessages = await getGroupMessages(group.groupId, user.username);
-            
-            if (cachedMessages.length > 0) {
-              // Get the most recent message
-              const latestMessage = cachedMessages[cachedMessages.length - 1];
-              
-              // Update the group conversation with the latest message
-              group.lastMessage = latestMessage.content;
-              group.lastTimestamp = latestMessage.timestamp;
-              
-              // Save updated group to cache
-              await cacheGroupConversation(group, user.username);
-              
-              logger.info('[GROUP DISCOVERY] 📝 Updated preview for group:', group.name, 'with cached message');
-            }
-          }
+        // Invalidate the main query to refresh UI with new data
+        if (hasNewGroups) {
+          queryClient.invalidateQueries({ queryKey: ['blockchain-group-conversations', username] });
         }
-        
-        logger.info('[GROUP DISCOVERY] ✅ Total groups:', mergedGroups.length);
 
-        return mergedGroups;
+        return true;
       } catch (error) {
-        // Handle query cancellation gracefully (not an error)
         if (error instanceof DOMException && error.name === 'AbortError') {
-          console.warn('[GROUP DISCOVERY] ⚠️ Query cancelled by React Query, returning cached data');
-          logger.info('[GROUP DISCOVERY] Query cancelled, returning cached groups');
-          const cachedGroups = await getGroupConversations(username);
-          return cachedGroups;
+          logger.info('[GROUP SYNC] Query cancelled');
+          return false;
         }
         
-        // Real error - log it prominently
-        console.error('[GROUP DISCOVERY] ❌❌❌ CRITICAL ERROR ❌❌❌');
-        console.error('[GROUP DISCOVERY] Error object:', error);
-        console.error('[GROUP DISCOVERY] Error message:', error instanceof Error ? error.message : String(error));
-        console.error('[GROUP DISCOVERY] Error stack:', error instanceof Error ? error.stack : 'No stack');
-        
-        logger.error('[GROUP DISCOVERY] ❌ Failed to discover groups:', error);
-        logger.error('[GROUP DISCOVERY] ❌ Error details:', error instanceof Error ? error.message : String(error));
-        logger.error('[GROUP DISCOVERY] ❌ Stack:', error instanceof Error ? error.stack : 'No stack');
-        
-        // Fallback to cached groups on error
-        console.warn('[GROUP DISCOVERY] ⚠️ Attempting fallback to cached groups...');
-        logger.warn('[GROUP DISCOVERY] ⚠️ Using fallback: Returning cached groups instead');
-        
-        try {
-          const cachedGroups = await getGroupConversations(username);
-          console.warn('[GROUP DISCOVERY] ⚠️ Fallback succeeded, returning', cachedGroups.length, 'cached groups');
-          logger.warn('[GROUP DISCOVERY] ⚠️ Fallback returned', cachedGroups.length, 'cached groups');
-          return cachedGroups;
-        } catch (fallbackError) {
-          console.error('[GROUP DISCOVERY] ❌ Fallback also failed:', fallbackError);
-          return [];
-        }
+        logger.error('[GROUP SYNC] ❌ Background sync failed:', error);
+        return false;
       }
     },
     enabled: !!user?.username,
-    staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes (prevents re-discovery spam)
-    gcTime: 10 * 60 * 1000, // Keep in memory for 10 minutes
-    refetchInterval: false, // Disable automatic refetching (user can manually refresh)
-    refetchOnMount: false, // Don't refetch on mount (use cached data)
-    refetchOnWindowFocus: false, // Don't refetch on window focus
-    refetchOnReconnect: false, // Don't refetch on reconnect
-    retry: false, // Don't retry failed requests (prevents popup spam on cancel)
+    staleTime: 5 * 60 * 1000, // Sync every 5 minutes max
+    gcTime: 10 * 60 * 1000,
+    refetchInterval: false,
+    refetchOnMount: true, // Run background sync on mount
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
   });
 }
 

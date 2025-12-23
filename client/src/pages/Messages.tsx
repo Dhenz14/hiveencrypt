@@ -58,7 +58,7 @@ import type { Conversation, Message, Contact, BlockchainSyncStatus } from '@shar
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient, useQuery } from '@tanstack/react-query';
 import { useBlockchainMessages, useConversationDiscovery } from '@/hooks/useBlockchainMessages';
-import { useGroupDiscovery, useGroupMessages } from '@/hooks/useGroupMessages';
+import { useGroupDiscovery, useGroupBackgroundSync, useGroupMessages } from '@/hooks/useGroupMessages';
 import { useAutoApproveJoinRequests } from '@/hooks/useAutoApproveJoinRequests';
 import { getConversationKey, getConversation, updateConversation, fixCorruptedMessages, deleteConversation, deleteGroupConversation, cacheGroupConversation, getPendingGroups, removePendingGroup } from '@/lib/messageCache';
 import { getHiveMemoKey } from '@/lib/hive';
@@ -172,8 +172,11 @@ export default function Messages() {
 
   const { data: conversationCaches = [], isLoading: isLoadingConversations, isFetching: isFetchingConversations } = useConversationDiscovery();
   
-  // Group discovery now works directly from blockchain metadata - no pre-sync needed!
+  // Group discovery: instant load from cache, blockchain sync runs in background
   const { data: groupCaches = [], isLoading: isLoadingGroups, isFetching: isFetchingGroups } = useGroupDiscovery();
+  
+  // Background sync: discovers new groups from blockchain without blocking UI
+  const { isFetching: isSyncingGroups } = useGroupBackgroundSync();
   
   // SECURITY FIX: Auto-approve join requests for ALL groups where current user is creator
   // Build array of { groupId, creator } for all creator-owned groups
