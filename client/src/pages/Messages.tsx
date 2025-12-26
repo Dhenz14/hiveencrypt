@@ -1175,6 +1175,17 @@ export default function Messages() {
         onNewMessage={() => setIsNewMessageOpen(true)}
         onNewGroup={() => setIsGroupCreationOpen(true)}
         onDiscoverGroups={() => setLocation('/discover')}
+        onHideConversation={(conversationId, username) => {
+          hideConversation(username);
+          toast({
+            title: 'Chat Hidden',
+            description: `@${username} has been hidden. Unhide from the Hidden Chats menu.`,
+          });
+          if (selectedPartner === username || selectedConversationId === conversationId) {
+            setSelectedPartner('');
+            if (isMobile) setShowChat(false);
+          }
+        }}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />

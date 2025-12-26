@@ -1,4 +1,5 @@
-import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle, Clock, Loader2, DollarSign } from 'lucide-react';
+import { useState } from 'react';
+import { Search, Plus, ShieldCheck, Users, Compass, MessageCircle, Clock, Loader2, DollarSign, ChevronDown, ChevronRight, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -24,6 +25,7 @@ interface ConversationsListProps {
   onNewMessage: () => void;
   onNewGroup?: () => void;
   onDiscoverGroups?: () => void;
+  onHideConversation?: (conversationId: string, username: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   isLoadingGroups?: boolean;
@@ -38,11 +40,14 @@ export function ConversationsList({
   onNewMessage,
   onNewGroup,
   onDiscoverGroups,
+  onHideConversation,
   searchQuery,
   onSearchChange,
   isLoadingGroups = false,
 }: ConversationsListProps) {
   const { isException } = useExceptionsList();
+  const [groupsCollapsed, setGroupsCollapsed] = useState(false);
+  const [chatsCollapsed, setChatsCollapsed] = useState(false);
   
   const filteredGroups = groups.filter(conv =>
     conv.contactUsername.toLowerCase().includes(searchQuery.toLowerCase())
@@ -89,98 +94,127 @@ export function ConversationsList({
     return firstLine.substring(0, maxLength).trim() + '...';
   };
 
+  const handleHideClick = (e: React.MouseEvent, conversationId: string, username: string) => {
+    e.stopPropagation();
+    if (onHideConversation) {
+      onHideConversation(conversationId, username);
+    }
+  };
+
   const renderConversationItem = (conversation: Conversation, isGroup: boolean) => (
-    <button
+    <div
       key={conversation.id}
-      onClick={() => onSelectConversation(conversation.id)}
       className={cn(
-        'w-full px-4 py-3 flex items-start gap-3 hover-elevate transition-colors min-h-[56px]',
+        'group relative w-full flex items-start gap-3 hover-elevate transition-colors min-h-[56px]',
         selectedConversationId === conversation.id && 'bg-accent/50'
       )}
-      data-testid={`conversation-${conversation.contactUsername}`}
     >
-      <div className="relative flex-shrink-0">
-        <Avatar className="w-10 h-10">
-          <AvatarFallback className={cn(
-            "font-medium text-sm",
-            isGroup ? "bg-primary/20 text-primary" : "bg-primary/10 text-primary"
-          )}>
-            {isGroup ? <Users className="w-4 h-4" /> : getInitials(conversation.contactUsername)}
-          </AvatarFallback>
-        </Avatar>
-        {conversation.unreadCount > 0 && (
-          <Badge
-            variant="destructive"
-            className="absolute -top-1 -right-1 h-4 min-w-4 flex items-center justify-center px-1 text-[10px] rounded-full"
-            data-testid={`badge-unread-${conversation.contactUsername}`}
-          >
-            {conversation.unreadCount > 99 ? '99+' : conversation.unreadCount}
-          </Badge>
-        )}
-      </div>
-
-      <div className="flex-1 min-w-0 text-left">
-        <div className="flex items-center justify-between gap-2 mb-0.5">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span className={cn(
-              'text-sm font-medium truncate',
-              conversation.unreadCount > 0 && 'font-semibold'
+      <button
+        onClick={() => onSelectConversation(conversation.id)}
+        className="flex-1 px-4 py-3 flex items-start gap-3 text-left"
+        data-testid={`conversation-${conversation.contactUsername}`}
+      >
+        <div className="relative flex-shrink-0">
+          <Avatar className="w-10 h-10">
+            <AvatarFallback className={cn(
+              "font-medium text-sm",
+              isGroup ? "bg-primary/20 text-primary" : "bg-primary/10 text-primary"
             )}>
-              {isGroup ? conversation.contactUsername : `@${conversation.contactUsername}`}
-            </span>
-            {isGroup && conversation.isPaid && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <DollarSign 
-                    className="w-3 h-3 text-green-500 flex-shrink-0" 
-                    data-testid={`icon-paid-${conversation.id}`}
-                    aria-label="Paid group"
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs">Paid group</p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-            {!isGroup && isException(conversation.contactUsername) && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <ShieldCheck 
-                    className="w-3 h-3 text-primary flex-shrink-0" 
-                    data-testid={`icon-exception-${conversation.contactUsername}`}
-                    aria-label="On exceptions list"
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs">On exceptions list</p>
-                </TooltipContent>
-              </Tooltip>
+              {isGroup ? <Users className="w-4 h-4" /> : getInitials(conversation.contactUsername)}
+            </AvatarFallback>
+          </Avatar>
+          {conversation.unreadCount > 0 && (
+            <Badge
+              variant="destructive"
+              className="absolute -top-1 -right-1 h-4 min-w-4 flex items-center justify-center px-1 text-[10px] rounded-full"
+              data-testid={`badge-unread-${conversation.contactUsername}`}
+            >
+              {conversation.unreadCount > 99 ? '99+' : conversation.unreadCount}
+            </Badge>
+          )}
+        </div>
+
+        <div className="flex-1 min-w-0 text-left">
+          <div className="flex items-center justify-between gap-2 mb-0.5">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className={cn(
+                'text-sm font-medium truncate',
+                conversation.unreadCount > 0 && 'font-semibold'
+              )}>
+                {isGroup ? conversation.contactUsername : `@${conversation.contactUsername}`}
+              </span>
+              {isGroup && conversation.isPaid && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DollarSign 
+                      className="w-3 h-3 text-green-500 flex-shrink-0" 
+                      data-testid={`icon-paid-${conversation.id}`}
+                      aria-label="Paid group"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs">Paid group</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              {!isGroup && isException(conversation.contactUsername) && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <ShieldCheck 
+                      className="w-3 h-3 text-primary flex-shrink-0" 
+                      data-testid={`icon-exception-${conversation.contactUsername}`}
+                      aria-label="On exceptions list"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-xs">On exceptions list</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+            </div>
+            {conversation.lastMessageTime && (
+              <span className="text-[10px] text-muted-foreground/70 flex-shrink-0 font-normal">
+                {formatTimestamp(conversation.lastMessageTime)}
+              </span>
             )}
           </div>
-          {conversation.lastMessageTime && (
-            <span className="text-[10px] text-muted-foreground/70 flex-shrink-0 font-normal">
-              {formatTimestamp(conversation.lastMessageTime)}
-            </span>
-          )}
-        </div>
-        <div className="flex items-center gap-1.5 min-w-0">
-          {conversation.isEncrypted && (
-            <Lock className="w-3 h-3 text-primary flex-shrink-0" />
-          )}
-          <p 
-            className={cn(
-              'text-xs flex-1 min-w-0 truncate',
-              conversation.unreadCount > 0 
-                ? 'text-foreground font-medium' 
-                : 'text-muted-foreground'
+          <div className="flex items-center gap-1.5 min-w-0">
+            {conversation.isEncrypted && (
+              <Lock className="w-3 h-3 text-primary flex-shrink-0" />
             )}
-            title={conversation.lastMessage || 'No messages yet'}
-          >
-            {truncatePreview(conversation.lastMessage || 'No messages yet')}
-          </p>
+            <p 
+              className={cn(
+                'text-xs flex-1 min-w-0 truncate',
+                conversation.unreadCount > 0 
+                  ? 'text-foreground font-medium' 
+                  : 'text-muted-foreground'
+              )}
+              title={conversation.lastMessage || 'No messages yet'}
+            >
+              {truncatePreview(conversation.lastMessage || 'No messages yet')}
+            </p>
+          </div>
         </div>
-      </div>
-    </button>
+      </button>
+      
+      {onHideConversation && (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={(e) => handleHideClick(e, conversation.id, conversation.contactUsername)}
+              className="absolute top-2 right-2 p-1 rounded-sm opacity-0 group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive transition-opacity"
+              data-testid={`button-hide-${conversation.contactUsername}`}
+              aria-label="Hide conversation"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="text-xs">Hide chat</p>
+          </TooltipContent>
+        </Tooltip>
+      )}
+    </div>
   );
 
   const renderPendingGroupItem = (pg: PendingGroup) => (
@@ -227,7 +261,6 @@ export function ConversationsList({
 
   const hasNoResults = filteredGroups.length === 0 && filteredChats.length === 0 && filteredPendingGroups.length === 0 && !isLoadingGroups;
   
-  // Always show groups section if loading or if there are groups/pending groups
   const showGroupsSection = isLoadingGroups || filteredGroups.length > 0 || filteredPendingGroups.length > 0;
 
   return (
@@ -296,7 +329,16 @@ export function ConversationsList({
           <div className="py-1">
             {showGroupsSection && (
               <div className="mb-2">
-                <div className="px-4 py-2 flex items-center gap-2">
+                <button
+                  onClick={() => setGroupsCollapsed(!groupsCollapsed)}
+                  className="w-full px-4 py-2 flex items-center gap-2 hover-elevate transition-colors"
+                  data-testid="button-toggle-groups"
+                >
+                  {groupsCollapsed ? (
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                  )}
                   <Users className="w-4 h-4 text-muted-foreground" />
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Groups
@@ -308,21 +350,34 @@ export function ConversationsList({
                       {filteredGroups.length + filteredPendingGroups.length}
                     </Badge>
                   )}
-                </div>
-                {filteredPendingGroups.map((pg) => renderPendingGroupItem(pg))}
-                {filteredGroups.map((conv) => renderConversationItem(conv, true))}
-                {isLoadingGroups && filteredGroups.length === 0 && filteredPendingGroups.length === 0 && (
-                  <div className="px-4 py-3 flex items-center gap-3 text-muted-foreground">
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span className="text-sm">Loading groups...</span>
-                  </div>
+                </button>
+                {!groupsCollapsed && (
+                  <>
+                    {filteredPendingGroups.map((pg) => renderPendingGroupItem(pg))}
+                    {filteredGroups.map((conv) => renderConversationItem(conv, true))}
+                    {isLoadingGroups && filteredGroups.length === 0 && filteredPendingGroups.length === 0 && (
+                      <div className="px-4 py-3 flex items-center gap-3 text-muted-foreground">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span className="text-sm">Loading groups...</span>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
 
             {filteredChats.length > 0 && (
               <div>
-                <div className="px-4 py-2 flex items-center gap-2">
+                <button
+                  onClick={() => setChatsCollapsed(!chatsCollapsed)}
+                  className="w-full px-4 py-2 flex items-center gap-2 hover-elevate transition-colors"
+                  data-testid="button-toggle-chats"
+                >
+                  {chatsCollapsed ? (
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                  )}
                   <MessageCircle className="w-4 h-4 text-muted-foreground" />
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Chats
@@ -330,8 +385,12 @@ export function ConversationsList({
                   <Badge variant="secondary" className="ml-auto h-5 px-1.5 text-[10px]">
                     {filteredChats.length}
                   </Badge>
-                </div>
-                {filteredChats.map((conv) => renderConversationItem(conv, false))}
+                </button>
+                {!chatsCollapsed && (
+                  <>
+                    {filteredChats.map((conv) => renderConversationItem(conv, false))}
+                  </>
+                )}
               </div>
             )}
           </div>
