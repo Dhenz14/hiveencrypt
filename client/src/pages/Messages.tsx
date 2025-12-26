@@ -1027,15 +1027,15 @@ export default function Messages() {
   const sidebarContent = (
     <>
       <div className="min-h-[calc(4rem+env(safe-area-inset-top))] border-b px-4 flex items-center justify-between gap-3 pt-[env(safe-area-inset-top)]">
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-3 min-w-0 flex-shrink overflow-hidden">
           <Avatar className="w-9 h-9 flex-shrink-0">
             <AvatarFallback className="bg-primary/10 text-primary font-medium text-caption">
               {user?.username ? getInitials(user.username) : 'U'}
             </AvatarFallback>
           </Avatar>
-          <div className="min-w-0">
+          <div className="min-w-0 overflow-hidden">
             <p className="text-body font-semibold truncate">@{user?.username}</p>
-            <BlockchainSyncIndicator status={syncStatus} />
+            <BlockchainSyncIndicator status={syncStatus} className="truncate" />
           </div>
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
