@@ -197,7 +197,7 @@ export function ConversationsList({
         </div>
       </button>
       
-      {onHideConversation && (
+      {onHideConversation && !isGroup && (
         <Tooltip>
           <TooltipTrigger asChild>
             <button
