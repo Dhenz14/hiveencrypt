@@ -261,15 +261,12 @@ export async function publishGroupToDiscovery(
   });
 }
 
-// Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
+// IMPORTANT: Only include nodes that support CORS for browser requests
 const DISCOVERY_NODES = [
-  'https://api.hive.blog',         // Official - 100% score
-  'https://api.deathwing.me',      // 100% score
-  'https://api.openhive.network',  // 100% score
-  'https://techcoderx.com',        // 100% score
-  'https://hiveapi.actifit.io',    // 100% score
-  'https://rpc.mahdiyari.info',    // 100% score
-  'https://api.syncad.com',        // 100% score
+  'https://api.hive.blog',         // Official - CORS enabled
+  'https://api.deathwing.me',      // CORS enabled
+  'https://rpc.ecency.com',        // Ecency - CORS enabled
+  'https://anyx.io',               // CORS enabled
 ];
 
 /**

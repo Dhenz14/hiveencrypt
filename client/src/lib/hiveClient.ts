@@ -631,18 +631,14 @@ class HiveBlockchainClient {
   }
 }
 
-// All available Hive RPC nodes - ordered by typical reliability
-// The health tracking system will automatically deprioritize failing nodes
-// Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
-// All nodes below have 100% score from beacon.peakd.com monitoring
+// All available Hive RPC nodes - ordered by reliability and CORS support
+// IMPORTANT: Only include nodes that support CORS for browser requests
+// Nodes verified to work with GitHub Pages deployment
 const ALL_HIVE_NODES = [
-  'https://api.hive.blog',         // Official - 100% score - PRIORITY 1
-  'https://api.deathwing.me',      // 100% score - PRIORITY 2
-  'https://api.openhive.network',  // 100% score - PRIORITY 3
-  'https://techcoderx.com',        // 100% score - PRIORITY 4
-  'https://hiveapi.actifit.io',    // 100% score
-  'https://rpc.mahdiyari.info',    // 100% score
-  'https://api.syncad.com',        // 100% score
+  'https://api.hive.blog',         // Official - CORS enabled - PRIORITY 1
+  'https://api.deathwing.me',      // CORS enabled - PRIORITY 2
+  'https://rpc.ecency.com',        // Ecency - CORS enabled - reliable
+  'https://anyx.io',               // CORS enabled - reliable
 ];
 
 // Export singleton instance with all nodes

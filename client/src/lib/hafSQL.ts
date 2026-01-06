@@ -13,11 +13,12 @@
 import { logger } from './logger';
 
 // HAF-enabled API nodes (these use the HAF stack for faster queries)
+// IMPORTANT: Only include nodes that support CORS for browser requests
 const HAF_NODES = [
-  'https://api.hive.blog',         // BlockTrades HAF stack
-  'https://api.deathwing.me',      // HAF-enabled
-  'https://api.openhive.network',  // HAF-enabled
-  'https://rpc.mahdiyari.info',    // HAF-enabled (same as HafSQL operator)
+  'https://api.hive.blog',         // BlockTrades HAF stack - CORS enabled
+  'https://api.deathwing.me',      // HAF-enabled - CORS enabled
+  'https://rpc.ecency.com',        // Ecency - CORS enabled
+  'https://anyx.io',               // CORS enabled
 ];
 
 interface HafQueryResult<T> {

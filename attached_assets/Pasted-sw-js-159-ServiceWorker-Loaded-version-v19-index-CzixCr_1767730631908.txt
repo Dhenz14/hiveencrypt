@@ -1,0 +1,201 @@
+sw.js:159 [ServiceWorker] Loaded version: v19
+index-CzixCrfj.js:854 [RPC] Node configuration loaded, primary node: https://api.hive.blog
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:71 [PWA] Service Worker registered: https://dhenz14.github.io/hiveencrypt/
+index-CzixCrfj.js:854 [HiddenConversationsContext] Loaded hidden conversations: Array(2)
+index-CzixCrfj.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-CzixCrfj.js:854 [HiddenConversationsContext] Saved hidden groups: Array(0)
+index-CzixCrfj.js:854 [ExceptionsContext] Loaded exceptions: Array(0)
+index-CzixCrfj.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+index-CzixCrfj.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(2)
+index-CzixCrfj.js:854 [HiddenConversationsContext] Saved hidden groups: Array(0)
+index-CzixCrfj.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+index-CzixCrfj.js:854 [FOLLOWING] ❌ Failed to fetch following list: ot
+error @ index-CzixCrfj.js:854
+index-CzixCrfj.js:854 [FOLLOWING] ❌ Error getting following list: Error: Failed to fetch following list: Could not find API follow_api
+    at fetchFollowingList (index-CzixCrfj.js:929:24326)
+    at async getFollowingList (index-CzixCrfj.js:929:24993)
+    at async preloadFollowingList (index-CzixCrfj.js:929:25593)
+    at async queryFn (index-CzixCrfj.js:934:99462)
+error @ index-CzixCrfj.js:854
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+api.syncad.com/:1  Failed to load resource: the server responded with a status of 404 ()
+api.syncad.com/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+api.syncad.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveapi.actifit.io/:1  Failed to load resource: the server responded with a status of 404 ()
+api.syncad.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+hiveencrypt/:1 Access to XMLHttpRequest at 'https://api.openhive.network/' from origin 'https://dhenz14.github.io' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+api.openhive.network/:1  Failed to load resource: net::ERR_FAILED
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+api.syncad.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+rpc.mahdiyari.info/:1  Failed to load resource: the server responded with a status of 404 ()
+techcoderx.com/:1  Failed to load resource: the server responded with a status of 404 ()
+index-CzixCrfj.js:467  POST https://api.syncad.com/ 404 (Not Found)
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR failed loading: POST "https://api.syncad.com/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467  POST https://hiveapi.actifit.io/ 404 (Not Found)
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR failed loading: POST "https://hiveapi.actifit.io/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR finished loading: POST "https://rpc.mahdiyari.info/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+(anonymous) @ index-CzixCrfj.js:854
+$ @ index-CzixCrfj.js:854
+j.retryingFetch @ index-CzixCrfj.js:854
+Et @ index-CzixCrfj.js:623
+(anonymous) @ index-CzixCrfj.js:623
+call @ index-CzixCrfj.js:623
+call @ index-CzixCrfj.js:755
+getAccountHistory @ index-CzixCrfj.js:755
+(anonymous) @ index-CzixCrfj.js:854
+retryWithBackoff @ index-CzixCrfj.js:854
+getAccountHistory @ index-CzixCrfj.js:854
+scanAutoApprovalRequests @ index-CzixCrfj.js:935
+ot @ index-CzixCrfj.js:1041
+FileReader
+text @ index-CzixCrfj.js:467
+json @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR finished loading: POST "https://rpc.mahdiyari.info/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+(anonymous) @ index-CzixCrfj.js:854
+$ @ index-CzixCrfj.js:854
+j.retryingFetch @ index-CzixCrfj.js:854
+Et @ index-CzixCrfj.js:623
+(anonymous) @ index-CzixCrfj.js:623
+call @ index-CzixCrfj.js:623
+call @ index-CzixCrfj.js:755
+getAccountHistory @ index-CzixCrfj.js:755
+(anonymous) @ index-CzixCrfj.js:854
+retryWithBackoff @ index-CzixCrfj.js:854
+getAccountHistory @ index-CzixCrfj.js:854
+discoverGroupMemberPayments @ index-CzixCrfj.js:929
+FileReader
+text @ index-CzixCrfj.js:467
+json @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467  POST https://hiveapi.actifit.io/ 404 (Not Found)
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR failed loading: POST "https://hiveapi.actifit.io/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR finished loading: POST "https://rpc.mahdiyari.info/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+(anonymous) @ index-CzixCrfj.js:854
+$ @ index-CzixCrfj.js:854
+j.retryingFetch @ index-CzixCrfj.js:854
+Et @ index-CzixCrfj.js:623
+(anonymous) @ index-CzixCrfj.js:623
+call @ index-CzixCrfj.js:623
+(anonymous) @ index-CzixCrfj.js:854
+await in (anonymous)
+retryWithBackoff @ index-CzixCrfj.js:854
+getAccountHistory @ index-CzixCrfj.js:854
+discoverGroupMemberPayments @ index-CzixCrfj.js:929
+FileReader
+text @ index-CzixCrfj.js:467
+json @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR finished loading: POST "https://rpc.mahdiyari.info/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+(anonymous) @ index-CzixCrfj.js:854
+$ @ index-CzixCrfj.js:854
+j.retryingFetch @ index-CzixCrfj.js:854
+Et @ index-CzixCrfj.js:623
+(anonymous) @ index-CzixCrfj.js:623
+call @ index-CzixCrfj.js:623
+(anonymous) @ index-CzixCrfj.js:854
+await in (anonymous)
+retryWithBackoff @ index-CzixCrfj.js:854
+getAccountHistory @ index-CzixCrfj.js:854
+scanAutoApprovalRequests @ index-CzixCrfj.js:935
+ot @ index-CzixCrfj.js:1041
+FileReader
+text @ index-CzixCrfj.js:467
+json @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467  POST https://techcoderx.com/ 404 (Not Found)
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854
+index-CzixCrfj.js:467 XHR failed loading: POST "https://techcoderx.com/".
+(anonymous) @ index-CzixCrfj.js:467
+pt @ index-CzixCrfj.js:467
+(anonymous) @ index-CzixCrfj.js:854
+jt @ index-CzixCrfj.js:854

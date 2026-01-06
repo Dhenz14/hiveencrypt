@@ -14,16 +14,12 @@ import { Client } from '@hiveio/dhive';
 import { logger } from './logger';
 
 // Nodes known to support follow_api (verified working)
-// Order by reliability - api.hive.blog is most reliable for follow_api
-// Best Hive RPC nodes ordered by reliability (from beacon.peakd.com monitoring)
+// IMPORTANT: Only include nodes that support CORS and follow_api
 const FOLLOW_API_NODES = [
-  'https://api.hive.blog',         // Official - 100% score
-  'https://api.deathwing.me',      // 100% score
-  'https://api.openhive.network',  // 100% score
-  'https://techcoderx.com',        // 100% score
-  'https://hiveapi.actifit.io',    // 100% score
-  'https://rpc.mahdiyari.info',    // 100% score
-  'https://api.syncad.com',        // 100% score
+  'https://api.hive.blog',         // Official - CORS + follow_api enabled
+  'https://api.deathwing.me',      // CORS + follow_api enabled
+  'https://rpc.ecency.com',        // Ecency - CORS + follow_api enabled
+  'https://anyx.io',               // CORS + follow_api enabled
 ];
 
 // Track unhealthy nodes for this session (nodes that don't have follow_api)
