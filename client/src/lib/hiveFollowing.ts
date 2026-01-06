@@ -144,8 +144,8 @@ async function getFollowingDB(): Promise<IDBPDatabase<HiveFollowingDB>> {
 // ============================================================================
 
 /**
- * Call follow_api with automatic node failover
- * Tries each node until one works, marks failed nodes as unhealthy
+ * Call follow API using condenser_api (more widely supported than follow_api)
+ * Uses condenser_api.get_following which works on all standard Hive nodes
  */
 async function callFollowApiWithFailover(
   method: string,
@@ -159,18 +159,19 @@ async function callFollowApiWithFailover(
     const currentNode = FOLLOW_API_NODES.find(n => !unhealthyNodes.has(n)) || FOLLOW_API_NODES[0];
     
     try {
-      const result = await client.call('follow_api', method, params);
+      // Use condenser_api instead of follow_api - more widely supported
+      const result = await client.database.call(`condenser_api.${method}`, params);
       return result;
     } catch (error: any) {
       lastError = error;
       const errorMsg = error?.message?.toLowerCase() || '';
       
-      // If node doesn't support follow_api, mark it unhealthy
+      // If node doesn't support this API, mark it unhealthy and try next
       if (errorMsg.includes('could not find api') || 
-          errorMsg.includes('follow_api') ||
-          errorMsg.includes('not found')) {
+          errorMsg.includes('not found') ||
+          errorMsg.includes('method not found')) {
         markNodeUnhealthy(currentNode);
-        logger.warn(`[FOLLOWING] Node ${currentNode} doesn't support follow_api, trying next`);
+        logger.warn(`[FOLLOWING] Node ${currentNode} failed, trying next`);
         continue;
       }
       
@@ -179,7 +180,7 @@ async function callFollowApiWithFailover(
     }
   }
   
-  throw lastError || new Error('All nodes failed for follow_api');
+  throw lastError || new Error('All nodes failed for follow API');
 }
 
 /**

@@ -111,7 +111,7 @@ export async function queryCustomJsonOperations(
     
     if (!successResult || !Array.isArray(successResult.result)) {
       const errors = results.filter(r => r.error).map(r => r.error);
-      throw new Error(`All HAF nodes failed: ${errors.map(e => e?.message || e).join(', ')}`);
+      throw new Error(`All HAF nodes failed: ${errors.map(e => (e as Error)?.message || String(e)).join(', ')}`);
     }
     
     // Filter for specific custom_json id
@@ -216,7 +216,7 @@ export async function queryTransferOperations(
     
     if (!successResult || !Array.isArray(successResult.result)) {
       const errors = results.filter(r => r.error).map(r => r.error);
-      throw new Error(`All HAF nodes failed: ${errors.map(e => e?.message || e).join(', ')}`);
+      throw new Error(`All HAF nodes failed: ${errors.map(e => (e as Error)?.message || String(e)).join(', ')}`);
     }
     
     // Parse transfer operations
