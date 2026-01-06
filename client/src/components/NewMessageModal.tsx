@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Search, UserPlus, AlertCircle, UserCheck } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Search, UserPlus, AlertCircle, UserCheck, Loader2 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -17,6 +17,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { preloadFollowingList } from '@/lib/hiveFollowing';
+import { hiveClient } from '@/lib/hiveClient';
 
 interface NewMessageModalProps {
   open: boolean;
@@ -29,6 +30,8 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
   const [username, setUsername] = useState('');
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   
   // Fetch following list for suggested contacts
   const { data: followingList, isPending: isLoadingFollowing } = useQuery({
@@ -37,12 +40,48 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
       if (!user?.username) return [];
       return await preloadFollowingList(user.username);
     },
-    enabled: !!user?.username && open,  // Only fetch when modal is open
-    staleTime: 0,  // Always refetch to ensure suggested contacts are current
+    enabled: !!user?.username && open,
+    staleTime: 0,
     gcTime: 10 * 60 * 1000,
-    refetchOnMount: 'always',  // Force refetch when modal opens
-    placeholderData: (previousData) => previousData,  // Retain previous data during refetch
+    refetchOnMount: 'always',
+    placeholderData: (previousData) => previousData,
   });
+  
+  // Username autocomplete query - debounced
+  const [debouncedUsername, setDebouncedUsername] = useState('');
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const clean = username.toLowerCase().trim().replace('@', '');
+      if (clean.length >= 2) {
+        setDebouncedUsername(clean);
+      } else {
+        setDebouncedUsername('');
+      }
+    }, 300);
+    
+    return () => clearTimeout(timer);
+  }, [username]);
+  
+  const { data: autocompleteResults, isFetching: isLoadingAutocomplete } = useQuery({
+    queryKey: ['lookupAccounts', debouncedUsername],
+    queryFn: async () => {
+      if (!debouncedUsername || debouncedUsername.length < 2) return [];
+      return await hiveClient.lookupAccounts(debouncedUsername, 8);
+    },
+    enabled: debouncedUsername.length >= 2 && open,
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+  
+  // Show suggestions dropdown when we have results and user is typing
+  useEffect(() => {
+    if (autocompleteResults && autocompleteResults.length > 0 && username.length >= 2) {
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+  }, [autocompleteResults, username]);
   
   const getInitials = (username: string) => {
     return username.slice(0, 2).toUpperCase();
@@ -74,6 +113,7 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
     try {
       onStartChat(cleanUsername);
       setUsername('');
+      setShowSuggestions(false);
       onOpenChange(false);
     } catch (err: any) {
       setError(err.message || 'Failed to start conversation');
@@ -86,6 +126,7 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
     if (!newOpen) {
       setUsername('');
       setError(null);
+      setShowSuggestions(false);
     }
     onOpenChange(newOpen);
   };
@@ -93,7 +134,14 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
   const handleSelectSuggested = (suggestedUsername: string) => {
     onStartChat(suggestedUsername);
     setUsername('');
+    setShowSuggestions(false);
     onOpenChange(false);
+  };
+  
+  const handleSelectAutocomplete = (selectedUsername: string) => {
+    setUsername(selectedUsername);
+    setShowSuggestions(false);
+    inputRef.current?.focus();
   };
 
   return (
@@ -153,25 +201,60 @@ export function NewMessageModal({ open, onOpenChange, onStartChat }: NewMessageM
               Recipient Username
             </Label>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
+              {isLoadingAutocomplete && (
+                <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin z-10" />
+              )}
               <Input
+                ref={inputRef}
                 id="new-username"
                 type="text"
-                placeholder="username"
+                placeholder="Start typing a username..."
                 value={username}
                 onChange={(e) => {
                   setUsername(e.target.value);
                   setError(null);
                 }}
+                onFocus={() => {
+                  if (autocompleteResults && autocompleteResults.length > 0 && username.length >= 2) {
+                    setShowSuggestions(true);
+                  }
+                }}
+                onBlur={() => {
+                  // Delay hiding to allow click on suggestion
+                  setTimeout(() => setShowSuggestions(false), 200);
+                }}
                 disabled={isValidating}
-                className="pl-9 h-11"
+                className="pl-9 pr-9 h-11"
                 autoComplete="off"
                 autoFocus
                 data-testid="input-new-message-username"
               />
+              
+              {/* Autocomplete dropdown */}
+              {showSuggestions && autocompleteResults && autocompleteResults.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-popover border rounded-md shadow-lg z-50 max-h-[200px] overflow-auto">
+                  {autocompleteResults.map((suggestedUser) => (
+                    <button
+                      key={suggestedUser}
+                      type="button"
+                      onClick={() => handleSelectAutocomplete(suggestedUser)}
+                      className="w-full flex items-center gap-3 p-2 hover:bg-accent text-left"
+                      data-testid={`autocomplete-${suggestedUser}`}
+                    >
+                      <Avatar className="w-6 h-6 flex-shrink-0">
+                        <AvatarFallback className="bg-primary/10 text-primary font-medium text-[10px]">
+                          {getInitials(suggestedUser)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-sm font-medium">@{suggestedUser}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             <p className="text-caption text-muted-foreground">
-              Enter the Hive username (without @)
+              Type at least 2 characters to search Hive users
             </p>
           </div>
 

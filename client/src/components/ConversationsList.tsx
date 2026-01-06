@@ -26,6 +26,7 @@ interface ConversationsListProps {
   onNewGroup?: () => void;
   onDiscoverGroups?: () => void;
   onHideConversation?: (conversationId: string, username: string) => void;
+  onHideGroup?: (groupId: string, groupName: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   isLoadingGroups?: boolean;
@@ -41,6 +42,7 @@ export function ConversationsList({
   onNewGroup,
   onDiscoverGroups,
   onHideConversation,
+  onHideGroup,
   searchQuery,
   onSearchChange,
   isLoadingGroups = false,
@@ -98,6 +100,13 @@ export function ConversationsList({
     e.stopPropagation();
     if (onHideConversation) {
       onHideConversation(conversationId, username);
+    }
+  };
+
+  const handleHideGroupClick = (e: React.MouseEvent, groupId: string, groupName: string) => {
+    e.stopPropagation();
+    if (onHideGroup) {
+      onHideGroup(groupId, groupName);
     }
   };
 
@@ -211,6 +220,24 @@ export function ConversationsList({
           </TooltipTrigger>
           <TooltipContent>
             <p className="text-xs">Hide chat</p>
+          </TooltipContent>
+        </Tooltip>
+      )}
+      
+      {onHideGroup && isGroup && (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={(e) => handleHideGroupClick(e, conversation.id, conversation.contactUsername)}
+              className="absolute top-2 right-2 p-1 rounded-sm opacity-0 group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive transition-opacity"
+              data-testid={`button-hide-group-${conversation.id}`}
+              aria-label="Hide group"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="text-xs">Hide group</p>
           </TooltipContent>
         </Tooltip>
       )}

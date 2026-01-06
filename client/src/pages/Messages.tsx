@@ -110,7 +110,7 @@ export default function Messages() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { isMobile, showChat, setShowChat } = useMobileLayout();
-  const { isHidden, hideConversation, hiddenConversations } = useHiddenConversations();
+  const { isHidden, hideConversation, hiddenConversations, isGroupHidden, hideGroup, hiddenGroups, getHiddenGroupName } = useHiddenConversations();
   const [location, setLocation] = useLocation();
   
   const [selectedPartner, setSelectedPartner] = useState<string>('');
@@ -266,8 +266,9 @@ export default function Messages() {
   const groupConversations = useMemo<Conversation[]>(() =>
     groupCaches
       .filter((group): group is GroupConversationCache => group !== null && group !== undefined)
+      .filter(group => !isGroupHidden(group.groupId))
       .map(mapGroupCacheToConversation),
-    [groupCaches]
+    [groupCaches, isGroupHidden]
   );
 
   // Pending groups state with proper reactivity
@@ -1183,6 +1184,17 @@ export default function Messages() {
           });
           if (selectedPartner === username || selectedConversationId === conversationId) {
             setSelectedPartner('');
+            if (isMobile) setShowChat(false);
+          }
+        }}
+        onHideGroup={(groupId, groupName) => {
+          hideGroup(groupId, groupName);
+          toast({
+            title: 'Group Hidden',
+            description: `"${groupName}" has been hidden. Unhide from the Hidden Chats menu.`,
+          });
+          if (selectedGroupId === groupId) {
+            setSelectedGroupId('');
             if (isMobile) setShowChat(false);
           }
         }}

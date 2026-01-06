@@ -601,6 +601,34 @@ class HiveBlockchainClient {
       throw error;
     }
   }
+
+  /**
+   * USERNAME AUTOCOMPLETE: Lookup accounts by prefix
+   * Uses condenser_api.lookup_accounts to find usernames starting with a prefix
+   * Returns up to `limit` matching account names
+   */
+  async lookupAccounts(prefix: string, limit: number = 10): Promise<string[]> {
+    if (!prefix || prefix.length < 1) {
+      return [];
+    }
+
+    const cleanPrefix = prefix.toLowerCase().trim();
+    
+    try {
+      const accounts = await this.retryWithBackoff(async () => {
+        return await this.client.database.call('condenser_api.lookup_accounts', [cleanPrefix, limit]);
+      });
+      
+      // Filter to only return accounts that actually start with the prefix
+      // (API sometimes returns broader results)
+      return (accounts || []).filter((name: string) => 
+        name.toLowerCase().startsWith(cleanPrefix)
+      );
+    } catch (error) {
+      logger.warn('[RPC] lookup_accounts failed:', error);
+      return [];
+    }
+  }
 }
 
 // All available Hive RPC nodes - ordered by typical reliability
