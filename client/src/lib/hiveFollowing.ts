@@ -144,43 +144,70 @@ async function getFollowingDB(): Promise<IDBPDatabase<HiveFollowingDB>> {
 // ============================================================================
 
 /**
- * Call follow API using condenser_api (more widely supported than follow_api)
- * Uses condenser_api.get_following which works on all standard Hive nodes
+ * Call follow API using condenser_api with PARALLEL hedged requests (fast!)
+ * Sends to all nodes simultaneously, uses first successful response
  */
 async function callFollowApiWithFailover(
   method: string,
   params: any[]
 ): Promise<any> {
-  const maxAttempts = FOLLOW_API_NODES.length;
-  let lastError: Error | null = null;
+  const TIMEOUT_MS = 8000;
+  const startTime = performance.now();
   
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const client = getFollowApiClient();
-    const currentNode = FOLLOW_API_NODES.find(n => !unhealthyNodes.has(n)) || FOLLOW_API_NODES[0];
-    
+  // Get healthy nodes
+  const healthyNodes = FOLLOW_API_NODES.filter(n => !unhealthyNodes.has(n));
+  const nodesToUse = healthyNodes.length > 0 ? healthyNodes : FOLLOW_API_NODES;
+  
+  // HEDGED PARALLEL REQUESTS: Send to all nodes simultaneously
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  
+  const requests = nodesToUse.map(async (node) => {
     try {
-      // Use condenser_api instead of follow_api - more widely supported
-      const result = await client.database.call(`condenser_api.${method}`, params);
-      return result;
-    } catch (error: any) {
-      lastError = error;
-      const errorMsg = error?.message?.toLowerCase() || '';
+      const response = await fetch(node, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          method: `condenser_api.${method}`,
+          params,
+          id: 1
+        }),
+        signal: controller.signal
+      });
       
-      // If node doesn't support this API, mark it unhealthy and try next
-      if (errorMsg.includes('could not find api') || 
-          errorMsg.includes('not found') ||
-          errorMsg.includes('method not found')) {
-        markNodeUnhealthy(currentNode);
-        logger.warn(`[FOLLOWING] Node ${currentNode} failed, trying next`);
-        continue;
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const json = await response.json();
+      
+      if (json.error) {
+        const errorMsg = json.error.message?.toLowerCase() || '';
+        if (errorMsg.includes('not found') || errorMsg.includes('method')) {
+          markNodeUnhealthy(node);
+        }
+        throw new Error(json.error.message || 'RPC error');
       }
       
-      // For other errors, throw immediately
-      throw error;
+      return { node, result: json.result };
+    } catch (e) {
+      return { node, error: e };
     }
+  });
+  
+  const results = await Promise.all(requests);
+  clearTimeout(timeout);
+  
+  // Use first successful result
+  const successResult = results.find(r => r.result !== undefined && !r.error);
+  
+  if (!successResult) {
+    const errors = results.filter(r => r.error).map(r => r.error);
+    throw new Error(`All nodes failed: ${errors.map(e => (e as Error)?.message || String(e)).join(', ')}`);
   }
   
-  throw lastError || new Error('All nodes failed for follow API');
+  const elapsed = Math.round(performance.now() - startTime);
+  logger.info(`[FOLLOWING] ✅ ${method} completed in ${elapsed}ms via ${successResult.node}`);
+  
+  return successResult.result;
 }
 
 /**
