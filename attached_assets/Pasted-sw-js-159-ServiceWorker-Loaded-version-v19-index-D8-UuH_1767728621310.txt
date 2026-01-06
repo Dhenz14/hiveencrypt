@@ -1,0 +1,58 @@
+sw.js:159 [ServiceWorker] Loaded version: v19
+index-D8_UuHYB.js:854 [RPC] Node configuration loaded, primary node: https://api.hive.blog
+blakejs-browser.js:243 ✅ blakejs loaded successfully (self-contained version)
+blakejs-browser.js:244   Available functions: Array(5)
+paywall-detector.js:318 🛡️ Paywall Detector loaded - 100% client-side, no external dependencies
+content.js:13 🏛️ ArcHive Content Script Loaded
+content.js:434 🏛️ ArcHive Content Script Ready - 100% Decentralized
+hiveencrypt/:71 [PWA] Service Worker registered: https://dhenz14.github.io/hiveencrypt/
+index-D8_UuHYB.js:854 [HiddenConversationsContext] Loaded hidden conversations: Array(2)
+index-D8_UuHYB.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(0)
+index-D8_UuHYB.js:854 [ExceptionsContext] Loaded exceptions: Array(0)
+index-D8_UuHYB.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+index-D8_UuHYB.js:854 [HiddenConversationsContext] Saved hidden conversations: Array(2)
+index-D8_UuHYB.js:854 [ExceptionsContext] Saved exceptions: Array(0)
+index-D8_UuHYB.js:854 [HiddenConversationsContext] Hidden conversation: dance group
+index-D8_UuHYB.js:467 XHR finished loading: POST "https://api.deathwing.me/".
+(anonymous) @ index-D8_UuHYB.js:467
+pt @ index-D8_UuHYB.js:467
+(anonymous) @ index-D8_UuHYB.js:854
+(anonymous) @ index-D8_UuHYB.js:854
+$ @ index-D8_UuHYB.js:854
+j.retryingFetch @ index-D8_UuHYB.js:854
+Et @ index-D8_UuHYB.js:623
+(anonymous) @ index-D8_UuHYB.js:623
+call @ index-D8_UuHYB.js:623
+call @ index-D8_UuHYB.js:755
+getAccountHistory @ index-D8_UuHYB.js:755
+(anonymous) @ index-D8_UuHYB.js:854
+retryWithBackoff @ index-D8_UuHYB.js:854
+getAccountHistory @ index-D8_UuHYB.js:854
+scanAutoApprovalRequests @ index-D8_UuHYB.js:935
+ot @ index-D8_UuHYB.js:1041
+FileReader
+St.text @ index-D8_UuHYB.js:467
+St.json @ index-D8_UuHYB.js:467
+(anonymous) @ index-D8_UuHYB.js:854
+St @ index-D8_UuHYB.js:854
+index-D8_UuHYB.js:467 XHR finished loading: POST "https://api.deathwing.me/".
+(anonymous) @ index-D8_UuHYB.js:467
+pt @ index-D8_UuHYB.js:467
+(anonymous) @ index-D8_UuHYB.js:854
+(anonymous) @ index-D8_UuHYB.js:854
+$ @ index-D8_UuHYB.js:854
+j.retryingFetch @ index-D8_UuHYB.js:854
+Et @ index-D8_UuHYB.js:623
+(anonymous) @ index-D8_UuHYB.js:623
+call @ index-D8_UuHYB.js:623
+(anonymous) @ index-D8_UuHYB.js:854
+await in (anonymous)
+retryWithBackoff @ index-D8_UuHYB.js:854
+getAccountHistory @ index-D8_UuHYB.js:854
+scanAutoApprovalRequests @ index-D8_UuHYB.js:935
+ot @ index-D8_UuHYB.js:1041
+FileReader
+St.text @ index-D8_UuHYB.js:467
+St.json @ index-D8_UuHYB.js:467
+(anonymous) @ index-D8_UuHYB.js:854
+St @ index-D8_UuHYB.js:854
