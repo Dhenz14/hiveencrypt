@@ -85,20 +85,21 @@ async function processTransferOperation(
       return null;
     }
 
-    // OPTIMIZATION: If group members are known (and list has 2+ members), only decrypt memos from group members
-    // This prevents triggering Keychain prompts for regular 1:1 messages
-    // NOTE: We require 2+ members to avoid blocking messages when cache is incomplete
-    // Edge case: New members might not be in cache yet - their messages will appear after cache refresh
-    if (groupMembers && groupMembers.length >= 2) {
-      const senderLower = transfer.from.toLowerCase();
-      const isMember = groupMembers.some(m => m.toLowerCase() === senderLower);
-      if (!isMember) {
-        logger.debug('[GROUP MESSAGES] Skipping - sender not in group members:', transfer.from);
-        return null;
-      }
-    } else {
-      // If member list is empty/minimal, don't filter - allow discovery of group messages
-      logger.debug('[GROUP MESSAGES] Member list incomplete, allowing decryption from:', transfer.from);
+    // CRITICAL FIX: NEVER attempt decryption without a valid group member list
+    // This prevents rogue Keychain popups from triggering on page load or background sync
+    // When member list is incomplete, skip decryption entirely - messages will be processed
+    // on next sync after proper group metadata is loaded
+    if (!groupMembers || groupMembers.length < 2) {
+      logger.debug('[GROUP MESSAGES] Skipping decryption - member list incomplete, waiting for group metadata');
+      return null;
+    }
+    
+    // Only decrypt memos from known group members
+    const senderLower = transfer.from.toLowerCase();
+    const isMember = groupMembers.some(m => m.toLowerCase() === senderLower);
+    if (!isMember) {
+      logger.debug('[GROUP MESSAGES] Skipping - sender not in group members:', transfer.from);
+      return null;
     }
 
     logger.info('[GROUP MESSAGES] 🔐 Attempting to decrypt memo from:', transfer.from, 'txId:', txId.substring(0, 8));
