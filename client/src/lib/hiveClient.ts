@@ -316,6 +316,7 @@ class HiveBlockchainClient {
 
   // TIER 2 OPTIMIZATION: Added start parameter for incremental pagination
   // TIER 3 OPTIMIZATION: Added operation type filtering for custom_json operations
+  // FIX: Now uses direct fetch with hedged parallel requests for reliability across all hosts
   async getAccountHistory(
     username: string,
     limit: number = 100,
@@ -331,68 +332,113 @@ class HiveBlockchainClient {
     }
 
     try {
-      const history = await this.retryWithBackoff(async () => {
-        let operationFilterLow = 0;
-        let operationFilterHigh = 0;
+      let operationFilterLow = 0;
+      let operationFilterHigh = 0;
 
-        switch (filter) {
-          case 'transfers':
-            // Transfer operation type 2: 2^2 = 4
-            operationFilterLow = OPERATION_FILTERS.TRANSFER;
-            break;
-          case 'custom_json':
-            // Custom_json operation type 18: 2^18 = 262144
-            operationFilterLow = OPERATION_FILTERS.CUSTOM_JSON;
-            break;
-          case 'transfers_and_custom_json':
-            // Combined: 4 + 262144 = 262148
-            operationFilterLow = OPERATION_FILTERS.TRANSFER_AND_CUSTOM_JSON;
-            break;
-          case 'all':
-            // No filtering - unfiltered queries work fine with start=-1
-            return await this.client.database.getAccountHistory(username, start, limit);
-          default:
-            // This should never happen due to TypeScript typing, but handle it anyway
-            logger.error('[RPC] Invalid operation filter:', filter, '- falling back to transfers only');
-            operationFilterLow = OPERATION_FILTERS.TRANSFER;
-            break;
+      switch (filter) {
+        case 'transfers':
+          operationFilterLow = OPERATION_FILTERS.TRANSFER;
+          break;
+        case 'custom_json':
+          operationFilterLow = OPERATION_FILTERS.CUSTOM_JSON;
+          break;
+        case 'transfers_and_custom_json':
+          operationFilterLow = OPERATION_FILTERS.TRANSFER_AND_CUSTOM_JSON;
+          break;
+        case 'all':
+          operationFilterLow = 0;
+          break;
+        default:
+          logger.error('[RPC] Invalid operation filter:', filter, '- falling back to transfers only');
+          operationFilterLow = OPERATION_FILTERS.TRANSFER;
+          break;
+      }
+
+      // For filtered queries when start=-1, get latest operation index first
+      let actualStart = start;
+      if (start === -1) {
+        // Use hedged parallel fetch to get latest operation index
+        const recentOps = await this.hedgedAccountHistoryFetch(username, -1, Math.min(limit, 100), 0, 0);
+        if (recentOps && recentOps.length > 0) {
+          const latestOpIndex = Math.max(...recentOps.map(([idx]: [number, any]) => idx));
+          actualStart = latestOpIndex;
+        } else {
+          return [];
         }
+      }
 
-        // For filtered queries when start=-1, get latest operation index first
-        let actualStart = start;
-        if (start === -1) {
-          // Get a small batch using unfiltered API to find the latest operation index
-          const recentOps = await this.client.database.getAccountHistory(username, -1, Math.min(limit, 100));
-          if (recentOps && recentOps.length > 0) {
-            // Get the highest operation index from recent ops
-            const latestOpIndex = Math.max(...recentOps.map(([idx]) => idx));
-            actualStart = latestOpIndex;
-          } else {
-            // No operations found, return empty array
-            return [];
-          }
-        }
+      // Ensure start >= limit - 1 for filtered queries (API constraint)
+      if (actualStart < limit - 1) {
+        actualStart = limit - 1;
+      }
 
-        // Ensure start >= limit - 1 for filtered queries (API constraint)
-        if (actualStart < limit - 1) {
-          actualStart = limit - 1;
-        }
-
-        // Use filtered query with corrected start value
-        return await this.client.call('condenser_api', 'get_account_history', [
-          username,
-          actualStart,
-          limit,
-          operationFilterLow,
-          operationFilterHigh
-        ]);
-      });
-
-      return history || [];
+      // Use hedged parallel fetch for reliability across all hosts (including GitHub Pages)
+      return await this.hedgedAccountHistoryFetch(username, actualStart, limit, operationFilterLow, operationFilterHigh);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       throw new Error(`Failed to fetch account history: ${errorMessage}`);
     }
+  }
+
+  /**
+   * Hedged parallel fetch for account history - sends to all nodes simultaneously
+   * Uses first successful response for maximum reliability and speed
+   */
+  private async hedgedAccountHistoryFetch(
+    username: string,
+    start: number,
+    limit: number,
+    filterLow: number,
+    filterHigh: number
+  ): Promise<any[]> {
+    const TIMEOUT_MS = 8000;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+    const params = filterLow === 0 && filterHigh === 0
+      ? [username, start, limit]  // Unfiltered query
+      : [username, start, limit, filterLow, filterHigh];  // Filtered query
+
+    const requests = this.apiNodes.map(async (node) => {
+      try {
+        const response = await fetch(node, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            method: 'condenser_api.get_account_history',
+            params,
+            id: 1
+          }),
+          signal: controller.signal
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const json = await response.json();
+
+        if (json.error) {
+          throw new Error(json.error.message || 'RPC error');
+        }
+
+        return { node, result: json.result || [] };
+      } catch (e) {
+        return { node, error: e };
+      }
+    });
+
+    const results = await Promise.all(requests);
+    clearTimeout(timeout);
+
+    // Use first successful result
+    const successResult = results.find(r => r.result !== undefined && !r.error);
+
+    if (!successResult) {
+      const errors = results.filter(r => r.error).map(r => (r.error as Error)?.message || 'unknown');
+      throw new Error(`All nodes failed: ${errors.join(', ')}`);
+    }
+
+    logger.debug('[RPC HEDGED] Account history success from:', successResult.node);
+    return successResult.result;
   }
 
   async getTransaction(transactionId: string): Promise<any> {
