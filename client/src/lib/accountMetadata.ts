@@ -211,6 +211,7 @@ export async function getAccountMetadata(
 /**
  * Parse minimum HBD from account metadata
  * Returns DEFAULT_MINIMUM_HBD if not set or invalid
+ * Normalizes amounts to 3 decimal places (e.g., "0.01" -> "0.010")
  * 
  * @param metadata - Account metadata object
  * @returns Minimum HBD as string (e.g., "0.001", "1.000")
@@ -228,20 +229,23 @@ export function parseMinimumHBD(metadata: AccountMetadata | null | undefined): s
     return DEFAULT_MINIMUM_HBD;
   }
   
-  return minHBD;
+  // Normalize to 3 decimal places (e.g., "0.01" -> "0.010")
+  const numericValue = parseFloat(minHBD);
+  return numericValue.toFixed(3);
 }
 
 /**
  * Validate HBD amount format
- * Must be numeric string with exactly 3 decimal places
+ * Accepts numeric strings with 1-3 decimal places (will be normalized to 3)
  * Must be between MIN_MINIMUM_HBD and MAX_MINIMUM_HBD
  * 
- * @param amount - HBD amount string (e.g., "0.001", "1.000")
+ * @param amount - HBD amount string (e.g., "0.001", "0.01", "1.0", "1.000")
  * @returns true if valid
  */
 export function isValidHBDAmount(amount: string): boolean {
-  // Check format: must be numeric with exactly 3 decimal places
-  const hbdRegex = /^\d+\.\d{3}$/;
+  // Check format: must be numeric with 1-3 decimal places
+  // Accept: "0.1", "0.01", "0.001", "1.0", "1.00", "1.000"
+  const hbdRegex = /^\d+\.\d{1,3}$/;
   if (!hbdRegex.test(amount)) {
     return false;
   }

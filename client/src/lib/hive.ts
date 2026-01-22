@@ -132,10 +132,19 @@ export const requestTransfer = async (
       return;
     }
 
+    // CRITICAL: Hive requires amounts with exactly 3 decimal places
+    // Parse the amount and reformat to ensure "X.XXX" format
+    const numericAmount = parseFloat(amount);
+    if (isNaN(numericAmount) || numericAmount <= 0) {
+      reject({ success: false, error: 'Invalid amount' });
+      return;
+    }
+    const formattedAmount = numericAmount.toFixed(3);
+
     window.hive_keychain.requestTransfer(
       from,
       to,
-      amount,
+      formattedAmount,
       memo,
       currency,
       (response: KeychainResponse) => {

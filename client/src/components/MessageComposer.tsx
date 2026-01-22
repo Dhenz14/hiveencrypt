@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo, memo } from 'react';
-import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info, CheckCircle, Lock as LockIcon } from 'lucide-react';
+import { Send, Paperclip, Smile, X, Image as ImageIcon, DollarSign, Info, Lock as LockIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -707,18 +707,12 @@ export function MessageComposer({
       return;
     }
     
-    // v2.1.0: Allow sending at DEFAULT_MINIMUM_HBD (0.001) even if below recipient's minimum
-    // This assumes the sender is exempted by the recipient (stored in recipient's localStorage)
-    // Use precise integer thousandths comparison to avoid floating-point precision issues
-    const thousandthsRaw = numericSendAmount * 1000;
-    const thousandthsRounded = Math.round(thousandthsRaw);
-    const isValidPrecision = Math.abs(thousandthsRaw - thousandthsRounded) < 1e-9;
-    const isDefaultAmount = isValidPrecision && thousandthsRounded === 1;
-    
-    if (numericSendAmount < numericMinimum && !isDefaultAmount) {
+    // v2.2.0: Strictly enforce recipient's minimum - BLOCK sending if below minimum
+    // No more "exemption assumption" - user must meet the minimum or increase amount
+    if (numericSendAmount < numericMinimum) {
       toast({
         title: 'Amount Below Minimum',
-        description: `@${recipientUsername} requires at least ${effectiveRecipientMinimum} HBD. Your amount: ${sendAmount} HBD`,
+        description: `@${recipientUsername} requires at least ${effectiveRecipientMinimum} HBD per message. Please increase your send amount.`,
         variant: 'destructive',
       });
       isSendingRef.current = false;
@@ -997,25 +991,14 @@ export function MessageComposer({
               <span className="text-caption text-muted-foreground">HBD</span>
             </div>
             
-            {/* v2.1.0: Show exemption indicator when sending at default amount below recipient's minimum */}
+            {/* v2.2.0: Show warning when send amount is below recipient's minimum */}
             {!isLoadingMinimum && recipientMinimum && parseFloat(sendAmount) < parseFloat(recipientMinimum) && (
-              <>
-                {parseFloat(sendAmount) === parseFloat(DEFAULT_MINIMUM_HBD) ? (
-                  <div className="flex items-center gap-2 px-3 py-2 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-md" data-testid="alert-exemption-indicator">
-                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
-                    <span className="text-caption text-green-700 dark:text-green-300">
-                      {sendAmount} HBD - You may be exempted from their {recipientMinimum} HBD minimum!
-                    </span>
-                  </div>
-                ) : (
-                  <Alert variant="destructive" data-testid="alert-amount-warning">
-                    <Info className="w-4 h-4" />
-                    <AlertDescription>
-                      @{recipientUsername} requires minimum {recipientMinimum} HBD per message
-                    </AlertDescription>
-                  </Alert>
-                )}
-              </>
+              <Alert variant="destructive" data-testid="alert-amount-warning">
+                <Info className="w-4 h-4" />
+                <AlertDescription>
+                  @{recipientUsername} requires minimum {recipientMinimum} HBD per message. Increase your amount to send.
+                </AlertDescription>
+              </Alert>
             )}
             
             {!isLoadingMinimum && recipientMinimum && recipientMinimum !== DEFAULT_MINIMUM_HBD && parseFloat(sendAmount) >= parseFloat(recipientMinimum) && (
