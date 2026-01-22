@@ -153,7 +153,7 @@ export async function publishGroupToDiscovery(
   logger.info('[GROUP DISCOVERY] Publishing group:', { groupId, groupName });
   
   if (!window.hive_keychain) {
-    return { success: false, error: 'Hive Keychain not installed' };
+    return { success: false, error: 'Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.' };
   }
   
   const permlink = generatePermlink(groupId);

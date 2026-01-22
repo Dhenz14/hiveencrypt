@@ -213,7 +213,7 @@ export async function broadcastGroupCreation(
 
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 
@@ -322,7 +322,7 @@ export async function broadcastGroupUpdate(
 
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 
@@ -425,7 +425,7 @@ export async function broadcastLeaveGroup(
 
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 
@@ -481,7 +481,7 @@ export async function broadcastJoinApprove(
 
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 
@@ -538,7 +538,7 @@ export async function broadcastJoinReject(
 
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 
@@ -588,7 +588,7 @@ export async function broadcastPinMessage(
 
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 
@@ -635,7 +635,7 @@ export async function broadcastUnpinMessage(
 
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 

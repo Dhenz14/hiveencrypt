@@ -103,7 +103,7 @@ export function JoinGroupButton({
 
       return new Promise<{ txId: string; requestId: string }>((resolve, reject) => {
         if (!window.hive_keychain) {
-          reject(new Error('Hive Keychain not installed'));
+          reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
           return;
         }
 

@@ -63,7 +63,7 @@ async function requestKeychainEncryption(
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 
@@ -97,7 +97,7 @@ async function requestKeychainDecryption(
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
 

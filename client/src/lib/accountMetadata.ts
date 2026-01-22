@@ -295,7 +295,7 @@ export async function updateMinimumHBD(
   
   // Check Keychain availability
   if (!isKeychainInstalled()) {
-    throw new Error('Hive Keychain not installed');
+    throw new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.');
   }
   
   try {
@@ -352,7 +352,7 @@ async function broadcastAccountUpdate(
 ): Promise<boolean> {
   return new Promise((resolve, reject) => {
     if (!window.hive_keychain) {
-      reject(new Error('Hive Keychain not installed'));
+      reject(new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.'));
       return;
     }
     
@@ -473,7 +473,7 @@ export async function updateLightningAddress(
   
   // Check Keychain availability
   if (!isKeychainInstalled()) {
-    throw new Error('Hive Keychain not installed');
+    throw new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.');
   }
   
   try {
@@ -594,7 +594,7 @@ export async function updateTipReceivePreference(
   
   // Check Keychain availability
   if (!isKeychainInstalled()) {
-    throw new Error('Hive Keychain not installed');
+    throw new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.');
   }
   
   try {
@@ -717,7 +717,7 @@ export async function updateMessagePrivacy(
   
   // Check Keychain availability
   if (!isKeychainInstalled()) {
-    throw new Error('Hive Keychain not installed');
+    throw new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.');
   }
   
   try {
@@ -782,7 +782,7 @@ export async function updateGroupInvitePrivacy(
   
   // Check Keychain availability
   if (!isKeychainInstalled()) {
-    throw new Error('Hive Keychain not installed');
+    throw new Error('Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.');
   }
   
   try {
