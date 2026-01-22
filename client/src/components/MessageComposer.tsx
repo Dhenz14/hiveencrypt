@@ -1047,8 +1047,9 @@ export function MessageComposer({
                 className="min-h-11 min-w-11"
                 disabled={disabled}
                 data-testid="button-emoji"
+                aria-label="Add emoji"
               >
-                <Smile className="w-4 h-4" />
+                <Smile className="w-4 h-4" aria-hidden="true" />
               </Button>
               <input
                 ref={fileInputRef}
@@ -1068,8 +1069,9 @@ export function MessageComposer({
                     disabled={disabled || isSending || !!groupId}
                     onClick={() => fileInputRef.current?.click()}
                     data-testid="button-attach"
+                    aria-label="Attach image"
                   >
-                    <Paperclip className="w-4 h-4" />
+                    <Paperclip className="w-4 h-4" aria-hidden="true" />
                   </Button>
                 </TooltipTrigger>
                 {groupId && (
@@ -1086,8 +1088,9 @@ export function MessageComposer({
             className="h-11 w-11 flex-shrink-0"
             disabled={(!content.trim() && !selectedImage) || disabled || isSending || (!!recipientUsername && (isLoadingMinimum || !hasVerifiedMinimum))}
             data-testid="button-send"
+            aria-label="Send message"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-5 h-5" aria-hidden="true" />
           </Button>
         </div>
         <div className="flex items-center gap-2 text-caption text-muted-foreground">

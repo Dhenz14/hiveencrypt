@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ExceptionsProvider } from "@/contexts/ExceptionsContext";
 import { HiddenConversationsProvider } from "@/contexts/HiddenConversationsContext";
 import { KeychainRedirect } from "@/components/KeychainRedirect";
+import { OfflineBanner } from "@/components/OfflineBanner";
 import Login from "@/pages/Login";
 import Messages from "@/pages/Messages";
 import GroupDiscovery from "@/pages/GroupDiscovery";
@@ -126,6 +127,7 @@ function App() {
           <ExceptionsProvider>
             <HiddenConversationsProvider>
               <TooltipProvider>
+                <OfflineBanner />
                 <Toaster />
                 <Router />
               </TooltipProvider>

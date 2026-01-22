@@ -71,7 +71,7 @@ export const requestHandshake = (): Promise<boolean> => {
 export const requestLogin = (username: string): Promise<KeychainResponse> => {
   return new Promise((resolve, reject) => {
     if (!isKeychainInstalled()) {
-      reject({ success: false, error: 'Hive Keychain not installed' });
+      reject({ success: false, error: 'Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.' });
       return;
     }
 
@@ -98,7 +98,7 @@ export const requestEncode = (
 ): Promise<KeychainResponse> => {
   return new Promise((resolve, reject) => {
     if (!isKeychainInstalled()) {
-      reject({ success: false, error: 'Hive Keychain not installed' });
+      reject({ success: false, error: 'Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.' });
       return;
     }
 
@@ -128,7 +128,7 @@ export const requestTransfer = async (
   // Use Keychain extension (works on desktop and Keychain Mobile browser)
   return new Promise((resolve, reject) => {
     if (!isKeychainInstalled()) {
-      reject({ success: false, error: 'Hive Keychain not installed' });
+      reject({ success: false, error: 'Hive Keychain not installed. Install it from https://hive-keychain.com to use this app.' });
       return;
     }
 
