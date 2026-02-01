@@ -1,3 +1,10 @@
+/**
+ * messageCache.ts - IndexedDB Message Persistence
+ * 
+ * Caches decrypted messages, conversations, and group data locally
+ * for offline access and faster load times.
+ */
+
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { normalizeHiveTimestamp } from './hive';
 import type { PaymentSettings, MemberPayment, JoinRequest, GroupConversationCache } from '@shared/schema';

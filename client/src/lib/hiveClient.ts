@@ -1,3 +1,10 @@
+/**
+ * hiveClient.ts - Optimized Hive RPC Client
+ * 
+ * Provides resilient RPC calls with automatic failover, retry logic,
+ * parallel hedged requests, and token bucket rate limiting.
+ */
+
 import { Client, type ExtendedAccount } from '@hiveio/dhive';
 import { logger } from './logger';
 

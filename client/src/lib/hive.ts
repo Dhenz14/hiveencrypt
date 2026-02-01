@@ -1,3 +1,10 @@
+/**
+ * hive.ts - Core Hive Blockchain Integration
+ * 
+ * Handles authentication, message transfers, and Keychain interactions.
+ * Uses HBD memo transfers for encrypted 1:1 messaging.
+ */
+
 import { Client, PrivateKey, PublicKey, Memo } from '@hiveio/dhive';
 import { KeychainSDK, KeychainKeyTypes } from 'keychain-sdk';
 import { hiveClient as optimizedHiveClient } from './hiveClient';

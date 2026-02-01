@@ -9,6 +9,13 @@
  * Lightning Network Integration (v2.2.0)
  */
 
+/**
+ * accountMetadata.ts - User Profile & Settings Management
+ * 
+ * Manages Hive account metadata for messenger settings:
+ * minimum HBD, Lightning address, privacy settings, etc.
+ */
+
 import { Client } from '@hiveio/dhive';
 import { isKeychainInstalled } from './hive';
 import { logger } from './logger';
