@@ -447,8 +447,8 @@ export function useBlockchainMessages({
       const timeSinceLastSend = now - lastSendTime;
       const timeSinceActivity = now - lastActivityTime;
       
-      // Background tab: slow polling
-      if (!isActive) return 45000; // 45 seconds
+      // Background tab: faster polling for better message delivery
+      if (!isActive) return 20000; // 20 seconds (was 45s)
       
       // Burst mode: Fast polling for 15 seconds after sending a message
       if (timeSinceLastSend < 15000) {
@@ -457,13 +457,13 @@ export function useBlockchainMessages({
       
       // Active conversation: Recent activity (typing, viewing)
       if (timeSinceActivity < 60000) {
-        return 5000; // 5 seconds - optimal balance
+        return 4000; // 4 seconds (was 5s) - snappier experience
       }
       
       // Idle conversation: No recent activity
-      return 15000; // 15 seconds - slower but still responsive
+      return 10000; // 10 seconds (was 15s) - better responsiveness
     },
-    staleTime: 12000, // 12 seconds - serves cached data, reduces redundant fetches
+    staleTime: 6000, // 6 seconds (was 12s) - fresher data on each poll
     gcTime: 300000, // TIER 1 OPTIMIZATION: 5 minutes (was default) - keep in memory longer
     refetchOnWindowFocus: 'always', // Still refetch on focus for freshness
   });
@@ -651,10 +651,10 @@ export function useConversationDiscovery() {
     enabled: !!user?.username,
     refetchInterval: (data) => {
       // Conversation list updates less frequently than messages
-      if (!isActive) return 90000; // 90 seconds when hidden
-      return 20000; // 20 seconds when active
+      if (!isActive) return 30000; // 30 seconds when hidden (was 90s)
+      return 12000; // 12 seconds when active (was 20s)
     },
-    staleTime: 20000, // Increased from 10s to 20s
+    staleTime: 10000, // 10 seconds (was 20s) - fresher conversation list
   });
 
   return query;
