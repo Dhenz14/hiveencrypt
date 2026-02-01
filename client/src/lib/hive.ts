@@ -13,10 +13,12 @@ import { logger } from '@/lib/logger';
 // Initialize Hive client with public node (for direct access)
 // IMPORTANT: Only include nodes that support CORS for browser requests
 export const hiveClient = new Client([
-  'https://api.hive.blog',         // Official - CORS enabled
+  'https://api.hive.blog',         // Official - CORS enabled (highest priority)
   'https://api.deathwing.me',      // CORS enabled
   'https://api.openhive.network',  // OpenHive - CORS enabled
   'https://hive-api.arcange.eu',   // Arcange - CORS enabled
+  'https://rpc.ecency.com',        // Ecency - CORS enabled (rotation fallback)
+  'https://anyx.io',               // Anyx - CORS enabled (rotation fallback)
 ]);
 
 /**

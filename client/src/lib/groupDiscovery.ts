@@ -263,10 +263,12 @@ export async function publishGroupToDiscovery(
 
 // IMPORTANT: Only include nodes that support CORS for browser requests
 const DISCOVERY_NODES = [
-  'https://api.hive.blog',         // Official - CORS enabled
-  'https://api.deathwing.me',      // CORS enabled
+  'https://api.hive.blog',         // Official - CORS enabled - PRIORITY 1
+  'https://api.deathwing.me',      // CORS enabled - PRIORITY 2
   'https://api.openhive.network',  // OpenHive - CORS enabled
   'https://hive-api.arcange.eu',   // Arcange - CORS enabled
+  'https://rpc.ecency.com',        // Ecency - rotation fallback
+  'https://anyx.io',               // Anyx - rotation fallback
 ];
 
 /**

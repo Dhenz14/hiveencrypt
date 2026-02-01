@@ -16,10 +16,12 @@ import { logger } from './logger';
 // Nodes known to support follow_api (verified working)
 // IMPORTANT: Only include nodes that support CORS and follow_api
 const FOLLOW_API_NODES = [
-  'https://api.hive.blog',         // Official - CORS + follow_api enabled
-  'https://api.deathwing.me',      // CORS + follow_api enabled
+  'https://api.hive.blog',         // Official - CORS + follow_api enabled - PRIORITY 1
+  'https://api.deathwing.me',      // CORS + follow_api enabled - PRIORITY 2
   'https://api.openhive.network',  // OpenHive - CORS + follow_api enabled
   'https://hive-api.arcange.eu',   // Arcange - CORS + follow_api enabled
+  'https://rpc.ecency.com',        // Ecency - rotation fallback
+  'https://anyx.io',               // Anyx - rotation fallback
 ];
 
 // Track unhealthy nodes for this session (nodes that don't have follow_api)
