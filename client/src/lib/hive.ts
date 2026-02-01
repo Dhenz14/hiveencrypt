@@ -17,8 +17,8 @@ export const hiveClient = new Client([
   'https://api.deathwing.me',      // CORS enabled
   'https://api.openhive.network',  // OpenHive - CORS enabled
   'https://hive-api.arcange.eu',   // Arcange - CORS enabled
-  'https://rpc.ecency.com',        // Ecency - CORS enabled (rotation fallback)
-  'https://anyx.io',               // Anyx - CORS enabled (rotation fallback)
+  'https://rpc.ecency.com',        // Ecency - rotation fallback
+  'https://anyx.io',               // Anyx - rotation fallback
 ]);
 
 /**

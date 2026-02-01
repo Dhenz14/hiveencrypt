@@ -692,8 +692,8 @@ const ALL_HIVE_NODES = [
   'https://api.deathwing.me',      // CORS enabled - PRIORITY 2
   'https://api.openhive.network',  // OpenHive - CORS enabled
   'https://hive-api.arcange.eu',   // Arcange - CORS enabled
-  'https://rpc.ecency.com',        // Ecency - CORS enabled (rotation fallback)
-  'https://anyx.io',               // Anyx - CORS enabled (rotation fallback)
+  'https://rpc.ecency.com',        // Ecency - rotation fallback
+  'https://anyx.io',               // Anyx - rotation fallback
 ];
 
 // Export singleton instance with all nodes
