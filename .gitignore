@@ -1,6 +1,74 @@
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build output
 dist
-.DS_Store
 server/public
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Vite
 vite.config.ts.*
 *.tar.gz
+
+# Replit internal files - DO NOT COMMIT
+.replit
+replit.nix
+.config/
+.cache/
+.upm/
+.local/
+.npm/
+.nix-profile/
+.nix-defexpr/
+.nix-channels
+.replit-lock
+*.replit
+.breakpoints
+
+# Replit database URLs and keys
+.env
+.env.local
+.env.development
+.env.production
+*.pem
+*.key
+*.crt
+*.p12
+
+# Test files (CJS/JS)
+*.test.js
+*.test.cjs
+*.spec.js
+*.spec.cjs
+**/__tests__/*.js
+**/__tests__/*.cjs
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/tmp/logs/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Misc
+.eslintcache
+.stylelintcache
