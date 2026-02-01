@@ -18,8 +18,8 @@ import { logger } from './logger';
 const FOLLOW_API_NODES = [
   'https://api.hive.blog',         // Official - CORS + follow_api enabled
   'https://api.deathwing.me',      // CORS + follow_api enabled
-  'https://rpc.ecency.com',        // Ecency - CORS + follow_api enabled
-  'https://anyx.io',               // CORS + follow_api enabled
+  'https://api.openhive.network',  // OpenHive - CORS + follow_api enabled
+  'https://hive-api.arcange.eu',   // Arcange - CORS + follow_api enabled
 ];
 
 // Track unhealthy nodes for this session (nodes that don't have follow_api)

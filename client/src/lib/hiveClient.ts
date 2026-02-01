@@ -690,8 +690,8 @@ class HiveBlockchainClient {
 const ALL_HIVE_NODES = [
   'https://api.hive.blog',         // Official - CORS enabled - PRIORITY 1
   'https://api.deathwing.me',      // CORS enabled - PRIORITY 2
-  'https://rpc.ecency.com',        // Ecency - CORS enabled - reliable
-  'https://anyx.io',               // CORS enabled - reliable
+  'https://api.openhive.network',  // OpenHive - CORS enabled
+  'https://hive-api.arcange.eu',   // Arcange - CORS enabled
 ];
 
 // Export singleton instance with all nodes

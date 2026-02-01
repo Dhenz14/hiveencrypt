@@ -41,8 +41,8 @@ export async function getAccountRC(username: string): Promise<RCInfo> {
     const client = new Client([
       'https://api.hive.blog',         // Official - CORS enabled
       'https://api.deathwing.me',      // CORS enabled
-      'https://rpc.ecency.com',        // Ecency - CORS enabled
-      'https://anyx.io',               // CORS enabled
+      'https://api.openhive.network',  // OpenHive - CORS enabled
+      'https://hive-api.arcange.eu',   // Arcange - CORS enabled
     ]);
 
     // Use rc_api to get accurate Resource Credits information

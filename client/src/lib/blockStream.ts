@@ -24,8 +24,8 @@ interface StreamState {
 const API_NODES = [
   'https://api.hive.blog',         // Official - CORS enabled
   'https://api.deathwing.me',      // CORS enabled
-  'https://rpc.ecency.com',        // Ecency - CORS enabled
-  'https://anyx.io',               // CORS enabled
+  'https://api.openhive.network',  // OpenHive - CORS enabled
+  'https://hive-api.arcange.eu',   // Arcange - CORS enabled
 ];
 
 function parseBlockNumber(blockId: string): number {

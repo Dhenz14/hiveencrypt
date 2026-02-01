@@ -17,8 +17,8 @@ import { logger } from './logger';
 const HAF_NODES = [
   'https://api.hive.blog',         // BlockTrades HAF stack - CORS enabled
   'https://api.deathwing.me',      // HAF-enabled - CORS enabled
-  'https://rpc.ecency.com',        // Ecency - CORS enabled
-  'https://anyx.io',               // CORS enabled
+  'https://api.openhive.network',  // OpenHive - CORS enabled
+  'https://hive-api.arcange.eu',   // Arcange - CORS enabled
 ];
 
 interface HafQueryResult<T> {
