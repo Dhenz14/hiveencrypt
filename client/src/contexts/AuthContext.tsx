@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import type { UserSession } from '@shared/schema';
 import { 
   requestHandshake, 
@@ -8,6 +8,7 @@ import {
 import { 
   detectKeychainPlatform, 
   isKeychainAvailable,
+  clearPlatformCache,
   type KeychainPlatform 
 } from '@/lib/keychainDetection';
 import { cleanupOrphanedMessages } from '@/lib/messageCache';
@@ -30,101 +31,152 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
   const [platform, setPlatform] = useState<KeychainPlatform | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        // Detect platform first
-        const detectedPlatform = await detectKeychainPlatform();
-        setPlatform(detectedPlatform);
-        logger.info('[Auth] Platform detected:', detectedPlatform);
-        
-        // Only restore session if we have Keychain available
-        if (detectedPlatform !== 'mobile-redirect') {
-          await restoreSession();
-        }
-      } catch (error) {
-        logger.error('[Auth] Platform detection error:', error);
-        // On desktop without extension, we'll show error in login UI
-      }
-      
-      setIsLoading(false);
-    };
-    
-    initialize();
-  }, []);
   
-  const restoreSession = async () => {
+  // Abort controller ref for cleanup - prevents state updates after unmount
+  const abortedRef = useRef<boolean>(false);
+  const mountCountRef = useRef<number>(0);
+
+  // Session restoration function
+  const restoreSession = async (aborted: () => boolean): Promise<void> => {
     try {
       const sessionData = localStorage.getItem(SESSION_KEY);
       
-      if (sessionData) {
-        const session = JSON.parse(sessionData);
+      if (!sessionData) {
+        logger.debug('[Auth] No stored session found');
+        return;
+      }
+      
+      const session = JSON.parse(sessionData);
+      logger.info('[Auth] Found stored session for:', session.username);
+      
+      // Verify account still exists on blockchain
+      try {
+        const account = await getAccount(session.username);
         
-        // Verify account still exists on blockchain
-        // CRITICAL FIX: Don't remove session on network errors, only on account not found
-        try {
-          const account = await getAccount(session.username);
-          if (account) {
-            setUser(session);
-            logger.info('[Auth] Session restored for:', session.username);
-            
-            // EDGE CASE FIX #2: Cleanup orphaned messages after session restore
-            try {
-              const cleanedCount = await cleanupOrphanedMessages(session.username);
-              if (cleanedCount > 0) {
-                logger.info('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
-              }
-            } catch (cleanupError) {
-              logger.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
-              // Don't block login if cleanup fails
-            }
-          } else {
-            // Account truly doesn't exist (got null/undefined response from RPC)
-            logger.warn('[Auth] Account no longer exists on blockchain, clearing session...');
-            localStorage.removeItem(SESSION_KEY);
-          }
-        } catch (accountError: any) {
-          // Network error or RPC timeout - keep session and restore it anyway
-          // User can retry operations when network recovers
-          logger.warn('[Auth] Failed to verify account (network error), restoring session anyway:', accountError.message);
-          setUser(session);
+        if (aborted()) {
+          logger.debug('[Auth] Session restore aborted (component unmounted)');
+          return;
         }
+        
+        if (account) {
+          logger.info('[Auth] Account verified, restoring session for:', session.username);
+          setUser(session);
+          logger.info('[Auth] Session restored for:', session.username);
+          
+          // Cleanup orphaned messages after session restore
+          try {
+            const cleanedCount = await cleanupOrphanedMessages(session.username);
+            if (cleanedCount > 0) {
+              logger.info('[Auth] Cleaned up', cleanedCount, 'orphaned messages');
+            }
+          } catch (cleanupError) {
+            logger.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
+          }
+        } else {
+          logger.warn('[Auth] Account no longer exists on blockchain, clearing session...');
+          localStorage.removeItem(SESSION_KEY);
+        }
+      } catch (accountError: any) {
+        if (aborted()) {
+          logger.debug('[Auth] Session restore aborted during account check');
+          return;
+        }
+        
+        // Network error or RPC timeout - keep session and restore it anyway
+        logger.warn('[Auth] Failed to verify account (network error), restoring session anyway:', accountError.message);
+        setUser(session);
+        logger.info('[Auth] Session restored despite network error for:', session.username);
       }
     } catch (error) {
-      // Only remove session if there's a JSON parse error (corrupted session data)
       logger.error('[Auth] Error restoring session:', error);
       const errorMessage = error instanceof Error ? error.message : String(error);
       if (errorMessage.includes('JSON')) {
         logger.warn('[Auth] Corrupted session data, clearing session');
         localStorage.removeItem(SESSION_KEY);
-      } else {
-        logger.warn('[Auth] Temporary error, keeping session');
       }
     }
   };
 
+  // Main initialization effect - runs on each mount
+  // Uses abort flag pattern for safe cleanup instead of global state
+  useEffect(() => {
+    mountCountRef.current++;
+    const currentMount = mountCountRef.current;
+    abortedRef.current = false;
+    
+    logger.info('[Auth] AuthProvider mounted (mount #' + currentMount + ')');
+    
+    // Warn on potential remount issues (debugging aid)
+    if (currentMount > 1) {
+      logger.warn('[Auth] AuthProvider re-mounted. Mount count:', currentMount);
+    }
+    
+    const initialize = async () => {
+      // Helper to check if this effect was cleaned up
+      const isAborted = () => abortedRef.current;
+      
+      try {
+        logger.info('[Auth] Starting platform detection...');
+        
+        // detectKeychainPlatform uses sessionStorage cache internally
+        // This prevents expensive re-detection on remounts while allowing fresh detection when needed
+        const detectedPlatform = await detectKeychainPlatform();
+        
+        if (isAborted()) {
+          logger.debug('[Auth] Platform detection completed but component unmounted, skipping state update');
+          return;
+        }
+        
+        setPlatform(detectedPlatform);
+        logger.info('[Auth] Platform set:', detectedPlatform);
+        
+        // Only restore session if we have Keychain available
+        if (detectedPlatform !== 'mobile-redirect') {
+          await restoreSession(isAborted);
+        }
+      } catch (error) {
+        if (isAborted()) {
+          logger.debug('[Auth] Initialization error but component unmounted');
+          return;
+        }
+        
+        logger.error('[Auth] Platform detection error:', error);
+        // On desktop without extension, we'll show error in login UI
+      }
+      
+      // Always set loading to false when done, unless aborted
+      if (!isAborted()) {
+        setIsLoading(false);
+        logger.info('[Auth] Initialization complete');
+      }
+    };
+    
+    initialize();
+    
+    // Cleanup: set abort flag to prevent state updates after unmount
+    return () => {
+      abortedRef.current = true;
+      logger.debug('[Auth] AuthProvider cleanup (mount #' + currentMount + ')');
+    };
+  }, []); // Empty deps - runs on mount
+
   const login = async (username: string) => {
     logger.info('[Auth] Starting login for:', username, 'platform:', platform);
     
-    // Ensure Keychain is available
     if (!isKeychainAvailable()) {
       throw new Error('Keychain not available. Please ensure you are using Hive Keychain.');
     }
     
-    // 1. Verify account exists on blockchain
     const account = await getAccount(username);
     if (!account) {
       throw new Error('Account not found on Hive blockchain. Please check the username and try again.');
     }
 
-    // 2. Get public memo key from blockchain
     const publicMemoKey = account.memo_key;
     if (!publicMemoKey) {
       throw new Error('Unable to retrieve public memo key for this account.');
     }
 
-    // 3. Authenticate with Keychain (works on desktop extension AND Keychain Mobile browser)
     try {
       await requestHandshake();
       await requestLogin(username);
@@ -136,7 +188,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw new Error(keychainError?.message || 'Failed to authenticate with Hive Keychain. Please try again.');
     }
 
-    // 4. Create session data (100% client-side, no server!)
     const sessionData: UserSession = {
       username,
       publicMemoKey,
@@ -144,19 +195,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       timestamp: new Date().toISOString(),
     };
 
-    // 5. Store user session
+    logger.info('[Auth] Setting user session...');
     setUser(sessionData);
     
     try {
       localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+      logger.info('[Auth] Session saved to localStorage');
     } catch (storageError) {
       logger.warn('[Auth] Failed to save session to localStorage:', storageError);
-      // Continue anyway - session is in memory
     }
     
-    logger.info('[Auth] ✅ Login complete! Session stored locally.');
+    logger.info('[Auth] Login complete!');
     
-    // EDGE CASE FIX #2: Cleanup orphaned messages after login
     try {
       const cleanedCount = await cleanupOrphanedMessages(username);
       if (cleanedCount > 0) {
@@ -164,7 +214,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     } catch (cleanupError) {
       logger.warn('[Auth] Failed to cleanup orphaned messages:', cleanupError);
-      // Don't block login if cleanup fails
     }
   };
 
@@ -173,11 +222,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     
     setUser(null);
     localStorage.removeItem(SESSION_KEY);
+    clearPlatformCache();
     
-    logger.info('[Auth] ✅ Logout complete');
+    logger.info('[Auth] Logout complete');
   };
 
   const needsKeychainRedirect = platform === 'mobile-redirect';
+
+  // Debug logging for state changes
+  useEffect(() => {
+    logger.debug('[Auth State] user:', user?.username || 'null', 'platform:', platform, 'loading:', isLoading, 'needsRedirect:', needsKeychainRedirect);
+  }, [user, platform, isLoading, needsKeychainRedirect]);
 
   return (
     <AuthContext.Provider value={{ 

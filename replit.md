@@ -27,6 +27,7 @@ Hive Messenger operates as a 100% decentralized React PWA, leveraging the Hive b
 - **Group Chat System**: Decentralized group messaging via `custom_json` operations, supporting creation, membership, memo-pointer protocol for discovery, paid groups, and self-service joining.
 - **Performance Optimizations**: Token Bucket Rate Limiter, LRU Memo Cache with TTL, Decryption with Retry, Query Cancellation, Optimistic Updates, Block Streaming, Batch RPC Calls, Bitwise Operation Filtering, and Batched Keychain Operations.
 - **Adaptive Polling Strategy**: Burst mode (3s for 15s after send), active (4s), idle (10s), background tab (20s), with 6s staleTime for optimal message delivery speed.
+- **Platform Detection Caching**: Session-persistent caching of Keychain platform detection to prevent re-detection on component remounts, fixing the "auto-exit" bug. Extended handshake timeout (5s) with graceful fallback for slow Keychain responses.
 
 ### Feature Specifications
 - **Text Messaging**: End-to-end encrypted via memo transfers.

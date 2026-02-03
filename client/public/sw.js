@@ -6,7 +6,7 @@
  */
 
 // Increment version to trigger cache refresh on deploy
-const CACHE_VERSION = 'v28';
+const CACHE_VERSION = 'v29';
 const CACHE_NAME = `hive-messenger-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `hive-messenger-runtime-${CACHE_VERSION}`;
 
