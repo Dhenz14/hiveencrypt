@@ -4,6 +4,28 @@ import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
+const SENSITIVE_RESPONSE_KEYS = new Set([
+  "sessionToken",
+  "token",
+  "accessToken",
+  "refreshToken",
+  "authorization",
+  "signature",
+  "memoKey",
+  "publicMemoKey",
+]);
+
+function redactForLog(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(redactForLog);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>).map(([key, item]) => [
+      key,
+      SENSITIVE_RESPONSE_KEYS.has(key) ? "[redacted]" : redactForLog(item),
+    ]),
+  );
+}
+
 declare module 'http' {
   interface IncomingMessage {
     rawBody: unknown
@@ -31,8 +53,8 @@ app.use((req, res, next) => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      if (process.env.LOG_RESPONSE_BODIES === "1" && capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(redactForLog(capturedJsonResponse))}`;
       }
 
       if (logLine.length > 80) {
@@ -66,16 +88,13 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
+  const host = process.env.HOST || (process.env.NODE_ENV === "production" ? "0.0.0.0" : "127.0.0.1");
   server.listen({
     port,
-    host: "0.0.0.0",
+    host,
     reusePort: true,
   }, () => {
-    log(`serving on port ${port}`);
+    log(`serving on ${host}:${port}`);
   });
 })();
