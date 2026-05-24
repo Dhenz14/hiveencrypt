@@ -9,18 +9,82 @@ export interface Session {
   expiresAt: Date;
 }
 
+export interface AuthChallenge {
+  username: string;
+  nonce: string;
+  message: string;
+  createdAt: Date;
+  expiresAt: Date;
+}
+
 // In-memory session storage
 const sessions = new Map<string, Session>();
+const authChallenges = new Map<string, AuthChallenge>();
 
 // Session configuration
 const SESSION_EXPIRY_DAYS = 7;
 const TOKEN_BYTES = 32; // 256 bits
+const AUTH_CHALLENGE_EXPIRY_MS = 5 * 60 * 1000;
+
+function normalizeUsername(username: string): string {
+  return username.trim().toLowerCase();
+}
+
+function challengeKey(username: string, nonce: string): string {
+  return `${normalizeUsername(username)}:${nonce}`;
+}
 
 /**
  * Generate a secure random session token
  */
 export function generateSessionToken(): string {
   return crypto.randomBytes(TOKEN_BYTES).toString('hex');
+}
+
+export function createAuthChallenge(username: string): AuthChallenge {
+  const normalizedUsername = normalizeUsername(username);
+  const nonce = crypto.randomBytes(24).toString('hex');
+  const createdAt = new Date();
+  const expiresAt = new Date(createdAt.getTime() + AUTH_CHALLENGE_EXPIRY_MS);
+  const message = `Hive Encrypt login:${normalizedUsername}:${nonce}`;
+  const challenge = { username: normalizedUsername, nonce, message, createdAt, expiresAt };
+
+  authChallenges.set(challengeKey(normalizedUsername, nonce), challenge);
+  return challenge;
+}
+
+export function isAuthChallengeValid(username: string, message: string): boolean {
+  const normalizedUsername = normalizeUsername(username);
+  const prefix = `Hive Encrypt login:${normalizedUsername}:`;
+
+  if (!message.startsWith(prefix)) {
+    return false;
+  }
+
+  const nonce = message.slice(prefix.length);
+  const challenge = authChallenges.get(challengeKey(normalizedUsername, nonce));
+
+  if (!challenge) {
+    return false;
+  }
+
+  if (new Date() > challenge.expiresAt) {
+    authChallenges.delete(challengeKey(normalizedUsername, nonce));
+    return false;
+  }
+
+  return challenge.message === message;
+}
+
+export function consumeAuthChallenge(username: string, message: string): boolean {
+  if (!isAuthChallengeValid(username, message)) {
+    return false;
+  }
+
+  const normalizedUsername = normalizeUsername(username);
+  const prefix = `Hive Encrypt login:${normalizedUsername}:`;
+  const nonce = message.slice(prefix.length);
+  return authChallenges.delete(challengeKey(normalizedUsername, nonce));
 }
 
 /**
@@ -64,7 +128,7 @@ export function createSession(username: string, publicMemoKey: string): string {
   expiresAt.setDate(expiresAt.getDate() + SESSION_EXPIRY_DAYS);
 
   sessions.set(token, {
-    username,
+    username: normalizeUsername(username),
     publicMemoKey,
     createdAt,
     expiresAt,
@@ -116,11 +180,26 @@ export function cleanupExpiredSessions(): number {
   return removedCount;
 }
 
+export function cleanupExpiredAuthChallenges(): number {
+  const now = new Date();
+  let removedCount = 0;
+
+  for (const [key, challenge] of Array.from(authChallenges.entries())) {
+    if (now > challenge.expiresAt) {
+      authChallenges.delete(key);
+      removedCount++;
+    }
+  }
+
+  return removedCount;
+}
+
 // Run cleanup every hour
 setInterval(() => {
   const removed = cleanupExpiredSessions();
-  if (removed > 0) {
-    console.log(`Cleaned up ${removed} expired session(s)`);
+  const removedChallenges = cleanupExpiredAuthChallenges();
+  if (removed > 0 || removedChallenges > 0) {
+    console.log(`Cleaned up ${removed} expired session(s), ${removedChallenges} expired auth challenge(s)`);
   }
 }, 60 * 60 * 1000);
 
