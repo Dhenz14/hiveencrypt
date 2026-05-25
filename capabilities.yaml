@@ -1,44 +1,77 @@
-# capabilities.yaml — HiveEncrypt (earlier branding of Hive Messenger, MIT)
-# Registers operator-visible surfaces for the HiveAI unified capability registry.
-# Organ: ledger.governance_chain (Hive blockchain integration — memo-transfer messaging, custom_json groups, Lightning tips)
-# Source: README.md + client/src + scripts
+# capabilities.yaml -- hiveencrypt surface registry
+# Canonical capability contract consumed by Hive-AI unified capability registry.
 
-- name: hiveencrypt-pwa
-  organ: ledger.governance_chain
+repo: hiveencrypt
+schema_version: hiveai.unified_capability.v1
+contracts:
+- feature: hiveencrypt-pwa
+  organ_id: ledger.governance_chain
+  source_organ: ledger.governance_chain
+  synergy_targets: []
+  gap_status: LIVE
+  repo: hiveencrypt
   surface_type: pwa_app
   surface_path: https://dhenz14.github.io/hiveencrypt/
-  description: Zero-backend decentralized E2EE messaging PWA on Hive. Static-hosted React/Vite/Tailwind app — all logic runs client-side in the browser, using Hive blockchain as the message store. Live demo on GitHub Pages; self-hostable.
-  status: LIVE
-  source_file: client/src
-
-- name: encrypted-memo-message-send
-  organ: ledger.governance_chain
+  description: Zero-backend decentralized E2EE messaging PWA on Hive. Static-hosted
+    React/Vite/Tailwind app — all logic runs client-side in the browser, using Hive
+    blockchain as the message store. Live demo on GitHub Pages; self-hostable.
+  evidence_refs:
+  - client/src
+  entry_path: client/src
+- feature: encrypted-memo-message-send
+  organ_id: ledger.governance_chain
+  source_organ: ledger.governance_chain
+  synergy_targets: []
+  gap_status: LIVE
+  repo: hiveencrypt
   surface_type: library_function
   surface_path: client/src/lib
-  description: 1:1 private message send via Hive memo encryption (ECDH key exchange + AES-256-CBC + SHA-512 key derivation + checksum integrity). Encrypted memo attached to minimum HBD transfer (0.001 HBD). Hive Keychain signs without exposing keys.
-  status: LIVE
-  source_file: client/src/lib
-
-- name: group-chat-custom-json
-  organ: ledger.governance_chain
+  description: 1:1 private message send via Hive memo encryption (ECDH key exchange
+    + AES-256-CBC + SHA-512 key derivation + checksum integrity). Encrypted memo attached
+    to minimum HBD transfer (0.001 HBD). Hive Keychain signs without exposing keys.
+  evidence_refs:
+  - client/src/lib
+  entry_path: client/src/lib
+- feature: group-chat-custom-json
+  organ_id: ledger.governance_chain
+  source_organ: ledger.governance_chain
+  synergy_targets: []
+  gap_status: LIVE
+  repo: hiveencrypt
   surface_type: library_function
   surface_path: client/src/lib
-  description: Decentralized group chat using custom_json operations for group metadata/membership/settings + memo-pointer protocol for messages + batch operations for multi-recipient delivery. Supports paid groups (HBD entry fees), auto-approve, member management, broadcasts, pinned messages.
-  status: LIVE
-  source_file: client/src/lib
-
-- name: lightning-tip-bidirectional
-  organ: ledger.governance_chain
+  description: Decentralized group chat using custom_json operations for group metadata/membership/settings
+    + memo-pointer protocol for messages + batch operations for multi-recipient delivery.
+    Supports paid groups (HBD entry fees), auto-approve, member management, broadcasts,
+    pinned messages.
+  evidence_refs:
+  - client/src/lib
+  entry_path: client/src/lib
+- feature: lightning-tip-bidirectional
+  organ_id: ledger.governance_chain
+  source_organ: ledger.governance_chain
+  synergy_targets: []
+  gap_status: LIVE
+  repo: hiveencrypt
   surface_type: library_function
   surface_path: client/src/lib
-  description: Bitcoin Lightning tipping with V4V.app HBD-to-Lightning bridge, live BTC/USD rates from CoinGecko, encrypted tip notifications. Bidirectional — send AND receive sats to any Lightning Address.
-  status: LIVE
-  source_file: client/src/lib
-
-- name: hive-following-privacy-gate
-  organ: ledger.governance_chain
+  description: Bitcoin Lightning tipping with V4V.app HBD-to-Lightning bridge, live
+    BTC/USD rates from CoinGecko, encrypted tip notifications. Bidirectional — send
+    AND receive sats to any Lightning Address.
+  evidence_refs:
+  - client/src/lib
+  entry_path: client/src/lib
+- feature: hive-following-privacy-gate
+  organ_id: ledger.governance_chain
+  source_organ: ledger.governance_chain
+  synergy_targets: []
+  gap_status: LIVE
+  repo: hiveencrypt
   surface_type: library_function
   surface_path: client/src/lib
-  description: Privacy controls leveraging Hive social graph — three message-acceptance modes (Allow Anyone, Following Only, Mutual Following) plus minimum HBD requirement (0.001+) as economic anti-spam gate. Configured per account.
-  status: LIVE
-  source_file: client/src/lib
+  description: Privacy controls leveraging Hive social graph — three message-acceptance
+    modes (Allow Anyone, Following Only, Mutual Following) plus minimum HBD requirement
+    (0.001+) as economic anti-spam gate. Configured per account.
+  evidence_refs:
+  - client/src/lib
+  entry_path: client/src/lib
