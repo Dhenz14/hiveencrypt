@@ -72,3 +72,6 @@ coverage/
 # Misc
 .eslintcache
 .stylelintcache
+
+# Local pasted logs/research artifacts are archived outside git.
+attached_assets/*.txt
